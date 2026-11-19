@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.ec2_instance_type
     import capo_mgn.types.internet_protocol
     import capo_mgn.types.max_results_type
+    import capo_mgn.types.outpost_snapshot_location
     import capo_mgn.types.pagination_token
     import capo_mgn.types.replication_configuration_data_plane_routing
     import capo_mgn.types.replication_configuration_default_large_staging_disk_type
@@ -67,6 +68,9 @@ class ReplicationConfigurationTemplateResource:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -90,6 +94,7 @@ class ReplicationConfigurationTemplateResource:
             tags: <p>Request to configure tags during Replication Settings template creation.</p>
             internet_protocol: <p>Request to configure the internet protocol to IPv4 or IPv6.</p>
             store_snapshot_on_local_zone: <p>Request to store snapshot on local zone during Replication Settings template creation.</p>
+            outpost_snapshot_location: <p>Request to set the location of replication snapshots when the staging area subnet is on an AWS Outpost during Replication Settings template creation. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Request to configure storage during Replication Settings template creation.</p>
 
         Raises:
@@ -162,6 +167,8 @@ class ReplicationConfigurationTemplateResource:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 
@@ -208,6 +215,9 @@ class ReplicationConfigurationTemplateResource:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -232,6 +242,7 @@ class ReplicationConfigurationTemplateResource:
             use_fips_endpoint: <p>Update replication configuration template use Fips Endpoint request.</p>
             internet_protocol: <p>Update replication configuration template internet protocol request.</p>
             store_snapshot_on_local_zone: <p>Update replication configuration template store snapshot on local zone request.</p>
+            outpost_snapshot_location: <p>Updates the location of replication snapshots in the Replication Configuration template when the staging area subnet is on an AWS Outpost. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Update replication configuration template storage configuration request.</p>
 
         Raises:
@@ -325,6 +336,8 @@ class ReplicationConfigurationTemplateResource:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 
@@ -482,6 +495,9 @@ class AsyncReplicationConfigurationTemplateResource:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -505,6 +521,7 @@ class AsyncReplicationConfigurationTemplateResource:
             tags: <p>Request to configure tags during Replication Settings template creation.</p>
             internet_protocol: <p>Request to configure the internet protocol to IPv4 or IPv6.</p>
             store_snapshot_on_local_zone: <p>Request to store snapshot on local zone during Replication Settings template creation.</p>
+            outpost_snapshot_location: <p>Request to set the location of replication snapshots when the staging area subnet is on an AWS Outpost during Replication Settings template creation. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Request to configure storage during Replication Settings template creation.</p>
 
         Raises:
@@ -578,6 +595,8 @@ class AsyncReplicationConfigurationTemplateResource:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 
@@ -624,6 +643,9 @@ class AsyncReplicationConfigurationTemplateResource:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -648,6 +670,7 @@ class AsyncReplicationConfigurationTemplateResource:
             use_fips_endpoint: <p>Update replication configuration template use Fips Endpoint request.</p>
             internet_protocol: <p>Update replication configuration template internet protocol request.</p>
             store_snapshot_on_local_zone: <p>Update replication configuration template store snapshot on local zone request.</p>
+            outpost_snapshot_location: <p>Updates the location of replication snapshots in the Replication Configuration template when the staging area subnet is on an AWS Outpost. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Update replication configuration template storage configuration request.</p>
 
         Raises:
@@ -742,6 +765,8 @@ class AsyncReplicationConfigurationTemplateResource:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 

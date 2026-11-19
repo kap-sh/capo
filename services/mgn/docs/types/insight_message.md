@@ -1,0 +1,8 @@
+---
+title: InsightMessage
+---
+
+::: capo_mgn.types.insight_message.InsightMessage
+    options:
+      show_source: true
+      merge_init_into_class: false

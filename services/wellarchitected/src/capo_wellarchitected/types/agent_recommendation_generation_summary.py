@@ -8,7 +8,10 @@ if TYPE_CHECKING:
     import datetime
 
     import capo_wellarchitected.types.agent_profile_arn
+    import capo_wellarchitected.types.error_details
+    import capo_wellarchitected.types.generation_recommendation_types
     import capo_wellarchitected.types.generation_status
+    import capo_wellarchitected.types.generation_type
     import capo_wellarchitected.types.uuid
 
 
@@ -31,6 +34,20 @@ class AgentRecommendationGenerationSummary(TypedDict, closed=True):
     """<p>The identifier of the user or system that last modified this generation.</p>"""
     last_modified_at: NotRequired["datetime.datetime"]
     """<p>The timestamp when the generation was last modified.</p>"""
+    generation_type: NotRequired[
+        "capo_wellarchitected.types.generation_type.GenerationType"
+    ]
+    """<p>How the generation was started.</p>"""
+    generation_recommendation_types: NotRequired[
+        "capo_wellarchitected.types.generation_recommendation_types.GenerationRecommendationTypes"
+    ]
+    """<p>The recommendation types the generation covers.</p>"""
+    started_at: NotRequired["datetime.datetime"]
+    """<p>The timestamp when the recommendation generation process started.</p>"""
+    ended_at: NotRequired["datetime.datetime"]
+    """<p>The timestamp when the recommendation generation process completed.</p>"""
+    error_details: NotRequired["capo_wellarchitected.types.error_details.ErrorDetails"]
+    """<p>Details about the error if the generation status is ERROR.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -66,6 +83,40 @@ def serialize_json(value: AgentRecommendationGenerationSummary) -> dict:
 
         out["lastModifiedAt"] = capo_wellarchitected._protocol.serialize.fmt_date_time(
             value["last_modified_at"]
+        )
+    if "generation_type" in value:
+        import capo_wellarchitected.types.generation_type
+
+        out["generationType"] = (
+            capo_wellarchitected.types.generation_type.serialize_json(
+                value["generation_type"]
+            )
+        )
+    if "generation_recommendation_types" in value:
+        import capo_wellarchitected.types.generation_recommendation_types
+
+        out["generationRecommendationTypes"] = (
+            capo_wellarchitected.types.generation_recommendation_types.serialize_json(
+                value["generation_recommendation_types"]
+            )
+        )
+    if "started_at" in value:
+        import capo_wellarchitected._protocol.serialize
+
+        out["startedAt"] = capo_wellarchitected._protocol.serialize.fmt_date_time(
+            value["started_at"]
+        )
+    if "ended_at" in value:
+        import capo_wellarchitected._protocol.serialize
+
+        out["endedAt"] = capo_wellarchitected._protocol.serialize.fmt_date_time(
+            value["ended_at"]
+        )
+    if "error_details" in value:
+        import capo_wellarchitected.types.error_details
+
+        out["errorDetails"] = capo_wellarchitected.types.error_details.serialize_json(
+            value["error_details"]
         )
     return out
 
@@ -121,5 +172,41 @@ def deserialize_json(data: dict) -> AgentRecommendationGenerationSummary:
 
         out["last_modified_at"] = datetime.datetime.fromisoformat(
             data["lastModifiedAt"].replace("Z", "+00:00")
+        )
+    if data.get("generationType") is not None:
+        import capo_wellarchitected.types.generation_type
+
+        out["generation_type"] = (
+            capo_wellarchitected.types.generation_type.deserialize_json(
+                data["generationType"]
+            )
+        )
+    if data.get("generationRecommendationTypes") is not None:
+        import capo_wellarchitected.types.generation_recommendation_types
+
+        out["generation_recommendation_types"] = (
+            capo_wellarchitected.types.generation_recommendation_types.deserialize_json(
+                data["generationRecommendationTypes"]
+            )
+        )
+    if data.get("startedAt") is not None:
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromisoformat(
+            data["startedAt"].replace("Z", "+00:00")
+        )
+    if data.get("endedAt") is not None:
+        import datetime
+
+        out["ended_at"] = datetime.datetime.fromisoformat(
+            data["endedAt"].replace("Z", "+00:00")
+        )
+    if data.get("errorDetails") is not None:
+        import capo_wellarchitected.types.error_details
+
+        out["error_details"] = (
+            capo_wellarchitected.types.error_details.deserialize_json(
+                data["errorDetails"]
+            )
         )
     return out

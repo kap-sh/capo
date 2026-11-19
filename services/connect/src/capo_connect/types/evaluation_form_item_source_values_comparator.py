@@ -7,6 +7,12 @@ EvaluationFormItemSourceValuesComparator: TypeAlias = Literal[
     "NOT_IN",
     "ALL_IN",
     "EXACT",
+    "GREATER_THAN",
+    "LESS_THAN",
+    "GREATER_THAN_OR_EQUAL_TO",
+    "LESS_THAN_OR_EQUAL_TO",
+    "EQUAL_TO",
+    "NOT_EQUAL_TO",
 ]
 
 

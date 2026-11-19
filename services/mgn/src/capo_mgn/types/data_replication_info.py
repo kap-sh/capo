@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.data_replication_state
     import capo_mgn.types.iso8601_datetime_string
     import capo_mgn.types.iso8601_duration_string
+    import capo_mgn.types.outpost_arn
     import capo_mgn.types.replicator_id
 
 
@@ -45,6 +46,8 @@ class DataReplicationInfo(TypedDict, closed=True):
     """<p>Request to query data replication last snapshot time.</p>"""
     replicator_id: NotRequired["capo_mgn.types.replicator_id.ReplicatorID"]
     """<p>Replication server instance ID.</p>"""
+    staging_outpost_arn: NotRequired["capo_mgn.types.outpost_arn.OutpostARN"]
+    """<p>The ARN of the AWS Outpost that hosts the staging area, when the staging area subnet is on an Outpost.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -84,6 +87,8 @@ def serialize_json(value: DataReplicationInfo) -> dict:
         out["lastSnapshotDateTime"] = value["last_snapshot_date_time"]
     if "replicator_id" in value:
         out["replicatorId"] = value["replicator_id"]
+    if "staging_outpost_arn" in value:
+        out["stagingOutpostArn"] = value["staging_outpost_arn"]
     return out
 
 
@@ -123,4 +128,6 @@ def deserialize_json(data: dict) -> DataReplicationInfo:
         out["last_snapshot_date_time"] = data["lastSnapshotDateTime"]
     if data.get("replicatorId") is not None:
         out["replicator_id"] = data["replicatorId"]
+    if data.get("stagingOutpostArn") is not None:
+        out["staging_outpost_arn"] = data["stagingOutpostArn"]
     return out

@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 StandardsProvider: TypeAlias = Literal[
     "AWS",
     "Azure",
+    "GCP",
 ]
 
 

@@ -20,6 +20,7 @@ nav = [
     "sync-client/index.md",
     { "Operations" = [
       "sync-client/operations/get_request_authorization_details.md",
+      "sync-client/operations/get_request_authorization_policy.md",
     ] },
     { "Paginators" = [
       "sync-client/paginators/iter_get_request_authorization_details.md",
@@ -29,6 +30,7 @@ nav = [
     "async-client/index.md",
     { "Operations" = [
       "async-client/operations/get_request_authorization_details.md",
+      "async-client/operations/get_request_authorization_policy.md",
     ] },
     { "Paginators" = [
       "async-client/paginators/iter_get_request_authorization_details.md",

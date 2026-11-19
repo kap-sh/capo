@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.dataset_schema_type
     import capo_bedrock_agentcore_control.types.dataset_status
     import capo_bedrock_agentcore_control.types.draft_status
+    import capo_bedrock_agentcore_control.types.example_count_by_field
 
 
 class DatasetSummary(TypedDict, closed=True):
@@ -30,12 +31,16 @@ class DatasetSummary(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.draft_status.DraftStatus"
     ]
     """<p> Publish synchronization state. Only authoritative when status is ACTIVE. </p>"""
-    schema_type: (
+    schema_type: NotRequired[
         "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType"
-    )
+    ]
     """<p> The schema type of the dataset. </p>"""
     example_count: "int"
     """<p> The number of examples in the dataset. </p>"""
+    example_count_by_field: NotRequired[
+        "capo_bedrock_agentcore_control.types.example_count_by_field.ExampleCountByField"
+    ]
+    """<p> The number of examples that have each field, for the DRAFT. Absent when the counts are unknown. </p>"""
     created_at: "datetime.datetime"
     """<p> The timestamp when the dataset was created. </p>"""
     updated_at: "datetime.datetime"
@@ -63,14 +68,23 @@ def serialize_json(value: DatasetSummary) -> dict:
                 value["draft_status"]
             )
         )
-    import capo_bedrock_agentcore_control.types.dataset_schema_type
+    if "schema_type" in value:
+        import capo_bedrock_agentcore_control.types.dataset_schema_type
 
-    out["schemaType"] = (
-        capo_bedrock_agentcore_control.types.dataset_schema_type.serialize_json(
-            value["schema_type"]
+        out["schemaType"] = (
+            capo_bedrock_agentcore_control.types.dataset_schema_type.serialize_json(
+                value["schema_type"]
+            )
         )
-    )
     out["exampleCount"] = value["example_count"]
+    if "example_count_by_field" in value:
+        import capo_bedrock_agentcore_control.types.example_count_by_field
+
+        out["exampleCountByField"] = (
+            capo_bedrock_agentcore_control.types.example_count_by_field.serialize_json(
+                value["example_count_by_field"]
+            )
+        )
     import capo_bedrock_agentcore_control.types._prelude.timestamp
 
     out["createdAt"] = (
@@ -134,17 +148,18 @@ def deserialize_json(data: dict) -> DatasetSummary:
                 data["schemaType"]
             )
         )
-    else:
-        import typing
-
-        out["schema_type"] = typing.cast(
-            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
-            "",
-        )
     if data.get("exampleCount") is not None:
         out["example_count"] = data["exampleCount"]
     else:
         out["example_count"] = 0
+    if data.get("exampleCountByField") is not None:
+        import capo_bedrock_agentcore_control.types.example_count_by_field
+
+        out["example_count_by_field"] = (
+            capo_bedrock_agentcore_control.types.example_count_by_field.deserialize_json(
+                data["exampleCountByField"]
+            )
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 

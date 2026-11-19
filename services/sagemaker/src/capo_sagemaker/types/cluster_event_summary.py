@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_event_resource_type
     import capo_sagemaker.types.cluster_instance_group_name
     import capo_sagemaker.types.cluster_name
+    import capo_sagemaker.types.cluster_operation_id
     import capo_sagemaker.types.event_id
     import capo_sagemaker.types.timestamp
 
@@ -39,6 +40,10 @@ class ClusterEventSummary(TypedDict, closed=True):
         "capo_sagemaker.types.cluster_event_level.ClusterEventLevel"
     ]
     """<p>The severity level of the event. Valid values are <code>Info</code>, <code>Warn</code>, and <code>Error</code>.</p>"""
+    operation_id: NotRequired[
+        "capo_sagemaker.types.cluster_operation_id.ClusterOperationId"
+    ]
+    """<p>The unique identifier (UUID) of the cluster operation that the event is associated with, such as a scaling operation. This field is not returned when the event is not associated with an operation.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -78,6 +83,8 @@ def serialize_aws_json_1_1(value: ClusterEventSummary) -> dict:
                 value["event_level"]
             )
         )
+    if "operation_id" in value:
+        out["OperationId"] = value["operation_id"]
     return out
 
 
@@ -117,4 +124,6 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterEventSummary:
                 data["EventLevel"]
             )
         )
+    if data.get("OperationId") is not None:
+        out["operation_id"] = data["OperationId"]
     return out

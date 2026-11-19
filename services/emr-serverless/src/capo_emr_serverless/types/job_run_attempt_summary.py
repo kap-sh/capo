@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
     import capo_emr_serverless.types.attempt_number
     import capo_emr_serverless.types.date
+    import capo_emr_serverless.types.flex_execution
     import capo_emr_serverless.types.iam_role_arn
     import capo_emr_serverless.types.job_arn
     import capo_emr_serverless.types.job_run_id
@@ -52,6 +53,10 @@ class JobRunAttemptSummary(TypedDict, closed=True):
     """<p>The type of the job run, such as Spark or Hive.</p>"""
     attempt: NotRequired["capo_emr_serverless.types.attempt_number.AttemptNumber"]
     """<p>The attempt number of the job run execution.</p>"""
+    flex_execution: NotRequired[
+        "capo_emr_serverless.types.flex_execution.FlexExecution"
+    ]
+    """<p>The Amazon EMR Serverless Flex settings for the job run attempt.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -88,6 +93,12 @@ def serialize_json(value: JobRunAttemptSummary) -> dict:
         out["type"] = value["type"]
     if "attempt" in value:
         out["attempt"] = value["attempt"]
+    if "flex_execution" in value:
+        import capo_emr_serverless.types.flex_execution
+
+        out["flexExecution"] = capo_emr_serverless.types.flex_execution.serialize_json(
+            value["flex_execution"]
+        )
     return out
 
 
@@ -165,4 +176,12 @@ def deserialize_json(data: dict) -> JobRunAttemptSummary:
         out["type"] = data["type"]
     if data.get("attempt") is not None:
         out["attempt"] = data["attempt"]
+    if data.get("flexExecution") is not None:
+        import capo_emr_serverless.types.flex_execution
+
+        out["flex_execution"] = (
+            capo_emr_serverless.types.flex_execution.deserialize_json(
+                data["flexExecution"]
+            )
+        )
     return out

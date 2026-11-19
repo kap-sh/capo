@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_ec2.types.additional_key_exchanges_list
     import capo_ec2.types.boolean
     import capo_ec2.types.ike_versions_list
     import capo_ec2.types.integer
@@ -78,6 +79,14 @@ class TunnelOption(TypedDict, closed=True):
     """<p>Options for logging VPN tunnel activity.</p>"""
     enable_tunnel_lifecycle_control: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Status of tunnel endpoint lifecycle control feature.</p>"""
+    phase1_additional_key_exchanges: NotRequired[
+        "capo_ec2.types.additional_key_exchanges_list.AdditionalKeyExchangesList"
+    ]
+    """<p>The permitted additional key exchange rounds for the VPN tunnel for phase 1 IKE negotiations.</p>"""
+    phase2_additional_key_exchanges: NotRequired[
+        "capo_ec2.types.additional_key_exchanges_list.AdditionalKeyExchangesList"
+    ]
+    """<p>The permitted additional key exchange rounds for the VPN tunnel for phase 2 IKE negotiations.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -205,6 +214,22 @@ def serialize_ec2_query(
                 "true" if value["enable_tunnel_lifecycle_control"] else "false",
             )
         )
+    if "phase1_additional_key_exchanges" in value:
+        import capo_ec2.types.additional_key_exchanges_list
+
+        capo_ec2.types.additional_key_exchanges_list.serialize_ec2_query(
+            value["phase1_additional_key_exchanges"],
+            pairs,
+            f"{key_prefix}Phase1AdditionalKeyExchangeSet",
+        )
+    if "phase2_additional_key_exchanges" in value:
+        import capo_ec2.types.additional_key_exchanges_list
+
+        capo_ec2.types.additional_key_exchanges_list.serialize_ec2_query(
+            value["phase2_additional_key_exchanges"],
+            pairs,
+            f"{key_prefix}Phase2AdditionalKeyExchangeSet",
+        )
 
 
 def deserialize_ec2_query(el: Element) -> TunnelOption:
@@ -322,6 +347,24 @@ def deserialize_ec2_query(el: Element) -> TunnelOption:
         out["enable_tunnel_lifecycle_control"] = (
             child_enable_tunnel_lifecycle_control.text or ""
         ).lower() == "true"
+    child_phase1_additional_key_exchanges = el.find("phase1AdditionalKeyExchangeSet")
+    if child_phase1_additional_key_exchanges is not None:
+        import capo_ec2.types.additional_key_exchanges_list
+
+        out["phase1_additional_key_exchanges"] = (
+            capo_ec2.types.additional_key_exchanges_list.deserialize_ec2_query(
+                child_phase1_additional_key_exchanges
+            )
+        )
+    child_phase2_additional_key_exchanges = el.find("phase2AdditionalKeyExchangeSet")
+    if child_phase2_additional_key_exchanges is not None:
+        import capo_ec2.types.additional_key_exchanges_list
+
+        out["phase2_additional_key_exchanges"] = (
+            capo_ec2.types.additional_key_exchanges_list.deserialize_ec2_query(
+                child_phase2_additional_key_exchanges
+            )
+        )
     return out
 
 

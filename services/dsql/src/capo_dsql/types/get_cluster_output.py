@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_dsql.types.deletion_protection_enabled
     import capo_dsql.types.encryption_details
     import capo_dsql.types.endpoint
+    import capo_dsql.types.metric_group_response_list
     import capo_dsql.types.multi_region_properties
     import capo_dsql.types.tag_map
 
@@ -40,6 +41,10 @@ class GetClusterOutput(TypedDict, closed=True):
     """<p>The current encryption configuration details for the cluster.</p>"""
     endpoint: NotRequired["capo_dsql.types.endpoint.Endpoint"]
     """<p>The connection endpoint for the cluster.</p>"""
+    metric_groups: NotRequired[
+        "capo_dsql.types.metric_group_response_list.MetricGroupResponseList"
+    ]
+    """<p>The metric groups that you enabled for advanced monitoring on the cluster. If you haven't enabled any metric groups, the list is empty.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -76,6 +81,12 @@ def serialize_json(value: GetClusterOutput) -> dict:
         )
     if "endpoint" in value:
         out["endpoint"] = value["endpoint"]
+    if "metric_groups" in value:
+        import capo_dsql.types.metric_group_response_list
+
+        out["metricGroups"] = capo_dsql.types.metric_group_response_list.serialize_json(
+            value["metric_groups"]
+        )
     return out
 
 
@@ -133,4 +144,12 @@ def deserialize_json(data: dict) -> GetClusterOutput:
         )
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
+    if data.get("metricGroups") is not None:
+        import capo_dsql.types.metric_group_response_list
+
+        out["metric_groups"] = (
+            capo_dsql.types.metric_group_response_list.deserialize_json(
+                data["metricGroups"]
+            )
+        )
     return out

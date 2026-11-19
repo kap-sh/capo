@@ -38,6 +38,12 @@ from capo_kinesis._services._pipeline import (
 from capo_kinesis.errors import ServiceError, WaiterTimeoutError
 
 if TYPE_CHECKING:
+    import capo_kinesis.types.acknowledge_dead_letter_queue_records_input
+    import capo_kinesis.types.acknowledge_dead_letter_queue_records_output
+    import capo_kinesis.types.acknowledge_dead_letter_queue_records_request_entry_list
+    import capo_kinesis.types.acknowledge_queue_records_input
+    import capo_kinesis.types.acknowledge_queue_records_output
+    import capo_kinesis.types.acknowledge_queue_records_request_entry_list
     import capo_kinesis.types.add_tags_to_stream_input
     import capo_kinesis.types.boolean_object
     import capo_kinesis.types.channel_arn
@@ -51,10 +57,13 @@ if TYPE_CHECKING:
     import capo_kinesis.types.consumer_name
     import capo_kinesis.types.create_channel_input
     import capo_kinesis.types.create_channel_output
+    import capo_kinesis.types.create_queue_input
+    import capo_kinesis.types.create_queue_output
     import capo_kinesis.types.create_stream_input
     import capo_kinesis.types.data
     import capo_kinesis.types.decrease_stream_retention_period_input
     import capo_kinesis.types.delete_channel_input
+    import capo_kinesis.types.delete_queue_input
     import capo_kinesis.types.delete_resource_policy_input
     import capo_kinesis.types.delete_stream_input
     import capo_kinesis.types.deregister_stream_consumer_input
@@ -64,6 +73,8 @@ if TYPE_CHECKING:
     import capo_kinesis.types.describe_channel_output
     import capo_kinesis.types.describe_limits_input
     import capo_kinesis.types.describe_limits_output
+    import capo_kinesis.types.describe_queue_input
+    import capo_kinesis.types.describe_queue_output
     import capo_kinesis.types.describe_stream_consumer_input
     import capo_kinesis.types.describe_stream_consumer_output
     import capo_kinesis.types.describe_stream_input
@@ -88,6 +99,9 @@ if TYPE_CHECKING:
     import capo_kinesis.types.list_channels_input
     import capo_kinesis.types.list_channels_input_limit
     import capo_kinesis.types.list_channels_output
+    import capo_kinesis.types.list_queues_input
+    import capo_kinesis.types.list_queues_input_limit
+    import capo_kinesis.types.list_queues_output
     import capo_kinesis.types.list_shards_input
     import capo_kinesis.types.list_shards_input_limit
     import capo_kinesis.types.list_shards_output
@@ -117,11 +131,26 @@ if TYPE_CHECKING:
     import capo_kinesis.types.put_records_output
     import capo_kinesis.types.put_records_request_entry_list
     import capo_kinesis.types.put_resource_policy_input
+    import capo_kinesis.types.queue_arn
+    import capo_kinesis.types.queue_attributes
+    import capo_kinesis.types.queue_name
+    import capo_kinesis.types.queue_stream_configuration_list
+    import capo_kinesis.types.queue_stream_filter_list
+    import capo_kinesis.types.queue_summary
+    import capo_kinesis.types.receive_dead_letter_queue_records_input
+    import capo_kinesis.types.receive_dead_letter_queue_records_output
+    import capo_kinesis.types.receive_queue_records_input
+    import capo_kinesis.types.receive_queue_records_input_limit
+    import capo_kinesis.types.receive_queue_records_output
+    import capo_kinesis.types.receive_queue_records_wait_time_seconds
     import capo_kinesis.types.record_distribution_strategy
     import capo_kinesis.types.register_stream_consumer_input
     import capo_kinesis.types.register_stream_consumer_output
     import capo_kinesis.types.remove_tags_from_stream_input
     import capo_kinesis.types.resource_arn
+    import capo_kinesis.types.restore_dead_letter_queue_records_input
+    import capo_kinesis.types.restore_dead_letter_queue_records_output
+    import capo_kinesis.types.restore_dead_letter_queue_records_request_entry_list
     import capo_kinesis.types.retention_period_hours
     import capo_kinesis.types.role_arn
     import capo_kinesis.types.s3_destination_configuration
@@ -155,13 +184,22 @@ if TYPE_CHECKING:
     import capo_kinesis.types.update_account_settings_output
     import capo_kinesis.types.update_channel_input
     import capo_kinesis.types.update_channel_output
+    import capo_kinesis.types.update_dead_letter_queue_records_visibility_input
+    import capo_kinesis.types.update_dead_letter_queue_records_visibility_output
+    import capo_kinesis.types.update_dead_letter_queue_records_visibility_request_entry_list
     import capo_kinesis.types.update_max_record_size_input
+    import capo_kinesis.types.update_queue_input
+    import capo_kinesis.types.update_queue_output
+    import capo_kinesis.types.update_queue_records_visibility_input
+    import capo_kinesis.types.update_queue_records_visibility_output
+    import capo_kinesis.types.update_queue_records_visibility_request_entry_list
     import capo_kinesis.types.update_shard_count_input
     import capo_kinesis.types.update_shard_count_output
     import capo_kinesis.types.update_stream_mode_input
     import capo_kinesis.types.update_stream_record_distribution_strategy_input
     import capo_kinesis.types.update_stream_warm_throughput_input
     import capo_kinesis.types.update_stream_warm_throughput_output
+    import capo_kinesis.types.visibility_timeout_seconds
 
 
 class KinesisClientConfig(TypedDict, total=False, closed=True):
@@ -293,6 +331,110 @@ class KinesisClient:
         )
         return interceptors_, options_
 
+    def acknowledge_dead_letter_queue_records(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        entries: "capo_kinesis.types.acknowledge_dead_letter_queue_records_request_entry_list.AcknowledgeDeadLetterQueueRecordsRequestEntryList",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+    ) -> "capo_kinesis.types.acknowledge_dead_letter_queue_records_output.AcknowledgeDeadLetterQueueRecordsOutput":
+        """<p>Acknowledges up to 10 dead-letter records in the specified queue, so the queue doesn't return them again. The result for each entry is reported individually in the response.</p> <p>Acknowledging a record does not affect the record in the data stream. That record remains available to stream consumers and to other queues on the same stream for the rest of its retention period.</p> <p>Because the request can result in a combination of successful and unsuccessful entries, check the <code>Failed</code> list even when the call returns an HTTP status code of <code>200</code>.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue whose dead-letter records are acknowledged.</p>
+            entries: <p>The dead-letter records to acknowledge, identified by their receipt handles.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.throttling_exception.ThrottlingException: <p>The request was denied because the request rate is too high. Reduce the frequency of your requests, and retry them with exponential backoff.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.acknowledge_dead_letter_queue_records_input.AcknowledgeDeadLetterQueueRecordsInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.acknowledge_dead_letter_queue_records_output.AcknowledgeDeadLetterQueueRecordsOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.acknowledge_dead_letter_queue_records
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.acknowledge_dead_letter_queue_records.acknowledge_dead_letter_queue_records(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcknowledgeDeadLetterQueueRecords")
+        )
+        input_: capo_kinesis.types.acknowledge_dead_letter_queue_records_input.AcknowledgeDeadLetterQueueRecordsInput = {
+            "queue_arn": queue_arn,
+            "entries": entries,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def acknowledge_queue_records(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        entries: "capo_kinesis.types.acknowledge_queue_records_request_entry_list.AcknowledgeQueueRecordsRequestEntryList",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+    ) -> "capo_kinesis.types.acknowledge_queue_records_output.AcknowledgeQueueRecordsOutput":
+        """<p>Acknowledges up to 10 records from the specified queue. After a record is acknowledged, the queue does not deliver it again. The result for each entry is reported individually in the response.</p> <p>Acknowledging a record does not affect the record in the data stream. That record remains available to stream consumers and to other queues on the same stream for the rest of its retention period.</p> <p>Because the request can result in a combination of successful and unsuccessful entries, check the <code>Failed</code> list even when the call returns an HTTP status code of <code>200</code>.</p> <p>On rare occasions, you can receive a record again after you acknowledge it. Design your queue consumer to be idempotent, so that processing the same record more than once is safe.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue the records were received from.</p>
+            entries: <p>The records to acknowledge, identified by their receipt handles.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.throttling_exception.ThrottlingException: <p>The request was denied because the request rate is too high. Reduce the frequency of your requests, and retry them with exponential backoff.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.acknowledge_queue_records_input.AcknowledgeQueueRecordsInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.acknowledge_queue_records_output.AcknowledgeQueueRecordsOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.acknowledge_queue_records
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.acknowledge_queue_records.acknowledge_queue_records(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcknowledgeQueueRecords")
+        )
+        input_: capo_kinesis.types.acknowledge_queue_records_input.AcknowledgeQueueRecordsInput = {
+            "queue_arn": queue_arn,
+            "entries": entries,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def add_tags_to_stream(
         self,
         tags: "capo_kinesis.types.tag_map.TagMap",
@@ -389,7 +531,7 @@ class KinesisClient:
             capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>The ciphertext references a key that doesn't exist or that you don't have access to.</p>
-            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified customer master key (CMK) isn't enabled.</p>
+            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified KMS key isn't enabled.</p>
             capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>The request was rejected because the state of the specified resource isn't valid for this request. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
             capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException: <p>The request was rejected because the specified entity or resource can't be found.</p>
             capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired: <p>The Amazon Web Services access key ID needs a subscription for the service.</p>
@@ -397,16 +539,8 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
-
-        Examples:
-            To create an S3 channel
-
-            >>> client.create_channel(channel_name='my-channel-name', service_execution_role_arn='arn:aws:iam::123456789012:role/my-channel-role', stream_configuration_list=[{'StreamARN': 'arn:aws:kinesis:us-east-1:123456789012:stream/my-stream-name', 'RecordConfiguration': {'RecordFormatType': 'JSON'}}], s3_destination_configuration={'StorageConfiguration': {'BucketARN': 'arn:aws:s3:::my-channel-bucket', 'ExpectedBucketOwner': '123456789012', 'CompressionType': 'ZSTD'}, 'DeadLetterQueueS3Configuration': {'BucketARN': 'arn:aws:s3:::my-channel-dlq-bucket', 'ExpectedBucketOwner': '123456789012'}}, encryption_configuration={'EncryptionType': 'KMS', 'KeyId': 'arn:aws:kms:us-east-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab'}, logging_configuration={'CloudWatchLogs': {'Enabled': True, 'LogGroupName': '/aws/kinesis/my-channel', 'LogStreamName': 'my-channel-log-stream'}})
-            To create an S3 Tables channel
-
-            >>> client.create_channel(channel_name='my-channel-name', service_execution_role_arn='arn:aws:iam::123456789012:role/my-channel-role', stream_configuration_list=[{'StreamARN': 'arn:aws:kinesis:us-east-1:123456789012:stream/my-stream-name', 'RecordConfiguration': {'RecordFormatType': 'JSON', 'GSRSchemaARN': 'arn:aws:glue:us-east-1:123456789012:schema/my-registry/my-schema'}}], s3_tables_destination_configuration={'DeadLetterQueueS3Configuration': {'BucketARN': 'arn:aws:s3:::my-channel-dlq-bucket', 'ExpectedBucketOwner': '123456789012'}, 'S3TablesConfigurationList': [{'TableBucketARN': 'arn:aws:s3tables:us-east-1:123456789012:bucket/my-table-bucket', 'Namespace': 'my_namespace', 'TableName': 'my_table', 'CompressionType': 'ZSTD', 'PartitionSpec': {'PartitionFields': [{'Transform': 'TIME_HOUR', 'SourceName': 'creation_ts'}]}}]}, encryption_configuration={'EncryptionType': 'KMS', 'KeyId': 'arn:aws:kms:us-east-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab'}, logging_configuration={'CloudWatchLogs': {'Enabled': True, 'LogGroupName': '/aws/kinesis/my-channel', 'LogStreamName': 'my-channel-log-stream'}})
         """
 
         def _handler(
@@ -443,6 +577,70 @@ class KinesisClient:
             input_["tags"] = tags
         if logging_configuration is not None:
             input_["logging_configuration"] = logging_configuration
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def create_queue(
+        self,
+        queue_name: "capo_kinesis.types.queue_name.QueueName",
+        stream_configuration_list: "capo_kinesis.types.queue_stream_configuration_list.QueueStreamConfigurationList",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+        queue_attributes: Optional[
+            "capo_kinesis.types.queue_attributes.QueueAttributes"
+        ] = None,
+        tags: Optional["capo_kinesis.types.tag_map.TagMap"] = None,
+    ) -> "capo_kinesis.types.create_queue_output.CreateQueueOutput":
+        """<p>Creates a queue on the specified data stream. A queue delivers records from the stream to a queue consumer, tracks the delivery state of each record, and redelivers any record that is not acknowledged before its visibility timeout expires.</p> <p>A queue does not extend how long the stream keeps a record. When a record reaches the end of the data stream's retention period, the queue stops delivering it.</p> <p>Your queue consumer calls <a>ReceiveQueueRecords</a> to receive up to 10 records at a time. After it processes records, it calls <a>AcknowledgeQueueRecords</a> so the queue does not deliver them again.</p> <p>Queues are supported only on data streams in on-demand capacity mode.</p> <p>Creating a queue does not change how producers write to the stream, and it does not change how existing stream consumers read from it. A queue counts as a registered consumer on the stream and shares the stream's registered consumer limit with enhanced fan-out consumers: 20 on On-demand Standard and 50 on On-demand Advantage.</p> <p>Use <code>StartingPosition</code> to set the position in the stream where delivery begins. The default is <code>LATEST</code>.</p> <p> <code>CreateQueue</code> is an asynchronous operation. Upon receiving a <code>CreateQueue</code> request, Amazon Kinesis Data Streams immediately returns a queue description with a <code>QueueStatus</code> of <code>CREATING</code>. After the queue is created, Kinesis Data Streams sets the <code>QueueStatus</code> to <code>ACTIVE</code>. You can begin receiving records after the queue is <code>ACTIVE</code>. Use <a>DescribeQueue</a> to check the status of the queue.</p> <p>Each queue has built-in dead-letter handling. When a record has been received <code>MaxReceiveCount</code> times without being acknowledged, it becomes a dead-letter record, and <a>ReceiveQueueRecords</a> no longer returns it. You work with dead-letter records through a separate set of operations that use the same queue ARN: <a>ReceiveDeadLetterQueueRecords</a>, <a>AcknowledgeDeadLetterQueueRecords</a>, <a>UpdateDeadLetterQueueRecordsVisibility</a>, and <a>RestoreDeadLetterQueueRecords</a>.</p> <p>Dead-letter handling is enabled by default, with a <code>MaxReceiveCount</code> of 6. To use a different value, or to turn dead-letter handling off, specify <code>DeadLetterConfiguration</code> in <code>QueueAttributes</code>.</p>
+
+        Args:
+            queue_name: <p>A name for the queue. The name is scoped to the Amazon Web Services account and Region used by the request, so two queues in different accounts, or in the same account and different Regions, can have the same name.</p>
+            stream_configuration_list: <p>The data stream the queue delivers records from, and the position in that stream where delivery begins. The list must contain exactly one entry, because a queue delivers records from a single data stream.</p>
+            queue_attributes: <p>The configuration attributes for the queue, including its visibility timeout and its dead-letter handling configuration.</p>
+            tags: <p>A set of up to 50 key-value pairs to apply to the queue. You can also add, change, and remove tags after the queue is created with <a>TagResource</a> and <a>UntagResource</a>.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
+            capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.create_queue_input.CreateQueueInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.create_queue_output.CreateQueueOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.create_queue
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.create_queue.create_queue(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQueue")
+        )
+        input_: capo_kinesis.types.create_queue_input.CreateQueueInput = {
+            "queue_name": queue_name,
+            "stream_configuration_list": stream_configuration_list,
+        }
+        if queue_attributes is not None:
+            input_["queue_attributes"] = queue_attributes
+        if tags is not None:
+            input_["tags"] = tags
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -489,7 +687,7 @@ class KinesisClient:
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -607,13 +805,8 @@ class KinesisClient:
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
-
-        Examples:
-            To delete a channel
-
-            >>> client.delete_channel(channel_arn='arn:aws:kinesis:us-east-1:123456789012:channel/my-channel-id')
         """
 
         def _handler(
@@ -643,6 +836,54 @@ class KinesisClient:
         response.response.close()
         return response.output
 
+    def delete_queue(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+    ) -> None:
+        """<p>Deletes the specified queue. Records that are in flight when you delete the queue are not delivered again, and receipt handles issued by the queue stop being valid.</p> <p>Deleting a queue does not delete the data stream the queue was created on, and does not delete any records in that stream. Those records remain available to stream consumers and to other queues on the same stream for the rest of their retention period.</p> <p> <code>DeleteQueue</code> is an asynchronous operation. Upon receiving a <code>DeleteQueue</code> request, Amazon Kinesis Data Streams sets the <code>QueueStatus</code> to <code>DELETING</code>. The queue is deleted when the operation completes. A queue in the <code>DELETING</code> state does not deliver records.</p> <p>You must delete every queue on a data stream before you can delete the stream, or switch it from on-demand to provisioned capacity mode.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue to delete.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.delete_queue_input.DeleteQueueInput]",
+        ) -> OperationResponse[None]:
+            import capo_kinesis._operations.kinesis_20131202.delete_queue
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.delete_queue.delete_queue(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueue")
+        )
+        input_: capo_kinesis.types.delete_queue_input.DeleteQueueInput = {
+            "queue_arn": queue_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_resource_policy(
         self,
         resource_arn: "capo_kinesis.types.resource_arn.ResourceARN",
@@ -650,18 +891,20 @@ class KinesisClient:
         config_overrides: Optional[KinesisClientConfig] = None,
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
     ) -> None:
-        r"""<p>Delete a policy for the specified data stream or consumer. Request patterns can be one of the following:</p> <ul> <li> <p>Data stream pattern: <code>arn:aws.*:kinesis:.*:\d{12}:.*stream/\S+</code> </p> </li> <li> <p>Consumer pattern: <code>^(arn):aws.*:kinesis:.*:\d{12}:.*stream\/[a-zA-Z0-9_.-]+\/consumer\/[a-zA-Z0-9_.-]+:[0-9]+</code> </p> </li> </ul>
+        r"""<p>Delete a policy for the specified data stream, consumer, or queue. Request patterns can be one of the following:</p> <ul> <li> <p>Data stream pattern: <code>arn:aws.*:kinesis:.*:\d{12}:.*stream/\S+</code> </p> </li> <li> <p>Consumer pattern: <code>^(arn):aws.*:kinesis:.*:\d{12}:.*stream\/[a-zA-Z0-9_.-]+\/consumer\/[a-zA-Z0-9_.-]+:[0-9]+</code> </p> </li> <li> <p>Queue pattern: <code>arn:aws.*:kinesis:.*:\d{12}:queue/\S+</code> </p> </li> </ul>
 
         Args:
-            resource_arn: <p>The Amazon Resource Name (ARN) of the data stream or consumer.</p>
+            resource_arn: <p>The Amazon Resource Name (ARN) of a data stream, a queue, or an enhanced fan-out consumer.</p>
             stream_id: <p>Not Implemented. Reserved for future use.</p>
 
         Raises:
             capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -705,11 +948,11 @@ class KinesisClient:
         stream_arn: Optional["capo_kinesis.types.stream_arn.StreamARN"] = None,
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
     ) -> None:
-        """<p>Deletes a Kinesis data stream and all its shards and data. You must shut down any applications that are operating on the stream before you delete the stream. If an application attempts to operate on a deleted stream, it receives the exception <code>ResourceNotFoundException</code>.</p> <note> <p>When invoking this API, you must use either the <code>StreamARN</code> or the <code>StreamName</code> parameter, or both. It is recommended that you use the <code>StreamARN</code> input parameter when you invoke this API.</p> </note> <p>If the stream is in the <code>ACTIVE</code> state, you can delete it. After a <code>DeleteStream</code> request, the specified stream is in the <code>DELETING</code> state until Kinesis Data Streams completes the deletion.</p> <p> <b>Note:</b> Kinesis Data Streams might continue to accept data read and write operations, such as <a>PutRecord</a>, <a>PutRecords</a>, and <a>GetRecords</a>, on a stream in the <code>DELETING</code> state until the stream deletion is complete.</p> <p>When you delete a stream, any shards in that stream are also deleted, and any tags are dissociated from the stream.</p> <p>You can use the <a>DescribeStreamSummary</a> operation to check the state of the stream, which is returned in <code>StreamStatus</code>.</p> <p> <a>DeleteStream</a> has a limit of five transactions per second per account.</p>
+        """<p>Deletes a Kinesis data stream and all its shards and data. You must shut down any applications that are operating on the stream before you delete the stream. If an application attempts to operate on a deleted stream, it receives the exception <code>ResourceNotFoundException</code>.</p> <note> <p>When invoking this API, you must use either the <code>StreamARN</code> or the <code>StreamName</code> parameter, or both. It is recommended that you use the <code>StreamARN</code> input parameter when you invoke this API.</p> </note> <p>If the stream is in the <code>ACTIVE</code> state, you can delete it. After a <code>DeleteStream</code> request, the specified stream is in the <code>DELETING</code> state until Kinesis Data Streams completes the deletion.</p> <p> <b>Note:</b> Kinesis Data Streams might continue to accept data read and write operations, such as <a>PutRecord</a>, <a>PutRecords</a>, and <a>GetRecords</a>, on a stream in the <code>DELETING</code> state until the stream deletion is complete.</p> <p>When you delete a stream, any shards in that stream are also deleted, and any tags are dissociated from the stream.</p> <p>Before you can delete a data stream that has queues, you must delete every queue on the stream with <a>DeleteQueue</a>.</p> <p>You can use the <a>DescribeStreamSummary</a> operation to check the state of the stream, which is returned in <code>StreamStatus</code>.</p> <p> <a>DeleteStream</a> has a limit of five transactions per second per account.</p>
 
         Args:
             stream_name: <p>The name of the stream to delete.</p>
-            enforce_consumer_deletion: <p>If this parameter is unset (<code>null</code>) or if you set it to <code>false</code>, and the stream has registered consumers, the call to <code>DeleteStream</code> fails with a <code>ResourceInUseException</code>. </p>
+            enforce_consumer_deletion: <p>If this parameter is unset (<code>null</code>) or if you set it to <code>false</code>, and the stream has registered enhanced fan-out consumers, the call to <code>DeleteStream</code> fails with a <code>ResourceInUseException</code>.</p> <p>If you set it to <code>true</code>, <code>DeleteStream</code> deletes the stream and every consumer registered with it.</p> <p>This parameter does not apply to queues. A stream that has queues cannot be deleted until every queue on it is deleted with <a>DeleteQueue</a>, whatever this parameter is set to.</p>
             stream_arn: <p>The ARN of the stream.</p>
             stream_id: <p>Not Implemented. Reserved for future use.</p>
 
@@ -865,13 +1108,8 @@ class KinesisClient:
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
-
-        Examples:
-            To describe a channel
-
-            >>> client.describe_channel(channel_arn='arn:aws:kinesis:us-east-1:123456789012:channel/my-channel-id')
         """
 
         def _handler(
@@ -931,6 +1169,56 @@ class KinesisClient:
             config_overrides, OperationLogging("DescribeLimits")
         )
         input_: capo_kinesis.types.describe_limits_input.DescribeLimitsInput = {}
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_queue(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+    ) -> "capo_kinesis.types.describe_queue_output.DescribeQueueOutput":
+        """<p>Returns a description of the specified queue, including its status, the data stream it delivers records from, and its configuration attributes.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue to describe.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.describe_queue_input.DescribeQueueInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.describe_queue_output.DescribeQueueOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.describe_queue
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.describe_queue.describe_queue(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQueue")
+        )
+        input_: capo_kinesis.types.describe_queue_input.DescribeQueueInput = {
+            "queue_arn": queue_arn
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1335,7 +1623,7 @@ class KinesisClient:
             capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>The ciphertext references a key that doesn't exist or that you don't have access to.</p>
-            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified customer master key (CMK) isn't enabled.</p>
+            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified KMS key isn't enabled.</p>
             capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>The request was rejected because the state of the specified resource isn't valid for this request. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
             capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException: <p>The request was rejected because the specified entity or resource can't be found.</p>
             capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired: <p>The Amazon Web Services access key ID needs a subscription for the service.</p>
@@ -1389,18 +1677,20 @@ class KinesisClient:
         config_overrides: Optional[KinesisClientConfig] = None,
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
     ) -> "capo_kinesis.types.get_resource_policy_output.GetResourcePolicyOutput":
-        r"""<p>Returns a policy attached to the specified data stream or consumer. Request patterns can be one of the following:</p> <ul> <li> <p>Data stream pattern: <code>arn:aws.*:kinesis:.*:\d{12}:.*stream/\S+</code> </p> </li> <li> <p> Consumer pattern: <code>^(arn):aws.*:kinesis:.*:\d{12}:.*stream\/[a-zA-Z0-9_.-]+\/consumer\/[a-zA-Z0-9_.-]+:[0-9]+</code> </p> </li> </ul>
+        r"""<p>Returns a policy attached to the specified data stream, consumer, or queue. Request patterns can be one of the following:</p> <ul> <li> <p>Data stream pattern: <code>arn:aws.*:kinesis:.*:\d{12}:.*stream/\S+</code> </p> </li> <li> <p> Consumer pattern: <code>^(arn):aws.*:kinesis:.*:\d{12}:.*stream\/[a-zA-Z0-9_.-]+\/consumer\/[a-zA-Z0-9_.-]+:[0-9]+</code> </p> </li> <li> <p>Queue pattern: <code>arn:aws.*:kinesis:.*:\d{12}:queue/\S+</code> </p> </li> </ul>
 
         Args:
-            resource_arn: <p>The Amazon Resource Name (ARN) of the data stream or consumer.</p>
+            resource_arn: <p>The Amazon Resource Name (ARN) of a data stream, a queue, or an enhanced fan-out consumer.</p>
             stream_id: <p>Not Implemented. Reserved for future use.</p>
 
         Raises:
             capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1597,16 +1887,8 @@ class KinesisClient:
             capo_kinesis.errors.expired_next_token_exception.ExpiredNextTokenException: <p>The pagination token passed to the operation is expired.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
-
-        Examples:
-            To list channels
-
-            >>> client.list_channels()
-            To list channels filtered by stream
-
-            >>> client.list_channels(stream_filter=[{'StreamARN': 'arn:aws:kinesis:us-east-1:123456789012:stream/my-stream-name'}], max_results=10)
         """
 
         def _handler(
@@ -1663,6 +1945,95 @@ class KinesisClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("channel_summaries",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_queues(
+        self,
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+        max_results: Optional[
+            "capo_kinesis.types.list_queues_input_limit.ListQueuesInputLimit"
+        ] = None,
+        next_token: Optional["capo_kinesis.types.next_token.NextToken"] = None,
+        stream_filter: Optional[
+            "capo_kinesis.types.queue_stream_filter_list.QueueStreamFilterList"
+        ] = None,
+    ) -> "capo_kinesis.types.list_queues_output.ListQueuesOutput":
+        """<p>Returns a summary of each queue in the Amazon Web Services account and Region used by the request. Use <code>StreamFilter</code> to list only the queues on a particular data stream.</p> <p>If the response contains a <code>NextToken</code>, more queues are available. Call <code>ListQueues</code> again with that value to retrieve the next page.</p>
+
+        Args:
+            max_results: <p>The maximum number of queue summaries to return in one response. The response might contain fewer summaries than this value, and might contain a <code>NextToken</code> even when it contains fewer.</p>
+            next_token: <p>The <code>NextToken</code> returned by a previous <code>ListQueues</code> request. Use it to retrieve the next page of queue summaries.</p>
+            stream_filter: <p>Lists only the queues created on the specified data stream.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.expired_next_token_exception.ExpiredNextTokenException: <p>The pagination token passed to the operation is expired.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.list_queues_input.ListQueuesInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.list_queues_output.ListQueuesOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.list_queues
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.list_queues.list_queues(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueues")
+        )
+        input_: capo_kinesis.types.list_queues_input.ListQueuesInput = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if stream_filter is not None:
+            input_["stream_filter"] = stream_filter
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_queues(
+        self,
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+        max_results: Optional[
+            "capo_kinesis.types.list_queues_input_limit.ListQueuesInputLimit"
+        ] = None,
+        next_token: Optional["capo_kinesis.types.next_token.NextToken"] = None,
+        stream_filter: Optional[
+            "capo_kinesis.types.queue_stream_filter_list.QueueStreamFilterList"
+        ] = None,
+    ) -> "Iterator[capo_kinesis.types.queue_summary.QueueSummary]":
+        _token = next_token
+        while True:
+            _response = self.list_queues(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+                stream_filter=stream_filter,
+            )
+            _page = _resolve_path(_response, ("queue_summaries",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -1942,7 +2313,7 @@ class KinesisClient:
         config_overrides: Optional[KinesisClientConfig] = None,
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
     ) -> "capo_kinesis.types.list_tags_for_resource_output.ListTagsForResourceOutput":
-        """<p>List all tags added to the specified Kinesis resource. Each tag is a label consisting of a user-defined key and value. Tags can help you manage, identify, organize, search for, and filter resources.</p> <p>For more information about tagging Kinesis resources, see <a href="https://docs.aws.amazon.com/streams/latest/dev/tagging.html">Tag your Amazon Kinesis Data Streams resources</a>.</p>
+        """<p>List all tags added to the specified Kinesis resource. Each tag is a label consisting of a user-defined key and value. Tags can help you manage, identify, organize, search for, and filter resources.</p> <p>The Kinesis resource can be a data stream, a queue, or an enhanced fan-out consumer.</p> <p>For more information about tagging Kinesis resources, see <a href="https://docs.aws.amazon.com/streams/latest/dev/tagging.html">Tag your Amazon Kinesis Data Streams resources</a>.</p>
 
         Args:
             resource_arn: <p>The Amazon Resource Name (ARN) of the Kinesis resource for which to list tags.</p>
@@ -1950,10 +2321,12 @@ class KinesisClient:
 
         Raises:
             capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2079,7 +2452,7 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2150,7 +2523,7 @@ class KinesisClient:
             capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>The ciphertext references a key that doesn't exist or that you don't have access to.</p>
-            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified customer master key (CMK) isn't enabled.</p>
+            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified KMS key isn't enabled.</p>
             capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>The request was rejected because the state of the specified resource isn't valid for this request. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
             capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException: <p>The request was rejected because the specified entity or resource can't be found.</p>
             capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired: <p>The Amazon Web Services access key ID needs a subscription for the service.</p>
@@ -2224,7 +2597,7 @@ class KinesisClient:
             capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>The ciphertext references a key that doesn't exist or that you don't have access to.</p>
-            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified customer master key (CMK) isn't enabled.</p>
+            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified KMS key isn't enabled.</p>
             capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>The request was rejected because the state of the specified resource isn't valid for this request. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
             capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException: <p>The request was rejected because the specified entity or resource can't be found.</p>
             capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired: <p>The Amazon Web Services access key ID needs a subscription for the service.</p>
@@ -2279,19 +2652,21 @@ class KinesisClient:
         config_overrides: Optional[KinesisClientConfig] = None,
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
     ) -> None:
-        r"""<p>Attaches a resource-based policy to a data stream or registered consumer. If you are using an identity other than the root user of the Amazon Web Services account that owns the resource, the calling identity must have the <code>PutResourcePolicy</code> permissions on the specified Kinesis Data Streams resource and belong to the owner's account in order to use this operation. If you don't have <code>PutResourcePolicy</code> permissions, Amazon Kinesis Data Streams returns a <code>403 Access Denied error</code>. If you receive a <code>ResourceNotFoundException</code>, check to see if you passed a valid stream or consumer resource. </p> <p> Request patterns can be one of the following:</p> <ul> <li> <p>Data stream pattern: <code>arn:aws.*:kinesis:.*:\d{12}:.*stream/\S+</code> </p> </li> <li> <p>Consumer pattern: <code>^(arn):aws.*:kinesis:.*:\d{12}:.*stream\/[a-zA-Z0-9_.-]+\/consumer\/[a-zA-Z0-9_.-]+:[0-9]+</code> </p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html">Controlling Access to Amazon Kinesis Data Streams Resources Using IAM</a>.</p>
+        r"""<p>Attaches a resource-based policy to a data stream, a queue, or an enhanced fan-out consumer. If you are using an identity other than the root user of the Amazon Web Services account that owns the resource, the calling identity must have the <code>PutResourcePolicy</code> permissions on the specified Kinesis Data Streams resource and belong to the owner's account in order to use this operation. If you don't have <code>PutResourcePolicy</code> permissions, Amazon Kinesis Data Streams returns a <code>403 Access Denied error</code>. If you receive a <code>ResourceNotFoundException</code>, check to see if you passed a valid stream or consumer resource. </p> <p> Request patterns can be one of the following:</p> <ul> <li> <p>Data stream pattern: <code>arn:aws.*:kinesis:.*:\d{12}:.*stream/\S+</code> </p> </li> <li> <p>Consumer pattern: <code>^(arn):aws.*:kinesis:.*:\d{12}:.*stream\/[a-zA-Z0-9_.-]+\/consumer\/[a-zA-Z0-9_.-]+:[0-9]+</code> </p> </li> <li> <p>Queue pattern: <code>arn:aws.*:kinesis:.*:\d{12}:queue/\S+</code> </p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html">Controlling Access to Amazon Kinesis Data Streams Resources Using IAM</a>.</p>
 
         Args:
-            resource_arn: <p>The Amazon Resource Name (ARN) of the data stream or consumer.</p>
+            resource_arn: <p>The Amazon Resource Name (ARN) of a data stream, a queue, or an enhanced fan-out consumer.</p>
             stream_id: <p>Not Implemented. Reserved for future use.</p>
             policy: <p>Details of the resource policy. It must include the identity of the principal and the actions allowed on this resource. This is formatted as a JSON string.</p>
 
         Raises:
             capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2325,6 +2700,152 @@ class KinesisClient:
         response.response.close()
         return response.output
 
+    def receive_dead_letter_queue_records(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+        limit: Optional[
+            "capo_kinesis.types.receive_queue_records_input_limit.ReceiveQueueRecordsInputLimit"
+        ] = None,
+        wait_time_seconds: Optional[
+            "capo_kinesis.types.receive_queue_records_wait_time_seconds.ReceiveQueueRecordsWaitTimeSeconds"
+        ] = None,
+        visibility_timeout_seconds: Optional[
+            "capo_kinesis.types.visibility_timeout_seconds.VisibilityTimeoutSeconds"
+        ] = None,
+    ) -> "capo_kinesis.types.receive_dead_letter_queue_records_output.ReceiveDeadLetterQueueRecordsOutput":
+        """<p>Receives up to 10 dead-letter records from the specified queue. Each queue has built-in dead-letter handling: when a record has been received <code>MaxReceiveCount</code> times without being acknowledged, it becomes a dead-letter record, which usually means your queue consumer could not process it. The dead-letter record stays in the same queue, and <a>ReceiveQueueRecords</a> no longer returns it.</p> <p>Dead-letter records carry the same data and partition key as when they were first delivered, and are returned with a receipt handle. Use the receipt handle to acknowledge the record with <a>AcknowledgeDeadLetterQueueRecords</a>, which discards it, to change its visibility with <a>UpdateDeadLetterQueueRecordsVisibility</a>, or to restore it with <a>RestoreDeadLetterQueueRecords</a>, which returns it to the normal receive path so that <a>ReceiveQueueRecords</a> can return it again.</p> <p>Use this operation to inspect the records your queue consumer could not process, so you can correct the cause and then either acknowledge or restore them.</p> <p>A queue delivers dead-letter records while it is in the <code>ACTIVE</code> state.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue whose dead-letter records are received.</p>
+            limit: <p>The maximum number of records to return. The queue never returns more dead-letter records than this value, and might return fewer. The default is 10.</p>
+            wait_time_seconds: <p>The duration, in seconds, that the call waits for a record to become visible before returning. The default is 9.</p>
+            visibility_timeout_seconds: <p>The duration, in seconds, that the records returned by this request are in flight and not visible to any consumer instance. If you do not specify this value, the queue's visibility timeout is used.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>The ciphertext references a key that doesn't exist or that you don't have access to.</p>
+            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified KMS key isn't enabled.</p>
+            capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>The request was rejected because the state of the specified resource isn't valid for this request. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
+            capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException: <p>The request was rejected because the specified entity or resource can't be found.</p>
+            capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired: <p>The Amazon Web Services access key ID needs a subscription for the service.</p>
+            capo_kinesis.errors.kms_throttling_exception.KMSThrottlingException: <p>The request was denied due to request throttling. For more information about throttling, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second">Limits</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.throttling_exception.ThrottlingException: <p>The request was denied because the request rate is too high. Reduce the frequency of your requests, and retry them with exponential backoff.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.receive_dead_letter_queue_records_input.ReceiveDeadLetterQueueRecordsInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.receive_dead_letter_queue_records_output.ReceiveDeadLetterQueueRecordsOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.receive_dead_letter_queue_records
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.receive_dead_letter_queue_records.receive_dead_letter_queue_records(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReceiveDeadLetterQueueRecords")
+        )
+        input_: capo_kinesis.types.receive_dead_letter_queue_records_input.ReceiveDeadLetterQueueRecordsInput = {
+            "queue_arn": queue_arn
+        }
+        if limit is not None:
+            input_["limit"] = limit
+        if wait_time_seconds is not None:
+            input_["wait_time_seconds"] = wait_time_seconds
+        if visibility_timeout_seconds is not None:
+            input_["visibility_timeout_seconds"] = visibility_timeout_seconds
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def receive_queue_records(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+        limit: Optional[
+            "capo_kinesis.types.receive_queue_records_input_limit.ReceiveQueueRecordsInputLimit"
+        ] = None,
+        wait_time_seconds: Optional[
+            "capo_kinesis.types.receive_queue_records_wait_time_seconds.ReceiveQueueRecordsWaitTimeSeconds"
+        ] = None,
+        visibility_timeout_seconds: Optional[
+            "capo_kinesis.types.visibility_timeout_seconds.VisibilityTimeoutSeconds"
+        ] = None,
+    ) -> "capo_kinesis.types.receive_queue_records_output.ReceiveQueueRecordsOutput":
+        """<p>Receives up to 10 records from the specified queue. Each record is returned with a receipt handle, which is the identifier you use to acknowledge the record or change its visibility.</p> <p>A record returned by <code>ReceiveQueueRecords</code> becomes in flight: it is not visible to any consumer instance for the duration of its visibility timeout, so subsequent receive requests do not return it while your queue consumer processes it. Acknowledge the record with <a>AcknowledgeQueueRecords</a> when you finish processing it. A record that is not acknowledged before its visibility timeout expires becomes visible in the queue again and can be received by any consumer instance.</p> <p>Use <code>WaitTimeSeconds</code> to control how long the call waits for a record to become visible before returning. If a record becomes visible sooner, the call returns sooner. If the wait time expires and no records are visible, the call returns an empty list of records.</p> <p>Records are not necessarily received in the order they were written to the data stream.</p> <p>A queue delivers records while it is in the <code>ACTIVE</code> state.</p> <p>On rare occasions, a queue can deliver a record more than once. Design your queue consumer to be idempotent, so that processing the same record more than once is safe.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue to receive records from.</p>
+            limit: <p>The maximum number of records to return. The queue never returns more records than this value, and might return fewer. The default is 10.</p>
+            wait_time_seconds: <p>The duration, in seconds, that the call waits for a record to become visible before returning. The default is 9.</p>
+            visibility_timeout_seconds: <p>The duration, in seconds, that the records returned by this request are in flight and not visible to any consumer instance. If you do not specify this value, the queue's visibility timeout is used.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>The ciphertext references a key that doesn't exist or that you don't have access to.</p>
+            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified KMS key isn't enabled.</p>
+            capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>The request was rejected because the state of the specified resource isn't valid for this request. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
+            capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException: <p>The request was rejected because the specified entity or resource can't be found.</p>
+            capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired: <p>The Amazon Web Services access key ID needs a subscription for the service.</p>
+            capo_kinesis.errors.kms_throttling_exception.KMSThrottlingException: <p>The request was denied due to request throttling. For more information about throttling, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second">Limits</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.throttling_exception.ThrottlingException: <p>The request was denied because the request rate is too high. Reduce the frequency of your requests, and retry them with exponential backoff.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.receive_queue_records_input.ReceiveQueueRecordsInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.receive_queue_records_output.ReceiveQueueRecordsOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.receive_queue_records
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.receive_queue_records.receive_queue_records(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReceiveQueueRecords")
+        )
+        input_: capo_kinesis.types.receive_queue_records_input.ReceiveQueueRecordsInput = {
+            "queue_arn": queue_arn
+        }
+        if limit is not None:
+            input_["limit"] = limit
+        if wait_time_seconds is not None:
+            input_["wait_time_seconds"] = wait_time_seconds
+        if visibility_timeout_seconds is not None:
+            input_["visibility_timeout_seconds"] = visibility_timeout_seconds
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def register_stream_consumer(
         self,
         stream_arn: "capo_kinesis.types.stream_arn.StreamARN",
@@ -2334,7 +2855,7 @@ class KinesisClient:
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
         tags: Optional["capo_kinesis.types.tag_map.TagMap"] = None,
     ) -> "capo_kinesis.types.register_stream_consumer_output.RegisterStreamConsumerOutput":
-        """<p>Registers a consumer with a Kinesis data stream. When you use this operation, the consumer you register can then call <a>SubscribeToShard</a> to receive data from the stream using enhanced fan-out, at a rate of up to 2 MiB per second for every shard you subscribe to. This rate is unaffected by the total number of consumers that read from the same stream.</p> <p>You can add tags to the registered consumer when making a <code>RegisterStreamConsumer</code> request by setting the <code>Tags</code> parameter. If you pass the <code>Tags</code> parameter, in addition to having the <code>kinesis:RegisterStreamConsumer</code> permission, you must also have the <code>kinesis:TagResource</code> permission for the consumer that will be registered. Tags will take effect from the <code>CREATING</code> status of the consumer.</p> <p>With On-demand Advantage streams, you can register up to 50 consumers per stream to use Enhanced Fan-out. With On-demand Standard and Provisioned streams, you can register up to 20 consumers per stream to use Enhanced Fan-out. A given consumer can only be registered with one stream at a time.</p> <p>For an example of how to use this operation, see <a href="https://docs.aws.amazon.com/streams/latest/dev/building-enhanced-consumers-api.html">Enhanced Fan-Out Using the Kinesis Data Streams API</a>.</p> <p>The use of this operation has a limit of five transactions per second per account. Also, only 5 consumers can be created simultaneously. In other words, you cannot have more than 5 consumers in a <code>CREATING</code> status at the same time. Registering a 6th consumer while there are 5 in a <code>CREATING</code> status results in a <code>LimitExceededException</code>.</p>
+        """<p>Registers a consumer with a Kinesis data stream. When you use this operation, the consumer you register can then call <a>SubscribeToShard</a> to receive data from the stream using enhanced fan-out, at a rate of up to 2 MiB per second for every shard you subscribe to. This rate is unaffected by the total number of consumers that read from the same stream.</p> <p>You can add tags to the registered consumer when making a <code>RegisterStreamConsumer</code> request by setting the <code>Tags</code> parameter. If you pass the <code>Tags</code> parameter, in addition to having the <code>kinesis:RegisterStreamConsumer</code> permission, you must also have the <code>kinesis:TagResource</code> permission for the consumer that will be registered. Tags will take effect from the <code>CREATING</code> status of the consumer.</p> <p>With On-demand Advantage streams, you can register up to 50 consumers per stream to use enhanced fan-out. With On-demand Standard and Provisioned streams, you can register up to 20 consumers per stream to use enhanced fan-out. Queues share this limit with enhanced fan-out consumers: both count as registered consumers on the stream. A given consumer can only be registered with one stream at a time.</p> <p>For an example of how to use this operation, see <a href="https://docs.aws.amazon.com/streams/latest/dev/building-enhanced-consumers-api.html">Develop enhanced fan-out consumers with the Amazon Web Services SDK for Java</a>.</p> <p>The use of this operation has a limit of five transactions per second per account. Also, only 5 consumers can be created simultaneously. In other words, you cannot have more than 5 consumers in a <code>CREATING</code> status at the same time. Registering a 6th consumer while there are 5 in a <code>CREATING</code> status results in a <code>LimitExceededException</code>.</p>
 
         Args:
             stream_arn: <p>The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.</p>
@@ -2443,6 +2964,58 @@ class KinesisClient:
         response.response.close()
         return response.output
 
+    def restore_dead_letter_queue_records(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        entries: "capo_kinesis.types.restore_dead_letter_queue_records_request_entry_list.RestoreDeadLetterQueueRecordsRequestEntryList",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+    ) -> "capo_kinesis.types.restore_dead_letter_queue_records_output.RestoreDeadLetterQueueRecordsOutput":
+        """<p>Restores up to 10 dead-letter records in the specified queue. Restoring a record clears its dead-letter state and resets its receive count, so <a>ReceiveQueueRecords</a> can return it again, up to <code>MaxReceiveCount</code> times before it becomes a dead-letter record again. The result for each entry is reported individually in the response.</p> <p>Restore records after you have corrected the condition that prevented your queue consumer from processing them.</p> <p>Because the request can result in a combination of successful and unsuccessful entries, check the <code>Failed</code> list even when the call returns an HTTP status code of <code>200</code>.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue whose dead-letter records are restored.</p>
+            entries: <p>The dead-letter records to restore, identified by their receipt handles.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.throttling_exception.ThrottlingException: <p>The request was denied because the request rate is too high. Reduce the frequency of your requests, and retry them with exponential backoff.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.restore_dead_letter_queue_records_input.RestoreDeadLetterQueueRecordsInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.restore_dead_letter_queue_records_output.RestoreDeadLetterQueueRecordsOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.restore_dead_letter_queue_records
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.restore_dead_letter_queue_records.restore_dead_letter_queue_records(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreDeadLetterQueueRecords")
+        )
+        input_: capo_kinesis.types.restore_dead_letter_queue_records_input.RestoreDeadLetterQueueRecordsInput = {
+            "queue_arn": queue_arn,
+            "entries": entries,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def split_shard(
         self,
         shard_to_split: "capo_kinesis.types.shard_id.ShardId",
@@ -2468,7 +3041,7 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2529,7 +3102,7 @@ class KinesisClient:
             capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>The ciphertext references a key that doesn't exist or that you don't have access to.</p>
-            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified customer master key (CMK) isn't enabled.</p>
+            capo_kinesis.errors.kms_disabled_exception.KMSDisabledException: <p>The request was rejected because the specified KMS key isn't enabled.</p>
             capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>The request was rejected because the state of the specified resource isn't valid for this request. For more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <i>Amazon Web Services Key Management Service Developer Guide</i>.</p>
             capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException: <p>The request was rejected because the specified entity or resource can't be found.</p>
             capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired: <p>The Amazon Web Services access key ID needs a subscription for the service.</p>
@@ -2646,7 +3219,7 @@ class KinesisClient:
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
         dry_run: Optional["capo_kinesis.types.boolean_object.BooleanObject"] = None,
     ) -> "capo_kinesis.types.subscribe_to_shard_output.SubscribeToShardOutput":
-        """<p>This operation establishes an HTTP/2 connection between the consumer you specify in the <code>ConsumerARN</code> parameter and the shard you specify in the <code>ShardId</code> parameter. After the connection is successfully established, Kinesis Data Streams pushes records from the shard to the consumer over this connection. Before you call this operation, call <a>RegisterStreamConsumer</a> to register the consumer with Kinesis Data Streams.</p> <p>When the <code>SubscribeToShard</code> call succeeds, your consumer starts receiving events of type <a>SubscribeToShardEvent</a> over the HTTP/2 connection for up to 5 minutes, after which time you need to call <code>SubscribeToShard</code> again to renew the subscription if you want to continue to receive records.</p> <p>You can make one call to <code>SubscribeToShard</code> per second per registered consumer per shard. For example, if you have a 4000 shard stream and two registered stream consumers, you can make one <code>SubscribeToShard</code> request per second for each combination of shard and registered consumer, allowing you to subscribe both consumers to all 4000 shards in one second. </p> <p>If you call <code>SubscribeToShard</code> again with the same <code>ConsumerARN</code> and <code>ShardId</code> within 5 seconds of a successful call, you'll get a <code>ResourceInUseException</code>. If you call <code>SubscribeToShard</code> 5 seconds or more after a successful call, the second call takes over the subscription and the previous connection expires or fails with a <code>ResourceInUseException</code>.</p> <p>For an example of how to use this operation, see <a href="https://docs.aws.amazon.com/streams/latest/dev/building-enhanced-consumers-api.html">Enhanced Fan-Out Using the Kinesis Data Streams API</a>.</p>
+        """<p>This operation establishes an HTTP/2 connection between the consumer you specify in the <code>ConsumerARN</code> parameter and the shard you specify in the <code>ShardId</code> parameter. After the connection is successfully established, Kinesis Data Streams pushes records from the shard to the consumer over this connection. Before you call this operation, call <a>RegisterStreamConsumer</a> to register the consumer with Kinesis Data Streams.</p> <p>When the <code>SubscribeToShard</code> call succeeds, your consumer starts receiving events of type <a>SubscribeToShardEvent</a> over the HTTP/2 connection for up to 5 minutes, after which time you need to call <code>SubscribeToShard</code> again to renew the subscription if you want to continue to receive records.</p> <p>You can make one call to <code>SubscribeToShard</code> per second per registered consumer per shard. For example, if you have a 4000 shard stream and two registered stream consumers, you can make one <code>SubscribeToShard</code> request per second for each combination of shard and registered consumer, allowing you to subscribe both consumers to all 4000 shards in one second. </p> <p>If you call <code>SubscribeToShard</code> again with the same <code>ConsumerARN</code> and <code>ShardId</code> within 5 seconds of a successful call, you'll get a <code>ResourceInUseException</code>. If you call <code>SubscribeToShard</code> 5 seconds or more after a successful call, the second call takes over the subscription and the previous connection expires or fails with a <code>ResourceInUseException</code>.</p> <p>For an example of how to use this operation, see <a href="https://docs.aws.amazon.com/streams/latest/dev/building-enhanced-consumers-api.html">Develop enhanced fan-out consumers with the Amazon Web Services SDK for Java</a>.</p>
 
         Args:
             consumer_arn: <p>For this parameter, use the value you obtained when you called <a>RegisterStreamConsumer</a>.</p>
@@ -2716,7 +3289,7 @@ class KinesisClient:
         config_overrides: Optional[KinesisClientConfig] = None,
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
     ) -> None:
-        """<p>Adds or updates tags for the specified Kinesis resource. Each tag is a label consisting of a user-defined key and value. Tags can help you manage, identify, organize, search for, and filter resources. You can assign up to 50 tags to a Kinesis resource.</p>
+        """<p>Adds or updates tags for the specified Kinesis resource. Each tag is a label consisting of a user-defined key and value. Tags can help you manage, identify, organize, search for, and filter resources. You can assign up to 50 tags to a Kinesis resource.</p> <p>The Kinesis resource can be a data stream, a queue, or an enhanced fan-out consumer.</p>
 
         Args:
             tags: <p>An array of tags to be added to the Kinesis resource. A tag consists of a required key and an optional value. You can add up to 50 tags per resource.</p> <p>Tags may only contain Unicode letters, digits, white space, or these symbols: _ . : / = + - @.</p>
@@ -2725,10 +3298,12 @@ class KinesisClient:
 
         Raises:
             capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2770,7 +3345,7 @@ class KinesisClient:
         config_overrides: Optional[KinesisClientConfig] = None,
         stream_id: Optional["capo_kinesis.types.stream_id.StreamId"] = None,
     ) -> None:
-        """<p>Removes tags from the specified Kinesis resource. Removed tags are deleted and can't be recovered after this operation completes successfully.</p>
+        """<p>Removes tags from the specified Kinesis resource. Removed tags are deleted and can't be recovered after this operation completes successfully.</p> <p>The Kinesis resource can be a data stream, a queue, or an enhanced fan-out consumer.</p>
 
         Args:
             tag_keys: <p>A list of tag key-value pairs. Existing tags of the resource whose keys are members of this list will be removed from the Kinesis resource.</p>
@@ -2779,10 +3354,12 @@ class KinesisClient:
 
         Raises:
             capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2832,7 +3409,7 @@ class KinesisClient:
         Raises:
             capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2894,13 +3471,8 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
-
-        Examples:
-            To update a channel
-
-            >>> client.update_channel(channel_arn='arn:aws:kinesis:us-east-1:123456789012:channel/my-channel-id', s3_destination_configuration={'DataFreshnessInSeconds': 600}, logging_configuration={'CloudWatchLogs': {'Enabled': True, 'LogGroupName': '/aws/kinesis/my-channel', 'LogStreamName': 'my-channel-log-stream'}})
         """
 
         def _handler(
@@ -2940,6 +3512,58 @@ class KinesisClient:
         response.response.close()
         return response.output
 
+    def update_dead_letter_queue_records_visibility(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        entries: "capo_kinesis.types.update_dead_letter_queue_records_visibility_request_entry_list.UpdateDeadLetterQueueRecordsVisibilityRequestEntryList",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+    ) -> "capo_kinesis.types.update_dead_letter_queue_records_visibility_output.UpdateDeadLetterQueueRecordsVisibilityOutput":
+        """<p>Changes the visibility timeout of up to 10 dead-letter records that you have received from the specified queue but not yet acknowledged. The result for each entry is reported individually in the response.</p> <p>Because the request can result in a combination of successful and unsuccessful entries, check the <code>Failed</code> list even when the call returns an HTTP status code of <code>200</code>.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue whose dead-letter records are updated.</p>
+            entries: <p>The dead-letter records whose visibility timeout is changed, identified by their receipt handles, and the new visibility timeout for each.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.throttling_exception.ThrottlingException: <p>The request was denied because the request rate is too high. Reduce the frequency of your requests, and retry them with exponential backoff.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.update_dead_letter_queue_records_visibility_input.UpdateDeadLetterQueueRecordsVisibilityInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.update_dead_letter_queue_records_visibility_output.UpdateDeadLetterQueueRecordsVisibilityOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.update_dead_letter_queue_records_visibility
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.update_dead_letter_queue_records_visibility.update_dead_letter_queue_records_visibility(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeadLetterQueueRecordsVisibility")
+        )
+        input_: capo_kinesis.types.update_dead_letter_queue_records_visibility_input.UpdateDeadLetterQueueRecordsVisibilityInput = {
+            "queue_arn": queue_arn,
+            "entries": entries,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def update_max_record_size(
         self,
         max_record_size_in_ki_b: "capo_kinesis.types.max_record_size_in_ki_b.MaxRecordSizeInKiB",
@@ -2961,7 +3585,7 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2996,6 +3620,112 @@ class KinesisClient:
         response.response.close()
         return response.output
 
+    def update_queue(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        queue_attributes: "capo_kinesis.types.queue_attributes.QueueAttributes",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+    ) -> "capo_kinesis.types.update_queue_output.UpdateQueueOutput":
+        """<p>Updates the configuration attributes of the specified queue. You can change the queue's visibility timeout, its dead-letter handling configuration, or both.</p> <p>A new visibility timeout applies to records received after the update completes. Records that are already in flight keep the visibility timeout they were received with. To change the visibility timeout of a record that is already in flight, use <a>UpdateQueueRecordsVisibility</a>.</p> <p> <code>UpdateQueue</code> is an asynchronous operation. Upon receiving an <code>UpdateQueue</code> request, Amazon Kinesis Data Streams sets the <code>QueueStatus</code> to <code>UPDATING</code>, and sets it back to <code>ACTIVE</code> when the update is complete. You can continue to receive and acknowledge records while the queue is <code>UPDATING</code>.</p> <p>You can't change the data stream or the starting position of a queue after you create it. To read from a different stream or position, create a new queue.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue to update.</p>
+            queue_attributes: <p>The configuration attributes to apply to the queue. Attributes you do not specify are left unchanged.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
+            capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.update_queue_input.UpdateQueueInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.update_queue_output.UpdateQueueOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.update_queue
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.update_queue.update_queue(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueue")
+        )
+        input_: capo_kinesis.types.update_queue_input.UpdateQueueInput = {
+            "queue_arn": queue_arn,
+            "queue_attributes": queue_attributes,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_queue_records_visibility(
+        self,
+        queue_arn: "capo_kinesis.types.queue_arn.QueueARN",
+        entries: "capo_kinesis.types.update_queue_records_visibility_request_entry_list.UpdateQueueRecordsVisibilityRequestEntryList",
+        *,
+        config_overrides: Optional[KinesisClientConfig] = None,
+    ) -> "capo_kinesis.types.update_queue_records_visibility_output.UpdateQueueRecordsVisibilityOutput":
+        """<p>Changes the visibility timeout of up to 10 records that you have received from the specified queue but not yet acknowledged. The result for each entry is reported individually in the response.</p> <p>Extend the visibility timeout of a record when your queue consumer needs more time to finish processing it, so the record does not become visible and get redelivered while it is still being processed. Set the visibility timeout to <code>0</code> to make a record visible in the queue immediately, so that it can be received again without waiting for its current timeout to expire.</p> <p>Because the request can result in a combination of successful and unsuccessful entries, check the <code>Failed</code> list even when the call returns an HTTP status code of <code>200</code>.</p>
+
+        Args:
+            queue_arn: <p>The ARN of the queue the records were received from.</p>
+            entries: <p>The records whose visibility timeout is changed, identified by their receipt handles, and the new visibility timeout for each.</p>
+
+        Raises:
+            capo_kinesis.errors.access_denied_exception.AccessDeniedException: <p>Specifies that you do not have the permissions required to perform this operation.</p>
+            capo_kinesis.errors.internal_failure_exception.InternalFailureException: <p>The processing of the request failed because of an unknown error, exception, or failure.</p>
+            capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException: <p>A specified parameter exceeds its restrictions, is not supported, or can't be used. For more information, see the returned message.</p>
+            capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
+            capo_kinesis.errors.throttling_exception.ThrottlingException: <p>The request was denied because the request rate is too high. Reduce the frequency of your requests, and retry them with exponential backoff.</p>
+            capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis.types.update_queue_records_visibility_input.UpdateQueueRecordsVisibilityInput]",
+        ) -> OperationResponse[
+            "capo_kinesis.types.update_queue_records_visibility_output.UpdateQueueRecordsVisibilityOutput"
+        ]:
+            import capo_kinesis._operations.kinesis_20131202.update_queue_records_visibility
+
+            output, http_response = (
+                capo_kinesis._operations.kinesis_20131202.update_queue_records_visibility.update_queue_records_visibility(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueueRecordsVisibility")
+        )
+        input_: capo_kinesis.types.update_queue_records_visibility_input.UpdateQueueRecordsVisibilityInput = {
+            "queue_arn": queue_arn,
+            "entries": entries,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def update_shard_count(
         self,
         target_shard_count: "capo_kinesis.types.positive_integer_object.PositiveIntegerObject",
@@ -3021,7 +3751,7 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3072,7 +3802,7 @@ class KinesisClient:
             "capo_kinesis.types.natural_integer_object.NaturalIntegerObject"
         ] = None,
     ) -> None:
-        """<p> Updates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data stream. </p> <p>If you'd still like to proactively scale your on-demand data stream’s capacity, you can unlock the warm throughput feature for on-demand data streams by enabling <code>MinimumThroughputBillingCommitment</code> for your account. Once your account has <code>MinimumThroughputBillingCommitment</code> enabled, you can specify the warm throughput in MiB per second that your stream can support in writes.</p>
+        """<p> Updates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data stream. </p> <p>If you'd still like to proactively scale your on-demand data stream’s capacity, you can unlock the warm throughput feature for on-demand data streams by enabling <code>MinimumThroughputBillingCommitment</code> for your account. Once your account has <code>MinimumThroughputBillingCommitment</code> enabled, you can specify the warm throughput in MiB per second that your stream can support in writes.</p> <p>You can't switch a data stream from on-demand to provisioned capacity mode while the stream has one or more queues. Delete the queues with <a>DeleteQueue</a> before you change the capacity mode.</p>
 
         Args:
             stream_arn: <p> Specifies the ARN of the data stream whose capacity mode you want to update. </p>
@@ -3085,7 +3815,7 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3142,7 +3872,7 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -3199,7 +3929,7 @@ class KinesisClient:
             capo_kinesis.errors.limit_exceeded_exception.LimitExceededException: <p>The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests exceeds the maximum number allowed. </p>
             capo_kinesis.errors.resource_in_use_exception.ResourceInUseException: <p>The resource is not available for this operation. For successful operation, the resource must be in the <code>ACTIVE</code> state.</p>
             capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found. The stream might not be specified correctly.</p>
-            capo_kinesis.errors.validation_exception.ValidationException: <p>Specifies that you tried to invoke this API for a data stream with the on-demand capacity mode. This API is only supported for data streams with the provisioned capacity mode. </p>
+            capo_kinesis.errors.validation_exception.ValidationException: <p>The request failed validation. For example, a parameter value is not valid, a combination of parameters is not supported, or the operation is not supported for the stream's capacity mode. The error message describes the specific reason.</p>
             capo_kinesis.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

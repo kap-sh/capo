@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_sso_admin.types.instance_identity_store_arn
     import capo_sso_admin.types.instance_status
     import capo_sso_admin.types.name_type
+    import capo_sso_admin.types.network_configuration_info
     import capo_sso_admin.types.reason
     import capo_sso_admin.types.region_metadata_list
     import capo_sso_admin.types.region_name
@@ -45,6 +46,10 @@ class DescribeInstanceResponse(TypedDict, closed=True):
         "capo_sso_admin.types.encryption_configuration_details.EncryptionConfigurationDetails"
     ]
     """<p>Contains the encryption configuration for your IAM Identity Center instance, including the encryption status, KMS key type, and KMS key ARN.</p>"""
+    network_configuration_details: NotRequired[
+        "capo_sso_admin.types.network_configuration_info.NetworkConfigurationInfo"
+    ]
+    """<p>The network access controls configured for your Identity Center instance, including whether VPC endpoint access is required, and any VPC, IP address range, or application controls applied to instance traffic. Present only after a network configuration has been set on the instance.</p>"""
     permission_sets_enabled: NotRequired["bool"]
     """<p>Indicates whether permission sets are enabled for this Identity Center instance.</p>"""
 
@@ -94,6 +99,14 @@ def serialize_aws_json_1_1(value: DescribeInstanceResponse) -> dict:
                 value["encryption_configuration_details"]
             )
         )
+    if "network_configuration_details" in value:
+        import capo_sso_admin.types.network_configuration_info
+
+        out["NetworkConfigurationDetails"] = (
+            capo_sso_admin.types.network_configuration_info.serialize_aws_json_1_1(
+                value["network_configuration_details"]
+            )
+        )
     if "permission_sets_enabled" in value:
         out["PermissionSetsEnabled"] = value["permission_sets_enabled"]
     return out
@@ -141,6 +154,14 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeInstanceResponse:
         out["encryption_configuration_details"] = (
             capo_sso_admin.types.encryption_configuration_details.deserialize_aws_json_1_1(
                 data["EncryptionConfigurationDetails"]
+            )
+        )
+    if data.get("NetworkConfigurationDetails") is not None:
+        import capo_sso_admin.types.network_configuration_info
+
+        out["network_configuration_details"] = (
+            capo_sso_admin.types.network_configuration_info.deserialize_aws_json_1_1(
+                data["NetworkConfigurationDetails"]
             )
         )
     if data.get("PermissionSetsEnabled") is not None:

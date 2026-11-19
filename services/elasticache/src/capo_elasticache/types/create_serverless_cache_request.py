@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_elasticache.types.cache_usage_limits
     import capo_elasticache.types.connection_type
     import capo_elasticache.types.integer_optional
+    import capo_elasticache.types.integration_request_list
     import capo_elasticache.types.network_type
     import capo_elasticache.types.security_group_ids_list
     import capo_elasticache.types.snapshot_arns_list
@@ -59,6 +60,10 @@ class CreateServerlessCacheRequest(TypedDict, closed=True):
         "capo_elasticache.types.connection_type.ConnectionType"
     ]
     """<p>The connection type for the serverless cache. Must be either <code>vpc</code> | <code>public</code>. Use <code>vpc</code> to access the cache through a VPC endpoint, or <code>public</code> to access the cache over the internet. If not specified, defaults to <code>vpc</code>. This value cannot be changed after the serverless cache is created. Setting this to <code>public</code> requires Valkey 9 or above.</p>"""
+    integrations: NotRequired[
+        "capo_elasticache.types.integration_request_list.IntegrationRequestList"
+    ]
+    """<p>Which serverless cache integrations to enable. Valid values are:</p> <ul> <li> <p> <code>dynamodb</code> – DynamoDB integration.</p> </li> </ul> <p>DynamoDB integration requires the Valkey engine with a major engine version of 9 or above. If not specified, no integrations are enabled.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -136,6 +141,12 @@ def serialize_query(
 
         capo_elasticache.types.connection_type.serialize_query(
             value["connection_type"], pairs, f"{key_prefix}ConnectionType"
+        )
+    if "integrations" in value:
+        import capo_elasticache.types.integration_request_list
+
+        capo_elasticache.types.integration_request_list.serialize_query(
+            value["integrations"], pairs, f"{key_prefix}Integrations"
         )
 
 
@@ -218,6 +229,15 @@ def deserialize_query(el: Element) -> CreateServerlessCacheRequest:
         out["connection_type"] = (
             capo_elasticache.types.connection_type.deserialize_query(
                 child_connection_type
+            )
+        )
+    child_integrations = el.find("Integrations")
+    if child_integrations is not None:
+        import capo_elasticache.types.integration_request_list
+
+        out["integrations"] = (
+            capo_elasticache.types.integration_request_list.deserialize_query(
+                child_integrations
             )
         )
     return out

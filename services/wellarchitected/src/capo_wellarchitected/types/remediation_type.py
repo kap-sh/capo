@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The method by which a recommendation is remediated.</p>"""
 RemediationType: TypeAlias = Literal[
     "AUTO_REMEDIATION",
     "CONSOLE",

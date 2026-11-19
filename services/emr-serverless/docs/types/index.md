@@ -41,6 +41,7 @@
 - [EntryPointArgument](entry_point_argument.md)
 - [EntryPointArguments](entry_point_arguments.md)
 - [EntryPointPath](entry_point_path.md)
+- [FlexExecution](flex_execution.md)
 - [GetApplicationRequest](get_application_request.md)
 - [GetApplicationResponse](get_application_response.md)
 - [GetDashboardForJobRunRequest](get_dashboard_for_job_run_request.md)

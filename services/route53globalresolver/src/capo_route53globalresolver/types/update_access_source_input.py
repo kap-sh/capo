@@ -17,6 +17,8 @@ class UpdateAccessSourceInput(TypedDict, closed=True):
     """<p>The unique identifier of the access source to update.</p>"""
     cidr: NotRequired["capo_route53globalresolver.types.cidr.Cidr"]
     """<p>The CIDR block for the access source.</p>"""
+    dns_view_id: NotRequired["capo_route53globalresolver.types.resource_id.ResourceId"]
+    """<p>The ID of the DNS view to associate with this access source.</p>"""
     ip_address_type: NotRequired[
         "capo_route53globalresolver.types.ip_address_type.IpAddressType"
     ]
@@ -34,6 +36,8 @@ def serialize_json(value: UpdateAccessSourceInput) -> dict:
     out: dict = {}
     if "cidr" in value:
         out["cidr"] = value["cidr"]
+    if "dns_view_id" in value:
+        out["dnsViewId"] = value["dns_view_id"]
     if "ip_address_type" in value:
         import capo_route53globalresolver.types.ip_address_type
 
@@ -57,6 +61,8 @@ def deserialize_json(data: dict) -> UpdateAccessSourceInput:
     out: UpdateAccessSourceInput = {}  # type: ignore[typeddict-item]
     if data.get("cidr") is not None:
         out["cidr"] = data["cidr"]
+    if data.get("dnsViewId") is not None:
+        out["dns_view_id"] = data["dnsViewId"]
     if data.get("ipAddressType") is not None:
         import capo_route53globalresolver.types.ip_address_type
 

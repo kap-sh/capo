@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_mgn.types.cidr_mappings_list
+    import capo_mgn.types.definition_type
     import capo_mgn.types.network_migration_definition_description
     import capo_mgn.types.network_migration_definition_id
     import capo_mgn.types.network_migration_definition_name
@@ -52,6 +53,8 @@ class UpdateNetworkMigrationDefinitionRequest(TypedDict, closed=True):
     """<p>The updated list of CIDR mappings that map original source CIDR ranges to updated target CIDR ranges. CIDR mappings can be provided only when <code>vpcProvisioningStrategy</code> is set to <code>USE_EXISTING</code>.</p>"""
     scope_tags: NotRequired["capo_mgn.types.scope_tags_map.ScopeTagsMap"]
     """<p>The updated scope tags for the network migration definition.</p>"""
+    definition_type: NotRequired["capo_mgn.types.definition_type.DefinitionType"]
+    """<p>The updated type of the network migration definition.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -100,6 +103,8 @@ def serialize_json(value: UpdateNetworkMigrationDefinitionRequest) -> dict:
         out["scopeTags"] = capo_mgn.types.scope_tags_map.serialize_json(
             value["scope_tags"]
         )
+    if "definition_type" in value:
+        out["definitionType"] = value["definition_type"]
     return out
 
 
@@ -151,6 +156,8 @@ def deserialize_json(data: dict) -> UpdateNetworkMigrationDefinitionRequest:
         out["scope_tags"] = capo_mgn.types.scope_tags_map.deserialize_json(
             data["scopeTags"]
         )
+    if data.get("definitionType") is not None:
+        out["definition_type"] = data["definitionType"]
     return out
 
 

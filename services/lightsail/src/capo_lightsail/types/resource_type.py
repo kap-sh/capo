@@ -23,6 +23,7 @@ ResourceType: TypeAlias = Literal[
     "Distribution",
     "Certificate",
     "Bucket",
+    "Subdomain",
 ]
 
 

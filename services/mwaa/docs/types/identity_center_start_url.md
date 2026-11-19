@@ -1,0 +1,8 @@
+---
+title: IdentityCenterStartUrl
+---
+
+::: capo_mwaa.types.identity_center_start_url.IdentityCenterStartUrl
+    options:
+      show_source: true
+      merge_init_into_class: false

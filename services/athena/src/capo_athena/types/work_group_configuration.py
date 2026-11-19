@@ -44,7 +44,7 @@ class WorkGroupConfiguration(TypedDict, closed=True):
     requester_pays_enabled: NotRequired["capo_athena.types.boxed_boolean.BoxedBoolean"]
     """<p>If set to <code>true</code>, allows members assigned to a workgroup to reference Amazon S3 Requester Pays buckets in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays buckets, and queries that retrieve data from Requester Pays buckets cause an error. The default is <code>false</code>. For more information about Requester Pays buckets, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>"""
     engine_version: NotRequired["capo_athena.types.engine_version.EngineVersion"]
-    """<p>The engine version that all queries running on the workgroup use. Queries on the <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this setting.</p>"""
+    """<p>The engine version that all queries running on the workgroup use.</p>"""
     additional_configuration: NotRequired["capo_athena.types.name_string.NameString"]
     """<p>Specifies a user defined JSON string that is passed to the notebook engine.</p>"""
     execution_role: NotRequired["capo_athena.types.role_arn.RoleArn"]

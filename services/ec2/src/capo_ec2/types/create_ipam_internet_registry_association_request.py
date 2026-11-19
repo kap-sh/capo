@@ -20,7 +20,7 @@ class CreateIpamInternetRegistryAssociationRequest(TypedDict, closed=True):
     ipam_id: NotRequired["capo_ec2.types.ipam_id.IpamId"]
     """<p>The ID of the IPAM to associate with the internet registry.</p>"""
     rir: NotRequired["capo_ec2.types.rir.Rir"]
-    """<p>The Regional Internet Registry to associate with. Possible values:</p> <ul> <li> <p> <code>ripe</code> - RIPE NCC (Europe, the Middle East, and Central Asia).</p> </li> <li> <p> <code>apnic</code> - APNIC (Asia Pacific).</p> </li> <li> <p> <code>arin</code> - ARIN (North America).</p> </li> <li> <p> <code>lacnic</code> - LACNIC (Latin America and the Caribbean).</p> </li> </ul>"""
+    """<p>The internet registry to associate with. Possible values:</p> <ul> <li> <p> <code>ripe</code> - RIPE NCC (Europe, the Middle East, and Central Asia).</p> </li> <li> <p> <code>apnic</code> - APNIC (Asia Pacific).</p> </li> <li> <p> <code>arin</code> - ARIN (North America).</p> </li> <li> <p> <code>lacnic</code> - LACNIC (Latin America and the Caribbean).</p> </li> <li> <p> <code>nicbr</code> - NIC.br (Brazil).</p> </li> </ul>"""
     organization_handle: NotRequired["capo_ec2.types.string.String"]
     """<p>The organization handle at the internet registry (for example, a RIPE NCC organization ID or ARIN Org ID).</p>"""
     description: NotRequired["capo_ec2.types.string.String"]

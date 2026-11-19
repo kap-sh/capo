@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class DependencyInsight(TypedDict, closed=True):
     category: "capo_resiliencehubv2.types.insights_category.InsightsCategory"
-    """<p>The category of the insight. Valid values:</p> <ul> <li> <p>CROSS_REGION - The insight relates to dependencies used across multiple Regions.</p> </li> <li> <p>NEW_DEPENDENCY - The insight relates to a recently detected dependency.</p> </li> <li> <p>THIRD_PARTY - The insight relates to a third-party dependency.</p> </li> <li> <p>UNEVEN_USAGE - The insight relates to a dependency with uneven usage across the service.</p> </li> <li> <p>AWS_SERVICE - The insight relates to a dependency on an Amazon Web Services service.</p> </li> </ul>"""
+    """<p>The category of the insight. Valid values:</p> <ul> <li> <p>CROSS_REGION - The insight relates to dependencies used across multiple Regions.</p> </li> <li> <p>NEW_DEPENDENCY - The insight relates to a recently detected dependency.</p> </li> <li> <p>THIRD_PARTY - The insight relates to a third-party dependency.</p> </li> <li> <p>UNEVEN_USAGE - The insight relates to a dependency with uneven usage across the service.</p> </li> <li> <p>AWS_SERVICE - The insight relates to a dependency on an Amazon Web Services service. Resilience Hub doesn't currently return this value.</p> </li> </ul>"""
     description: "str"
     """<p>A human-readable explanation of the insight, describing the dependency behavior or condition that was detected.</p>"""
 

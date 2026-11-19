@@ -2,7 +2,10 @@
 
 from typing import Literal, TypeAlias, cast
 
-ConnectorCloudProvider: TypeAlias = Literal["AZURE",]
+ConnectorCloudProvider: TypeAlias = Literal[
+    "AZURE",
+    "GCP",
+]
 
 
 # --- restJson1 ser/de ---

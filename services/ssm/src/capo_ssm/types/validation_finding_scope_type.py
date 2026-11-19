@@ -5,6 +5,8 @@ from typing import Literal, TypeAlias, cast
 ValidationFindingScopeType: TypeAlias = Literal[
     "azure:tenant",
     "azure:subscription",
+    "gcp:organization",
+    "gcp:project",
 ]
 
 

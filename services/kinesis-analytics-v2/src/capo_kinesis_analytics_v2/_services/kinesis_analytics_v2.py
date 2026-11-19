@@ -67,6 +67,8 @@ if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.create_application_response
     import capo_kinesis_analytics_v2.types.create_application_snapshot_request
     import capo_kinesis_analytics_v2.types.create_application_snapshot_response
+    import capo_kinesis_analytics_v2.types.create_snapshot_request
+    import capo_kinesis_analytics_v2.types.create_snapshot_response
     import capo_kinesis_analytics_v2.types.delete_application_cloud_watch_logging_option_request
     import capo_kinesis_analytics_v2.types.delete_application_cloud_watch_logging_option_response
     import capo_kinesis_analytics_v2.types.delete_application_input_processing_configuration_request
@@ -81,6 +83,8 @@ if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.delete_application_snapshot_response
     import capo_kinesis_analytics_v2.types.delete_application_vpc_configuration_request
     import capo_kinesis_analytics_v2.types.delete_application_vpc_configuration_response
+    import capo_kinesis_analytics_v2.types.delete_snapshot_request
+    import capo_kinesis_analytics_v2.types.delete_snapshot_response
     import capo_kinesis_analytics_v2.types.describe_application_operation_request
     import capo_kinesis_analytics_v2.types.describe_application_operation_response
     import capo_kinesis_analytics_v2.types.describe_application_request
@@ -89,9 +93,19 @@ if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.describe_application_snapshot_response
     import capo_kinesis_analytics_v2.types.describe_application_version_request
     import capo_kinesis_analytics_v2.types.describe_application_version_response
+    import capo_kinesis_analytics_v2.types.describe_snapshot_operation_request
+    import capo_kinesis_analytics_v2.types.describe_snapshot_operation_response
+    import capo_kinesis_analytics_v2.types.describe_snapshot_request
+    import capo_kinesis_analytics_v2.types.describe_snapshot_response
     import capo_kinesis_analytics_v2.types.discover_input_schema_request
     import capo_kinesis_analytics_v2.types.discover_input_schema_response
+    import capo_kinesis_analytics_v2.types.export_destination_configuration
+    import capo_kinesis_analytics_v2.types.export_snapshot_request
+    import capo_kinesis_analytics_v2.types.export_snapshot_response
     import capo_kinesis_analytics_v2.types.id
+    import capo_kinesis_analytics_v2.types.import_snapshot_request
+    import capo_kinesis_analytics_v2.types.import_snapshot_response
+    import capo_kinesis_analytics_v2.types.import_source_configuration
     import capo_kinesis_analytics_v2.types.input
     import capo_kinesis_analytics_v2.types.input_processing_configuration
     import capo_kinesis_analytics_v2.types.input_starting_position_configuration
@@ -107,7 +121,13 @@ if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.list_applications_input_limit
     import capo_kinesis_analytics_v2.types.list_applications_request
     import capo_kinesis_analytics_v2.types.list_applications_response
+    import capo_kinesis_analytics_v2.types.list_snapshot_operations_limit
+    import capo_kinesis_analytics_v2.types.list_snapshot_operations_request
+    import capo_kinesis_analytics_v2.types.list_snapshot_operations_response
     import capo_kinesis_analytics_v2.types.list_snapshots_input_limit
+    import capo_kinesis_analytics_v2.types.list_snapshots_limit
+    import capo_kinesis_analytics_v2.types.list_snapshots_request
+    import capo_kinesis_analytics_v2.types.list_snapshots_response
     import capo_kinesis_analytics_v2.types.list_tags_for_resource_request
     import capo_kinesis_analytics_v2.types.list_tags_for_resource_response
     import capo_kinesis_analytics_v2.types.next_token
@@ -126,7 +146,19 @@ if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.s3_configuration
     import capo_kinesis_analytics_v2.types.session_expiration_duration_in_seconds
     import capo_kinesis_analytics_v2.types.snapshot_details
+    import capo_kinesis_analytics_v2.types.snapshot_encryption_configuration
+    import capo_kinesis_analytics_v2.types.snapshot_format
+    import capo_kinesis_analytics_v2.types.snapshot_info
+    import capo_kinesis_analytics_v2.types.snapshot_initiator
+    import capo_kinesis_analytics_v2.types.snapshot_initiator_operation
     import capo_kinesis_analytics_v2.types.snapshot_name
+    import capo_kinesis_analytics_v2.types.snapshot_operation
+    import capo_kinesis_analytics_v2.types.snapshot_operation_id
+    import capo_kinesis_analytics_v2.types.snapshot_operation_info
+    import capo_kinesis_analytics_v2.types.snapshot_operation_status
+    import capo_kinesis_analytics_v2.types.snapshot_status
+    import capo_kinesis_analytics_v2.types.snapshot_v2_description
+    import capo_kinesis_analytics_v2.types.snapshot_v2_name
     import capo_kinesis_analytics_v2.types.start_application_request
     import capo_kinesis_analytics_v2.types.start_application_response
     import capo_kinesis_analytics_v2.types.stop_application_request
@@ -285,12 +317,12 @@ class KinesisAnalyticsV2Client:
             conditional_token: <p>A value you use to implement strong concurrency for application updates. You must provide the <code>CurrentApplicationVersionId</code> or the <code>ConditionalToken</code>. You get the application's current <code>ConditionalToken</code> using <a>DescribeApplication</a>. For better concurrency support, use the <code>ConditionalToken</code> parameter instead of <code>CurrentApplicationVersionId</code>.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -345,11 +377,11 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.code_validation_exception.CodeValidationException: <p>The user-provided application code (query) is not valid. This can be a simple syntax error.</p>
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -402,11 +434,11 @@ class KinesisAnalyticsV2Client:
             input_processing_configuration: <p>The <a>InputProcessingConfiguration</a> to add to the application.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -459,11 +491,11 @@ class KinesisAnalyticsV2Client:
             output: <p>An array of objects, each describing one output configuration. In the output configuration, you specify the name of an in-application stream, a destination (that is, a Kinesis data stream, a Kinesis Data Firehose delivery stream, or an Amazon Lambda function), and record the formation to use when writing to the destination.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -514,11 +546,11 @@ class KinesisAnalyticsV2Client:
             reference_data_source: <p>The reference data source can be an object in your Amazon S3 bucket. Kinesis Data Analytics reads the object and copies the data into the in-application table that is created. You provide an S3 bucket, object key name, and the resulting in-application table that is created. </p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -575,11 +607,11 @@ class KinesisAnalyticsV2Client:
             conditional_token: <p>A value you use to implement strong concurrency for application updates. You must provide the <code>ApplicationVersionID</code> or the <code>ConditionalToken</code>. You get the application's current <code>ConditionalToken</code> using <a>DescribeApplication</a>. For better concurrency support, use the <code>ConditionalToken</code> parameter instead of <code>CurrentApplicationVersionId</code>.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -652,11 +684,11 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.code_validation_exception.CodeValidationException: <p>The user-provided application code (query) is not valid. This can be a simple syntax error.</p>
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
             capo_kinesis_analytics_v2.errors.limit_exceeded_exception.LimitExceededException: <p>The number of allowed resources has been exceeded.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
             capo_kinesis_analytics_v2.errors.too_many_tags_exception.TooManyTagsException: <p>Application created with too many tags, or too many tags added to an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -722,8 +754,8 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -779,8 +811,8 @@ class KinesisAnalyticsV2Client:
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
             capo_kinesis_analytics_v2.errors.limit_exceeded_exception.LimitExceededException: <p>The number of allowed resources has been exceeded.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -815,6 +847,69 @@ class KinesisAnalyticsV2Client:
         response.response.close()
         return response.output
 
+    def create_snapshot(
+        self,
+        application_name: "capo_kinesis_analytics_v2.types.application_name.ApplicationName",
+        snapshot_name: "capo_kinesis_analytics_v2.types.snapshot_v2_name.SnapshotV2Name",
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+        snapshot_description: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_v2_description.SnapshotV2Description"
+        ] = None,
+        tags: Optional["capo_kinesis_analytics_v2.types.tags.Tags"] = None,
+    ) -> "capo_kinesis_analytics_v2.types.create_snapshot_response.CreateSnapshotResponse":
+        """<p>Creates an enhanced snapshot of the state data of a running Managed Service for Apache Flink application. The application must be in the <code>RUNNING</code> status, use Apache Flink version 1.20 or later, and use the <code>ENHANCED_SNAPSHOTS</code> snapshot mode.</p> <p>This operation is asynchronous. The response returns the snapshot ARN with the <code>CREATING</code> status. To check the status of the snapshot, use <code>DescribeSnapshot</code>. To track the progress of the operation, use <code>DescribeSnapshotOperation</code>.</p> <p>An application can have only one <code>CreateSnapshot</code> operation in progress at a time. For information about limits, see <a href="https://docs.aws.amazon.com/managed-flink/latest/java/limits.html">Managed Service for Apache Flink Quotas</a>. For more information about snapshots, see <a href="https://docs.aws.amazon.com/managed-flink/latest/java/how-snapshots.html">Enhanced Snapshots</a>.</p>
+
+        Args:
+            snapshot_name: <p>The name of the enhanced snapshot. The name must be unique among the snapshots in your account and Region. You can't reuse the name of an existing snapshot, including a snapshot in the <code>FAILED</code> status, until you delete that snapshot. Names that begin with <code>SYSTEMSNAPSHOT</code> are reserved.</p>
+            snapshot_description: <p>A summary description of the snapshot.</p>
+            tags: <p>A list of one or more tags to assign to the snapshot. A tag is a key-value pair that identifies a snapshot. For more information, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.</p>
+
+        Raises:
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
+            capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
+            capo_kinesis_analytics_v2.errors.limit_exceeded_exception.LimitExceededException: <p>The number of allowed resources has been exceeded.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.too_many_tags_exception.TooManyTagsException: <p>Application created with too many tags, or too many tags added to an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
+            capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis_analytics_v2.types.create_snapshot_request.CreateSnapshotRequest]",
+        ) -> OperationResponse[
+            "capo_kinesis_analytics_v2.types.create_snapshot_response.CreateSnapshotResponse"
+        ]:
+            import capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.create_snapshot
+
+            output, http_response = (
+                capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.create_snapshot.create_snapshot(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
+        input_: capo_kinesis_analytics_v2.types.create_snapshot_request.CreateSnapshotRequest = {
+            "application_name": application_name,
+            "snapshot_name": snapshot_name,
+        }
+        if snapshot_description is not None:
+            input_["snapshot_description"] = snapshot_description
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_application(
         self,
         application_name: "capo_kinesis_analytics_v2.types.application_name.ApplicationName",
@@ -829,12 +924,12 @@ class KinesisAnalyticsV2Client:
             create_timestamp: <p>Use the <code>DescribeApplication</code> operation to get this value.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -890,12 +985,12 @@ class KinesisAnalyticsV2Client:
             conditional_token: <p>A value you use to implement strong concurrency for application updates. You must provide the <code>CurrentApplicationVersionId</code> or the <code>ConditionalToken</code>. You get the application's current <code>ConditionalToken</code> using <a>DescribeApplication</a>. For better concurrency support, use the <code>ConditionalToken</code> parameter instead of <code>CurrentApplicationVersionId</code>.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -950,11 +1045,11 @@ class KinesisAnalyticsV2Client:
             input_id: <p>The ID of the input configuration from which to delete the input processing configuration. You can get a list of the input IDs for an application by using the <a>DescribeApplication</a> operation.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1006,11 +1101,11 @@ class KinesisAnalyticsV2Client:
             output_id: <p>The ID of the configuration to delete. Each output configuration that is added to the application (either when the application is created or later) using the <a>AddApplicationOutput</a> operation has a unique ID. You need to provide the ID to uniquely identify the output configuration that you want to delete from the application configuration. You can use the <a>DescribeApplication</a> operation to get the specific <code>OutputId</code>. </p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1061,11 +1156,11 @@ class KinesisAnalyticsV2Client:
             reference_id: <p>The ID of the reference data source. When you add a reference data source to your application using the <a>AddApplicationReferenceDataSource</a>, Kinesis Data Analytics assigns an ID. You can use the <a>DescribeApplication</a> operation to get the reference ID. </p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1116,11 +1211,11 @@ class KinesisAnalyticsV2Client:
             snapshot_creation_timestamp: <p>The creation timestamp of the application snapshot to delete. You can retrieve this value using or .</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1178,11 +1273,11 @@ class KinesisAnalyticsV2Client:
             conditional_token: <p>A value you use to implement strong concurrency for application updates. You must provide the <code>CurrentApplicationVersionId</code> or the <code>ConditionalToken</code>. You get the application's current <code>ConditionalToken</code> using <a>DescribeApplication</a>. For better concurrency support, use the <code>ConditionalToken</code> parameter instead of <code>CurrentApplicationVersionId</code>.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1220,6 +1315,58 @@ class KinesisAnalyticsV2Client:
         response.response.close()
         return response.output
 
+    def delete_snapshot(
+        self,
+        snapshot_name: "capo_kinesis_analytics_v2.types.snapshot_v2_name.SnapshotV2Name",
+        snapshot_creation_timestamp: "capo_kinesis_analytics_v2.types.timestamp.Timestamp",
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+    ) -> "capo_kinesis_analytics_v2.types.delete_snapshot_response.DeleteSnapshotResponse":
+        """<p>Deletes an enhanced snapshot. Snapshots are not scoped to an application, so you can delete a snapshot independently of the application that it was created from.</p> <p>This operation is asynchronous. The response returns the snapshot ARN with the <code>DELETING</code> status. To track the progress of the operation, use <code>DescribeSnapshotOperation</code>.</p> <p>You can delete a snapshot in the <code>READY</code> or <code>FAILED</code> status. If a snapshot operation, such as an export, uses the snapshot, Managed Service for Apache Flink waits for that operation to finish before it deletes the snapshot. For a snapshot in any other status, <code>ResourceInUseException</code> is returned.</p>
+
+        Args:
+            snapshot_name: <p>The name of the enhanced snapshot to delete.</p>
+            snapshot_creation_timestamp: <p>The creation timestamp of the enhanced snapshot to delete. Use the <code>DescribeSnapshot</code> operation to get this value.</p>
+
+        Raises:
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
+            capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis_analytics_v2.types.delete_snapshot_request.DeleteSnapshotRequest]",
+        ) -> OperationResponse[
+            "capo_kinesis_analytics_v2.types.delete_snapshot_response.DeleteSnapshotResponse"
+        ]:
+            import capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.delete_snapshot
+
+            output, http_response = (
+                capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.delete_snapshot.delete_snapshot(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshot")
+        )
+        input_: capo_kinesis_analytics_v2.types.delete_snapshot_request.DeleteSnapshotRequest = {
+            "snapshot_name": snapshot_name,
+            "snapshot_creation_timestamp": snapshot_creation_timestamp,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def describe_application(
         self,
         application_name: "capo_kinesis_analytics_v2.types.application_name.ApplicationName",
@@ -1238,7 +1385,7 @@ class KinesisAnalyticsV2Client:
         Raises:
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1284,7 +1431,7 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1334,7 +1481,7 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1384,7 +1531,7 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1409,6 +1556,103 @@ class KinesisAnalyticsV2Client:
         input_: capo_kinesis_analytics_v2.types.describe_application_version_request.DescribeApplicationVersionRequest = {
             "application_name": application_name,
             "application_version_id": application_version_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_snapshot(
+        self,
+        snapshot_name: "capo_kinesis_analytics_v2.types.snapshot_v2_name.SnapshotV2Name",
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+    ) -> "capo_kinesis_analytics_v2.types.describe_snapshot_response.DescribeSnapshotResponse":
+        """<p>Returns information about an enhanced snapshot. To see a list of the snapshots in your account, use <code>ListSnapshots</code>.</p>
+
+        Args:
+            snapshot_name: <p>The name of the enhanced snapshot. You can retrieve this value using <code>ListSnapshots</code>.</p>
+
+        Raises:
+            capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
+            capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis_analytics_v2.types.describe_snapshot_request.DescribeSnapshotRequest]",
+        ) -> OperationResponse[
+            "capo_kinesis_analytics_v2.types.describe_snapshot_response.DescribeSnapshotResponse"
+        ]:
+            import capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.describe_snapshot
+
+            output, http_response = (
+                capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.describe_snapshot.describe_snapshot(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSnapshot")
+        )
+        input_: capo_kinesis_analytics_v2.types.describe_snapshot_request.DescribeSnapshotRequest = {
+            "snapshot_name": snapshot_name
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_snapshot_operation(
+        self,
+        snapshot_name: "capo_kinesis_analytics_v2.types.snapshot_v2_name.SnapshotV2Name",
+        snapshot_operation_id: "capo_kinesis_analytics_v2.types.snapshot_operation_id.SnapshotOperationId",
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+    ) -> "capo_kinesis_analytics_v2.types.describe_snapshot_operation_response.DescribeSnapshotOperationResponse":
+        """<p>Provides a detailed description of a specified operation that was performed on an enhanced snapshot. To see a list of the operations of a snapshot, use <code>ListSnapshotOperations</code>.</p> <p>Snapshot operations are available for 90 days after they are created.</p>
+
+        Args:
+            snapshot_name: <p>The name of the enhanced snapshot.</p>
+            snapshot_operation_id: <p>The ID of the snapshot operation. You can retrieve this value using <code>ListSnapshotOperations</code>.</p>
+
+        Raises:
+            capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
+            capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis_analytics_v2.types.describe_snapshot_operation_request.DescribeSnapshotOperationRequest]",
+        ) -> OperationResponse[
+            "capo_kinesis_analytics_v2.types.describe_snapshot_operation_response.DescribeSnapshotOperationResponse"
+        ]:
+            import capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.describe_snapshot_operation
+
+            output, http_response = (
+                capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.describe_snapshot_operation.describe_snapshot_operation(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSnapshotOperation")
+        )
+        input_: capo_kinesis_analytics_v2.types.describe_snapshot_operation_request.DescribeSnapshotOperationRequest = {
+            "snapshot_name": snapshot_name,
+            "snapshot_operation_id": snapshot_operation_id,
         }
 
         response = execute_pipeline(
@@ -1495,6 +1739,136 @@ class KinesisAnalyticsV2Client:
         response.response.close()
         return response.output
 
+    def export_snapshot(
+        self,
+        snapshot_name: "capo_kinesis_analytics_v2.types.snapshot_v2_name.SnapshotV2Name",
+        export_destination_configuration: "capo_kinesis_analytics_v2.types.export_destination_configuration.ExportDestinationConfiguration",
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+    ) -> "capo_kinesis_analytics_v2.types.export_snapshot_response.ExportSnapshotResponse":
+        """<p>Exports the data of an enhanced snapshot to an Amazon S3 location. Managed Service for Apache Flink assumes the IAM role that you specify in <code>ExportDestinationConfiguration</code> to write the snapshot data. The snapshot must be in the <code>READY</code> status.</p> <p>This operation is asynchronous. To track the progress of the export, use <code>DescribeSnapshotOperation</code>.</p> <p>A snapshot can have only one export in progress at a time. If an export of the snapshot is already in progress, <code>LimitExceededException</code> is returned.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/managed-flink/latest/java/snapshots-import-export.html">Import and export</a>.</p>
+
+        Args:
+            snapshot_name: <p>The name of the enhanced snapshot to export.</p>
+            export_destination_configuration: <p>Describes the location, IAM role, and encryption configuration of the export destination.</p>
+
+        Raises:
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
+            capo_kinesis_analytics_v2.errors.limit_exceeded_exception.LimitExceededException: <p>The number of allowed resources has been exceeded.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
+            capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis_analytics_v2.types.export_snapshot_request.ExportSnapshotRequest]",
+        ) -> OperationResponse[
+            "capo_kinesis_analytics_v2.types.export_snapshot_response.ExportSnapshotResponse"
+        ]:
+            import capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.export_snapshot
+
+            output, http_response = (
+                capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.export_snapshot.export_snapshot(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportSnapshot")
+        )
+        input_: capo_kinesis_analytics_v2.types.export_snapshot_request.ExportSnapshotRequest = {
+            "snapshot_name": snapshot_name,
+            "export_destination_configuration": export_destination_configuration,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def import_snapshot(
+        self,
+        snapshot_name: "capo_kinesis_analytics_v2.types.snapshot_v2_name.SnapshotV2Name",
+        import_source_configuration: "capo_kinesis_analytics_v2.types.import_source_configuration.ImportSourceConfiguration",
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+        destination_encryption_configuration: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_encryption_configuration.SnapshotEncryptionConfiguration"
+        ] = None,
+        snapshot_description: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_v2_description.SnapshotV2Description"
+        ] = None,
+        snapshot_format: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_format.SnapshotFormat"
+        ] = None,
+        tags: Optional["capo_kinesis_analytics_v2.types.tags.Tags"] = None,
+    ) -> "capo_kinesis_analytics_v2.types.import_snapshot_response.ImportSnapshotResponse":
+        """<p>Imports an Apache Flink savepoint from an Amazon S3 location as an enhanced snapshot. Managed Service for Apache Flink assumes the IAM role that you specify in <code>ImportSourceConfiguration</code> to read the savepoint data.</p> <p>This operation is asynchronous. The response returns the snapshot ARN with the <code>CREATING</code> status. To track the progress of the import, use <code>DescribeSnapshotOperation</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/managed-flink/latest/java/snapshots-import-export.html">Import and export</a>.</p>
+
+        Args:
+            snapshot_name: <p>The name of the enhanced snapshot. The name must be unique among the snapshots in your account and Region. You can't reuse the name of an existing snapshot, including a snapshot in the <code>FAILED</code> status, until you delete that snapshot. Names that begin with <code>SYSTEMSNAPSHOT</code> are reserved.</p>
+            import_source_configuration: <p>Describes the location, IAM role, and encryption configuration of the savepoint data to import.</p>
+            destination_encryption_configuration: <p>The encryption configuration of the imported snapshot. If you don't specify this parameter, the snapshot is encrypted using a key of type <code>AWS_OWNED_KEY</code>. If you specify a KMS key, you must specify the key ARN.</p>
+            snapshot_description: <p>A summary description of the snapshot.</p>
+            snapshot_format: <p>The format of the snapshot being imported.</p>
+            tags: <p>A list of one or more tags to assign to the snapshot. A tag is a key-value pair that identifies a snapshot. For more information, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.</p>
+
+        Raises:
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
+            capo_kinesis_analytics_v2.errors.limit_exceeded_exception.LimitExceededException: <p>The number of allowed resources has been exceeded.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.too_many_tags_exception.TooManyTagsException: <p>Application created with too many tags, or too many tags added to an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
+            capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis_analytics_v2.types.import_snapshot_request.ImportSnapshotRequest]",
+        ) -> OperationResponse[
+            "capo_kinesis_analytics_v2.types.import_snapshot_response.ImportSnapshotResponse"
+        ]:
+            import capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.import_snapshot
+
+            output, http_response = (
+                capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.import_snapshot.import_snapshot(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportSnapshot")
+        )
+        input_: capo_kinesis_analytics_v2.types.import_snapshot_request.ImportSnapshotRequest = {
+            "snapshot_name": snapshot_name,
+            "import_source_configuration": import_source_configuration,
+        }
+        if destination_encryption_configuration is not None:
+            input_["destination_encryption_configuration"] = (
+                destination_encryption_configuration
+            )
+        if snapshot_description is not None:
+            input_["snapshot_description"] = snapshot_description
+        if snapshot_format is not None:
+            input_["snapshot_format"] = snapshot_format
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def list_application_operations(
         self,
         application_name: "capo_kinesis_analytics_v2.types.application_name.ApplicationName",
@@ -1517,7 +1891,7 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1778,7 +2152,7 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1843,6 +2217,230 @@ class KinesisAnalyticsV2Client:
             if not _token:
                 break
 
+    def list_snapshot_operations(
+        self,
+        snapshot_name: "capo_kinesis_analytics_v2.types.snapshot_v2_name.SnapshotV2Name",
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+        snapshot_operation: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_operation.SnapshotOperation"
+        ] = None,
+        snapshot_operation_status: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_operation_status.SnapshotOperationStatus"
+        ] = None,
+        limit: Optional[
+            "capo_kinesis_analytics_v2.types.list_snapshot_operations_limit.ListSnapshotOperationsLimit"
+        ] = None,
+        next_token: Optional[
+            "capo_kinesis_analytics_v2.types.next_token.NextToken"
+        ] = None,
+    ) -> "capo_kinesis_analytics_v2.types.list_snapshot_operations_response.ListSnapshotOperationsResponse":
+        """<p>Lists the operations that were performed on the specified enhanced snapshot, such as <code>CreateSnapshot</code>, <code>ImportSnapshot</code>, and <code>ExportSnapshot</code>. The response includes a summary of each operation.</p> <p>You can specify only one of the <code>SnapshotOperation</code> or <code>SnapshotOperationStatus</code> filters in a request. If you specify both, <code>InvalidArgumentException</code> is returned.</p> <p>To get the complete description of a specific operation, use <code>DescribeSnapshotOperation</code>. Snapshot operations are available for 90 days after they are created.</p>
+
+        Args:
+            snapshot_name: <p>The name of the enhanced snapshot.</p>
+            snapshot_operation: <p>Use this parameter to list only the operations of the specified type.</p>
+            snapshot_operation_status: <p>Use this parameter to list only the operations with the specified status.</p>
+            limit: <p>The maximum number of snapshot operations to list.</p>
+
+        Raises:
+            capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
+            capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis_analytics_v2.types.list_snapshot_operations_request.ListSnapshotOperationsRequest]",
+        ) -> OperationResponse[
+            "capo_kinesis_analytics_v2.types.list_snapshot_operations_response.ListSnapshotOperationsResponse"
+        ]:
+            import capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.list_snapshot_operations
+
+            output, http_response = (
+                capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.list_snapshot_operations.list_snapshot_operations(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSnapshotOperations")
+        )
+        input_: capo_kinesis_analytics_v2.types.list_snapshot_operations_request.ListSnapshotOperationsRequest = {
+            "snapshot_name": snapshot_name
+        }
+        if snapshot_operation is not None:
+            input_["snapshot_operation"] = snapshot_operation
+        if snapshot_operation_status is not None:
+            input_["snapshot_operation_status"] = snapshot_operation_status
+        if limit is not None:
+            input_["limit"] = limit
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_snapshot_operations(
+        self,
+        snapshot_name: "capo_kinesis_analytics_v2.types.snapshot_v2_name.SnapshotV2Name",
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+        snapshot_operation: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_operation.SnapshotOperation"
+        ] = None,
+        snapshot_operation_status: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_operation_status.SnapshotOperationStatus"
+        ] = None,
+        limit: Optional[
+            "capo_kinesis_analytics_v2.types.list_snapshot_operations_limit.ListSnapshotOperationsLimit"
+        ] = None,
+        next_token: Optional[
+            "capo_kinesis_analytics_v2.types.next_token.NextToken"
+        ] = None,
+    ) -> "Iterator[capo_kinesis_analytics_v2.types.snapshot_operation_info.SnapshotOperationInfo]":
+        _token = next_token
+        while True:
+            _response = self.list_snapshot_operations(
+                snapshot_name,
+                config_overrides=config_overrides,
+                snapshot_operation=snapshot_operation,
+                snapshot_operation_status=snapshot_operation_status,
+                limit=limit,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("snapshot_operation_info_list",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_snapshots(
+        self,
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+        source_application_name: Optional[
+            "capo_kinesis_analytics_v2.types.application_name.ApplicationName"
+        ] = None,
+        snapshot_initiator: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_initiator.SnapshotInitiator"
+        ] = None,
+        snapshot_initiator_operation: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_initiator_operation.SnapshotInitiatorOperation"
+        ] = None,
+        snapshot_status: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_status.SnapshotStatus"
+        ] = None,
+        limit: Optional[
+            "capo_kinesis_analytics_v2.types.list_snapshots_limit.ListSnapshotsLimit"
+        ] = None,
+        next_token: Optional[
+            "capo_kinesis_analytics_v2.types.next_token.NextToken"
+        ] = None,
+    ) -> (
+        "capo_kinesis_analytics_v2.types.list_snapshots_response.ListSnapshotsResponse"
+    ):
+        """<p>Lists the enhanced snapshots in your account. Snapshots are not scoped to an application. To list the snapshots that were created from a specific application, use the <code>SourceApplicationName</code> parameter.</p> <p>You can specify only one of the following filters in a request: <code>SourceApplicationName</code>, <code>SnapshotInitiator</code>, <code>SnapshotInitiatorOperation</code>, or <code>SnapshotStatus</code>. If you specify more than one filter, <code>InvalidArgumentException</code> is returned.</p> <p>The results are sorted in descending order of snapshot creation timestamp. To get detailed information about a specific snapshot, use <code>DescribeSnapshot</code>.</p>
+
+        Args:
+            snapshot_initiator: <p>Use this parameter to list only the snapshots with the specified initiator.</p>
+            snapshot_initiator_operation: <p>Use this parameter to list only the snapshots that were created by the specified operation.</p>
+            snapshot_status: <p>Use this parameter to list only the snapshots with the specified status.</p>
+            limit: <p>The maximum number of snapshots to list.</p>
+
+        Raises:
+            capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
+            capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_kinesis_analytics_v2.types.list_snapshots_request.ListSnapshotsRequest]",
+        ) -> OperationResponse[
+            "capo_kinesis_analytics_v2.types.list_snapshots_response.ListSnapshotsResponse"
+        ]:
+            import capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.list_snapshots
+
+            output, http_response = (
+                capo_kinesis_analytics_v2._operations.kinesis_analytics_20180523.list_snapshots.list_snapshots(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSnapshots")
+        )
+        input_: capo_kinesis_analytics_v2.types.list_snapshots_request.ListSnapshotsRequest = {}
+        if source_application_name is not None:
+            input_["source_application_name"] = source_application_name
+        if snapshot_initiator is not None:
+            input_["snapshot_initiator"] = snapshot_initiator
+        if snapshot_initiator_operation is not None:
+            input_["snapshot_initiator_operation"] = snapshot_initiator_operation
+        if snapshot_status is not None:
+            input_["snapshot_status"] = snapshot_status
+        if limit is not None:
+            input_["limit"] = limit
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_snapshots(
+        self,
+        *,
+        config_overrides: Optional[KinesisAnalyticsV2ClientConfig] = None,
+        source_application_name: Optional[
+            "capo_kinesis_analytics_v2.types.application_name.ApplicationName"
+        ] = None,
+        snapshot_initiator: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_initiator.SnapshotInitiator"
+        ] = None,
+        snapshot_initiator_operation: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_initiator_operation.SnapshotInitiatorOperation"
+        ] = None,
+        snapshot_status: Optional[
+            "capo_kinesis_analytics_v2.types.snapshot_status.SnapshotStatus"
+        ] = None,
+        limit: Optional[
+            "capo_kinesis_analytics_v2.types.list_snapshots_limit.ListSnapshotsLimit"
+        ] = None,
+        next_token: Optional[
+            "capo_kinesis_analytics_v2.types.next_token.NextToken"
+        ] = None,
+    ) -> "Iterator[capo_kinesis_analytics_v2.types.snapshot_info.SnapshotInfo]":
+        _token = next_token
+        while True:
+            _response = self.list_snapshots(
+                config_overrides=config_overrides,
+                source_application_name=source_application_name,
+                snapshot_initiator=snapshot_initiator,
+                snapshot_initiator_operation=snapshot_initiator_operation,
+                snapshot_status=snapshot_status,
+                limit=limit,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("snapshot_info_list",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def list_tags_for_resource(
         self,
         resource_arn: "capo_kinesis_analytics_v2.types.kinesis_analytics_arn.KinesisAnalyticsARN",
@@ -1855,9 +2453,9 @@ class KinesisAnalyticsV2Client:
             resource_arn: <p>The ARN of the application for which to retrieve tags.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -1904,11 +2502,11 @@ class KinesisAnalyticsV2Client:
             current_application_version_id: <p>The current application version ID. You can retrieve the application version ID using <a>DescribeApplication</a>.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -1962,8 +2560,9 @@ class KinesisAnalyticsV2Client:
             capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2014,12 +2613,12 @@ class KinesisAnalyticsV2Client:
             force: <p>Set to <code>true</code> to force the application to stop. If you set <code>Force</code> to <code>true</code>, Managed Service for Apache Flink stops the application without taking a snapshot. </p> <note> <p>Force-stopping your application may lead to data loss or duplication. To prevent data loss or duplicate processing of data during application restarts, we recommend you to take frequent snapshots of your application.</p> </note> <p>You can only force stop a Managed Service for Apache Flink application. You can't force stop a SQL-based Kinesis Data Analytics application.</p> <p>The application must be in the <code>STARTING</code>, <code>UPDATING</code>, <code>STOPPING</code>, <code>AUTOSCALING</code>, or <code>RUNNING</code> status. </p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2068,10 +2667,10 @@ class KinesisAnalyticsV2Client:
             tags: <p>The key-value tags to assign to the application.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.too_many_tags_exception.TooManyTagsException: <p>Application created with too many tags, or too many tags added to an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -2122,10 +2721,10 @@ class KinesisAnalyticsV2Client:
             tag_keys: <p>A list of keys of tags to remove from the specified application.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.too_many_tags_exception.TooManyTagsException: <p>Application created with too many tags, or too many tags added to an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50.</p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -2201,13 +2800,14 @@ class KinesisAnalyticsV2Client:
 
         Raises:
             capo_kinesis_analytics_v2.errors.code_validation_exception.CodeValidationException: <p>The user-provided application code (query) is not valid. This can be a simple syntax error.</p>
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_application_configuration_exception.InvalidApplicationConfigurationException: <p>The user-provided application configuration is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
             capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException: <p>The request JSON is not valid for the operation.</p>
             capo_kinesis_analytics_v2.errors.limit_exceeded_exception.LimitExceededException: <p>The number of allowed resources has been exceeded.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
+            capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -2272,10 +2872,10 @@ class KinesisAnalyticsV2Client:
             application_maintenance_configuration_update: <p>Describes the application maintenance configuration update.</p>
 
         Raises:
-            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application. This error can be the result of attempting to modify an application without using the current application ID.</p>
+            capo_kinesis_analytics_v2.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Exception thrown as a result of concurrent modifications to an application or snapshot. This error can be the result of attempting to modify an application without using the current application ID.</p>
             capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException: <p>The specified input parameter value is not valid.</p>
-            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application is not available for this operation.</p>
-            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Specified application can't be found.</p>
+            capo_kinesis_analytics_v2.errors.resource_in_use_exception.ResourceInUseException: <p>The application or snapshot is not available for this operation.</p>
+            capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified application, snapshot, or snapshot operation can't be found.</p>
             capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation. </p>
             capo_kinesis_analytics_v2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """

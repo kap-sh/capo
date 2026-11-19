@@ -84,6 +84,9 @@ from .invalid_key_signing_key_status import (
 )
 from .invalid_kms_arn import InvalidKMSArn as InvalidKMSArn
 from .invalid_pagination_token import InvalidPaginationToken as InvalidPaginationToken
+from .invalid_resource_record_set_protection_batch import (
+    InvalidResourceRecordSetProtectionBatch as InvalidResourceRecordSetProtectionBatch,
+)
 from .invalid_signing_status import InvalidSigningStatus as InvalidSigningStatus
 from .invalid_traffic_policy_document import (
     InvalidTrafficPolicyDocument as InvalidTrafficPolicyDocument,
@@ -126,6 +129,9 @@ from .no_such_traffic_policy_instance import (
 from .not_authorized_exception import NotAuthorizedException as NotAuthorizedException
 from .prior_request_not_complete import (
     PriorRequestNotComplete as PriorRequestNotComplete,
+)
+from .protection_already_exists import (
+    ProtectionAlreadyExists as ProtectionAlreadyExists,
 )
 from .public_zone_vpc_association import (
     PublicZoneVPCAssociation as PublicZoneVPCAssociation,

@@ -13,6 +13,7 @@ ScanStatus: TypeAlias = Literal[
     "FINDINGS_UNAVAILABLE",
     "LIMIT_EXCEEDED",
     "IMAGE_ARCHIVED",
+    "IMAGE_SIZE_EXCEEDED",
 ]
 
 

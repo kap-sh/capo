@@ -1,0 +1,8 @@
+---
+title: ExtensionHealthIssues
+---
+
+::: capo_sagemaker.types.extension_health_issues.ExtensionHealthIssues
+    options:
+      show_source: true
+      merge_init_into_class: false

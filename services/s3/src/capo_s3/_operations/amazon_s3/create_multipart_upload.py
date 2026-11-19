@@ -100,6 +100,8 @@ def handle_response(
         out["checksum_type"] = capo_s3.types.checksum_type.from_xml_text(
             response.headers["x-amz-checksum-type"]
         )
+    if "x-amz-version-id" in response.headers:
+        out["version_id"] = response.headers["x-amz-version-id"]
     return out
 
 
@@ -154,6 +156,8 @@ async def async_handle_response(
         out["checksum_type"] = capo_s3.types.checksum_type.from_xml_text(
             response.headers["x-amz-checksum-type"]
         )
+    if "x-amz-version-id" in response.headers:
+        out["version_id"] = response.headers["x-amz-version-id"]
     return out
 
 

@@ -134,6 +134,12 @@ from .resource_not_found_exception import (
 from .resource_not_ready_exception import (
     ResourceNotReadyException as ResourceNotReadyException,
 )
+from .runtime_alias_deleted_exception import (
+    RuntimeAliasDeletedException as RuntimeAliasDeletedException,
+)
+from .runtime_version_deleted_exception import (
+    RuntimeVersionDeletedException as RuntimeVersionDeletedException,
+)
 from .s3_files_mount_connectivity_exception import (
     S3FilesMountConnectivityException as S3FilesMountConnectivityException,
 )

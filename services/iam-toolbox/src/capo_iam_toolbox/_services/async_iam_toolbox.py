@@ -34,9 +34,13 @@ from capo_iam_toolbox._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_iam_toolbox.types.authorization_id
     import capo_iam_toolbox.types.evaluation
     import capo_iam_toolbox.types.get_request_authorization_details_input
     import capo_iam_toolbox.types.get_request_authorization_details_output
+    import capo_iam_toolbox.types.get_request_authorization_policy_input
+    import capo_iam_toolbox.types.get_request_authorization_policy_output
+    import capo_iam_toolbox.types.policy_uri
 
 
 class AsyncIAMToolboxClientConfig(TypedDict, total=False, closed=True):
@@ -158,12 +162,12 @@ class AsyncIAMToolboxClient:
 
     async def get_request_authorization_details(
         self,
-        authorization_id: str,
+        authorization_id: "capo_iam_toolbox.types.authorization_id.AuthorizationId",
         *,
         config_overrides: Optional[AsyncIAMToolboxClientConfig] = None,
         next_token: Optional[str] = None,
     ) -> "capo_iam_toolbox.types.get_request_authorization_details_output.GetRequestAuthorizationDetailsOutput":
-        """<p>Retrieves the authorization details for a specific access denied request. The details include the request context, the evaluations performed, and the policies that were evaluated.</p> <p>Use this operation to understand why a request was denied. Supported services include an authorization ID in the access denied error message. Pass that ID to this operation to retrieve the details.</p> <p>Authorization details are available for at least 24 hours after the denial.</p> <p>To use this operation, you must have the <code>iam:GetRequestAuthorizationDetails</code> permission.</p>
+        """<p>Retrieves the authorization details for a specific access denied request. The details include the request context, the evaluations performed, and the policies that were evaluated.</p> <p>Use this operation to understand why a request was denied. Supported services include an authorization ID in the access denied error message. Pass that ID to this operation to retrieve the details.</p> <p>To retrieve the content for a policy in the <code>policies</code> list, call <code>GetRequestAuthorizationPolicy</code>.</p> <p>Authorization details are available for at least 24 hours after the denial.</p> <p>To use this operation, you must have the <code>iam:GetRequestAuthorizationDetails</code> permission.</p>
 
         Args:
             authorization_id: <p>The authorization ID received in the access denied error message. This ID identifies the specific request to retrieve details for.</p>
@@ -172,7 +176,7 @@ class AsyncIAMToolboxClient:
         Raises:
             capo_iam_toolbox.errors.access_denied_exception.AccessDeniedException: <p>The caller does not have sufficient access to perform this action.</p>
             capo_iam_toolbox.errors.internal_server_exception.InternalServerException: <p>An unexpected error occurred while processing the request. Try again.</p>
-            capo_iam_toolbox.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested authorization details do not exist in this region or have expired. Verify that the authorization ID from the access denied error message is correct and the call is made in the region where the denial occurred. Ensure that the calling principal belongs to the same account or organization as the original denied request.</p>
+            capo_iam_toolbox.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested policy or authorization details do not exist in this region or have expired. Verify that the authorization ID from the access denied error message is correct and the call is made in the region where the denial occurred. Ensure that the calling principal belongs to the same account or organization as the original denied request. If you specified a policy URI, verify that it is from the <code>policies</code> list that <code>GetRequestAuthorizationDetails</code> returns for the same authorization ID.</p>
             capo_iam_toolbox.errors.validation_exception.ValidationException: <p>The request is malformed or is missing one or more required parameters. Check the request parameters and try again.</p>
             capo_iam_toolbox.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -211,7 +215,7 @@ class AsyncIAMToolboxClient:
 
     async def iter_get_request_authorization_details(
         self,
-        authorization_id: str,
+        authorization_id: "capo_iam_toolbox.types.authorization_id.AuthorizationId",
         *,
         config_overrides: Optional[AsyncIAMToolboxClientConfig] = None,
         next_token: Optional[str] = None,
@@ -229,6 +233,63 @@ class AsyncIAMToolboxClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    async def get_request_authorization_policy(
+        self,
+        authorization_id: "capo_iam_toolbox.types.authorization_id.AuthorizationId",
+        policy_uri: "capo_iam_toolbox.types.policy_uri.PolicyUri",
+        *,
+        config_overrides: Optional[AsyncIAMToolboxClientConfig] = None,
+    ) -> "capo_iam_toolbox.types.get_request_authorization_policy_output.GetRequestAuthorizationPolicyOutput":
+        """<p>Retrieves a policy that was evaluated for a specific access denied request. The operation returns the structured JSON document of the policy that was captured with the original authorization request. It doesn't retrieve the current version of the policy.</p> <p>For some AWS services and policy types, the returned policy document includes all actions relevant to the service that processed the denied request, but might omit actions for other services.</p> <p>Specify the authorization ID from the access denied error message and the policy URI returned by <code>GetRequestAuthorizationDetails</code> for the same authorization ID.</p> <p>Access depends on the account and organization recorded for the principal that made the denied request. If an organization was recorded, the calling principal must belong to that organization. Otherwise, the calling principal must belong to the recorded account.</p> <p>To use this operation, you must have the <code>iam:GetRequestAuthorizationPolicy</code> permission.</p>
+
+        Args:
+            authorization_id: <p>The authorization ID received in the access denied error message. This ID identifies the request whose evaluated policy you want to retrieve.</p>
+            policy_uri: <p>The URI of the policy to retrieve. Use the <code>uri</code> value from the <code>policies</code> list returned by <code>GetRequestAuthorizationDetails</code> for the same authorization ID.</p>
+
+        Raises:
+            capo_iam_toolbox.errors.access_denied_exception.AccessDeniedException: <p>The caller does not have sufficient access to perform this action.</p>
+            capo_iam_toolbox.errors.internal_server_exception.InternalServerException: <p>An unexpected error occurred while processing the request. Try again.</p>
+            capo_iam_toolbox.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested policy or authorization details do not exist in this region or have expired. Verify that the authorization ID from the access denied error message is correct and the call is made in the region where the denial occurred. Ensure that the calling principal belongs to the same account or organization as the original denied request. If you specified a policy URI, verify that it is from the <code>policies</code> list that <code>GetRequestAuthorizationDetails</code> returns for the same authorization ID.</p>
+            capo_iam_toolbox.errors.validation_exception.ValidationException: <p>The request is malformed or is missing one or more required parameters. Check the request parameters and try again.</p>
+            capo_iam_toolbox.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Retrieve the policy for an explicitly denied request
+
+            >>> await client.get_request_authorization_policy(authorization_id='1a2b3c4d5e6f7g8h9i0j1k2l3', policy_uri='arn:aws:iam::aws:policy/AWSDenyAll')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_iam_toolbox.types.get_request_authorization_policy_input.GetRequestAuthorizationPolicyInput]",
+        ) -> AsyncOperationResponse[
+            "capo_iam_toolbox.types.get_request_authorization_policy_output.GetRequestAuthorizationPolicyOutput"
+        ]:
+            import capo_iam_toolbox._operations.auth_request_service.get_request_authorization_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_iam_toolbox._operations.auth_request_service.get_request_authorization_policy.async_get_request_authorization_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRequestAuthorizationPolicy")
+        )
+        input_: capo_iam_toolbox.types.get_request_authorization_policy_input.GetRequestAuthorizationPolicyInput = {
+            "authorization_id": authorization_id,
+            "policy_uri": policy_uri,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
 
     async def __aenter__(self) -> Self:
         return self

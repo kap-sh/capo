@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_s3.types.checksum_type
     import capo_s3.types.multipart_upload_id
     import capo_s3.types.object_key
+    import capo_s3.types.object_version_id
     import capo_s3.types.request_charged
     import capo_s3.types.server_side_encryption
     import capo_s3.types.sse_customer_algorithm
@@ -61,6 +62,8 @@ class CreateMultipartUploadOutput(TypedDict, closed=True):
     """<p>The algorithm that was used to create a checksum of the object.</p>"""
     checksum_type: NotRequired["capo_s3.types.checksum_type.ChecksumType"]
     """<p> Indicates the checksum type that you want Amazon S3 to use to calculate the object’s checksum value. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html">Checking object integrity in the Amazon S3 User Guide</a>.</p>"""
+    version_id: NotRequired["capo_s3.types.object_version_id.ObjectVersionId"]
+    """<p>Version ID of the object.</p> <p>Returns the Version ID of the object for the initiated multipart upload, if bucket versioning is enabled.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
 
 
 # --- restXml ser/de ---

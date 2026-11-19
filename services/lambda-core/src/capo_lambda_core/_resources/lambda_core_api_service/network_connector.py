@@ -16,6 +16,7 @@ from capo_lambda_core._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_lambda_core.types.aws_gir_api_string
     import capo_lambda_core.types.client_token_string
     import capo_lambda_core.types.create_network_connector_request
     import capo_lambda_core.types.create_network_connector_response
@@ -36,7 +37,6 @@ if TYPE_CHECKING:
     import capo_lambda_core.types.network_connector_summary
     import capo_lambda_core.types.network_connector_tags
     import capo_lambda_core.types.network_connector_version_summary
-    import capo_lambda_core.types.string
     import capo_lambda_core.types.update_network_connector_request
     import capo_lambda_core.types.update_network_connector_response
     from capo_lambda_core._services.async_lambda_core import (
@@ -81,7 +81,7 @@ class NetworkConnector:
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
             capo_lambda_core.errors.network_connector_limit_exceeded_exception.NetworkConnectorLimitExceededException: <p>The request would exceed a network connector limit. For <code>CreateNetworkConnector</code>, the account has reached the maximum number of network connectors allowed. For <code>UpdateNetworkConnector</code>, the connector has reached the maximum number of versions allowed.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -137,7 +137,7 @@ class NetworkConnector:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -198,8 +198,8 @@ class NetworkConnector:
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
             capo_lambda_core.errors.network_connector_limit_exceeded_exception.NetworkConnectorLimitExceededException: <p>The request would exceed a network connector limit. For <code>CreateNetworkConnector</code>, the account has reached the maximum number of network connectors allowed. For <code>UpdateNetworkConnector</code>, the connector has reached the maximum number of versions allowed.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -254,8 +254,8 @@ class NetworkConnector:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -297,7 +297,9 @@ class NetworkConnector:
         state: Optional[
             "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
         ] = None,
-        marker: Optional["capo_lambda_core.types.string.String"] = None,
+        marker: Optional[
+            "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+        ] = None,
         max_items: Optional[
             "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"
         ] = None,
@@ -357,7 +359,9 @@ class NetworkConnector:
         state: Optional[
             "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
         ] = None,
-        marker: Optional["capo_lambda_core.types.string.String"] = None,
+        marker: Optional[
+            "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+        ] = None,
         max_items: Optional[
             "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"
         ] = None,
@@ -372,7 +376,7 @@ class NetworkConnector:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -446,7 +450,7 @@ class AsyncNetworkConnector:
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
             capo_lambda_core.errors.network_connector_limit_exceeded_exception.NetworkConnectorLimitExceededException: <p>The request would exceed a network connector limit. For <code>CreateNetworkConnector</code>, the account has reached the maximum number of network connectors allowed. For <code>UpdateNetworkConnector</code>, the connector has reached the maximum number of versions allowed.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -503,7 +507,7 @@ class AsyncNetworkConnector:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -565,8 +569,8 @@ class AsyncNetworkConnector:
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
             capo_lambda_core.errors.network_connector_limit_exceeded_exception.NetworkConnectorLimitExceededException: <p>The request would exceed a network connector limit. For <code>CreateNetworkConnector</code>, the account has reached the maximum number of network connectors allowed. For <code>UpdateNetworkConnector</code>, the connector has reached the maximum number of versions allowed.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -622,8 +626,8 @@ class AsyncNetworkConnector:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -666,7 +670,9 @@ class AsyncNetworkConnector:
         state: Optional[
             "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
         ] = None,
-        marker: Optional["capo_lambda_core.types.string.String"] = None,
+        marker: Optional[
+            "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+        ] = None,
         max_items: Optional[
             "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"
         ] = None,
@@ -727,7 +733,9 @@ class AsyncNetworkConnector:
         state: Optional[
             "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
         ] = None,
-        marker: Optional["capo_lambda_core.types.string.String"] = None,
+        marker: Optional[
+            "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+        ] = None,
         max_items: Optional[
             "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"
         ] = None,
@@ -742,7 +750,7 @@ class AsyncNetworkConnector:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.

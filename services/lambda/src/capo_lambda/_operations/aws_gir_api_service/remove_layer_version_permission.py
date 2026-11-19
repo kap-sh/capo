@@ -14,6 +14,7 @@ import capo_lambda._auth._sigv4
 import capo_lambda._protocol.eventstream
 import capo_lambda.errors.invalid_parameter_value_exception
 import capo_lambda.errors.precondition_failed_exception
+import capo_lambda.errors.resource_conflict_exception
 import capo_lambda.errors.resource_not_found_exception
 import capo_lambda.errors.service_exception
 import capo_lambda.errors.too_many_requests_exception
@@ -38,6 +39,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "PreconditionFailedException":
             raise capo_lambda.errors.precondition_failed_exception.PreconditionFailedException.from_json(
+                data, message, response=response
+            )
+        case "ResourceConflictException":
+            raise capo_lambda.errors.resource_conflict_exception.ResourceConflictException.from_json(
                 data, message, response=response
             )
         case "ResourceNotFoundException":

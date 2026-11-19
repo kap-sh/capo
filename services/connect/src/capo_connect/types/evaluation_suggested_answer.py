@@ -21,7 +21,7 @@ class EvaluationSuggestedAnswer(TypedDict, closed=True):
     ]
     """<p>Details about the input used to question automation.</p>"""
     analysis_type: "capo_connect.types.evaluation_question_answer_analysis_type.EvaluationQuestionAnswerAnalysisType"
-    """<p>Type of analysis used to provide suggested answer.</p>"""
+    """<p>Type of analysis used to provide suggested answer. Valid values: <code>CONTACT_LENS_DATA</code> | <code>GEN_AI</code> | <code>CONDITION</code>.</p>"""
     analysis_details: NotRequired[
         "capo_connect.types.evaluation_question_answer_analysis_details.EvaluationQuestionAnswerAnalysisDetails"
     ]

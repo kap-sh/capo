@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     import capo_scheduler.types.dead_letter_config
     import capo_scheduler.types.ecs_parameters
     import capo_scheduler.types.event_bridge_parameters
+    import capo_scheduler.types.event_bridge_put_events_v2_parameters
+    import capo_scheduler.types.event_bridge_put_raw_events_parameters
     import capo_scheduler.types.kinesis_parameters
     import capo_scheduler.types.retry_policy
     import capo_scheduler.types.role_arn
@@ -29,17 +31,25 @@ class Target(TypedDict, closed=True):
     retry_policy: NotRequired["capo_scheduler.types.retry_policy.RetryPolicy"]
     """<p>A <code>RetryPolicy</code> object that includes information about the retry policy settings, including the maximum age of an event, and the maximum number of times EventBridge Scheduler will try to deliver the event to a target.</p>"""
     input: NotRequired["capo_scheduler.types.target_input.TargetInput"]
-    """<p>The text, or well-formed JSON, passed to the target. If you are configuring a templated Lambda, AWS Step Functions, or Amazon EventBridge target, the input must be a well-formed JSON. For all other target types, a JSON is not required. If you do not specify anything for this field, EventBridge Scheduler delivers a default notification to the target.</p>"""
+    """<p>The text, or well-formed JSON, passed to the target. If you are configuring a templated Lambda, Amazon Web Services Step Functions, or Amazon EventBridge target, the input must be a well-formed JSON. For all other target types, a JSON is not required. If you do not specify anything for this field, EventBridge Scheduler delivers a default notification to the target. The maximum size of the <code>Input</code> field is 256 KB.</p>"""
     ecs_parameters: NotRequired["capo_scheduler.types.ecs_parameters.EcsParameters"]
     """<p>The templated target type for the Amazon ECS <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html"> <code>RunTask</code> </a> API operation.</p>"""
     event_bridge_parameters: NotRequired[
         "capo_scheduler.types.event_bridge_parameters.EventBridgeParameters"
     ]
     """<p>The templated target type for the EventBridge <a href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html"> <code>PutEvents</code> </a> API operation.</p>"""
+    event_bridge_put_events_v2_parameters: NotRequired[
+        "capo_scheduler.types.event_bridge_put_events_v2_parameters.EventBridgePutEventsV2Parameters"
+    ]
+    """<p>The templated target type for the EventBridge event bus v2 <a href="https://docs.aws.amazon.com/eventbridgev2/latest/APIReference/API_PutEvents.html"> <code>PutEvents</code> </a> API operation.</p>"""
+    event_bridge_put_raw_events_parameters: NotRequired[
+        "capo_scheduler.types.event_bridge_put_raw_events_parameters.EventBridgePutRawEventsParameters"
+    ]
+    """<p>The templated target type for the EventBridge event bus v2 <a href="https://docs.aws.amazon.com/eventbridgev2/latest/APIReference/API_PutRawEvents.html"> <code>PutRawEvents</code> </a> API operation.</p>"""
     kinesis_parameters: NotRequired[
         "capo_scheduler.types.kinesis_parameters.KinesisParameters"
     ]
-    """<p>The templated target type for the Amazon Kinesis <a href="kinesis/latest/APIReference/API_PutRecord.html"> <code>PutRecord</code> </a> API operation.</p>"""
+    """<p>The templated target type for the Amazon Kinesis <a href="https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecord.html"> <code>PutRecord</code> </a> API operation.</p>"""
     sage_maker_pipeline_parameters: NotRequired[
         "capo_scheduler.types.sage_maker_pipeline_parameters.SageMakerPipelineParameters"
     ]
@@ -81,6 +91,22 @@ def serialize_json(value: Target) -> dict:
         out["EventBridgeParameters"] = (
             capo_scheduler.types.event_bridge_parameters.serialize_json(
                 value["event_bridge_parameters"]
+            )
+        )
+    if "event_bridge_put_events_v2_parameters" in value:
+        import capo_scheduler.types.event_bridge_put_events_v2_parameters
+
+        out["EventBridgePutEventsV2Parameters"] = (
+            capo_scheduler.types.event_bridge_put_events_v2_parameters.serialize_json(
+                value["event_bridge_put_events_v2_parameters"]
+            )
+        )
+    if "event_bridge_put_raw_events_parameters" in value:
+        import capo_scheduler.types.event_bridge_put_raw_events_parameters
+
+        out["EventBridgePutRawEventsParameters"] = (
+            capo_scheduler.types.event_bridge_put_raw_events_parameters.serialize_json(
+                value["event_bridge_put_raw_events_parameters"]
             )
         )
     if "kinesis_parameters" in value:
@@ -146,6 +172,22 @@ def deserialize_json(data: dict) -> Target:
         out["event_bridge_parameters"] = (
             capo_scheduler.types.event_bridge_parameters.deserialize_json(
                 data["EventBridgeParameters"]
+            )
+        )
+    if data.get("EventBridgePutEventsV2Parameters") is not None:
+        import capo_scheduler.types.event_bridge_put_events_v2_parameters
+
+        out["event_bridge_put_events_v2_parameters"] = (
+            capo_scheduler.types.event_bridge_put_events_v2_parameters.deserialize_json(
+                data["EventBridgePutEventsV2Parameters"]
+            )
+        )
+    if data.get("EventBridgePutRawEventsParameters") is not None:
+        import capo_scheduler.types.event_bridge_put_raw_events_parameters
+
+        out["event_bridge_put_raw_events_parameters"] = (
+            capo_scheduler.types.event_bridge_put_raw_events_parameters.deserialize_json(
+                data["EventBridgePutRawEventsParameters"]
             )
         )
     if data.get("KinesisParameters") is not None:

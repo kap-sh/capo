@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_kinesis.types.enhanced_monitoring_list
     import capo_kinesis.types.key_id
     import capo_kinesis.types.max_record_size_in_ki_b
+    import capo_kinesis.types.queue_count_object
     import capo_kinesis.types.record_distribution_strategy
     import capo_kinesis.types.retention_period_hours
     import capo_kinesis.types.shard_count_object
@@ -35,7 +36,7 @@ class StreamDescriptionSummary(TypedDict, closed=True):
     stream_mode_details: NotRequired[
         "capo_kinesis.types.stream_mode_details.StreamModeDetails"
     ]
-    """<p> Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you can choose between an <b>on-demand</b> ycapacity mode and a <b>provisioned</b> capacity mode for your data streams. </p>"""
+    """<p> Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data streams. </p>"""
     retention_period_hours: (
         "capo_kinesis.types.retention_period_hours.RetentionPeriodHours"
     )
@@ -55,7 +56,7 @@ class StreamDescriptionSummary(TypedDict, closed=True):
     consumer_count: NotRequired[
         "capo_kinesis.types.consumer_count_object.ConsumerCountObject"
     ]
-    """<p>The number of enhanced fan-out consumers registered with the stream.</p>"""
+    """<p>The number of enhanced fan-out consumers registered with the stream. Queues are not included in this count, even though they share the stream's registered consumer limit with enhanced fan-out consumers. <code>QueueCount</code> reports the number of queues.</p>"""
     warm_throughput: NotRequired[
         "capo_kinesis.types.warm_throughput_object.WarmThroughputObject"
     ]
@@ -72,6 +73,8 @@ class StreamDescriptionSummary(TypedDict, closed=True):
         "capo_kinesis.types.record_distribution_strategy.RecordDistributionStrategy"
     ]
     """<p>The record distribution strategy that the stream currently uses. A value of <code>AUTO</code> indicates that Amazon Kinesis Data Streams distributes records across shards using service-managed algorithms. A value of <code>USER_PARTITION_KEY</code> indicates that shard placement is determined by the partition key that producers supply. This field is only present for streams that use the on-demand capacity mode.</p>"""
+    queue_count: NotRequired["capo_kinesis.types.queue_count_object.QueueCountObject"]
+    """<p>The number of queues created on the data stream.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -142,6 +145,8 @@ def serialize_aws_json_1_1(value: StreamDescriptionSummary) -> dict:
                 value["record_distribution_strategy"]
             )
         )
+    if "queue_count" in value:
+        out["QueueCount"] = value["queue_count"]
     return out
 
 
@@ -243,4 +248,6 @@ def deserialize_aws_json_1_1(data: dict) -> StreamDescriptionSummary:
                 data["RecordDistributionStrategy"]
             )
         )
+    if data.get("QueueCount") is not None:
+        out["queue_count"] = data["QueueCount"]
     return out

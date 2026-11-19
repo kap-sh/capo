@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_network_firewall.types.check_certificate_revocation_status_actions
+    import capo_network_firewall.types.decryption_action
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.server_certificate_scopes
     import capo_network_firewall.types.server_certificates
@@ -28,6 +29,10 @@ class ServerCertificateConfiguration(TypedDict, closed=True):
         "capo_network_firewall.types.check_certificate_revocation_status_actions.CheckCertificateRevocationStatusActions"
     ]
     """<p>When enabled, Network Firewall checks if the server certificate presented by the server in the SSL/TLS connection has a revoked or unkown status. If the certificate has an unknown or revoked status, you must specify the actions that Network Firewall takes on outbound traffic. To check the certificate revocation status, you must also specify a <code>CertificateAuthorityArn</code> in <a>ServerCertificateConfiguration</a>.</p>"""
+    default_decryption_behavior: NotRequired[
+        "capo_network_firewall.types.decryption_action.DecryptionAction"
+    ]
+    """<p>What the firewall does with SSL/TLS traffic that doesn't match any scope in this server certificate configuration. This setting applies only to proxy mode firewalls. If you don't specify a value, the firewall uses <code>BYPASS</code>. You can choose from the following values:</p> <ul> <li> <p> <code>BYPASS</code> - The firewall doesn't decrypt the traffic.</p> </li> <li> <p> <code>DECRYPT</code> - The firewall decrypts the traffic for inspection. You can use <code>DECRYPT</code> only if every scope in the configuration sets <code>DeploymentMode</code> to <code>EXPLICIT_PROXY_ONLY</code>.</p> </li> </ul>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -59,6 +64,14 @@ def serialize_aws_json_1_0(value: ServerCertificateConfiguration) -> dict:
                 value["check_certificate_revocation_status"]
             )
         )
+    if "default_decryption_behavior" in value:
+        import capo_network_firewall.types.decryption_action
+
+        out["DefaultDecryptionBehavior"] = (
+            capo_network_firewall.types.decryption_action.serialize_aws_json_1_0(
+                value["default_decryption_behavior"]
+            )
+        )
     return out
 
 
@@ -88,6 +101,14 @@ def deserialize_aws_json_1_0(data: dict) -> ServerCertificateConfiguration:
         out["check_certificate_revocation_status"] = (
             capo_network_firewall.types.check_certificate_revocation_status_actions.deserialize_aws_json_1_0(
                 data["CheckCertificateRevocationStatus"]
+            )
+        )
+    if data.get("DefaultDecryptionBehavior") is not None:
+        import capo_network_firewall.types.decryption_action
+
+        out["default_decryption_behavior"] = (
+            capo_network_firewall.types.decryption_action.deserialize_aws_json_1_0(
+                data["DefaultDecryptionBehavior"]
             )
         )
     return out

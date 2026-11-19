@@ -14,7 +14,7 @@ class StringListFilterExpression(TypedDict, closed=True):
     name: "capo_deadline.types.string.String"
     """The field name to search."""
     operator: "capo_deadline.types.comparison_operator.ComparisonOperator"
-    """The type of comparison to use for this search."""
+    """The type of comparison to use for this search. Only `ANY_EQUALS` and `ALL_NOT_EQUALS` are supported."""
     values: "capo_deadline.types.string_filter_list.StringFilterList"
     """The list of string values to search for."""
 

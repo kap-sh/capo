@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3vectors#QueryVectorsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.index_arn
     import capo_s3vectors.types.index_mode
     import capo_s3vectors.types.index_name
+    import capo_s3vectors.types.query_text_list
     import capo_s3vectors.types.query_vectors_next_token
     import capo_s3vectors.types.top_k
     import capo_s3vectors.types.vector_bucket_name
@@ -25,8 +26,8 @@ class QueryVectorsInput(TypedDict, closed=True):
     """<p>The ARN of the vector index that you want to query.</p>"""
     top_k: "capo_s3vectors.types.top_k.TopK"
     """<p>The number of results to return for each query.</p>"""
-    query_vector: "capo_s3vectors.types.vector_data.VectorData"
-    """<p>The query vector. Ensure that the query vector has the same dimension as the dimension of the vector index that's being queried. For example, if your vector index contains vectors with 384 dimensions, your query vector must also have 384 dimensions. </p>"""
+    query_vector: NotRequired["capo_s3vectors.types.vector_data.VectorData"]
+    """<p>The query vector for vector similarity search. The query vector must have the same dimension as the vector index. For example, if the vector index has 384 dimensions, the query vector must also have 384 dimensions. You can omit this parameter when you supply <code>queryTexts</code> to perform a full-text-only search. A request must include <code>queryVector</code>, <code>queryTexts</code>, or both.</p>"""
     filter: NotRequired["object"]
     """<p>Metadata filter to apply during the query. For more information about metadata keys, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-metadata-filtering.html">Metadata filtering</a> in the <i>Amazon S3 User Guide</i>. </p>"""
     query_mode: NotRequired["capo_s3vectors.types.index_mode.IndexMode"]
@@ -35,6 +36,10 @@ class QueryVectorsInput(TypedDict, closed=True):
     """<p>Indicates whether to include metadata in the response. The default value is <code>false</code>.</p>"""
     return_distance: NotRequired["bool"]
     """<p>Indicates whether to include the computed distance in the response. The default value is <code>false</code>.</p>"""
+    query_texts: NotRequired["capo_s3vectors.types.query_text_list.QueryTextList"]
+    """<p>Full-text queries for searchable metadata keys. Omit <code>queryVector</code> to run a full-text-only search, or provide both fields to run a hybrid search. Each entry must target a distinct searchable metadata key.</p>"""
+    return_scores: NotRequired["bool"]
+    """<p>Indicates whether to include relevance scores in the response. Full-text-only results can include BM25 scores. Hybrid results can also include a Reciprocal Rank Fusion (RRF) score and vector distance. This setting doesn't add scores to vector-only requests. The default value is <code>false</code>.</p>"""
     next_token: NotRequired[
         "capo_s3vectors.types.query_vectors_next_token.QueryVectorsNextToken"
     ]
@@ -51,11 +56,12 @@ def serialize_json(value: QueryVectorsInput) -> dict:
     if "index_arn" in value:
         out["indexArn"] = value["index_arn"]
     out["topK"] = value["top_k"]
-    import capo_s3vectors.types.vector_data
+    if "query_vector" in value:
+        import capo_s3vectors.types.vector_data
 
-    out["queryVector"] = capo_s3vectors.types.vector_data.serialize_json(
-        value["query_vector"]
-    )
+        out["queryVector"] = capo_s3vectors.types.vector_data.serialize_json(
+            value["query_vector"]
+        )
     if "filter" in value:
         out["filter"] = value["filter"]
     if "query_mode" in value:
@@ -68,6 +74,14 @@ def serialize_json(value: QueryVectorsInput) -> dict:
         out["returnMetadata"] = value["return_metadata"]
     if "return_distance" in value:
         out["returnDistance"] = value["return_distance"]
+    if "query_texts" in value:
+        import capo_s3vectors.types.query_text_list
+
+        out["queryTexts"] = capo_s3vectors.types.query_text_list.serialize_json(
+            value["query_texts"]
+        )
+    if "return_scores" in value:
+        out["returnScores"] = value["return_scores"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
     return out
@@ -91,8 +105,6 @@ def deserialize_json(data: dict) -> QueryVectorsInput:
         out["query_vector"] = capo_s3vectors.types.vector_data.deserialize_json(
             data["queryVector"]
         )
-    else:
-        out["query_vector"] = {"$unknown": {"name": ""}}
     if data.get("filter") is not None:
         out["filter"] = data["filter"]
     if data.get("queryMode") is not None:
@@ -105,6 +117,25 @@ def deserialize_json(data: dict) -> QueryVectorsInput:
         out["return_metadata"] = data["returnMetadata"]
     if data.get("returnDistance") is not None:
         out["return_distance"] = data["returnDistance"]
+    if data.get("queryTexts") is not None:
+        import capo_s3vectors.types.query_text_list
+
+        out["query_texts"] = capo_s3vectors.types.query_text_list.deserialize_json(
+            data["queryTexts"]
+        )
+    if data.get("returnScores") is not None:
+        out["return_scores"] = data["returnScores"]
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: QueryVectorsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_texts" in value:
+        import capo_s3vectors.types.query_text_list
+
+        out["query_texts"] = capo_s3vectors.types.query_text_list.redact_sensitive(
+            value["query_texts"]
+        )
     return out

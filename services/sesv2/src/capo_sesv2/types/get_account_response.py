@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_sesv2.types.account_details
+    import capo_sesv2.types.delivery_attributes
     import capo_sesv2.types.enabled
     import capo_sesv2.types.general_enforcement_status
     import capo_sesv2.types.pricing_attributes
@@ -39,6 +40,10 @@ class GetAccountResponse(TypedDict, closed=True):
         "capo_sesv2.types.pricing_attributes.PricingAttributes"
     ]
     """<p>The pricing attributes that apply to your Amazon SES account, including the currently active pricing plan and any scheduled change.</p>"""
+    delivery_attributes: NotRequired[
+        "capo_sesv2.types.delivery_attributes.DeliveryAttributes"
+    ]
+    """<p>The delivery attributes that apply to your Amazon SES account in the current Amazon Web Services Region.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -82,6 +87,12 @@ def serialize_json(value: GetAccountResponse) -> dict:
 
         out["PricingAttributes"] = capo_sesv2.types.pricing_attributes.serialize_json(
             value["pricing_attributes"]
+        )
+    if "delivery_attributes" in value:
+        import capo_sesv2.types.delivery_attributes
+
+        out["DeliveryAttributes"] = capo_sesv2.types.delivery_attributes.serialize_json(
+            value["delivery_attributes"]
         )
     return out
 
@@ -134,6 +145,14 @@ def deserialize_json(data: dict) -> GetAccountResponse:
         out["pricing_attributes"] = (
             capo_sesv2.types.pricing_attributes.deserialize_json(
                 data["PricingAttributes"]
+            )
+        )
+    if data.get("DeliveryAttributes") is not None:
+        import capo_sesv2.types.delivery_attributes
+
+        out["delivery_attributes"] = (
+            capo_sesv2.types.delivery_attributes.deserialize_json(
+                data["DeliveryAttributes"]
             )
         )
     return out

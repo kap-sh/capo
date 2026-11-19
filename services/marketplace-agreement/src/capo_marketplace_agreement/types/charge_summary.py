@@ -17,7 +17,7 @@ class ChargeSummary(TypedDict, closed=True):
     currency_code: NotRequired[
         "capo_marketplace_agreement.types.currency_code.CurrencyCode"
     ]
-    """<p>The three-letter currency code for all charges (e.g., USD).</p>"""
+    """<p>The three-letter currency code for all charges (for example, USD).</p>"""
     new_agreement_value: NotRequired[
         "capo_marketplace_agreement.types.bounded_string.BoundedString"
     ]

@@ -1,0 +1,8 @@
+---
+title: MedicalCodeGenerationSettings
+---
+
+::: capo_connecthealth.types.medical_code_generation_settings.MedicalCodeGenerationSettings
+    options:
+      show_source: true
+      merge_init_into_class: false

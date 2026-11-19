@@ -109,6 +109,7 @@ if TYPE_CHECKING:
     import capo_docdb.types.describe_global_clusters_message
     import capo_docdb.types.describe_orderable_db_instance_options_message
     import capo_docdb.types.describe_pending_maintenance_actions_message
+    import capo_docdb.types.describe_serverless_v2_platform_versions_message
     import capo_docdb.types.event
     import capo_docdb.types.event_categories_list
     import capo_docdb.types.event_categories_message
@@ -158,6 +159,8 @@ if TYPE_CHECKING:
     import capo_docdb.types.restore_db_cluster_from_snapshot_result
     import capo_docdb.types.restore_db_cluster_to_point_in_time_message
     import capo_docdb.types.restore_db_cluster_to_point_in_time_result
+    import capo_docdb.types.serverless_v2_platform_version_info
+    import capo_docdb.types.serverless_v2_platform_versions_message
     import capo_docdb.types.serverless_v2_scaling_configuration
     import capo_docdb.types.source_ids_list
     import capo_docdb.types.source_type
@@ -405,7 +408,7 @@ class AsyncDocDBClient:
 
         Args:
             resource_identifier: <p>The Amazon Resource Name (ARN) of the resource that the pending maintenance action applies to.</p>
-            apply_action: <p>The pending maintenance action to apply to this resource.</p> <p>Valid values: <code>system-update</code>, <code>db-upgrade</code> </p>
+            apply_action: <p>The pending maintenance action to apply to this resource.</p> <p>Valid values: <code>system-update</code>, <code>db-upgrade</code>, <code>serverless-platform-version-update</code> </p>
             opt_in_type: <p>A value that specifies the type of opt-in request or undoes an opt-in request. An opt-in request of type <code>immediate</code> can't be undone.</p> <p>Valid values:</p> <ul> <li> <p> <code>immediate</code> - Apply the maintenance action immediately.</p> </li> <li> <p> <code>next-maintenance</code> - Apply the maintenance action during the next maintenance window for the resource. </p> </li> <li> <p> <code>undo-opt-in</code> - Cancel any existing <code>next-maintenance</code> opt-in requests.</p> </li> </ul>
 
         Raises:
@@ -665,7 +668,7 @@ class AsyncDocDBClient:
             vpc_security_group_ids: <p>A list of EC2 VPC security groups to associate with this cluster. </p>
             db_subnet_group_name: <p>A subnet group to associate with this cluster.</p> <p>Constraints: Must match the name of an existing <code>DBSubnetGroup</code>. Must not be default.</p> <p>Example: <code>mySubnetgroup</code> </p>
             engine: <p>The name of the database engine to be used for this cluster.</p> <p>Valid values: <code>docdb</code> </p>
-            engine_version: <p>The version number of the database engine to use. The <code>--engine-version</code> will default to the latest major engine version. For production workloads, we recommend explicitly declaring this parameter with the intended major engine version.</p>
+            engine_version: <p>The version number of the database engine to use. Amazon DocumentDB resolves the value of this parameter as follows:</p> <ul> <li> <p>If you omit this parameter or specify <code>8.0</code>, Amazon DocumentDB uses the newest available 8.0 minor version in the Amazon Web Services Region.</p> </li> <li> <p>If you specify <code>5.0</code>, Amazon DocumentDB uses the 5.0 long-term support (LTS) minor version. This resolution moves only when a new 5.0 LTS minor version is declared.</p> </li> <li> <p>If you specify a fully qualified version, such as <code>8.0.1</code> or <code>5.0.2</code>, Amazon DocumentDB uses exactly that version.</p> </li> </ul> <p>For production workloads, explicitly declare this parameter with a fully qualified engine version rather than relying on resolution. A fully qualified version keeps the engine version of the cluster independent of the Amazon Web Services Region in which you create it and of the minor versions that are available when the request is made. This matters most for requests issued by scripts, automation, infrastructure-as-code templates, and pinned SDK clients.</p>
             port: <p>The port number on which the instances in the cluster accept connections.</p>
             master_username: <p>The name of the master user for the cluster.</p> <p>Constraints:</p> <ul> <li> <p>Must be from 1 to 63 letters or numbers.</p> </li> <li> <p>The first character must be a letter.</p> </li> <li> <p>Cannot be a reserved word for the chosen database engine. </p> </li> </ul>
             master_user_password: <p>The password for the master database user. This password can contain any printable ASCII character except forward slash (/), double quote ("), or the "at" symbol (@).</p> <p>Constraints: Must contain from 8 to 100 characters.</p>
@@ -3013,6 +3016,122 @@ class AsyncDocDBClient:
                 max_records=max_records,
             )
             _page = _resolve_path(_response, ("pending_maintenance_actions",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("marker",))
+            if not _token:
+                break
+
+    async def describe_serverless_v2_platform_versions(
+        self,
+        *,
+        config_overrides: Optional[AsyncDocDBClientConfig] = None,
+        serverless_v2_platform_version: Optional[
+            "capo_docdb.types.string.String"
+        ] = None,
+        engine: Optional["capo_docdb.types.string.String"] = None,
+        filters: Optional["capo_docdb.types.filter_list.FilterList"] = None,
+        default_only: Optional[
+            "capo_docdb.types.boolean_optional.BooleanOptional"
+        ] = None,
+        include_all: Optional[
+            "capo_docdb.types.boolean_optional.BooleanOptional"
+        ] = None,
+        max_records: Optional[
+            "capo_docdb.types.integer_optional.IntegerOptional"
+        ] = None,
+        marker: Optional["capo_docdb.types.string.String"] = None,
+    ) -> "capo_docdb.types.serverless_v2_platform_versions_message.ServerlessV2PlatformVersionsMessage":
+        """<p>Describes the properties of specific platform versions for Amazon DocumentDB Serverless v2.</p>
+
+        Args:
+            serverless_v2_platform_version: <p>A specific platform version to return details for.</p> <p>Example: <code>3</code> </p>
+            engine: <p>The database engine to return platform version details for.</p>
+            filters: <p>This parameter isn't currently supported.</p>
+            default_only: <p>Specifies whether to return only the default platform versions for each engine. The default platform version is the version used for new DB clusters.</p>
+            include_all: <p>Specifies whether to also include platform versions that are no longer in use. If you don't specify a value, the response includes only active platform versions.</p>
+            max_records: <p> The maximum number of records to include in the response. If more records exist than the specified <code>MaxRecords</code> value, a pagination token (marker) is included in the response so that the remaining results can be retrieved.</p> <p>Default: 100</p> <p>Constraints: Minimum 20, maximum 100.</p>
+            marker: <p>An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>.</p>
+
+        Raises:
+            capo_docdb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_docdb.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage]",
+        ) -> AsyncOperationResponse[
+            "capo_docdb.types.serverless_v2_platform_versions_message.ServerlessV2PlatformVersionsMessage"
+        ]:
+            import capo_docdb._operations.amazon_rd_sv19.describe_serverless_v2_platform_versions
+
+            (
+                output,
+                http_response,
+            ) = await capo_docdb._operations.amazon_rd_sv19.describe_serverless_v2_platform_versions.async_describe_serverless_v2_platform_versions(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServerlessV2PlatformVersions")
+        )
+        input_: capo_docdb.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage = {}
+        if serverless_v2_platform_version is not None:
+            input_["serverless_v2_platform_version"] = serverless_v2_platform_version
+        if engine is not None:
+            input_["engine"] = engine
+        if filters is not None:
+            input_["filters"] = filters
+        if default_only is not None:
+            input_["default_only"] = default_only
+        if include_all is not None:
+            input_["include_all"] = include_all
+        if max_records is not None:
+            input_["max_records"] = max_records
+        if marker is not None:
+            input_["marker"] = marker
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_describe_serverless_v2_platform_versions(
+        self,
+        *,
+        config_overrides: Optional[AsyncDocDBClientConfig] = None,
+        serverless_v2_platform_version: Optional[
+            "capo_docdb.types.string.String"
+        ] = None,
+        engine: Optional["capo_docdb.types.string.String"] = None,
+        filters: Optional["capo_docdb.types.filter_list.FilterList"] = None,
+        default_only: Optional[
+            "capo_docdb.types.boolean_optional.BooleanOptional"
+        ] = None,
+        include_all: Optional[
+            "capo_docdb.types.boolean_optional.BooleanOptional"
+        ] = None,
+        max_records: Optional[
+            "capo_docdb.types.integer_optional.IntegerOptional"
+        ] = None,
+        marker: Optional["capo_docdb.types.string.String"] = None,
+    ) -> "AsyncIterator[capo_docdb.types.serverless_v2_platform_version_info.ServerlessV2PlatformVersionInfo]":
+        _token = marker
+        while True:
+            _response = await self.describe_serverless_v2_platform_versions(
+                config_overrides=config_overrides,
+                serverless_v2_platform_version=serverless_v2_platform_version,
+                engine=engine,
+                filters=filters,
+                default_only=default_only,
+                include_all=include_all,
+                max_records=max_records,
+                marker=_token,
+            )
+            _page = _resolve_path(_response, ("serverless_v2_platform_versions",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("marker",))

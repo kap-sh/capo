@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_sagemaker.types.async_inference_config
     import capo_sagemaker.types.boolean
+    import capo_sagemaker.types.cross_region_traffic_config
     import capo_sagemaker.types.data_capture_config
     import capo_sagemaker.types.endpoint_config_name
     import capo_sagemaker.types.explainer_config
@@ -53,6 +54,10 @@ class CreateEndpointConfigInput(TypedDict, closed=True):
     """<p>Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or outbound network calls can be made to or from the model containers.</p>"""
     metrics_config: NotRequired["capo_sagemaker.types.metrics_config.MetricsConfig"]
     """<p>The configuration parameters for utilization metrics.</p>"""
+    cross_region_traffic_config: NotRequired[
+        "capo_sagemaker.types.cross_region_traffic_config.CrossRegionTrafficConfig"
+    ]
+    """<p>The cross-Region traffic cap for the endpoint. The cap limits the requests per second that the endpoint accepts from inference routers in other Amazon Web Services Regions. If you don't specify it, these requests aren't limited. You can't specify it with serverless variants or with <code>AsyncInferenceConfig</code>. For information about the cross-Region traffic cap, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-router.html#inference-router-cross-region-limit">Limit requests from other Regions</a>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -126,6 +131,14 @@ def serialize_aws_json_1_1(value: CreateEndpointConfigInput) -> dict:
                 value["metrics_config"]
             )
         )
+    if "cross_region_traffic_config" in value:
+        import capo_sagemaker.types.cross_region_traffic_config
+
+        out["CrossRegionTrafficConfig"] = (
+            capo_sagemaker.types.cross_region_traffic_config.serialize_aws_json_1_1(
+                value["cross_region_traffic_config"]
+            )
+        )
     return out
 
 
@@ -197,6 +210,14 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointConfigInput:
         out["metrics_config"] = (
             capo_sagemaker.types.metrics_config.deserialize_aws_json_1_1(
                 data["MetricsConfig"]
+            )
+        )
+    if data.get("CrossRegionTrafficConfig") is not None:
+        import capo_sagemaker.types.cross_region_traffic_config
+
+        out["cross_region_traffic_config"] = (
+            capo_sagemaker.types.cross_region_traffic_config.deserialize_aws_json_1_1(
+                data["CrossRegionTrafficConfig"]
             )
         )
     return out

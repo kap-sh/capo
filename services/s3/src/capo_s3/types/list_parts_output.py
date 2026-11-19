@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     import capo_s3.types.multipart_upload_id
     import capo_s3.types.next_part_number_marker
     import capo_s3.types.object_key
+    import capo_s3.types.object_version_id
     import capo_s3.types.owner
     import capo_s3.types.part_number_marker
     import capo_s3.types.parts
@@ -61,6 +62,8 @@ class ListPartsOutput(TypedDict, closed=True):
     """<p>The algorithm that was used to create a checksum of the object.</p>"""
     checksum_type: NotRequired["capo_s3.types.checksum_type.ChecksumType"]
     """<p>The checksum type, which determines how part-level checksums are combined to create an object-level checksum for multipart objects. You can use this header response to verify that the checksum type that is received is the same checksum type that was specified in <code>CreateMultipartUpload</code> request. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html">Checking object integrity in the Amazon S3 User Guide</a>.</p>"""
+    version_id: NotRequired["capo_s3.types.object_version_id.ObjectVersionId"]
+    """<p>Version ID of the object.</p> <p>Returns the Version ID of the object for the listed parts, if bucket versioning is enabled.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
 
 
 # --- restXml ser/de ---

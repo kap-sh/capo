@@ -13,13 +13,13 @@ if TYPE_CHECKING:
 
 class ListImagePipelineImagesRequest(TypedDict, closed=True):
     image_pipeline_arn: "capo_imagebuilder.types.image_pipeline_arn.ImagePipelineArn"
-    """<p>The Amazon Resource Name (ARN) of the image pipeline whose images you want to view.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the image pipeline whose images you want to view.</p> <p>If the ARN that you specify doesn't exist, Image Builder returns an empty list rather than a <code>ResourceNotFoundException</code> error.</p>"""
     filters: NotRequired["capo_imagebuilder.types.filter_list.FilterList"]
     """<p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>name</code> </p> </li> <li> <p> <code>version</code> </p> </li> </ul>"""
     max_results: NotRequired[
         "capo_imagebuilder.types.restricted_integer.RestrictedInteger"
     ]
-    """<p>The maximum number of items to return in a single request.</p>"""
+    """<p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>"""
     next_token: NotRequired["capo_imagebuilder.types.pagination_token.PaginationToken"]
     """<p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>"""
 

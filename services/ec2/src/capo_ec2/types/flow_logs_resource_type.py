@@ -11,6 +11,9 @@ FlowLogsResourceType: TypeAlias = Literal[
     "TransitGateway",
     "TransitGatewayAttachment",
     "RegionalNatGateway",
+    "CoreNetwork",
+    "CoreNetworkEdge",
+    "CoreNetworkAttachment",
 ]
 
 

@@ -2,7 +2,10 @@
 
 from typing import Literal, TypeAlias, cast
 
-PopulateIntermediateTableAnalysisType: TypeAlias = Literal["QUERY",]
+PopulateIntermediateTableAnalysisType: TypeAlias = Literal[
+    "QUERY",
+    "JOB",
+]
 
 
 # --- restJson1 ser/de ---

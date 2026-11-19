@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_iam_toolbox.types.authorization_context
+    import capo_iam_toolbox.types.check_list
     import capo_iam_toolbox.types.evaluated_effect
     import capo_iam_toolbox.types.matched_policy_list
 
@@ -22,11 +23,13 @@ class Evaluation(TypedDict, closed=True):
     evaluated_effect: NotRequired[
         "capo_iam_toolbox.types.evaluated_effect.EvaluatedEffect"
     ]
-    """<p>The result of the evaluation. Valid values:</p> <ul> <li> <p> <code>ALLOW</code> - The action was allowed.</p> </li> <li> <p> <code>EXPLICIT_DENY</code> - The action was explicitly denied by a policy.</p> </li> <li> <p> <code>IMPLICIT_DENY</code> - The action was denied because no policy allowed it.</p> </li> </ul>"""
+    """<p>The result of the evaluation. Valid values:</p> <ul> <li> <p> <code>ALLOW</code> - The action was allowed.</p> </li> <li> <p> <code>EXPLICIT_DENY</code> - The action was explicitly denied by a policy.</p> </li> <li> <p> <code>IMPLICIT_DENY</code> - The action was denied because at least one required authorization check had no matching allow statement.</p> </li> </ul>"""
     matched_policies: NotRequired[
         "capo_iam_toolbox.types.matched_policy_list.MatchedPolicyList"
     ]
-    """<p>The policies that matched during evaluation of this action and resource. An implicit denial produces no matched policies.</p>"""
+    """<p> <code>matchedPolicies</code> is deprecated. Use <code>checks</code> instead. This value contains the policies that matched during evaluation of this action and resource.</p>"""
+    checks: NotRequired["capo_iam_toolbox.types.check_list.CheckList"]
+    """<p> <code>checks</code> contains the authorization checks that explain an evaluation result. Each check is one authorization requirement and reports its result and policies from the top-level <code>policies</code> list with matching statements. The output lists RCP checks from the organization root to the account, then SCP checks from the organization root to the account. It then lists VPC endpoint, resource, principal, permissions boundary, and session checks. When <code>checks</code> is present, an <code>EXPLICIT_DENY</code> evaluation includes an <code>EXPLICIT_DENY</code> check. When <code>checks</code> is present for an <code>IMPLICIT_DENY</code> evaluation, it includes an <code>IMPLICIT_DENY</code> check and no <code>EXPLICIT_DENY</code> check. For more information about how IAM evaluates policies, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic_policy-eval-denyallow.html">Policy evaluation logic</a>.</p> <p> <code>PRINCIPAL</code>, <code>PERMISSIONS_BOUNDARY</code>, and <code>SESSION</code> checks appear when they apply to the principal that made the request, even if none of their policies matched. A missing allow produces <code>IMPLICIT_DENY</code>, or <code>NO_IMPACT</code> when another path already allowed the request.</p> <p>Returned when the caller is in the request principal's account or organization. The absence of <code>checks</code> does not mean no authorization checks applied.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -53,6 +56,12 @@ def serialize_json(value: Evaluation) -> dict:
             capo_iam_toolbox.types.matched_policy_list.serialize_json(
                 value["matched_policies"]
             )
+        )
+    if "checks" in value:
+        import capo_iam_toolbox.types.check_list
+
+        out["checks"] = capo_iam_toolbox.types.check_list.serialize_json(
+            value["checks"]
         )
     return out
 
@@ -88,5 +97,11 @@ def deserialize_json(data: dict) -> Evaluation:
             capo_iam_toolbox.types.matched_policy_list.deserialize_json(
                 data["matchedPolicies"]
             )
+        )
+    if data.get("checks") is not None:
+        import capo_iam_toolbox.types.check_list
+
+        out["checks"] = capo_iam_toolbox.types.check_list.deserialize_json(
+            data["checks"]
         )
     return out

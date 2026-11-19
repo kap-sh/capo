@@ -25,11 +25,11 @@ class GetJobUpgradeAnalysisResponse(TypedDict, closed=True):
     analysis_type: NotRequired["capo_glue.types.analysis_type.AnalysisType"]
     """<p>The type of upgrade analysis. For auto-upgrade jobs, this value is <code>AUTO_UPGRADE</code>.</p>"""
     auto_upgrade_evaluation_summary: NotRequired["str"]
-    """<p>The Amazon S3 URI of the terminal-state evaluation summary, available once the analysis reaches a terminal status (<code>SUCCEEDED</code> or <code>FAILED</code>).</p>"""
+    """<p>A presigned URL for downloading the auto upgrade evaluation summary for the analysis. Available once the analysis reaches a terminal status (<code>SUCCEEDED</code> or <code>FAILED</code>). The URL expires after 1 hour. Calling <code>GetJobUpgradeAnalysis</code> again returns a new URL.</p>"""
     error_message: NotRequired["str"]
     """<p>The reason the analysis did not complete.</p>"""
     auto_upgrade_eligibility_summary: NotRequired["str"]
-    """<p>The Amazon S3 URI of the consent report summarizing upgrade assessment findings. Populated when the analysis reaches <code>WAITING_FOR_CONSENT</code> and remains available in all subsequent states.</p>"""
+    """<p>A presigned URL for downloading the auto upgrade eligibility summary, which lists the compatibility results for the job. Available once the analysis reaches <code>WAITING_FOR_CONSENT</code> and in all subsequent states. The URL expires after 1 hour. Calling <code>GetJobUpgradeAnalysis</code> again returns a new URL.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

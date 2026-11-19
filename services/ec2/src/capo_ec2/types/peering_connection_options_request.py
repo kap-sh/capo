@@ -8,6 +8,7 @@ from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_ec2.types.boolean
+    import capo_ec2.types.multipath_resilience_mode
 
 
 class PeeringConnectionOptionsRequest(TypedDict, closed=True):
@@ -21,6 +22,12 @@ class PeeringConnectionOptionsRequest(TypedDict, closed=True):
         "capo_ec2.types.boolean.Boolean"
     ]
     """<p>Deprecated.</p>"""
+    allow_multipath_resilience: NotRequired["capo_ec2.types.boolean.Boolean"]
+    """<p>Specifies whether you allow multipath resilience for this side of the VPC peering connection. Multipath resilience is supported only for inter-Region VPC peering connections between supported Regions. It takes effect only when both the requester and the accepter allow it. If you don't specify this parameter, the current setting doesn't change.</p>"""
+    multipath_resilience_mode: NotRequired[
+        "capo_ec2.types.multipath_resilience_mode.MultipathResilienceMode"
+    ]
+    """<p>The multipath resilience mode. You can specify this parameter only if <code>AllowMultipathResilience</code> is <code>true</code>.</p> <p>The following value is valid:</p> <ul> <li> <p> <code>always-on</code> – Replicates traffic across multiple network paths while multipath resilience is in effect.</p> </li> </ul> <p>If <code>AllowMultipathResilience</code> is <code>true</code> and you don't specify a mode, the default is <code>always-on</code>.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -53,6 +60,21 @@ def serialize_ec2_query(
                 else "false",
             )
         )
+    if "allow_multipath_resilience" in value:
+        pairs.append(
+            (
+                f"{key_prefix}AllowMultipathResilience",
+                "true" if value["allow_multipath_resilience"] else "false",
+            )
+        )
+    if "multipath_resilience_mode" in value:
+        import capo_ec2.types.multipath_resilience_mode
+
+        capo_ec2.types.multipath_resilience_mode.serialize_ec2_query(
+            value["multipath_resilience_mode"],
+            pairs,
+            f"{key_prefix}MultipathResilienceMode",
+        )
 
 
 def deserialize_ec2_query(el: Element) -> PeeringConnectionOptionsRequest:
@@ -78,4 +100,18 @@ def deserialize_ec2_query(el: Element) -> PeeringConnectionOptionsRequest:
         out["allow_egress_from_local_vpc_to_remote_classic_link"] = (
             child_allow_egress_from_local_vpc_to_remote_classic_link.text or ""
         ).lower() == "true"
+    child_allow_multipath_resilience = el.find("AllowMultipathResilience")
+    if child_allow_multipath_resilience is not None:
+        out["allow_multipath_resilience"] = (
+            child_allow_multipath_resilience.text or ""
+        ).lower() == "true"
+    child_multipath_resilience_mode = el.find("MultipathResilienceMode")
+    if child_multipath_resilience_mode is not None:
+        import capo_ec2.types.multipath_resilience_mode
+
+        out["multipath_resilience_mode"] = (
+            capo_ec2.types.multipath_resilience_mode.deserialize_ec2_query(
+                child_multipath_resilience_mode
+            )
+        )
     return out

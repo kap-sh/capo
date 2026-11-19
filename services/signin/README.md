@@ -18,9 +18,9 @@ from capo_signin import AsyncSigninClient
 
 async def main():
     async with AsyncSigninClient() as signin:
-        # Example: call the create_bearer_token operation
-        response = await signin.create_bearer_token()
-        print(response["access_token"])
+        # Example: call the batch_revoke_sessions operation
+        response = await signin.batch_revoke_sessions()
+        print(response["revoked_sessions"])
 ```
 
 ## Pagination
@@ -50,7 +50,7 @@ from capo_signin.error import AccessDeniedException
 async def main():
     async with AsyncSigninClient() as signin:
         try:
-            await signin.create_bearer_token()
+            await signin.batch_revoke_sessions()
         except AccessDeniedException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -71,11 +71,11 @@ from capo_signin import AsyncSigninClient
 async def main():
     async with AsyncSigninClient() as signin:
         # Default: 3 attempts for every operation
-        response = await signin.create_bearer_token()
+        response = await signin.batch_revoke_sessions()
 
         # Override per operation
-        response = await signin.create_bearer_token(config_overrides={"retry_max_attempts": 5})
+        response = await signin.batch_revoke_sessions(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await signin.create_bearer_token(config_overrides={"retry_max_attempts": 1})
+        response = await signin.batch_revoke_sessions(config_overrides={"retry_max_attempts": 1})
 ```

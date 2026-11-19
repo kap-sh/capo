@@ -28,13 +28,13 @@ class Resource(TypedDict, closed=True):
     details: NotRequired["capo_inspector2.types.resource_details.ResourceDetails"]
     """<p>An object that contains details about the resource involved in a finding.</p>"""
     provider: NotRequired["capo_inspector2.types.provider.Provider"]
-    """<p>The cloud provider of the resource.</p>"""
+    """<p>The cloud provider of the resource. Valid values:</p> <ul> <li> <p> <code>AWS</code> – Amazon Web Services resources.</p> </li> <li> <p> <code>AZURE</code> – Microsoft Azure resources.</p> </li> <li> <p> <code>GCP</code> – Google Cloud Platform (GCP) resources.</p> </li> </ul>"""
     provider_account_id: NotRequired[
         "capo_inspector2.types.provider_account_id.ProviderAccountId"
     ]
-    """<p>The cloud provider account ID of the resource.</p>"""
+    """<p>The cloud provider account ID of the resource. The value format depends on the cloud provider:</p> <ul> <li> <p>An Amazon Web Services account ID.</p> </li> <li> <p>An Azure subscription ID.</p> </li> <li> <p>A Google Cloud Platform (GCP) project ID, such as <code>my-project</code>.</p> </li> </ul>"""
     provider_org_id: NotRequired["capo_inspector2.types.provider_org_id.ProviderOrgId"]
-    """<p>The cloud provider organization ID of the resource.</p>"""
+    """<p>The cloud provider organization ID of the resource. The value format depends on the cloud provider:</p> <ul> <li> <p>An Amazon Web Services Organizations organization ID.</p> </li> <li> <p>An Azure tenant ID.</p> </li> <li> <p>A numeric Google Cloud Platform (GCP) organization ID.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

@@ -1,0 +1,8 @@
+---
+title: DeleteRuntimeResponse
+---
+
+::: capo_lambda_core.types.delete_runtime_response.DeleteRuntimeResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

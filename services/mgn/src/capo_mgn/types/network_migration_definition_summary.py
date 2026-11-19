@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_mgn.types.arn
+    import capo_mgn.types.definition_type
     import capo_mgn.types.network_migration_definition_id
     import capo_mgn.types.network_migration_definition_name
     import capo_mgn.types.scope_tags_map
@@ -32,6 +33,8 @@ class NetworkMigrationDefinitionSummary(TypedDict, closed=True):
     """<p>Tags assigned to the network migration definition.</p>"""
     scope_tags: NotRequired["capo_mgn.types.scope_tags_map.ScopeTagsMap"]
     """<p>Scope tags for the network migration definition.</p>"""
+    definition_type: NotRequired["capo_mgn.types.definition_type.DefinitionType"]
+    """<p>The type of the network migration definition.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -55,6 +58,8 @@ def serialize_json(value: NetworkMigrationDefinitionSummary) -> dict:
         out["scopeTags"] = capo_mgn.types.scope_tags_map.serialize_json(
             value["scope_tags"]
         )
+    if "definition_type" in value:
+        out["definitionType"] = value["definition_type"]
     return out
 
 
@@ -78,6 +83,8 @@ def deserialize_json(data: dict) -> NetworkMigrationDefinitionSummary:
         out["scope_tags"] = capo_mgn.types.scope_tags_map.deserialize_json(
             data["scopeTags"]
         )
+    if data.get("definitionType") is not None:
+        out["definition_type"] = data["definitionType"]
     return out
 
 

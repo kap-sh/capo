@@ -74,6 +74,8 @@ if TYPE_CHECKING:
     import capo_cloudwatch.types.dashboard_names
     import capo_cloudwatch.types.datapoints_to_alarm
     import capo_cloudwatch.types.dataset_identifier
+    import capo_cloudwatch.types.definition_id
+    import capo_cloudwatch.types.definition_path
     import capo_cloudwatch.types.delete_alarm_mute_rule_input
     import capo_cloudwatch.types.delete_alarms_input
     import capo_cloudwatch.types.delete_anomaly_detector_input
@@ -82,6 +84,8 @@ if TYPE_CHECKING:
     import capo_cloudwatch.types.delete_dashboards_output
     import capo_cloudwatch.types.delete_insight_rules_input
     import capo_cloudwatch.types.delete_insight_rules_output
+    import capo_cloudwatch.types.delete_metric_data_query_definition_input
+    import capo_cloudwatch.types.delete_metric_data_query_definition_output
     import capo_cloudwatch.types.delete_metric_stream_input
     import capo_cloudwatch.types.delete_metric_stream_output
     import capo_cloudwatch.types.delete_resource_metrics_configuration_input
@@ -127,6 +131,8 @@ if TYPE_CHECKING:
     import capo_cloudwatch.types.get_metric_data_input
     import capo_cloudwatch.types.get_metric_data_max_datapoints
     import capo_cloudwatch.types.get_metric_data_output
+    import capo_cloudwatch.types.get_metric_data_query_definition_input
+    import capo_cloudwatch.types.get_metric_data_query_definition_output
     import capo_cloudwatch.types.get_metric_statistics_input
     import capo_cloudwatch.types.get_metric_statistics_output
     import capo_cloudwatch.types.get_metric_stream_input
@@ -157,6 +163,8 @@ if TYPE_CHECKING:
     import capo_cloudwatch.types.list_dashboards_output
     import capo_cloudwatch.types.list_managed_insight_rules_input
     import capo_cloudwatch.types.list_managed_insight_rules_output
+    import capo_cloudwatch.types.list_metric_data_query_definitions_input
+    import capo_cloudwatch.types.list_metric_data_query_definitions_output
     import capo_cloudwatch.types.list_metric_streams_input
     import capo_cloudwatch.types.list_metric_streams_max_results
     import capo_cloudwatch.types.list_metric_streams_output
@@ -166,10 +174,14 @@ if TYPE_CHECKING:
     import capo_cloudwatch.types.list_tags_for_resource_output
     import capo_cloudwatch.types.managed_rules
     import capo_cloudwatch.types.max_records
+    import capo_cloudwatch.types.max_results
     import capo_cloudwatch.types.max_returned_results_count
     import capo_cloudwatch.types.metric_characteristics
     import capo_cloudwatch.types.metric_data
     import capo_cloudwatch.types.metric_data_queries
+    import capo_cloudwatch.types.metric_data_query_definition_next_token
+    import capo_cloudwatch.types.metric_data_query_definition_summary
+    import capo_cloudwatch.types.metric_expression_string
     import capo_cloudwatch.types.metric_id
     import capo_cloudwatch.types.metric_math_anomaly_detector
     import capo_cloudwatch.types.metric_name
@@ -199,10 +211,13 @@ if TYPE_CHECKING:
     import capo_cloudwatch.types.put_managed_insight_rules_output
     import capo_cloudwatch.types.put_metric_alarm_input
     import capo_cloudwatch.types.put_metric_data_input
+    import capo_cloudwatch.types.put_metric_data_query_definition_input
+    import capo_cloudwatch.types.put_metric_data_query_definition_output
     import capo_cloudwatch.types.put_metric_stream_input
     import capo_cloudwatch.types.put_metric_stream_output
     import capo_cloudwatch.types.query_results_to_alarm
     import capo_cloudwatch.types.query_results_to_evaluate
+    import capo_cloudwatch.types.query_type
     import capo_cloudwatch.types.recently_active
     import capo_cloudwatch.types.resource_arn
     import capo_cloudwatch.types.resource_list
@@ -730,6 +745,51 @@ class AsyncCloudWatchClient:
         input_: capo_cloudwatch.types.delete_insight_rules_input.DeleteInsightRulesInput = {}
         if rule_names is not None:
             input_["rule_names"] = rule_names
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_metric_data_query_definition(
+        self,
+        *,
+        config_overrides: Optional[AsyncCloudWatchClientConfig] = None,
+        id: Optional["capo_cloudwatch.types.definition_id.DefinitionId"] = None,
+    ) -> "capo_cloudwatch.types.delete_metric_data_query_definition_output.DeleteMetricDataQueryDefinitionOutput":
+        """<p>Deletes a metric data query definition.</p> <p>This operation is idempotent. If the definition doesn't exist, the operation succeeds without returning an error.</p> <p> <b>Permissions</b> </p> <p>To delete a definition, you need the <code>cloudwatch:DeleteMetricDataQueryDefinition</code> permission on the metric data query definition resource. You can use the <code>aws:ResourceTag/${TagKey}</code> condition key to control access based on the tags of the definition.</p>
+
+        Args:
+            id: <p>The ID of the metric data query definition to delete.</p>
+
+        Raises:
+            capo_cloudwatch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_cloudwatch.types.delete_metric_data_query_definition_input.DeleteMetricDataQueryDefinitionInput]",
+        ) -> AsyncOperationResponse[
+            "capo_cloudwatch.types.delete_metric_data_query_definition_output.DeleteMetricDataQueryDefinitionOutput"
+        ]:
+            import capo_cloudwatch._operations.granite_service_version20100801.delete_metric_data_query_definition
+
+            (
+                output,
+                http_response,
+            ) = await capo_cloudwatch._operations.granite_service_version20100801.delete_metric_data_query_definition.async_delete_metric_data_query_definition(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMetricDataQueryDefinition")
+        )
+        input_: capo_cloudwatch.types.delete_metric_data_query_definition_input.DeleteMetricDataQueryDefinitionInput = {}
+        if id is not None:
+            input_["id"] = id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2013,6 +2073,64 @@ class AsyncCloudWatchClient:
             if not _token:
                 break
 
+    async def get_metric_data_query_definition(
+        self,
+        *,
+        config_overrides: Optional[AsyncCloudWatchClientConfig] = None,
+        id: Optional["capo_cloudwatch.types.definition_id.DefinitionId"] = None,
+    ) -> "capo_cloudwatch.types.get_metric_data_query_definition_output.GetMetricDataQueryDefinitionOutput":
+        """<p>Returns a metric data query definition, including its expression.</p> <p> <b>Permissions</b> </p> <p>To get a definition, you need the <code>cloudwatch:GetMetricDataQueryDefinition</code> permission on the metric data query definition resource. You can use the <code>aws:ResourceTag/${TagKey}</code> condition key to control access based on the tags of the definition.</p>
+
+        Args:
+            id: <p>The ID of the metric data query definition to retrieve.</p>
+
+        Raises:
+            capo_cloudwatch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The named resource does not exist.</p>
+            capo_cloudwatch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_cloudwatch.types.get_metric_data_query_definition_input.GetMetricDataQueryDefinitionInput]",
+        ) -> AsyncOperationResponse[
+            "capo_cloudwatch.types.get_metric_data_query_definition_output.GetMetricDataQueryDefinitionOutput"
+        ]:
+            import capo_cloudwatch._operations.granite_service_version20100801.get_metric_data_query_definition
+
+            (
+                output,
+                http_response,
+            ) = await capo_cloudwatch._operations.granite_service_version20100801.get_metric_data_query_definition.async_get_metric_data_query_definition(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_cloudwatch.types.get_metric_data_query_definition_output.GetMetricDataQueryDefinitionOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudwatch.types.get_metric_data_query_definition_output
+
+            return capo_cloudwatch.types.get_metric_data_query_definition_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetMetricDataQueryDefinition", redact_output=_redact_output
+            ),
+        )
+        input_: capo_cloudwatch.types.get_metric_data_query_definition_input.GetMetricDataQueryDefinitionInput = {}
+        if id is not None:
+            input_["id"] = id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_metric_statistics(
         self,
         *,
@@ -2529,6 +2647,80 @@ class AsyncCloudWatchClient:
                 max_results=max_results,
             )
             yield _response
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_metric_data_query_definitions(
+        self,
+        *,
+        config_overrides: Optional[AsyncCloudWatchClientConfig] = None,
+        max_results: Optional["capo_cloudwatch.types.max_results.MaxResults"] = None,
+        next_token: Optional[
+            "capo_cloudwatch.types.metric_data_query_definition_next_token.MetricDataQueryDefinitionNextToken"
+        ] = None,
+    ) -> "capo_cloudwatch.types.list_metric_data_query_definitions_output.ListMetricDataQueryDefinitionsOutput":
+        """<p>Lists the metric data query definitions in your account and Region.</p> <p>The results are summaries that don't include the expression. To get the full definition, call <code>GetMetricDataQueryDefinition</code> with its ID.</p> <p>This operation supports pagination. Use the <code>MaxResults</code> and <code>NextToken</code> parameters to retrieve results in multiple calls.</p> <p> <b>Permissions</b> </p> <p>To list definitions, you need the <code>cloudwatch:ListMetricDataQueryDefinitions</code> permission. This permission applies to all definitions in the account and Region. The results aren't filtered by tags.</p>
+
+        Args:
+            max_results: <p>The maximum number of metric data query definitions to return in one call. The default is 100.</p>
+            next_token: <p>The token returned by a previous call to indicate where to continue retrieving results.</p>
+
+        Raises:
+            capo_cloudwatch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_cloudwatch.types.list_metric_data_query_definitions_input.ListMetricDataQueryDefinitionsInput]",
+        ) -> AsyncOperationResponse[
+            "capo_cloudwatch.types.list_metric_data_query_definitions_output.ListMetricDataQueryDefinitionsOutput"
+        ]:
+            import capo_cloudwatch._operations.granite_service_version20100801.list_metric_data_query_definitions
+
+            (
+                output,
+                http_response,
+            ) = await capo_cloudwatch._operations.granite_service_version20100801.list_metric_data_query_definitions.async_list_metric_data_query_definitions(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetricDataQueryDefinitions")
+        )
+        input_: capo_cloudwatch.types.list_metric_data_query_definitions_input.ListMetricDataQueryDefinitionsInput = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_metric_data_query_definitions(
+        self,
+        *,
+        config_overrides: Optional[AsyncCloudWatchClientConfig] = None,
+        max_results: Optional["capo_cloudwatch.types.max_results.MaxResults"] = None,
+        next_token: Optional[
+            "capo_cloudwatch.types.metric_data_query_definition_next_token.MetricDataQueryDefinitionNextToken"
+        ] = None,
+    ) -> "AsyncIterator[capo_cloudwatch.types.metric_data_query_definition_summary.MetricDataQueryDefinitionSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_metric_data_query_definitions(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
@@ -3589,6 +3781,95 @@ class AsyncCloudWatchClient:
             input_["entity_metric_data"] = entity_metric_data
         if strict_entity_validation is not None:
             input_["strict_entity_validation"] = strict_entity_validation
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def put_metric_data_query_definition(
+        self,
+        *,
+        config_overrides: Optional[AsyncCloudWatchClientConfig] = None,
+        id: Optional["capo_cloudwatch.types.definition_id.DefinitionId"] = None,
+        path: Optional["capo_cloudwatch.types.definition_path.DefinitionPath"] = None,
+        expression: Optional[
+            "capo_cloudwatch.types.metric_expression_string.MetricExpressionString"
+        ] = None,
+        type: Optional["capo_cloudwatch.types.query_type.QueryType"] = None,
+        tags: Optional["capo_cloudwatch.types.tag_list.TagList"] = None,
+    ) -> "capo_cloudwatch.types.put_metric_data_query_definition_output.PutMetricDataQueryDefinitionOutput":
+        """<p>Creates or updates a metric data query definition.</p> <p>A metric data query definition saves a metric query so that you can reuse it later. It includes the query expression, the query language, and a path that names the definition and can organize it into folders. When you save a definition, CloudWatch doesn't validate or run its expression.</p> <p>To create a definition, omit <code>Id</code>. CloudWatch generates the ID and returns it. To update a definition, specify its <code>Id</code>. An update replaces the path, expression, and type, and keeps the creation time.</p> <p>The path must be unique in your account and Region. If another definition already uses the path, the request fails with a <code>ConflictException</code>.</p> <p>You can have up to 1,000 metric data query definitions in each Region of your account. A request that would create more fails with a <code>LimitExceededException</code>.</p> <p> <b>Permissions</b> </p> <p>To create or update a definition, you need the <code>cloudwatch:PutMetricDataQueryDefinition</code> permission on the metric data query definition resource. The resource ARN has the format <code>arn:aws:cloudwatch:Region:account-id:metric-query-definition/Id</code>.</p> <p>To add tags when you create a definition, you also need the <code>cloudwatch:TagResource</code> permission. You can use the <code>aws:RequestTag/${TagKey}</code> and <code>aws:TagKeys</code> condition keys to control which tags can be added.</p>
+
+        Args:
+            id: <p>The ID of the metric data query definition to update. Omit this parameter to create a definition. CloudWatch then generates the ID and returns it in the response.</p>
+            path: <p>The name of the metric data query definition. Use slashes (<code>/</code>) to organize definitions into folders, for example <code>team/web/latency</code>. The path must meet the following requirements:</p> <ul> <li> <p>It must be unique in your account and Region.</p> </li> <li> <p>It can't start or end with a slash.</p> </li> <li> <p>It can't contain an empty folder name (<code>//</code>).</p> </li> <li> <p>It can be at most 1,015 bytes when encoded as UTF-8.</p> </li> </ul>
+            expression: <p>The query expression, in the language that <code>Type</code> specifies. CloudWatch doesn't validate or run the expression when you save it.</p>
+            type: <p>The language of the expression. Valid values are the following:</p> <ul> <li> <p> <code>PROMQL</code> – A PromQL query.</p> </li> <li> <p> <code>SQL</code> – A CloudWatch Metrics Insights query.</p> </li> <li> <p> <code>METRIC_MATH</code> – A metric math expression.</p> </li> </ul>
+            tags: <p>A list of key-value pairs to associate with the metric data query definition. You can use tags to categorize definitions and to control access to them. Tags are applied only when the request creates a definition, that is, when you omit <code>Id</code>. To change the tags of an existing definition, use <code>TagResource</code> and <code>UntagResource</code>.</p>
+
+        Raises:
+            capo_cloudwatch.errors.conflict_exception.ConflictException: <p>This operation attempted to create a resource that already exists.</p>
+            capo_cloudwatch.errors.limit_exceeded_exception.LimitExceededException: <p>The operation exceeded one or more limits.</p>
+            capo_cloudwatch.errors.resource_not_found_exception.ResourceNotFoundException: <p>The named resource does not exist.</p>
+            capo_cloudwatch.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_cloudwatch.types.put_metric_data_query_definition_input.PutMetricDataQueryDefinitionInput]",
+        ) -> AsyncOperationResponse[
+            "capo_cloudwatch.types.put_metric_data_query_definition_output.PutMetricDataQueryDefinitionOutput"
+        ]:
+            import capo_cloudwatch._operations.granite_service_version20100801.put_metric_data_query_definition
+
+            (
+                output,
+                http_response,
+            ) = await capo_cloudwatch._operations.granite_service_version20100801.put_metric_data_query_definition.async_put_metric_data_query_definition(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_cloudwatch.types.put_metric_data_query_definition_input.PutMetricDataQueryDefinitionInput",
+        ) -> dict[str, Any]:
+            import capo_cloudwatch.types.put_metric_data_query_definition_input
+
+            return capo_cloudwatch.types.put_metric_data_query_definition_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cloudwatch.types.put_metric_data_query_definition_output.PutMetricDataQueryDefinitionOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudwatch.types.put_metric_data_query_definition_output
+
+            return capo_cloudwatch.types.put_metric_data_query_definition_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutMetricDataQueryDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_cloudwatch.types.put_metric_data_query_definition_input.PutMetricDataQueryDefinitionInput = {}
+        if id is not None:
+            input_["id"] = id
+        if path is not None:
+            input_["path"] = path
+        if expression is not None:
+            input_["expression"] = expression
+        if type is not None:
+            input_["type"] = type
+        if tags is not None:
+            input_["tags"] = tags
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

@@ -166,6 +166,8 @@
 - [RegionType](region_type.md)
 - [ReplicateKeyRequest](replicate_key_request.md)
 - [ReplicateKeyResponse](replicate_key_response.md)
+- [ResourceOwnerType](resource_owner_type.md)
+- [ResourceOwnersList](resource_owners_list.md)
 - [RetireGrantRequest](retire_grant_request.md)
 - [RevokeGrantRequest](revoke_grant_request.md)
 - [RotateKeyOnDemandRequest](rotate_key_on_demand_request.md)

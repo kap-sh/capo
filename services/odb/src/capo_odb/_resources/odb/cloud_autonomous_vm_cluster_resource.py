@@ -34,6 +34,8 @@ if TYPE_CHECKING:
     import capo_odb.types.resource_id
     import capo_odb.types.resource_id_or_arn
     import capo_odb.types.string_list
+    import capo_odb.types.update_cloud_autonomous_vm_cluster_input
+    import capo_odb.types.update_cloud_autonomous_vm_cluster_output
     from capo_odb._services.async_odb import AsyncodbClient, AsyncodbClientConfig
     from capo_odb._services.odb import odbClient, odbClientConfig
 
@@ -196,6 +198,90 @@ class CloudAutonomousVmClusterResource:
         input_: capo_odb.types.get_cloud_autonomous_vm_cluster_input.GetCloudAutonomousVmClusterInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update(
+        self,
+        cloud_autonomous_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[odbClientConfig] = None,
+        autonomous_data_storage_size_in_t_bs: Optional[float] = None,
+        cpu_core_count_per_node: Optional[int] = None,
+        description: Optional[str] = None,
+        display_name: Optional[
+            "capo_odb.types.resource_display_name.ResourceDisplayName"
+        ] = None,
+        license_model: Optional["capo_odb.types.license_model.LicenseModel"] = None,
+        maintenance_window: Optional[
+            "capo_odb.types.maintenance_window.MaintenanceWindow"
+        ] = None,
+        total_container_databases: Optional[int] = None,
+    ) -> "capo_odb.types.update_cloud_autonomous_vm_cluster_output.UpdateCloudAutonomousVmClusterOutput":
+        """<p>Updates the properties of the specified Autonomous VM cluster.</p>
+
+        Args:
+            cloud_autonomous_vm_cluster_id: <p>The unique identifier of the Autonomous VM cluster to update.</p>
+            autonomous_data_storage_size_in_t_bs: <p>The data storage size to allocate for Autonomous Databases in the Autonomous VM cluster, in terabytes (TB).</p>
+            cpu_core_count_per_node: <p>The number of CPU cores to enable per node in the Autonomous VM cluster. If you don't specify a value, the existing number of CPU cores per node is retained.</p>
+            description: <p>A user-provided description of the Autonomous VM cluster.</p>
+            display_name: <p>A new user-friendly name for the Autonomous VM cluster.</p>
+            license_model: <p>The Oracle license model to apply to the Autonomous VM cluster.</p>
+            maintenance_window: <p>The scheduling details for the maintenance window. Patching and system updates take place during the maintenance window.</p>
+            total_container_databases: <p>The total number of Autonomous Container Databases that can be created in the Autonomous VM cluster.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_odb.types.update_cloud_autonomous_vm_cluster_input.UpdateCloudAutonomousVmClusterInput]",
+        ) -> OperationResponse[
+            "capo_odb.types.update_cloud_autonomous_vm_cluster_output.UpdateCloudAutonomousVmClusterOutput"
+        ]:
+            import capo_odb._operations.odb.update_cloud_autonomous_vm_cluster
+
+            output, http_response = (
+                capo_odb._operations.odb.update_cloud_autonomous_vm_cluster.update_cloud_autonomous_vm_cluster(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCloudAutonomousVmCluster")
+        )
+        input_: capo_odb.types.update_cloud_autonomous_vm_cluster_input.UpdateCloudAutonomousVmClusterInput = {
+            "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
+        }
+        if autonomous_data_storage_size_in_t_bs is not None:
+            input_["autonomous_data_storage_size_in_t_bs"] = (
+                autonomous_data_storage_size_in_t_bs
+            )
+        if cpu_core_count_per_node is not None:
+            input_["cpu_core_count_per_node"] = cpu_core_count_per_node
+        if description is not None:
+            input_["description"] = description
+        if display_name is not None:
+            input_["display_name"] = display_name
+        if license_model is not None:
+            input_["license_model"] = license_model
+        if maintenance_window is not None:
+            input_["maintenance_window"] = maintenance_window
+        if total_container_databases is not None:
+            input_["total_container_databases"] = total_container_databases
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -531,6 +617,91 @@ class AsyncCloudAutonomousVmClusterResource:
         input_: capo_odb.types.get_cloud_autonomous_vm_cluster_input.GetCloudAutonomousVmClusterInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update(
+        self,
+        cloud_autonomous_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[AsyncodbClientConfig] = None,
+        autonomous_data_storage_size_in_t_bs: Optional[float] = None,
+        cpu_core_count_per_node: Optional[int] = None,
+        description: Optional[str] = None,
+        display_name: Optional[
+            "capo_odb.types.resource_display_name.ResourceDisplayName"
+        ] = None,
+        license_model: Optional["capo_odb.types.license_model.LicenseModel"] = None,
+        maintenance_window: Optional[
+            "capo_odb.types.maintenance_window.MaintenanceWindow"
+        ] = None,
+        total_container_databases: Optional[int] = None,
+    ) -> "capo_odb.types.update_cloud_autonomous_vm_cluster_output.UpdateCloudAutonomousVmClusterOutput":
+        """<p>Updates the properties of the specified Autonomous VM cluster.</p>
+
+        Args:
+            cloud_autonomous_vm_cluster_id: <p>The unique identifier of the Autonomous VM cluster to update.</p>
+            autonomous_data_storage_size_in_t_bs: <p>The data storage size to allocate for Autonomous Databases in the Autonomous VM cluster, in terabytes (TB).</p>
+            cpu_core_count_per_node: <p>The number of CPU cores to enable per node in the Autonomous VM cluster. If you don't specify a value, the existing number of CPU cores per node is retained.</p>
+            description: <p>A user-provided description of the Autonomous VM cluster.</p>
+            display_name: <p>A new user-friendly name for the Autonomous VM cluster.</p>
+            license_model: <p>The Oracle license model to apply to the Autonomous VM cluster.</p>
+            maintenance_window: <p>The scheduling details for the maintenance window. Patching and system updates take place during the maintenance window.</p>
+            total_container_databases: <p>The total number of Autonomous Container Databases that can be created in the Autonomous VM cluster.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_odb.types.update_cloud_autonomous_vm_cluster_input.UpdateCloudAutonomousVmClusterInput]",
+        ) -> AsyncOperationResponse[
+            "capo_odb.types.update_cloud_autonomous_vm_cluster_output.UpdateCloudAutonomousVmClusterOutput"
+        ]:
+            import capo_odb._operations.odb.update_cloud_autonomous_vm_cluster
+
+            (
+                output,
+                http_response,
+            ) = await capo_odb._operations.odb.update_cloud_autonomous_vm_cluster.async_update_cloud_autonomous_vm_cluster(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCloudAutonomousVmCluster")
+        )
+        input_: capo_odb.types.update_cloud_autonomous_vm_cluster_input.UpdateCloudAutonomousVmClusterInput = {
+            "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
+        }
+        if autonomous_data_storage_size_in_t_bs is not None:
+            input_["autonomous_data_storage_size_in_t_bs"] = (
+                autonomous_data_storage_size_in_t_bs
+            )
+        if cpu_core_count_per_node is not None:
+            input_["cpu_core_count_per_node"] = cpu_core_count_per_node
+        if description is not None:
+            input_["description"] = description
+        if display_name is not None:
+            input_["display_name"] = display_name
+        if license_model is not None:
+            input_["license_model"] = license_model
+        if maintenance_window is not None:
+            input_["maintenance_window"] = maintenance_window
+        if total_container_databases is not None:
+            input_["total_container_databases"] = total_container_databases
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

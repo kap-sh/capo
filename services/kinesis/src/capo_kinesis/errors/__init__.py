@@ -55,4 +55,5 @@ from .resource_in_use_exception import ResourceInUseException as ResourceInUseEx
 from .resource_not_found_exception import (
     ResourceNotFoundException as ResourceNotFoundException,
 )
+from .throttling_exception import ThrottlingException as ThrottlingException
 from .validation_exception import ValidationException as ValidationException

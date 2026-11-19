@@ -8,6 +8,7 @@ from capo_iam._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
+    import capo_iam.types.max_signin_session_duration_type
     import capo_iam.types.path_type
     import capo_iam.types.policy_document_type
     import capo_iam.types.role_description_type
@@ -31,6 +32,10 @@ class CreateRoleRequest(TypedDict, closed=True):
         "capo_iam.types.role_max_session_duration_type.roleMaxSessionDurationType"
     ]
     """<p>The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default value of one hour is applied. This setting can have a value from 1 hour to 12 hours.</p> <p>Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or the <code>duration-seconds</code> CLI parameter to request a longer session. The <code>MaxSessionDuration</code> setting determines the maximum duration that can be requested using the <code>DurationSeconds</code> parameter. If users don't specify a value for the <code>DurationSeconds</code> parameter, their security credentials are valid for one hour by default. This applies when you use the <code>AssumeRole*</code> API operations or the <code>assume-role*</code> CLI operations but does not apply when you use those operations to create a console URL. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using IAM roles</a> in the <i>IAM User Guide</i>.</p>"""
+    max_signin_session_duration: NotRequired[
+        "capo_iam.types.max_signin_session_duration_type.maxSigninSessionDurationType"
+    ]
+    """<p>The maximum duration (in seconds) of an Amazon Web Services Sign-In session for users who sign in with this role. This setting can have a value from 1 hour (3600 seconds) to 90 days (7776000 seconds), inclusive. If you do not specify a value, the setting remains unset and the existing sign-in session behavior applies.</p> <p>This setting is independent of <code>MaxSessionDuration</code>.</p>"""
     permissions_boundary: NotRequired["capo_iam.types.arn_type.arnType"]
     """<p>The ARN of the managed policy that is used to set the permissions boundary for the role.</p> <p>A permissions boundary policy defines the maximum permissions that identity-based policies can grant to an entity, but does not grant permissions. Permissions boundaries do not define the maximum permissions that a resource-based policy can grant to an entity. To learn more, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions boundaries for IAM entities</a> in the <i>IAM User Guide</i>.</p> <p>For more information about policy types, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types">Policy types </a> in the <i>IAM User Guide</i>.</p>"""
     tags: NotRequired["capo_iam.types.tag_list_type.tagListType"]
@@ -56,6 +61,13 @@ def serialize_query(
     if "max_session_duration" in value:
         pairs.append(
             (f"{key_prefix}MaxSessionDuration", str(value["max_session_duration"]))
+        )
+    if "max_signin_session_duration" in value:
+        pairs.append(
+            (
+                f"{key_prefix}MaxSigninSessionDuration",
+                str(value["max_signin_session_duration"]),
+            )
         )
     if "permissions_boundary" in value:
         pairs.append(
@@ -92,6 +104,11 @@ def deserialize_query(el: Element) -> CreateRoleRequest:
     child_max_session_duration = el.find("MaxSessionDuration")
     if child_max_session_duration is not None:
         out["max_session_duration"] = int(child_max_session_duration.text or "")
+    child_max_signin_session_duration = el.find("MaxSigninSessionDuration")
+    if child_max_signin_session_duration is not None:
+        out["max_signin_session_duration"] = int(
+            child_max_signin_session_duration.text or ""
+        )
     child_permissions_boundary = el.find("PermissionsBoundary")
     if child_permissions_boundary is not None:
         out["permissions_boundary"] = str(child_permissions_boundary.text or "")

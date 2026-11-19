@@ -42,6 +42,12 @@ ModifyAccountVpcEncryptionControlRequest = TypedDict(
         "elastic_file_system": NotRequired[
             "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
         ],
+        "global_accelerator": NotRequired[
+            "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
+        ],
+        "api_gateway_v2": NotRequired[
+            "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
+        ],
     },
     closed=True,
 )
@@ -113,6 +119,18 @@ def serialize_ec2_query(
 
         capo_ec2.types.vpc_encryption_control_exclusion_state_input.serialize_ec2_query(
             value["elastic_file_system"], pairs, f"{key_prefix}ElasticFileSystem"
+        )
+    if "global_accelerator" in value:
+        import capo_ec2.types.vpc_encryption_control_exclusion_state_input
+
+        capo_ec2.types.vpc_encryption_control_exclusion_state_input.serialize_ec2_query(
+            value["global_accelerator"], pairs, f"{key_prefix}GlobalAccelerator"
+        )
+    if "api_gateway_v2" in value:
+        import capo_ec2.types.vpc_encryption_control_exclusion_state_input
+
+        capo_ec2.types.vpc_encryption_control_exclusion_state_input.serialize_ec2_query(
+            value["api_gateway_v2"], pairs, f"{key_prefix}ApiGatewayV2"
         )
 
 
@@ -200,6 +218,24 @@ def deserialize_ec2_query(el: Element) -> ModifyAccountVpcEncryptionControlReque
         out["elastic_file_system"] = (
             capo_ec2.types.vpc_encryption_control_exclusion_state_input.deserialize_ec2_query(
                 child_elastic_file_system
+            )
+        )
+    child_global_accelerator = el.find("GlobalAccelerator")
+    if child_global_accelerator is not None:
+        import capo_ec2.types.vpc_encryption_control_exclusion_state_input
+
+        out["global_accelerator"] = (
+            capo_ec2.types.vpc_encryption_control_exclusion_state_input.deserialize_ec2_query(
+                child_global_accelerator
+            )
+        )
+    child_api_gateway_v2 = el.find("ApiGatewayV2")
+    if child_api_gateway_v2 is not None:
+        import capo_ec2.types.vpc_encryption_control_exclusion_state_input
+
+        out["api_gateway_v2"] = (
+            capo_ec2.types.vpc_encryption_control_exclusion_state_input.deserialize_ec2_query(
+                child_api_gateway_v2
             )
         )
     return out

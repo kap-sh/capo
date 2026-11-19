@@ -2,9 +2,10 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_resiliencehubv2.types.next_token
     import capo_resiliencehubv2.types.test_template_summary_list
 
 
@@ -13,6 +14,7 @@ class ListTestTemplatesResponse(TypedDict, closed=True):
         "capo_resiliencehubv2.types.test_template_summary_list.TestTemplateSummaryList"
     )
     """<p>The list of test template summaries.</p>"""
+    next_token: NotRequired["capo_resiliencehubv2.types.next_token.NextToken"]
 
 
 # --- restJson1 ser/de ---
@@ -25,6 +27,8 @@ def serialize_json(value: ListTestTemplatesResponse) -> dict:
             value["test_templates"]
         )
     )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
     return out
 
 
@@ -40,4 +44,6 @@ def deserialize_json(data: dict) -> ListTestTemplatesResponse:
         )
     else:
         out["test_templates"] = []
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
     return out

@@ -26,8 +26,10 @@ class CreateCloudConnectorRequest(TypedDict, closed=True):
         "capo_ssm.types.cloud_connector_configuration.CloudConnectorConfiguration"
     )
     """<p>The configuration details for connecting to the third-party cloud environment.</p>"""
-    config_connector_arn: "capo_ssm.types.config_connector_arn.ConfigConnectorArn"
-    """<p>The ARN of the Amazon Web Services Config connector associated with this cloud connector.</p>"""
+    config_connector_arn: NotRequired[
+        "capo_ssm.types.config_connector_arn.ConfigConnectorArn"
+    ]
+    """<p>The ARN of the Amazon Web Services Config connector to associate with this cloud connector. If you omit it, the cloud connector is created without Amazon Web Services Config integration.</p>"""
     tags: NotRequired["capo_ssm.types.tag_list.TagList"]
     """<p>Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment.</p>"""
 
@@ -46,7 +48,8 @@ def serialize_aws_json_1_1(value: CreateCloudConnectorRequest) -> dict:
             value["configuration"]
         )
     )
-    out["ConfigConnectorArn"] = value["config_connector_arn"]
+    if "config_connector_arn" in value:
+        out["ConfigConnectorArn"] = value["config_connector_arn"]
     if "tags" in value:
         import capo_ssm.types.tag_list
 
@@ -78,8 +81,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCloudConnectorRequest:
         out["configuration"] = {"$unknown": {"name": ""}}
     if data.get("ConfigConnectorArn") is not None:
         out["config_connector_arn"] = data["ConfigConnectorArn"]
-    else:
-        out["config_connector_arn"] = ""
     if data.get("Tags") is not None:
         import capo_ssm.types.tag_list
 

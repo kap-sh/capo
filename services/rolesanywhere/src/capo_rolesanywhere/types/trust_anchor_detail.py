@@ -7,16 +7,21 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import datetime
 
+    import capo_rolesanywhere.types.alias_name
     import capo_rolesanywhere.types.notification_setting_details
     import capo_rolesanywhere.types.resource_name
     import capo_rolesanywhere.types.source
+    import capo_rolesanywhere.types.trust_anchor_alias_arn
+    import capo_rolesanywhere.types.trust_anchor_resource_arn
     import capo_rolesanywhere.types.uuid
 
 
 class TrustAnchorDetail(TypedDict, closed=True):
     trust_anchor_id: NotRequired["capo_rolesanywhere.types.uuid.Uuid"]
     """<p>The unique identifier of the trust anchor.</p>"""
-    trust_anchor_arn: NotRequired["str"]
+    trust_anchor_arn: NotRequired[
+        "capo_rolesanywhere.types.trust_anchor_resource_arn.TrustAnchorResourceArn"
+    ]
     """<p>The ARN of the trust anchor.</p>"""
     name: NotRequired["capo_rolesanywhere.types.resource_name.ResourceName"]
     """<p>The name of the trust anchor.</p>"""
@@ -34,6 +39,14 @@ class TrustAnchorDetail(TypedDict, closed=True):
         "capo_rolesanywhere.types.notification_setting_details.NotificationSettingDetails"
     ]
     """<p>A list of notification settings to be associated to the trust anchor.</p>"""
+    alias_name: NotRequired["capo_rolesanywhere.types.alias_name.AliasName"]
+    """<p>The alias of the trust anchor. Present only if the trust anchor has an alias.</p>"""
+    alias_arn: NotRequired[
+        "capo_rolesanywhere.types.trust_anchor_alias_arn.TrustAnchorAliasArn"
+    ]
+    """<p>The alias ARN of the trust anchor, in the form <code>arn:<i>partition</i>:rolesanywhere:<i>region</i>:<i>account</i>:alias/trust-anchor/<i>alias-name</i> </code>. Present only if the trust anchor has an alias.</p> <p>You can use the alias ARN in place of the resource ID or ARN in the request parameters whose descriptions say that they accept an alias ARN. Don't use the alias ARN in Identity and Access Management (IAM) policies. A policy statement that names an alias ARN doesn't apply to the resource that holds the alias. Write policies with the ARN that contains the resource ID instead.</p>"""
+    previous_alias_name: NotRequired["capo_rolesanywhere.types.alias_name.AliasName"]
+    """<p>The alias that the resource had before the update request. IAM Roles Anywhere returns this value only in the response to an update request that changed or removed an existing alias. It isn't returned when the alias was unchanged, when the resource had no alias before the request, or by other operations.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -73,6 +86,12 @@ def serialize_json(value: TrustAnchorDetail) -> dict:
                 value["notification_settings"]
             )
         )
+    if "alias_name" in value:
+        out["aliasName"] = value["alias_name"]
+    if "alias_arn" in value:
+        out["aliasArn"] = value["alias_arn"]
+    if "previous_alias_name" in value:
+        out["previousAliasName"] = value["previous_alias_name"]
     return out
 
 
@@ -112,4 +131,10 @@ def deserialize_json(data: dict) -> TrustAnchorDetail:
                 data["notificationSettings"]
             )
         )
+    if data.get("aliasName") is not None:
+        out["alias_name"] = data["aliasName"]
+    if data.get("aliasArn") is not None:
+        out["alias_arn"] = data["aliasArn"]
+    if data.get("previousAliasName") is not None:
+        out["previous_alias_name"] = data["previousAliasName"]
     return out

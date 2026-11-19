@@ -109,5 +109,5 @@
 - [UserStatus](user_status.md)
 - [Users](users.md)
 - [ValidationExceptionReason](validation_exception_reason.md)
-- [VpcIdList](vpc_id_list.md)
-- [VpcIdType](vpc_id_type.md)
+- [VpcArn](vpc_arn.md)
+- [VpcArnList](vpc_arn_list.md)

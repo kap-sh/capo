@@ -14,7 +14,7 @@ class RateCardItem(TypedDict, closed=True):
     ]
     """<p>Dimension for which the given entitlement applies. Dimensions represent categories of capacity in a product and are specified when the product is listed in AWS Marketplace.</p>"""
     price: NotRequired["capo_marketplace_agreement.types.bounded_string.BoundedString"]
-    """<p>Per unit price for the product dimension that’s used for calculating the amount to be charged.</p>"""
+    """<p>Per unit price for the product dimension that's used for calculating the amount to be charged.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

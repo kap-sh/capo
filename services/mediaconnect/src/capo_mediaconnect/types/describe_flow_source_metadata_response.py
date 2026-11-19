@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
     import capo_mediaconnect.types.__list_of_message_detail
     import capo_mediaconnect.types.ndi_source_metadata_info
+    import capo_mediaconnect.types.rtmp_source_metadata_info
     import capo_mediaconnect.types.transport_media_info
 
 
@@ -29,6 +30,10 @@ class DescribeFlowSourceMetadataResponse(TypedDict, closed=True):
         "capo_mediaconnect.types.ndi_source_metadata_info.NdiSourceMetadataInfo"
     ]
     """<p> The NDI® specific information about the flow's source. This includes the current active NDI sender, a list of all discovered NDI senders, the associated media streams for the active NDI sender, and any relevant status messages. </p>"""
+    rtmp_info: NotRequired[
+        "capo_mediaconnect.types.rtmp_source_metadata_info.RtmpSourceMetadataInfo"
+    ]
+    """<p>The RTMP (Real-Time Messaging Protocol) specific information about the flow's source. This includes the application name, the stream name, and the associated audio and video streams.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -66,6 +71,14 @@ def serialize_json(value: DescribeFlowSourceMetadataResponse) -> dict:
                 value["ndi_info"]
             )
         )
+    if "rtmp_info" in value:
+        import capo_mediaconnect.types.rtmp_source_metadata_info
+
+        out["rtmpInfo"] = (
+            capo_mediaconnect.types.rtmp_source_metadata_info.serialize_json(
+                value["rtmp_info"]
+            )
+        )
     return out
 
 
@@ -101,6 +114,14 @@ def deserialize_json(data: dict) -> DescribeFlowSourceMetadataResponse:
         out["ndi_info"] = (
             capo_mediaconnect.types.ndi_source_metadata_info.deserialize_json(
                 data["ndiInfo"]
+            )
+        )
+    if data.get("rtmpInfo") is not None:
+        import capo_mediaconnect.types.rtmp_source_metadata_info
+
+        out["rtmp_info"] = (
+            capo_mediaconnect.types.rtmp_source_metadata_info.deserialize_json(
+                data["rtmpInfo"]
             )
         )
     return out

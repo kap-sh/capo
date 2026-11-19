@@ -13,6 +13,7 @@ from capo_bedrock_agentcore_control.types._unknown import UnknownUnionMember
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.capacity_provider_volume_configuration
     import capo_bedrock_agentcore_control.types.efs_access_point_configuration
+    import capo_bedrock_agentcore_control.types.s3_bucket_mount_configuration
     import capo_bedrock_agentcore_control.types.s3_files_access_point_configuration
     import capo_bedrock_agentcore_control.types.session_storage_configuration
 
@@ -33,11 +34,16 @@ class FilesystemConfigurationCapacityProviderVolumeMember(TypedDict, closed=True
     capacityProviderVolume: "capo_bedrock_agentcore_control.types.capacity_provider_volume_configuration.CapacityProviderVolumeConfiguration"
 
 
+class FilesystemConfigurationS3BucketMountMember(TypedDict, closed=True):
+    s3BucketMount: "capo_bedrock_agentcore_control.types.s3_bucket_mount_configuration.S3BucketMountConfiguration"
+
+
 FilesystemConfiguration: TypeAlias = (
     FilesystemConfigurationSessionStorageMember
     | FilesystemConfigurationS3FilesAccessPointMember
     | FilesystemConfigurationEfsAccessPointMember
     | FilesystemConfigurationCapacityProviderVolumeMember
+    | FilesystemConfigurationS3BucketMountMember
     | UnknownUnionMember
 )
 
@@ -80,6 +86,14 @@ def serialize_json(value: FilesystemConfiguration) -> dict:
                 value["capacityProviderVolume"]
             )
         }
+    elif "s3BucketMount" in value:
+        import capo_bedrock_agentcore_control.types.s3_bucket_mount_configuration
+
+        return {
+            "s3BucketMount": capo_bedrock_agentcore_control.types.s3_bucket_mount_configuration.serialize_json(
+                value["s3BucketMount"]
+            )
+        }
     else:
         raise SerializationError("FilesystemConfiguration: no variant present")
 
@@ -115,6 +129,14 @@ def deserialize_json(data: dict) -> FilesystemConfiguration:
         return {
             "capacityProviderVolume": capo_bedrock_agentcore_control.types.capacity_provider_volume_configuration.deserialize_json(
                 data["capacityProviderVolume"]
+            )
+        }
+    elif data.get("s3BucketMount") is not None:
+        import capo_bedrock_agentcore_control.types.s3_bucket_mount_configuration
+
+        return {
+            "s3BucketMount": capo_bedrock_agentcore_control.types.s3_bucket_mount_configuration.deserialize_json(
+                data["s3BucketMount"]
             )
         }
     else:

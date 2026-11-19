@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.marketplaceagreement#AgreementEntitlement``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,11 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementEntitlement:
         )
     if data.get("licenseArn") is not None:
         out["license_arn"] = data["licenseArn"]
+    return out
+
+
+def redact_sensitive(value: AgreementEntitlement) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "registration_token" in value:
+        out["registration_token"] = "*** Sensitive Data Redacted ***"
     return out

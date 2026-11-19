@@ -8,6 +8,7 @@ from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_ec2.types.boolean
+    import capo_ec2.types.create_peering_connection_options_request
     import capo_ec2.types.string
     import capo_ec2.types.tag_specification_list
     import capo_ec2.types.vpc_id
@@ -20,6 +21,10 @@ class CreateVpcPeeringConnectionRequest(TypedDict, closed=True):
         "capo_ec2.types.tag_specification_list.TagSpecificationList"
     ]
     """<p>The tags to assign to the peering connection.</p>"""
+    requester_peering_connection_options: NotRequired[
+        "capo_ec2.types.create_peering_connection_options_request.CreatePeeringConnectionOptionsRequest"
+    ]
+    """<p>The VPC peering connection options to apply to the requester VPC.</p>"""
     dry_run: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"""
     vpc_id: NotRequired["capo_ec2.types.vpc_id.VpcId"]
@@ -43,6 +48,14 @@ def serialize_ec2_query(
         capo_ec2.types.tag_specification_list.serialize_ec2_query(
             value["tag_specifications"], pairs, f"{key_prefix}TagSpecification"
         )
+    if "requester_peering_connection_options" in value:
+        import capo_ec2.types.create_peering_connection_options_request
+
+        capo_ec2.types.create_peering_connection_options_request.serialize_ec2_query(
+            value["requester_peering_connection_options"],
+            pairs,
+            f"{key_prefix}RequesterPeeringConnectionOptions",
+        )
     if "dry_run" in value:
         pairs.append((f"{key_prefix}DryRun", "true" if value["dry_run"] else "false"))
     if "vpc_id" in value:
@@ -65,6 +78,17 @@ def deserialize_ec2_query(el: Element) -> CreateVpcPeeringConnectionRequest:
         out["tag_specifications"] = (
             capo_ec2.types.tag_specification_list.deserialize_ec2_query(
                 child_tag_specifications
+            )
+        )
+    child_requester_peering_connection_options = el.find(
+        "RequesterPeeringConnectionOptions"
+    )
+    if child_requester_peering_connection_options is not None:
+        import capo_ec2.types.create_peering_connection_options_request
+
+        out["requester_peering_connection_options"] = (
+            capo_ec2.types.create_peering_connection_options_request.deserialize_ec2_query(
+                child_requester_peering_connection_options
             )
         )
     child_dry_run = el.find("dryRun")

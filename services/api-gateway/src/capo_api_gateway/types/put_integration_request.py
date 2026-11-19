@@ -67,7 +67,7 @@ class PutIntegrationRequest(TypedDict, closed=True):
     ]
     """<p> The response transfer mode of the integration. </p>"""
     integration_target: NotRequired["capo_api_gateway.types.string.String"]
-    """<p> The ALB or NLB listener to send the request to. </p>"""
+    """<p> The ALB or NLB ARN to send the request to. </p>"""
 
 
 # --- restJson1 ser/de ---

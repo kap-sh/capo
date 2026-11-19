@@ -20,6 +20,7 @@ import capo_bedrock_agentcore.errors.unauthorized_exception
 import capo_bedrock_agentcore.errors.validation_exception
 import capo_bedrock_agentcore.types.batch_evaluation_status
 import capo_bedrock_agentcore.types.data_source_config
+import capo_bedrock_agentcore.types.dataset_execution_details
 import capo_bedrock_agentcore.types.error_details_list
 import capo_bedrock_agentcore.types.evaluation_job_results
 import capo_bedrock_agentcore.types.evaluator_list

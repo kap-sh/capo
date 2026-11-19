@@ -10,6 +10,7 @@ FunctionType: TypeAlias = Literal[
     "CONCURRENT_EXECUTOR",
     "SEQUENTIAL_EXECUTOR",
     "VAST_REQUEST",
+    "HLS_TAG_PROCESSOR",
 ]
 
 

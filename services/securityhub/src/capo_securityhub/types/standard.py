@@ -21,7 +21,7 @@ class Standard(TypedDict, closed=True):
     enabled_by_default: NotRequired["capo_securityhub.types.boolean.Boolean"]
     """<p>Whether the standard is enabled by default. When Security Hub CSPM is enabled from the console, if a standard is enabled by default, the check box for that standard is selected by default.</p> <p>When Security Hub CSPM is enabled using the <code>EnableSecurityHub</code> API operation, the standard is enabled by default unless <code>EnableDefaultStandards</code> is set to <code>false</code>.</p>"""
     provider: NotRequired["capo_securityhub.types.standards_provider.StandardsProvider"]
-    """<p>The cloud provider whose resources the standard evaluates. For example, <code>AWS</code> or <code>Azure</code>.</p>"""
+    """<p>The cloud provider whose resources the standard evaluates. For example, <code>AWS</code>, <code>Azure</code>, or <code>GCP</code>.</p>"""
     standards_managed_by: NotRequired[
         "capo_securityhub.types.standards_managed_by.StandardsManagedBy"
     ]

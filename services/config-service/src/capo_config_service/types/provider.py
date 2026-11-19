@@ -2,7 +2,10 @@
 
 from typing import Literal, TypeAlias, cast
 
-Provider: TypeAlias = Literal["AZURE",]
+Provider: TypeAlias = Literal[
+    "AZURE",
+    "GCP",
+]
 
 
 # --- awsJson1_1 ser/de ---

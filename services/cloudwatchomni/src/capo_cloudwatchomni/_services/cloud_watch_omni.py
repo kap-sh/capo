@@ -2005,6 +2005,10 @@ class CloudWatchOmniClient:
             The following example returns context graph nodes matching the filter and traverses one hop out to their direct dependencies, over a one-hour window. Payloads are shown as JSON; on the wire they are CBOR-encoded.
 
             >>> client.get_context_graph(node_filters={'nodeType': 'SERVICE', 'namespace': ['ecommerce']}, start_time='2026-09-16T00:00:00Z', end_time='2026-09-16T01:00:00Z', depth=1, max_results=100, include_metadata=False)
+            Return metric aggregation metadata
+            The following example returns aggregation metadata for a metric stream observed on a service over a one-hour window. The metric attributes identify its producing service and instrumentation scope; additional data point dimensions can identify multiple time series. Payloads are shown as JSON; on the wire they are CBOR-encoded.
+
+            >>> client.get_context_graph(node_filters={'nodeId': 'svc:checkout-service'}, start_time='2026-09-16T00:00:00Z', end_time='2026-09-16T01:00:00Z', depth=0, max_results=1, include_metadata=True)
         """
 
         def _handler(

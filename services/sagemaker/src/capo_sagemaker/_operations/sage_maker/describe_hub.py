@@ -18,6 +18,7 @@ import capo_sagemaker.types.hub_s3_storage_config
 import capo_sagemaker.types.hub_search_keyword_list
 import capo_sagemaker.types.hub_status
 import capo_sagemaker.types.timestamp
+import capo_sagemaker.types.user_context
 from capo_sagemaker._protocol.errors import parse_error_metadata_json
 from capo_sagemaker._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_sagemaker._services._pipeline import (

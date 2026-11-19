@@ -1,0 +1,8 @@
+---
+title: UpdateIpAddressEntry
+---
+
+::: capo_route53globalresolver.types.update_ip_address_entry.UpdateIpAddressEntry
+    options:
+      show_source: true
+      merge_init_into_class: false

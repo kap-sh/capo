@@ -10,13 +10,13 @@ if TYPE_CHECKING:
     import capo_lambda.types.compatible_architectures
     import capo_lambda.types.compatible_runtimes
     import capo_lambda.types.description
-    import capo_lambda.types.layer_name
+    import capo_lambda.types.layer_name_or_arn
     import capo_lambda.types.layer_version_content_input
     import capo_lambda.types.license_info
 
 
 class PublishLayerVersionRequest(TypedDict, closed=True):
-    layer_name: "capo_lambda.types.layer_name.LayerName"
+    layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn"
     """<p>The name or Amazon Resource Name (ARN) of the layer.</p>"""
     description: NotRequired["capo_lambda.types.description.Description"]
     """<p>The description of the version.</p>"""

@@ -44,7 +44,7 @@ class ParameterMetadata(TypedDict, closed=True):
     policies: NotRequired["capo_ssm.types.parameter_policy_list.ParameterPolicyList"]
     """<p>A list of policies associated with a parameter.</p>"""
     data_type: NotRequired["capo_ssm.types.parameter_data_type.ParameterDataType"]
-    """<p>The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is <code>text</code>.</p>"""
+    """<p>The data type of the parameter, such as <code>text</code>, <code>aws:ec2:image</code>, or <code>json</code>. The default is <code>text</code>. For the list of data types, see the <code>DataType</code> parameter of <code>PutParameter</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

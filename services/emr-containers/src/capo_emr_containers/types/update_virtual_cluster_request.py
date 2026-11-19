@@ -16,7 +16,7 @@ class UpdateVirtualClusterRequest(TypedDict, closed=True):
     scheduler_configuration: NotRequired[
         "capo_emr_containers.types.scheduler_configuration.SchedulerConfiguration"
     ]
-    """<p>The scheduler configuration to apply to the virtual cluster. The new configuration fully replaces the existing one. If you omit a field, the corresponding limit is removed.</p>"""
+    """<p>The scheduler configuration to apply to the virtual cluster. The new configuration fully replaces the existing one. If you omit <code>maxInQueueJobRuns</code>, the service removes the queue-depth limit. If you omit <code>maxConcurrentJobRuns</code>, the service applies the default limit of 1,000 concurrent job runs.</p>"""
     client_token: "capo_emr_containers.types.client_token.ClientToken"
     """<p>A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If this token matches a previous request, the service ignores the request, but does not return an error.</p>"""
 

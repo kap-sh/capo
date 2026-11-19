@@ -15,6 +15,7 @@ import capo_marketplace_agreement.errors.access_denied_exception
 import capo_marketplace_agreement.errors.conflict_exception
 import capo_marketplace_agreement.errors.internal_server_exception
 import capo_marketplace_agreement.errors.resource_not_found_exception
+import capo_marketplace_agreement.errors.service_quota_exceeded_exception
 import capo_marketplace_agreement.errors.throttling_exception
 import capo_marketplace_agreement.errors.validation_exception
 import capo_marketplace_agreement.types.accept_agreement_request_input
@@ -51,6 +52,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
+                data, message, response=response
+            )
+        case "ServiceQuotaExceededException":
+            raise capo_marketplace_agreement.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_aws_json_1_0(
                 data, message, response=response
             )
         case "ThrottlingException":

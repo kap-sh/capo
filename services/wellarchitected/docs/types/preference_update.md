@@ -1,0 +1,8 @@
+---
+title: PreferenceUpdate
+---
+
+::: capo_wellarchitected.types.preference_update.PreferenceUpdate
+    options:
+      show_source: true
+      merge_init_into_class: false

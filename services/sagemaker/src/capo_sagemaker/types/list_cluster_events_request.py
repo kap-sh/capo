@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_instance_group_name
     import capo_sagemaker.types.cluster_name_or_arn
     import capo_sagemaker.types.cluster_node_id
+    import capo_sagemaker.types.cluster_operation_id
     import capo_sagemaker.types.event_sort_by
     import capo_sagemaker.types.next_token
     import capo_sagemaker.types.sort_order
@@ -39,6 +40,10 @@ class ListClusterEventsRequest(TypedDict, closed=True):
         "capo_sagemaker.types.cluster_event_resource_type.ClusterEventResourceType"
     ]
     """<p>The type of resource for which to filter events. Valid values are <code>Cluster</code>, <code>InstanceGroup</code>, or <code>Instance</code>.</p>"""
+    operation_id: NotRequired[
+        "capo_sagemaker.types.cluster_operation_id.ClusterOperationId"
+    ]
+    """<p>The unique identifier (UUID) of a cluster operation for which to filter events. If specified, only events associated with this operation are returned. This ID can be obtained from the <code>ListClusterOperations</code> operation.</p>"""
     max_results: NotRequired[
         "capo_sagemaker.types.cluster_event_max_results.ClusterEventMaxResults"
     ]
@@ -88,6 +93,8 @@ def serialize_aws_json_1_1(value: ListClusterEventsRequest) -> dict:
                 value["resource_type"]
             )
         )
+    if "operation_id" in value:
+        out["OperationId"] = value["operation_id"]
     if "max_results" in value:
         out["MaxResults"] = value["max_results"]
     if "next_token" in value:
@@ -139,6 +146,8 @@ def deserialize_aws_json_1_1(data: dict) -> ListClusterEventsRequest:
                 data["ResourceType"]
             )
         )
+    if data.get("OperationId") is not None:
+        out["operation_id"] = data["OperationId"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

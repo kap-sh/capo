@@ -22,7 +22,7 @@ class DescribeVpcEndpointServicePermissionsRequest(TypedDict, closed=True):
     ]
     """<p>The ID of the service.</p>"""
     filters: NotRequired["capo_ec2.types.filter_list.FilterList"]
-    """<p>The filters.</p> <ul> <li> <p> <code>principal</code> - The ARN of the principal.</p> </li> <li> <p> <code>principal-type</code> - The principal type (<code>All</code> | <code>Service</code> | <code>OrganizationUnit</code> | <code>Account</code> | <code>User</code> | <code>Role</code>).</p> </li> </ul>"""
+    """<p>The filters.</p> <ul> <li> <p> <code>permission-type</code> - The permission type (<code>vpc-endpoint</code> | <code>transit-gateway-attachment</code>).</p> </li> <li> <p> <code>principal</code> - The ARN of the principal.</p> </li> <li> <p> <code>principal-type</code> - The principal type (<code>All</code> | <code>Service</code> | <code>OrganizationUnit</code> | <code>Account</code> | <code>User</code> | <code>Role</code>).</p> </li> </ul>"""
     max_results: NotRequired["capo_ec2.types.integer.Integer"]
     """<p>The maximum number of results to return for the request in a single page. The remaining results of the initial request can be seen by sending another request with the returned <code>NextToken</code> value. This value can be between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only 1,000 results are returned.</p>"""
     next_token: NotRequired["capo_ec2.types.string.String"]

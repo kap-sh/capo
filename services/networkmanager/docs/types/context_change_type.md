@@ -1,0 +1,8 @@
+---
+title: ContextChangeType
+---
+
+::: capo_networkmanager.types.context_change_type.ContextChangeType
+    options:
+      show_source: true
+      merge_init_into_class: false

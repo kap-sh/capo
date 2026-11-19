@@ -102,6 +102,12 @@ class StartStreamSessionOutput(TypedDict, closed=True):
         "capo_gameliftstreams.types.display_configuration.DisplayConfiguration"
     ]
     """<p>The configuration for the stream session's virtual monitor.</p>"""
+    application_started_at: NotRequired["datetime.datetime"]
+    """<p>A timestamp that indicates when the application launched for this stream session. Timestamps are expressed using in ISO8601 format, such as: <code>2022-12-27T22:29:40+00:00</code> (UTC).</p>"""
+    streaming_started_at: NotRequired["datetime.datetime"]
+    """<p>A timestamp that indicates when streaming started for this stream session, which is when a client connected to the stream session. Timestamps are expressed using in ISO8601 format, such as: <code>2022-12-27T22:29:40+00:00</code> (UTC).</p>"""
+    streaming_ended_at: NotRequired["datetime.datetime"]
+    """<p>A timestamp that indicates when streaming ended for this stream session. Timestamps are expressed using in ISO8601 format, such as: <code>2022-12-27T22:29:40+00:00</code> (UTC).</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -205,6 +211,30 @@ def serialize_json(value: StartStreamSessionOutput) -> dict:
         out["DisplayConfiguration"] = (
             capo_gameliftstreams.types.display_configuration.serialize_json(
                 value["display_configuration"]
+            )
+        )
+    if "application_started_at" in value:
+        import capo_gameliftstreams.types._prelude.timestamp
+
+        out["ApplicationStartedAt"] = (
+            capo_gameliftstreams.types._prelude.timestamp.serialize_json(
+                value["application_started_at"]
+            )
+        )
+    if "streaming_started_at" in value:
+        import capo_gameliftstreams.types._prelude.timestamp
+
+        out["StreamingStartedAt"] = (
+            capo_gameliftstreams.types._prelude.timestamp.serialize_json(
+                value["streaming_started_at"]
+            )
+        )
+    if "streaming_ended_at" in value:
+        import capo_gameliftstreams.types._prelude.timestamp
+
+        out["StreamingEndedAt"] = (
+            capo_gameliftstreams.types._prelude.timestamp.serialize_json(
+                value["streaming_ended_at"]
             )
         )
     return out
@@ -314,6 +344,30 @@ def deserialize_json(data: dict) -> StartStreamSessionOutput:
         out["display_configuration"] = (
             capo_gameliftstreams.types.display_configuration.deserialize_json(
                 data["DisplayConfiguration"]
+            )
+        )
+    if data.get("ApplicationStartedAt") is not None:
+        import capo_gameliftstreams.types._prelude.timestamp
+
+        out["application_started_at"] = (
+            capo_gameliftstreams.types._prelude.timestamp.deserialize_json(
+                data["ApplicationStartedAt"]
+            )
+        )
+    if data.get("StreamingStartedAt") is not None:
+        import capo_gameliftstreams.types._prelude.timestamp
+
+        out["streaming_started_at"] = (
+            capo_gameliftstreams.types._prelude.timestamp.deserialize_json(
+                data["StreamingStartedAt"]
+            )
+        )
+    if data.get("StreamingEndedAt") is not None:
+        import capo_gameliftstreams.types._prelude.timestamp
+
+        out["streaming_ended_at"] = (
+            capo_gameliftstreams.types._prelude.timestamp.deserialize_json(
+                data["StreamingEndedAt"]
             )
         )
     return out

@@ -20,6 +20,7 @@ import capo_api_gateway.errors.too_many_requests_exception
 import capo_api_gateway.errors.unauthorized_exception
 import capo_api_gateway.types.authorizer
 import capo_api_gateway.types.authorizer_type
+import capo_api_gateway.types.jwt_configuration
 import capo_api_gateway.types.list_of_ar_ns
 import capo_api_gateway.types.list_of_patch_operation
 import capo_api_gateway.types.update_authorizer_request

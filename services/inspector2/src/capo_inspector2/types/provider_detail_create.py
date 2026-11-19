@@ -9,6 +9,7 @@ from capo_inspector2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_inspector2.types.azure_provider_detail_create
+    import capo_inspector2.types.gcp_provider_detail_create
 
 
 class ProviderDetailCreateAzureMember(TypedDict, closed=True):
@@ -17,7 +18,13 @@ class ProviderDetailCreateAzureMember(TypedDict, closed=True):
     )
 
 
-ProviderDetailCreate: TypeAlias = ProviderDetailCreateAzureMember | UnknownUnionMember
+class ProviderDetailCreateGcpMember(TypedDict, closed=True):
+    gcp: "capo_inspector2.types.gcp_provider_detail_create.GcpProviderDetailCreate"
+
+
+ProviderDetailCreate: TypeAlias = (
+    ProviderDetailCreateAzureMember | ProviderDetailCreateGcpMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
@@ -34,6 +41,14 @@ def serialize_json(value: ProviderDetailCreate) -> dict:
                 value["azure"]
             )
         }
+    elif "gcp" in value:
+        import capo_inspector2.types.gcp_provider_detail_create
+
+        return {
+            "gcp": capo_inspector2.types.gcp_provider_detail_create.serialize_json(
+                value["gcp"]
+            )
+        }
     else:
         raise SerializationError("ProviderDetailCreate: no variant present")
 
@@ -45,6 +60,14 @@ def deserialize_json(data: dict) -> ProviderDetailCreate:
         return {
             "azure": capo_inspector2.types.azure_provider_detail_create.deserialize_json(
                 data["azure"]
+            )
+        }
+    elif data.get("gcp") is not None:
+        import capo_inspector2.types.gcp_provider_detail_create
+
+        return {
+            "gcp": capo_inspector2.types.gcp_provider_detail_create.deserialize_json(
+                data["gcp"]
             )
         }
     else:

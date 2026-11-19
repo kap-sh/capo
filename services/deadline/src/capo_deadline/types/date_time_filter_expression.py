@@ -14,7 +14,7 @@ class DateTimeFilterExpression(TypedDict, closed=True):
     name: "capo_deadline.types.string.String"
     """The name of the date-time field to filter on."""
     operator: "capo_deadline.types.comparison_operator.ComparisonOperator"
-    """The type of comparison to use to filter the results."""
+    """The type of comparison to use to filter the results. `NOT_EQUAL`, `ANY_EQUALS`, and `ALL_NOT_EQUALS` aren't supported."""
     date_time: "capo_deadline.types.timestamp.Timestamp"
     """The date and time."""
 

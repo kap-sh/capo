@@ -64,6 +64,8 @@ if TYPE_CHECKING:
     import capo_lightsail.types.certificate_name
     import capo_lightsail.types.certificate_provider
     import capo_lightsail.types.certificate_status_list
+    import capo_lightsail.types.check_subdomain_availability_request
+    import capo_lightsail.types.check_subdomain_availability_result
     import capo_lightsail.types.close_instance_public_ports_request
     import capo_lightsail.types.close_instance_public_ports_result
     import capo_lightsail.types.comparison_operator
@@ -129,6 +131,8 @@ if TYPE_CHECKING:
     import capo_lightsail.types.create_relational_database_result
     import capo_lightsail.types.create_relational_database_snapshot_request
     import capo_lightsail.types.create_relational_database_snapshot_result
+    import capo_lightsail.types.create_subdomain_request
+    import capo_lightsail.types.create_subdomain_result
     import capo_lightsail.types.delete_alarm_request
     import capo_lightsail.types.delete_alarm_result
     import capo_lightsail.types.delete_auto_snapshot_request
@@ -171,6 +175,8 @@ if TYPE_CHECKING:
     import capo_lightsail.types.delete_relational_database_result
     import capo_lightsail.types.delete_relational_database_snapshot_request
     import capo_lightsail.types.delete_relational_database_snapshot_result
+    import capo_lightsail.types.delete_subdomain_request
+    import capo_lightsail.types.delete_subdomain_result
     import capo_lightsail.types.detach_certificate_from_distribution_request
     import capo_lightsail.types.detach_certificate_from_distribution_result
     import capo_lightsail.types.detach_disk_request
@@ -326,6 +332,8 @@ if TYPE_CHECKING:
     import capo_lightsail.types.get_static_ip_result
     import capo_lightsail.types.get_static_ips_request
     import capo_lightsail.types.get_static_ips_result
+    import capo_lightsail.types.get_subdomains_request
+    import capo_lightsail.types.get_subdomains_result
     import capo_lightsail.types.http_endpoint
     import capo_lightsail.types.http_protocol_ipv6
     import capo_lightsail.types.http_tokens
@@ -408,6 +416,7 @@ if TYPE_CHECKING:
     import capo_lightsail.types.string
     import capo_lightsail.types.string_list
     import capo_lightsail.types.string_max256
+    import capo_lightsail.types.subdomain_association_action
     import capo_lightsail.types.subject_alternative_name_list
     import capo_lightsail.types.tag_key_list
     import capo_lightsail.types.tag_list
@@ -441,6 +450,8 @@ if TYPE_CHECKING:
     import capo_lightsail.types.update_relational_database_parameters_result
     import capo_lightsail.types.update_relational_database_request
     import capo_lightsail.types.update_relational_database_result
+    import capo_lightsail.types.update_subdomain_association_request
+    import capo_lightsail.types.update_subdomain_association_result
     import capo_lightsail.types.viewer_minimum_tls_protocol_version_enum
     import capo_lightsail.types.waf_rule_list
 
@@ -891,6 +902,60 @@ class AsyncLightsailClient:
             "static_ip_name": static_ip_name,
             "instance_name": instance_name,
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def check_subdomain_availability(
+        self,
+        subdomain_name: "capo_lightsail.types.string.string",
+        *,
+        config_overrides: Optional[AsyncLightsailClientConfig] = None,
+        reserve: Optional["capo_lightsail.types.boolean.boolean"] = None,
+    ) -> "capo_lightsail.types.check_subdomain_availability_result.CheckSubdomainAvailabilityResult":
+        """<p>Checks whether a Lightsail subdomain is available to create. Optionally, reserves the subdomain for your account for 15 minutes.</p> <p>If you don't reserve the subdomain, another account can create it before you do.</p>
+
+        Args:
+            subdomain_name: <p>The subdomain to check (for example, <code>mysite</code> or <code>blog.mysite</code>).</p> <p>A subdomain can contain one or two labels separated by a period (<code>.</code>). Each label must start and end with a lowercase letter or a number, and can contain only lowercase letters, numbers, and hyphens (<code>-</code>). The name can be up to 39 characters long, including periods. Labels that start with <code>xn--</code> aren't supported, and some names are reserved.</p> <p>Specify only the subdomain. A web address, such as <code>mysite.amazonlightsail.com</code>, isn't accepted.</p>
+            reserve: <p>Specifies whether to reserve the subdomain for your account if it's available. A reservation holds the subdomain for 15 minutes so that other accounts can't create it. Checking the subdomain again doesn't extend the reservation.</p> <p>For a nested subdomain, such as <code>blog.mysite</code>, the top-level subdomain (<code>mysite</code>) is reserved.</p> <p>You can have up to 5 active reservations at a time.</p>
+
+        Raises:
+            capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
+            capo_lightsail.errors.invalid_input_exception.InvalidInputException: <p>Lightsail throws this exception when user input does not conform to the validation rules of an input field.</p> <note> <p>Domain and distribution APIs are only available in the N. Virginia (<code>us-east-1</code>) Amazon Web Services Region. Please set your Amazon Web Services Region configuration to <code>us-east-1</code> to create, view, or edit these resources.</p> </note>
+            capo_lightsail.errors.operation_failure_exception.OperationFailureException: <p>Lightsail throws this exception when an operation fails to execute.</p>
+            capo_lightsail.errors.service_exception.ServiceException: <p>A general service exception.</p>
+            capo_lightsail.errors.unauthenticated_exception.UnauthenticatedException: <p>Lightsail throws this exception when the user has not been authenticated.</p>
+            capo_lightsail.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_lightsail.types.check_subdomain_availability_request.CheckSubdomainAvailabilityRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_lightsail.types.check_subdomain_availability_result.CheckSubdomainAvailabilityResult"
+        ]:
+            import capo_lightsail._operations.lightsail_20161128.check_subdomain_availability
+
+            (
+                output,
+                http_response,
+            ) = await capo_lightsail._operations.lightsail_20161128.check_subdomain_availability.async_check_subdomain_availability(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckSubdomainAvailability")
+        )
+        input_: capo_lightsail.types.check_subdomain_availability_request.CheckSubdomainAvailabilityRequest = {
+            "subdomain_name": subdomain_name
+        }
+        if reserve is not None:
+            input_["reserve"] = reserve
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1791,6 +1856,7 @@ class AsyncLightsailClient:
         ] = None,
         enable_waf: Optional["capo_lightsail.types.boolean.boolean"] = None,
         waf_rules: Optional["capo_lightsail.types.waf_rule_list.WafRuleList"] = None,
+        subdomain_name: Optional["capo_lightsail.types.string.string"] = None,
     ) -> "capo_lightsail.types.create_distribution_result.CreateDistributionResult":
         """<p>Creates an Amazon Lightsail content delivery network (CDN) distribution.</p> <p>A distribution is a globally distributed network of caching servers that improve the performance of your website or web application hosted on a Lightsail instance. For more information, see <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-content-delivery-network-distributions">Content delivery networks in Amazon Lightsail</a>.</p>
 
@@ -1810,6 +1876,7 @@ class AsyncLightsailClient:
             custom_error_responses: <p>An array of objects that describe the custom error responses for the distribution. With a custom error response, you can specify the page to return when the origin responds with a given HTTP error code. You can also specify the HTTP status code to send to the viewer.</p>
             enable_waf: <p>Specifies whether to enable Web Application Firewall (WAF) for the distribution. WAF inspects viewer requests and blocks requests that match the WAF rule groups that you enable.</p> <p>When you enable WAF without specifying the <code>wafRules</code> parameter, the distribution has no WAF rule groups enabled and doesn't block any requests.</p> <note> <p>WAF is available only for distributions that use the <code>medium_1_0</code> or <code>large_1_0</code> bundle.</p> </note>
             waf_rules: <p>An array of objects that describe the WAF rule groups to enable for the distribution.</p> <p>The WAF rule groups that you can specify depend on the bundle of the distribution:</p> <ul> <li> <p> <code>medium_1_0</code> – Supports the <code>AWSManagedRulesCommonRuleSet</code>, <code>AWSManagedRulesKnownBadInputsRuleSet</code>, and <code>AWSManagedRulesAnonymousIpList</code> rule groups.</p> </li> <li> <p> <code>large_1_0</code> – Supports the rule groups for <code>medium_1_0</code>, plus <code>AWSManagedRulesAdminProtectionRuleSet</code>, <code>AWSManagedRulesSQLiRuleSet</code>, <code>AWSManagedRulesLinuxRuleSet</code>, <code>AWSManagedRulesUnixRuleSet</code>, <code>AWSManagedRulesWindowsRuleSet</code>, <code>AWSManagedRulesPHPRuleSet</code>, <code>AWSManagedRulesWordPressRuleSet</code>, <code>AWSManagedRulesAmazonIpReputationList</code>, <code>AWSManagedRulesATPRuleSet</code>, <code>AWSManagedRulesACFPRuleSet</code>, and <code>AWSManagedRulesBotControlRuleSet</code> rule groups.</p> </li> </ul>
+            subdomain_name: <p>The Lightsail subdomain to create and associate with the distribution (for example, <code>mysite</code>, for the web address <code>mysite.amazonlightsail.com</code>).</p> <p>After the distribution is deployed, Lightsail creates the subdomain and associates it with the distribution. If Lightsail can't create or associate the subdomain, it still creates the distribution, but the <code>CreateDistribution</code> operation fails and the <code>state</code> of the distribution's <code>subdomain</code> is <code>Error</code>. To check the status, use the <code>subdomain</code> parameter of the distribution.</p>
 
         Raises:
             capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
@@ -1869,6 +1936,8 @@ class AsyncLightsailClient:
             input_["enable_waf"] = enable_waf
         if waf_rules is not None:
             input_["waf_rules"] = waf_rules
+        if subdomain_name is not None:
+            input_["subdomain_name"] = subdomain_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2793,6 +2862,61 @@ class AsyncLightsailClient:
         input_: capo_lightsail.types.create_relational_database_snapshot_request.CreateRelationalDatabaseSnapshotRequest = {
             "relational_database_name": relational_database_name,
             "relational_database_snapshot_name": relational_database_snapshot_name,
+        }
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def create_subdomain(
+        self,
+        subdomain_name: "capo_lightsail.types.string.string",
+        *,
+        config_overrides: Optional[AsyncLightsailClientConfig] = None,
+        tags: Optional["capo_lightsail.types.tag_list.TagList"] = None,
+    ) -> "capo_lightsail.types.create_subdomain_result.CreateSubdomainResult":
+        """<p>Creates a Lightsail subdomain, such as <code>mysite</code>, with the web address <code>mysite.amazonlightsail.com</code>. After the subdomain is created, use the <code>UpdateSubdomainAssociation</code> action to associate it with a Lightsail resource.</p> <p>When you create a nested subdomain, such as <code>blog.mysite</code>, and you don't already have the top-level subdomain (<code>mysite</code>), Lightsail adds the top-level subdomain to your account in the <code>IMPLICIT</code> state.</p> <p>You can have up to 30 subdomains in your account. Nested subdomains, subdomains in the <code>CREATE_FAILED</code> state, and deleted subdomains that other accounts can't create yet count toward this quota. Subdomains in the <code>IMPLICIT</code> state don't count toward this quota.</p>
+
+        Args:
+            subdomain_name: <p>The subdomain to create (for example, <code>mysite</code> or <code>blog.mysite</code>).</p> <p>A subdomain can contain one or two labels separated by a period (<code>.</code>). Each label must start and end with a lowercase letter or a number, and can contain only lowercase letters, numbers, and hyphens (<code>-</code>). The name can be up to 39 characters long, including periods. Labels that start with <code>xn--</code> aren't supported, and some names are reserved.</p> <p>Specify only the subdomain. A web address, such as <code>mysite.amazonlightsail.com</code>, isn't accepted.</p> <p>To create a nested subdomain, you must own the top-level subdomain or be able to create it.</p>
+            tags: <p>The tag keys and optional values to add to the subdomain during create.</p> <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
+
+        Raises:
+            capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
+            capo_lightsail.errors.invalid_input_exception.InvalidInputException: <p>Lightsail throws this exception when user input does not conform to the validation rules of an input field.</p> <note> <p>Domain and distribution APIs are only available in the N. Virginia (<code>us-east-1</code>) Amazon Web Services Region. Please set your Amazon Web Services Region configuration to <code>us-east-1</code> to create, view, or edit these resources.</p> </note>
+            capo_lightsail.errors.not_found_exception.NotFoundException: <p>Lightsail throws this exception when it cannot find a resource.</p>
+            capo_lightsail.errors.operation_failure_exception.OperationFailureException: <p>Lightsail throws this exception when an operation fails to execute.</p>
+            capo_lightsail.errors.service_exception.ServiceException: <p>A general service exception.</p>
+            capo_lightsail.errors.unauthenticated_exception.UnauthenticatedException: <p>Lightsail throws this exception when the user has not been authenticated.</p>
+            capo_lightsail.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_lightsail.types.create_subdomain_request.CreateSubdomainRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_lightsail.types.create_subdomain_result.CreateSubdomainResult"
+        ]:
+            import capo_lightsail._operations.lightsail_20161128.create_subdomain
+
+            (
+                output,
+                http_response,
+            ) = await capo_lightsail._operations.lightsail_20161128.create_subdomain.async_create_subdomain(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubdomain")
+        )
+        input_: capo_lightsail.types.create_subdomain_request.CreateSubdomainRequest = {
+            "subdomain_name": subdomain_name
         }
         if tags is not None:
             input_["tags"] = tags
@@ -3944,6 +4068,57 @@ class AsyncLightsailClient:
         )
         input_: capo_lightsail.types.delete_relational_database_snapshot_request.DeleteRelationalDatabaseSnapshotRequest = {
             "relational_database_snapshot_name": relational_database_snapshot_name
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_subdomain(
+        self,
+        subdomain_name: "capo_lightsail.types.string.string",
+        *,
+        config_overrides: Optional[AsyncLightsailClientConfig] = None,
+    ) -> "capo_lightsail.types.delete_subdomain_result.DeleteSubdomainResult":
+        """<p>Deletes a Lightsail subdomain.</p> <p>The subdomain must be in the <code>UNATTACHED</code> or <code>CREATE_FAILED</code> state. To delete a subdomain that's associated with a resource, first disassociate it by using the <code>UpdateSubdomainAssociation</code> action.</p> <p>When you delete a top-level subdomain that has nested subdomains, the nested subdomains continue to work, and the top-level subdomain changes to the <code>IMPLICIT</code> state.</p> <note> <p>After you delete a subdomain that was associated with a resource, the subdomain isn't available to other accounts for at least 30 days.</p> </note>
+
+        Args:
+            subdomain_name: <p>The subdomain to delete (for example, <code>mysite</code> or <code>blog.mysite</code>), not its web address.</p>
+
+        Raises:
+            capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
+            capo_lightsail.errors.invalid_input_exception.InvalidInputException: <p>Lightsail throws this exception when user input does not conform to the validation rules of an input field.</p> <note> <p>Domain and distribution APIs are only available in the N. Virginia (<code>us-east-1</code>) Amazon Web Services Region. Please set your Amazon Web Services Region configuration to <code>us-east-1</code> to create, view, or edit these resources.</p> </note>
+            capo_lightsail.errors.not_found_exception.NotFoundException: <p>Lightsail throws this exception when it cannot find a resource.</p>
+            capo_lightsail.errors.operation_failure_exception.OperationFailureException: <p>Lightsail throws this exception when an operation fails to execute.</p>
+            capo_lightsail.errors.service_exception.ServiceException: <p>A general service exception.</p>
+            capo_lightsail.errors.unauthenticated_exception.UnauthenticatedException: <p>Lightsail throws this exception when the user has not been authenticated.</p>
+            capo_lightsail.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_lightsail.types.delete_subdomain_request.DeleteSubdomainRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_lightsail.types.delete_subdomain_result.DeleteSubdomainResult"
+        ]:
+            import capo_lightsail._operations.lightsail_20161128.delete_subdomain
+
+            (
+                output,
+                http_response,
+            ) = await capo_lightsail._operations.lightsail_20161128.delete_subdomain.async_delete_subdomain(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubdomain")
+        )
+        input_: capo_lightsail.types.delete_subdomain_request.DeleteSubdomainRequest = {
+            "subdomain_name": subdomain_name
         }
 
         response = await aexecute_pipeline(
@@ -5915,7 +6090,7 @@ class AsyncLightsailClient:
         ] = None,
         page_token: Optional["capo_lightsail.types.string.string"] = None,
     ) -> "capo_lightsail.types.get_distributions_result.GetDistributionsResult":
-        """<p>Returns information about one or more of your Amazon Lightsail content delivery network (CDN) distributions.</p>
+        """<p>Returns information about one or more of your Amazon Lightsail content delivery network (CDN) distributions.</p> <note> <p>The <code>defaultRootObject</code> and <code>customErrorResponses</code> values are returned only when you specify <code>distributionName</code> to retrieve a single distribution. When you call <code>GetDistributions</code> without a distribution name to list all distributions, these two fields aren't included in the response.</p> </note>
 
         Args:
             distribution_name: <p>The name of the distribution for which to return information.</p> <p>When omitted, the response includes all of your distributions in the Amazon Web Services Region where the request is made.</p>
@@ -8143,6 +8318,60 @@ class AsyncLightsailClient:
         await response.response.aclose()
         return response.output
 
+    async def get_subdomains(
+        self,
+        *,
+        config_overrides: Optional[AsyncLightsailClientConfig] = None,
+        subdomain_name: Optional["capo_lightsail.types.string.string"] = None,
+        page_token: Optional["capo_lightsail.types.string.string"] = None,
+    ) -> "capo_lightsail.types.get_subdomains_result.GetSubdomainsResult":
+        """<p>Returns information about one or more of your Lightsail subdomains.</p> <p>When you don't specify a subdomain, the response lists your top-level subdomains, and each top-level subdomain includes its nested subdomains.</p> <p>The results are paginated. To get the next page of results, use the <code>pageToken</code> parameter.</p>
+
+        Args:
+            subdomain_name: <p>The subdomain for which to return information (for example, <code>mysite</code> or <code>blog.mysite</code>), not its web address.</p> <p>When omitted, the response includes all of your subdomains.</p> <p>You can't specify this parameter together with the <code>pageToken</code> parameter.</p>
+            page_token: <p>The token to advance to the next page of results from your request.</p> <p>To get a page token, perform an initial <code>GetSubdomains</code> request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.</p>
+
+        Raises:
+            capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
+            capo_lightsail.errors.invalid_input_exception.InvalidInputException: <p>Lightsail throws this exception when user input does not conform to the validation rules of an input field.</p> <note> <p>Domain and distribution APIs are only available in the N. Virginia (<code>us-east-1</code>) Amazon Web Services Region. Please set your Amazon Web Services Region configuration to <code>us-east-1</code> to create, view, or edit these resources.</p> </note>
+            capo_lightsail.errors.not_found_exception.NotFoundException: <p>Lightsail throws this exception when it cannot find a resource.</p>
+            capo_lightsail.errors.service_exception.ServiceException: <p>A general service exception.</p>
+            capo_lightsail.errors.unauthenticated_exception.UnauthenticatedException: <p>Lightsail throws this exception when the user has not been authenticated.</p>
+            capo_lightsail.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_lightsail.types.get_subdomains_request.GetSubdomainsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_lightsail.types.get_subdomains_result.GetSubdomainsResult"
+        ]:
+            import capo_lightsail._operations.lightsail_20161128.get_subdomains
+
+            (
+                output,
+                http_response,
+            ) = await capo_lightsail._operations.lightsail_20161128.get_subdomains.async_get_subdomains(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubdomains")
+        )
+        input_: capo_lightsail.types.get_subdomains_request.GetSubdomainsRequest = {}
+        if subdomain_name is not None:
+            input_["subdomain_name"] = subdomain_name
+        if page_token is not None:
+            input_["page_token"] = page_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def import_key_pair(
         self,
         key_pair_name: "capo_lightsail.types.resource_name.ResourceName",
@@ -10307,6 +10536,64 @@ class AsyncLightsailClient:
             "relational_database_name": relational_database_name,
             "parameters": parameters,
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_subdomain_association(
+        self,
+        subdomain_name: "capo_lightsail.types.string.string",
+        action: "capo_lightsail.types.subdomain_association_action.SubdomainAssociationAction",
+        *,
+        config_overrides: Optional[AsyncLightsailClientConfig] = None,
+        target_resource_arn: Optional["capo_lightsail.types.string.string"] = None,
+    ) -> "capo_lightsail.types.update_subdomain_association_result.UpdateSubdomainAssociationResult":
+        """<p>Associates a Lightsail subdomain with a resource, disassociates it from a resource, or moves it from one resource to another resource.</p> <p>Currently, you can associate a subdomain only with a Lightsail content delivery network (CDN) distribution. A resource can be associated with only one subdomain at a time.</p> <p>When you associate a subdomain with a distribution, Lightsail attaches the subdomain's certificate to the distribution. You can't associate a subdomain with a distribution that uses a custom domain, which is a distribution that has a Lightsail certificate attached.</p> <p>You can transfer each subdomain to another resource only once in a 24-hour period.</p> <p>The update is asynchronous. The response returns the subdomain in the <code>ATTACHING</code>, <code>DETACHING</code>, or <code>TRANSFERRING</code> state, and an operation. To check when the update is complete, use the <code>GetSubdomains</code> action.</p>
+
+        Args:
+            subdomain_name: <p>The subdomain to update (for example, <code>mysite</code> or <code>blog.mysite</code>), not its web address.</p>
+            action: <p>The association change to make.</p> <p>The following actions are possible:</p> <ul> <li> <p> <code>ASSOCIATE</code> – Associates the subdomain with the resource that you specify in the <code>targetResourceArn</code> parameter. The subdomain must be in the <code>UNATTACHED</code> state.</p> </li> <li> <p> <code>DISASSOCIATE</code> – Disassociates the subdomain from its current resource. The subdomain must be in the <code>ATTACHED</code> state.</p> </li> <li> <p> <code>TRANSFER</code> – Moves the subdomain from its current resource to the resource that you specify in the <code>targetResourceArn</code> parameter. The subdomain must be in the <code>ATTACHED</code> state. You can transfer each subdomain only once in a 24-hour period.</p> </li> </ul>
+            target_resource_arn: <p>The Amazon Resource Name (ARN) of the resource to associate the subdomain with. The resource must be in your account.</p> <p>This parameter is required when the <code>action</code> is <code>ASSOCIATE</code> or <code>TRANSFER</code>. It's ignored when the <code>action</code> is <code>DISASSOCIATE</code>.</p>
+
+        Raises:
+            capo_lightsail.errors.access_denied_exception.AccessDeniedException: <p>Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.</p>
+            capo_lightsail.errors.invalid_input_exception.InvalidInputException: <p>Lightsail throws this exception when user input does not conform to the validation rules of an input field.</p> <note> <p>Domain and distribution APIs are only available in the N. Virginia (<code>us-east-1</code>) Amazon Web Services Region. Please set your Amazon Web Services Region configuration to <code>us-east-1</code> to create, view, or edit these resources.</p> </note>
+            capo_lightsail.errors.not_found_exception.NotFoundException: <p>Lightsail throws this exception when it cannot find a resource.</p>
+            capo_lightsail.errors.operation_failure_exception.OperationFailureException: <p>Lightsail throws this exception when an operation fails to execute.</p>
+            capo_lightsail.errors.service_exception.ServiceException: <p>A general service exception.</p>
+            capo_lightsail.errors.unauthenticated_exception.UnauthenticatedException: <p>Lightsail throws this exception when the user has not been authenticated.</p>
+            capo_lightsail.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_lightsail.types.update_subdomain_association_request.UpdateSubdomainAssociationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_lightsail.types.update_subdomain_association_result.UpdateSubdomainAssociationResult"
+        ]:
+            import capo_lightsail._operations.lightsail_20161128.update_subdomain_association
+
+            (
+                output,
+                http_response,
+            ) = await capo_lightsail._operations.lightsail_20161128.update_subdomain_association.async_update_subdomain_association(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubdomainAssociation")
+        )
+        input_: capo_lightsail.types.update_subdomain_association_request.UpdateSubdomainAssociationRequest = {
+            "subdomain_name": subdomain_name,
+            "action": action,
+        }
+        if target_resource_arn is not None:
+            input_["target_resource_arn"] = target_resource_arn
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

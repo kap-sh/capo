@@ -20,6 +20,7 @@ import capo_sso_admin.types.describe_instance_request
 import capo_sso_admin.types.describe_instance_response
 import capo_sso_admin.types.encryption_configuration_details
 import capo_sso_admin.types.instance_status
+import capo_sso_admin.types.network_configuration_info
 import capo_sso_admin.types.region_metadata_list
 from capo_sso_admin._protocol.errors import parse_error_metadata_json
 from capo_sso_admin._rule_engine._endpoint_rule_set import EndpointParams, resolve

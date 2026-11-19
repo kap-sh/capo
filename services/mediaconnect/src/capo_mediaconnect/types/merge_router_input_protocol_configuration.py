@@ -10,6 +10,8 @@ from capo_mediaconnect.types._unknown import UnknownUnionMember
 if TYPE_CHECKING:
     import capo_mediaconnect.types.rist_router_input_configuration
     import capo_mediaconnect.types.rtp_router_input_configuration
+    import capo_mediaconnect.types.srt_caller_router_input_configuration
+    import capo_mediaconnect.types.srt_listener_router_input_configuration
 
 
 class MergeRouterInputProtocolConfigurationRtpMember(TypedDict, closed=True):
@@ -20,9 +22,19 @@ class MergeRouterInputProtocolConfigurationRistMember(TypedDict, closed=True):
     Rist: "capo_mediaconnect.types.rist_router_input_configuration.RistRouterInputConfiguration"
 
 
+class MergeRouterInputProtocolConfigurationSrtListenerMember(TypedDict, closed=True):
+    SrtListener: "capo_mediaconnect.types.srt_listener_router_input_configuration.SrtListenerRouterInputConfiguration"
+
+
+class MergeRouterInputProtocolConfigurationSrtCallerMember(TypedDict, closed=True):
+    SrtCaller: "capo_mediaconnect.types.srt_caller_router_input_configuration.SrtCallerRouterInputConfiguration"
+
+
 MergeRouterInputProtocolConfiguration: TypeAlias = (
     MergeRouterInputProtocolConfigurationRtpMember
     | MergeRouterInputProtocolConfigurationRistMember
+    | MergeRouterInputProtocolConfigurationSrtListenerMember
+    | MergeRouterInputProtocolConfigurationSrtCallerMember
     | UnknownUnionMember
 )
 
@@ -49,6 +61,22 @@ def serialize_json(value: MergeRouterInputProtocolConfiguration) -> dict:
                 value["Rist"]
             )
         }
+    elif "SrtListener" in value:
+        import capo_mediaconnect.types.srt_listener_router_input_configuration
+
+        return {
+            "srtListener": capo_mediaconnect.types.srt_listener_router_input_configuration.serialize_json(
+                value["SrtListener"]
+            )
+        }
+    elif "SrtCaller" in value:
+        import capo_mediaconnect.types.srt_caller_router_input_configuration
+
+        return {
+            "srtCaller": capo_mediaconnect.types.srt_caller_router_input_configuration.serialize_json(
+                value["SrtCaller"]
+            )
+        }
     else:
         raise SerializationError(
             "MergeRouterInputProtocolConfiguration: no variant present"
@@ -70,6 +98,22 @@ def deserialize_json(data: dict) -> MergeRouterInputProtocolConfiguration:
         return {
             "Rist": capo_mediaconnect.types.rist_router_input_configuration.deserialize_json(
                 data["rist"]
+            )
+        }
+    elif data.get("srtListener") is not None:
+        import capo_mediaconnect.types.srt_listener_router_input_configuration
+
+        return {
+            "SrtListener": capo_mediaconnect.types.srt_listener_router_input_configuration.deserialize_json(
+                data["srtListener"]
+            )
+        }
+    elif data.get("srtCaller") is not None:
+        import capo_mediaconnect.types.srt_caller_router_input_configuration
+
+        return {
+            "SrtCaller": capo_mediaconnect.types.srt_caller_router_input_configuration.deserialize_json(
+                data["srtCaller"]
             )
         }
     else:

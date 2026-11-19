@@ -14,6 +14,8 @@ from capo_odb._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_input
+    import capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_output
     import capo_odb.types.cloud_vm_cluster_summary
     import capo_odb.types.cluster_name
     import capo_odb.types.create_cloud_vm_cluster_input
@@ -21,6 +23,8 @@ if TYPE_CHECKING:
     import capo_odb.types.data_collection_options
     import capo_odb.types.delete_cloud_vm_cluster_input
     import capo_odb.types.delete_cloud_vm_cluster_output
+    import capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_input
+    import capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_output
     import capo_odb.types.file_system_configuration_details_list
     import capo_odb.types.general_input_string
     import capo_odb.types.get_cloud_vm_cluster_input
@@ -34,6 +38,8 @@ if TYPE_CHECKING:
     import capo_odb.types.resource_id
     import capo_odb.types.resource_id_or_arn
     import capo_odb.types.string_list
+    import capo_odb.types.update_cloud_vm_cluster_input
+    import capo_odb.types.update_cloud_vm_cluster_output
     import capo_odb.types.vm_storage_type
     from capo_odb._services.async_odb import AsyncodbClient, AsyncodbClientConfig
     from capo_odb._services.odb import odbClient, odbClientConfig
@@ -256,6 +262,96 @@ class CloudVmClusterResource:
         response.response.close()
         return response.output
 
+    def update(
+        self,
+        cloud_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[odbClientConfig] = None,
+        cpu_core_count: Optional[int] = None,
+        data_collection_options: Optional[
+            "capo_odb.types.data_collection_options.DataCollectionOptions"
+        ] = None,
+        data_storage_size_in_t_bs: Optional[float] = None,
+        db_node_storage_size_in_g_bs: Optional[int] = None,
+        display_name: Optional[
+            "capo_odb.types.resource_display_name.ResourceDisplayName"
+        ] = None,
+        ssh_public_keys: Optional["capo_odb.types.string_list.StringList"] = None,
+        license_model: Optional["capo_odb.types.license_model.LicenseModel"] = None,
+        memory_size_in_g_bs: Optional[int] = None,
+        storage_size_in_g_bs: Optional[int] = None,
+    ) -> "capo_odb.types.update_cloud_vm_cluster_output.UpdateCloudVmClusterOutput":
+        """<p>Updates the properties of the specified VM cluster.</p>
+
+        Args:
+            cloud_vm_cluster_id: <p>The unique identifier of the VM cluster to update.</p>
+            cpu_core_count: <p>The number of CPU cores to enable on the VM cluster. If you don't specify a value, the existing number of CPU cores is retained.</p>
+            data_collection_options: <p>The set of preferences for the diagnostic collection options for the VM cluster.</p>
+            data_storage_size_in_t_bs: <p>The size of the data disk group, in terabytes (TB), to allocate for the VM cluster.</p>
+            db_node_storage_size_in_g_bs: <p>The amount of local node storage, in gigabytes (GB), to allocate for the VM cluster.</p>
+            display_name: <p>A new user-friendly name for the VM cluster.</p>
+            ssh_public_keys: <p>The public key portion of one or more key pairs used for SSH access to the VM cluster.</p>
+            license_model: <p>The Oracle license model to apply to the VM cluster.</p>
+            memory_size_in_g_bs: <p>The amount of memory, in gigabytes (GB), to allocate for the VM cluster.</p>
+            storage_size_in_g_bs: <p>The amount of local node storage, in gigabytes (GB), to allocate to the VM cluster.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_odb.types.update_cloud_vm_cluster_input.UpdateCloudVmClusterInput]",
+        ) -> OperationResponse[
+            "capo_odb.types.update_cloud_vm_cluster_output.UpdateCloudVmClusterOutput"
+        ]:
+            import capo_odb._operations.odb.update_cloud_vm_cluster
+
+            output, http_response = (
+                capo_odb._operations.odb.update_cloud_vm_cluster.update_cloud_vm_cluster(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCloudVmCluster")
+        )
+        input_: capo_odb.types.update_cloud_vm_cluster_input.UpdateCloudVmClusterInput = {
+            "cloud_vm_cluster_id": cloud_vm_cluster_id
+        }
+        if cpu_core_count is not None:
+            input_["cpu_core_count"] = cpu_core_count
+        if data_collection_options is not None:
+            input_["data_collection_options"] = data_collection_options
+        if data_storage_size_in_t_bs is not None:
+            input_["data_storage_size_in_t_bs"] = data_storage_size_in_t_bs
+        if db_node_storage_size_in_g_bs is not None:
+            input_["db_node_storage_size_in_g_bs"] = db_node_storage_size_in_g_bs
+        if display_name is not None:
+            input_["display_name"] = display_name
+        if ssh_public_keys is not None:
+            input_["ssh_public_keys"] = ssh_public_keys
+        if license_model is not None:
+            input_["license_model"] = license_model
+        if memory_size_in_g_bs is not None:
+            input_["memory_size_in_g_bs"] = memory_size_in_g_bs
+        if storage_size_in_g_bs is not None:
+            input_["storage_size_in_g_bs"] = storage_size_in_g_bs
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete(
         self,
         cloud_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
@@ -363,6 +459,114 @@ class CloudVmClusterResource:
             input_["next_token"] = next_token
         if cloud_exadata_infrastructure_id is not None:
             input_["cloud_exadata_infrastructure_id"] = cloud_exadata_infrastructure_id
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def associate_virtual_machines_to_cloud_vm_cluster(
+        self,
+        cloud_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
+        db_servers: "capo_odb.types.string_list.StringList",
+        *,
+        config_overrides: Optional[odbClientConfig] = None,
+    ) -> "capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_output.AssociateVirtualMachinesToCloudVmClusterOutput":
+        """<p>Adds virtual machines to the specified VM cluster.</p>
+
+        Args:
+            cloud_vm_cluster_id: <p>The unique identifier of the VM cluster to add virtual machines to.</p>
+            db_servers: <p>The list of database server IDs for the virtual machines to add to the VM cluster.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_input.AssociateVirtualMachinesToCloudVmClusterInput]",
+        ) -> OperationResponse[
+            "capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_output.AssociateVirtualMachinesToCloudVmClusterOutput"
+        ]:
+            import capo_odb._operations.odb.associate_virtual_machines_to_cloud_vm_cluster
+
+            output, http_response = (
+                capo_odb._operations.odb.associate_virtual_machines_to_cloud_vm_cluster.associate_virtual_machines_to_cloud_vm_cluster(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateVirtualMachinesToCloudVmCluster"),
+        )
+        input_: capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_input.AssociateVirtualMachinesToCloudVmClusterInput = {
+            "cloud_vm_cluster_id": cloud_vm_cluster_id,
+            "db_servers": db_servers,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def disassociate_virtual_machines_from_cloud_vm_cluster(
+        self,
+        cloud_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
+        db_servers: "capo_odb.types.string_list.StringList",
+        *,
+        config_overrides: Optional[odbClientConfig] = None,
+    ) -> "capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_output.DisassociateVirtualMachinesFromCloudVmClusterOutput":
+        """<p>Removes virtual machines from the specified VM cluster.</p>
+
+        Args:
+            cloud_vm_cluster_id: <p>The unique identifier of the VM cluster to remove virtual machines from.</p>
+            db_servers: <p>The list of database server IDs for the virtual machines to remove from the VM cluster.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_input.DisassociateVirtualMachinesFromCloudVmClusterInput]",
+        ) -> OperationResponse[
+            "capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_output.DisassociateVirtualMachinesFromCloudVmClusterOutput"
+        ]:
+            import capo_odb._operations.odb.disassociate_virtual_machines_from_cloud_vm_cluster
+
+            output, http_response = (
+                capo_odb._operations.odb.disassociate_virtual_machines_from_cloud_vm_cluster.disassociate_virtual_machines_from_cloud_vm_cluster(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateVirtualMachinesFromCloudVmCluster"),
+        )
+        input_: capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_input.DisassociateVirtualMachinesFromCloudVmClusterInput = {
+            "cloud_vm_cluster_id": cloud_vm_cluster_id,
+            "db_servers": db_servers,
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -592,6 +796,97 @@ class AsyncCloudVmClusterResource:
         await response.response.aclose()
         return response.output
 
+    async def update(
+        self,
+        cloud_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[AsyncodbClientConfig] = None,
+        cpu_core_count: Optional[int] = None,
+        data_collection_options: Optional[
+            "capo_odb.types.data_collection_options.DataCollectionOptions"
+        ] = None,
+        data_storage_size_in_t_bs: Optional[float] = None,
+        db_node_storage_size_in_g_bs: Optional[int] = None,
+        display_name: Optional[
+            "capo_odb.types.resource_display_name.ResourceDisplayName"
+        ] = None,
+        ssh_public_keys: Optional["capo_odb.types.string_list.StringList"] = None,
+        license_model: Optional["capo_odb.types.license_model.LicenseModel"] = None,
+        memory_size_in_g_bs: Optional[int] = None,
+        storage_size_in_g_bs: Optional[int] = None,
+    ) -> "capo_odb.types.update_cloud_vm_cluster_output.UpdateCloudVmClusterOutput":
+        """<p>Updates the properties of the specified VM cluster.</p>
+
+        Args:
+            cloud_vm_cluster_id: <p>The unique identifier of the VM cluster to update.</p>
+            cpu_core_count: <p>The number of CPU cores to enable on the VM cluster. If you don't specify a value, the existing number of CPU cores is retained.</p>
+            data_collection_options: <p>The set of preferences for the diagnostic collection options for the VM cluster.</p>
+            data_storage_size_in_t_bs: <p>The size of the data disk group, in terabytes (TB), to allocate for the VM cluster.</p>
+            db_node_storage_size_in_g_bs: <p>The amount of local node storage, in gigabytes (GB), to allocate for the VM cluster.</p>
+            display_name: <p>A new user-friendly name for the VM cluster.</p>
+            ssh_public_keys: <p>The public key portion of one or more key pairs used for SSH access to the VM cluster.</p>
+            license_model: <p>The Oracle license model to apply to the VM cluster.</p>
+            memory_size_in_g_bs: <p>The amount of memory, in gigabytes (GB), to allocate for the VM cluster.</p>
+            storage_size_in_g_bs: <p>The amount of local node storage, in gigabytes (GB), to allocate to the VM cluster.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_odb.types.update_cloud_vm_cluster_input.UpdateCloudVmClusterInput]",
+        ) -> AsyncOperationResponse[
+            "capo_odb.types.update_cloud_vm_cluster_output.UpdateCloudVmClusterOutput"
+        ]:
+            import capo_odb._operations.odb.update_cloud_vm_cluster
+
+            (
+                output,
+                http_response,
+            ) = await capo_odb._operations.odb.update_cloud_vm_cluster.async_update_cloud_vm_cluster(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCloudVmCluster")
+        )
+        input_: capo_odb.types.update_cloud_vm_cluster_input.UpdateCloudVmClusterInput = {
+            "cloud_vm_cluster_id": cloud_vm_cluster_id
+        }
+        if cpu_core_count is not None:
+            input_["cpu_core_count"] = cpu_core_count
+        if data_collection_options is not None:
+            input_["data_collection_options"] = data_collection_options
+        if data_storage_size_in_t_bs is not None:
+            input_["data_storage_size_in_t_bs"] = data_storage_size_in_t_bs
+        if db_node_storage_size_in_g_bs is not None:
+            input_["db_node_storage_size_in_g_bs"] = db_node_storage_size_in_g_bs
+        if display_name is not None:
+            input_["display_name"] = display_name
+        if ssh_public_keys is not None:
+            input_["ssh_public_keys"] = ssh_public_keys
+        if license_model is not None:
+            input_["license_model"] = license_model
+        if memory_size_in_g_bs is not None:
+            input_["memory_size_in_g_bs"] = memory_size_in_g_bs
+        if storage_size_in_g_bs is not None:
+            input_["storage_size_in_g_bs"] = storage_size_in_g_bs
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete(
         self,
         cloud_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
@@ -701,6 +996,116 @@ class AsyncCloudVmClusterResource:
             input_["next_token"] = next_token
         if cloud_exadata_infrastructure_id is not None:
             input_["cloud_exadata_infrastructure_id"] = cloud_exadata_infrastructure_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def associate_virtual_machines_to_cloud_vm_cluster(
+        self,
+        cloud_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
+        db_servers: "capo_odb.types.string_list.StringList",
+        *,
+        config_overrides: Optional[AsyncodbClientConfig] = None,
+    ) -> "capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_output.AssociateVirtualMachinesToCloudVmClusterOutput":
+        """<p>Adds virtual machines to the specified VM cluster.</p>
+
+        Args:
+            cloud_vm_cluster_id: <p>The unique identifier of the VM cluster to add virtual machines to.</p>
+            db_servers: <p>The list of database server IDs for the virtual machines to add to the VM cluster.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_input.AssociateVirtualMachinesToCloudVmClusterInput]",
+        ) -> AsyncOperationResponse[
+            "capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_output.AssociateVirtualMachinesToCloudVmClusterOutput"
+        ]:
+            import capo_odb._operations.odb.associate_virtual_machines_to_cloud_vm_cluster
+
+            (
+                output,
+                http_response,
+            ) = await capo_odb._operations.odb.associate_virtual_machines_to_cloud_vm_cluster.async_associate_virtual_machines_to_cloud_vm_cluster(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateVirtualMachinesToCloudVmCluster"),
+        )
+        input_: capo_odb.types.associate_virtual_machines_to_cloud_vm_cluster_input.AssociateVirtualMachinesToCloudVmClusterInput = {
+            "cloud_vm_cluster_id": cloud_vm_cluster_id,
+            "db_servers": db_servers,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def disassociate_virtual_machines_from_cloud_vm_cluster(
+        self,
+        cloud_vm_cluster_id: "capo_odb.types.resource_id.ResourceId",
+        db_servers: "capo_odb.types.string_list.StringList",
+        *,
+        config_overrides: Optional[AsyncodbClientConfig] = None,
+    ) -> "capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_output.DisassociateVirtualMachinesFromCloudVmClusterOutput":
+        """<p>Removes virtual machines from the specified VM cluster.</p>
+
+        Args:
+            cloud_vm_cluster_id: <p>The unique identifier of the VM cluster to remove virtual machines from.</p>
+            db_servers: <p>The list of database server IDs for the virtual machines to remove from the VM cluster.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_input.DisassociateVirtualMachinesFromCloudVmClusterInput]",
+        ) -> AsyncOperationResponse[
+            "capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_output.DisassociateVirtualMachinesFromCloudVmClusterOutput"
+        ]:
+            import capo_odb._operations.odb.disassociate_virtual_machines_from_cloud_vm_cluster
+
+            (
+                output,
+                http_response,
+            ) = await capo_odb._operations.odb.disassociate_virtual_machines_from_cloud_vm_cluster.async_disassociate_virtual_machines_from_cloud_vm_cluster(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateVirtualMachinesFromCloudVmCluster"),
+        )
+        input_: capo_odb.types.disassociate_virtual_machines_from_cloud_vm_cluster_input.DisassociateVirtualMachinesFromCloudVmClusterInput = {
+            "cloud_vm_cluster_id": cloud_vm_cluster_id,
+            "db_servers": db_servers,
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

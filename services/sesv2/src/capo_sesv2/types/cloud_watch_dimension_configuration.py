@@ -16,7 +16,7 @@ class CloudWatchDimensionConfiguration(TypedDict, closed=True):
     dimension_value_source: (
         "capo_sesv2.types.dimension_value_source.DimensionValueSource"
     )
-    """<p>The location where the Amazon SES API v2 finds the value of a dimension to publish to Amazon CloudWatch. To use the message tags that you specify using an <code>X-SES-MESSAGE-TAGS</code> header or a parameter to the <code>SendEmail</code> or <code>SendRawEmail</code> API, choose <code>messageTag</code>. To use your own email headers, choose <code>emailHeader</code>. To use link tags, choose <code>linkTags</code>.</p>"""
+    """<p>The location where the Amazon SES API v2 finds the value of a dimension to publish to Amazon CloudWatch. To use the message tags that you specify using an <code>X-SES-MESSAGE-TAGS</code> header or a parameter to the <code>SendEmail</code> or <code>SendBulkEmail</code> operation, choose <code>MESSAGE_TAG</code>. To use your own email headers, choose <code>EMAIL_HEADER</code>. To use link tags, choose <code>LINK_TAG</code>.</p>"""
     default_dimension_value: (
         "capo_sesv2.types.default_dimension_value.DefaultDimensionValue"
     )

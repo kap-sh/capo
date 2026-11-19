@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.resource_arn
     import capo_route53globalresolver.types.resource_id
     import capo_route53globalresolver.types.resource_name_short
+    import capo_route53globalresolver.types.segment_name
 
 
 class DeleteAccessSourceOutput(TypedDict, closed=True):
@@ -20,12 +21,16 @@ class DeleteAccessSourceOutput(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the deleted access source.</p>"""
     cidr: "capo_route53globalresolver.types.cidr.Cidr"
     """<p>The IP address or CIDR range of the deleted access source.</p>"""
+    core_network_endpoint_id: NotRequired[
+        "capo_route53globalresolver.types.resource_id.ResourceId"
+    ]
+    """<p>The ID of the core network endpoint associated with this access source.</p>"""
     created_at: "capo_route53globalresolver.types.iso8601_time_string.ISO8601TimeString"
     """<p>The date and time when the access source was originally created.</p>"""
     id: "capo_route53globalresolver.types.resource_id.ResourceId"
     """<p>The unique identifier of the deleted access source.</p>"""
     ip_address_type: "capo_route53globalresolver.types.ip_address_type.IpAddressType"
-    """<p>The IP address type of the deleted access source (IPv4 or IPv6).</p>"""
+    """<p>The IP address type of the deleted access source. Valid values are IPV4, IPV6, and NONE.</p>"""
     name: NotRequired[
         "capo_route53globalresolver.types.resource_name_short.ResourceNameShort"
     ]
@@ -34,6 +39,8 @@ class DeleteAccessSourceOutput(TypedDict, closed=True):
     """<p>The ID of the DNS view that was associated with the deleted access source.</p>"""
     protocol: "capo_route53globalresolver.types.dns_protocol.DnsProtocol"
     """<p>The DNS protocol that was permitted for the deleted access source.</p>"""
+    segment: NotRequired["capo_route53globalresolver.types.segment_name.SegmentName"]
+    """<p>The name of the segment associated with this access source.</p>"""
     status: "capo_route53globalresolver.types.cr_resource_status.CRResourceStatus"
     """<p>The final status of the deleted access source.</p>"""
     updated_at: "capo_route53globalresolver.types.iso8601_time_string.ISO8601TimeString"
@@ -44,7 +51,9 @@ class DeleteAccessSourceOutput(TypedDict, closed=True):
 def serialize_json(value: DeleteAccessSourceOutput) -> dict:
     out: dict = {}
     out["arn"] = value["arn"]
-    out["cidr"] = value["cidr"]
+    out["cidr"] = value.get("cidr", "")
+    if "core_network_endpoint_id" in value:
+        out["coreNetworkEndpointId"] = value["core_network_endpoint_id"]
     import capo_route53globalresolver.types.iso8601_time_string
 
     out["createdAt"] = (
@@ -57,7 +66,7 @@ def serialize_json(value: DeleteAccessSourceOutput) -> dict:
 
     out["ipAddressType"] = (
         capo_route53globalresolver.types.ip_address_type.serialize_json(
-            value["ip_address_type"]
+            value.get("ip_address_type", "NONE")
         )
     )
     if "name" in value:
@@ -68,6 +77,8 @@ def serialize_json(value: DeleteAccessSourceOutput) -> dict:
     out["protocol"] = capo_route53globalresolver.types.dns_protocol.serialize_json(
         value["protocol"]
     )
+    if "segment" in value:
+        out["segment"] = value["segment"]
     import capo_route53globalresolver.types.cr_resource_status
 
     out["status"] = capo_route53globalresolver.types.cr_resource_status.serialize_json(
@@ -93,6 +104,8 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
         out["cidr"] = data["cidr"]
     else:
         out["cidr"] = ""
+    if data.get("coreNetworkEndpointId") is not None:
+        out["core_network_endpoint_id"] = data["coreNetworkEndpointId"]
     if data.get("createdAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -118,11 +131,7 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
             )
         )
     else:
-        import typing
-
-        out["ip_address_type"] = typing.cast(
-            "capo_route53globalresolver.types.ip_address_type.IpAddressType", ""
-        )
+        out["ip_address_type"] = "NONE"
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("dnsViewId") is not None:
@@ -143,6 +152,8 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
         out["protocol"] = typing.cast(
             "capo_route53globalresolver.types.dns_protocol.DnsProtocol", ""
         )
+    if data.get("segment") is not None:
+        out["segment"] = data["segment"]
     if data.get("status") is not None:
         import capo_route53globalresolver.types.cr_resource_status
 

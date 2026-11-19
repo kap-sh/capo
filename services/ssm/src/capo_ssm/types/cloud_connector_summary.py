@@ -8,8 +8,10 @@ if TYPE_CHECKING:
     import capo_ssm.types.cloud_connector_description
     import capo_ssm.types.cloud_connector_iam_role_arn
     import capo_ssm.types.cloud_connector_id
+    import capo_ssm.types.config_connector_arn
     import capo_ssm.types.date_time
     import capo_ssm.types.display_name
+    import capo_ssm.types.provider
 
 
 class CloudConnectorSummary(TypedDict, closed=True):
@@ -31,6 +33,12 @@ class CloudConnectorSummary(TypedDict, closed=True):
     """<p>The date and time the cloud connector was created.</p>"""
     updated_at: NotRequired["capo_ssm.types.date_time.DateTime"]
     """<p>The date and time the cloud connector was last updated.</p>"""
+    provider: NotRequired["capo_ssm.types.provider.Provider"]
+    """<p>The third-party cloud provider that the cloud connector connects to. Valid values: <code>Azure</code> | <code>GCP</code>.</p>"""
+    config_connector_arn: NotRequired[
+        "capo_ssm.types.config_connector_arn.ConfigConnectorArn"
+    ]
+    """<p>The ARN of the Amazon Web Services Config connector associated with this cloud connector. This value is returned only if the cloud connector was created with an Amazon Web Services Config connector.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -56,6 +64,14 @@ def serialize_aws_json_1_1(value: CloudConnectorSummary) -> dict:
         out["UpdatedAt"] = capo_ssm.types.date_time.serialize_aws_json_1_1(
             value["updated_at"]
         )
+    if "provider" in value:
+        import capo_ssm.types.provider
+
+        out["Provider"] = capo_ssm.types.provider.serialize_aws_json_1_1(
+            value["provider"]
+        )
+    if "config_connector_arn" in value:
+        out["ConfigConnectorArn"] = value["config_connector_arn"]
     return out
 
 
@@ -81,4 +97,12 @@ def deserialize_aws_json_1_1(data: dict) -> CloudConnectorSummary:
         out["updated_at"] = capo_ssm.types.date_time.deserialize_aws_json_1_1(
             data["UpdatedAt"]
         )
+    if data.get("Provider") is not None:
+        import capo_ssm.types.provider
+
+        out["provider"] = capo_ssm.types.provider.deserialize_aws_json_1_1(
+            data["Provider"]
+        )
+    if data.get("ConfigConnectorArn") is not None:
+        out["config_connector_arn"] = data["ConfigConnectorArn"]
     return out

@@ -127,6 +127,7 @@ if TYPE_CHECKING:
     import capo_neptune.types.describe_global_clusters_message
     import capo_neptune.types.describe_orderable_db_instance_options_message
     import capo_neptune.types.describe_pending_maintenance_actions_message
+    import capo_neptune.types.describe_serverless_v2_platform_versions_message
     import capo_neptune.types.describe_valid_db_instance_modifications_message
     import capo_neptune.types.describe_valid_db_instance_modifications_result
     import capo_neptune.types.event
@@ -186,6 +187,8 @@ if TYPE_CHECKING:
     import capo_neptune.types.restore_db_cluster_to_point_in_time_message
     import capo_neptune.types.restore_db_cluster_to_point_in_time_result
     import capo_neptune.types.sensitive_string
+    import capo_neptune.types.serverless_v2_platform_version_info
+    import capo_neptune.types.serverless_v2_platform_versions_message
     import capo_neptune.types.serverless_v2_scaling_configuration
     import capo_neptune.types.source_ids_list
     import capo_neptune.types.source_type
@@ -1038,7 +1041,7 @@ class NeptuneClient:
         description: Optional["capo_neptune.types.string.String"] = None,
         tags: Optional["capo_neptune.types.tag_list.TagList"] = None,
     ) -> "capo_neptune.types.create_db_cluster_parameter_group_result.CreateDBClusterParameterGroupResult":
-        """<p>Creates a new DB cluster parameter group.</p> <p>Parameters in a DB cluster parameter group apply to all of the instances in a DB cluster.</p> <p> A DB cluster parameter group is initially created with the default parameters for the database engine used by instances in the DB cluster. To provide custom values for any of the parameters, you must modify the group after creating it using <a>ModifyDBClusterParameterGroup</a>. Once you've created a DB cluster parameter group, you need to associate it with your DB cluster using <a>ModifyDBCluster</a>. When you associate a new DB cluster parameter group with a running DB cluster, you need to reboot the DB instances in the DB cluster without failover for the new DB cluster parameter group and associated settings to take effect.</p> <important> <p>After you create a DB cluster parameter group, you should wait at least 5 minutes before creating your first DB cluster that uses that DB cluster parameter group as the default parameter group. This allows Amazon Neptune to fully complete the create action before the DB cluster parameter group is used as the default for a new DB cluster. This is especially important for parameters that are critical when creating the default database for a DB cluster, such as the character set for the default database defined by the <code>character_set_database</code> parameter. You can use the <i>Parameter Groups</i> option of the <a href="https://console.aws.amazon.com/rds/">Amazon Neptune console</a> or the <a>DescribeDBClusterParameters</a> command to verify that your DB cluster parameter group has been created or modified.</p> </important>
+        """<p>Creates a new DB cluster parameter group.</p> <p>Parameters in a DB cluster parameter group apply to all of the instances in a DB cluster.</p> <p> A DB cluster parameter group is initially created with the default parameters for the database engine used by instances in the DB cluster. To provide custom values for any of the parameters, you must modify the group after creating it using <a>ModifyDBClusterParameterGroup</a>. Once you've created a DB cluster parameter group, you need to associate it with your DB cluster using <a>ModifyDBCluster</a>. When you associate a new DB cluster parameter group with a running DB cluster, you need to reboot the DB instances in the DB cluster without failover for the new DB cluster parameter group and associated settings to take effect.</p>
 
         Args:
             db_cluster_parameter_group_name: <p>The name of the DB cluster parameter group.</p> <p>Constraints:</p> <ul> <li> <p>Must match the name of an existing DBClusterParameterGroup.</p> </li> </ul> <note> <p>This value is stored as a lowercase string.</p> </note>
@@ -3825,6 +3828,121 @@ class NeptuneClient:
                 max_records=max_records,
             )
             _page = _resolve_path(_response, ("pending_maintenance_actions",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("marker",))
+            if not _token:
+                break
+
+    def describe_serverless_v2_platform_versions(
+        self,
+        *,
+        config_overrides: Optional[NeptuneClientConfig] = None,
+        serverless_v2_platform_version: Optional[
+            "capo_neptune.types.string.String"
+        ] = None,
+        engine: Optional["capo_neptune.types.string.String"] = None,
+        filters: Optional["capo_neptune.types.filter_list.FilterList"] = None,
+        default_only: Optional[
+            "capo_neptune.types.boolean_optional.BooleanOptional"
+        ] = None,
+        include_all: Optional[
+            "capo_neptune.types.boolean_optional.BooleanOptional"
+        ] = None,
+        max_records: Optional[
+            "capo_neptune.types.integer_optional.IntegerOptional"
+        ] = None,
+        marker: Optional["capo_neptune.types.string.String"] = None,
+    ) -> "capo_neptune.types.serverless_v2_platform_versions_message.ServerlessV2PlatformVersionsMessage":
+        """<p>Describes the properties of specific platform versions for Neptune Serverless.</p>
+
+        Args:
+            serverless_v2_platform_version: <p>A specific platform version to return details for.</p> <p>Example: <code>3</code> </p>
+            engine: <p>The database engine to return platform version details for.</p>
+            filters: <p>This parameter isn't currently supported.</p>
+            default_only: <p>Specifies whether to return only the default platform versions for each engine. The default platform version is the version used for new DB clusters.</p>
+            include_all: <p>Specifies whether to also include platform versions which are no longer in use.</p>
+            max_records: <p>The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value is available, a pagination token called a marker is included in the response so you can retrieve the remaining results.</p> <p>Default: 20</p> <p>Constraints: Minimum 1, maximum 200.</p>
+            marker: <p>An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <code>MaxRecords</code>.</p>
+
+        Raises:
+            capo_neptune.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_neptune.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage]",
+        ) -> OperationResponse[
+            "capo_neptune.types.serverless_v2_platform_versions_message.ServerlessV2PlatformVersionsMessage"
+        ]:
+            import capo_neptune._operations.amazon_rd_sv19.describe_serverless_v2_platform_versions
+
+            output, http_response = (
+                capo_neptune._operations.amazon_rd_sv19.describe_serverless_v2_platform_versions.describe_serverless_v2_platform_versions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServerlessV2PlatformVersions")
+        )
+        input_: capo_neptune.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage = {}
+        if serverless_v2_platform_version is not None:
+            input_["serverless_v2_platform_version"] = serverless_v2_platform_version
+        if engine is not None:
+            input_["engine"] = engine
+        if filters is not None:
+            input_["filters"] = filters
+        if default_only is not None:
+            input_["default_only"] = default_only
+        if include_all is not None:
+            input_["include_all"] = include_all
+        if max_records is not None:
+            input_["max_records"] = max_records
+        if marker is not None:
+            input_["marker"] = marker
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_describe_serverless_v2_platform_versions(
+        self,
+        *,
+        config_overrides: Optional[NeptuneClientConfig] = None,
+        serverless_v2_platform_version: Optional[
+            "capo_neptune.types.string.String"
+        ] = None,
+        engine: Optional["capo_neptune.types.string.String"] = None,
+        filters: Optional["capo_neptune.types.filter_list.FilterList"] = None,
+        default_only: Optional[
+            "capo_neptune.types.boolean_optional.BooleanOptional"
+        ] = None,
+        include_all: Optional[
+            "capo_neptune.types.boolean_optional.BooleanOptional"
+        ] = None,
+        max_records: Optional[
+            "capo_neptune.types.integer_optional.IntegerOptional"
+        ] = None,
+        marker: Optional["capo_neptune.types.string.String"] = None,
+    ) -> "Iterator[capo_neptune.types.serverless_v2_platform_version_info.ServerlessV2PlatformVersionInfo]":
+        _token = marker
+        while True:
+            _response = self.describe_serverless_v2_platform_versions(
+                config_overrides=config_overrides,
+                serverless_v2_platform_version=serverless_v2_platform_version,
+                engine=engine,
+                filters=filters,
+                default_only=default_only,
+                include_all=include_all,
+                max_records=max_records,
+                marker=_token,
+            )
+            _page = _resolve_path(_response, ("serverless_v2_platform_versions",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("marker",))

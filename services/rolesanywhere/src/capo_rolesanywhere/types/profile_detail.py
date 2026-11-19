@@ -7,9 +7,11 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import datetime
 
+    import capo_rolesanywhere.types.alias_name
     import capo_rolesanywhere.types.attribute_mappings
     import capo_rolesanywhere.types.managed_policy_list
-    import capo_rolesanywhere.types.profile_arn
+    import capo_rolesanywhere.types.profile_alias_arn
+    import capo_rolesanywhere.types.profile_resource_arn
     import capo_rolesanywhere.types.resource_name
     import capo_rolesanywhere.types.role_arn_list
     import capo_rolesanywhere.types.uuid
@@ -18,7 +20,9 @@ if TYPE_CHECKING:
 class ProfileDetail(TypedDict, closed=True):
     profile_id: NotRequired["capo_rolesanywhere.types.uuid.Uuid"]
     """<p>The unique identifier of the profile.</p>"""
-    profile_arn: NotRequired["capo_rolesanywhere.types.profile_arn.ProfileArn"]
+    profile_arn: NotRequired[
+        "capo_rolesanywhere.types.profile_resource_arn.ProfileResourceArn"
+    ]
     """<p>The ARN of the profile.</p>"""
     name: NotRequired["capo_rolesanywhere.types.resource_name.ResourceName"]
     """<p>The name of the profile.</p>"""
@@ -48,6 +52,12 @@ class ProfileDetail(TypedDict, closed=True):
         "capo_rolesanywhere.types.attribute_mappings.AttributeMappings"
     ]
     """<p>A mapping applied to the authenticating end-entity certificate.</p>"""
+    alias_name: NotRequired["capo_rolesanywhere.types.alias_name.AliasName"]
+    """<p>The alias of the profile. Present only if the profile has an alias.</p>"""
+    alias_arn: NotRequired["capo_rolesanywhere.types.profile_alias_arn.ProfileAliasArn"]
+    """<p>The alias ARN of the profile, in the form <code>arn:<i>partition</i>:rolesanywhere:<i>region</i>:<i>account</i>:alias/profile/<i>alias-name</i> </code>. Present only if the profile has an alias.</p> <p>You can use the alias ARN in place of the resource ID or ARN in the request parameters whose descriptions say that they accept an alias ARN. Don't use the alias ARN in Identity and Access Management (IAM) policies. A policy statement that names an alias ARN doesn't apply to the resource that holds the alias. Write policies with the ARN that contains the resource ID instead.</p>"""
+    previous_alias_name: NotRequired["capo_rolesanywhere.types.alias_name.AliasName"]
+    """<p>The alias that the resource had before the update request. IAM Roles Anywhere returns this value only in the response to an update request that changed or removed an existing alias. It isn't returned when the alias was unchanged, when the resource had no alias before the request, or by other operations.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -105,6 +115,12 @@ def serialize_json(value: ProfileDetail) -> dict:
                 value["attribute_mappings"]
             )
         )
+    if "alias_name" in value:
+        out["aliasName"] = value["alias_name"]
+    if "alias_arn" in value:
+        out["aliasArn"] = value["alias_arn"]
+    if "previous_alias_name" in value:
+        out["previousAliasName"] = value["previous_alias_name"]
     return out
 
 
@@ -162,4 +178,10 @@ def deserialize_json(data: dict) -> ProfileDetail:
                 data["attributeMappings"]
             )
         )
+    if data.get("aliasName") is not None:
+        out["alias_name"] = data["aliasName"]
+    if data.get("aliasArn") is not None:
+        out["alias_arn"] = data["aliasArn"]
+    if data.get("previousAliasName") is not None:
+        out["previous_alias_name"] = data["previousAliasName"]
     return out

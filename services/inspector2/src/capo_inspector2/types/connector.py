@@ -17,6 +17,8 @@ if TYPE_CHECKING:
     import capo_inspector2.types.connector_name
     import capo_inspector2.types.connector_tag_map
     import capo_inspector2.types.enablement_status
+    import capo_inspector2.types.gcp_region_list
+    import capo_inspector2.types.gcp_scope_configuration
 
 
 class Connector(TypedDict, closed=True):
@@ -58,6 +60,12 @@ class Connector(TypedDict, closed=True):
     """<p>The tags associated with the connector.</p>"""
     auto_install_vm_scanner: NotRequired["bool"]
     """<p>Specifies whether the VM scanner is automatically installed on connected resources.</p>"""
+    gcp_regions: NotRequired["capo_inspector2.types.gcp_region_list.GcpRegionList"]
+    """<p>The Google Cloud Platform (GCP) locations configured for the connector.</p>"""
+    gcp_scope_configuration: NotRequired[
+        "capo_inspector2.types.gcp_scope_configuration.GcpScopeConfiguration"
+    ]
+    """<p>The Google Cloud Platform (GCP) scope configuration for the connector.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -123,6 +131,20 @@ def serialize_json(value: Connector) -> dict:
         )
     if "auto_install_vm_scanner" in value:
         out["autoInstallVMScanner"] = value["auto_install_vm_scanner"]
+    if "gcp_regions" in value:
+        import capo_inspector2.types.gcp_region_list
+
+        out["gcpRegions"] = capo_inspector2.types.gcp_region_list.serialize_json(
+            value["gcp_regions"]
+        )
+    if "gcp_scope_configuration" in value:
+        import capo_inspector2.types.gcp_scope_configuration
+
+        out["gcpScopeConfiguration"] = (
+            capo_inspector2.types.gcp_scope_configuration.serialize_json(
+                value["gcp_scope_configuration"]
+            )
+        )
     return out
 
 
@@ -210,4 +232,18 @@ def deserialize_json(data: dict) -> Connector:
         )
     if data.get("autoInstallVMScanner") is not None:
         out["auto_install_vm_scanner"] = data["autoInstallVMScanner"]
+    if data.get("gcpRegions") is not None:
+        import capo_inspector2.types.gcp_region_list
+
+        out["gcp_regions"] = capo_inspector2.types.gcp_region_list.deserialize_json(
+            data["gcpRegions"]
+        )
+    if data.get("gcpScopeConfiguration") is not None:
+        import capo_inspector2.types.gcp_scope_configuration
+
+        out["gcp_scope_configuration"] = (
+            capo_inspector2.types.gcp_scope_configuration.deserialize_json(
+                data["gcpScopeConfiguration"]
+            )
+        )
     return out

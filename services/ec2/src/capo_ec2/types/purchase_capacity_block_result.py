@@ -9,6 +9,7 @@ from capo_ec2._protocol.xml import Element
 if TYPE_CHECKING:
     import capo_ec2.types.capacity_block_set
     import capo_ec2.types.capacity_reservation
+    import capo_ec2.types.capacity_reservation_set
 
 
 class PurchaseCapacityBlockResult(TypedDict, closed=True):
@@ -18,6 +19,10 @@ class PurchaseCapacityBlockResult(TypedDict, closed=True):
     """<p>The Capacity Reservation.</p>"""
     capacity_blocks: NotRequired["capo_ec2.types.capacity_block_set.CapacityBlockSet"]
     """<p>The Capacity Block.</p>"""
+    capacity_reservations: NotRequired[
+        "capo_ec2.types.capacity_reservation_set.CapacityReservationSet"
+    ]
+    """<p>The Capacity Reservations created as a result of the Capacity Block purchase. When a Capacity Block offering contains multiple segments, a separate Capacity Reservation is created for each segment.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -36,6 +41,12 @@ def serialize_ec2_query(
 
         capo_ec2.types.capacity_block_set.serialize_ec2_query(
             value["capacity_blocks"], pairs, f"{key_prefix}CapacityBlockSet"
+        )
+    if "capacity_reservations" in value:
+        import capo_ec2.types.capacity_reservation_set
+
+        capo_ec2.types.capacity_reservation_set.serialize_ec2_query(
+            value["capacity_reservations"], pairs, f"{key_prefix}CapacityReservationSet"
         )
 
 
@@ -57,6 +68,15 @@ def deserialize_ec2_query(el: Element) -> PurchaseCapacityBlockResult:
         out["capacity_blocks"] = (
             capo_ec2.types.capacity_block_set.deserialize_ec2_query(
                 child_capacity_blocks
+            )
+        )
+    child_capacity_reservations = el.find("capacityReservationSet")
+    if child_capacity_reservations is not None:
+        import capo_ec2.types.capacity_reservation_set
+
+        out["capacity_reservations"] = (
+            capo_ec2.types.capacity_reservation_set.deserialize_ec2_query(
+                child_capacity_reservations
             )
         )
     return out

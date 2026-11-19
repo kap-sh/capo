@@ -7,6 +7,7 @@ ErrorCode: TypeAlias = Literal[
     "CLIENT_ERROR",
     "INTERNAL_ERROR",
     "STOPPED_BY_USER",
+    "PAUSED_BY_USER",
 ]
 
 

@@ -14,6 +14,7 @@ import capo_ssm._protocol.eventstream
 import capo_ssm.errors.conflict_exception
 import capo_ssm.errors.internal_server_error
 import capo_ssm.errors.resource_not_found_exception
+import capo_ssm.errors.service_quota_exceeded_exception
 import capo_ssm.types.cloud_connector_configuration
 import capo_ssm.types.update_cloud_connector_request
 import capo_ssm.types.update_cloud_connector_result
@@ -41,6 +42,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_ssm.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
+                data, message, response=response
+            )
+        case "ServiceQuotaExceededException":
+            raise capo_ssm.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_aws_json_1_1(
                 data, message, response=response
             )
         case _:

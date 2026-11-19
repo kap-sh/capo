@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The severity of a recommendation's impact.</p>"""
 ImpactCategory: TypeAlias = Literal[
     "HIGH",
     "MEDIUM",

@@ -15,6 +15,8 @@ from capo_connecthealth.types._unknown import UnknownEvent
 if TYPE_CHECKING:
     import capo_connecthealth.errors.internal_server_exception
     import capo_connecthealth.errors.validation_exception
+    import capo_connecthealth.types.medical_scribe_checklist_event
+    import capo_connecthealth.types.medical_scribe_periodontal_chart_event
     import capo_connecthealth.types.medical_scribe_transcript_event
 
 
@@ -34,10 +36,20 @@ class MedicalScribeOutputStreamValidationExceptionMember(TypedDict, closed=True)
     )
 
 
+class MedicalScribeOutputStreamPeriodontalChartEventMember(TypedDict, closed=True):
+    periodontalChartEvent: "capo_connecthealth.types.medical_scribe_periodontal_chart_event.MedicalScribePeriodontalChartEvent"
+
+
+class MedicalScribeOutputStreamChecklistEventMember(TypedDict, closed=True):
+    checklistEvent: "capo_connecthealth.types.medical_scribe_checklist_event.MedicalScribeChecklistEvent"
+
+
 _MedicalScribeOutputStream: TypeAlias = (
     MedicalScribeOutputStreamTranscriptEventMember
     | MedicalScribeOutputStreamInternalFailureExceptionMember
     | MedicalScribeOutputStreamValidationExceptionMember
+    | MedicalScribeOutputStreamPeriodontalChartEventMember
+    | MedicalScribeOutputStreamChecklistEventMember
     | UnknownEvent
 )
 MedicalScribeOutputStream: TypeAlias = AnyIterator[_MedicalScribeOutputStream]
@@ -65,6 +77,18 @@ def serialize_event_json(value: _MedicalScribeOutputStream) -> bytes:
             import capo_connecthealth.errors.validation_exception
 
             return capo_connecthealth.errors.validation_exception.serialize_event_json(
+                payload
+            )
+        case {"periodontalChartEvent": payload}:
+            import capo_connecthealth.types.medical_scribe_periodontal_chart_event
+
+            return capo_connecthealth.types.medical_scribe_periodontal_chart_event.serialize_event_json(
+                payload
+            )
+        case {"checklistEvent": payload}:
+            import capo_connecthealth.types.medical_scribe_checklist_event
+
+            return capo_connecthealth.types.medical_scribe_checklist_event.serialize_event_json(
                 payload
             )
         case _:
@@ -117,6 +141,22 @@ def deserialize_event_json(
 
             return {
                 "transcriptEvent": capo_connecthealth.types.medical_scribe_transcript_event.deserialize_event_json(
+                    message
+                )
+            }
+        case "periodontalChartEvent":
+            import capo_connecthealth.types.medical_scribe_periodontal_chart_event
+
+            return {
+                "periodontalChartEvent": capo_connecthealth.types.medical_scribe_periodontal_chart_event.deserialize_event_json(
+                    message
+                )
+            }
+        case "checklistEvent":
+            import capo_connecthealth.types.medical_scribe_checklist_event
+
+            return {
+                "checklistEvent": capo_connecthealth.types.medical_scribe_checklist_event.deserialize_event_json(
                     message
                 )
             }

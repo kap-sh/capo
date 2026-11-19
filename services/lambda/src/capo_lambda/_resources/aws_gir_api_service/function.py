@@ -21,6 +21,7 @@ from capo_lambda._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_lambda.types.accelerator_config
     import capo_lambda.types.architectures_list
     import capo_lambda.types.blob
     import capo_lambda.types.blob_stream
@@ -48,6 +49,7 @@ if TYPE_CHECKING:
     import capo_lambda.types.function_code
     import capo_lambda.types.function_configuration
     import capo_lambda.types.function_name
+    import capo_lambda.types.function_runtime_config
     import capo_lambda.types.function_scaling_config
     import capo_lambda.types.function_url_auth_type
     import capo_lambda.types.function_url_function_name
@@ -202,6 +204,12 @@ class Function:
         durable_config: Optional[
             "capo_lambda.types.durable_config.DurableConfig"
         ] = None,
+        runtime_config: Optional[
+            "capo_lambda.types.function_runtime_config.FunctionRuntimeConfig"
+        ] = None,
+        accelerator_config: Optional[
+            "capo_lambda.types.accelerator_config.AcceleratorConfig"
+        ] = None,
     ) -> "capo_lambda.types.function_configuration.FunctionConfiguration":
         """<p>Creates a Lambda Event Function. To create a function, you need a <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html">deployment package</a> and an <a href="https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role">execution role</a>. The deployment package is a .zip file archive or container image that contains your function code. The execution role grants the function permission to use Amazon Web Services services, such as Amazon CloudWatch Logs for log streaming and X-Ray for request tracing.</p> <p>If the deployment package is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-images.html">container image</a>, then you set the package type to <code>Image</code>. For a container image, the code property must include the URI of a container image in the Amazon ECR registry. You do not need to specify the handler and runtime properties.</p> <p>If the deployment package is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html#gettingstarted-package-zip">.zip file archive</a>, then you set the package type to <code>Zip</code>. For a .zip file archive, the code property specifies the location of the .zip file. You must also specify the handler and runtime properties. The code in the deployment package must be compatible with the target instruction set architecture of the function (<code>x86-64</code> or <code>arm64</code>). If you do not specify the architecture, then the default value is <code>x86-64</code>.</p> <p>When you create a function, Lambda provisions an instance of the function and its supporting resources. If your function connects to a VPC, this process can take a minute or so. During this time, you can't invoke or modify the function. The <code>State</code>, <code>StateReason</code>, and <code>StateReasonCode</code> fields in the response from <a>GetFunctionConfiguration</a> indicate when the function is ready to invoke. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html">Lambda function states</a>.</p> <p>A function has an unpublished version, and can have published versions and aliases. The unpublished version changes when you update your function's code and configuration. A published version is a snapshot of your function code and configuration that can't be changed. An alias is a named resource that maps to a version, and can be changed to map to a different version. Use the <code>Publish</code> parameter to create version <code>1</code> of your function from its initial configuration.</p> <p>The other parameters let you configure version-specific and function-level settings. You can modify version-specific settings later with <a>UpdateFunctionConfiguration</a>. Function-level settings apply to both the unpublished and published versions of the function, and include tags (<a>TagResource</a>) and per-function concurrency limits (<a>PutFunctionConcurrency</a>).</p> <p>You can use code signing if your deployment package is a .zip file archive. To enable code signing for this function, specify the ARN of a code-signing configuration. When a user attempts to deploy a code package with <a>UpdateFunctionCode</a>, Lambda checks that the code package has a valid signature from a trusted publisher. The code-signing configuration includes set of signing profiles, which define the trusted publishers for this function.</p> <p>If another Amazon Web Services account or an Amazon Web Services service invokes your function, use <a>AddPermission</a> to grant permission by creating a resource-based Identity and Access Management (IAM) policy. You can grant permissions at the function level, on a version, or on an alias.</p> <p>To invoke your function directly, use <a>Invoke</a>. To invoke your function in response to events in other Amazon Web Services services, create an event source mapping (<a>CreateEventSourceMapping</a>), or configure a function trigger in the other service. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html">Invoking Lambda functions</a>.</p>
 
@@ -228,12 +236,14 @@ class Function:
             code_signing_config_arn: <p>To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function.</p>
             image_config: <p>Container image <a href="https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms">configuration values</a> that override the values in the container image Dockerfile.</p>
             architectures: <p>The instruction set architecture that the function supports. Enter a string array with one of the valid values (arm64 or x86_64). The default value is <code>x86_64</code>.</p>
-            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
+            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For functions that use <code>AcceleratorConfig</code>, the maximum is 32,768 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
             snap_start: <p>The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">SnapStart</a> setting.</p>
             logging_config: <p>The function's Amazon CloudWatch Logs configuration settings.</p>
             tenancy_config: <p>Configuration for multi-tenant applications that use Lambda functions. Defines tenant isolation settings and resource allocations. Required for functions supporting multiple tenants.</p>
             capacity_provider_config: <p>Configuration for the capacity provider that manages compute resources for Lambda functions.</p>
             durable_config: <p>Configuration settings for durable functions. Enables creating functions with durability that can remember their state and continue execution even after interruptions.</p>
+            runtime_config: <p>The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime alias that your function uses.</p>
+            accelerator_config: <p>The accelerator resource settings for a Lambda execution environment.</p>
 
         Raises:
             capo_lambda.errors.code_signing_config_not_found_exception.CodeSigningConfigNotFoundException: <p>The specified code signing configuration does not exist.</p>
@@ -346,6 +356,10 @@ class Function:
             input_["capacity_provider_config"] = capacity_provider_config
         if durable_config is not None:
             input_["durable_config"] = durable_config
+        if runtime_config is not None:
+            input_["runtime_config"] = runtime_config
+        if accelerator_config is not None:
+            input_["accelerator_config"] = accelerator_config
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -436,7 +450,7 @@ class Function:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> None:
-        """<p>Removes a concurrent execution limit from a function.</p>
+        """<p>Removes a concurrent execution limit from a Lambda Event Function.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -608,7 +622,7 @@ class Function:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> "capo_lambda.types.concurrency.Concurrency":
-        """<p>Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level.</p> <p>Concurrency settings apply to the function as a whole, including all published versions and the unpublished version. Reserving concurrency both ensures that your function has capacity to process the specified number of events simultaneously, and prevents it from scaling beyond that level. Use <a>GetFunction</a> to see the current setting for a function.</p> <p>Use <a>GetAccountSettings</a> to see your Regional concurrency limit. You can reserve concurrency for as many functions as you like, as long as you leave at least 100 simultaneous executions unreserved for functions that aren't configured with a per-function limit. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html">Lambda function scaling</a>.</p>
+        """<p>Sets the maximum number of simultaneous executions for a Lambda Event Function, and reserves capacity for that concurrency level.</p> <p>Concurrency settings apply to the function as a whole, including all published versions and the unpublished version. Reserving concurrency both ensures that your function has capacity to process the specified number of events simultaneously, and prevents it from scaling beyond that level. Use <a>GetFunction</a> to see the current setting for a function.</p> <p>Use <a>GetAccountSettings</a> to see your Regional concurrency limit. You can reserve concurrency for as many functions as you like, as long as you leave at least 100 simultaneous executions unreserved for functions that aren't configured with a per-function limit. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html">Lambda function scaling</a>.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -833,6 +847,12 @@ class Function:
         durable_config: Optional[
             "capo_lambda.types.durable_config.DurableConfig"
         ] = None,
+        runtime_config: Optional[
+            "capo_lambda.types.function_runtime_config.FunctionRuntimeConfig"
+        ] = None,
+        accelerator_config: Optional[
+            "capo_lambda.types.accelerator_config.AcceleratorConfig"
+        ] = None,
     ) -> "capo_lambda.types.function_configuration.FunctionConfiguration":
         """<p>Modifies the version-specific settings of a Lambda Event Function.</p> <p>When you update a function, Lambda provisions an instance of the function and its supporting resources. If your function connects to a VPC, this process can take a minute. During this time, you can't modify the function, but you can still invoke it. The <code>LastUpdateStatus</code>, <code>LastUpdateStatusReason</code>, and <code>LastUpdateStatusReasonCode</code> fields in the response from <a>GetFunctionConfiguration</a> indicate when the update is complete and the function is processing events with the new configuration. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html">Lambda function states</a>.</p> <p>These settings can vary between versions of a function and are locked when you publish a version. You can't modify the configuration of a published version, only the unpublished version.</p> <p>To configure function concurrency, use <a>PutFunctionConcurrency</a>. To grant invoke permissions to an Amazon Web Services account or Amazon Web Services service, use <a>AddPermission</a>.</p>
 
@@ -853,11 +873,13 @@ class Function:
             layers: <p>A list of <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">function layers</a> to add to the function's execution environment. Specify each layer by its ARN, including the version.</p>
             file_system_configs: <p>Connection settings for an Amazon EFS file system or an Amazon S3 Files file system.</p>
             image_config: <p> <a href="https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms">Container image configuration values</a> that override the values in the container image Docker file.</p>
-            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
+            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For functions that use <code>AcceleratorConfig</code>, the maximum is 32,768 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
             snap_start: <p>The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">SnapStart</a> setting.</p>
             logging_config: <p>The function's Amazon CloudWatch Logs configuration settings.</p>
             capacity_provider_config: <p>Configuration for the capacity provider that manages compute resources for Lambda functions.</p>
             durable_config: <p>Configuration settings for <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable functions</a>, including execution timeout, retention period for execution history, and an optional ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your durable execution's payload data, including input, output, and error payloads.</p>
+            runtime_config: <p>The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime alias that your function uses.</p>
+            accelerator_config: <p>The accelerator resource settings for a Lambda execution environment.</p>
 
         Raises:
             capo_lambda.errors.code_signing_config_not_found_exception.CodeSigningConfigNotFoundException: <p>The specified code signing configuration does not exist.</p>
@@ -959,6 +981,10 @@ class Function:
             input_["capacity_provider_config"] = capacity_provider_config
         if durable_config is not None:
             input_["durable_config"] = durable_config
+        if runtime_config is not None:
+            input_["runtime_config"] = runtime_config
+        if accelerator_config is not None:
+            input_["accelerator_config"] = accelerator_config
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1144,7 +1170,7 @@ class Function:
             "capo_lambda.types.numeric_latest_published_or_alias_qualifier.NumericLatestPublishedOrAliasQualifier"
         ] = None,
     ) -> "capo_lambda.types.get_function_response.GetFunctionResponse":
-        """<p>Returns information about the function or function version, with a link to download the deployment package that's valid for 10 minutes. If you specify a function version, only details that are specific to that version are returned.</p>
+        """<p>Returns information about a Lambda Event Function or function version, with a link to download the deployment package that's valid for 10 minutes. If you specify a function version, only details that are specific to that version are returned.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function, version, or alias.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -1649,6 +1675,8 @@ class Function:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.resource_not_ready_exception.ResourceNotReadyException: <p>The function is inactive and its VPC connection is no longer available. Wait for the VPC connection to reestablish and try again.</p>
+            capo_lambda.errors.runtime_alias_deleted_exception.RuntimeAliasDeletedException: <p>The runtime alias for your function is no longer available. Update your function to use an available runtime alias.</p>
+            capo_lambda.errors.runtime_version_deleted_exception.RuntimeVersionDeletedException: <p>The runtime version used by your function is no longer available. Update your function to use an available runtime version or runtime alias.</p>
             capo_lambda.errors.s3_files_mount_connectivity_exception.S3FilesMountConnectivityException: <p>The Lambda function couldn't make a network connection to the configured S3 Files access point.</p>
             capo_lambda.errors.s3_files_mount_failure_exception.S3FilesMountFailureException: <p>The Lambda function couldn't mount the configured S3 Files access point due to a permission or configuration issue.</p>
             capo_lambda.errors.s3_files_mount_timeout_exception.S3FilesMountTimeoutException: <p>The Lambda function made a network connection to the configured S3 Files access point, but the mount operation timed out.</p>
@@ -1882,6 +1910,8 @@ class Function:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.resource_not_ready_exception.ResourceNotReadyException: <p>The function is inactive and its VPC connection is no longer available. Wait for the VPC connection to reestablish and try again.</p>
+            capo_lambda.errors.runtime_alias_deleted_exception.RuntimeAliasDeletedException: <p>The runtime alias for your function is no longer available. Update your function to use an available runtime alias.</p>
+            capo_lambda.errors.runtime_version_deleted_exception.RuntimeVersionDeletedException: <p>The runtime version used by your function is no longer available. Update your function to use an available runtime version or runtime alias.</p>
             capo_lambda.errors.s3_files_mount_connectivity_exception.S3FilesMountConnectivityException: <p>The Lambda function couldn't make a network connection to the configured S3 Files access point.</p>
             capo_lambda.errors.s3_files_mount_failure_exception.S3FilesMountFailureException: <p>The Lambda function couldn't mount the configured S3 Files access point due to a permission or configuration issue.</p>
             capo_lambda.errors.s3_files_mount_timeout_exception.S3FilesMountTimeoutException: <p>The Lambda function made a network connection to the configured S3 Files access point, but the mount operation timed out.</p>
@@ -1999,7 +2029,7 @@ class Function:
             function_name: <p>The name or ARN of the Lambda function. You can specify a function name, a partial ARN, or a full ARN.</p>
             qualifier: <p>The function version to filter executions by. If you don't specify a qualifier, this operation returns executions across all versions of the Lambda function.</p>
             durable_execution_name: <p>Filter executions by name. Only executions with names that matches this string are returned.</p>
-            statuses: <p>Filter executions by status. Valid values: RUNNING, SUCCEEDED, FAILED, TIMED_OUT, STOPPED.</p>
+            statuses: <p>Filters the executions by status. Specify one of the following values:</p> <ul> <li> <p> <code>RUNNING</code> – The execution is running or waiting for pending operations to complete.</p> </li> <li> <p> <code>PAUSING</code> – The execution is waiting for an in-progress invocation to reach its next checkpoint before it pauses.</p> </li> <li> <p> <code>PAUSED</code> – The execution is paused, and Lambda doesn't invoke your function.</p> </li> <li> <p> <code>SUCCEEDED</code> – The execution completed successfully.</p> </li> <li> <p> <code>FAILED</code> – The execution completed with an error.</p> </li> <li> <p> <code>TIMED_OUT</code> – The execution exceeded its execution timeout.</p> </li> <li> <p> <code>STOPPED</code> – A <code>StopDurableExecution</code> request stopped the execution.</p> </li> <li> <p> <code>DELETING</code> – A <code>DeleteDurableExecution</code> request is deleting the execution and its data.</p> </li> </ul>
             started_after: <p>Filter executions that started after this timestamp (ISO 8601 format).</p>
             started_before: <p>Filter executions that started before this timestamp (ISO 8601 format).</p>
             reverse_order: <p>Set to true to return results in chronological order (oldest first). Default is false.</p>
@@ -2175,7 +2205,7 @@ class Function:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> "capo_lambda.types.put_function_recursion_config_response.PutFunctionRecursionConfigResponse":
-        """<p>Sets your function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html">recursive loop detection</a> configuration.</p> <p>When you configure a Lambda function to output to the same service or resource that invokes the function, it's possible to create an infinite recursive loop. For example, a Lambda function might write a message to an Amazon Simple Queue Service (Amazon SQS) queue, which then invokes the same function. This invocation causes the function to write another message to the queue, which in turn invokes the function again.</p> <p>Lambda can detect certain types of recursive loops shortly after they occur. When Lambda detects a recursive loop and your function's recursive loop detection configuration is set to <code>Terminate</code>, it stops your function being invoked and notifies you.</p>
+        """<p>Sets the <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html">recursive loop detection</a> configuration for a Lambda Event Function.</p> <p>When you configure a Lambda function to output to the same service or resource that invokes the function, it's possible to create an infinite recursive loop. For example, a Lambda function might write a message to an Amazon Simple Queue Service (Amazon SQS) queue, which then invokes the same function. This invocation causes the function to write another message to the queue, which in turn invokes the function again.</p> <p>Lambda can detect certain types of recursive loops shortly after they occur. When Lambda detects a recursive loop and your function's recursive loop detection configuration is set to <code>Terminate</code>, it stops your function being invoked and notifies you.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -2356,7 +2386,7 @@ class Function:
         cors: Optional["capo_lambda.types.cors.Cors"] = None,
         invoke_mode: Optional["capo_lambda.types.invoke_mode.InvokeMode"] = None,
     ) -> "capo_lambda.types.update_function_url_config_response.UpdateFunctionUrlConfigResponse":
-        """<p>Updates the configuration for a Lambda function URL.</p>
+        """<p>Updates the configuration for a function URL of a Lambda Event Function.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -2470,6 +2500,12 @@ class AsyncFunction:
         durable_config: Optional[
             "capo_lambda.types.durable_config.DurableConfig"
         ] = None,
+        runtime_config: Optional[
+            "capo_lambda.types.function_runtime_config.FunctionRuntimeConfig"
+        ] = None,
+        accelerator_config: Optional[
+            "capo_lambda.types.accelerator_config.AcceleratorConfig"
+        ] = None,
     ) -> "capo_lambda.types.function_configuration.FunctionConfiguration":
         """<p>Creates a Lambda Event Function. To create a function, you need a <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html">deployment package</a> and an <a href="https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role">execution role</a>. The deployment package is a .zip file archive or container image that contains your function code. The execution role grants the function permission to use Amazon Web Services services, such as Amazon CloudWatch Logs for log streaming and X-Ray for request tracing.</p> <p>If the deployment package is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-images.html">container image</a>, then you set the package type to <code>Image</code>. For a container image, the code property must include the URI of a container image in the Amazon ECR registry. You do not need to specify the handler and runtime properties.</p> <p>If the deployment package is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html#gettingstarted-package-zip">.zip file archive</a>, then you set the package type to <code>Zip</code>. For a .zip file archive, the code property specifies the location of the .zip file. You must also specify the handler and runtime properties. The code in the deployment package must be compatible with the target instruction set architecture of the function (<code>x86-64</code> or <code>arm64</code>). If you do not specify the architecture, then the default value is <code>x86-64</code>.</p> <p>When you create a function, Lambda provisions an instance of the function and its supporting resources. If your function connects to a VPC, this process can take a minute or so. During this time, you can't invoke or modify the function. The <code>State</code>, <code>StateReason</code>, and <code>StateReasonCode</code> fields in the response from <a>GetFunctionConfiguration</a> indicate when the function is ready to invoke. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html">Lambda function states</a>.</p> <p>A function has an unpublished version, and can have published versions and aliases. The unpublished version changes when you update your function's code and configuration. A published version is a snapshot of your function code and configuration that can't be changed. An alias is a named resource that maps to a version, and can be changed to map to a different version. Use the <code>Publish</code> parameter to create version <code>1</code> of your function from its initial configuration.</p> <p>The other parameters let you configure version-specific and function-level settings. You can modify version-specific settings later with <a>UpdateFunctionConfiguration</a>. Function-level settings apply to both the unpublished and published versions of the function, and include tags (<a>TagResource</a>) and per-function concurrency limits (<a>PutFunctionConcurrency</a>).</p> <p>You can use code signing if your deployment package is a .zip file archive. To enable code signing for this function, specify the ARN of a code-signing configuration. When a user attempts to deploy a code package with <a>UpdateFunctionCode</a>, Lambda checks that the code package has a valid signature from a trusted publisher. The code-signing configuration includes set of signing profiles, which define the trusted publishers for this function.</p> <p>If another Amazon Web Services account or an Amazon Web Services service invokes your function, use <a>AddPermission</a> to grant permission by creating a resource-based Identity and Access Management (IAM) policy. You can grant permissions at the function level, on a version, or on an alias.</p> <p>To invoke your function directly, use <a>Invoke</a>. To invoke your function in response to events in other Amazon Web Services services, create an event source mapping (<a>CreateEventSourceMapping</a>), or configure a function trigger in the other service. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html">Invoking Lambda functions</a>.</p>
 
@@ -2496,12 +2532,14 @@ class AsyncFunction:
             code_signing_config_arn: <p>To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function.</p>
             image_config: <p>Container image <a href="https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms">configuration values</a> that override the values in the container image Dockerfile.</p>
             architectures: <p>The instruction set architecture that the function supports. Enter a string array with one of the valid values (arm64 or x86_64). The default value is <code>x86_64</code>.</p>
-            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
+            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For functions that use <code>AcceleratorConfig</code>, the maximum is 32,768 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
             snap_start: <p>The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">SnapStart</a> setting.</p>
             logging_config: <p>The function's Amazon CloudWatch Logs configuration settings.</p>
             tenancy_config: <p>Configuration for multi-tenant applications that use Lambda functions. Defines tenant isolation settings and resource allocations. Required for functions supporting multiple tenants.</p>
             capacity_provider_config: <p>Configuration for the capacity provider that manages compute resources for Lambda functions.</p>
             durable_config: <p>Configuration settings for durable functions. Enables creating functions with durability that can remember their state and continue execution even after interruptions.</p>
+            runtime_config: <p>The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime alias that your function uses.</p>
+            accelerator_config: <p>The accelerator resource settings for a Lambda execution environment.</p>
 
         Raises:
             capo_lambda.errors.code_signing_config_not_found_exception.CodeSigningConfigNotFoundException: <p>The specified code signing configuration does not exist.</p>
@@ -2615,6 +2653,10 @@ class AsyncFunction:
             input_["capacity_provider_config"] = capacity_provider_config
         if durable_config is not None:
             input_["durable_config"] = durable_config
+        if runtime_config is not None:
+            input_["runtime_config"] = runtime_config
+        if accelerator_config is not None:
+            input_["accelerator_config"] = accelerator_config
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2706,7 +2748,7 @@ class AsyncFunction:
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
     ) -> None:
-        """<p>Removes a concurrent execution limit from a function.</p>
+        """<p>Removes a concurrent execution limit from a Lambda Event Function.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -2881,7 +2923,7 @@ class AsyncFunction:
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
     ) -> "capo_lambda.types.concurrency.Concurrency":
-        """<p>Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level.</p> <p>Concurrency settings apply to the function as a whole, including all published versions and the unpublished version. Reserving concurrency both ensures that your function has capacity to process the specified number of events simultaneously, and prevents it from scaling beyond that level. Use <a>GetFunction</a> to see the current setting for a function.</p> <p>Use <a>GetAccountSettings</a> to see your Regional concurrency limit. You can reserve concurrency for as many functions as you like, as long as you leave at least 100 simultaneous executions unreserved for functions that aren't configured with a per-function limit. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html">Lambda function scaling</a>.</p>
+        """<p>Sets the maximum number of simultaneous executions for a Lambda Event Function, and reserves capacity for that concurrency level.</p> <p>Concurrency settings apply to the function as a whole, including all published versions and the unpublished version. Reserving concurrency both ensures that your function has capacity to process the specified number of events simultaneously, and prevents it from scaling beyond that level. Use <a>GetFunction</a> to see the current setting for a function.</p> <p>Use <a>GetAccountSettings</a> to see your Regional concurrency limit. You can reserve concurrency for as many functions as you like, as long as you leave at least 100 simultaneous executions unreserved for functions that aren't configured with a per-function limit. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html">Lambda function scaling</a>.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -3108,6 +3150,12 @@ class AsyncFunction:
         durable_config: Optional[
             "capo_lambda.types.durable_config.DurableConfig"
         ] = None,
+        runtime_config: Optional[
+            "capo_lambda.types.function_runtime_config.FunctionRuntimeConfig"
+        ] = None,
+        accelerator_config: Optional[
+            "capo_lambda.types.accelerator_config.AcceleratorConfig"
+        ] = None,
     ) -> "capo_lambda.types.function_configuration.FunctionConfiguration":
         """<p>Modifies the version-specific settings of a Lambda Event Function.</p> <p>When you update a function, Lambda provisions an instance of the function and its supporting resources. If your function connects to a VPC, this process can take a minute. During this time, you can't modify the function, but you can still invoke it. The <code>LastUpdateStatus</code>, <code>LastUpdateStatusReason</code>, and <code>LastUpdateStatusReasonCode</code> fields in the response from <a>GetFunctionConfiguration</a> indicate when the update is complete and the function is processing events with the new configuration. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html">Lambda function states</a>.</p> <p>These settings can vary between versions of a function and are locked when you publish a version. You can't modify the configuration of a published version, only the unpublished version.</p> <p>To configure function concurrency, use <a>PutFunctionConcurrency</a>. To grant invoke permissions to an Amazon Web Services account or Amazon Web Services service, use <a>AddPermission</a>.</p>
 
@@ -3128,11 +3176,13 @@ class AsyncFunction:
             layers: <p>A list of <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">function layers</a> to add to the function's execution environment. Specify each layer by its ARN, including the version.</p>
             file_system_configs: <p>Connection settings for an Amazon EFS file system or an Amazon S3 Files file system.</p>
             image_config: <p> <a href="https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms">Container image configuration values</a> that override the values in the container image Docker file.</p>
-            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
+            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For functions that use <code>AcceleratorConfig</code>, the maximum is 32,768 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
             snap_start: <p>The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">SnapStart</a> setting.</p>
             logging_config: <p>The function's Amazon CloudWatch Logs configuration settings.</p>
             capacity_provider_config: <p>Configuration for the capacity provider that manages compute resources for Lambda functions.</p>
             durable_config: <p>Configuration settings for <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable functions</a>, including execution timeout, retention period for execution history, and an optional ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your durable execution's payload data, including input, output, and error payloads.</p>
+            runtime_config: <p>The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime alias that your function uses.</p>
+            accelerator_config: <p>The accelerator resource settings for a Lambda execution environment.</p>
 
         Raises:
             capo_lambda.errors.code_signing_config_not_found_exception.CodeSigningConfigNotFoundException: <p>The specified code signing configuration does not exist.</p>
@@ -3235,6 +3285,10 @@ class AsyncFunction:
             input_["capacity_provider_config"] = capacity_provider_config
         if durable_config is not None:
             input_["durable_config"] = durable_config
+        if runtime_config is not None:
+            input_["runtime_config"] = runtime_config
+        if accelerator_config is not None:
+            input_["accelerator_config"] = accelerator_config
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -3423,7 +3477,7 @@ class AsyncFunction:
             "capo_lambda.types.numeric_latest_published_or_alias_qualifier.NumericLatestPublishedOrAliasQualifier"
         ] = None,
     ) -> "capo_lambda.types.get_function_response.GetFunctionResponse":
-        """<p>Returns information about the function or function version, with a link to download the deployment package that's valid for 10 minutes. If you specify a function version, only details that are specific to that version are returned.</p>
+        """<p>Returns information about a Lambda Event Function or function version, with a link to download the deployment package that's valid for 10 minutes. If you specify a function version, only details that are specific to that version are returned.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function, version, or alias.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -3936,6 +3990,8 @@ class AsyncFunction:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.resource_not_ready_exception.ResourceNotReadyException: <p>The function is inactive and its VPC connection is no longer available. Wait for the VPC connection to reestablish and try again.</p>
+            capo_lambda.errors.runtime_alias_deleted_exception.RuntimeAliasDeletedException: <p>The runtime alias for your function is no longer available. Update your function to use an available runtime alias.</p>
+            capo_lambda.errors.runtime_version_deleted_exception.RuntimeVersionDeletedException: <p>The runtime version used by your function is no longer available. Update your function to use an available runtime version or runtime alias.</p>
             capo_lambda.errors.s3_files_mount_connectivity_exception.S3FilesMountConnectivityException: <p>The Lambda function couldn't make a network connection to the configured S3 Files access point.</p>
             capo_lambda.errors.s3_files_mount_failure_exception.S3FilesMountFailureException: <p>The Lambda function couldn't mount the configured S3 Files access point due to a permission or configuration issue.</p>
             capo_lambda.errors.s3_files_mount_timeout_exception.S3FilesMountTimeoutException: <p>The Lambda function made a network connection to the configured S3 Files access point, but the mount operation timed out.</p>
@@ -4171,6 +4227,8 @@ class AsyncFunction:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.resource_not_ready_exception.ResourceNotReadyException: <p>The function is inactive and its VPC connection is no longer available. Wait for the VPC connection to reestablish and try again.</p>
+            capo_lambda.errors.runtime_alias_deleted_exception.RuntimeAliasDeletedException: <p>The runtime alias for your function is no longer available. Update your function to use an available runtime alias.</p>
+            capo_lambda.errors.runtime_version_deleted_exception.RuntimeVersionDeletedException: <p>The runtime version used by your function is no longer available. Update your function to use an available runtime version or runtime alias.</p>
             capo_lambda.errors.s3_files_mount_connectivity_exception.S3FilesMountConnectivityException: <p>The Lambda function couldn't make a network connection to the configured S3 Files access point.</p>
             capo_lambda.errors.s3_files_mount_failure_exception.S3FilesMountFailureException: <p>The Lambda function couldn't mount the configured S3 Files access point due to a permission or configuration issue.</p>
             capo_lambda.errors.s3_files_mount_timeout_exception.S3FilesMountTimeoutException: <p>The Lambda function made a network connection to the configured S3 Files access point, but the mount operation timed out.</p>
@@ -4289,7 +4347,7 @@ class AsyncFunction:
             function_name: <p>The name or ARN of the Lambda function. You can specify a function name, a partial ARN, or a full ARN.</p>
             qualifier: <p>The function version to filter executions by. If you don't specify a qualifier, this operation returns executions across all versions of the Lambda function.</p>
             durable_execution_name: <p>Filter executions by name. Only executions with names that matches this string are returned.</p>
-            statuses: <p>Filter executions by status. Valid values: RUNNING, SUCCEEDED, FAILED, TIMED_OUT, STOPPED.</p>
+            statuses: <p>Filters the executions by status. Specify one of the following values:</p> <ul> <li> <p> <code>RUNNING</code> – The execution is running or waiting for pending operations to complete.</p> </li> <li> <p> <code>PAUSING</code> – The execution is waiting for an in-progress invocation to reach its next checkpoint before it pauses.</p> </li> <li> <p> <code>PAUSED</code> – The execution is paused, and Lambda doesn't invoke your function.</p> </li> <li> <p> <code>SUCCEEDED</code> – The execution completed successfully.</p> </li> <li> <p> <code>FAILED</code> – The execution completed with an error.</p> </li> <li> <p> <code>TIMED_OUT</code> – The execution exceeded its execution timeout.</p> </li> <li> <p> <code>STOPPED</code> – A <code>StopDurableExecution</code> request stopped the execution.</p> </li> <li> <p> <code>DELETING</code> – A <code>DeleteDurableExecution</code> request is deleting the execution and its data.</p> </li> </ul>
             started_after: <p>Filter executions that started after this timestamp (ISO 8601 format).</p>
             started_before: <p>Filter executions that started before this timestamp (ISO 8601 format).</p>
             reverse_order: <p>Set to true to return results in chronological order (oldest first). Default is false.</p>
@@ -4468,7 +4526,7 @@ class AsyncFunction:
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
     ) -> "capo_lambda.types.put_function_recursion_config_response.PutFunctionRecursionConfigResponse":
-        """<p>Sets your function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html">recursive loop detection</a> configuration.</p> <p>When you configure a Lambda function to output to the same service or resource that invokes the function, it's possible to create an infinite recursive loop. For example, a Lambda function might write a message to an Amazon Simple Queue Service (Amazon SQS) queue, which then invokes the same function. This invocation causes the function to write another message to the queue, which in turn invokes the function again.</p> <p>Lambda can detect certain types of recursive loops shortly after they occur. When Lambda detects a recursive loop and your function's recursive loop detection configuration is set to <code>Terminate</code>, it stops your function being invoked and notifies you.</p>
+        """<p>Sets the <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html">recursive loop detection</a> configuration for a Lambda Event Function.</p> <p>When you configure a Lambda function to output to the same service or resource that invokes the function, it's possible to create an infinite recursive loop. For example, a Lambda function might write a message to an Amazon Simple Queue Service (Amazon SQS) queue, which then invokes the same function. This invocation causes the function to write another message to the queue, which in turn invokes the function again.</p> <p>Lambda can detect certain types of recursive loops shortly after they occur. When Lambda detects a recursive loop and your function's recursive loop detection configuration is set to <code>Terminate</code>, it stops your function being invoked and notifies you.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -4652,7 +4710,7 @@ class AsyncFunction:
         cors: Optional["capo_lambda.types.cors.Cors"] = None,
         invoke_mode: Optional["capo_lambda.types.invoke_mode.InvokeMode"] = None,
     ) -> "capo_lambda.types.update_function_url_config_response.UpdateFunctionUrlConfigResponse":
-        """<p>Updates the configuration for a Lambda function URL.</p>
+        """<p>Updates the configuration for a function URL of a Lambda Event Function.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>

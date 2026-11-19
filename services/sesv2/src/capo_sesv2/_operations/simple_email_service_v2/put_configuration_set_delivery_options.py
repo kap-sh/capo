@@ -17,6 +17,7 @@ import capo_sesv2.errors.not_found_exception
 import capo_sesv2.errors.too_many_requests_exception
 import capo_sesv2.types.put_configuration_set_delivery_options_request
 import capo_sesv2.types.put_configuration_set_delivery_options_response
+import capo_sesv2.types.shared_pool_delivery_mode
 import capo_sesv2.types.tls_policy
 from capo_sesv2._protocol.errors import parse_error_metadata_json
 from capo_sesv2._rule_engine._endpoint_rule_set import EndpointParams, resolve

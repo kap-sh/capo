@@ -20,6 +20,7 @@
 - [InstanceId](instance_id.md)
 - [IssueDetected](issue_detected.md)
 - [IssuesDetected](issues_detected.md)
+- [LanguageCode](language_code.md)
 - [ListRealtimeContactAnalysisSegmentsRequest](list_realtime_contact_analysis_segments_request.md)
 - [ListRealtimeContactAnalysisSegmentsResponse](list_realtime_contact_analysis_segments_response.md)
 - [MatchedCategories](matched_categories.md)

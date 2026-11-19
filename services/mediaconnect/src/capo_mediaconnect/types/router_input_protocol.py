@@ -7,6 +7,7 @@ RouterInputProtocol: TypeAlias = Literal[
     "RIST",
     "SRT_CALLER",
     "SRT_LISTENER",
+    "RTMP_PUSH",
 ]
 
 

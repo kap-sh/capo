@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_health.types.account_id
+    import capo_health.types.affected_entities_for_organization_tag_filter
     import capo_health.types.entity_status_code_list
     import capo_health.types.event_arn
 
@@ -19,6 +20,10 @@ class EntityAccountFilter(TypedDict, closed=True):
         "capo_health.types.entity_status_code_list.entityStatusCodeList"
     ]
     """<p>A list of entity status codes.</p>"""
+    tags: NotRequired[
+        "capo_health.types.affected_entities_for_organization_tag_filter.AffectedEntitiesForOrganizationTagFilter"
+    ]
+    """<p>A map of tag keys to lists of tag values. A tag matches when its key is in the map and its value is one of the values listed for that key. Matching is case sensitive, and the filter matches when at least one key in the map matches.</p> <p>An entity is returned when the tags of the resource, or of the account it belongs to, match. When you specify several filters in <code>organizationEntityAccountFilters</code>, the tags must be identical in every filter.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -33,6 +38,14 @@ def serialize_aws_json_1_1(value: EntityAccountFilter) -> dict:
         out["statusCodes"] = (
             capo_health.types.entity_status_code_list.serialize_aws_json_1_1(
                 value["status_codes"]
+            )
+        )
+    if "tags" in value:
+        import capo_health.types.affected_entities_for_organization_tag_filter
+
+        out["tags"] = (
+            capo_health.types.affected_entities_for_organization_tag_filter.serialize_aws_json_1_1(
+                value["tags"]
             )
         )
     return out
@@ -52,6 +65,14 @@ def deserialize_aws_json_1_1(data: dict) -> EntityAccountFilter:
         out["status_codes"] = (
             capo_health.types.entity_status_code_list.deserialize_aws_json_1_1(
                 data["statusCodes"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_health.types.affected_entities_for_organization_tag_filter
+
+        out["tags"] = (
+            capo_health.types.affected_entities_for_organization_tag_filter.deserialize_aws_json_1_1(
+                data["tags"]
             )
         )
     return out

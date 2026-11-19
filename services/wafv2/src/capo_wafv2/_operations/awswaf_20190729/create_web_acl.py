@@ -25,6 +25,7 @@ import capo_wafv2.errors.waf_subscription_not_found_exception
 import capo_wafv2.errors.waf_tag_operation_exception
 import capo_wafv2.errors.waf_tag_operation_internal_error_exception
 import capo_wafv2.errors.waf_unavailable_entity_exception
+import capo_wafv2.types.analytics_config
 import capo_wafv2.types.application_config
 import capo_wafv2.types.association_config
 import capo_wafv2.types.captcha_config

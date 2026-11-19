@@ -20,7 +20,7 @@ class DescribeServiceLifecycleRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_health.types.lifecycle_max_results.LifecycleMaxResults"
     ]
-    """<p>The maximum number of items to return in one batch, between 1 and 20, inclusive.</p>"""
+    """<p>The maximum number of items to return in one batch, between 10 and 100, inclusive.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

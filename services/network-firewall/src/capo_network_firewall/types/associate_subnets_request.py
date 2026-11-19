@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_network_firewall.types.nat_gateway_create_mappings_list
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.resource_name
     import capo_network_firewall.types.subnet_mappings
@@ -20,6 +21,10 @@ class AssociateSubnetsRequest(TypedDict, closed=True):
     """<p>The descriptive name of the firewall. You can't change the name of a firewall after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>"""
     subnet_mappings: "capo_network_firewall.types.subnet_mappings.SubnetMappings"
     """<p>The IDs of the subnets that you want to associate with the firewall. </p>"""
+    nat_gateway_create_mappings: NotRequired[
+        "capo_network_firewall.types.nat_gateway_create_mappings_list.NatGatewayCreateMappingsList"
+    ]
+    """<p>The NAT gateways that Network Firewall creates for the Availability Zones that you add to a proxy mode firewall. For a proxy mode firewall, you must specify one mapping for each Availability Zone in <code>SubnetMappings</code>, and no other Availability Zones. Each NAT gateway subnet must be in the firewall's VPC and can't be one of the firewall endpoint subnets.</p> <p>You can't specify this for a firewall that isn't a proxy mode firewall.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -38,6 +43,14 @@ def serialize_aws_json_1_0(value: AssociateSubnetsRequest) -> dict:
             value["subnet_mappings"]
         )
     )
+    if "nat_gateway_create_mappings" in value:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
+
+        out["NatGatewayCreateMappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.serialize_aws_json_1_0(
+                value["nat_gateway_create_mappings"]
+            )
+        )
     return out
 
 
@@ -59,4 +72,12 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateSubnetsRequest:
         )
     else:
         out["subnet_mappings"] = []
+    if data.get("NatGatewayCreateMappings") is not None:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
+
+        out["nat_gateway_create_mappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.deserialize_aws_json_1_0(
+                data["NatGatewayCreateMappings"]
+            )
+        )
     return out

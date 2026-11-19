@@ -79,6 +79,10 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.ab_test_summary
     import capo_bedrock_agentcore.types.actor_id
     import capo_bedrock_agentcore.types.actor_summary
+    import capo_bedrock_agentcore.types.agent_application_name
+    import capo_bedrock_agentcore.types.agent_insight_archive_status
+    import capo_bedrock_agentcore.types.agent_insight_id
+    import capo_bedrock_agentcore.types.agent_insight_summary
     import capo_bedrock_agentcore.types.audiences_list_type
     import capo_bedrock_agentcore.types.batch_create_memory_records_input
     import capo_bedrock_agentcore.types.batch_create_memory_records_output
@@ -121,12 +125,20 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.credential_provider_name
     import capo_bedrock_agentcore.types.custom_request_parameters_type
     import capo_bedrock_agentcore.types.data_source_config
+    import capo_bedrock_agentcore.types.dataset_execution_config
+    import capo_bedrock_agentcore.types.dataset_generation_description
+    import capo_bedrock_agentcore.types.dataset_generation_id
+    import capo_bedrock_agentcore.types.dataset_generation_name
+    import capo_bedrock_agentcore.types.dataset_generation_summary
+    import capo_bedrock_agentcore.types.dataset_id
     import capo_bedrock_agentcore.types.delete_ab_test_request
     import capo_bedrock_agentcore.types.delete_ab_test_response
     import capo_bedrock_agentcore.types.delete_batch_evaluation_request
     import capo_bedrock_agentcore.types.delete_batch_evaluation_response
     import capo_bedrock_agentcore.types.delete_capacity_provider_session_request
     import capo_bedrock_agentcore.types.delete_capacity_provider_session_response
+    import capo_bedrock_agentcore.types.delete_dataset_generation_request
+    import capo_bedrock_agentcore.types.delete_dataset_generation_response
     import capo_bedrock_agentcore.types.delete_event_input
     import capo_bedrock_agentcore.types.delete_event_output
     import capo_bedrock_agentcore.types.delete_memory_record_input
@@ -155,16 +167,21 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.filter_input
     import capo_bedrock_agentcore.types.gateway_arn
     import capo_bedrock_agentcore.types.gateway_filter
+    import capo_bedrock_agentcore.types.generation_source
     import capo_bedrock_agentcore.types.get_ab_test_request
     import capo_bedrock_agentcore.types.get_ab_test_response
     import capo_bedrock_agentcore.types.get_agent_card_request
     import capo_bedrock_agentcore.types.get_agent_card_response
+    import capo_bedrock_agentcore.types.get_agent_insight_request
+    import capo_bedrock_agentcore.types.get_agent_insight_response
     import capo_bedrock_agentcore.types.get_batch_evaluation_request
     import capo_bedrock_agentcore.types.get_batch_evaluation_response
     import capo_bedrock_agentcore.types.get_browser_session_request
     import capo_bedrock_agentcore.types.get_browser_session_response
     import capo_bedrock_agentcore.types.get_code_interpreter_session_request
     import capo_bedrock_agentcore.types.get_code_interpreter_session_response
+    import capo_bedrock_agentcore.types.get_dataset_generation_request
+    import capo_bedrock_agentcore.types.get_dataset_generation_response
     import capo_bedrock_agentcore.types.get_event_input
     import capo_bedrock_agentcore.types.get_event_output
     import capo_bedrock_agentcore.types.get_memory_record_input
@@ -219,12 +236,16 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.list_ab_tests_response
     import capo_bedrock_agentcore.types.list_actors_input
     import capo_bedrock_agentcore.types.list_actors_output
+    import capo_bedrock_agentcore.types.list_agent_insights_request
+    import capo_bedrock_agentcore.types.list_agent_insights_response
     import capo_bedrock_agentcore.types.list_batch_evaluations_request
     import capo_bedrock_agentcore.types.list_batch_evaluations_response
     import capo_bedrock_agentcore.types.list_browser_sessions_request
     import capo_bedrock_agentcore.types.list_browser_sessions_response
     import capo_bedrock_agentcore.types.list_code_interpreter_sessions_request
     import capo_bedrock_agentcore.types.list_code_interpreter_sessions_response
+    import capo_bedrock_agentcore.types.list_dataset_generations_request
+    import capo_bedrock_agentcore.types.list_dataset_generations_response
     import capo_bedrock_agentcore.types.list_events_input
     import capo_bedrock_agentcore.types.list_events_output
     import capo_bedrock_agentcore.types.list_memory_extraction_jobs_input
@@ -290,6 +311,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.role_arn
     import capo_bedrock_agentcore.types.save_browser_session_profile_request
     import capo_bedrock_agentcore.types.save_browser_session_profile_response
+    import capo_bedrock_agentcore.types.scenario_type
     import capo_bedrock_agentcore.types.scopes_list_type
     import capo_bedrock_agentcore.types.search_criteria
     import capo_bedrock_agentcore.types.search_registry_records_request
@@ -305,6 +327,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.start_browser_session_response
     import capo_bedrock_agentcore.types.start_code_interpreter_session_request
     import capo_bedrock_agentcore.types.start_code_interpreter_session_response
+    import capo_bedrock_agentcore.types.start_dataset_generation_request
+    import capo_bedrock_agentcore.types.start_dataset_generation_response
     import capo_bedrock_agentcore.types.start_memory_extraction_job_input
     import capo_bedrock_agentcore.types.start_memory_extraction_job_output
     import capo_bedrock_agentcore.types.start_recommendation_request
@@ -326,6 +350,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.tools_file_system_configurations
     import capo_bedrock_agentcore.types.update_ab_test_request
     import capo_bedrock_agentcore.types.update_ab_test_response
+    import capo_bedrock_agentcore.types.update_agent_insight_request
+    import capo_bedrock_agentcore.types.update_agent_insight_response
     import capo_bedrock_agentcore.types.update_browser_stream_request
     import capo_bedrock_agentcore.types.update_browser_stream_response
     import capo_bedrock_agentcore.types.user_id
@@ -2775,6 +2801,61 @@ class AsyncBedrockAgentCoreClient:
         await response.response.aclose()
         return response.output
 
+    async def delete_dataset_generation(
+        self,
+        dataset_id: "capo_bedrock_agentcore.types.dataset_id.DatasetId",
+        generation_id: "capo_bedrock_agentcore.types.dataset_generation_id.DatasetGenerationId",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+    ) -> "capo_bedrock_agentcore.types.delete_dataset_generation_response.DeleteDatasetGenerationResponse":
+        """<p>Deletes the record of a dataset generation. The examples the generation added stay in the dataset's draft. To remove them, find them with the <code>generationIds</code> filter of <code>ListDatasetExamples</code>, then call <code>DeleteDatasetExamples</code>.</p>
+
+        Args:
+            dataset_id: <p>The unique identifier of the dataset.</p>
+            generation_id: <p>The unique identifier of the dataset generation.</p>
+
+        Raises:
+            capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
+            capo_bedrock_agentcore.errors.conflict_exception.ConflictException: <p>The exception that occurs when the request conflicts with the current state of the resource. This can happen when trying to modify a resource that is currently being modified by another request, or when trying to create a resource that already exists.</p>
+            capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException: <p>The exception that occurs when the service encounters an unexpected internal error. This is a temporary condition that will resolve itself with retries. We recommend implementing exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException: <p>The exception that occurs when the specified resource does not exist. This can happen when using an invalid identifier or when trying to access a resource that has been deleted.</p>
+            capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException: <p>The exception that occurs when the request was denied due to request throttling. This happens when you exceed the allowed request rate for an operation. Reduce the frequency of requests or implement exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.unauthorized_exception.UnauthorizedException: <p>This exception is thrown when the JWT bearer token is invalid or not found for OAuth bearer token based access</p>
+            capo_bedrock_agentcore.errors.validation_exception.ValidationException: <p>The exception that occurs when the input fails to satisfy the constraints specified by the service. Check the error message for details about which input parameter is invalid and correct your request.</p>
+            capo_bedrock_agentcore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore.types.delete_dataset_generation_request.DeleteDatasetGenerationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore.types.delete_dataset_generation_response.DeleteDatasetGenerationResponse"
+        ]:
+            import capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.delete_dataset_generation
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.delete_dataset_generation.async_delete_dataset_generation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDatasetGeneration")
+        )
+        input_: capo_bedrock_agentcore.types.delete_dataset_generation_request.DeleteDatasetGenerationRequest = {
+            "dataset_id": dataset_id,
+            "generation_id": generation_id,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete_recommendation(
         self,
         recommendation_id: "capo_bedrock_agentcore.types.recommendation_id.RecommendationId",
@@ -2967,6 +3048,69 @@ class AsyncBedrockAgentCoreClient:
         await response.response.aclose()
         return response.output
 
+    async def get_agent_insight(
+        self,
+        application_name: "capo_bedrock_agentcore.types.agent_application_name.AgentApplicationName",
+        agent_insight_id: "capo_bedrock_agentcore.types.agent_insight_id.AgentInsightId",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+    ) -> "capo_bedrock_agentcore.types.get_agent_insight_response.GetAgentInsightResponse":
+        """<p>Amazon Bedrock AgentCore Agent Insights identifies patterns detected across your agent sessions. Use Agent Insights to identify recurring issues and prioritize fixes.</p> <p>Retrieves detailed information about an Amazon Bedrock AgentCore Agent Insight, including its archive status, affected sessions, and, when applicable, the batch evaluation that produced it.</p>
+
+        Args:
+            application_name: <p>The application that the Agent Insight belongs to.</p>
+            agent_insight_id: <p>The unique identifier of the Agent Insight to retrieve.</p>
+
+        Raises:
+            capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
+            capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException: <p>The exception that occurs when the service encounters an unexpected internal error. This is a temporary condition that will resolve itself with retries. We recommend implementing exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException: <p>The exception that occurs when the specified resource does not exist. This can happen when using an invalid identifier or when trying to access a resource that has been deleted.</p>
+            capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException: <p>The exception that occurs when the request was denied due to request throttling. This happens when you exceed the allowed request rate for an operation. Reduce the frequency of requests or implement exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.validation_exception.ValidationException: <p>The exception that occurs when the input fails to satisfy the constraints specified by the service. Check the error message for details about which input parameter is invalid and correct your request.</p>
+            capo_bedrock_agentcore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore.types.get_agent_insight_request.GetAgentInsightRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore.types.get_agent_insight_response.GetAgentInsightResponse"
+        ]:
+            import capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.get_agent_insight
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.get_agent_insight.async_get_agent_insight(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_agent_insight_response.GetAgentInsightResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_agent_insight_response
+
+            return capo_bedrock_agentcore.types.get_agent_insight_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentInsight", redact_output=_redact_output),
+        )
+        input_: capo_bedrock_agentcore.types.get_agent_insight_request.GetAgentInsightRequest = {
+            "application_name": application_name,
+            "agent_insight_id": agent_insight_id,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_batch_evaluation(
         self,
         batch_evaluation_id: "capo_bedrock_agentcore.types.batch_evaluation_id.BatchEvaluationId",
@@ -3018,6 +3162,60 @@ class AsyncBedrockAgentCoreClient:
         )
         input_: capo_bedrock_agentcore.types.get_batch_evaluation_request.GetBatchEvaluationRequest = {
             "batch_evaluation_id": batch_evaluation_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_dataset_generation(
+        self,
+        dataset_id: "capo_bedrock_agentcore.types.dataset_id.DatasetId",
+        generation_id: "capo_bedrock_agentcore.types.dataset_generation_id.DatasetGenerationId",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+    ) -> "capo_bedrock_agentcore.types.get_dataset_generation_response.GetDatasetGenerationResponse":
+        """<p>Gets a dataset generation, including its status, the request it was started with, its progress counts, its redaction summary and its errors. Call this operation to track a generation that you started with <code>StartDatasetGeneration</code>.</p>
+
+        Args:
+            dataset_id: <p>The unique identifier of the dataset.</p>
+            generation_id: <p>The unique identifier of the dataset generation.</p>
+
+        Raises:
+            capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
+            capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException: <p>The exception that occurs when the service encounters an unexpected internal error. This is a temporary condition that will resolve itself with retries. We recommend implementing exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException: <p>The exception that occurs when the specified resource does not exist. This can happen when using an invalid identifier or when trying to access a resource that has been deleted.</p>
+            capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException: <p>The exception that occurs when the request was denied due to request throttling. This happens when you exceed the allowed request rate for an operation. Reduce the frequency of requests or implement exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.unauthorized_exception.UnauthorizedException: <p>This exception is thrown when the JWT bearer token is invalid or not found for OAuth bearer token based access</p>
+            capo_bedrock_agentcore.errors.validation_exception.ValidationException: <p>The exception that occurs when the input fails to satisfy the constraints specified by the service. Check the error message for details about which input parameter is invalid and correct your request.</p>
+            capo_bedrock_agentcore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore.types.get_dataset_generation_request.GetDatasetGenerationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore.types.get_dataset_generation_response.GetDatasetGenerationResponse"
+        ]:
+            import capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.get_dataset_generation
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.get_dataset_generation.async_get_dataset_generation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDatasetGeneration")
+        )
+        input_: capo_bedrock_agentcore.types.get_dataset_generation_request.GetDatasetGenerationRequest = {
+            "dataset_id": dataset_id,
+            "generation_id": generation_id,
         }
 
         response = await aexecute_pipeline(
@@ -3163,6 +3361,124 @@ class AsyncBedrockAgentCoreClient:
             if not _token:
                 break
 
+    async def list_agent_insights(
+        self,
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+        application_name: Optional[
+            "capo_bedrock_agentcore.types.agent_application_name.AgentApplicationName"
+        ] = None,
+        batch_evaluation_id: Optional[
+            "capo_bedrock_agentcore.types.batch_evaluation_id.BatchEvaluationId"
+        ] = None,
+        archive_status: Optional[
+            "capo_bedrock_agentcore.types.agent_insight_archive_status.AgentInsightArchiveStatus"
+        ] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[
+            "capo_bedrock_agentcore.types.next_token.NextToken"
+        ] = None,
+    ) -> "capo_bedrock_agentcore.types.list_agent_insights_response.ListAgentInsightsResponse":
+        """<p>Lists Amazon Bedrock AgentCore Agent Insight summaries in your account and Region. Use this operation to review patterns across sessions before you investigate or archive an insight. The response paginates the results. Use the <code>nextToken</code> parameter to retrieve additional results.</p>
+
+        Args:
+            application_name: <p>Filters the results to Agent Insights for an application.</p>
+            batch_evaluation_id: <p>Filters the results to Agent Insights produced by a batch evaluation.</p>
+            archive_status: <p>Filters the results by archive status.</p>
+            max_results: <p>The maximum number of Agent Insight summaries to return in one response. If you don't specify a value, the operation returns up to 50 summaries.</p>
+            next_token: <p>A token to specify where to start paginating the results. This token is returned in a previous response.</p>
+
+        Raises:
+            capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
+            capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException: <p>The exception that occurs when the service encounters an unexpected internal error. This is a temporary condition that will resolve itself with retries. We recommend implementing exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException: <p>The exception that occurs when the request was denied due to request throttling. This happens when you exceed the allowed request rate for an operation. Reduce the frequency of requests or implement exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.validation_exception.ValidationException: <p>The exception that occurs when the input fails to satisfy the constraints specified by the service. Check the error message for details about which input parameter is invalid and correct your request.</p>
+            capo_bedrock_agentcore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore.types.list_agent_insights_request.ListAgentInsightsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore.types.list_agent_insights_response.ListAgentInsightsResponse"
+        ]:
+            import capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.list_agent_insights
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.list_agent_insights.async_list_agent_insights(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.list_agent_insights_response.ListAgentInsightsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.list_agent_insights_response
+
+            return capo_bedrock_agentcore.types.list_agent_insights_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentInsights", redact_output=_redact_output),
+        )
+        input_: capo_bedrock_agentcore.types.list_agent_insights_request.ListAgentInsightsRequest = {}
+        if application_name is not None:
+            input_["application_name"] = application_name
+        if batch_evaluation_id is not None:
+            input_["batch_evaluation_id"] = batch_evaluation_id
+        if archive_status is not None:
+            input_["archive_status"] = archive_status
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_agent_insights(
+        self,
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+        application_name: Optional[
+            "capo_bedrock_agentcore.types.agent_application_name.AgentApplicationName"
+        ] = None,
+        batch_evaluation_id: Optional[
+            "capo_bedrock_agentcore.types.batch_evaluation_id.BatchEvaluationId"
+        ] = None,
+        archive_status: Optional[
+            "capo_bedrock_agentcore.types.agent_insight_archive_status.AgentInsightArchiveStatus"
+        ] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[
+            "capo_bedrock_agentcore.types.next_token.NextToken"
+        ] = None,
+    ) -> "AsyncIterator[capo_bedrock_agentcore.types.agent_insight_summary.AgentInsightSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_agent_insights(
+                config_overrides=config_overrides,
+                application_name=application_name,
+                batch_evaluation_id=batch_evaluation_id,
+                archive_status=archive_status,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("agent_insights",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def list_batch_evaluations(
         self,
         *,
@@ -3232,6 +3548,88 @@ class AsyncBedrockAgentCoreClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("batch_evaluations",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_dataset_generations(
+        self,
+        dataset_id: "capo_bedrock_agentcore.types.dataset_id.DatasetId",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+    ) -> "capo_bedrock_agentcore.types.list_dataset_generations_response.ListDatasetGenerationsResponse":
+        """<p>Lists the generations for a dataset. AgentCore keeps a generation until you delete it with <code>DeleteDatasetGeneration</code> or delete the dataset. To get a generation's counts and the request it was started with, call <code>GetDatasetGeneration</code>.</p>
+
+        Args:
+            dataset_id: <p>The unique identifier of the dataset.</p>
+            max_results: <p>The maximum number of results to return in the response. The default is 20. If the total number of results is greater than this value, use the token returned in the response in the <code>nextToken</code> field when making another request to return the next batch of results.</p>
+            next_token: <p>If the total number of results is greater than the <code>maxResults</code> value provided in the request, enter the token returned in the <code>nextToken</code> field in the response in this field to return the next batch of results.</p>
+
+        Raises:
+            capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
+            capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException: <p>The exception that occurs when the service encounters an unexpected internal error. This is a temporary condition that will resolve itself with retries. We recommend implementing exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException: <p>The exception that occurs when the specified resource does not exist. This can happen when using an invalid identifier or when trying to access a resource that has been deleted.</p>
+            capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException: <p>The exception that occurs when the request was denied due to request throttling. This happens when you exceed the allowed request rate for an operation. Reduce the frequency of requests or implement exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.unauthorized_exception.UnauthorizedException: <p>This exception is thrown when the JWT bearer token is invalid or not found for OAuth bearer token based access</p>
+            capo_bedrock_agentcore.errors.validation_exception.ValidationException: <p>The exception that occurs when the input fails to satisfy the constraints specified by the service. Check the error message for details about which input parameter is invalid and correct your request.</p>
+            capo_bedrock_agentcore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore.types.list_dataset_generations_request.ListDatasetGenerationsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore.types.list_dataset_generations_response.ListDatasetGenerationsResponse"
+        ]:
+            import capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.list_dataset_generations
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.list_dataset_generations.async_list_dataset_generations(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetGenerations")
+        )
+        input_: capo_bedrock_agentcore.types.list_dataset_generations_request.ListDatasetGenerationsRequest = {
+            "dataset_id": dataset_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_dataset_generations(
+        self,
+        dataset_id: "capo_bedrock_agentcore.types.dataset_id.DatasetId",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+    ) -> "AsyncIterator[capo_bedrock_agentcore.types.dataset_generation_summary.DatasetGenerationSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_dataset_generations(
+                dataset_id,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("dataset_generations",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -3354,6 +3752,9 @@ class AsyncBedrockAgentCoreClient:
         output_config: Optional[
             "capo_bedrock_agentcore.types.output_config.OutputConfig"
         ] = None,
+        dataset_execution_config: Optional[
+            "capo_bedrock_agentcore.types.dataset_execution_config.DatasetExecutionConfig"
+        ] = None,
     ) -> "capo_bedrock_agentcore.types.start_batch_evaluation_response.StartBatchEvaluationResponse":
         """<p>Starts a batch evaluation job that evaluates agent performance across multiple sessions. Batch evaluations pull agent traces from CloudWatch Logs or an existing online evaluation configuration and run specified evaluators and insights against them.</p>
 
@@ -3367,6 +3768,7 @@ class AsyncBedrockAgentCoreClient:
             tags: <p>A map of tag keys and values to associate with the batch evaluation.</p>
             kms_key_arn: <p>The ARN of the KMS key used to encrypt evaluation data. If provided, customer data is encrypted at rest with the specified key.</p>
             description: <p>The description of the batch evaluation.</p>
+            dataset_execution_config: <p>The configuration for running the scenarios in a dataset against an agent before evaluating the resulting sessions. When you specify this field, the batch evaluation runs each scenario in the dataset against the agent. It then evaluates the sessions that the agent produces. You must also specify <code>evaluators</code> and a <code>dataSourceConfig</code> that uses <code>cloudWatchLogs</code>. Configure <code>cloudWatchLogs</code> with the service name and log groups that the agent uses for its traces. You can't specify <code>insights</code> or an <code>onlineEvaluationConfigSource</code> data source with this field.</p>
 
         Raises:
             capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
@@ -3418,6 +3820,86 @@ class AsyncBedrockAgentCoreClient:
             input_["description"] = description
         if output_config is not None:
             input_["output_config"] = output_config
+        if dataset_execution_config is not None:
+            input_["dataset_execution_config"] = dataset_execution_config
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def start_dataset_generation(
+        self,
+        dataset_id: "capo_bedrock_agentcore.types.dataset_id.DatasetId",
+        name: "capo_bedrock_agentcore.types.dataset_generation_name.DatasetGenerationName",
+        source: "capo_bedrock_agentcore.types.generation_source.GenerationSource",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+        description: Optional[
+            "capo_bedrock_agentcore.types.dataset_generation_description.DatasetGenerationDescription"
+        ] = None,
+        scenario_type: Optional[
+            "capo_bedrock_agentcore.types.scenario_type.ScenarioType"
+        ] = None,
+        client_token: Optional[
+            "capo_bedrock_agentcore.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_bedrock_agentcore.types.start_dataset_generation_response.StartDatasetGenerationResponse":
+        """<p>Starts a dataset generation, which creates examples for an existing dataset from your agent's traces. The dataset must be <code>ACTIVE</code>. Each generation produces one scenario type, set by <code>scenarioType</code>. When the generation finishes, AgentCore adds the examples to the dataset's draft. Examples that duplicate each other, or that duplicate examples already in the draft, are left out.</p> <p>A dataset can have only one generation in progress at a time. While it runs, requests that change the dataset's draft or publish a version are rejected with a <code>ConflictException</code>.</p> <p>AgentCore reads the traces with your credentials, so you need read access to the trace log groups, and to the dataset's KMS key if the dataset uses a customer managed key. The draft can hold at most 1,000 examples, including the examples this generation can add (<code>maxScenarios</code>).</p> <p>The operation returns immediately. To track progress, call <code>GetDatasetGeneration</code>.</p>
+
+        Args:
+            dataset_id: <p>The unique identifier of the dataset to add the generated examples to. The dataset must be <code>ACTIVE</code>.</p>
+            name: <p>The name of the dataset generation. The generation ID starts with this name.</p>
+            description: <p>A description of the dataset generation.</p>
+            scenario_type: <p>The type of scenario to generate. If you don't specify a value, the generation produces <code>DYNAMIC</code> scenarios.</p>
+            source: <p>Where the generation reads sessions from, and how it selects, samples, labels and redacts them.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
+
+        Raises:
+            capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
+            capo_bedrock_agentcore.errors.conflict_exception.ConflictException: <p>The exception that occurs when the request conflicts with the current state of the resource. This can happen when trying to modify a resource that is currently being modified by another request, or when trying to create a resource that already exists.</p>
+            capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException: <p>The exception that occurs when the service encounters an unexpected internal error. This is a temporary condition that will resolve itself with retries. We recommend implementing exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException: <p>The exception that occurs when the specified resource does not exist. This can happen when using an invalid identifier or when trying to access a resource that has been deleted.</p>
+            capo_bedrock_agentcore.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The exception that occurs when the request would cause a service quota to be exceeded. Review your service quotas and either reduce your request rate or request a quota increase.</p>
+            capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException: <p>The exception that occurs when the request was denied due to request throttling. This happens when you exceed the allowed request rate for an operation. Reduce the frequency of requests or implement exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.unauthorized_exception.UnauthorizedException: <p>This exception is thrown when the JWT bearer token is invalid or not found for OAuth bearer token based access</p>
+            capo_bedrock_agentcore.errors.validation_exception.ValidationException: <p>The exception that occurs when the input fails to satisfy the constraints specified by the service. Check the error message for details about which input parameter is invalid and correct your request.</p>
+            capo_bedrock_agentcore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore.types.start_dataset_generation_request.StartDatasetGenerationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore.types.start_dataset_generation_response.StartDatasetGenerationResponse"
+        ]:
+            import capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.start_dataset_generation
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.start_dataset_generation.async_start_dataset_generation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDatasetGeneration")
+        )
+        input_: capo_bedrock_agentcore.types.start_dataset_generation_request.StartDatasetGenerationRequest = {
+            "dataset_id": dataset_id,
+            "name": name,
+            "source": source,
+        }
+        if description is not None:
+            input_["description"] = description
+        if scenario_type is not None:
+            input_["scenario_type"] = scenario_type
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -3671,6 +4153,63 @@ class AsyncBedrockAgentCoreClient:
             input_["role_arn"] = role_arn
         if execution_status is not None:
             input_["execution_status"] = execution_status
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_agent_insight(
+        self,
+        application_name: "capo_bedrock_agentcore.types.agent_application_name.AgentApplicationName",
+        agent_insight_id: "capo_bedrock_agentcore.types.agent_insight_id.AgentInsightId",
+        archive_status: "capo_bedrock_agentcore.types.agent_insight_archive_status.AgentInsightArchiveStatus",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreClientConfig] = None,
+    ) -> "capo_bedrock_agentcore.types.update_agent_insight_response.UpdateAgentInsightResponse":
+        """<p>Updates the archive status of an Amazon Bedrock AgentCore Agent Insight.</p>
+
+        Args:
+            application_name: <p>The application that the Agent Insight belongs to.</p>
+            agent_insight_id: <p>The unique identifier of the Agent Insight to update.</p>
+            archive_status: <p>The archive status to apply to the Agent Insight. Valid values:</p> <ul> <li> <p> <code>ACTIVE</code> - Marks the insight as active.</p> </li> <li> <p> <code>ARCHIVED</code> - Marks the insight as archived.</p> </li> </ul>
+
+        Raises:
+            capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
+            capo_bedrock_agentcore.errors.conflict_exception.ConflictException: <p>The exception that occurs when the request conflicts with the current state of the resource. This can happen when trying to modify a resource that is currently being modified by another request, or when trying to create a resource that already exists.</p>
+            capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException: <p>The exception that occurs when the service encounters an unexpected internal error. This is a temporary condition that will resolve itself with retries. We recommend implementing exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.resource_not_found_exception.ResourceNotFoundException: <p>The exception that occurs when the specified resource does not exist. This can happen when using an invalid identifier or when trying to access a resource that has been deleted.</p>
+            capo_bedrock_agentcore.errors.throttling_exception.ThrottlingException: <p>The exception that occurs when the request was denied due to request throttling. This happens when you exceed the allowed request rate for an operation. Reduce the frequency of requests or implement exponential backoff retry logic in your application.</p>
+            capo_bedrock_agentcore.errors.validation_exception.ValidationException: <p>The exception that occurs when the input fails to satisfy the constraints specified by the service. Check the error message for details about which input parameter is invalid and correct your request.</p>
+            capo_bedrock_agentcore.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore.types.update_agent_insight_request.UpdateAgentInsightRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore.types.update_agent_insight_response.UpdateAgentInsightResponse"
+        ]:
+            import capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.update_agent_insight
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore._operations.amazon_bedrock_agent_core.update_agent_insight.async_update_agent_insight(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAgentInsight")
+        )
+        input_: capo_bedrock_agentcore.types.update_agent_insight_request.UpdateAgentInsightRequest = {
+            "application_name": application_name,
+            "agent_insight_id": agent_insight_id,
+            "archive_status": archive_status,
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

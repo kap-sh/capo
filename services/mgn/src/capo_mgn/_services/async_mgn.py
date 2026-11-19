@@ -46,6 +46,12 @@ from capo_mgn._resources.application_migration_service.launch_configuration_temp
 from capo_mgn._resources.application_migration_service.network_migration_definition_resource import (
     AsyncNetworkMigrationDefinitionResource,
 )
+from capo_mgn._resources.application_migration_service.remote_source_action_job_resource import (
+    AsyncRemoteSourceActionJobResource,
+)
+from capo_mgn._resources.application_migration_service.remote_source_action_resource import (
+    AsyncRemoteSourceActionResource,
+)
 from capo_mgn._resources.application_migration_service.replication_configuration_template_resource import (
     AsyncReplicationConfigurationTemplateResource,
 )
@@ -101,6 +107,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.client_idempotency_token
     import capo_mgn.types.code_generation_output_format_types
     import capo_mgn.types.connector
+    import capo_mgn.types.connector_arn
     import capo_mgn.types.connector_id
     import capo_mgn.types.connector_name
     import capo_mgn.types.connector_ssm_command_config
@@ -109,8 +116,11 @@ if TYPE_CHECKING:
     import capo_mgn.types.create_connector_request
     import capo_mgn.types.create_launch_configuration_template_request
     import capo_mgn.types.create_network_migration_definition_request
+    import capo_mgn.types.create_remote_source_action_request
+    import capo_mgn.types.create_remote_source_action_response
     import capo_mgn.types.create_replication_configuration_template_request
     import capo_mgn.types.create_wave_request
+    import capo_mgn.types.definition_type
     import capo_mgn.types.delete_application_request
     import capo_mgn.types.delete_application_response
     import capo_mgn.types.delete_connector_request
@@ -120,6 +130,8 @@ if TYPE_CHECKING:
     import capo_mgn.types.delete_launch_configuration_template_response
     import capo_mgn.types.delete_network_migration_definition_request
     import capo_mgn.types.delete_network_migration_definition_response
+    import capo_mgn.types.delete_remote_source_action_request
+    import capo_mgn.types.delete_remote_source_action_response
     import capo_mgn.types.delete_replication_configuration_template_request
     import capo_mgn.types.delete_replication_configuration_template_response
     import capo_mgn.types.delete_source_server_request
@@ -156,6 +168,8 @@ if TYPE_CHECKING:
     import capo_mgn.types.export_task_error
     import capo_mgn.types.finalize_cutover_request
     import capo_mgn.types.fqdn_for_action_framework
+    import capo_mgn.types.get_launch_configuration_defaults_request
+    import capo_mgn.types.get_launch_configuration_defaults_response
     import capo_mgn.types.get_launch_configuration_request
     import capo_mgn.types.get_network_migration_definition_request
     import capo_mgn.types.get_network_migration_mapper_segment_construct_request
@@ -167,6 +181,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.import_task_error
     import capo_mgn.types.initialize_service_request
     import capo_mgn.types.initialize_service_response
+    import capo_mgn.types.insight_producer_id
     import capo_mgn.types.internet_protocol
     import capo_mgn.types.ip_assignment_strategy
     import capo_mgn.types.job
@@ -224,6 +239,9 @@ if TYPE_CHECKING:
     import capo_mgn.types.list_network_migration_execution_request_filters
     import capo_mgn.types.list_network_migration_executions_request
     import capo_mgn.types.list_network_migration_executions_response
+    import capo_mgn.types.list_network_migration_insights_filters
+    import capo_mgn.types.list_network_migration_insights_request
+    import capo_mgn.types.list_network_migration_insights_response
     import capo_mgn.types.list_network_migration_mapper_segment_constructs_filters
     import capo_mgn.types.list_network_migration_mapper_segment_constructs_request
     import capo_mgn.types.list_network_migration_mapper_segment_constructs_response
@@ -236,6 +254,17 @@ if TYPE_CHECKING:
     import capo_mgn.types.list_network_migration_mappings_filters
     import capo_mgn.types.list_network_migration_mappings_request
     import capo_mgn.types.list_network_migration_mappings_response
+    import capo_mgn.types.list_remote_source_action_invocation_results_request
+    import capo_mgn.types.list_remote_source_action_invocation_results_response
+    import capo_mgn.types.list_remote_source_action_invocations_request
+    import capo_mgn.types.list_remote_source_action_invocations_request_filters
+    import capo_mgn.types.list_remote_source_action_invocations_response
+    import capo_mgn.types.list_remote_source_action_jobs_request
+    import capo_mgn.types.list_remote_source_action_jobs_request_filters
+    import capo_mgn.types.list_remote_source_action_jobs_response
+    import capo_mgn.types.list_remote_source_actions_request
+    import capo_mgn.types.list_remote_source_actions_request_filters
+    import capo_mgn.types.list_remote_source_actions_response
     import capo_mgn.types.list_source_server_actions_request
     import capo_mgn.types.list_source_server_actions_response
     import capo_mgn.types.list_tags_for_resource_request
@@ -261,18 +290,31 @@ if TYPE_CHECKING:
     import capo_mgn.types.network_migration_deployer_job_details
     import capo_mgn.types.network_migration_execution
     import capo_mgn.types.network_migration_execution_id
+    import capo_mgn.types.network_migration_insight
     import capo_mgn.types.network_migration_mapper_segment
     import capo_mgn.types.network_migration_mapper_segment_construct
     import capo_mgn.types.network_migration_mapping_job_details
     import capo_mgn.types.network_migration_mapping_update_job_details
     import capo_mgn.types.operating_system_string
     import capo_mgn.types.order_type
+    import capo_mgn.types.outpost_snapshot_location
     import capo_mgn.types.pagination_token
     import capo_mgn.types.pause_replication_request
     import capo_mgn.types.positive_integer
     import capo_mgn.types.post_launch_actions
     import capo_mgn.types.put_source_server_action_request
     import capo_mgn.types.put_template_action_request
+    import capo_mgn.types.remote_source_action
+    import capo_mgn.types.remote_source_action_arns
+    import capo_mgn.types.remote_source_action_description
+    import capo_mgn.types.remote_source_action_id
+    import capo_mgn.types.remote_source_action_invocation
+    import capo_mgn.types.remote_source_action_invocation_result
+    import capo_mgn.types.remote_source_action_job
+    import capo_mgn.types.remote_source_action_job_id
+    import capo_mgn.types.remote_source_action_name
+    import capo_mgn.types.remote_source_action_operating_system
+    import capo_mgn.types.remote_source_action_timeout_seconds
     import capo_mgn.types.remove_source_server_action_request
     import capo_mgn.types.remove_source_server_action_response
     import capo_mgn.types.remove_template_action_request
@@ -300,11 +342,14 @@ if TYPE_CHECKING:
     import capo_mgn.types.source_server
     import capo_mgn.types.source_server_action_document
     import capo_mgn.types.source_server_actions_request_filters
+    import capo_mgn.types.source_server_arns
     import capo_mgn.types.source_server_connector_action
     import capo_mgn.types.source_server_id
+    import capo_mgn.types.source_server_volume_configuration
     import capo_mgn.types.ssm_document_external_parameters
     import capo_mgn.types.ssm_document_parameters
     import capo_mgn.types.ssm_instance_id
+    import capo_mgn.types.ssm_parameter_store_parameter_name
     import capo_mgn.types.start_cutover_request
     import capo_mgn.types.start_cutover_request_source_server_i_ds
     import capo_mgn.types.start_cutover_response
@@ -326,6 +371,8 @@ if TYPE_CHECKING:
     import capo_mgn.types.start_network_migration_mapping_update_request
     import capo_mgn.types.start_network_migration_mapping_update_response
     import capo_mgn.types.start_network_migration_mapping_update_segments
+    import capo_mgn.types.start_remote_source_action_job_request
+    import capo_mgn.types.start_remote_source_action_job_response
     import capo_mgn.types.start_replication_request
     import capo_mgn.types.start_test_request
     import capo_mgn.types.start_test_request_source_server_i_ds
@@ -334,6 +381,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.storage_configuration
     import capo_mgn.types.strictly_positive_integer
     import capo_mgn.types.subnet_id
+    import capo_mgn.types.tag_key
     import capo_mgn.types.tag_keys
     import capo_mgn.types.tag_resource_request
     import capo_mgn.types.tag_value
@@ -354,10 +402,14 @@ if TYPE_CHECKING:
     import capo_mgn.types.untag_resource_request
     import capo_mgn.types.update_application_request
     import capo_mgn.types.update_connector_request
+    import capo_mgn.types.update_launch_configuration_defaults_request
+    import capo_mgn.types.update_launch_configuration_defaults_response
     import capo_mgn.types.update_launch_configuration_request
     import capo_mgn.types.update_launch_configuration_template_request
     import capo_mgn.types.update_network_migration_definition_request
     import capo_mgn.types.update_network_migration_mapper_segment_request
+    import capo_mgn.types.update_remote_source_action_request
+    import capo_mgn.types.update_remote_source_action_response
     import capo_mgn.types.update_replication_configuration_request
     import capo_mgn.types.update_replication_configuration_template_request
     import capo_mgn.types.update_source_server_replication_type_request
@@ -467,6 +519,10 @@ class AsyncmgnClient:
         self.network_migration_definition_resource = (
             AsyncNetworkMigrationDefinitionResource(self)
         )
+        self.remote_source_action_job_resource = AsyncRemoteSourceActionJobResource(
+            self
+        )
+        self.remote_source_action_resource = AsyncRemoteSourceActionResource(self)
         self.replication_configuration_template_resource = (
             AsyncReplicationConfigurationTemplateResource(self)
         )
@@ -2483,6 +2539,7 @@ class AsyncmgnClient:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         tags: Optional["capo_mgn.types.tags_map.TagsMap"] = None,
         launch_disposition: Optional[
             "capo_mgn.types.launch_disposition.LaunchDisposition"
@@ -2515,6 +2572,7 @@ class AsyncmgnClient:
             post_launch_actions: <p>Launch configuration template post launch actions.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration template map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration template map auto tagging key.</p>
             tags: <p>Request to associate tags during creation of a Launch Configuration Template.</p>
             launch_disposition: <p>Launch disposition.</p>
             target_instance_type_right_sizing_method: <p>Target instance type right-sizing method.</p>
@@ -2581,6 +2639,8 @@ class AsyncmgnClient:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if tags is not None:
             input_["tags"] = tags
         if launch_disposition is not None:
@@ -2628,6 +2688,7 @@ class AsyncmgnClient:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         launch_disposition: Optional[
             "capo_mgn.types.launch_disposition.LaunchDisposition"
         ] = None,
@@ -2658,6 +2719,7 @@ class AsyncmgnClient:
             post_launch_actions: <p>Post Launch Action to execute on the Test or Cutover instance.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration template map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration template map auto tagging key.</p>
             launch_disposition: <p>Launch disposition.</p>
             target_instance_type_right_sizing_method: <p>Target instance type right-sizing method.</p>
             copy_private_ip: <p>Copy private Ip.</p>
@@ -2715,6 +2777,8 @@ class AsyncmgnClient:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if launch_disposition is not None:
             input_["launch_disposition"] = launch_disposition
         if target_instance_type_right_sizing_method is not None:
@@ -3161,6 +3225,9 @@ class AsyncmgnClient:
         source_configurations: Optional[
             "capo_mgn.types.source_configuration_list.SourceConfigurationList"
         ] = None,
+        definition_type: Optional[
+            "capo_mgn.types.definition_type.DefinitionType"
+        ] = None,
         target_deployment: Optional[
             "capo_mgn.types.target_deployment.TargetDeployment"
         ] = None,
@@ -3180,6 +3247,7 @@ class AsyncmgnClient:
             name: <p>The name of the network migration definition.</p>
             description: <p>A description of the network migration definition.</p>
             source_configurations: <p>A list of source configurations for the network migration.</p>
+            definition_type: <p>Specifies the type of the definition. <code>MIGRATION</code> migrates an existing network. <code>NEW_NETWORK</code> designs a new network. If you omit this value, the definition type is <code>MIGRATION</code>.</p>
             target_s3_configuration: <p>The S3 configuration for storing the target network artifacts.</p>
             target_network: <p>The target network configuration including topology and CIDR ranges.</p>
             target_deployment: <p>The target deployment configuration for the migrated network.</p>
@@ -3250,6 +3318,8 @@ class AsyncmgnClient:
             input_["description"] = description
         if source_configurations is not None:
             input_["source_configurations"] = source_configurations
+        if definition_type is not None:
+            input_["definition_type"] = definition_type
         if target_deployment is not None:
             input_["target_deployment"] = target_deployment
         if vpc_provisioning_strategy is not None:
@@ -3299,6 +3369,9 @@ class AsyncmgnClient:
             "capo_mgn.types.cidr_mappings_list.CidrMappingsList"
         ] = None,
         scope_tags: Optional["capo_mgn.types.scope_tags_map.ScopeTagsMap"] = None,
+        definition_type: Optional[
+            "capo_mgn.types.definition_type.DefinitionType"
+        ] = None,
     ) -> "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition":
         """<p>Updates an existing network migration definition with new source or target configurations.</p>
 
@@ -3313,6 +3386,7 @@ class AsyncmgnClient:
             vpc_provisioning_strategy: <p>Updates whether the migration creates new target VPCs or uses existing ones. Set to <code>USE_EXISTING</code> to migrate into existing VPCs in the target account, or to <code>CREATE_NEW</code> to provision new target VPCs.</p>
             cidr_mappings: <p>The updated list of CIDR mappings that map original source CIDR ranges to updated target CIDR ranges. CIDR mappings can be provided only when <code>vpcProvisioningStrategy</code> is set to <code>USE_EXISTING</code>.</p>
             scope_tags: <p>The updated scope tags for the network migration definition.</p>
+            definition_type: <p>The updated type of the network migration definition.</p>
 
         Raises:
             capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
@@ -3386,6 +3460,8 @@ class AsyncmgnClient:
             input_["cidr_mappings"] = cidr_mappings
         if scope_tags is not None:
             input_["scope_tags"] = scope_tags
+        if definition_type is not None:
+            input_["definition_type"] = definition_type
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -4367,6 +4443,133 @@ class AsyncmgnClient:
             if not _token:
                 break
 
+    async def list_network_migration_insights(
+        self,
+        network_migration_definition_id: "capo_mgn.types.network_migration_definition_id.NetworkMigrationDefinitionID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        network_migration_execution_id: Optional[
+            "capo_mgn.types.network_migration_execution_id.NetworkMigrationExecutionID"
+        ] = None,
+        producer_id: Optional[
+            "capo_mgn.types.insight_producer_id.InsightProducerID"
+        ] = None,
+        segment_id: Optional["capo_mgn.types.segment_id.SegmentID"] = None,
+        construct_id: Optional["capo_mgn.types.construct_id.ConstructID"] = None,
+        filters: Optional[
+            "capo_mgn.types.list_network_migration_insights_filters.ListNetworkMigrationInsightsFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+    ) -> "capo_mgn.types.list_network_migration_insights_response.ListNetworkMigrationInsightsResponse":
+        """<p>Lists network migration insights for a network migration definition.</p>
+
+        Args:
+            network_migration_definition_id: <p>The unique identifier of the network migration definition.</p>
+            network_migration_execution_id: <p>The unique identifier of the network migration execution to narrow the results to.</p>
+            producer_id: <p>The identifier of the job or API request to narrow the results to.</p>
+            segment_id: <p>The unique identifier of the segment to narrow the results to.</p>
+            construct_id: <p>The unique identifier of the construct to narrow the results to.</p>
+            filters: <p>Filters to apply when listing insights.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+
+        Raises:
+            capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.throttling_exception.ThrottlingException: <p>Reached throttling quota exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List the WARNING insights a mapping job recorded for one construct
+
+            >>> await client.list_network_migration_insights(network_migration_definition_id='nmd-54cf850b22f7cf65e', network_migration_execution_id='b1235ba8-398e-4ef0-b803-78c8c85b5021', producer_id='f7aa9266-b070-421b-a630-e503783b7f12', filters={'insightTypes': ['WARNING']})
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.list_network_migration_insights_request.ListNetworkMigrationInsightsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.list_network_migration_insights_response.ListNetworkMigrationInsightsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_network_migration_insights
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.list_network_migration_insights.async_list_network_migration_insights(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationInsights")
+        )
+        input_: capo_mgn.types.list_network_migration_insights_request.ListNetworkMigrationInsightsRequest = {
+            "network_migration_definition_id": network_migration_definition_id
+        }
+        if network_migration_execution_id is not None:
+            input_["network_migration_execution_id"] = network_migration_execution_id
+        if producer_id is not None:
+            input_["producer_id"] = producer_id
+        if segment_id is not None:
+            input_["segment_id"] = segment_id
+        if construct_id is not None:
+            input_["construct_id"] = construct_id
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_network_migration_insights(
+        self,
+        network_migration_definition_id: "capo_mgn.types.network_migration_definition_id.NetworkMigrationDefinitionID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        network_migration_execution_id: Optional[
+            "capo_mgn.types.network_migration_execution_id.NetworkMigrationExecutionID"
+        ] = None,
+        producer_id: Optional[
+            "capo_mgn.types.insight_producer_id.InsightProducerID"
+        ] = None,
+        segment_id: Optional["capo_mgn.types.segment_id.SegmentID"] = None,
+        construct_id: Optional["capo_mgn.types.construct_id.ConstructID"] = None,
+        filters: Optional[
+            "capo_mgn.types.list_network_migration_insights_filters.ListNetworkMigrationInsightsFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+    ) -> "AsyncIterator[capo_mgn.types.network_migration_insight.NetworkMigrationInsight]":
+        _token = next_token
+        while True:
+            _response = await self.list_network_migration_insights(
+                network_migration_definition_id,
+                config_overrides=config_overrides,
+                network_migration_execution_id=network_migration_execution_id,
+                producer_id=producer_id,
+                segment_id=segment_id,
+                construct_id=construct_id,
+                filters=filters,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def list_network_migration_mapper_segment_constructs(
         self,
         network_migration_execution_id: "capo_mgn.types.network_migration_execution_id.NetworkMigrationExecutionID",
@@ -4379,6 +4582,8 @@ class AsyncmgnClient:
         ] = None,
         max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
         next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        include_enriched_properties: Optional[bool] = None,
+        include_configuration: Optional[bool] = None,
     ) -> "capo_mgn.types.list_network_migration_mapper_segment_constructs_response.ListNetworkMigrationMapperSegmentConstructsResponse":
         """<p>Lists constructs within a mapper segment, representing individual infrastructure components like VPCs, subnets, or security groups.</p>
 
@@ -4389,6 +4594,8 @@ class AsyncmgnClient:
             filters: <p>Filters to apply when listing constructs, such as construct type or ID.</p>
             max_results: <p>The maximum number of results to return in a single call.</p>
             next_token: <p>The token for the next page of results.</p>
+            include_enriched_properties: <p>Whether to return construct properties using their native value types.</p>
+            include_configuration: <p>Whether to return construct-type-specific behavioral configuration.</p>
 
         Raises:
             capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
@@ -4436,6 +4643,10 @@ class AsyncmgnClient:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if include_enriched_properties is not None:
+            input_["include_enriched_properties"] = include_enriched_properties
+        if include_configuration is not None:
+            input_["include_configuration"] = include_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -4457,6 +4668,8 @@ class AsyncmgnClient:
         ] = None,
         max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
         next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        include_enriched_properties: Optional[bool] = None,
+        include_configuration: Optional[bool] = None,
     ) -> "AsyncIterator[capo_mgn.types.network_migration_mapper_segment_construct.NetworkMigrationMapperSegmentConstruct]":
         _token = next_token
         while True:
@@ -4468,6 +4681,8 @@ class AsyncmgnClient:
                 filters=filters,
                 max_results=max_results,
                 next_token=_token,
+                include_enriched_properties=include_enriched_properties,
+                include_configuration=include_configuration,
             )
             _page = _resolve_path(_response, ("items",))
             for _item in _page or []:
@@ -5209,6 +5424,646 @@ class AsyncmgnClient:
         await response.response.aclose()
         return response.output
 
+    async def start_remote_source_action_job(
+        self,
+        remote_source_action_arns: "capo_mgn.types.remote_source_action_arns.RemoteSourceActionArns",
+        connector_arn: "capo_mgn.types.connector_arn.ConnectorArn",
+        source_server_arns: "capo_mgn.types.source_server_arns.SourceServerArns",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        client_token: Optional[
+            "capo_mgn.types.client_idempotency_token.ClientIdempotencyToken"
+        ] = None,
+        tags: Optional["capo_mgn.types.tags_map.TagsMap"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.start_remote_source_action_job_response.StartRemoteSourceActionJobResponse":
+        """<p>Starts a job that runs a source action on source servers through a connector.</p>
+
+        Args:
+            remote_source_action_arns: <p>The ARNs of the source actions to run.</p>
+            connector_arn: <p>The ARN of the connector that runs the source actions.</p>
+            source_server_arns: <p>The ARNs of the source servers to run the source actions on.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
+            tags: <p>Tags to assign to the job.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the target resource.</p>
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request could not be completed because it exceeded the service quota.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.start_remote_source_action_job_request.StartRemoteSourceActionJobRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.start_remote_source_action_job_response.StartRemoteSourceActionJobResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.start_remote_source_action_job
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.start_remote_source_action_job.async_start_remote_source_action_job(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_mgn.types.start_remote_source_action_job_request.StartRemoteSourceActionJobRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_remote_source_action_job_request
+
+            return (
+                capo_mgn.types.start_remote_source_action_job_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.start_remote_source_action_job_response.StartRemoteSourceActionJobResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_remote_source_action_job_response
+
+            return (
+                capo_mgn.types.start_remote_source_action_job_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartRemoteSourceActionJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_mgn.types.start_remote_source_action_job_request.StartRemoteSourceActionJobRequest = {
+            "remote_source_action_arns": remote_source_action_arns,
+            "connector_arn": connector_arn,
+            "source_server_arns": source_server_arns,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if tags is not None:
+            input_["tags"] = tags
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def list_remote_source_action_jobs(
+        self,
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        filters: Optional[
+            "capo_mgn.types.list_remote_source_action_jobs_request_filters.ListRemoteSourceActionJobsRequestFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.list_remote_source_action_jobs_response.ListRemoteSourceActionJobsResponse":
+        """<p>Lists the source action jobs in the account, with optional filtering.</p>
+
+        Args:
+            filters: <p>Filters to apply when listing source action jobs.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.list_remote_source_action_jobs_request.ListRemoteSourceActionJobsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.list_remote_source_action_jobs_response.ListRemoteSourceActionJobsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_remote_source_action_jobs
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.list_remote_source_action_jobs.async_list_remote_source_action_jobs(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_mgn.types.list_remote_source_action_jobs_response.ListRemoteSourceActionJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_remote_source_action_jobs_response
+
+            return (
+                capo_mgn.types.list_remote_source_action_jobs_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListRemoteSourceActionJobs", redact_output=_redact_output
+            ),
+        )
+        input_: capo_mgn.types.list_remote_source_action_jobs_request.ListRemoteSourceActionJobsRequest = {}
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_remote_source_action_jobs(
+        self,
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        filters: Optional[
+            "capo_mgn.types.list_remote_source_action_jobs_request_filters.ListRemoteSourceActionJobsRequestFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "AsyncIterator[capo_mgn.types.remote_source_action_job.RemoteSourceActionJob]":
+        _token = next_token
+        while True:
+            _response = await self.list_remote_source_action_jobs(
+                config_overrides=config_overrides,
+                filters=filters,
+                max_results=max_results,
+                next_token=_token,
+                account_id=account_id,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_remote_source_action_invocations(
+        self,
+        remote_source_action_job_id: "capo_mgn.types.remote_source_action_job_id.RemoteSourceActionJobID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        filters: Optional[
+            "capo_mgn.types.list_remote_source_action_invocations_request_filters.ListRemoteSourceActionInvocationsRequestFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.list_remote_source_action_invocations_response.ListRemoteSourceActionInvocationsResponse":
+        """<p>Lists the invocations of a source action job, one for each source server and source action, with optional filtering.</p>
+
+        Args:
+            remote_source_action_job_id: <p>The unique identifier of the job to list invocations for.</p>
+            filters: <p>Filters to apply when listing invocations, such as source server or status.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.list_remote_source_action_invocations_request.ListRemoteSourceActionInvocationsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.list_remote_source_action_invocations_response.ListRemoteSourceActionInvocationsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_remote_source_action_invocations
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.list_remote_source_action_invocations.async_list_remote_source_action_invocations(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRemoteSourceActionInvocations")
+        )
+        input_: capo_mgn.types.list_remote_source_action_invocations_request.ListRemoteSourceActionInvocationsRequest = {
+            "remote_source_action_job_id": remote_source_action_job_id
+        }
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_remote_source_action_invocations(
+        self,
+        remote_source_action_job_id: "capo_mgn.types.remote_source_action_job_id.RemoteSourceActionJobID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        filters: Optional[
+            "capo_mgn.types.list_remote_source_action_invocations_request_filters.ListRemoteSourceActionInvocationsRequestFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "AsyncIterator[capo_mgn.types.remote_source_action_invocation.RemoteSourceActionInvocation]":
+        _token = next_token
+        while True:
+            _response = await self.list_remote_source_action_invocations(
+                remote_source_action_job_id,
+                config_overrides=config_overrides,
+                filters=filters,
+                max_results=max_results,
+                next_token=_token,
+                account_id=account_id,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def create_remote_source_action(
+        self,
+        name: "capo_mgn.types.remote_source_action_name.RemoteSourceActionName",
+        ssm_parameter_name: "capo_mgn.types.ssm_parameter_store_parameter_name.SsmParameterStoreParameterName",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        description: Optional[
+            "capo_mgn.types.remote_source_action_description.RemoteSourceActionDescription"
+        ] = None,
+        timeout_seconds: Optional[
+            "capo_mgn.types.remote_source_action_timeout_seconds.RemoteSourceActionTimeoutSeconds"
+        ] = None,
+        operating_system: Optional[
+            "capo_mgn.types.remote_source_action_operating_system.RemoteSourceActionOperatingSystem"
+        ] = None,
+        tags: Optional["capo_mgn.types.tags_map.TagsMap"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.create_remote_source_action_response.CreateRemoteSourceActionResponse":
+        """<p>Creates a source action, which references a script in AWS Systems Manager Parameter Store that Application Migration Service runs on source environment.</p>
+
+        Args:
+            name: <p>The name of the source action.</p>
+            description: <p>A description of the source action.</p>
+            ssm_parameter_name: <p>AWS Systems Manager Parameter Store parameter name.</p>
+            timeout_seconds: <p>The maximum time, in seconds, that the script can run on each source server.</p>
+            operating_system: <p>The operating system of the source servers that the script runs on. Set to <code>linux</code> or <code>windows</code> to run the script only on source servers with that operating system, or <code>all</code> to run it on both.</p>
+            tags: <p>Tags to assign to the source action.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the target resource.</p>
+            capo_mgn.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request could not be completed because it exceeded the service quota.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.create_remote_source_action_request.CreateRemoteSourceActionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.create_remote_source_action_response.CreateRemoteSourceActionResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.create_remote_source_action
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.create_remote_source_action.async_create_remote_source_action(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_mgn.types.create_remote_source_action_request.CreateRemoteSourceActionRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_remote_source_action_request
+
+            return capo_mgn.types.create_remote_source_action_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.create_remote_source_action_response.CreateRemoteSourceActionResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_remote_source_action_response
+
+            return capo_mgn.types.create_remote_source_action_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRemoteSourceAction",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_mgn.types.create_remote_source_action_request.CreateRemoteSourceActionRequest = {
+            "name": name,
+            "ssm_parameter_name": ssm_parameter_name,
+        }
+        if description is not None:
+            input_["description"] = description
+        if timeout_seconds is not None:
+            input_["timeout_seconds"] = timeout_seconds
+        if operating_system is not None:
+            input_["operating_system"] = operating_system
+        if tags is not None:
+            input_["tags"] = tags
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_remote_source_action(
+        self,
+        remote_source_action_id: "capo_mgn.types.remote_source_action_id.RemoteSourceActionID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        name: Optional[
+            "capo_mgn.types.remote_source_action_name.RemoteSourceActionName"
+        ] = None,
+        description: Optional[
+            "capo_mgn.types.remote_source_action_description.RemoteSourceActionDescription"
+        ] = None,
+        ssm_parameter_name: Optional[
+            "capo_mgn.types.ssm_parameter_store_parameter_name.SsmParameterStoreParameterName"
+        ] = None,
+        timeout_seconds: Optional[
+            "capo_mgn.types.remote_source_action_timeout_seconds.RemoteSourceActionTimeoutSeconds"
+        ] = None,
+        operating_system: Optional[
+            "capo_mgn.types.remote_source_action_operating_system.RemoteSourceActionOperatingSystem"
+        ] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.update_remote_source_action_response.UpdateRemoteSourceActionResponse":
+        """<p>Updates a source action.</p>
+
+        Args:
+            remote_source_action_id: <p>The unique identifier of the source action to update.</p>
+            name: <p>The updated name of the source action.</p>
+            description: <p>The updated description of the source action.</p>
+            ssm_parameter_name: <p>AWS Systems Manager Parameter Store parameter name.</p>
+            timeout_seconds: <p>The updated maximum time, in seconds, that the script can run on each source server.</p>
+            operating_system: <p>The updated operating system of the source servers that the script runs on. Set to <code>linux</code> or <code>windows</code> to run the script only on source servers with that operating system, or <code>all</code> to run it on both.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the target resource.</p>
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.update_remote_source_action_request.UpdateRemoteSourceActionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.update_remote_source_action_response.UpdateRemoteSourceActionResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.update_remote_source_action
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.update_remote_source_action.async_update_remote_source_action(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_mgn.types.update_remote_source_action_response.UpdateRemoteSourceActionResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_remote_source_action_response
+
+            return capo_mgn.types.update_remote_source_action_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRemoteSourceAction", redact_output=_redact_output),
+        )
+        input_: capo_mgn.types.update_remote_source_action_request.UpdateRemoteSourceActionRequest = {
+            "remote_source_action_id": remote_source_action_id
+        }
+        if name is not None:
+            input_["name"] = name
+        if description is not None:
+            input_["description"] = description
+        if ssm_parameter_name is not None:
+            input_["ssm_parameter_name"] = ssm_parameter_name
+        if timeout_seconds is not None:
+            input_["timeout_seconds"] = timeout_seconds
+        if operating_system is not None:
+            input_["operating_system"] = operating_system
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_remote_source_action(
+        self,
+        remote_source_action_id: "capo_mgn.types.remote_source_action_id.RemoteSourceActionID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.delete_remote_source_action_response.DeleteRemoteSourceActionResponse":
+        """<p>Deletes a source action. This operation also deletes the invocation results of the source action.</p>
+
+        Args:
+            remote_source_action_id: <p>The unique identifier of the source action to delete.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the target resource.</p>
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.delete_remote_source_action_request.DeleteRemoteSourceActionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.delete_remote_source_action_response.DeleteRemoteSourceActionResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.delete_remote_source_action
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.delete_remote_source_action.async_delete_remote_source_action(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRemoteSourceAction")
+        )
+        input_: capo_mgn.types.delete_remote_source_action_request.DeleteRemoteSourceActionRequest = {
+            "remote_source_action_id": remote_source_action_id
+        }
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def list_remote_source_actions(
+        self,
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        filters: Optional[
+            "capo_mgn.types.list_remote_source_actions_request_filters.ListRemoteSourceActionsRequestFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.list_remote_source_actions_response.ListRemoteSourceActionsResponse":
+        """<p>Lists the source actions in the account, with optional filtering.</p>
+
+        Args:
+            filters: <p>Filters to apply when listing source actions.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.list_remote_source_actions_request.ListRemoteSourceActionsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.list_remote_source_actions_response.ListRemoteSourceActionsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_remote_source_actions
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.list_remote_source_actions.async_list_remote_source_actions(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_mgn.types.list_remote_source_actions_response.ListRemoteSourceActionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_remote_source_actions_response
+
+            return capo_mgn.types.list_remote_source_actions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRemoteSourceActions", redact_output=_redact_output),
+        )
+        input_: capo_mgn.types.list_remote_source_actions_request.ListRemoteSourceActionsRequest = {}
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_remote_source_actions(
+        self,
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        filters: Optional[
+            "capo_mgn.types.list_remote_source_actions_request_filters.ListRemoteSourceActionsRequestFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "AsyncIterator[capo_mgn.types.remote_source_action.RemoteSourceAction]":
+        _token = next_token
+        while True:
+            _response = await self.list_remote_source_actions(
+                config_overrides=config_overrides,
+                filters=filters,
+                max_results=max_results,
+                next_token=_token,
+                account_id=account_id,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def create_replication_configuration_template(
         self,
         staging_area_subnet_id: "capo_mgn.types.subnet_id.SubnetID",
@@ -5231,6 +6086,9 @@ class AsyncmgnClient:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -5254,6 +6112,7 @@ class AsyncmgnClient:
             tags: <p>Request to configure tags during Replication Settings template creation.</p>
             internet_protocol: <p>Request to configure the internet protocol to IPv4 or IPv6.</p>
             store_snapshot_on_local_zone: <p>Request to store snapshot on local zone during Replication Settings template creation.</p>
+            outpost_snapshot_location: <p>Request to set the location of replication snapshots when the staging area subnet is on an AWS Outpost during Replication Settings template creation. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Request to configure storage during Replication Settings template creation.</p>
 
         Raises:
@@ -5327,6 +6186,8 @@ class AsyncmgnClient:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 
@@ -5373,6 +6234,9 @@ class AsyncmgnClient:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -5397,6 +6261,7 @@ class AsyncmgnClient:
             use_fips_endpoint: <p>Update replication configuration template use Fips Endpoint request.</p>
             internet_protocol: <p>Update replication configuration template internet protocol request.</p>
             store_snapshot_on_local_zone: <p>Update replication configuration template store snapshot on local zone request.</p>
+            outpost_snapshot_location: <p>Updates the location of replication snapshots in the Replication Configuration template when the staging area subnet is on an AWS Outpost. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Update replication configuration template storage configuration request.</p>
 
         Raises:
@@ -5491,6 +6356,8 @@ class AsyncmgnClient:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 
@@ -6114,6 +6981,58 @@ class AsyncmgnClient:
         await response.response.aclose()
         return response.output
 
+    async def get_launch_configuration_defaults(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.get_launch_configuration_defaults_response.GetLaunchConfigurationDefaultsResponse":
+        """<p>Gets the launch configuration defaults of a source server: the Amazon Elastic Block Store (Amazon EBS) volume configuration used for the disk mappings created later in the source server's Amazon Elastic Compute Cloud (Amazon EC2) launch template.</p>
+
+        Args:
+            source_server_id: <p>Request to get the launch configuration defaults by Source Server ID.</p>
+            account_id: <p>Request to get the launch configuration defaults by Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.get_launch_configuration_defaults_request.GetLaunchConfigurationDefaultsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.get_launch_configuration_defaults_response.GetLaunchConfigurationDefaultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.get_launch_configuration_defaults
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.get_launch_configuration_defaults.async_get_launch_configuration_defaults(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLaunchConfigurationDefaults")
+        )
+        input_: capo_mgn.types.get_launch_configuration_defaults_request.GetLaunchConfigurationDefaultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_replication_configuration(
         self,
         source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
@@ -6174,6 +7093,92 @@ class AsyncmgnClient:
         )
         await response.response.aclose()
         return response.output
+
+    async def list_remote_source_action_invocation_results(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.list_remote_source_action_invocation_results_response.ListRemoteSourceActionInvocationResultsResponse":
+        """<p>Lists the latest invocation result of each source action that ran on a source server.</p>
+
+        Args:
+            source_server_id: <p>The unique identifier of the source server to list invocation results for.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.list_remote_source_action_invocation_results_request.ListRemoteSourceActionInvocationResultsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.list_remote_source_action_invocation_results_response.ListRemoteSourceActionInvocationResultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_remote_source_action_invocation_results
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.list_remote_source_action_invocation_results.async_list_remote_source_action_invocation_results(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRemoteSourceActionInvocationResults"),
+        )
+        input_: capo_mgn.types.list_remote_source_action_invocation_results_request.ListRemoteSourceActionInvocationResultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_remote_source_action_invocation_results(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "AsyncIterator[capo_mgn.types.remote_source_action_invocation_result.RemoteSourceActionInvocationResult]":
+        _token = next_token
+        while True:
+            _response = await self.list_remote_source_action_invocation_results(
+                source_server_id,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+                account_id=account_id,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     async def list_source_server_actions(
         self,
@@ -6808,6 +7813,7 @@ class AsyncmgnClient:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
     ) -> "capo_mgn.types.launch_configuration.LaunchConfiguration":
         """<p>Updates multiple LaunchConfigurations by Source Server ID.</p> <note> <p>bootMode valid values are <code>LEGACY_BIOS | UEFI | USE_SOURCE</code> </p> </note>
@@ -6823,6 +7829,7 @@ class AsyncmgnClient:
             boot_mode: <p>Update Launch configuration boot mode request.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration map auto tagging key.</p>
             account_id: <p>Update Launch configuration Account ID.</p>
 
         Raises:
@@ -6876,8 +7883,80 @@ class AsyncmgnClient:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if account_id is not None:
             input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_launch_configuration_defaults(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+        small_volume_max_size: Optional[
+            "capo_mgn.types.positive_integer.PositiveInteger"
+        ] = None,
+        small_volume_configuration: Optional[
+            "capo_mgn.types.source_server_volume_configuration.SourceServerVolumeConfiguration"
+        ] = None,
+        large_volume_configuration: Optional[
+            "capo_mgn.types.source_server_volume_configuration.SourceServerVolumeConfiguration"
+        ] = None,
+    ) -> "capo_mgn.types.update_launch_configuration_defaults_response.UpdateLaunchConfigurationDefaultsResponse":
+        """<p>Updates the launch configuration defaults of a source server. They apply only to disk mappings created later in the source server's Amazon Elastic Compute Cloud (Amazon EC2) launch template, and members you omit keep their current values.</p>
+
+        Args:
+            source_server_id: <p>Request to update the launch configuration defaults by Source Server ID.</p>
+            account_id: <p>Request to update the launch configuration defaults by Account ID.</p>
+            small_volume_max_size: <p>Disks up to this size, in GiB, use the small volume configuration, and larger disks use the large one. <code>0</code> means every disk uses the large one. If you omit it, the current value is kept.</p>
+            small_volume_configuration: <p>Volume configuration for disks up to <code>smallVolumeMaxSize</code>. If you omit it, the current one is kept. If you send it, it replaces the current one: fields you omit are cleared, and an empty configuration, <code>{}</code>, clears all of them.</p>
+            large_volume_configuration: <p>Volume configuration for disks larger than <code>smallVolumeMaxSize</code>. If you omit it, the current one is kept. If you send it, it replaces the current one: fields you omit are cleared, and an empty configuration, <code>{}</code>, clears all of them.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.update_launch_configuration_defaults_request.UpdateLaunchConfigurationDefaultsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.update_launch_configuration_defaults_response.UpdateLaunchConfigurationDefaultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.update_launch_configuration_defaults
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.update_launch_configuration_defaults.async_update_launch_configuration_defaults(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLaunchConfigurationDefaults")
+        )
+        input_: capo_mgn.types.update_launch_configuration_defaults_request.UpdateLaunchConfigurationDefaultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if account_id is not None:
+            input_["account_id"] = account_id
+        if small_volume_max_size is not None:
+            input_["small_volume_max_size"] = small_volume_max_size
+        if small_volume_configuration is not None:
+            input_["small_volume_configuration"] = small_volume_configuration
+        if large_volume_configuration is not None:
+            input_["large_volume_configuration"] = large_volume_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -6926,6 +8005,9 @@ class AsyncmgnClient:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -6952,6 +8034,7 @@ class AsyncmgnClient:
             account_id: <p>Update replication configuration Account ID request.</p>
             internet_protocol: <p>Update replication configuration internet protocol.</p>
             store_snapshot_on_local_zone: <p>Update replication configuration store snapshot on local zone.</p>
+            outpost_snapshot_location: <p>Updates the location of replication snapshots when the staging area subnet is on an AWS Outpost. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Update replication configuration storage configuration.</p>
 
         Raises:
@@ -7049,6 +8132,8 @@ class AsyncmgnClient:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 

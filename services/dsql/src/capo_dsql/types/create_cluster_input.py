@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_dsql.types.client_token
     import capo_dsql.types.deletion_protection_enabled
     import capo_dsql.types.kms_encryption_key
+    import capo_dsql.types.metric_group_request_list
     import capo_dsql.types.multi_region_properties
     import capo_dsql.types.policy_document
     import capo_dsql.types.tag_map
@@ -33,6 +34,10 @@ class CreateClusterInput(TypedDict, closed=True):
     """<p>The configuration settings when creating a multi-Region cluster, including the witness region and linked cluster properties.</p>"""
     policy: NotRequired["capo_dsql.types.policy_document.PolicyDocument"]
     """<p>An optional resource-based policy document in JSON format that defines access permissions for the cluster.</p>"""
+    metric_groups: NotRequired[
+        "capo_dsql.types.metric_group_request_list.MetricGroupRequestList"
+    ]
+    """<p>The metric groups to enable for advanced monitoring on the cluster. Advanced monitoring collects detailed, query-level database metrics to help you analyze and resolve performance issues. If you omit this parameter, no metric groups are enabled.</p>"""
     bypass_policy_lockout_safety_check: NotRequired[
         "capo_dsql.types.bypass_policy_lockout_safety_check.BypassPolicyLockoutSafetyCheck"
     ]
@@ -62,6 +67,12 @@ def serialize_json(value: CreateClusterInput) -> dict:
         )
     if "policy" in value:
         out["policy"] = value["policy"]
+    if "metric_groups" in value:
+        import capo_dsql.types.metric_group_request_list
+
+        out["metricGroups"] = capo_dsql.types.metric_group_request_list.serialize_json(
+            value["metric_groups"]
+        )
     if "bypass_policy_lockout_safety_check" in value:
         out["bypassPolicyLockoutSafetyCheck"] = value[
             "bypass_policy_lockout_safety_check"
@@ -91,6 +102,14 @@ def deserialize_json(data: dict) -> CreateClusterInput:
         )
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
+    if data.get("metricGroups") is not None:
+        import capo_dsql.types.metric_group_request_list
+
+        out["metric_groups"] = (
+            capo_dsql.types.metric_group_request_list.deserialize_json(
+                data["metricGroups"]
+            )
+        )
     if data.get("bypassPolicyLockoutSafetyCheck") is not None:
         out["bypass_policy_lockout_safety_check"] = data[
             "bypassPolicyLockoutSafetyCheck"

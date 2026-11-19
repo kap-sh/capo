@@ -13,6 +13,7 @@ import capo_resiliencehubv2._auth._sigv4
 import capo_resiliencehubv2._protocol.eventstream
 import capo_resiliencehubv2.errors.access_denied_exception
 import capo_resiliencehubv2.errors.internal_server_exception
+import capo_resiliencehubv2.errors.throttling_exception
 import capo_resiliencehubv2.errors.validation_exception
 import capo_resiliencehubv2.types.list_test_templates_request
 import capo_resiliencehubv2.types.list_test_templates_response
@@ -37,6 +38,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InternalServerException":
             raise capo_resiliencehubv2.errors.internal_server_exception.InternalServerException.from_json(
+                data, message, response=response
+            )
+        case "ThrottlingException":
+            raise capo_resiliencehubv2.errors.throttling_exception.ThrottlingException.from_json(
                 data, message, response=response
             )
         case "ValidationException":
@@ -107,6 +112,10 @@ def build_request(
     )  # noqa: F841
     url = endpoint.url.rstrip("/") + "/v2/list-test-templates"
     params: list[tuple[str, str]] = []
+    if "max_results" in input_:
+        params.append(("maxResults", str(input_["max_results"])))
+    if "next_token" in input_:
+        params.append(("nextToken", input_["next_token"]))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

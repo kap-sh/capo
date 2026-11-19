@@ -14,6 +14,7 @@ import capo_ec2._protocol.eventstream
 import capo_ec2.types.added_principal_set
 import capo_ec2.types.modify_vpc_endpoint_service_permissions_request
 import capo_ec2.types.modify_vpc_endpoint_service_permissions_result
+import capo_ec2.types.permission_type
 import capo_ec2.types.value_string_list
 from capo_ec2._protocol.errors import parse_error_metadata
 from capo_ec2._protocol.xml import fromstring

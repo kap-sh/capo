@@ -12,6 +12,7 @@ import capo_iam._auth._signers
 import capo_iam._auth._sigv4
 import capo_iam._protocol.eventstream
 import capo_iam.errors.entity_temporarily_unmodifiable_exception
+import capo_iam.errors.invalid_input_exception
 import capo_iam.errors.limit_exceeded_exception
 import capo_iam.errors.no_such_entity_exception
 import capo_iam.errors.password_policy_violation_exception
@@ -35,6 +36,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EntityTemporarilyUnmodifiable":
             raise capo_iam.errors.entity_temporarily_unmodifiable_exception.EntityTemporarilyUnmodifiableException.from_query(
+                error_el, message, response=response
+            )
+        case "InvalidInput":
+            raise capo_iam.errors.invalid_input_exception.InvalidInputException.from_query(
                 error_el, message, response=response
             )
         case "LimitExceeded":

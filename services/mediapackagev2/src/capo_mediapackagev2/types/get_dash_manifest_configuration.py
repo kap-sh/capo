@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.dash_audio_timeline_pattern
     import capo_mediapackagev2.types.dash_availability_start_time_configuration
+    import capo_mediapackagev2.types.dash_bandwidth_reporting_mode
     import capo_mediapackagev2.types.dash_base_urls
     import capo_mediapackagev2.types.dash_compactness
     import capo_mediapackagev2.types.dash_drm_signaling
@@ -71,6 +72,10 @@ class GetDashManifestConfiguration(TypedDict, closed=True):
         "capo_mediapackagev2.types.dash_compactness.DashCompactness"
     ]
     """<p>The layout of the DASH manifest that MediaPackage produces. <code>STANDARD</code> indicates a default manifest, which is compacted. <code>NONE</code> indicates a full manifest.</p>"""
+    bandwidth_reporting_mode: NotRequired[
+        "capo_mediapackagev2.types.dash_bandwidth_reporting_mode.DashBandwidthReportingMode"
+    ]
+    """<p>Specifies how MediaPackage calculates the <code>bandwidth</code> attribute of regular (non-iFrame) video <code>Representation</code> elements in the DASH manifest. Audio, subtitle, image, and iFrame-only (trick-play) representations are unchanged.</p> <p>The allowed values are:</p> <ul> <li> <p> <code>AVERAGE</code> – MediaPackage reports the average bitrate of the source video track. This is the default.</p> </li> <li> <p> <code>MAX</code> – MediaPackage reports the peak bitrate of the video stream.</p> </li> </ul> <p>For information about bandwidth reporting, see <a href="https://docs.aws.amazon.com/mediapackage/latest/userguide/dash-bandwidth-reporting.html">DASH bandwidth reporting</a> in the <i>Elemental MediaPackage v2 User Guide</i>.</p>"""
     audio_timeline_pattern: NotRequired[
         "capo_mediapackagev2.types.dash_audio_timeline_pattern.DashAudioTimelinePattern"
     ]
@@ -177,6 +182,14 @@ def serialize_json(value: GetDashManifestConfiguration) -> dict:
 
         out["Compactness"] = capo_mediapackagev2.types.dash_compactness.serialize_json(
             value["compactness"]
+        )
+    if "bandwidth_reporting_mode" in value:
+        import capo_mediapackagev2.types.dash_bandwidth_reporting_mode
+
+        out["BandwidthReportingMode"] = (
+            capo_mediapackagev2.types.dash_bandwidth_reporting_mode.serialize_json(
+                value["bandwidth_reporting_mode"]
+            )
         )
     if "audio_timeline_pattern" in value:
         import capo_mediapackagev2.types.dash_audio_timeline_pattern
@@ -309,6 +322,14 @@ def deserialize_json(data: dict) -> GetDashManifestConfiguration:
         out["compactness"] = (
             capo_mediapackagev2.types.dash_compactness.deserialize_json(
                 data["Compactness"]
+            )
+        )
+    if data.get("BandwidthReportingMode") is not None:
+        import capo_mediapackagev2.types.dash_bandwidth_reporting_mode
+
+        out["bandwidth_reporting_mode"] = (
+            capo_mediapackagev2.types.dash_bandwidth_reporting_mode.deserialize_json(
+                data["BandwidthReportingMode"]
             )
         )
     if data.get("AudioTimelinePattern") is not None:

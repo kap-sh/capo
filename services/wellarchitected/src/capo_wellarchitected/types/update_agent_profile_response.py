@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.pillars
     import capo_wellarchitected.types.role_arn
     import capo_wellarchitected.types.sensitive_string
-    import capo_wellarchitected.types.tags
 
 
 class UpdateAgentProfileResponse(TypedDict, closed=True):
@@ -32,7 +31,7 @@ class UpdateAgentProfileResponse(TypedDict, closed=True):
     ]
     """<p>The business overview of the updated profile.</p>"""
     pillars: "capo_wellarchitected.types.pillars.Pillars"
-    """<p>The Well-Architected Tool Framework pillars associated with the updated profile.</p>"""
+    """<p>The Amazon Web Services Well-Architected Framework pillars associated with the updated profile.</p>"""
     deletion_protection: "bool"
     """<p>Indicates whether deletion protection is enabled.</p>"""
     execution_role_arn: "capo_wellarchitected.types.role_arn.RoleArn"
@@ -47,8 +46,6 @@ class UpdateAgentProfileResponse(TypedDict, closed=True):
     """<p>Indicates whether the profile is valid for manual architecture generation.</p>"""
     field_errors: NotRequired["capo_wellarchitected.types.field_errors.FieldErrors"]
     """<p>A map of field paths to error messages for invalid or missing input fields.</p>"""
-    tags: NotRequired["capo_wellarchitected.types.tags.Tags"]
-    """<p>The tags associated with the updated profile.</p>"""
     created_by: "str"
     """<p>The identifier of the user or system that created this profile.</p>"""
     created_at: "datetime.datetime"
@@ -96,10 +93,6 @@ def serialize_json(value: UpdateAgentProfileResponse) -> dict:
         out["fieldErrors"] = capo_wellarchitected.types.field_errors.serialize_json(
             value["field_errors"]
         )
-    if "tags" in value:
-        import capo_wellarchitected.types.tags
-
-        out["tags"] = capo_wellarchitected.types.tags.serialize_json(value["tags"])
     out["createdBy"] = value["created_by"]
     import capo_wellarchitected._protocol.serialize
 
@@ -173,10 +166,6 @@ def deserialize_json(data: dict) -> UpdateAgentProfileResponse:
         out["field_errors"] = capo_wellarchitected.types.field_errors.deserialize_json(
             data["fieldErrors"]
         )
-    if data.get("tags") is not None:
-        import capo_wellarchitected.types.tags
-
-        out["tags"] = capo_wellarchitected.types.tags.deserialize_json(data["tags"])
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:

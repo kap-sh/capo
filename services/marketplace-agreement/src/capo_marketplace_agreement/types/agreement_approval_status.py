@@ -1,0 +1,20 @@
+"""Generated from Smithy shape ``com.amazonaws.marketplaceagreement#AgreementApprovalStatus``."""
+
+from typing import Literal, TypeAlias, cast
+
+AgreementApprovalStatus: TypeAlias = Literal[
+    "PENDING_APPROVAL",
+    "APPROVED",
+    "REJECTED",
+    "EXPIRED",
+    "CANCELLED",
+]
+
+
+# --- awsJson1_0 ser/de ---
+def serialize_aws_json_1_0(value: AgreementApprovalStatus) -> str:
+    return value
+
+
+def deserialize_aws_json_1_0(data: str) -> AgreementApprovalStatus:
+    return cast(AgreementApprovalStatus, data)

@@ -18,8 +18,8 @@ from capo_lambda_core import AsyncLambdaCoreClient
 
 async def main():
     async with AsyncLambdaCoreClient() as lambda_core:
-        # Example: call the create_network_connector operation
-        response = await lambda_core.create_network_connector()
+        # Example: call the create_runtime operation
+        response = await lambda_core.create_runtime()
         print(response["arn"])
 ```
 
@@ -33,8 +33,8 @@ from capo_lambda_core import AsyncLambdaCoreClient
 
 async def main():
     async with AsyncLambdaCoreClient() as lambda_core:
-        # Example: paginate over list_network_connectors
-        async for item in lambda_core.iter_list_network_connectors():
+        # Example: paginate over list_runtimes
+        async for item in lambda_core.iter_list_runtimes():
             print(item)
 ```
 
@@ -50,7 +50,7 @@ from capo_lambda_core.error import InvalidParameterValueException
 async def main():
     async with AsyncLambdaCoreClient() as lambda_core:
         try:
-            await lambda_core.create_network_connector()
+            await lambda_core.create_runtime()
         except InvalidParameterValueException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -71,11 +71,11 @@ from capo_lambda_core import AsyncLambdaCoreClient
 async def main():
     async with AsyncLambdaCoreClient() as lambda_core:
         # Default: 3 attempts for every operation
-        response = await lambda_core.create_network_connector()
+        response = await lambda_core.create_runtime()
 
         # Override per operation
-        response = await lambda_core.create_network_connector(config_overrides={"retry_max_attempts": 5})
+        response = await lambda_core.create_runtime(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await lambda_core.create_network_connector(config_overrides={"retry_max_attempts": 1})
+        response = await lambda_core.create_runtime(config_overrides={"retry_max_attempts": 1})
 ```

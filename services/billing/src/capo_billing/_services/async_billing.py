@@ -75,6 +75,7 @@ if TYPE_CHECKING:
     import capo_billing.types.create_contractual_investment_attestation_request
     import capo_billing.types.create_contractual_investment_attestation_response
     import capo_billing.types.credit_allocation_history_entry
+    import capo_billing.types.credit_id
     import capo_billing.types.delete_billing_view_request
     import capo_billing.types.delete_billing_view_response
     import capo_billing.types.disassociate_contract_request
@@ -133,9 +134,14 @@ if TYPE_CHECKING:
     import capo_billing.types.resource_arn
     import capo_billing.types.resource_tag_key_list
     import capo_billing.types.resource_tag_list
+    import capo_billing.types.split_credit_request
+    import capo_billing.types.split_credit_response
+    import capo_billing.types.split_portions
     import capo_billing.types.string_searches
     import capo_billing.types.tag_resource_request
     import capo_billing.types.tag_resource_response
+    import capo_billing.types.transfer_credit_request
+    import capo_billing.types.transfer_credit_response
     import capo_billing.types.untag_resource_request
     import capo_billing.types.untag_resource_response
     import capo_billing.types.update_billing_preferences_request
@@ -341,7 +347,7 @@ class AsyncBillingClient:
 
         Args:
             arn: <p> The Amazon Resource Name (ARN) of the billing view to associate source views with. </p>
-            source_views: <p> A list of ARNs of the source billing views to associate. </p>
+            source_views: <p>A list of ARNs of the source billing views to associate. Source views can be of the following types:</p> <ul> <li> <p> <code>PRIMARY</code> - The billing view that contains all cost management data associated with an account.</p> </li> <li> <p> <code>CUSTOM</code> - A billing view that a customer creates from one or more source views.</p> </li> <li> <p> <code>BILLING_GROUP</code> - The billing view for an Billing Conductor billing group.</p> </li> <li> <p> <code>BILLING_TRANSFER</code> - The billing view for the billing data that a bill transfer account is financially responsible for.</p> </li> <li> <p> <code>BILLING_TRANSFER_SHOWBACK</code> - The billing view for billing data configured for showback or chargeback purposes.</p> </li> </ul>
 
         Raises:
             capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
@@ -475,7 +481,7 @@ class AsyncBillingClient:
         Args:
             name: <p> The name of the billing view. </p>
             description: <p> The description of the billing view. </p>
-            source_views: <p>A list of billing views used as the data source for the custom billing view.</p>
+            source_views: <p>A list of billing views used as the data source for the custom billing view. Source views can be of the following types:</p> <ul> <li> <p> <code>PRIMARY</code> - The billing view that contains all cost management data associated with an account.</p> </li> <li> <p> <code>CUSTOM</code> - A billing view that a customer creates from one or more source views.</p> </li> <li> <p> <code>BILLING_GROUP</code> - The billing view for an Billing Conductor billing group.</p> </li> <li> <p> <code>BILLING_TRANSFER</code> - The billing view for the billing data that a bill transfer account is financially responsible for.</p> </li> <li> <p> <code>BILLING_TRANSFER_SHOWBACK</code> - The billing view for billing data configured for showback or chargeback purposes.</p> </li> </ul>
             data_filter_expression: <p> See <a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html">Expression</a>. Billing view only supports <code>LINKED_ACCOUNT</code>, <code>Tags</code>, and <code>CostCategories</code>. </p>
             client_token: <p>A unique, case-sensitive identifier you specify to ensure idempotency of the request. Idempotency ensures that an API request completes no more than one time. If the original request completes successfully, any subsequent retries complete successfully without performing any further actions with an idempotent request. </p>
             resource_tags: <p>A list of key value map specifying tags associated to the billing view being created. </p>
@@ -840,13 +846,13 @@ class AsyncBillingClient:
             "capo_billing.types.billing_feature_filters.BillingFeatureFilters"
         ] = None,
     ) -> "capo_billing.types.get_billing_preferences_response.GetBillingPreferencesResponse":
-        """<p>Retrieves billing preferences for the specified feature. Each feature controls a distinct billing capability: which accounts can share Reserved Instances or credits, whether billing alerts are enabled, the historical record of sharing changes, and per-credit options.</p>
+        """<p>Retrieves billing preferences for the specified feature. Each feature controls a distinct billing capability: which accounts can share Reserved Instances or credits, whether billing alerts are enabled, the historical record of sharing changes, per-credit options, and which accounts an individual Reserved Instance or Savings Plan is shared with.</p>
 
         Args:
             next_token: <p>Pagination token from a previous response. Pass the value returned in <code>nextToken</code> to retrieve the next page of results.</p>
             max_results: <p>The maximum number of records to return per page. Range: 1 to 50. Default: 50.</p>
-            features: <p>The feature to retrieve. Specify exactly one value. Valid values: <code>BILLING_ALERTS</code>, <code>RI_SHARING</code>, <code>RI_SHARING_HISTORY</code>, <code>CREDIT_SHARING</code>, <code>CREDIT_SHARING_HISTORY</code>, <code>CREDIT_LEVEL_SHARING</code>, <code>CREDIT_PREFERENCE_OPTIONS</code>.</p>
-            filters: <p>Filters to narrow results. Specify exactly one filter when supplied. The supported filter name is <code>PREFERENCE_KEY</code>, which accepts 1 to 10 values to match preference keys.</p>
+            features: <p>The feature to retrieve. Specify exactly one value. Valid values: <code>BILLING_ALERTS</code>, <code>RI_SHARING</code>, <code>RI_SHARING_HISTORY</code>, <code>CREDIT_SHARING</code>, <code>CREDIT_SHARING_HISTORY</code>, <code>CREDIT_LEVEL_SHARING</code>, <code>CREDIT_PREFERENCE_OPTIONS</code>, <code>BENEFIT_LEVEL_SHARING</code>.</p>
+            filters: <p>Filters to narrow results. Specify exactly one filter when supplied. The supported filter name is <code>PREFERENCE_KEY</code>, which accepts 1 to 10 values to match preference keys.</p> <p>For <code>BENEFIT_LEVEL_SHARING</code>, this filter is required. Specify exactly one value that identifies the Reserved Instance (RI) or Savings Plan (SP), in the form <code>benefit/{ri|sp}/{benefitId}</code>.</p>
 
         Raises:
             capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
@@ -1038,8 +1044,8 @@ class AsyncBillingClient:
         Args:
             account_id: <p>The Amazon Web Services account ID whose allocation history to retrieve. Must be a 12-digit numeric string.</p>
             credit_id: <p>Filters the result to a single credit. When omitted, returns allocation entries for all credits.</p>
-            start_date: <p>Inclusive start date as Unix epoch seconds. Must be on or before <code>endDate</code>. The range from <code>startDate</code> to <code>endDate</code> cannot exceed 24 billing months.</p>
-            end_date: <p>Inclusive end date as Unix epoch seconds.</p>
+            start_date: <p>The inclusive start date of the range, in Unix epoch seconds. This value must be earlier than <code>endDate</code>. You get credit allocations for bills whose billing period starts on or after <code>startDate</code> and before <code>endDate</code>. If <code>startDate</code> is in the middle of a billing period, that period isn't included. The range can't exceed 24 calendar months.</p>
+            end_date: <p>The exclusive end date of the range, in Unix epoch seconds. To get one billing month, set <code>startDate</code> to the first day of that month. Then set <code>endDate</code> to the first day of the next month. Use 00:00 UTC for both.</p>
             next_token: <p>Pagination token from a previous response. Pass the value returned in <code>nextToken</code> to retrieve the next page of results.</p>
             max_results: <p>The maximum number of records to return per page. Range: 1 to 1000. Default: 100.</p>
 
@@ -2409,6 +2415,70 @@ class AsyncBillingClient:
         await response.response.aclose()
         return response.output
 
+    async def split_credit(
+        self,
+        credit_id: "capo_billing.types.credit_id.CreditId",
+        portions: "capo_billing.types.split_portions.SplitPortions",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        client_token: Optional["capo_billing.types.client_token.ClientToken"] = None,
+        dry_run: Optional[bool] = None,
+    ) -> "capo_billing.types.split_credit_response.SplitCreditResponse":
+        """<p>Splits the available balance of a credit into 2 to 99 new credits in the same account, and cancels the original credit. The new credits keep the original credit's end date and applicable products.</p> <p>The available balance is the remaining balance minus any amount reserved for a bill that isn't finalized. The portions must add up to exactly the available balance. Each portion must be at least 100.00 in the currency of the credit. For example, if the credit is in USD, each portion must be at least USD $100.00. A reserved amount stays on the original credit and still applies to that bill.</p> <p>A credit and every credit split from it count toward a limit of 100 credits. After a split, you can't split or transfer the original credit. You can split or transfer its new credits, and you can split a credit after you transfer it.</p> <p>You must own the credit or be the payer of the account that owns it. You can't undo a split. This operation is idempotent and supports a dry run.</p>
+
+        Args:
+            credit_id: <p>The ID of the credit to split.</p>
+            portions: <p>The new credits to create, one for each portion, in the order listed.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a successful request with the same client token and parameters, the retry completes without performing any further actions. If you reuse a client token with different parameters, the request fails with a <code>ValidationException</code>.</p>
+            dry_run: <p>Specifies whether to validate the request and return the result without changing any credit.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.conflict_exception.ConflictException: <p> The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p> You've reached the limit of resources you can create, or exceeded the size of an individual resource. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.split_credit_request.SplitCreditRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.split_credit_response.SplitCreditResponse"
+        ]:
+            import capo_billing._operations.aws_billing.split_credit
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.split_credit.async_split_credit(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SplitCredit")
+        )
+        input_: capo_billing.types.split_credit_request.SplitCreditRequest = {
+            "credit_id": credit_id,
+            "portions": portions,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def tag_resource(
         self,
         resource_arn: "capo_billing.types.resource_arn.ResourceArn",
@@ -2458,6 +2528,70 @@ class AsyncBillingClient:
             "resource_arn": resource_arn,
             "resource_tags": resource_tags,
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def transfer_credit(
+        self,
+        credit_id: "capo_billing.types.credit_id.CreditId",
+        destination_account_id: "capo_billing.types.account_id.AccountId",
+        *,
+        config_overrides: Optional[AsyncBillingClientConfig] = None,
+        client_token: Optional["capo_billing.types.client_token.ClientToken"] = None,
+        dry_run: Optional[bool] = None,
+    ) -> "capo_billing.types.transfer_credit_response.TransferCreditResponse":
+        """<p>Moves a credit to another account in the same consolidated billing family. The credit keeps its ID, balance, end date, and applicable products. Only the account that owns the credit changes.</p> <p>The transfer removes the credit's sharing settings. The new owner or the payer can set them again. Any amount reserved for a bill that isn't finalized moves with the credit and still applies to that bill.</p> <p>You must be the payer of both accounts. You can't transfer a credit that has ended, has no available balance, or is the original credit of a split. A transfer creates no credit, so it doesn't count toward the split limit, and the payer can transfer the credit back. This operation is idempotent and supports a dry run.</p>
+
+        Args:
+            credit_id: <p>The ID of the credit to transfer.</p>
+            destination_account_id: <p>The Amazon Web Services account ID that becomes the owner of the credit. The account must be in your consolidated billing family and must not be the current owner.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a successful request with the same client token and parameters, the retry completes without performing any further actions. If you reuse a client token with different parameters, the request fails with a <code>ValidationException</code>.</p>
+            dry_run: <p>Specifies whether to validate the request and return the result without changing the credit.</p>
+
+        Raises:
+            capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>
+            capo_billing.errors.conflict_exception.ConflictException: <p> The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. </p>
+            capo_billing.errors.internal_server_exception.InternalServerException: <p>The request processing failed because of an unknown error, exception, or failure. </p>
+            capo_billing.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified ARN in the request doesn't exist. </p>
+            capo_billing.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p> You've reached the limit of resources you can create, or exceeded the size of an individual resource. </p>
+            capo_billing.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling. </p>
+            capo_billing.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service. </p>
+            capo_billing.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_billing.types.transfer_credit_request.TransferCreditRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_billing.types.transfer_credit_response.TransferCreditResponse"
+        ]:
+            import capo_billing._operations.aws_billing.transfer_credit
+
+            (
+                output,
+                http_response,
+            ) = await capo_billing._operations.aws_billing.transfer_credit.async_transfer_credit(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TransferCredit")
+        )
+        input_: capo_billing.types.transfer_credit_request.TransferCreditRequest = {
+            "credit_id": credit_id,
+            "destination_account_id": destination_account_id,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2532,11 +2666,11 @@ class AsyncBillingClient:
         *,
         config_overrides: Optional[AsyncBillingClientConfig] = None,
     ) -> "capo_billing.types.update_billing_preferences_response.UpdateBillingPreferencesResponse":
-        """<p>Updates billing preferences for the specified feature. Each feature targets a distinct billing capability and has its own set of supported keys. The action sets the value for each provided key; keys not present in the request are unchanged.</p> <p>Sharing keys (<code>RI_SHARING</code>, <code>CREDIT_SHARING</code>, <code>CREDIT_LEVEL_SHARING</code>, and sharing keys under <code>CREDIT_PREFERENCE_OPTIONS</code>) may only be set by the management account of a consolidated billing family. The <code>credit/{creditId}/status</code> key may be set by member accounts for credits they own, or by the management account for any credit in the family.</p>
+        """<p>Updates billing preferences for the specified feature. Each feature targets a distinct billing capability and has its own set of supported keys. The action sets the value for each provided key; keys not present in the request are unchanged.</p> <p>To set sharing keys (<code>RI_SHARING</code>, <code>CREDIT_SHARING</code>, <code>CREDIT_LEVEL_SHARING</code>, <code>BENEFIT_LEVEL_SHARING</code>, and sharing keys under <code>CREDIT_PREFERENCE_OPTIONS</code>), you must use the management account of a consolidated billing family. To set the <code>credit/{creditId}/status</code> key, you must own the credit or use the management account of its family.</p>
 
         Args:
-            feature: <p>The feature to update. Valid values: <code>BILLING_ALERTS</code>, <code>RI_SHARING</code>, <code>CREDIT_SHARING</code>, <code>CREDIT_LEVEL_SHARING</code>, <code>CREDIT_PREFERENCE_OPTIONS</code>. The history features (<code>RI_SHARING_HISTORY</code> and <code>CREDIT_SHARING_HISTORY</code>) are read-only and cannot be updated.</p>
-            billing_preferences_per_key: <p>Key/value pairs to apply. All keys in a single request must be valid for the specified <code>feature</code> and must not be duplicated. For <code>CREDIT_PREFERENCE_OPTIONS</code>, all keys must reference the same <code>creditId</code>.</p>
+            feature: <p>The feature to update. Valid values: <code>BILLING_ALERTS</code>, <code>RI_SHARING</code>, <code>CREDIT_SHARING</code>, <code>CREDIT_LEVEL_SHARING</code>, <code>CREDIT_PREFERENCE_OPTIONS</code>, <code>BENEFIT_LEVEL_SHARING</code>. The history features (<code>RI_SHARING_HISTORY</code> and <code>CREDIT_SHARING_HISTORY</code>) are read-only and cannot be updated.</p>
+            billing_preferences_per_key: <p>Key/value pairs to apply. All keys in a single request must be valid for the specified <code>feature</code> and must not be duplicated. For <code>CREDIT_PREFERENCE_OPTIONS</code>, all keys must reference the same <code>creditId</code>.</p> <p>For <code>BENEFIT_LEVEL_SHARING</code>, all keys must reference the same Reserved Instance or Savings Plan. To share it with the accounts in one Cost Category rule, send these three keys with the value <code>ENABLED</code>:</p> <ul> <li> <p> <code>benefit/{ri|sp}/{benefitId}/sharing/costCategoryArn/{costCategoryArn}</code> </p> </li> <li> <p> <code>benefit/{ri|sp}/{benefitId}/sharing/ruleName/{ruleName}</code> </p> </li> <li> <p> <code>benefit/{ri|sp}/{benefitId}/sharing/mode/{prioritized|restricted}</code> </p> </li> </ul> <p>With <code>prioritized</code>, any benefit that the rule's accounts don't use goes to the rest of your consolidated billing family, following your family sharing settings. With <code>restricted</code>, only the owner and the rule's accounts receive it. The Cost Category must belong to your account. To stop sharing, send the same three keys with the value <code>DISABLED</code>.</p> <p>For <code>RI_SHARING</code> and <code>CREDIT_SHARING</code>, you can share benefits by account group. Each rule in a Cost Category is one group. Send exactly one of these group keys with the value <code>ENABLED</code>:</p> <ul> <li> <p> <code>open-sharing</code> - Share across the whole consolidated billing family, with no groups.</p> </li> <li> <p> <code>costcategory-prioritized/{costCategoryArn}</code> - Share within each group first, then with the rest of the family.</p> </li> <li> <p> <code>costcategory-restricted/{costCategoryArn}</code> - An account in a group shares only with accounts in the same group.</p> </li> </ul> <p>For <code>RI_SHARING</code>, the <code>costcategory-</code> keys use a Cost Category that supports the <code>billing:rispgroupsharing</code> resource type. To use a Cost Category that supports the <code>billing:benefitgroupsharing</code> resource type, use the <code>benefitgroup-prioritized/</code> or <code>benefitgroup-restricted/</code> prefix instead. For <code>CREDIT_SHARING</code>, the Cost Category must support the <code>billing:benefitgroupsharing</code> resource type. The Cost Category must belong to your account. <code>GetBillingPreferences</code> returns the group key that is in effect.</p>
 
         Raises:
             capo_billing.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action.</p>

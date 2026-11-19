@@ -20,6 +20,7 @@ import capo_sagemaker.types.hub_content_status
 import capo_sagemaker.types.hub_content_support_status
 import capo_sagemaker.types.hub_content_type
 import capo_sagemaker.types.timestamp
+import capo_sagemaker.types.user_context
 from capo_sagemaker._protocol.errors import parse_error_metadata_json
 from capo_sagemaker._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_sagemaker._services._pipeline import (

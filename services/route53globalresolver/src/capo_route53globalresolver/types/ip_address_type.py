@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 IpAddressType: TypeAlias = Literal[
     "IPV4",
     "IPV6",
+    "NONE",
 ]
 
 

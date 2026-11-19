@@ -10,6 +10,8 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.ndi_output_timecode_source
     import capo_mediaconnect.types.ndi_source_settings
     import capo_mediaconnect.types.protocol
+    import capo_mediaconnect.types.rtmp_push_output_settings
+    import capo_mediaconnect.types.rtmp_push_source_settings
 
 
 class Transport(TypedDict, closed=True):
@@ -57,6 +59,14 @@ class Transport(TypedDict, closed=True):
         "capo_mediaconnect.types.ndi_audio_reference_level.NdiAudioReferenceLevel"
     ]
     """<p>The audio reference level of the NDI receiver, in decibels relative to full scale (dBFS). Common values are <code>-20</code> (NDI and SMPTE) and <code>-18</code> (EBU). For NDI outputs, this field is always present and defaults to <code>-20</code>.</p>"""
+    rtmp_push_source_settings: NotRequired[
+        "capo_mediaconnect.types.rtmp_push_source_settings.RtmpPushSourceSettings"
+    ]
+    """<p>The settings for the RTMP (Real-Time Messaging Protocol) source.</p>"""
+    rtmp_push_output_settings: NotRequired[
+        "capo_mediaconnect.types.rtmp_push_output_settings.RtmpPushOutputSettings"
+    ]
+    """<p>The settings for an output that pushes a stream to a destination using the RTMP (Real-Time Messaging Protocol) protocol, or RTMPS (RTMP over TLS) when TLS encryption is specified.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -118,6 +128,22 @@ def serialize_json(value: Transport) -> dict:
         )
     if "ndi_audio_reference_level" in value:
         out["ndiAudioReferenceLevel"] = value["ndi_audio_reference_level"]
+    if "rtmp_push_source_settings" in value:
+        import capo_mediaconnect.types.rtmp_push_source_settings
+
+        out["rtmpPushSourceSettings"] = (
+            capo_mediaconnect.types.rtmp_push_source_settings.serialize_json(
+                value["rtmp_push_source_settings"]
+            )
+        )
+    if "rtmp_push_output_settings" in value:
+        import capo_mediaconnect.types.rtmp_push_output_settings
+
+        out["rtmpPushOutputSettings"] = (
+            capo_mediaconnect.types.rtmp_push_output_settings.serialize_json(
+                value["rtmp_push_output_settings"]
+            )
+        )
     return out
 
 
@@ -181,4 +207,20 @@ def deserialize_json(data: dict) -> Transport:
         )
     if data.get("ndiAudioReferenceLevel") is not None:
         out["ndi_audio_reference_level"] = data["ndiAudioReferenceLevel"]
+    if data.get("rtmpPushSourceSettings") is not None:
+        import capo_mediaconnect.types.rtmp_push_source_settings
+
+        out["rtmp_push_source_settings"] = (
+            capo_mediaconnect.types.rtmp_push_source_settings.deserialize_json(
+                data["rtmpPushSourceSettings"]
+            )
+        )
+    if data.get("rtmpPushOutputSettings") is not None:
+        import capo_mediaconnect.types.rtmp_push_output_settings
+
+        out["rtmp_push_output_settings"] = (
+            capo_mediaconnect.types.rtmp_push_output_settings.deserialize_json(
+                data["rtmpPushOutputSettings"]
+            )
+        )
     return out

@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
     import capo_emr_serverless.types.attempt_number
     import capo_emr_serverless.types.date
+    import capo_emr_serverless.types.flex_execution
     import capo_emr_serverless.types.iam_role_arn
     import capo_emr_serverless.types.job_arn
     import capo_emr_serverless.types.job_run_id
@@ -54,6 +55,10 @@ class JobRunSummary(TypedDict, closed=True):
     """<p>The date and time of when the job run attempt was created.</p>"""
     attempt_updated_at: NotRequired["capo_emr_serverless.types.date.Date"]
     """<p>The date and time of when the job run attempt was last updated.</p>"""
+    flex_execution: NotRequired[
+        "capo_emr_serverless.types.flex_execution.FlexExecution"
+    ]
+    """<p>The Amazon EMR Serverless Flex settings for the job run.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -96,6 +101,12 @@ def serialize_json(value: JobRunSummary) -> dict:
 
         out["attemptUpdatedAt"] = capo_emr_serverless.types.date.serialize_json(
             value["attempt_updated_at"]
+        )
+    if "flex_execution" in value:
+        import capo_emr_serverless.types.flex_execution
+
+        out["flexExecution"] = capo_emr_serverless.types.flex_execution.serialize_json(
+            value["flex_execution"]
         )
     return out
 
@@ -173,5 +184,13 @@ def deserialize_json(data: dict) -> JobRunSummary:
 
         out["attempt_updated_at"] = capo_emr_serverless.types.date.deserialize_json(
             data["attemptUpdatedAt"]
+        )
+    if data.get("flexExecution") is not None:
+        import capo_emr_serverless.types.flex_execution
+
+        out["flex_execution"] = (
+            capo_emr_serverless.types.flex_execution.deserialize_json(
+                data["flexExecution"]
+            )
         )
     return out

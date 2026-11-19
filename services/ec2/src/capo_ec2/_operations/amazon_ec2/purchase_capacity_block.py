@@ -14,6 +14,7 @@ import capo_ec2._protocol.eventstream
 import capo_ec2.types.capacity_block_set
 import capo_ec2.types.capacity_reservation
 import capo_ec2.types.capacity_reservation_instance_platform
+import capo_ec2.types.capacity_reservation_set
 import capo_ec2.types.purchase_capacity_block_request
 import capo_ec2.types.purchase_capacity_block_result
 import capo_ec2.types.tag_specification_list

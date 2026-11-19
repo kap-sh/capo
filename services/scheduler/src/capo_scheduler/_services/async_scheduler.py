@@ -223,7 +223,7 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -275,7 +275,7 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -328,7 +328,7 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -410,7 +410,7 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
             capo_scheduler.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeds a service quota.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -484,8 +484,9 @@ class AsyncSchedulerClient:
         Raises:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
+            capo_scheduler.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeds a service quota.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -566,8 +567,9 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.conflict_exception.ConflictException: <p>Updating or deleting the resource can cause an inconsistent state.</p>
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
+            capo_scheduler.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeds a service quota.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -644,8 +646,9 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.conflict_exception.ConflictException: <p>Updating or deleting the resource can cause an inconsistent state.</p>
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
+            capo_scheduler.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeds a service quota.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -709,7 +712,7 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -800,7 +803,7 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeds a service quota.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -854,7 +857,7 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -906,7 +909,7 @@ class AsyncSchedulerClient:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException: <p>The request references a resource which does not exist.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -963,7 +966,7 @@ class AsyncSchedulerClient:
         Raises:
             capo_scheduler.errors.internal_server_exception.InternalServerException: <p>Unexpected error encountered while processing the request.</p>
             capo_scheduler.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
-            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an AWS service.</p>
+            capo_scheduler.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by an Amazon Web Services service.</p>
             capo_scheduler.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 

@@ -17,10 +17,12 @@ import capo_mwaa.errors.resource_not_found_exception
 import capo_mwaa.errors.service_unavailable_exception
 import capo_mwaa.errors.validation_exception
 import capo_mwaa.types.airflow_configuration_options
+import capo_mwaa.types.identity_center_configuration
 import capo_mwaa.types.logging_configuration_input
 import capo_mwaa.types.update_environment_input
 import capo_mwaa.types.update_environment_output
 import capo_mwaa.types.update_network_configuration_input
+import capo_mwaa.types.update_teams_input
 from capo_mwaa._protocol.errors import parse_error_metadata_json
 from capo_mwaa._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_mwaa._services._pipeline import (

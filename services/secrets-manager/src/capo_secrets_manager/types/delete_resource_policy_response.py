@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_secrets_manager.types.name_type
+    import capo_secrets_manager.types.resource_policy_name_type
     import capo_secrets_manager.types.secret_arn_type
 
 
@@ -14,6 +15,10 @@ class DeleteResourcePolicyResponse(TypedDict, closed=True):
     """<p>The ARN of the secret that the resource-based policy was deleted for.</p>"""
     name: NotRequired["capo_secrets_manager.types.name_type.NameType"]
     """<p>The name of the secret that the resource-based policy was deleted for.</p>"""
+    policy_name: NotRequired[
+        "capo_secrets_manager.types.resource_policy_name_type.ResourcePolicyNameType"
+    ]
+    """<p>The name of the deleted resource policy. If you didn't specify <code>PolicyName</code> in the request, this is <code>default</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -23,6 +28,8 @@ def serialize_aws_json_1_1(value: DeleteResourcePolicyResponse) -> dict:
         out["ARN"] = value["arn"]
     if "name" in value:
         out["Name"] = value["name"]
+    if "policy_name" in value:
+        out["PolicyName"] = value["policy_name"]
     return out
 
 
@@ -32,4 +39,6 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteResourcePolicyResponse:
         out["arn"] = data["ARN"]
     if data.get("Name") is not None:
         out["name"] = data["Name"]
+    if data.get("PolicyName") is not None:
+        out["policy_name"] = data["PolicyName"]
     return out

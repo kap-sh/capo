@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_names_list
+    import capo_config_service.types.describe_conformance_packs_filters
     import capo_config_service.types.next_token
     import capo_config_service.types.page_size_limit
 
@@ -15,6 +16,10 @@ class DescribeConformancePacksRequest(TypedDict, closed=True):
         "capo_config_service.types.conformance_pack_names_list.ConformancePackNamesList"
     ]
     """<p>Comma-separated list of conformance pack names for which you want details. If you do not specify any names, Config returns details for all your conformance packs. </p>"""
+    filters: NotRequired[
+        "capo_config_service.types.describe_conformance_packs_filters.DescribeConformancePacksFilters"
+    ]
+    """<p>Returns a filtered list of custom or managed conformance packs. By default, if the filter is not defined, Config returns details for all your conformance packs.</p>"""
     limit: NotRequired["capo_config_service.types.page_size_limit.PageSizeLimit"]
     """<p>The maximum number of conformance packs returned on each page.</p>"""
     next_token: NotRequired["capo_config_service.types.next_token.NextToken"]
@@ -32,6 +37,14 @@ def serialize_aws_json_1_1(value: DescribeConformancePacksRequest) -> dict:
                 value["conformance_pack_names"]
             )
         )
+    if "filters" in value:
+        import capo_config_service.types.describe_conformance_packs_filters
+
+        out["Filters"] = (
+            capo_config_service.types.describe_conformance_packs_filters.serialize_aws_json_1_1(
+                value["filters"]
+            )
+        )
     if "limit" in value:
         out["Limit"] = value["limit"]
     if "next_token" in value:
@@ -47,6 +60,14 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConformancePacksRequest:
         out["conformance_pack_names"] = (
             capo_config_service.types.conformance_pack_names_list.deserialize_aws_json_1_1(
                 data["ConformancePackNames"]
+            )
+        )
+    if data.get("Filters") is not None:
+        import capo_config_service.types.describe_conformance_packs_filters
+
+        out["filters"] = (
+            capo_config_service.types.describe_conformance_packs_filters.deserialize_aws_json_1_1(
+                data["Filters"]
             )
         )
     if data.get("Limit") is not None:

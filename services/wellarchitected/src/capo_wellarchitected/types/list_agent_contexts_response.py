@@ -13,6 +13,7 @@ class ListAgentContextsResponse(TypedDict, closed=True):
     items: "capo_wellarchitected.types.context_summaries.ContextSummaries"
     """<p>A list of context summaries associated with the profile.</p>"""
     next_token: NotRequired["capo_wellarchitected.types.next_token.NextToken"]
+    """<p>A pagination token to retrieve the next set of results, if available.</p>"""
 
 
 # --- restJson1 ser/de ---

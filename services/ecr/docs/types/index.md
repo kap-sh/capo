@@ -52,6 +52,8 @@
 - [DeletePullThroughCacheRuleResponse](delete_pull_through_cache_rule_response.md)
 - [DeleteRegistryPolicyRequest](delete_registry_policy_request.md)
 - [DeleteRegistryPolicyResponse](delete_registry_policy_response.md)
+- [DeleteReplication](delete_replication.md)
+- [DeleteReplicationFlag](delete_replication_flag.md)
 - [DeleteRepositoryCreationTemplateRequest](delete_repository_creation_template_request.md)
 - [DeleteRepositoryCreationTemplateResponse](delete_repository_creation_template_response.md)
 - [DeleteRepositoryPolicyRequest](delete_repository_policy_request.md)

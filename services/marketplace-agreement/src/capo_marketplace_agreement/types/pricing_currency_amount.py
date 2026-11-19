@@ -19,7 +19,7 @@ class PricingCurrencyAmount(TypedDict, closed=True):
     currency_code: NotRequired[
         "capo_marketplace_agreement.types.currency_code.CurrencyCode"
     ]
-    """<p>The 3-letter ISO 4217 currency code (e.g., <code>USD</code>, <code>EUR</code>, <code>JPY</code>).</p>"""
+    """<p>The 3-letter ISO 4217 currency code (for example, <code>USD</code>, <code>EUR</code>, <code>JPY</code>).</p>"""
 
 
 # --- awsJson1_0 ser/de ---

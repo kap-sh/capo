@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>A category that classifies the specific nature of recommendation feedback. Used to provide structured feedback that the recommendation engine can act upon in subsequent generation cycles.</p>"""
 FeedbackCategory: TypeAlias = Literal[
     "OTHER",
     "RECOMMENDATION_NOT_RELEVANT",

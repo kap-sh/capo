@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_sagemaker.types.async_inference_config
     import capo_sagemaker.types.boolean
+    import capo_sagemaker.types.cross_region_traffic_config
     import capo_sagemaker.types.data_capture_config
     import capo_sagemaker.types.endpoint_config_arn
     import capo_sagemaker.types.endpoint_config_name
@@ -58,6 +59,10 @@ class DescribeEndpointConfigOutput(TypedDict, closed=True):
     """<p>Indicates whether all model containers deployed to the endpoint are isolated. If they are, no inbound or outbound network calls can be made to or from the model containers.</p>"""
     metrics_config: NotRequired["capo_sagemaker.types.metrics_config.MetricsConfig"]
     """<p>The configuration parameters for utilization metrics.</p>"""
+    cross_region_traffic_config: NotRequired[
+        "capo_sagemaker.types.cross_region_traffic_config.CrossRegionTrafficConfig"
+    ]
+    """<p>The cross-Region traffic cap, if the endpoint configuration sets one.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -133,6 +138,14 @@ def serialize_aws_json_1_1(value: DescribeEndpointConfigOutput) -> dict:
                 value["metrics_config"]
             )
         )
+    if "cross_region_traffic_config" in value:
+        import capo_sagemaker.types.cross_region_traffic_config
+
+        out["CrossRegionTrafficConfig"] = (
+            capo_sagemaker.types.cross_region_traffic_config.serialize_aws_json_1_1(
+                value["cross_region_traffic_config"]
+            )
+        )
     return out
 
 
@@ -206,6 +219,14 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEndpointConfigOutput:
         out["metrics_config"] = (
             capo_sagemaker.types.metrics_config.deserialize_aws_json_1_1(
                 data["MetricsConfig"]
+            )
+        )
+    if data.get("CrossRegionTrafficConfig") is not None:
+        import capo_sagemaker.types.cross_region_traffic_config
+
+        out["cross_region_traffic_config"] = (
+            capo_sagemaker.types.cross_region_traffic_config.deserialize_aws_json_1_1(
+                data["CrossRegionTrafficConfig"]
             )
         )
     return out

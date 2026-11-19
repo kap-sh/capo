@@ -70,7 +70,7 @@ class InstanceInformation(TypedDict, closed=True):
     source_id: NotRequired["capo_ssm.types.source_id.SourceId"]
     """<p>The ID of the source resource. For IoT Greengrass devices, <code>SourceId</code> is the Thing name. </p>"""
     source_type: NotRequired["capo_ssm.types.source_type.SourceType"]
-    """<p>The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is <code>AWS::IoT::Thing</code>. For Azure Virtual Machines, <code>SourceType</code> is <code>Microsoft.Compute/virtualMachines</code>.</p>"""
+    """<p>The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is <code>AWS::IoT::Thing</code>. For Azure Virtual Machines, <code>SourceType</code> is <code>Microsoft.Compute/virtualMachines</code>. For Google Cloud Platform (GCP) Compute Engine Virtual Machines, <code>SourceType</code> is <code>compute.googleapis.com/Instance</code>.</p>"""
     source_location: NotRequired["capo_ssm.types.source_location.SourceLocation"]
     """<p>The location of the source resource in the third-party cloud environment.</p>"""
 

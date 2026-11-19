@@ -18,9 +18,9 @@ from capo_health import AsyncHealthClient
 
 async def main():
     async with AsyncHealthClient() as health:
-        # Example: call the describe_affected_accounts_for_organization operation
-        response = await health.describe_affected_accounts_for_organization()
-        print(response["affected_accounts"])
+        # Example: call the configure_tags operation
+        response = await health.configure_tags()
+        print(response["configured_tag_keys"])
 ```
 
 ## Pagination
@@ -71,11 +71,11 @@ from capo_health import AsyncHealthClient
 async def main():
     async with AsyncHealthClient() as health:
         # Default: 3 attempts for every operation
-        response = await health.describe_affected_accounts_for_organization()
+        response = await health.configure_tags()
 
         # Override per operation
-        response = await health.describe_affected_accounts_for_organization(config_overrides={"retry_max_attempts": 5})
+        response = await health.configure_tags(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await health.describe_affected_accounts_for_organization(config_overrides={"retry_max_attempts": 1})
+        response = await health.configure_tags(config_overrides={"retry_max_attempts": 1})
 ```

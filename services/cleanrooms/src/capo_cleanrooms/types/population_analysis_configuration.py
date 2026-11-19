@@ -8,6 +8,7 @@ from capo_cleanrooms.errors import DeserializationError, SerializationError
 from capo_cleanrooms.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
+    import capo_cleanrooms.types.population_analysis_job_parameters
     import capo_cleanrooms.types.population_analysis_sql_parameters
 
 
@@ -15,8 +16,14 @@ class PopulationAnalysisConfigurationSqlParametersMember(TypedDict, closed=True)
     sqlParameters: "capo_cleanrooms.types.population_analysis_sql_parameters.PopulationAnalysisSqlParameters"
 
 
+class PopulationAnalysisConfigurationJobParametersMember(TypedDict, closed=True):
+    jobParameters: "capo_cleanrooms.types.population_analysis_job_parameters.PopulationAnalysisJobParameters"
+
+
 PopulationAnalysisConfiguration: TypeAlias = (
-    PopulationAnalysisConfigurationSqlParametersMember | UnknownUnionMember
+    PopulationAnalysisConfigurationSqlParametersMember
+    | PopulationAnalysisConfigurationJobParametersMember
+    | UnknownUnionMember
 )
 
 
@@ -34,6 +41,14 @@ def serialize_json(value: PopulationAnalysisConfiguration) -> dict:
                 value["sqlParameters"]
             )
         }
+    elif "jobParameters" in value:
+        import capo_cleanrooms.types.population_analysis_job_parameters
+
+        return {
+            "jobParameters": capo_cleanrooms.types.population_analysis_job_parameters.serialize_json(
+                value["jobParameters"]
+            )
+        }
     else:
         raise SerializationError("PopulationAnalysisConfiguration: no variant present")
 
@@ -45,6 +60,14 @@ def deserialize_json(data: dict) -> PopulationAnalysisConfiguration:
         return {
             "sqlParameters": capo_cleanrooms.types.population_analysis_sql_parameters.deserialize_json(
                 data["sqlParameters"]
+            )
+        }
+    elif data.get("jobParameters") is not None:
+        import capo_cleanrooms.types.population_analysis_job_parameters
+
+        return {
+            "jobParameters": capo_cleanrooms.types.population_analysis_job_parameters.deserialize_json(
+                data["jobParameters"]
             )
         }
     else:

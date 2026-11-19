@@ -12,6 +12,8 @@ import capo_health._auth._signers
 import capo_health._auth._sigv4
 import capo_health._protocol.eventstream
 import capo_health.errors.invalid_pagination_token
+import capo_health.types.affected_account_entity_list
+import capo_health.types.affected_account_filter
 import capo_health.types.affected_accounts_list
 import capo_health.types.describe_affected_accounts_for_organization_request
 import capo_health.types.describe_affected_accounts_for_organization_response

@@ -9,6 +9,7 @@
 - [SerializationError](SerializationError.md)
 - [ServiceError](ServiceError.md)
 - [ServiceException](ServiceException.md)
+- [ServiceQuotaExceededException](ServiceQuotaExceededException.md)
 - [TooManyRequestsException](TooManyRequestsException.md)
 - [UnknownServiceError](UnknownServiceError.md)
 - [WaiterFailedError](WaiterFailedError.md)

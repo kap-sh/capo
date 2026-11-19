@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_iam.types.attached_permissions_boundary
     import capo_iam.types.date_type
     import capo_iam.types.id_type
+    import capo_iam.types.max_signin_session_duration_type
     import capo_iam.types.path_type
     import capo_iam.types.policy_document_type
     import capo_iam.types.role_description_type
@@ -42,6 +43,10 @@ class Role(TypedDict, closed=True):
         "capo_iam.types.role_max_session_duration_type.roleMaxSessionDurationType"
     ]
     """<p>The maximum session duration (in seconds) for the specified role. Anyone who uses the CLI, or API to assume the role can specify the duration using the optional <code>DurationSeconds</code> API parameter or <code>duration-seconds</code> CLI parameter.</p>"""
+    max_signin_session_duration: NotRequired[
+        "capo_iam.types.max_signin_session_duration_type.maxSigninSessionDurationType"
+    ]
+    """<p>The maximum duration (in seconds) of an Amazon Web Services Sign-In session for users who sign in with this role. This value is independent of <code>MaxSessionDuration</code>.</p> <p>This member is omitted when the setting is unset. In that case, no default value is returned and the existing sign-in session behavior applies.</p>"""
     permissions_boundary: NotRequired[
         "capo_iam.types.attached_permissions_boundary.AttachedPermissionsBoundary"
     ]
@@ -80,6 +85,13 @@ def serialize_query(value: Role, pairs: list[tuple[str, str]], prefix: str) -> N
     if "max_session_duration" in value:
         pairs.append(
             (f"{key_prefix}MaxSessionDuration", str(value["max_session_duration"]))
+        )
+    if "max_signin_session_duration" in value:
+        pairs.append(
+            (
+                f"{key_prefix}MaxSigninSessionDuration",
+                str(value["max_signin_session_duration"]),
+            )
         )
     if "permissions_boundary" in value:
         import capo_iam.types.attached_permissions_boundary
@@ -153,6 +165,11 @@ def deserialize_query(el: Element) -> Role:
     child_max_session_duration = el.find("MaxSessionDuration")
     if child_max_session_duration is not None:
         out["max_session_duration"] = int(child_max_session_duration.text or "")
+    child_max_signin_session_duration = el.find("MaxSigninSessionDuration")
+    if child_max_signin_session_duration is not None:
+        out["max_signin_session_duration"] = int(
+            child_max_signin_session_duration.text or ""
+        )
     child_permissions_boundary = el.find("PermissionsBoundary")
     if child_permissions_boundary is not None:
         import capo_iam.types.attached_permissions_boundary

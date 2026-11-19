@@ -54,6 +54,7 @@ Runtime: TypeAlias = Literal[
     "java8.al2023",
     "java11.al2023",
     "java17.al2023",
+    "custom",
 ]
 
 

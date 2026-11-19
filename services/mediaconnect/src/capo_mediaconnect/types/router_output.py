@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.router_output_arn
     import capo_mediaconnect.types.router_output_configuration
     import capo_mediaconnect.types.router_output_messages
+    import capo_mediaconnect.types.router_output_processors
     import capo_mediaconnect.types.router_output_routed_state
     import capo_mediaconnect.types.router_output_state
     import capo_mediaconnect.types.router_output_stream_details
@@ -89,6 +90,10 @@ class RouterOutput(TypedDict, closed=True):
         "capo_mediaconnect.types.fabric_configuration.FabricConfiguration"
     ]
     """<p>The fabric configuration settings for the router output.</p>"""
+    processors: NotRequired[
+        "capo_mediaconnect.types.router_output_processors.RouterOutputProcessors"
+    ]
+    """<p>The processor settings for the router output.</p>"""
     associated_source_endpoint_arns: NotRequired[
         "capo_mediaconnect.types.source_endpoint_arn_list.SourceEndpointArnList"
     ]
@@ -201,6 +206,14 @@ def serialize_json(value: RouterOutput) -> dict:
         out["fabricConfiguration"] = (
             capo_mediaconnect.types.fabric_configuration.serialize_json(
                 value["fabric_configuration"]
+            )
+        )
+    if "processors" in value:
+        import capo_mediaconnect.types.router_output_processors
+
+        out["processors"] = (
+            capo_mediaconnect.types.router_output_processors.serialize_json(
+                value["processors"]
             )
         )
     if "associated_source_endpoint_arns" in value:
@@ -413,6 +426,14 @@ def deserialize_json(data: dict) -> RouterOutput:
         out["fabric_configuration"] = (
             capo_mediaconnect.types.fabric_configuration.deserialize_json(
                 data["fabricConfiguration"]
+            )
+        )
+    if data.get("processors") is not None:
+        import capo_mediaconnect.types.router_output_processors
+
+        out["processors"] = (
+            capo_mediaconnect.types.router_output_processors.deserialize_json(
+                data["processors"]
             )
         )
     if data.get("associatedSourceEndpointArns") is not None:

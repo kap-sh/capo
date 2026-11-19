@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ScopeConfigurationInput(TypedDict, closed=True):
     scope_type: "capo_inspector2.types.scope_type.ScopeType"
-    """<p>The type of scope. Valid values are <code>TENANT</code>, which scans all resources in the Azure tenant, and <code>SUBSCRIPTION</code>, which scans only the resources in the specified Azure subscriptions.</p>"""
+    """<p>The type of scope: <code>TENANT</code>, which scans all resources in the Azure tenant, or <code>SUBSCRIPTION</code>, which scans only the resources in the specified Azure subscriptions.</p>"""
     scope_values: NotRequired["capo_inspector2.types.scope_value_list.ScopeValueList"]
     """<p>The list of scope values. For subscription-level scope, these are Azure subscription IDs.</p>"""
 

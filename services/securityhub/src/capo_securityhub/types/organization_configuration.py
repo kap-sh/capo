@@ -18,7 +18,7 @@ class OrganizationConfiguration(TypedDict, closed=True):
     status: NotRequired[
         "capo_securityhub.types.organization_configuration_status.OrganizationConfigurationStatus"
     ]
-    """<p> Describes whether central configuration could be enabled as the <code>ConfigurationType</code> for the organization. If your <code>ConfigurationType</code> is local configuration, then the value of <code>Status</code> is always <code>ENABLED</code>. </p>"""
+    """<p> Describes whether central configuration could be enabled as the <code>ConfigurationType</code> for the organization. If your <code>ConfigurationType</code> is local configuration, then the value of <code>Status</code> is always <code>ENABLED</code>. </p> <p> If the value of <code>Status</code> is <code>DISABLED</code>, central configuration is disabled because the organization is managed by Security Hub CSPM policies in Organizations. </p>"""
     status_message: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]

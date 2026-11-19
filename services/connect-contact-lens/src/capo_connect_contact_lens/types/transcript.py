@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_connect_contact_lens.types.issues_detected
+    import capo_connect_contact_lens.types.language_code
     import capo_connect_contact_lens.types.offset_millis
     import capo_connect_contact_lens.types.participant_id
     import capo_connect_contact_lens.types.participant_role
@@ -45,6 +46,10 @@ class Transcript(TypedDict, closed=True):
         "capo_connect_contact_lens.types.issues_detected.IssuesDetected"
     ]
     """<p>List of positions where issues were detected on the transcript.</p>"""
+    language_code: NotRequired[
+        "capo_connect_contact_lens.types.language_code.LanguageCode"
+    ]
+    """<p>The language code detected for this piece of transcript, for example, <code>en-US</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -78,6 +83,8 @@ def serialize_json(value: Transcript) -> dict:
                 value["issues_detected"]
             )
         )
+    if "language_code" in value:
+        out["LanguageCode"] = value["language_code"]
     return out
 
 
@@ -111,4 +118,6 @@ def deserialize_json(data: dict) -> Transcript:
                 data["IssuesDetected"]
             )
         )
+    if data.get("LanguageCode") is not None:
+        out["language_code"] = data["LanguageCode"]
     return out

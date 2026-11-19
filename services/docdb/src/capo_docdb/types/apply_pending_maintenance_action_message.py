@@ -14,7 +14,7 @@ class ApplyPendingMaintenanceActionMessage(TypedDict, closed=True):
     resource_identifier: NotRequired["capo_docdb.types.string.String"]
     """<p>The Amazon Resource Name (ARN) of the resource that the pending maintenance action applies to.</p>"""
     apply_action: NotRequired["capo_docdb.types.string.String"]
-    """<p>The pending maintenance action to apply to this resource.</p> <p>Valid values: <code>system-update</code>, <code>db-upgrade</code> </p>"""
+    """<p>The pending maintenance action to apply to this resource.</p> <p>Valid values: <code>system-update</code>, <code>db-upgrade</code>, <code>serverless-platform-version-update</code> </p>"""
     opt_in_type: NotRequired["capo_docdb.types.string.String"]
     """<p>A value that specifies the type of opt-in request or undoes an opt-in request. An opt-in request of type <code>immediate</code> can't be undone.</p> <p>Valid values:</p> <ul> <li> <p> <code>immediate</code> - Apply the maintenance action immediately.</p> </li> <li> <p> <code>next-maintenance</code> - Apply the maintenance action during the next maintenance window for the resource. </p> </li> <li> <p> <code>undo-opt-in</code> - Cancel any existing <code>next-maintenance</code> opt-in requests.</p> </li> </ul>"""
 

@@ -23,7 +23,7 @@ class GetEnabledStandardsRequest(TypedDict, closed=True):
     providers: NotRequired[
         "capo_securityhub.types.standards_providers.StandardsProviders"
     ]
-    """<p>A list of cloud providers to filter the enabled standards by. For example, specify <code>Azure</code> to return only enabled standards that evaluate Azure resources.</p>"""
+    """<p>A list of cloud providers to filter the enabled standards by. For example, specify <code>Azure</code> to return only enabled standards that evaluate Azure resources, or <code>GCP</code> to return only enabled standards that evaluate GCP resources.</p>"""
 
 
 # --- restJson1 ser/de ---

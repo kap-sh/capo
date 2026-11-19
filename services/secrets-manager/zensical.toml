@@ -19,15 +19,18 @@ nav = [
   { "SecretsManagerClient" = [
     "sync-client/index.md",
     { "Operations" = [
+      "sync-client/operations/associate_cross_account_replica.md",
       "sync-client/operations/batch_get_secret_value.md",
       "sync-client/operations/cancel_rotate_secret.md",
       "sync-client/operations/create_secret.md",
       "sync-client/operations/delete_resource_policy.md",
       "sync-client/operations/delete_secret.md",
       "sync-client/operations/describe_secret.md",
+      "sync-client/operations/disassociate_cross_account_replica.md",
       "sync-client/operations/get_random_password.md",
       "sync-client/operations/get_resource_policy.md",
       "sync-client/operations/get_secret_value.md",
+      "sync-client/operations/list_resource_policies.md",
       "sync-client/operations/list_secret_version_ids.md",
       "sync-client/operations/list_secrets.md",
       "sync-client/operations/put_resource_policy.md",
@@ -45,6 +48,7 @@ nav = [
     ] },
     { "Paginators" = [
       "sync-client/paginators/iter_batch_get_secret_value.md",
+      "sync-client/paginators/iter_list_resource_policies.md",
       "sync-client/paginators/iter_list_secret_version_ids.md",
       "sync-client/paginators/iter_list_secrets.md",
     ] },
@@ -52,15 +56,18 @@ nav = [
   { "AsyncSecretsManagerClient" = [
     "async-client/index.md",
     { "Operations" = [
+      "async-client/operations/associate_cross_account_replica.md",
       "async-client/operations/batch_get_secret_value.md",
       "async-client/operations/cancel_rotate_secret.md",
       "async-client/operations/create_secret.md",
       "async-client/operations/delete_resource_policy.md",
       "async-client/operations/delete_secret.md",
       "async-client/operations/describe_secret.md",
+      "async-client/operations/disassociate_cross_account_replica.md",
       "async-client/operations/get_random_password.md",
       "async-client/operations/get_resource_policy.md",
       "async-client/operations/get_secret_value.md",
+      "async-client/operations/list_resource_policies.md",
       "async-client/operations/list_secret_version_ids.md",
       "async-client/operations/list_secrets.md",
       "async-client/operations/put_resource_policy.md",
@@ -78,6 +85,7 @@ nav = [
     ] },
     { "Paginators" = [
       "async-client/paginators/iter_batch_get_secret_value.md",
+      "async-client/paginators/iter_list_resource_policies.md",
       "async-client/paginators/iter_list_secret_version_ids.md",
       "async-client/paginators/iter_list_secrets.md",
     ] },

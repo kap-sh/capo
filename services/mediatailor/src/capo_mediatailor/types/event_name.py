@@ -7,6 +7,7 @@ EventName: TypeAlias = Literal[
     "PRE_ADS_REQUEST",
     "POST_ADS_RESPONSE",
     "PRE_MANIFEST_INSERTION",
+    "POST_ORIGIN_RESPONSE",
 ]
 
 

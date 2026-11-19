@@ -20,6 +20,7 @@
 - [ResourceNotFoundException](ResourceNotFoundException.md)
 - [SerializationError](SerializationError.md)
 - [ServiceError](ServiceError.md)
+- [ThrottlingException](ThrottlingException.md)
 - [UnknownServiceError](UnknownServiceError.md)
 - [ValidationException](ValidationException.md)
 - [WaiterFailedError](WaiterFailedError.md)

@@ -15,17 +15,18 @@ from capo_rolesanywhere._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_rolesanywhere.types.alias_name
     import capo_rolesanywhere.types.crl_detail
     import capo_rolesanywhere.types.crl_detail_response
+    import capo_rolesanywhere.types.crl_identifier
     import capo_rolesanywhere.types.import_crl_request
     import capo_rolesanywhere.types.list_crls_response
     import capo_rolesanywhere.types.list_request
     import capo_rolesanywhere.types.resource_name
     import capo_rolesanywhere.types.scalar_crl_request
     import capo_rolesanywhere.types.tag_list
-    import capo_rolesanywhere.types.trust_anchor_arn
+    import capo_rolesanywhere.types.trust_anchor_identifier_arn
     import capo_rolesanywhere.types.update_crl_request
-    import capo_rolesanywhere.types.uuid
     from capo_rolesanywhere._services.async_roles_anywhere import (
         AsyncRolesAnywhereClient,
         AsyncRolesAnywhereClientConfig,
@@ -44,11 +45,12 @@ class Crl:
         self,
         name: "capo_rolesanywhere.types.resource_name.ResourceName",
         crl_data: bytes,
-        trust_anchor_arn: "capo_rolesanywhere.types.trust_anchor_arn.TrustAnchorArn",
+        trust_anchor_arn: "capo_rolesanywhere.types.trust_anchor_identifier_arn.TrustAnchorIdentifierArn",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
         enabled: Optional[bool] = None,
         tags: Optional["capo_rolesanywhere.types.tag_list.TagList"] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Imports the certificate revocation list (CRL). A CRL is a list of certificates that have been revoked by the issuing certificate Authority (CA).In order to be properly imported, a CRL must be in PEM format. IAM Roles Anywhere validates against the CRL before issuing credentials. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:ImportCrl</code>. </p>
 
@@ -57,7 +59,8 @@ class Crl:
             crl_data: <p>The x509 v3 specified certificate revocation list (CRL).</p>
             enabled: <p>Specifies whether the certificate revocation list (CRL) is enabled.</p>
             tags: <p>A list of tags to attach to the certificate revocation list (CRL).</p>
-            trust_anchor_arn: <p>The ARN of the TrustAnchor the certificate revocation list (CRL) will provide revocation for.</p>
+            trust_anchor_arn: <p>The ARN of the trust anchor that the certificate revocation list (CRL) provides revocation for. Specify the trust anchor ARN that contains the trust anchor ID. This parameter doesn't support alias ARNs. If you specify an alias ARN, the request fails with <code>ResourceNotFoundException</code>.</p>
+            alias_name: <p>An alias for the certificate revocation list (CRL). When you set an alias, the response includes the alias ARN of the CRL in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -99,6 +102,8 @@ class Crl:
             input_["enabled"] = enabled
         if tags is not None:
             input_["tags"] = tags
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -110,14 +115,14 @@ class Crl:
 
     def read(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Gets a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
@@ -156,18 +161,20 @@ class Crl:
 
     def update(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
         crl_data: Optional[bytes] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Updates the certificate revocation list (CRL). A CRL is a list of certificates that have been revoked by the issuing certificate authority (CA). IAM Roles Anywhere validates against the CRL before issuing credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
             name: <p>The name of the Crl.</p>
             crl_data: <p>The x509 v3 specified certificate revocation list (CRL).</p>
+            alias_name: <p>The alias for the certificate revocation list (CRL).</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -201,6 +208,8 @@ class Crl:
             input_["name"] = name
         if crl_data is not None:
             input_["crl_data"] = crl_data
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -212,14 +221,14 @@ class Crl:
 
     def delete(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Deletes a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -310,14 +319,14 @@ class Crl:
 
     def disable_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Disables a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -357,14 +366,14 @@ class Crl:
 
     def enable_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Enables a certificate revocation list (CRL). When enabled, certificates stored in the CRL are unauthorized to receive session credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -411,11 +420,12 @@ class AsyncCrl:
         self,
         name: "capo_rolesanywhere.types.resource_name.ResourceName",
         crl_data: bytes,
-        trust_anchor_arn: "capo_rolesanywhere.types.trust_anchor_arn.TrustAnchorArn",
+        trust_anchor_arn: "capo_rolesanywhere.types.trust_anchor_identifier_arn.TrustAnchorIdentifierArn",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
         enabled: Optional[bool] = None,
         tags: Optional["capo_rolesanywhere.types.tag_list.TagList"] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Imports the certificate revocation list (CRL). A CRL is a list of certificates that have been revoked by the issuing certificate Authority (CA).In order to be properly imported, a CRL must be in PEM format. IAM Roles Anywhere validates against the CRL before issuing credentials. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:ImportCrl</code>. </p>
 
@@ -424,7 +434,8 @@ class AsyncCrl:
             crl_data: <p>The x509 v3 specified certificate revocation list (CRL).</p>
             enabled: <p>Specifies whether the certificate revocation list (CRL) is enabled.</p>
             tags: <p>A list of tags to attach to the certificate revocation list (CRL).</p>
-            trust_anchor_arn: <p>The ARN of the TrustAnchor the certificate revocation list (CRL) will provide revocation for.</p>
+            trust_anchor_arn: <p>The ARN of the trust anchor that the certificate revocation list (CRL) provides revocation for. Specify the trust anchor ARN that contains the trust anchor ID. This parameter doesn't support alias ARNs. If you specify an alias ARN, the request fails with <code>ResourceNotFoundException</code>.</p>
+            alias_name: <p>An alias for the certificate revocation list (CRL). When you set an alias, the response includes the alias ARN of the CRL in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -467,6 +478,8 @@ class AsyncCrl:
             input_["enabled"] = enabled
         if tags is not None:
             input_["tags"] = tags
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -478,14 +491,14 @@ class AsyncCrl:
 
     async def read(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Gets a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
@@ -525,18 +538,20 @@ class AsyncCrl:
 
     async def update(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
         crl_data: Optional[bytes] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Updates the certificate revocation list (CRL). A CRL is a list of certificates that have been revoked by the issuing certificate authority (CA). IAM Roles Anywhere validates against the CRL before issuing credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
             name: <p>The name of the Crl.</p>
             crl_data: <p>The x509 v3 specified certificate revocation list (CRL).</p>
+            alias_name: <p>The alias for the certificate revocation list (CRL).</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -571,6 +586,8 @@ class AsyncCrl:
             input_["name"] = name
         if crl_data is not None:
             input_["crl_data"] = crl_data
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -582,14 +599,14 @@ class AsyncCrl:
 
     async def delete(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Deletes a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -682,14 +699,14 @@ class AsyncCrl:
 
     async def disable_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Disables a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -730,14 +747,14 @@ class AsyncCrl:
 
     async def enable_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Enables a certificate revocation list (CRL). When enabled, certificates stored in the CRL are unauthorized to receive session credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>

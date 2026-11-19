@@ -19,6 +19,7 @@ import capo_kinesis_analytics_v2.errors.invalid_request_exception
 import capo_kinesis_analytics_v2.errors.limit_exceeded_exception
 import capo_kinesis_analytics_v2.errors.resource_in_use_exception
 import capo_kinesis_analytics_v2.errors.resource_not_found_exception
+import capo_kinesis_analytics_v2.errors.unsupported_operation_exception
 import capo_kinesis_analytics_v2.types.application_configuration_update
 import capo_kinesis_analytics_v2.types.application_detail
 import capo_kinesis_analytics_v2.types.cloud_watch_logging_option_updates
@@ -73,6 +74,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_kinesis_analytics_v2.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
+                data, message, response=response
+            )
+        case "UnsupportedOperationException":
+            raise capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
                 data, message, response=response
             )
         case _:

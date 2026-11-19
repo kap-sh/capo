@@ -545,7 +545,7 @@ class EMRcontainersClient:
             tags: <p>The tags assigned to the virtual cluster.</p>
             security_configuration_id: <p>The ID of the security configuration.</p>
             session_enabled: <p>Indicates whether the virtual cluster has session support enabled.</p>
-            scheduler_configuration: <p>The scheduler configuration (concurrency and queue limits) to apply to the virtual cluster at creation time. When omitted, no limits are applied.</p>
+            scheduler_configuration: <p>The scheduler configuration (concurrency and queue limits) to apply to the virtual cluster at creation time. If you omit this field, the service applies a default limit of 1,000 concurrent job runs and does not limit queue depth.</p>
 
         Raises:
             capo_emr_containers.errors.eks_request_throttled_exception.EKSRequestThrottledException: <p>The request exceeded the Amazon EKS API operation limits.</p>
@@ -1972,7 +1972,7 @@ class EMRcontainersClient:
 
         Args:
             id: <p>The ID of the virtual cluster to update.</p>
-            scheduler_configuration: <p>The scheduler configuration to apply to the virtual cluster. The new configuration fully replaces the existing one. If you omit a field, the corresponding limit is removed.</p>
+            scheduler_configuration: <p>The scheduler configuration to apply to the virtual cluster. The new configuration fully replaces the existing one. If you omit <code>maxInQueueJobRuns</code>, the service removes the queue-depth limit. If you omit <code>maxConcurrentJobRuns</code>, the service applies the default limit of 1,000 concurrent job runs.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
 
         Raises:

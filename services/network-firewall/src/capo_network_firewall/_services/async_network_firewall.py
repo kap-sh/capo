@@ -47,8 +47,6 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.associate_firewall_policy_response
     import capo_network_firewall.types.associate_subnets_request
     import capo_network_firewall.types.associate_subnets_response
-    import capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_request
-    import capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_response
     import capo_network_firewall.types.availability_zone
     import capo_network_firewall.types.availability_zone_id
     import capo_network_firewall.types.availability_zone_mappings
@@ -57,6 +55,9 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.container_association_summary
     import capo_network_firewall.types.container_monitoring_configurations
     import capo_network_firewall.types.container_monitoring_type
+    import capo_network_firewall.types.context_filters
+    import capo_network_firewall.types.context_store
+    import capo_network_firewall.types.context_store_id
     import capo_network_firewall.types.create_container_association_request
     import capo_network_firewall.types.create_container_association_response
     import capo_network_firewall.types.create_firewall_policy_request
@@ -65,15 +66,6 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.create_firewall_policy_v2_response
     import capo_network_firewall.types.create_firewall_request
     import capo_network_firewall.types.create_firewall_response
-    import capo_network_firewall.types.create_proxy_configuration_request
-    import capo_network_firewall.types.create_proxy_configuration_response
-    import capo_network_firewall.types.create_proxy_request
-    import capo_network_firewall.types.create_proxy_response
-    import capo_network_firewall.types.create_proxy_rule_group_request
-    import capo_network_firewall.types.create_proxy_rule_group_response
-    import capo_network_firewall.types.create_proxy_rules_by_request_phase
-    import capo_network_firewall.types.create_proxy_rules_request
-    import capo_network_firewall.types.create_proxy_rules_response
     import capo_network_firewall.types.create_rule_group_request
     import capo_network_firewall.types.create_rule_group_response
     import capo_network_firewall.types.create_tls_inspection_configuration_request
@@ -90,14 +82,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.delete_firewall_response
     import capo_network_firewall.types.delete_network_firewall_transit_gateway_attachment_request
     import capo_network_firewall.types.delete_network_firewall_transit_gateway_attachment_response
-    import capo_network_firewall.types.delete_proxy_configuration_request
-    import capo_network_firewall.types.delete_proxy_configuration_response
     import capo_network_firewall.types.delete_proxy_request
     import capo_network_firewall.types.delete_proxy_response
-    import capo_network_firewall.types.delete_proxy_rule_group_request
-    import capo_network_firewall.types.delete_proxy_rule_group_response
-    import capo_network_firewall.types.delete_proxy_rules_request
-    import capo_network_firewall.types.delete_proxy_rules_response
     import capo_network_firewall.types.delete_resource_policy_request
     import capo_network_firewall.types.delete_resource_policy_response
     import capo_network_firewall.types.delete_rule_group_request
@@ -120,14 +106,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.describe_flow_operation_response
     import capo_network_firewall.types.describe_logging_configuration_request
     import capo_network_firewall.types.describe_logging_configuration_response
-    import capo_network_firewall.types.describe_proxy_configuration_request
-    import capo_network_firewall.types.describe_proxy_configuration_response
     import capo_network_firewall.types.describe_proxy_request
     import capo_network_firewall.types.describe_proxy_response
-    import capo_network_firewall.types.describe_proxy_rule_group_request
-    import capo_network_firewall.types.describe_proxy_rule_group_response
-    import capo_network_firewall.types.describe_proxy_rule_request
-    import capo_network_firewall.types.describe_proxy_rule_response
     import capo_network_firewall.types.describe_resource_policy_request
     import capo_network_firewall.types.describe_resource_policy_response
     import capo_network_firewall.types.describe_rule_group_metadata_request
@@ -141,8 +121,6 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.describe_vpc_endpoint_association_request
     import capo_network_firewall.types.describe_vpc_endpoint_association_response
     import capo_network_firewall.types.description
-    import capo_network_firewall.types.detach_rule_groups_from_proxy_configuration_request
-    import capo_network_firewall.types.detach_rule_groups_from_proxy_configuration_response
     import capo_network_firewall.types.disassociate_availability_zones_request
     import capo_network_firewall.types.disassociate_availability_zones_response
     import capo_network_firewall.types.disassociate_subnets_request
@@ -169,6 +147,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.list_analysis_reports_response
     import capo_network_firewall.types.list_container_associations_request
     import capo_network_firewall.types.list_container_associations_response
+    import capo_network_firewall.types.list_context_stores_request
+    import capo_network_firewall.types.list_context_stores_response
     import capo_network_firewall.types.list_firewall_policies_request
     import capo_network_firewall.types.list_firewall_policies_response
     import capo_network_firewall.types.list_firewall_policies_v2_request
@@ -179,12 +159,8 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.list_flow_operation_results_response
     import capo_network_firewall.types.list_flow_operations_request
     import capo_network_firewall.types.list_flow_operations_response
-    import capo_network_firewall.types.list_proxies_request
-    import capo_network_firewall.types.list_proxies_response
-    import capo_network_firewall.types.list_proxy_configurations_request
-    import capo_network_firewall.types.list_proxy_configurations_response
-    import capo_network_firewall.types.list_proxy_rule_groups_request
-    import capo_network_firewall.types.list_proxy_rule_groups_response
+    import capo_network_firewall.types.list_resources_in_context_store_request
+    import capo_network_firewall.types.list_resources_in_context_store_response
     import capo_network_firewall.types.list_rule_groups_request
     import capo_network_firewall.types.list_rule_groups_response
     import capo_network_firewall.types.list_tags_for_resource_request
@@ -193,38 +169,25 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.list_tls_inspection_configurations_response
     import capo_network_firewall.types.list_vpc_endpoint_associations_request
     import capo_network_firewall.types.list_vpc_endpoint_associations_response
-    import capo_network_firewall.types.listener_properties_request
     import capo_network_firewall.types.logging_configuration
+    import capo_network_firewall.types.nat_gateway_create_mappings_list
     import capo_network_firewall.types.nat_gateway_id
-    import capo_network_firewall.types.nat_gateway_mappings_list
     import capo_network_firewall.types.pagination_max_results
     import capo_network_firewall.types.pagination_token
     import capo_network_firewall.types.policy_string
-    import capo_network_firewall.types.proxy_config_default_rule_phase_actions_request
-    import capo_network_firewall.types.proxy_configuration_metadata
-    import capo_network_firewall.types.proxy_metadata
-    import capo_network_firewall.types.proxy_rule_condition_list
-    import capo_network_firewall.types.proxy_rule_group_attachment_list
-    import capo_network_firewall.types.proxy_rule_group_metadata
-    import capo_network_firewall.types.proxy_rule_group_priority_list
-    import capo_network_firewall.types.proxy_rule_phase_action
-    import capo_network_firewall.types.proxy_rule_priority_list
-    import capo_network_firewall.types.proxy_rules_by_request_phase
     import capo_network_firewall.types.proxy_settings
     import capo_network_firewall.types.put_resource_policy_request
     import capo_network_firewall.types.put_resource_policy_response
     import capo_network_firewall.types.reject_network_firewall_transit_gateway_attachment_request
     import capo_network_firewall.types.reject_network_firewall_transit_gateway_attachment_response
     import capo_network_firewall.types.resource_arn
-    import capo_network_firewall.types.resource_arn_list
+    import capo_network_firewall.types.resource_context
     import capo_network_firewall.types.resource_managed_status
     import capo_network_firewall.types.resource_managed_type
     import capo_network_firewall.types.resource_name
-    import capo_network_firewall.types.resource_name_list
     import capo_network_firewall.types.rule_capacity
     import capo_network_firewall.types.rule_group
     import capo_network_firewall.types.rule_group_metadata
-    import capo_network_firewall.types.rule_group_request_phase
     import capo_network_firewall.types.rule_group_type
     import capo_network_firewall.types.rule_output_format
     import capo_network_firewall.types.rules_string
@@ -247,9 +210,9 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.tags_pagination_max_results
     import capo_network_firewall.types.tls_inspection_configuration
     import capo_network_firewall.types.tls_inspection_configuration_metadata
-    import capo_network_firewall.types.tls_intercept_properties_request
     import capo_network_firewall.types.transit_gateway_attachment_id
     import capo_network_firewall.types.transit_gateway_id
+    import capo_network_firewall.types.transparent_filtering_nat_scope
     import capo_network_firewall.types.untag_resource_request
     import capo_network_firewall.types.untag_resource_response
     import capo_network_firewall.types.update_availability_zone_change_protection_request
@@ -272,16 +235,6 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.update_firewall_policy_v2_response
     import capo_network_firewall.types.update_logging_configuration_request
     import capo_network_firewall.types.update_logging_configuration_response
-    import capo_network_firewall.types.update_proxy_configuration_request
-    import capo_network_firewall.types.update_proxy_configuration_response
-    import capo_network_firewall.types.update_proxy_request
-    import capo_network_firewall.types.update_proxy_response
-    import capo_network_firewall.types.update_proxy_rule_group_priorities_request
-    import capo_network_firewall.types.update_proxy_rule_group_priorities_response
-    import capo_network_firewall.types.update_proxy_rule_priorities_request
-    import capo_network_firewall.types.update_proxy_rule_priorities_response
-    import capo_network_firewall.types.update_proxy_rule_request
-    import capo_network_firewall.types.update_proxy_rule_response
     import capo_network_firewall.types.update_proxy_settings_request
     import capo_network_firewall.types.update_proxy_settings_response
     import capo_network_firewall.types.update_rule_group_request
@@ -618,14 +571,18 @@ class AsyncNetworkFirewallClient:
         firewall_name: Optional[
             "capo_network_firewall.types.resource_name.ResourceName"
         ] = None,
+        nat_gateway_create_mappings: Optional[
+            "capo_network_firewall.types.nat_gateway_create_mappings_list.NatGatewayCreateMappingsList"
+        ] = None,
     ) -> "capo_network_firewall.types.associate_subnets_response.AssociateSubnetsResponse":
-        """<p>Associates the specified subnets in the Amazon VPC to the firewall. You can specify one subnet for each of the Availability Zones that the VPC spans. </p> <p>This request creates an Network Firewall firewall endpoint in each of the subnets. To enable the firewall's protections, you must also modify the VPC's route tables for each subnet's Availability Zone, to redirect the traffic that's coming into and going out of the zone through the firewall endpoint. </p>
+        """<p>Associates the specified subnets in the Amazon VPC to the firewall. You can specify one subnet for each of the Availability Zones that the VPC spans. </p> <p>This request creates an Network Firewall firewall endpoint in each of the subnets. To enable the firewall's protections, you must also modify the VPC's route tables for each subnet's Availability Zone, to redirect the traffic that's coming into and going out of the zone through the firewall endpoint. </p> <p>For a proxy mode firewall, use this operation to add Availability Zones to the firewall. For each subnet, specify a NAT gateway in <code>NatGatewayCreateMappings</code> in the same Availability Zone. You can't add an Availability Zone that the firewall already uses. The firewall keeps working in its other Availability Zones while Network Firewall sets up the new one. If Network Firewall can't set up the new Availability Zone, it removes the Availability Zone from the firewall. It also deletes the NAT gateway that it created there. The Availability Zone's <code>Attachment</code> status shows the reason. You can then add the Availability Zone again. </p>
 
         Args:
             update_token: <p>An optional token that you can use for optimistic locking. Network Firewall returns a token to your requests that access the firewall. The token marks the state of the firewall resource at the time of the request. </p> <p>To make an unconditional change to the firewall, omit the token in your update request. Without the token, Network Firewall performs your updates regardless of whether the firewall has changed since you last retrieved it.</p> <p>To make a conditional change to the firewall, provide the token in your update request. Network Firewall uses the token to ensure that the firewall hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the firewall again to get a current copy of it with a new token. Reapply your changes as needed, then try the operation again using the new token. </p>
             firewall_arn: <p>The Amazon Resource Name (ARN) of the firewall.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             firewall_name: <p>The descriptive name of the firewall. You can't change the name of a firewall after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             subnet_mappings: <p>The IDs of the subnets that you want to associate with the firewall. </p>
+            nat_gateway_create_mappings: <p>The NAT gateways that Network Firewall creates for the Availability Zones that you add to a proxy mode firewall. For a proxy mode firewall, you must specify one mapping for each Availability Zone in <code>SubnetMappings</code>, and no other Availability Zones. Each NAT gateway subnet must be in the firewall's VPC and can't be one of the firewall endpoint subnets.</p> <p>You can't specify this for a firewall that isn't a proxy mode firewall.</p>
 
         Raises:
             capo_network_firewall.errors.insufficient_capacity_exception.InsufficientCapacityException: <p>Amazon Web Services doesn't currently have enough available capacity to fulfill your request. Try your request later. </p>
@@ -665,70 +622,8 @@ class AsyncNetworkFirewallClient:
             input_["firewall_arn"] = firewall_arn
         if firewall_name is not None:
             input_["firewall_name"] = firewall_name
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def attach_rule_groups_to_proxy_configuration(
-        self,
-        rule_groups: "capo_network_firewall.types.proxy_rule_group_attachment_list.ProxyRuleGroupAttachmentList",
-        update_token: "capo_network_firewall.types.update_token.UpdateToken",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_configuration_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_configuration_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_response.AttachRuleGroupsToProxyConfigurationResponse":
-        """<p>Attaches <a>ProxyRuleGroup</a> resources to a <a>ProxyConfiguration</a> </p> <p>A Proxy Configuration defines the monitoring and protection behavior for a Proxy. The details of the behavior are defined in the rule groups that you add to your configuration. </p>
-
-        Args:
-            proxy_configuration_name: <p>The descriptive name of the proxy configuration. You can't change the name of a proxy configuration after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_configuration_arn: <p>The Amazon Resource Name (ARN) of a proxy configuration.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            rule_groups: <p>The proxy rule group(s) to attach to the proxy configuration</p>
-            update_token: <p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the proxy configuration. The token marks the state of the proxy configuration resource at the time of the request. </p> <p>To make changes to the proxy configuration, you provide the token in your request. Network Firewall uses the token to ensure that the proxy configuration hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the proxy configuration again to get a current copy of it with a current token. Reapply your changes as needed, then try the operation again using the new token. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_request.AttachRuleGroupsToProxyConfigurationRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_response.AttachRuleGroupsToProxyConfigurationResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.attach_rule_groups_to_proxy_configuration
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.attach_rule_groups_to_proxy_configuration.async_attach_rule_groups_to_proxy_configuration(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("AttachRuleGroupsToProxyConfiguration")
-        )
-        input_: capo_network_firewall.types.attach_rule_groups_to_proxy_configuration_request.AttachRuleGroupsToProxyConfigurationRequest = {
-            "rule_groups": rule_groups,
-            "update_token": update_token,
-        }
-        if proxy_configuration_name is not None:
-            input_["proxy_configuration_name"] = proxy_configuration_name
-        if proxy_configuration_arn is not None:
-            input_["proxy_configuration_arn"] = proxy_configuration_arn
+        if nat_gateway_create_mappings is not None:
+            input_["nat_gateway_create_mappings"] = nat_gateway_create_mappings
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -842,20 +737,20 @@ class AsyncNetworkFirewallClient:
         availability_zone_change_protection: Optional[
             "capo_network_firewall.types.boolean.Boolean"
         ] = None,
-        nat_gateway_mappings: Optional[
-            "capo_network_firewall.types.nat_gateway_mappings_list.NatGatewayMappingsList"
+        nat_gateway_create_mappings: Optional[
+            "capo_network_firewall.types.nat_gateway_create_mappings_list.NatGatewayCreateMappingsList"
         ] = None,
         proxy_settings: Optional[
             "capo_network_firewall.types.proxy_settings.ProxySettings"
         ] = None,
-        no_source_preservation: Optional[
-            "capo_network_firewall.types.boolean.Boolean"
-        ] = None,
         vpc_endpoint: Optional[
             "capo_network_firewall.types.vpc_endpoint.VpcEndpoint"
         ] = None,
+        transparent_filtering_nat_scope: Optional[
+            "capo_network_firewall.types.transparent_filtering_nat_scope.TransparentFilteringNatScope"
+        ] = None,
     ) -> "capo_network_firewall.types.create_firewall_response.CreateFirewallResponse":
-        """<p>Creates an Network Firewall <a>Firewall</a> and accompanying <a>FirewallStatus</a> for a VPC. </p> <p>The firewall defines the configuration settings for an Network Firewall firewall. The settings that you can define at creation include the firewall policy, the subnets in your VPC to use for the firewall endpoints, and any tags that are attached to the firewall Amazon Web Services resource. </p> <p>After you create a firewall, you can provide additional settings, like the logging configuration. </p> <p>To update the settings for a firewall, you use the operations that apply to the settings themselves, for example <a>UpdateLoggingConfiguration</a>, <a>AssociateSubnets</a>, and <a>UpdateFirewallDeleteProtection</a>. </p> <p>To manage a firewall's tags, use the standard Amazon Web Services resource tagging operations, <a>ListTagsForResource</a>, <a>TagResource</a>, and <a>UntagResource</a>.</p> <p>To retrieve information about firewalls, use <a>ListFirewalls</a> and <a>DescribeFirewall</a>.</p> <p>To generate a report on the last 30 days of traffic monitored by a firewall, use <a>StartAnalysisReport</a>.</p>
+        """<p>Creates an Network Firewall <a>Firewall</a> and accompanying <a>FirewallStatus</a> for a VPC. </p> <p>The firewall defines the configuration settings for an Network Firewall firewall. The settings that you can define at creation include the firewall policy, the subnets in your VPC to use for the firewall endpoints, and any tags that are attached to the firewall Amazon Web Services resource. </p> <p>After you create a firewall, you can provide additional settings, like the logging configuration. </p> <p>To update the settings for a firewall, you use the operations that apply to the settings themselves, for example <a>UpdateLoggingConfiguration</a>, <a>AssociateSubnets</a>, and <a>UpdateFirewallDeleteProtection</a>. </p> <p>To manage a firewall's tags, use the standard Amazon Web Services resource tagging operations, <a>ListTagsForResource</a>, <a>TagResource</a>, and <a>UntagResource</a>.</p> <p>To retrieve information about firewalls, use <a>ListFirewalls</a> and <a>DescribeFirewall</a>.</p> <p>To generate a report on the last 30 days of traffic monitored by a firewall, use <a>StartAnalysisReport</a>.</p> <p>To create a proxy mode firewall, specify <code>VpcEndpoint</code> and <code>NatGatewayCreateMappings</code> instead of <code>VpcId</code> and <code>SubnetMappings</code>. A proxy mode firewall is an explicit forward proxy. Your clients send HTTP and HTTPS proxy requests to the firewall's proxy DNS name, which <code>DescribeFirewall</code> returns in each Availability Zone's <code>Attachment</code>. The firewall evaluates proxy traffic with the stateful rules in its firewall policy, and sends allowed traffic out through the NAT gateway in the same Availability Zone. Your clients don't need route table changes. In each Availability Zone, the firewall has one endpoint and one NAT gateway, which Network Firewall creates for you. </p>
 
         Args:
             firewall_name: <p>The descriptive name of the firewall. You can't change the name of a firewall after you create it.</p>
@@ -872,10 +767,10 @@ class AsyncNetworkFirewallClient:
             transit_gateway_id: <p>Required when creating a transit gateway-attached firewall. The unique identifier of the transit gateway to attach to this firewall. You can provide either a transit gateway from your account or one that has been shared with you through Resource Access Manager.</p> <important> <p>After creating the firewall, you cannot change the transit gateway association. To use a different transit gateway, you must create a new firewall.</p> </important> <p>For information about creating firewalls, see <a>CreateFirewall</a>. For specific guidance about transit gateway-attached firewalls, see <a href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/tgw-firewall-considerations.html">Considerations for transit gateway-attached firewalls</a> in the <i>Network Firewall Developer Guide</i>.</p>
             availability_zone_mappings: <p>Required. The Availability Zones where you want to create firewall endpoints for a transit gateway-attached firewall. You must specify at least one Availability Zone. Consider enabling the firewall in every Availability Zone where you have workloads to maintain Availability Zone isolation.</p> <p>You can modify Availability Zones later using <a>AssociateAvailabilityZones</a> or <a>DisassociateAvailabilityZones</a>, but this may briefly disrupt traffic. The <code>AvailabilityZoneChangeProtection</code> setting controls whether you can make these modifications.</p>
             availability_zone_change_protection: <p>Optional. A setting indicating whether the firewall is protected against changes to its Availability Zone configuration. When set to <code>TRUE</code>, you cannot add or remove Availability Zones without first disabling this protection using <a>UpdateAvailabilityZoneChangeProtection</a>.</p> <p>Default value: <code>FALSE</code> </p>
-            nat_gateway_mappings: <p>The NAT gateways that the firewall uses to proxy traffic when <code>NoSourcePreservation</code> is <code>TRUE</code>. Network Firewall attaches the firewall to each NAT gateway that you specify, so that egress traffic is proxied through the NAT gateway. </p>
-            proxy_settings: <p>The listener configuration for a proxy mode firewall, used when <code>NoSourcePreservation</code> is <code>TRUE</code>. This specifies the ports and protocols on which the firewall's proxy listens for traffic. </p>
-            no_source_preservation: <p>Optional. Indicates whether the firewall operates in proxy mode, in which the source IP address of the traffic is not preserved. When set to <code>TRUE</code>, the firewall proxies traffic through a NAT gateway and the traffic reaching the destination uses the NAT gateway's IP address as the source. </p> <p>When you set this to <code>TRUE</code>, you must specify <code>NatGatewayMappings</code> and <code>VpcEndpoint</code> instead of a top-level <code>VpcId</code> and <code>SubnetMappings</code>. </p> <p>You can't change this setting after you create the firewall. </p> <p>Default value: <code>FALSE</code> </p>
-            vpc_endpoint: <p>The VPC and subnets for the firewall endpoint, used when <code>NoSourcePreservation</code> is <code>TRUE</code>. Network Firewall creates the firewall endpoint in the subnets that you specify here. </p> <p>For proxy mode firewalls, provide the firewall's VPC and endpoint subnets through this parameter instead of the top-level <code>VpcId</code> and <code>SubnetMappings</code>. </p>
+            nat_gateway_create_mappings: <p>The NAT gateways that Network Firewall creates for a proxy mode firewall, one for each Availability Zone. When you specify this, you create a proxy mode firewall. Destinations see the IP address of the NAT gateway in the client's Availability Zone as the source of the traffic.</p> <p>Specify one mapping for each Availability Zone in <code>VpcEndpoint</code>, and no other Availability Zones. Each NAT gateway subnet must be in the <code>VpcEndpoint</code> VPC and can't be one of the firewall endpoint subnets.</p> <p>You need permission to call the Amazon EC2 <code>CreateNatGateway</code> action.</p> <p>If Network Firewall can't set up an Availability Zone, for example because Amazon EC2 rejects the NAT gateway, it removes the Availability Zone from the firewall. It also deletes the NAT gateway that it created there. The Availability Zone's <code>Attachment</code> status is <code>FAILED</code>, and its status message explains why. You can add the Availability Zone again with <code>AssociateSubnets</code>. If no Availability Zone can be set up, the firewall status is <code>FAILED</code>.</p>
+            proxy_settings: <p>The proxy settings for a proxy mode firewall: the ports and protocols on which the firewall's proxy listens for traffic, and optionally your own domain name and certificate. If you don't specify listeners, the firewall listens for HTTP on port 3128 and HTTPS on port 8443.</p> <p>To change the listeners later, use <code>UpdateProxySettings</code>.</p>
+            vpc_endpoint: <p>The VPC and subnets for the endpoints of a proxy mode firewall. Network Firewall creates a firewall endpoint in each subnet that you specify. It also creates the firewall's NAT gateways in this VPC, in the subnets that you specify in <code>NatGatewayCreateMappings</code>.</p> <p>To create a proxy mode firewall, you must specify <code>VpcEndpoint</code> and <code>NatGatewayCreateMappings</code>, and you must not specify the top-level <code>VpcId</code> and <code>SubnetMappings</code>. Specify one subnet for each Availability Zone where you want to use the firewall.</p>
+            transparent_filtering_nat_scope: <p>How a proxy mode firewall handles traffic that isn't sent to its proxy listener. If you don't specify a value, the firewall uses <code>NAT_ALL</code>. You can choose from the following values:</p> <ul> <li> <p> <code>NAT_ALL</code> - After inspection, the firewall sends this traffic out through its NAT gateway, which translates the source address.</p> </li> <li> <p> <code>NAT_NONE</code> - After inspection, the firewall returns this traffic to the firewall endpoint without address translation.</p> </li> </ul> <p>You can specify this only for a proxy mode firewall, and you can't change it after you create the firewall.</p>
 
         Raises:
             capo_network_firewall.errors.insufficient_capacity_exception.InsufficientCapacityException: <p>Amazon Web Services doesn't currently have enough available capacity to fulfill your request. Try your request later. </p>
@@ -937,14 +832,14 @@ class AsyncNetworkFirewallClient:
             input_["availability_zone_change_protection"] = (
                 availability_zone_change_protection
             )
-        if nat_gateway_mappings is not None:
-            input_["nat_gateway_mappings"] = nat_gateway_mappings
+        if nat_gateway_create_mappings is not None:
+            input_["nat_gateway_create_mappings"] = nat_gateway_create_mappings
         if proxy_settings is not None:
             input_["proxy_settings"] = proxy_settings
-        if no_source_preservation is not None:
-            input_["no_source_preservation"] = no_source_preservation
         if vpc_endpoint is not None:
             input_["vpc_endpoint"] = vpc_endpoint
+        if transparent_filtering_nat_scope is not None:
+            input_["transparent_filtering_nat_scope"] = transparent_filtering_nat_scope
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1093,285 +988,6 @@ class AsyncNetworkFirewallClient:
             input_["dry_run"] = dry_run
         if encryption_configuration is not None:
             input_["encryption_configuration"] = encryption_configuration
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def create_proxy(
-        self,
-        proxy_name: "capo_network_firewall.types.resource_name.ResourceName",
-        nat_gateway_id: "capo_network_firewall.types.nat_gateway_id.NatGatewayId",
-        tls_intercept_properties: "capo_network_firewall.types.tls_intercept_properties_request.TlsInterceptPropertiesRequest",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_configuration_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_configuration_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-        listener_properties: Optional[
-            "capo_network_firewall.types.listener_properties_request.ListenerPropertiesRequest"
-        ] = None,
-        tags: Optional["capo_network_firewall.types.tag_list.TagList"] = None,
-    ) -> "capo_network_firewall.types.create_proxy_response.CreateProxyResponse":
-        """<p>Creates an Network Firewall <a>Proxy</a> </p> <p>Attaches a Proxy configuration to a NAT Gateway. </p> <p>To manage a proxy's tags, use the standard Amazon Web Services resource tagging operations, <a>ListTagsForResource</a>, <a>TagResource</a>, and <a>UntagResource</a>.</p> <p>To retrieve information about proxies, use <a>ListProxies</a> and <a>DescribeProxy</a>.</p>
-
-        Args:
-            proxy_name: <p>The descriptive name of the proxy. You can't change the name of a proxy after you create it.</p>
-            nat_gateway_id: <p>A unique identifier for the NAT gateway to use with proxy resources.</p>
-            proxy_configuration_name: <p>The descriptive name of the proxy configuration. You can't change the name of a proxy configuration after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_configuration_arn: <p>The Amazon Resource Name (ARN) of a proxy configuration.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            listener_properties: <p>Listener properties for HTTP and HTTPS traffic.</p>
-            tls_intercept_properties: <p>TLS decryption on traffic to filter on attributes in the HTTP header. </p>
-            tags: <p>The key:value pairs to associate with the resource.</p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.limit_exceeded_exception.LimitExceededException: <p>Unable to perform the operation because doing so would violate a limit setting. </p>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The operation you requested isn't supported by Network Firewall. </p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.create_proxy_request.CreateProxyRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.create_proxy_response.CreateProxyResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_proxy
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_proxy.async_create_proxy(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateProxy")
-        )
-        input_: capo_network_firewall.types.create_proxy_request.CreateProxyRequest = {
-            "proxy_name": proxy_name,
-            "nat_gateway_id": nat_gateway_id,
-            "tls_intercept_properties": tls_intercept_properties,
-        }
-        if proxy_configuration_name is not None:
-            input_["proxy_configuration_name"] = proxy_configuration_name
-        if proxy_configuration_arn is not None:
-            input_["proxy_configuration_arn"] = proxy_configuration_arn
-        if listener_properties is not None:
-            input_["listener_properties"] = listener_properties
-        if tags is not None:
-            input_["tags"] = tags
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def create_proxy_configuration(
-        self,
-        proxy_configuration_name: "capo_network_firewall.types.resource_name.ResourceName",
-        default_rule_phase_actions: "capo_network_firewall.types.proxy_config_default_rule_phase_actions_request.ProxyConfigDefaultRulePhaseActionsRequest",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        description: Optional[
-            "capo_network_firewall.types.description.Description"
-        ] = None,
-        rule_group_names: Optional[
-            "capo_network_firewall.types.resource_name_list.ResourceNameList"
-        ] = None,
-        rule_group_arns: Optional[
-            "capo_network_firewall.types.resource_arn_list.ResourceArnList"
-        ] = None,
-        tags: Optional["capo_network_firewall.types.tag_list.TagList"] = None,
-    ) -> "capo_network_firewall.types.create_proxy_configuration_response.CreateProxyConfigurationResponse":
-        """<p>Creates an Network Firewall <a>ProxyConfiguration</a> </p> <p>A Proxy Configuration defines the monitoring and protection behavior for a Proxy. The details of the behavior are defined in the rule groups that you add to your configuration. </p> <p>To manage a proxy configuration's tags, use the standard Amazon Web Services resource tagging operations, <a>ListTagsForResource</a>, <a>TagResource</a>, and <a>UntagResource</a>.</p> <p>To retrieve information about proxies, use <a>ListProxyConfigurations</a> and <a>DescribeProxyConfiguration</a>.</p>
-
-        Args:
-            proxy_configuration_name: <p>The descriptive name of the proxy configuration. You can't change the name of a proxy configuration after you create it.</p>
-            description: <p>A description of the proxy configuration. </p>
-            rule_group_names: <p>The proxy rule group name(s) to attach to the proxy configuration.</p> <p>You must specify the ARNs or the names, and you can specify both. </p>
-            rule_group_arns: <p>The proxy rule group arn(s) to attach to the proxy configuration.</p> <p>You must specify the ARNs or the names, and you can specify both. </p>
-            default_rule_phase_actions: <p>Evaluation points in the traffic flow where rules are applied. There are three phases in a traffic where the rule match is applied. </p>
-            tags: <p>The key:value pairs to associate with the resource.</p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.limit_exceeded_exception.LimitExceededException: <p>Unable to perform the operation because doing so would violate a limit setting. </p>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.create_proxy_configuration_request.CreateProxyConfigurationRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.create_proxy_configuration_response.CreateProxyConfigurationResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_proxy_configuration
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_proxy_configuration.async_create_proxy_configuration(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateProxyConfiguration")
-        )
-        input_: capo_network_firewall.types.create_proxy_configuration_request.CreateProxyConfigurationRequest = {
-            "proxy_configuration_name": proxy_configuration_name,
-            "default_rule_phase_actions": default_rule_phase_actions,
-        }
-        if description is not None:
-            input_["description"] = description
-        if rule_group_names is not None:
-            input_["rule_group_names"] = rule_group_names
-        if rule_group_arns is not None:
-            input_["rule_group_arns"] = rule_group_arns
-        if tags is not None:
-            input_["tags"] = tags
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def create_proxy_rule_group(
-        self,
-        proxy_rule_group_name: "capo_network_firewall.types.resource_name.ResourceName",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        description: Optional[
-            "capo_network_firewall.types.description.Description"
-        ] = None,
-        rules: Optional[
-            "capo_network_firewall.types.proxy_rules_by_request_phase.ProxyRulesByRequestPhase"
-        ] = None,
-        tags: Optional["capo_network_firewall.types.tag_list.TagList"] = None,
-    ) -> "capo_network_firewall.types.create_proxy_rule_group_response.CreateProxyRuleGroupResponse":
-        """<p>Creates an Network Firewall <a>ProxyRuleGroup</a> </p> <p>Collections of related proxy filtering rules. Rule groups help you manage and reuse sets of rules across multiple proxy configurations. </p> <p>To manage a proxy rule group's tags, use the standard Amazon Web Services resource tagging operations, <a>ListTagsForResource</a>, <a>TagResource</a>, and <a>UntagResource</a>.</p> <p>To retrieve information about proxy rule groups, use <a>ListProxyRuleGroups</a> and <a>DescribeProxyRuleGroup</a>.</p> <p>To retrieve information about individual proxy rules, use <a>DescribeProxyRuleGroup</a> and <a>DescribeProxyRule</a>.</p>
-
-        Args:
-            proxy_rule_group_name: <p>The descriptive name of the proxy rule group. You can't change the name of a proxy rule group after you create it.</p>
-            description: <p>A description of the proxy rule group. </p>
-            rules: <p>Individual rules that define match conditions and actions for application-layer traffic. Rules specify what to inspect (domains, headers, methods) and what action to take (allow, deny, alert). </p>
-            tags: <p>The key:value pairs to associate with the resource.</p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.limit_exceeded_exception.LimitExceededException: <p>Unable to perform the operation because doing so would violate a limit setting. </p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.create_proxy_rule_group_request.CreateProxyRuleGroupRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.create_proxy_rule_group_response.CreateProxyRuleGroupResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_proxy_rule_group
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_proxy_rule_group.async_create_proxy_rule_group(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateProxyRuleGroup")
-        )
-        input_: capo_network_firewall.types.create_proxy_rule_group_request.CreateProxyRuleGroupRequest = {
-            "proxy_rule_group_name": proxy_rule_group_name
-        }
-        if description is not None:
-            input_["description"] = description
-        if rules is not None:
-            input_["rules"] = rules
-        if tags is not None:
-            input_["tags"] = tags
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def create_proxy_rules(
-        self,
-        rules: "capo_network_firewall.types.create_proxy_rules_by_request_phase.CreateProxyRulesByRequestPhase",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_rule_group_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-        proxy_rule_group_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-    ) -> "capo_network_firewall.types.create_proxy_rules_response.CreateProxyRulesResponse":
-        """<p>Creates Network Firewall <a>ProxyRule</a> resources. </p> <p>Attaches new proxy rule(s) to an existing proxy rule group. </p> <p>To retrieve information about individual proxy rules, use <a>DescribeProxyRuleGroup</a> and <a>DescribeProxyRule</a>.</p>
-
-        Args:
-            proxy_rule_group_arn: <p>The Amazon Resource Name (ARN) of a proxy rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_rule_group_name: <p>The descriptive name of the proxy rule group. You can't change the name of a proxy rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            rules: <p>Individual rules that define match conditions and actions for application-layer traffic. Rules specify what to inspect (domains, headers, methods) and what action to take (allow, deny, alert). </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.create_proxy_rules_request.CreateProxyRulesRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.create_proxy_rules_response.CreateProxyRulesResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_proxy_rules
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_proxy_rules.async_create_proxy_rules(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateProxyRules")
-        )
-        input_: capo_network_firewall.types.create_proxy_rules_request.CreateProxyRulesRequest = {
-            "rules": rules
-        }
-        if proxy_rule_group_arn is not None:
-            input_["proxy_rule_group_arn"] = proxy_rule_group_arn
-        if proxy_rule_group_name is not None:
-            input_["proxy_rule_group_name"] = proxy_rule_group_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1700,12 +1316,16 @@ class AsyncNetworkFirewallClient:
         firewall_arn: Optional[
             "capo_network_firewall.types.resource_arn.ResourceArn"
         ] = None,
+        delete_associated_nat_gateways: Optional[
+            "capo_network_firewall.types.boolean.Boolean"
+        ] = None,
     ) -> "capo_network_firewall.types.delete_firewall_response.DeleteFirewallResponse":
-        """<p>Deletes the specified <a>Firewall</a> and its <a>FirewallStatus</a>. This operation requires the firewall's <code>DeleteProtection</code> flag to be <code>FALSE</code>. You can't revert this operation. </p> <p>You can check whether a firewall is in use by reviewing the route tables for the Availability Zones where you have firewall subnet mappings. Retrieve the subnet mappings by calling <a>DescribeFirewall</a>. You define and update the route tables through Amazon VPC. As needed, update the route tables for the zones to remove the firewall endpoints. When the route tables no longer use the firewall endpoints, you can remove the firewall safely.</p> <p>To delete a firewall, remove the delete protection if you need to using <a>UpdateFirewallDeleteProtection</a>, then delete the firewall by calling <a>DeleteFirewall</a>. </p>
+        """<p>Deletes the specified <a>Firewall</a> and its <a>FirewallStatus</a>. This operation requires the firewall's <code>DeleteProtection</code> flag to be <code>FALSE</code>. You can't revert this operation. </p> <p>You can check whether a firewall is in use by reviewing the route tables for the Availability Zones where you have firewall subnet mappings. Retrieve the subnet mappings by calling <a>DescribeFirewall</a>. You define and update the route tables through Amazon VPC. As needed, update the route tables for the zones to remove the firewall endpoints. When the route tables no longer use the firewall endpoints, you can remove the firewall safely.</p> <p>To delete a firewall, remove the delete protection if you need to using <a>UpdateFirewallDeleteProtection</a>, then delete the firewall by calling <a>DeleteFirewall</a>. </p> <p>Deleting a proxy mode firewall detaches its NAT gateways. To also delete the NAT gateways that Network Firewall created for the firewall, specify <code>DeleteAssociatedNatGateways</code>. </p>
 
         Args:
             firewall_name: <p>The descriptive name of the firewall. You can't change the name of a firewall after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             firewall_arn: <p>The Amazon Resource Name (ARN) of the firewall.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
+            delete_associated_nat_gateways: <p>Specifies whether to delete the NAT gateways that Network Firewall created for a proxy mode firewall when you delete the firewall. You can choose from the following values:</p> <ul> <li> <p> <code>FALSE</code> - Network Firewall detaches the NAT gateways from the firewall and keeps them. This is the default.</p> </li> <li> <p> <code>TRUE</code> - Network Firewall also deletes the NAT gateways. The firewall status stays <code>DELETING</code> until they're deleted. You need permission to call the Amazon EC2 <code>DeleteNatGateway</code> action.</p> </li> </ul> <p>You can't specify <code>TRUE</code> for a firewall that isn't a proxy mode firewall.</p>
 
         Raises:
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
@@ -1740,6 +1360,8 @@ class AsyncNetworkFirewallClient:
             input_["firewall_name"] = firewall_name
         if firewall_arn is not None:
             input_["firewall_arn"] = firewall_arn
+        if delete_associated_nat_gateways is not None:
+            input_["delete_associated_nat_gateways"] = delete_associated_nat_gateways
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1929,7 +1551,7 @@ class AsyncNetworkFirewallClient:
             "capo_network_firewall.types.resource_arn.ResourceArn"
         ] = None,
     ) -> "capo_network_firewall.types.delete_proxy_response.DeleteProxyResponse":
-        """<p>Deletes the specified <a>Proxy</a>. </p> <p>Detaches a Proxy configuration from a NAT Gateway. </p>
+        """<p>Deletes the specified proxy. </p> <p>Detaches a Proxy configuration from a NAT Gateway. </p>
 
         Args:
             nat_gateway_id: <p>The NAT Gateway the proxy is attached to. </p>
@@ -1970,181 +1592,6 @@ class AsyncNetworkFirewallClient:
             input_["proxy_name"] = proxy_name
         if proxy_arn is not None:
             input_["proxy_arn"] = proxy_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def delete_proxy_configuration(
-        self,
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_configuration_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_configuration_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.delete_proxy_configuration_response.DeleteProxyConfigurationResponse":
-        """<p>Deletes the specified <a>ProxyConfiguration</a>. </p>
-
-        Args:
-            proxy_configuration_name: <p>The descriptive name of the proxy configuration. You can't change the name of a proxy configuration after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_configuration_arn: <p>The Amazon Resource Name (ARN) of a proxy configuration.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.delete_proxy_configuration_request.DeleteProxyConfigurationRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.delete_proxy_configuration_response.DeleteProxyConfigurationResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_proxy_configuration
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_proxy_configuration.async_delete_proxy_configuration(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DeleteProxyConfiguration")
-        )
-        input_: capo_network_firewall.types.delete_proxy_configuration_request.DeleteProxyConfigurationRequest = {}
-        if proxy_configuration_name is not None:
-            input_["proxy_configuration_name"] = proxy_configuration_name
-        if proxy_configuration_arn is not None:
-            input_["proxy_configuration_arn"] = proxy_configuration_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def delete_proxy_rule_group(
-        self,
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_rule_group_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_rule_group_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.delete_proxy_rule_group_response.DeleteProxyRuleGroupResponse":
-        """<p>Deletes the specified <a>ProxyRuleGroup</a>. </p>
-
-        Args:
-            proxy_rule_group_name: <p>The descriptive name of the proxy rule group. You can't change the name of a proxy rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_rule_group_arn: <p>The Amazon Resource Name (ARN) of a proxy rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.delete_proxy_rule_group_request.DeleteProxyRuleGroupRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.delete_proxy_rule_group_response.DeleteProxyRuleGroupResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_proxy_rule_group
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_proxy_rule_group.async_delete_proxy_rule_group(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DeleteProxyRuleGroup")
-        )
-        input_: capo_network_firewall.types.delete_proxy_rule_group_request.DeleteProxyRuleGroupRequest = {}
-        if proxy_rule_group_name is not None:
-            input_["proxy_rule_group_name"] = proxy_rule_group_name
-        if proxy_rule_group_arn is not None:
-            input_["proxy_rule_group_arn"] = proxy_rule_group_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def delete_proxy_rules(
-        self,
-        rules: "capo_network_firewall.types.resource_name_list.ResourceNameList",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_rule_group_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-        proxy_rule_group_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-    ) -> "capo_network_firewall.types.delete_proxy_rules_response.DeleteProxyRulesResponse":
-        """<p>Deletes the specified <a>ProxyRule</a>(s). currently attached to a <a>ProxyRuleGroup</a> </p>
-
-        Args:
-            proxy_rule_group_arn: <p>The Amazon Resource Name (ARN) of a proxy rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_rule_group_name: <p>The descriptive name of the proxy rule group. You can't change the name of a proxy rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            rules: <p>The proxy rule(s) to remove from the existing proxy rule group. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.delete_proxy_rules_request.DeleteProxyRulesRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.delete_proxy_rules_response.DeleteProxyRulesResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_proxy_rules
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_proxy_rules.async_delete_proxy_rules(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DeleteProxyRules")
-        )
-        input_: capo_network_firewall.types.delete_proxy_rules_request.DeleteProxyRulesRequest = {
-            "rules": rules
-        }
-        if proxy_rule_group_arn is not None:
-            input_["proxy_rule_group_arn"] = proxy_rule_group_arn
-        if proxy_rule_group_name is not None:
-            input_["proxy_rule_group_name"] = proxy_rule_group_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2858,181 +2305,6 @@ class AsyncNetworkFirewallClient:
         await response.response.aclose()
         return response.output
 
-    async def describe_proxy_configuration(
-        self,
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_configuration_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_configuration_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.describe_proxy_configuration_response.DescribeProxyConfigurationResponse":
-        """<p>Returns the data objects for the specified proxy configuration. </p>
-
-        Args:
-            proxy_configuration_name: <p>The descriptive name of the proxy configuration. You can't change the name of a proxy configuration after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_configuration_arn: <p>The Amazon Resource Name (ARN) of a proxy configuration.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.describe_proxy_configuration_request.DescribeProxyConfigurationRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.describe_proxy_configuration_response.DescribeProxyConfigurationResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_proxy_configuration
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_proxy_configuration.async_describe_proxy_configuration(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DescribeProxyConfiguration")
-        )
-        input_: capo_network_firewall.types.describe_proxy_configuration_request.DescribeProxyConfigurationRequest = {}
-        if proxy_configuration_name is not None:
-            input_["proxy_configuration_name"] = proxy_configuration_name
-        if proxy_configuration_arn is not None:
-            input_["proxy_configuration_arn"] = proxy_configuration_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def describe_proxy_rule(
-        self,
-        proxy_rule_name: "capo_network_firewall.types.resource_name.ResourceName",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_rule_group_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_rule_group_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.describe_proxy_rule_response.DescribeProxyRuleResponse":
-        """<p>Returns the data objects for the specified proxy configuration for the specified proxy rule group.</p>
-
-        Args:
-            proxy_rule_name: <p>The descriptive name of the proxy rule. You can't change the name of a proxy rule after you create it.</p>
-            proxy_rule_group_name: <p>The descriptive name of the proxy rule group. You can't change the name of a proxy rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_rule_group_arn: <p>The Amazon Resource Name (ARN) of a proxy rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.describe_proxy_rule_request.DescribeProxyRuleRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.describe_proxy_rule_response.DescribeProxyRuleResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_proxy_rule
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_proxy_rule.async_describe_proxy_rule(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DescribeProxyRule")
-        )
-        input_: capo_network_firewall.types.describe_proxy_rule_request.DescribeProxyRuleRequest = {
-            "proxy_rule_name": proxy_rule_name
-        }
-        if proxy_rule_group_name is not None:
-            input_["proxy_rule_group_name"] = proxy_rule_group_name
-        if proxy_rule_group_arn is not None:
-            input_["proxy_rule_group_arn"] = proxy_rule_group_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def describe_proxy_rule_group(
-        self,
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_rule_group_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_rule_group_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.describe_proxy_rule_group_response.DescribeProxyRuleGroupResponse":
-        """<p>Returns the data objects for the specified proxy rule group. </p>
-
-        Args:
-            proxy_rule_group_name: <p>The descriptive name of the proxy rule group. You can't change the name of a proxy rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_rule_group_arn: <p>The Amazon Resource Name (ARN) of a proxy rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.describe_proxy_rule_group_request.DescribeProxyRuleGroupRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.describe_proxy_rule_group_response.DescribeProxyRuleGroupResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_proxy_rule_group
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_proxy_rule_group.async_describe_proxy_rule_group(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DescribeProxyRuleGroup")
-        )
-        input_: capo_network_firewall.types.describe_proxy_rule_group_request.DescribeProxyRuleGroupRequest = {}
-        if proxy_rule_group_name is not None:
-            input_["proxy_rule_group_name"] = proxy_rule_group_name
-        if proxy_rule_group_arn is not None:
-            input_["proxy_rule_group_arn"] = proxy_rule_group_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
     async def describe_resource_policy(
         self,
         resource_arn: "capo_network_firewall.types.resource_arn.ResourceArn",
@@ -3393,79 +2665,6 @@ class AsyncNetworkFirewallClient:
         await response.response.aclose()
         return response.output
 
-    async def detach_rule_groups_from_proxy_configuration(
-        self,
-        update_token: "capo_network_firewall.types.update_token.UpdateToken",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_configuration_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_configuration_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-        rule_group_names: Optional[
-            "capo_network_firewall.types.resource_name_list.ResourceNameList"
-        ] = None,
-        rule_group_arns: Optional[
-            "capo_network_firewall.types.resource_arn_list.ResourceArnList"
-        ] = None,
-    ) -> "capo_network_firewall.types.detach_rule_groups_from_proxy_configuration_response.DetachRuleGroupsFromProxyConfigurationResponse":
-        """<p>Detaches <a>ProxyRuleGroup</a> resources from a <a>ProxyConfiguration</a> </p> <p>A Proxy Configuration defines the monitoring and protection behavior for a Proxy. The details of the behavior are defined in the rule groups that you add to your configuration. </p>
-
-        Args:
-            proxy_configuration_name: <p>The descriptive name of the proxy configuration. You can't change the name of a proxy configuration after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_configuration_arn: <p>The Amazon Resource Name (ARN) of a proxy configuration.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            rule_group_names: <p>The proxy rule group names to detach from the proxy configuration</p>
-            rule_group_arns: <p>The proxy rule group arns to detach from the proxy configuration</p>
-            update_token: <p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the proxy configuration. The token marks the state of the proxy configuration resource at the time of the request. </p> <p>To make changes to the proxy configuration, you provide the token in your request. Network Firewall uses the token to ensure that the proxy configuration hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the proxy configuration again to get a current copy of it with a current token. Reapply your changes as needed, then try the operation again using the new token. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.detach_rule_groups_from_proxy_configuration_request.DetachRuleGroupsFromProxyConfigurationRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.detach_rule_groups_from_proxy_configuration_response.DetachRuleGroupsFromProxyConfigurationResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.detach_rule_groups_from_proxy_configuration
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.detach_rule_groups_from_proxy_configuration.async_detach_rule_groups_from_proxy_configuration(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DetachRuleGroupsFromProxyConfiguration")
-        )
-        input_: capo_network_firewall.types.detach_rule_groups_from_proxy_configuration_request.DetachRuleGroupsFromProxyConfigurationRequest = {
-            "update_token": update_token
-        }
-        if proxy_configuration_name is not None:
-            input_["proxy_configuration_name"] = proxy_configuration_name
-        if proxy_configuration_arn is not None:
-            input_["proxy_configuration_arn"] = proxy_configuration_arn
-        if rule_group_names is not None:
-            input_["rule_group_names"] = rule_group_names
-        if rule_group_arns is not None:
-            input_["rule_group_arns"] = rule_group_arns
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
     async def disassociate_availability_zones(
         self,
         availability_zone_mappings: "capo_network_firewall.types.availability_zone_mappings.AvailabilityZoneMappings",
@@ -3550,7 +2749,7 @@ class AsyncNetworkFirewallClient:
             "capo_network_firewall.types.resource_name.ResourceName"
         ] = None,
     ) -> "capo_network_firewall.types.disassociate_subnets_response.DisassociateSubnetsResponse":
-        """<p>Removes the specified subnet associations from the firewall. This removes the firewall endpoints from the subnets and removes any network filtering protections that the endpoints were providing. </p>
+        """<p>Removes the specified subnet associations from the firewall. This removes the firewall endpoints from the subnets and removes any network filtering protections that the endpoints were providing. </p> <p>For a proxy mode firewall, this also removes the firewall's proxy DNS record in the Availability Zone and detaches the Availability Zone's NAT gateway from the firewall. Network Firewall keeps the NAT gateway. You can't remove the firewall's last Availability Zone. To do that, delete the firewall. If a VPC endpoint association exists in the Availability Zone, delete it first. </p>
 
         Args:
             update_token: <p>An optional token that you can use for optimistic locking. Network Firewall returns a token to your requests that access the firewall. The token marks the state of the firewall resource at the time of the request. </p> <p>To make an unconditional change to the firewall, omit the token in your update request. Without the token, Network Firewall performs your updates regardless of whether the firewall has changed since you last retrieved it.</p> <p>To make a conditional change to the firewall, provide the token in your update request. Network Firewall uses the token to ensure that the firewall hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the firewall again to get a current copy of it with a new token. Reapply your changes as needed, then try the operation again using the new token. </p>
@@ -3889,6 +3088,87 @@ class AsyncNetworkFirewallClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("container_associations",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_context_stores(
+        self,
+        *,
+        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
+        next_token: Optional[
+            "capo_network_firewall.types.pagination_token.PaginationToken"
+        ] = None,
+        max_results: Optional[
+            "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
+        ] = None,
+    ) -> "capo_network_firewall.types.list_context_stores_response.ListContextStoresResponse":
+        """<p>Lists the active context stores that are associated with your firewalls. A context store records network resources that can be used to evaluate context-aware rules. You can list the following resource types: VPCs, subnets, security groups, and transit gateway attachments.</p> <p>When using a small page size, a single call might not return the full list. A response can contain fewer than <code>MaxResults</code> results, or none, and still include a <code>NextToken</code>. Keep making requests until the response does not include a <code>NextToken</code>.</p>
+
+        Args:
+            next_token: <p>When you request a list of objects with a <code>MaxResults</code> setting, if the number of objects that are still available for retrieval exceeds the maximum you requested, Network Firewall returns a <code>NextToken</code> value in the response. To retrieve the next batch of objects, use the token returned from the prior request in your next request.</p>
+            max_results: <p>The maximum number of objects that you want Network Firewall to return for this request. If more objects are available, in the response, Network Firewall provides a <code>NextToken</code> value that you can use in a subsequent call to get the next batch of objects.</p>
+
+        Raises:
+            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
+            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
+            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
+            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_network_firewall.types.list_context_stores_request.ListContextStoresRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_network_firewall.types.list_context_stores_response.ListContextStoresResponse"
+        ]:
+            import capo_network_firewall._operations.network_firewall_20201112.list_context_stores
+
+            (
+                output,
+                http_response,
+            ) = await capo_network_firewall._operations.network_firewall_20201112.list_context_stores.async_list_context_stores(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContextStores")
+        )
+        input_: capo_network_firewall.types.list_context_stores_request.ListContextStoresRequest = {}
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_context_stores(
+        self,
+        *,
+        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
+        next_token: Optional[
+            "capo_network_firewall.types.pagination_token.PaginationToken"
+        ] = None,
+        max_results: Optional[
+            "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
+        ] = None,
+    ) -> "AsyncIterator[capo_network_firewall.types.context_store.ContextStore]":
+        _token = next_token
+        while True:
+            _response = await self.list_context_stores(
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("context_stores",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -4417,103 +3697,28 @@ class AsyncNetworkFirewallClient:
             if not _token:
                 break
 
-    async def list_proxies(
+    async def list_resources_in_context_store(
         self,
+        context_store_id: "capo_network_firewall.types.context_store_id.ContextStoreId",
         *,
         config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        next_token: Optional[
-            "capo_network_firewall.types.pagination_token.PaginationToken"
+        filters: Optional[
+            "capo_network_firewall.types.context_filters.ContextFilters"
         ] = None,
         max_results: Optional[
             "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
         ] = None,
-    ) -> "capo_network_firewall.types.list_proxies_response.ListProxiesResponse":
-        """<p>Retrieves the metadata for the proxies that you have defined. Depending on your setting for max results and the number of proxies, a single call might not return the full list. </p>
+        next_token: Optional[
+            "capo_network_firewall.types.pagination_token.PaginationToken"
+        ] = None,
+    ) -> "capo_network_firewall.types.list_resources_in_context_store_response.ListResourcesInContextStoreResponse":
+        """<p>Lists the resources that a context store records. The context store must be associated with a transit gateway that your firewall is attached to. You can filter the results by Region, resource type, or both.</p> <p>When using a small page size, a single call might not return the full list. A response can contain fewer than <code>MaxResults</code> results, or none, and still include a <code>NextToken</code>. Keep making requests until the response does not include a <code>NextToken</code>.</p>
 
         Args:
-            next_token: <p>When you request a list of objects with a <code>MaxResults</code> setting, if the number of objects that are still available for retrieval exceeds the maximum you requested, Network Firewall returns a <code>NextToken</code> value in the response. To retrieve the next batch of objects, use the token returned from the prior request in your next request.</p>
+            context_store_id: <p>The unique identifier of the context store. To get the identifiers of the context stores that are associated with your firewalls, call <code>ListContextStores</code>.</p>
+            filters: <p>Optional filters that limit the results to resources in a specific Region, of a specific resource type, or both. If you specify both filters, Network Firewall returns only the resources that match both.</p>
             max_results: <p>The maximum number of objects that you want Network Firewall to return for this request. If more objects are available, in the response, Network Firewall provides a <code>NextToken</code> value that you can use in a subsequent call to get the next batch of objects.</p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.list_proxies_request.ListProxiesRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.list_proxies_response.ListProxiesResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_proxies
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_proxies.async_list_proxies(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("ListProxies")
-        )
-        input_: capo_network_firewall.types.list_proxies_request.ListProxiesRequest = {}
-        if next_token is not None:
-            input_["next_token"] = next_token
-        if max_results is not None:
-            input_["max_results"] = max_results
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def iter_list_proxies(
-        self,
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        next_token: Optional[
-            "capo_network_firewall.types.pagination_token.PaginationToken"
-        ] = None,
-        max_results: Optional[
-            "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
-        ] = None,
-    ) -> "AsyncIterator[capo_network_firewall.types.proxy_metadata.ProxyMetadata]":
-        _token = next_token
-        while True:
-            _response = await self.list_proxies(
-                config_overrides=config_overrides,
-                next_token=_token,
-                max_results=max_results,
-            )
-            _page = _resolve_path(_response, ("proxies",))
-            for _item in _page or []:
-                yield _item
-            _token = _resolve_path(_response, ("next_token",))
-            if not _token:
-                break
-
-    async def list_proxy_configurations(
-        self,
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        next_token: Optional[
-            "capo_network_firewall.types.pagination_token.PaginationToken"
-        ] = None,
-        max_results: Optional[
-            "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
-        ] = None,
-    ) -> "capo_network_firewall.types.list_proxy_configurations_response.ListProxyConfigurationsResponse":
-        """<p>Retrieves the metadata for the proxy configuration that you have defined. Depending on your setting for max results and the number of proxy configurations, a single call might not return the full list. </p>
-
-        Args:
-            next_token: <p>When you request a list of objects with a <code>MaxResults</code> setting, if the number of objects that are still available for retrieval exceeds the maximum you requested, Network Firewall returns a <code>NextToken</code> value in the response. To retrieve the next batch of objects, use the token returned from the prior request in your next request.</p>
-            max_results: <p>The maximum number of objects that you want Network Firewall to return for this request. If more objects are available, in the response, Network Firewall provides a <code>NextToken</code> value that you can use in a subsequent call to get the next batch of objects.</p>
+            next_token: <p>When you request a list of objects with a <code>MaxResults</code> setting, if the number of objects that are still available for retrieval exceeds the maximum you requested, Network Firewall returns a <code>NextToken</code> value in the response. To retrieve the next batch of objects, use the token returned from the prior request in your next request.</p> <p>A token is valid only for the same <code>ContextStoreId</code> and filters as the request that returned it.</p>
 
         Raises:
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
@@ -4524,28 +3729,32 @@ class AsyncNetworkFirewallClient:
         """
 
         async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.list_proxy_configurations_request.ListProxyConfigurationsRequest]",
+            req: "AsyncOperationRequest[capo_network_firewall.types.list_resources_in_context_store_request.ListResourcesInContextStoreRequest]",
         ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.list_proxy_configurations_response.ListProxyConfigurationsResponse"
+            "capo_network_firewall.types.list_resources_in_context_store_response.ListResourcesInContextStoreResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_proxy_configurations
+            import capo_network_firewall._operations.network_firewall_20201112.list_resources_in_context_store
 
             (
                 output,
                 http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_proxy_configurations.async_list_proxy_configurations(
+            ) = await capo_network_firewall._operations.network_firewall_20201112.list_resources_in_context_store.async_list_resources_in_context_store(
                 req.options, req.input
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("ListProxyConfigurations")
+            config_overrides, OperationLogging("ListResourcesInContextStore")
         )
-        input_: capo_network_firewall.types.list_proxy_configurations_request.ListProxyConfigurationsRequest = {}
-        if next_token is not None:
-            input_["next_token"] = next_token
+        input_: capo_network_firewall.types.list_resources_in_context_store_request.ListResourcesInContextStoreRequest = {
+            "context_store_id": context_store_id
+        }
+        if filters is not None:
+            input_["filters"] = filters
         if max_results is not None:
             input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -4555,107 +3764,31 @@ class AsyncNetworkFirewallClient:
         await response.response.aclose()
         return response.output
 
-    async def iter_list_proxy_configurations(
+    async def iter_list_resources_in_context_store(
         self,
+        context_store_id: "capo_network_firewall.types.context_store_id.ContextStoreId",
         *,
         config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        next_token: Optional[
-            "capo_network_firewall.types.pagination_token.PaginationToken"
+        filters: Optional[
+            "capo_network_firewall.types.context_filters.ContextFilters"
         ] = None,
         max_results: Optional[
             "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
         ] = None,
-    ) -> "AsyncIterator[capo_network_firewall.types.proxy_configuration_metadata.ProxyConfigurationMetadata]":
+        next_token: Optional[
+            "capo_network_firewall.types.pagination_token.PaginationToken"
+        ] = None,
+    ) -> "AsyncIterator[capo_network_firewall.types.resource_context.ResourceContext]":
         _token = next_token
         while True:
-            _response = await self.list_proxy_configurations(
+            _response = await self.list_resources_in_context_store(
+                context_store_id,
                 config_overrides=config_overrides,
-                next_token=_token,
+                filters=filters,
                 max_results=max_results,
-            )
-            _page = _resolve_path(_response, ("proxy_configurations",))
-            for _item in _page or []:
-                yield _item
-            _token = _resolve_path(_response, ("next_token",))
-            if not _token:
-                break
-
-    async def list_proxy_rule_groups(
-        self,
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        next_token: Optional[
-            "capo_network_firewall.types.pagination_token.PaginationToken"
-        ] = None,
-        max_results: Optional[
-            "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
-        ] = None,
-    ) -> "capo_network_firewall.types.list_proxy_rule_groups_response.ListProxyRuleGroupsResponse":
-        """<p>Retrieves the metadata for the proxy rule groups that you have defined. Depending on your setting for max results and the number of proxy rule groups, a single call might not return the full list. </p>
-
-        Args:
-            next_token: <p>When you request a list of objects with a <code>MaxResults</code> setting, if the number of objects that are still available for retrieval exceeds the maximum you requested, Network Firewall returns a <code>NextToken</code> value in the response. To retrieve the next batch of objects, use the token returned from the prior request in your next request.</p>
-            max_results: <p>The maximum number of objects that you want Network Firewall to return for this request. If more objects are available, in the response, Network Firewall provides a <code>NextToken</code> value that you can use in a subsequent call to get the next batch of objects.</p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.list_proxy_rule_groups_request.ListProxyRuleGroupsRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.list_proxy_rule_groups_response.ListProxyRuleGroupsResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_proxy_rule_groups
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_proxy_rule_groups.async_list_proxy_rule_groups(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("ListProxyRuleGroups")
-        )
-        input_: capo_network_firewall.types.list_proxy_rule_groups_request.ListProxyRuleGroupsRequest = {}
-        if next_token is not None:
-            input_["next_token"] = next_token
-        if max_results is not None:
-            input_["max_results"] = max_results
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def iter_list_proxy_rule_groups(
-        self,
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        next_token: Optional[
-            "capo_network_firewall.types.pagination_token.PaginationToken"
-        ] = None,
-        max_results: Optional[
-            "capo_network_firewall.types.pagination_max_results.PaginationMaxResults"
-        ] = None,
-    ) -> "AsyncIterator[capo_network_firewall.types.proxy_rule_group_metadata.ProxyRuleGroupMetadata]":
-        _token = next_token
-        while True:
-            _response = await self.list_proxy_rule_groups(
-                config_overrides=config_overrides,
                 next_token=_token,
-                max_results=max_results,
             )
-            _page = _resolve_path(_response, ("proxy_rule_groups",))
+            _page = _resolve_path(_response, ("resource_contexts",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -6206,374 +5339,6 @@ class AsyncNetworkFirewallClient:
         await response.response.aclose()
         return response.output
 
-    async def update_proxy(
-        self,
-        nat_gateway_id: "capo_network_firewall.types.nat_gateway_id.NatGatewayId",
-        update_token: "capo_network_firewall.types.update_token.UpdateToken",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-        listener_properties_to_add: Optional[
-            "capo_network_firewall.types.listener_properties_request.ListenerPropertiesRequest"
-        ] = None,
-        listener_properties_to_remove: Optional[
-            "capo_network_firewall.types.listener_properties_request.ListenerPropertiesRequest"
-        ] = None,
-        tls_intercept_properties: Optional[
-            "capo_network_firewall.types.tls_intercept_properties_request.TlsInterceptPropertiesRequest"
-        ] = None,
-    ) -> "capo_network_firewall.types.update_proxy_response.UpdateProxyResponse":
-        """<p>Updates the properties of the specified proxy.</p>
-
-        Args:
-            nat_gateway_id: <p>The NAT Gateway the proxy is attached to. </p>
-            proxy_name: <p>The descriptive name of the proxy. You can't change the name of a proxy after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_arn: <p>The Amazon Resource Name (ARN) of a proxy.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            listener_properties_to_add: <p>Listener properties for HTTP and HTTPS traffic to add. </p>
-            listener_properties_to_remove: <p>Listener properties for HTTP and HTTPS traffic to remove. </p>
-            tls_intercept_properties: <p>TLS decryption on traffic to filter on attributes in the HTTP header. </p>
-            update_token: <p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the proxy. The token marks the state of the proxy resource at the time of the request. </p> <p>To make changes to the proxy, you provide the token in your request. Network Firewall uses the token to ensure that the proxy hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the proxy again to get a current copy of it with a current token. Reapply your changes as needed, then try the operation again using the new token. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.unsupported_operation_exception.UnsupportedOperationException: <p>The operation you requested isn't supported by Network Firewall. </p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.update_proxy_request.UpdateProxyRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.update_proxy_response.UpdateProxyResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_proxy
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_proxy.async_update_proxy(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("UpdateProxy")
-        )
-        input_: capo_network_firewall.types.update_proxy_request.UpdateProxyRequest = {
-            "nat_gateway_id": nat_gateway_id,
-            "update_token": update_token,
-        }
-        if proxy_name is not None:
-            input_["proxy_name"] = proxy_name
-        if proxy_arn is not None:
-            input_["proxy_arn"] = proxy_arn
-        if listener_properties_to_add is not None:
-            input_["listener_properties_to_add"] = listener_properties_to_add
-        if listener_properties_to_remove is not None:
-            input_["listener_properties_to_remove"] = listener_properties_to_remove
-        if tls_intercept_properties is not None:
-            input_["tls_intercept_properties"] = tls_intercept_properties
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def update_proxy_configuration(
-        self,
-        default_rule_phase_actions: "capo_network_firewall.types.proxy_config_default_rule_phase_actions_request.ProxyConfigDefaultRulePhaseActionsRequest",
-        update_token: "capo_network_firewall.types.update_token.UpdateToken",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_configuration_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_configuration_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.update_proxy_configuration_response.UpdateProxyConfigurationResponse":
-        """<p>Updates the properties of the specified proxy configuration.</p>
-
-        Args:
-            proxy_configuration_name: <p>The descriptive name of the proxy configuration. You can't change the name of a proxy configuration after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_configuration_arn: <p>The Amazon Resource Name (ARN) of a proxy configuration.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            default_rule_phase_actions: <p>Evaluation points in the traffic flow where rules are applied. There are three phases in a traffic where the rule match is applied. </p>
-            update_token: <p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the proxy configuration. The token marks the state of the proxy configuration resource at the time of the request. </p> <p>To make changes to the proxy configuration, you provide the token in your request. Network Firewall uses the token to ensure that the proxy configuration hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the proxy configuration again to get a current copy of it with a current token. Reapply your changes as needed, then try the operation again using the new token. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.update_proxy_configuration_request.UpdateProxyConfigurationRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.update_proxy_configuration_response.UpdateProxyConfigurationResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_proxy_configuration
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_proxy_configuration.async_update_proxy_configuration(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("UpdateProxyConfiguration")
-        )
-        input_: capo_network_firewall.types.update_proxy_configuration_request.UpdateProxyConfigurationRequest = {
-            "default_rule_phase_actions": default_rule_phase_actions,
-            "update_token": update_token,
-        }
-        if proxy_configuration_name is not None:
-            input_["proxy_configuration_name"] = proxy_configuration_name
-        if proxy_configuration_arn is not None:
-            input_["proxy_configuration_arn"] = proxy_configuration_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def update_proxy_rule(
-        self,
-        proxy_rule_name: "capo_network_firewall.types.resource_name.ResourceName",
-        update_token: "capo_network_firewall.types.update_token.UpdateToken",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_rule_group_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_rule_group_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-        description: Optional[
-            "capo_network_firewall.types.description.Description"
-        ] = None,
-        action: Optional[
-            "capo_network_firewall.types.proxy_rule_phase_action.ProxyRulePhaseAction"
-        ] = None,
-        add_conditions: Optional[
-            "capo_network_firewall.types.proxy_rule_condition_list.ProxyRuleConditionList"
-        ] = None,
-        remove_conditions: Optional[
-            "capo_network_firewall.types.proxy_rule_condition_list.ProxyRuleConditionList"
-        ] = None,
-    ) -> (
-        "capo_network_firewall.types.update_proxy_rule_response.UpdateProxyRuleResponse"
-    ):
-        """<p>Updates the properties of the specified proxy rule.</p>
-
-        Args:
-            proxy_rule_group_name: <p>The descriptive name of the proxy rule group. You can't change the name of a proxy rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_rule_group_arn: <p>The Amazon Resource Name (ARN) of a proxy rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_rule_name: <p>The descriptive name of the proxy rule. You can't change the name of a proxy rule after you create it.</p>
-            description: <p>A description of the proxy rule. </p>
-            action: <p>Depending on the match action, the proxy either stops the evaluation (if the action is terminal - allow or deny), or continues it (if the action is alert) until it matches a rule with a terminal action. </p>
-            add_conditions: <p>Proxy rule conditions to add. Match criteria that specify what traffic attributes to examine. Conditions include operators (StringEquals, StringLike) and values to match against. </p>
-            remove_conditions: <p>Proxy rule conditions to remove. Match criteria that specify what traffic attributes to examine. Conditions include operators (StringEquals, StringLike) and values to match against. </p>
-            update_token: <p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the proxy rule. The token marks the state of the proxy rule resource at the time of the request. </p> <p>To make changes to the proxy rule, you provide the token in your request. Network Firewall uses the token to ensure that the proxy rule hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the proxy rule again to get a current copy of it with a current token. Reapply your changes as needed, then try the operation again using the new token. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.update_proxy_rule_request.UpdateProxyRuleRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.update_proxy_rule_response.UpdateProxyRuleResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_proxy_rule
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_proxy_rule.async_update_proxy_rule(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("UpdateProxyRule")
-        )
-        input_: capo_network_firewall.types.update_proxy_rule_request.UpdateProxyRuleRequest = {
-            "proxy_rule_name": proxy_rule_name,
-            "update_token": update_token,
-        }
-        if proxy_rule_group_name is not None:
-            input_["proxy_rule_group_name"] = proxy_rule_group_name
-        if proxy_rule_group_arn is not None:
-            input_["proxy_rule_group_arn"] = proxy_rule_group_arn
-        if description is not None:
-            input_["description"] = description
-        if action is not None:
-            input_["action"] = action
-        if add_conditions is not None:
-            input_["add_conditions"] = add_conditions
-        if remove_conditions is not None:
-            input_["remove_conditions"] = remove_conditions
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def update_proxy_rule_group_priorities(
-        self,
-        rule_groups: "capo_network_firewall.types.proxy_rule_group_priority_list.ProxyRuleGroupPriorityList",
-        update_token: "capo_network_firewall.types.update_token.UpdateToken",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_configuration_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_configuration_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.update_proxy_rule_group_priorities_response.UpdateProxyRuleGroupPrioritiesResponse":
-        """<p>Updates proxy rule group priorities within a proxy configuration.</p>
-
-        Args:
-            proxy_configuration_name: <p>The descriptive name of the proxy configuration. You can't change the name of a proxy configuration after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_configuration_arn: <p>The Amazon Resource Name (ARN) of a proxy configuration.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            rule_groups: <p>proxy rule group resources to update to new positions. </p>
-            update_token: <p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the proxy configuration. The token marks the state of the proxy configuration resource at the time of the request. </p> <p>To make changes to the proxy configuration, you provide the token in your request. Network Firewall uses the token to ensure that the proxy configuration hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the proxy configuration again to get a current copy of it with a current token. Reapply your changes as needed, then try the operation again using the new token. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.update_proxy_rule_group_priorities_request.UpdateProxyRuleGroupPrioritiesRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.update_proxy_rule_group_priorities_response.UpdateProxyRuleGroupPrioritiesResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_proxy_rule_group_priorities
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_proxy_rule_group_priorities.async_update_proxy_rule_group_priorities(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("UpdateProxyRuleGroupPriorities")
-        )
-        input_: capo_network_firewall.types.update_proxy_rule_group_priorities_request.UpdateProxyRuleGroupPrioritiesRequest = {
-            "rule_groups": rule_groups,
-            "update_token": update_token,
-        }
-        if proxy_configuration_name is not None:
-            input_["proxy_configuration_name"] = proxy_configuration_name
-        if proxy_configuration_arn is not None:
-            input_["proxy_configuration_arn"] = proxy_configuration_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def update_proxy_rule_priorities(
-        self,
-        rule_group_request_phase: "capo_network_firewall.types.rule_group_request_phase.RuleGroupRequestPhase",
-        rules: "capo_network_firewall.types.proxy_rule_priority_list.ProxyRulePriorityList",
-        update_token: "capo_network_firewall.types.update_token.UpdateToken",
-        *,
-        config_overrides: Optional[AsyncNetworkFirewallClientConfig] = None,
-        proxy_rule_group_name: Optional[
-            "capo_network_firewall.types.resource_name.ResourceName"
-        ] = None,
-        proxy_rule_group_arn: Optional[
-            "capo_network_firewall.types.resource_arn.ResourceArn"
-        ] = None,
-    ) -> "capo_network_firewall.types.update_proxy_rule_priorities_response.UpdateProxyRulePrioritiesResponse":
-        """<p>Updates proxy rule priorities within a proxy rule group.</p>
-
-        Args:
-            proxy_rule_group_name: <p>The descriptive name of the proxy rule group. You can't change the name of a proxy rule group after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            proxy_rule_group_arn: <p>The Amazon Resource Name (ARN) of a proxy rule group.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
-            rule_group_request_phase: <p>Evaluation points in the traffic flow where rules are applied. There are three phases in a traffic where the rule match is applied. </p>
-            rules: <p>proxy rule resources to update to new positions. </p>
-            update_token: <p>A token used for optimistic locking. Network Firewall returns a token to your requests that access the proxy rule group. The token marks the state of the proxy rule group resource at the time of the request. </p> <p>To make changes to the proxy rule group, you provide the token in your request. Network Firewall uses the token to ensure that the proxy rule group hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the proxy rule group again to get a current copy of it with a current token. Reapply your changes as needed, then try the operation again using the new token. </p>
-
-        Raises:
-            capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>
-            capo_network_firewall.errors.invalid_request_exception.InvalidRequestException: <p>The operation failed because of a problem with your request. Examples include: </p> <ul> <li> <p>You specified an unsupported parameter name or value.</p> </li> <li> <p>You tried to update a property with a value that isn't among the available types.</p> </li> <li> <p>Your request references an ARN that is malformed, or corresponds to a resource that isn't valid in the context of the request.</p> </li> </ul>
-            capo_network_firewall.errors.resource_not_found_exception.ResourceNotFoundException: <p>Unable to locate a resource using the parameters that you provided.</p>
-            capo_network_firewall.errors.throttling_exception.ThrottlingException: <p>Unable to process the request due to throttling limitations.</p>
-            capo_network_firewall.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_network_firewall.types.update_proxy_rule_priorities_request.UpdateProxyRulePrioritiesRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_network_firewall.types.update_proxy_rule_priorities_response.UpdateProxyRulePrioritiesResponse"
-        ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_proxy_rule_priorities
-
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_proxy_rule_priorities.async_update_proxy_rule_priorities(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("UpdateProxyRulePriorities")
-        )
-        input_: capo_network_firewall.types.update_proxy_rule_priorities_request.UpdateProxyRulePrioritiesRequest = {
-            "rule_group_request_phase": rule_group_request_phase,
-            "rules": rules,
-            "update_token": update_token,
-        }
-        if proxy_rule_group_name is not None:
-            input_["proxy_rule_group_name"] = proxy_rule_group_name
-        if proxy_rule_group_arn is not None:
-            input_["proxy_rule_group_arn"] = proxy_rule_group_arn
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
     async def update_proxy_settings(
         self,
         *,
@@ -6591,13 +5356,13 @@ class AsyncNetworkFirewallClient:
             "capo_network_firewall.types.proxy_settings.ProxySettings"
         ] = None,
     ) -> "capo_network_firewall.types.update_proxy_settings_response.UpdateProxySettingsResponse":
-        """<p>Modifies the proxy listener configuration of a proxy mode firewall. Proxy mode firewalls are created with <code>NoSourcePreservation</code> set to <code>TRUE</code>. Use this operation to change the ports and protocols on which the firewall's proxy listens for traffic. </p>
+        """<p>Modifies the proxy settings of a proxy mode firewall. Use this operation to change the ports and protocols on which the firewall's proxy listens for traffic. The new listeners take effect without recreating the firewall.</p> <p>The <code>ProxySettings</code> that you provide replace the firewall's current proxy settings. If you created the firewall with your own <code>CertificateArn</code> and <code>DomainName</code>, you must specify the same values in every request. You can't change or remove them.</p>
 
         Args:
             firewall_arn: <p>The Amazon Resource Name (ARN) of the firewall.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             firewall_name: <p>The descriptive name of the firewall. You can't change the name of a firewall after you create it.</p> <p>You must specify the ARN or the name, and you can specify both. </p>
             update_token: <p>An optional token that you can use for optimistic locking. Network Firewall returns a token to your requests that access the firewall. The token marks the state of the firewall resource at the time of the request. </p> <p>To make an unconditional change to the firewall, omit the token in your update request. Without the token, Network Firewall performs your updates regardless of whether the firewall has changed since you last retrieved it.</p> <p>To make a conditional change to the firewall, provide the token in your update request. Network Firewall uses the token to ensure that the firewall hasn't changed since you last retrieved it. If it has changed, the operation fails with an <code>InvalidTokenException</code>. If this happens, retrieve the firewall again to get a current copy of it with a new token. Reapply your changes as needed, then try the operation again using the new token. </p>
-            proxy_settings: <p>The proxy listener configuration to set on the firewall. This specifies the ports and protocols on which the firewall's proxy listens for traffic. </p>
+            proxy_settings: <p>The proxy settings to set on the firewall. These replace the current proxy settings. Specify at least one listener, and at most one HTTP listener and one HTTPS listener, on different ports. If the firewall uses your own <code>CertificateArn</code> and <code>DomainName</code>, specify the same values that you used to create the firewall.</p>
 
         Raises:
             capo_network_firewall.errors.internal_server_error.InternalServerError: <p>Your request is valid, but Network Firewall couldn't perform the operation because of a system problem. Retry your request. </p>

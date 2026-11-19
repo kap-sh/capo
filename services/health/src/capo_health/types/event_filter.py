@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_health.types.availability_zones
     import capo_health.types.date_time_range_list
+    import capo_health.types.describe_events_tag_filter
     import capo_health.types.entity_arn_list
     import capo_health.types.entity_value_list
     import capo_health.types.event_actionability_list
@@ -17,7 +18,6 @@ if TYPE_CHECKING:
     import capo_health.types.event_type_list2
     import capo_health.types.region_list
     import capo_health.types.service_list
-    import capo_health.types.tag_filter
 
 
 class EventFilter(TypedDict, closed=True):
@@ -53,8 +53,10 @@ class EventFilter(TypedDict, closed=True):
         "capo_health.types.event_type_category_list2.eventTypeCategoryList2"
     ]
     """<p>A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.</p>"""
-    tags: NotRequired["capo_health.types.tag_filter.tagFilter"]
-    """<p>A map of entity tags attached to the affected entity.</p> <note> <p>Currently, the <code>tags</code> property isn't supported.</p> </note>"""
+    tags: NotRequired[
+        "capo_health.types.describe_events_tag_filter.DescribeEventsTagFilter"
+    ]
+    """<p>A map of tag keys to lists of tag values. A tag matches when its key is in the map and its value is one of the values listed for that key. The filter matches when at least one key in the map matches.</p>"""
     event_status_codes: NotRequired[
         "capo_health.types.event_status_code_list.eventStatusCodeList"
     ]
@@ -153,9 +155,13 @@ def serialize_aws_json_1_1(value: EventFilter) -> dict:
             )
         )
     if "tags" in value:
-        import capo_health.types.tag_filter
+        import capo_health.types.describe_events_tag_filter
 
-        out["tags"] = capo_health.types.tag_filter.serialize_aws_json_1_1(value["tags"])
+        out["tags"] = (
+            capo_health.types.describe_events_tag_filter.serialize_aws_json_1_1(
+                value["tags"]
+            )
+        )
     if "event_status_codes" in value:
         import capo_health.types.event_status_code_list
 
@@ -264,10 +270,12 @@ def deserialize_aws_json_1_1(data: dict) -> EventFilter:
             )
         )
     if data.get("tags") is not None:
-        import capo_health.types.tag_filter
+        import capo_health.types.describe_events_tag_filter
 
-        out["tags"] = capo_health.types.tag_filter.deserialize_aws_json_1_1(
-            data["tags"]
+        out["tags"] = (
+            capo_health.types.describe_events_tag_filter.deserialize_aws_json_1_1(
+                data["tags"]
+            )
         )
     if data.get("eventStatusCodes") is not None:
         import capo_health.types.event_status_code_list

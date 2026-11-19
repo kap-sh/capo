@@ -64,6 +64,7 @@ if TYPE_CHECKING:
     import capo_emr_serverless.types.disk_encryption_configuration
     import capo_emr_serverless.types.duration
     import capo_emr_serverless.types.engine_type
+    import capo_emr_serverless.types.flex_execution
     import capo_emr_serverless.types.get_application_request
     import capo_emr_serverless.types.get_application_response
     import capo_emr_serverless.types.get_dashboard_for_job_run_request
@@ -1111,6 +1112,9 @@ class EMRServerlessClient:
         retry_policy: Optional[
             "capo_emr_serverless.types.retry_policy.RetryPolicy"
         ] = None,
+        flex_execution: Optional[
+            "capo_emr_serverless.types.flex_execution.FlexExecution"
+        ] = None,
     ) -> "capo_emr_serverless.types.start_job_run_response.StartJobRunResponse":
         """<p>Starts a job run.</p>
 
@@ -1126,6 +1130,7 @@ class EMRServerlessClient:
             name: <p>The optional job run name. This doesn't have to be unique.</p>
             mode: <p>The mode of the job run when it starts.</p>
             retry_policy: <p>The retry policy when job run starts.</p>
+            flex_execution: <p>The Amazon EMR Serverless Flex settings for the job run. If you don't specify these settings, the job run doesn't use Flex capacity.</p>
 
         Raises:
             capo_emr_serverless.errors.conflict_exception.ConflictException: <p>The request could not be processed because of conflict in the current state of the resource.</p>
@@ -1183,6 +1188,8 @@ class EMRServerlessClient:
             input_["mode"] = mode
         if retry_policy is not None:
             input_["retry_policy"] = retry_policy
+        if flex_execution is not None:
+            input_["flex_execution"] = flex_execution
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

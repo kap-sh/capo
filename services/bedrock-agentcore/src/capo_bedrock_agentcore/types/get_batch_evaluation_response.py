@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.batch_evaluation_name
     import capo_bedrock_agentcore.types.batch_evaluation_status
     import capo_bedrock_agentcore.types.data_source_config
+    import capo_bedrock_agentcore.types.dataset_execution_details
     import capo_bedrock_agentcore.types.error_details_list
     import capo_bedrock_agentcore.types.evaluation_job_results
     import capo_bedrock_agentcore.types.evaluator_list
@@ -86,6 +87,10 @@ class GetBatchEvaluationResponse(TypedDict, closed=True):
     """<p>The timestamp when the batch evaluation was last updated.</p>"""
     kms_key_arn: NotRequired["capo_bedrock_agentcore.types.kms_key_arn.KmsKeyArn"]
     """<p>The ARN of the KMS key used to encrypt evaluation data.</p>"""
+    dataset_execution_details: NotRequired[
+        "capo_bedrock_agentcore.types.dataset_execution_details.DatasetExecutionDetails"
+    ]
+    """<p>The details of the dataset and agent that the batch evaluation ran, including the dataset version and agent runtime version that the service resolved when the batch evaluation started. This field is present only if the batch evaluation was started with a <code>datasetExecutionConfig</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -188,6 +193,14 @@ def serialize_json(value: GetBatchEvaluationResponse) -> dict:
         )
     if "kms_key_arn" in value:
         out["kmsKeyArn"] = value["kms_key_arn"]
+    if "dataset_execution_details" in value:
+        import capo_bedrock_agentcore.types.dataset_execution_details
+
+        out["datasetExecutionDetails"] = (
+            capo_bedrock_agentcore.types.dataset_execution_details.serialize_json(
+                value["dataset_execution_details"]
+            )
+        )
     return out
 
 
@@ -318,6 +331,14 @@ def deserialize_json(data: dict) -> GetBatchEvaluationResponse:
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
+    if data.get("datasetExecutionDetails") is not None:
+        import capo_bedrock_agentcore.types.dataset_execution_details
+
+        out["dataset_execution_details"] = (
+            capo_bedrock_agentcore.types.dataset_execution_details.deserialize_json(
+                data["datasetExecutionDetails"]
+            )
+        )
     return out
 
 

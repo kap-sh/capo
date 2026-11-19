@@ -5,8 +5,10 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_qconnect.types.calculated_attributes
     import capo_qconnect.types.custom_attributes
     import capo_qconnect.types.message_template_attribute_value
+    import capo_qconnect.types.profile_recommendations
 
 
 class CustomerProfileAttributes(TypedDict, closed=True):
@@ -240,6 +242,14 @@ class CustomerProfileAttributes(TypedDict, closed=True):
     """<p>The state of a customer’s billing address.</p>"""
     custom: NotRequired["capo_qconnect.types.custom_attributes.CustomAttributes"]
     """<p>The custom attributes in customer profile attributes.</p>"""
+    recommendations: NotRequired[
+        "capo_qconnect.types.profile_recommendations.ProfileRecommendations"
+    ]
+    """<p>The recommendations that are associated with the customer profile.</p>"""
+    calculated_attributes: NotRequired[
+        "capo_qconnect.types.calculated_attributes.CalculatedAttributes"
+    ]
+    """<p>The calculated attributes from the customer profile that are used with the message template.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -364,6 +374,22 @@ def serialize_json(value: CustomerProfileAttributes) -> dict:
 
         out["custom"] = capo_qconnect.types.custom_attributes.serialize_json(
             value["custom"]
+        )
+    if "recommendations" in value:
+        import capo_qconnect.types.profile_recommendations
+
+        out["recommendations"] = (
+            capo_qconnect.types.profile_recommendations.serialize_json(
+                value["recommendations"]
+            )
+        )
+    if "calculated_attributes" in value:
+        import capo_qconnect.types.calculated_attributes
+
+        out["calculatedAttributes"] = (
+            capo_qconnect.types.calculated_attributes.serialize_json(
+                value["calculated_attributes"]
+            )
         )
     return out
 
@@ -490,6 +516,22 @@ def deserialize_json(data: dict) -> CustomerProfileAttributes:
         out["custom"] = capo_qconnect.types.custom_attributes.deserialize_json(
             data["custom"]
         )
+    if data.get("recommendations") is not None:
+        import capo_qconnect.types.profile_recommendations
+
+        out["recommendations"] = (
+            capo_qconnect.types.profile_recommendations.deserialize_json(
+                data["recommendations"]
+            )
+        )
+    if data.get("calculatedAttributes") is not None:
+        import capo_qconnect.types.calculated_attributes
+
+        out["calculated_attributes"] = (
+            capo_qconnect.types.calculated_attributes.deserialize_json(
+                data["calculatedAttributes"]
+            )
+        )
     return out
 
 
@@ -611,4 +653,14 @@ def redact_sensitive(value: CustomerProfileAttributes) -> dict[str, Any]:
         out["billing_state"] = "*** Sensitive Data Redacted ***"
     if "custom" in value:
         out["custom"] = "*** Sensitive Data Redacted ***"
+    if "recommendations" in value:
+        import capo_qconnect.types.profile_recommendations
+
+        out["recommendations"] = (
+            capo_qconnect.types.profile_recommendations.redact_sensitive(
+                value["recommendations"]
+            )
+        )
+    if "calculated_attributes" in value:
+        out["calculated_attributes"] = "*** Sensitive Data Redacted ***"
     return out

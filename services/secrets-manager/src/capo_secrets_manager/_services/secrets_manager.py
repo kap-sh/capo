@@ -36,6 +36,8 @@ from capo_secrets_manager._services._pipeline import (
 
 if TYPE_CHECKING:
     import capo_secrets_manager.types.add_replica_region_list_type
+    import capo_secrets_manager.types.associate_cross_account_replica_request
+    import capo_secrets_manager.types.associate_cross_account_replica_response
     import capo_secrets_manager.types.batch_get_secret_value_request
     import capo_secrets_manager.types.batch_get_secret_value_response
     import capo_secrets_manager.types.boolean_type
@@ -51,6 +53,8 @@ if TYPE_CHECKING:
     import capo_secrets_manager.types.describe_secret_request
     import capo_secrets_manager.types.describe_secret_response
     import capo_secrets_manager.types.description_type
+    import capo_secrets_manager.types.disassociate_cross_account_replica_request
+    import capo_secrets_manager.types.disassociate_cross_account_replica_response
     import capo_secrets_manager.types.exclude_characters_type
     import capo_secrets_manager.types.exclude_lowercase_type
     import capo_secrets_manager.types.exclude_numbers_type
@@ -66,6 +70,8 @@ if TYPE_CHECKING:
     import capo_secrets_manager.types.get_secret_value_response
     import capo_secrets_manager.types.include_space_type
     import capo_secrets_manager.types.kms_key_id_type
+    import capo_secrets_manager.types.list_resource_policies_request
+    import capo_secrets_manager.types.list_resource_policies_response
     import capo_secrets_manager.types.list_secret_version_ids_request
     import capo_secrets_manager.types.list_secret_version_ids_response
     import capo_secrets_manager.types.list_secrets_request
@@ -85,9 +91,12 @@ if TYPE_CHECKING:
     import capo_secrets_manager.types.remove_regions_from_replication_request
     import capo_secrets_manager.types.remove_regions_from_replication_response
     import capo_secrets_manager.types.remove_replica_region_list_type
+    import capo_secrets_manager.types.replica_restriction_type
     import capo_secrets_manager.types.replicate_secret_to_regions_request
     import capo_secrets_manager.types.replicate_secret_to_regions_response
     import capo_secrets_manager.types.require_each_included_type_type
+    import capo_secrets_manager.types.resource_policy_name_type
+    import capo_secrets_manager.types.resource_policy_summary
     import capo_secrets_manager.types.restore_secret_request
     import capo_secrets_manager.types.restore_secret_response
     import capo_secrets_manager.types.role_arn_type
@@ -96,6 +105,7 @@ if TYPE_CHECKING:
     import capo_secrets_manager.types.rotation_lambda_arn_type
     import capo_secrets_manager.types.rotation_rules_type
     import capo_secrets_manager.types.rotation_token_type
+    import capo_secrets_manager.types.secret_arn_type
     import capo_secrets_manager.types.secret_binary_type
     import capo_secrets_manager.types.secret_id_list_type
     import capo_secrets_manager.types.secret_id_type
@@ -236,6 +246,76 @@ class SecretsManagerClient:
         )
         return interceptors_, options_
 
+    def associate_cross_account_replica(
+        self,
+        secret_id: "capo_secrets_manager.types.secret_id_type.SecretIdType",
+        cross_account_replica_arn: "capo_secrets_manager.types.secret_arn_type.SecretARNType",
+        *,
+        config_overrides: Optional[SecretsManagerClientConfig] = None,
+        replica_restriction: Optional[
+            "capo_secrets_manager.types.replica_restriction_type.ReplicaRestrictionType"
+        ] = None,
+        replication_role_arn: Optional[
+            "capo_secrets_manager.types.role_arn_type.RoleARNType"
+        ] = None,
+    ) -> "capo_secrets_manager.types.associate_cross_account_replica_response.AssociateCrossAccountReplicaResponse":
+        """<p>Links a primary secret in your account to a replica secret in a different Amazon Web Services account and starts replication to this replica. The replica secret must already exist in the other Amazon Web Services account. Create the replica with <a>CreateSecret</a> and set its <code>CrossAccountPrimaryARN</code> field set to this primary secret's ARN. When you call AssociateCrossAccountReplica, Secrets Manager calls AcceptCrossAccountReplication on the replica secret on your behalf.</p> <p>The primary and replica secrets must be in the same Amazon Web Services Region and partition, and you must call this operation from the account that owns the primary secret. A primary secret can have at most one cross-account replica. This operation is idempotent, so you can call it again for the same replica to repair replication. If the association fails, Secrets Manager does not modify either the primary or replica secret.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:AssociateCrossAccountReplica</code>, <code>secretsmanager:GetSecretValue</code> on the primary secret, and <code>secretsmanager:AcceptCrossAccountReplication</code> on the replica secret. You must also have <code>kms:Decrypt</code> permission for the Key Management Service (KMS) key that encrypts the primary secret, and <code>kms:Encrypt</code> permission for the Amazon Web Services KMS key that encrypts the replica secret. If you supply <code>ReplicationRoleARN</code>, you also need <code>iam:PassRole</code> for that role. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>.</p>
+
+        Args:
+            secret_id: <p>The ARN or name of the primary secret in your account to replicate.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
+            cross_account_replica_arn: <p>The ARN of the replica secret in the other Amazon Web Services account. The replica secret must be in the same Region and partition as the primary secret. Additionally, the replica account owner must have created the replica secret as a cross-account replica of the primary secret. For more information see <a>CreateSecret</a>.</p>
+            replica_restriction: <p>Whether the replica account must belong to the same Amazon Web Services organization as the primary account:</p> <ul> <li> <p> <code>SameOrg</code>, which requires the replica account to be in the same organization as the primary account. This is the default.</p> </li> <li> <p> <code>NoRestriction</code>, which allows the replica account to be in any organization.</p> </li> </ul>
+            replication_role_arn: <p>The ARN of an IAM role in the primary account that Secrets Manager assumes to perform replication. If you don't include this field, Secrets Manager replicates using the credentials of caller who updates the primary secret. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/cross-account-replicate-permissions.html"> Cross-account replication permissions</a>.</p>
+
+        Raises:
+            capo_secrets_manager.errors.internal_service_error.InternalServiceError: <p>An error occurred on the server side.</p>
+            capo_secrets_manager.errors.invalid_parameter_exception.InvalidParameterException: <p>The parameter name or value is invalid.</p>
+            capo_secrets_manager.errors.invalid_request_exception.InvalidRequestException: <p>A parameter value is not valid for the current state of the resource.</p> <p>Possible causes:</p> <ul> <li> <p>The secret is scheduled for deletion.</p> </li> <li> <p>You tried to enable rotation on a secret that doesn't already have a Lambda function ARN configured and you didn't include such an ARN as a parameter in this call. </p> </li> <li> <p>The secret is managed by another service, and you must use that service to update it. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html">Secrets managed by other Amazon Web Services services</a>.</p> </li> </ul>
+            capo_secrets_manager.errors.limit_exceeded_exception.LimitExceededException: <p>The request failed because it would exceed one of the Secrets Manager quotas.</p>
+            capo_secrets_manager.errors.resource_not_found_exception.ResourceNotFoundException: <p>Secrets Manager can't find the resource that you asked for.</p>
+            capo_secrets_manager.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To replicate a secret to another account
+            The following example links a primary secret to a replica secret in another AWS account and starts replication. The replica secret was previously created in the other account using CreateSecret with the CrossAccountPrimaryARN set to this primary secret.
+
+            >>> client.associate_cross_account_replica(secret_id='MyTestDatabaseSecret', cross_account_replica_arn='arn:aws:secretsmanager:us-west-2:222222222222:secret:MyReplicaSecret-a1b2c3')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_secrets_manager.types.associate_cross_account_replica_request.AssociateCrossAccountReplicaRequest]",
+        ) -> OperationResponse[
+            "capo_secrets_manager.types.associate_cross_account_replica_response.AssociateCrossAccountReplicaResponse"
+        ]:
+            import capo_secrets_manager._operations.secretsmanager.associate_cross_account_replica
+
+            output, http_response = (
+                capo_secrets_manager._operations.secretsmanager.associate_cross_account_replica.associate_cross_account_replica(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateCrossAccountReplica")
+        )
+        input_: capo_secrets_manager.types.associate_cross_account_replica_request.AssociateCrossAccountReplicaRequest = {
+            "secret_id": secret_id,
+            "cross_account_replica_arn": cross_account_replica_arn,
+        }
+        if replica_restriction is not None:
+            input_["replica_restriction"] = replica_restriction
+        if replication_role_arn is not None:
+            input_["replication_role_arn"] = replication_role_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def batch_get_secret_value(
         self,
         *,
@@ -359,7 +439,7 @@ class SecretsManagerClient:
         *,
         config_overrides: Optional[SecretsManagerClientConfig] = None,
     ) -> "capo_secrets_manager.types.cancel_rotate_secret_response.CancelRotateSecretResponse":
-        """<p>Turns off automatic rotation, and if a rotation is currently in progress, cancels the rotation.</p> <p>If you cancel a rotation in progress, it can leave the <code>VersionStage</code> labels in an unexpected state. You might need to remove the staging label <code>AWSPENDING</code> from the partially created version. You also need to determine whether to roll back to the previous version of the secret by moving the staging label <code>AWSCURRENT</code> to the version that has <code>AWSPENDING</code>. To determine which version has a specific staging label, call <a>ListSecretVersionIds</a>. Then use <a>UpdateSecretVersionStage</a> to change staging labels. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_how.html">How rotation works</a>.</p> <p>To turn on automatic rotation again, call <a>RotateSecret</a>.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:CancelRotateSecret</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
+        """<p>Turns off automatic rotation, and if a rotation is currently in progress, cancels the rotation.</p> <p>If you cancel a rotation in progress, it can leave the <code>VersionStage</code> labels in an unexpected state. You might need to remove the staging label <code>AWSPENDING</code> from the partially created version. You also need to determine whether to roll back to the previous version of the secret by moving the staging label <code>AWSCURRENT</code> to the version that has <code>AWSPENDING</code>. To determine which version has a specific staging label, call <a>DescribeSecret</a>. Then use <a>UpdateSecretVersionStage</a> to change staging labels. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_how.html">How rotation works</a>.</p> <p>To turn on automatic rotation again, call <a>RotateSecret</a>.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:CancelRotateSecret</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
 
         Args:
             secret_id: <p>The ARN or name of the secret.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
@@ -437,8 +517,11 @@ class SecretsManagerClient:
         type: Optional[
             "capo_secrets_manager.types.medea_type_type.MedeaTypeType"
         ] = None,
+        cross_account_primary_arn: Optional[
+            "capo_secrets_manager.types.secret_arn_type.SecretARNType"
+        ] = None,
     ) -> "capo_secrets_manager.types.create_secret_response.CreateSecretResponse":
-        """<p>Creates a new secret. A <i>secret</i> can be a password, a set of credentials such as a user name and password, an OAuth token, or other secret information that you store in an encrypted form in Secrets Manager. The secret also includes the connection information to access a database or other service, which Secrets Manager doesn't encrypt. A secret in Secrets Manager consists of both the protected secret data and the important information needed to manage the secret.</p> <p>For secrets that use <i>managed rotation</i>, you need to create the secret through the managing service. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html">Secrets Manager secrets managed by other Amazon Web Services services</a>. </p> <p>For information about creating a secret in the console, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html">Create a secret</a>.</p> <p>To create a secret, you can provide the secret value to be encrypted in either the <code>SecretString</code> parameter or the <code>SecretBinary</code> parameter, but not both. If you include <code>SecretString</code> or <code>SecretBinary</code> then Secrets Manager creates an initial secret version and automatically attaches the staging label <code>AWSCURRENT</code> to it.</p> <p>For database credentials you want to rotate, for Secrets Manager to be able to rotate the secret, you must make sure the JSON you store in the <code>SecretString</code> matches the <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_secret_json_structure.html">JSON structure of a database secret</a>.</p> <p>If you don't specify an KMS encryption key, Secrets Manager uses the Amazon Web Services managed key <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager creates it for you automatically. All users and roles in the Amazon Web Services account automatically have access to use <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result in a one-time significant delay in returning the result.</p> <p>If the secret is in a different Amazon Web Services account from the credentials calling the API, then you can't use <code>aws/secretsmanager</code> to encrypt the secret, and you must create and use a customer managed KMS key. </p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters except <code>SecretBinary</code> or <code>SecretString</code> because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:CreateSecret</code>. If you include tags in the secret, you also need <code>secretsmanager:TagResource</code>. To add replica Regions, you must also have <code>secretsmanager:ReplicateSecretToRegions</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p> <p>To encrypt the secret with a KMS key other than <code>aws/secretsmanager</code>, you need <code>kms:GenerateDataKey</code> and <code>kms:Decrypt</code> permission to the key. </p> <important> <p>When you enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters. This is a concern if the command includes the value of a secret. Learn how to <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/security_cli-exposure-risks.html">Mitigate the risks of using command-line tools to store Secrets Manager secrets</a>.</p> </important>
+        """<p>Creates a new secret. A <i>secret</i> can be a password, a set of credentials such as a user name and password, an OAuth token, or other secret information that you store in an encrypted form in Secrets Manager. The secret also includes the connection information to access a database or other service. Secrets Manager does not encrypt this connection information. A secret in Secrets Manager consists of both the encrypted secret versions and the metadata that Secrets Manager uses to manage the secret.</p> <p>For secrets that use <i>managed rotation</i>, you need to create the secret through the managing service. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html">Secrets Manager secrets managed by other Amazon Web Services services</a>. </p> <p>For information about creating a secret in the console, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html">Create a secret</a>.</p> <p>To create a secret, you can provide the secret value to be encrypted in either the <code>SecretString</code> parameter or the <code>SecretBinary</code> parameter, but not both. If you include <code>SecretString</code> or <code>SecretBinary</code>, then Secrets Manager creates an initial secret version and automatically attaches the staging label <code>AWSCURRENT</code> to it.</p> <p>For database credentials you want to rotate, for Secrets Manager to be able to rotate the secret, you must make sure the JSON you store in the <code>SecretString</code> matches the <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_secret_json_structure.html">JSON structure of a database secret</a>.</p> <p>If you don't specify an KMS encryption key, Secrets Manager uses the Amazon Web Services managed key <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager creates it for you automatically. All users and roles in the Amazon Web Services account automatically have access to use <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result in a one-time delay to complete the secret creation.</p> <p>If the secret is in a different Amazon Web Services account from the credentials calling the API, then you can't use <code>aws/secretsmanager</code> to encrypt the secret, and you must create and use a customer managed KMS key. </p> <p>To create a cross-account replica secret, include <code>CrossAccountPrimaryARN</code>. The replica must use a customer managed KMS key, and can't include <code>AddReplicaRegions</code>, <code>Description</code>, <code>SecretBinary</code>, <code>SecretString</code>, or <code>Type</code>.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters except <code>SecretBinary</code> or <code>SecretString</code> because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:CreateSecret</code>. If you include tags in the secret, you also need <code>secretsmanager:TagResource</code>. To add replica Regions, you must also have <code>secretsmanager:ReplicateSecretToRegions</code>. To create a cross-account replica secret, you must also have <code>secretsmanager:PutResourcePolicy</code> permissions. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p> <p>To encrypt the secret with a KMS key other than <code>aws/secretsmanager</code>, you need <code>kms:GenerateDataKey</code> and <code>kms:Decrypt</code> permission to the key. </p> <important> <p>When you enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters. This is a concern if the command includes the value of a secret. Learn how to <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/security_cli-exposure-risks.html">Mitigate the risks of using command-line tools to store Secrets Manager secrets</a>.</p> </important>
 
         Args:
             name: <p>The name of the new secret.</p> <p>The secret name can contain ASCII letters, numbers, and the following characters: /_+=.@-</p> <p>Do not end your secret name with a hyphen followed by six characters. If you do so, you risk confusion and unexpected results when searching for a secret by partial ARN. Secrets Manager automatically adds a hyphen and six random characters after the secret name at the end of the ARN.</p>
@@ -451,6 +534,7 @@ class SecretsManagerClient:
             add_replica_regions: <p>A list of Regions and KMS keys to replicate secrets.</p>
             force_overwrite_replica_secret: <p>Specifies whether to overwrite a secret with the same name in the destination Region. By default, secrets aren't overwritten.</p>
             type: <p>The exact string that identifies the partner that holds the external secret. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/managed-external-secrets.html">Using Secrets Manager managed external secrets</a>.</p>
+            cross_account_primary_arn: <p>The ARN of a primary secret in another Amazon Web Services account. Include this field to create a cross-account replica secret that receives replicated data from that primary secret. The primary secret must be in the same Amazon Web Services Region and partition as the replica, and you must specify a customer managed KMS key in <code>KmsKeyId</code>. You can't include <code>SecretString</code>, <code>SecretBinary</code>, <code>Description</code>, <code>AddReplicaRegions</code>, or <code>Type</code>.</p>
 
         Raises:
             capo_secrets_manager.errors.decryption_failure.DecryptionFailure: <p>Secrets Manager can't decrypt the protected secret text using the provided KMS key. </p>
@@ -470,6 +554,10 @@ class SecretsManagerClient:
             The following example shows how to create a secret. The credentials stored in the encrypted secret value are retrieved from a file on disk named mycreds.json.
 
             >>> client.create_secret(name='MyTestDatabaseSecret', description='My test database secret created with the CLI', secret_string='{"username":"david","password":"EXAMPLE-PASSWORD"}', client_request_token='EXAMPLE1-90ab-cdef-fedc-ba987SECRET1')
+            To create a cross-account replica secret
+            The following example creates a secret that receives replicated data from a primary secret in another AWS account, by setting the CrossAccountPrimaryARN parameter. After creating the replica, link it to the primary secret from the primary account with AssociateCrossAccountReplica.
+
+            >>> client.create_secret(name='MyReplicaSecret', kms_key_id='arn:aws:kms:us-west-2:222222222222:key/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE', cross_account_primary_arn='arn:aws:secretsmanager:us-west-2:123456789012:secret:MyTestDatabaseSecret-a1b2c3')
         """
 
         def _handler(
@@ -521,6 +609,8 @@ class SecretsManagerClient:
             input_["force_overwrite_replica_secret"] = force_overwrite_replica_secret
         if type is not None:
             input_["type"] = type
+        if cross_account_primary_arn is not None:
+            input_["cross_account_primary_arn"] = cross_account_primary_arn
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -535,11 +625,15 @@ class SecretsManagerClient:
         secret_id: "capo_secrets_manager.types.secret_id_type.SecretIdType",
         *,
         config_overrides: Optional[SecretsManagerClientConfig] = None,
+        policy_name: Optional[
+            "capo_secrets_manager.types.resource_policy_name_type.ResourcePolicyNameType"
+        ] = None,
     ) -> "capo_secrets_manager.types.delete_resource_policy_response.DeleteResourcePolicyResponse":
         """<p>Deletes the resource-based permission policy attached to the secret. To attach a policy to a secret, use <a>PutResourcePolicy</a>.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:DeleteResourcePolicy</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
 
         Args:
             secret_id: <p>The ARN or name of the secret to delete the attached resource-based policy for.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
+            policy_name: <p>The name of the resource policy to delete. If you don't specify this field, Secrets Manager uses <code>default</code>. You can only delete the <code>default</code> policy; if you specify any other name, the operation returns an <code>InvalidParameterException</code>.</p>
 
         Raises:
             capo_secrets_manager.errors.internal_service_error.InternalServiceError: <p>An error occurred on the server side.</p>
@@ -575,6 +669,8 @@ class SecretsManagerClient:
         input_: capo_secrets_manager.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "secret_id": secret_id
         }
+        if policy_name is not None:
+            input_["policy_name"] = policy_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -596,7 +692,7 @@ class SecretsManagerClient:
             "capo_secrets_manager.types.boolean_type.BooleanType"
         ] = None,
     ) -> "capo_secrets_manager.types.delete_secret_response.DeleteSecretResponse":
-        """<p>Deletes a secret and all of its versions. You can specify a recovery window during which you can restore the secret. The minimum recovery window is 7 days. The default recovery window is 30 days. Secrets Manager attaches a <code>DeletionDate</code> stamp to the secret that specifies the end of the recovery window. At the end of the recovery window, Secrets Manager deletes the secret permanently.</p> <p>You can't delete a primary secret that is replicated to other Regions. You must first delete the replicas using <a>RemoveRegionsFromReplication</a>, and then delete the primary secret. When you delete a replica, it is deleted immediately.</p> <p>You can't directly delete a version of a secret. Instead, you remove all staging labels from the version using <a>UpdateSecretVersionStage</a>. This marks the version as deprecated, and then Secrets Manager can automatically delete the version in the background.</p> <p>To determine whether an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to any attempts to access a secret during the recovery window. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/monitoring_cloudwatch_deleted-secrets.html"> Monitor secrets scheduled for deletion</a>.</p> <p>Secrets Manager performs the permanent secret deletion at the end of the waiting period as a background task with low priority. There is no guarantee of a specific time after the recovery window for the permanent delete to occur.</p> <p>At any time before recovery window ends, you can use <a>RestoreSecret</a> to remove the <code>DeletionDate</code> and cancel the deletion of the secret.</p> <p>When a secret is scheduled for deletion, you cannot retrieve the secret value. You must first cancel the deletion with <a>RestoreSecret</a> and then you can retrieve the secret.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:DeleteSecret</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
+        """<p>Deletes a secret and all of its versions. You can specify a recovery window during which you can restore the secret. The minimum recovery window is 7 days. The default recovery window is 30 days. Secrets Manager attaches a <code>DeletionDate</code> stamp to the secret that specifies the end of the recovery window. At the end of the recovery window, Secrets Manager deletes the secret permanently.</p> <p>You can't delete a primary secret that is replicated to other Regions. You must first delete the replicas using <a>RemoveRegionsFromReplication</a>, and then delete the primary secret. When you delete a replica, it is deleted immediately.</p> <p>You can't delete a cross-account primary secret that is associated with a cross-account replica secret. You must first disassociate each of the replicas using <a>DisassociateCrossAccountReplica</a>, before deleting the primary secret. Similarly, you can't delete a cross-account replica secret without first stopping replication. Call <a>StopReplicationToReplica</a> to stop replication, and then you can delete the secret.</p> <p>You can't directly delete a version of a secret. Instead, you remove all staging labels from the version using <a>UpdateSecretVersionStage</a>. This marks the version as deprecated, and then Secrets Manager can automatically delete the version in the background.</p> <p>To determine whether an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to any attempts to access a secret during the recovery window. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/monitoring_cloudwatch_deleted-secrets.html"> Monitor secrets scheduled for deletion</a>.</p> <p>Secrets Manager performs the permanent secret deletion at the end of the waiting period as a background task with low priority. There is no guarantee of a specific time after the recovery window for the permanent delete to occur.</p> <p>At any time before recovery window ends, you can use <a>RestoreSecret</a> to remove the <code>DeletionDate</code> and cancel the deletion of the secret.</p> <p>When a secret is scheduled for deletion, you cannot retrieve the secret value. You must first cancel the deletion with <a>RestoreSecret</a> and then you can retrieve the secret.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:DeleteSecret</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
 
         Args:
             secret_id: <p>The ARN or name of the secret to delete.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
@@ -650,7 +746,7 @@ class SecretsManagerClient:
         *,
         config_overrides: Optional[SecretsManagerClientConfig] = None,
     ) -> "capo_secrets_manager.types.describe_secret_response.DescribeSecretResponse":
-        """<p>Retrieves the details of a secret. It does not include the encrypted secret value. Secrets Manager only returns fields that have a value in the response. </p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:DescribeSecret</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
+        """<p>Retrieves the details of a secret. It does not include the encrypted secret value. Secrets Manager only returns fields that have a value in the response. </p> <note> <p>The <code>VersionIdsToStages</code> field in the response includes every version ID that has a staging label attached, even if that version doesn't contain a secret value. In contrast, <code>ListSecretVersionIds</code> only returns versions that contain a secret value. To check whether a secret version contains a value, call <a>GetSecretValue</a>.</p> </note> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:DescribeSecret</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
 
         Args:
             secret_id: <p>The ARN or name of the secret. </p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
@@ -681,6 +777,63 @@ class SecretsManagerClient:
         )
         input_: capo_secrets_manager.types.describe_secret_request.DescribeSecretRequest = {
             "secret_id": secret_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def disassociate_cross_account_replica(
+        self,
+        secret_id: "capo_secrets_manager.types.secret_id_type.SecretIdType",
+        cross_account_replica_arn: "capo_secrets_manager.types.secret_arn_type.SecretARNType",
+        *,
+        config_overrides: Optional[SecretsManagerClientConfig] = None,
+    ) -> "capo_secrets_manager.types.disassociate_cross_account_replica_response.DisassociateCrossAccountReplicaResponse":
+        """<p>Removes the link between a primary secret in your account and a cross-account replica secret, and stops replication to the replica secret. Call this operation on the primary secret. This action removes the replica association created by <a>AssociateCrossAccountReplica</a>.</p> <p>Disassociating the replica from the primary does not delete the replica secret or convert the replica secret to a standalone secret. The replica secret remains in the other account and its replication status changes to <code>Detached</code>. Secrets Manager no longer sends updates from the primary secret to the replica secret after disassociation. To convert a detached replica into a standalone secret, call <a>StopReplicationToReplica</a> on the replica secret.</p> <p>You must disassociate a cross-account replica before you call <a>DeleteSecret</a> for the primary secret. The <a>DeleteSecret</a> call fails if any replicas are still associated with the primary secret.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:DisassociateCrossAccountReplica</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
+
+        Args:
+            secret_id: <p>The ARN or name of the primary secret in your account.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
+            cross_account_replica_arn: <p>The ARN of the cross-account replica secret to unlink from the primary secret.</p>
+
+        Raises:
+            capo_secrets_manager.errors.internal_service_error.InternalServiceError: <p>An error occurred on the server side.</p>
+            capo_secrets_manager.errors.invalid_parameter_exception.InvalidParameterException: <p>The parameter name or value is invalid.</p>
+            capo_secrets_manager.errors.invalid_request_exception.InvalidRequestException: <p>A parameter value is not valid for the current state of the resource.</p> <p>Possible causes:</p> <ul> <li> <p>The secret is scheduled for deletion.</p> </li> <li> <p>You tried to enable rotation on a secret that doesn't already have a Lambda function ARN configured and you didn't include such an ARN as a parameter in this call. </p> </li> <li> <p>The secret is managed by another service, and you must use that service to update it. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html">Secrets managed by other Amazon Web Services services</a>.</p> </li> </ul>
+            capo_secrets_manager.errors.resource_not_found_exception.ResourceNotFoundException: <p>Secrets Manager can't find the resource that you asked for.</p>
+            capo_secrets_manager.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To stop replicating a secret to another account from the primary account
+            The following example, called from the primary account, removes the link between a primary secret and its cross-account replica and stops replication. The replica secret remains in the other account, now with a replication status of Detached.
+
+            >>> client.disassociate_cross_account_replica(secret_id='MyTestDatabaseSecret', cross_account_replica_arn='arn:aws:secretsmanager:us-west-2:222222222222:secret:MyReplicaSecret-a1b2c3')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_secrets_manager.types.disassociate_cross_account_replica_request.DisassociateCrossAccountReplicaRequest]",
+        ) -> OperationResponse[
+            "capo_secrets_manager.types.disassociate_cross_account_replica_response.DisassociateCrossAccountReplicaResponse"
+        ]:
+            import capo_secrets_manager._operations.secretsmanager.disassociate_cross_account_replica
+
+            output, http_response = (
+                capo_secrets_manager._operations.secretsmanager.disassociate_cross_account_replica.disassociate_cross_account_replica(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateCrossAccountReplica")
+        )
+        input_: capo_secrets_manager.types.disassociate_cross_account_replica_request.DisassociateCrossAccountReplicaRequest = {
+            "secret_id": secret_id,
+            "cross_account_replica_arn": cross_account_replica_arn,
         }
 
         response = execute_pipeline(
@@ -803,11 +956,15 @@ class SecretsManagerClient:
         secret_id: "capo_secrets_manager.types.secret_id_type.SecretIdType",
         *,
         config_overrides: Optional[SecretsManagerClientConfig] = None,
+        policy_name: Optional[
+            "capo_secrets_manager.types.resource_policy_name_type.ResourcePolicyNameType"
+        ] = None,
     ) -> "capo_secrets_manager.types.get_resource_policy_response.GetResourcePolicyResponse":
         """<p>Retrieves the JSON text of the resource-based policy document attached to the secret. For more information about permissions policies attached to a secret, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-policies.html">Permissions policies attached to a secret</a>.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:GetResourcePolicy</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
 
         Args:
             secret_id: <p>The ARN or name of the secret to retrieve the attached resource-based policy for.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
+            policy_name: <p>The name of the resource policy to retrieve. If you don't specify this field, Secrets Manager uses <code>default</code>. If you specify a name other than <code>default</code> and no policy with that name exists, the operation returns a <code>ResourceNotFoundException</code>.</p>
 
         Raises:
             capo_secrets_manager.errors.internal_service_error.InternalServiceError: <p>An error occurred on the server side.</p>
@@ -843,6 +1000,8 @@ class SecretsManagerClient:
         input_: capo_secrets_manager.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "secret_id": secret_id
         }
+        if policy_name is not None:
+            input_["policy_name"] = policy_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -930,6 +1089,100 @@ class SecretsManagerClient:
         )
         response.response.close()
         return response.output
+
+    def list_resource_policies(
+        self,
+        secret_id: "capo_secrets_manager.types.secret_id_type.SecretIdType",
+        *,
+        config_overrides: Optional[SecretsManagerClientConfig] = None,
+        max_results: Optional[
+            "capo_secrets_manager.types.max_results_type.MaxResultsType"
+        ] = None,
+        next_token: Optional[
+            "capo_secrets_manager.types.next_token_type.NextTokenType"
+        ] = None,
+    ) -> "capo_secrets_manager.types.list_resource_policies_response.ListResourcePoliciesResponse":
+        """<p>Lists the resource-based policies attached to a secret. The response contains only the names of the policies, not their contents. Secrets Manager lists <code>default</code> first, followed by any other policies in alphabetical order. To get the contents of a policy, use <a>GetResourcePolicy</a>. You can modify only the <code>default</code> policy.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:ListResourcePolicies</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
+
+        Args:
+            secret_id: <p>The ARN or name of the secret.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
+            max_results: <p>The number of results to include in the response. If you don't specify this value, the service returns up to 100 results.</p> <p>If there are more results available, in the response, Secrets Manager includes <code>NextToken</code>. To get the next results, call <code>ListResourcePolicies</code> again with the value from <code>NextToken</code>.</p>
+            next_token: <p>A token that indicates where the output should continue from, if a previous call did not show all results. To get the next results, call <code>ListResourcePolicies</code> again with this value.</p>
+
+        Raises:
+            capo_secrets_manager.errors.internal_service_error.InternalServiceError: <p>An error occurred on the server side.</p>
+            capo_secrets_manager.errors.invalid_next_token_exception.InvalidNextTokenException: <p>The <code>NextToken</code> value is invalid.</p>
+            capo_secrets_manager.errors.invalid_parameter_exception.InvalidParameterException: <p>The parameter name or value is invalid.</p>
+            capo_secrets_manager.errors.invalid_request_exception.InvalidRequestException: <p>A parameter value is not valid for the current state of the resource.</p> <p>Possible causes:</p> <ul> <li> <p>The secret is scheduled for deletion.</p> </li> <li> <p>You tried to enable rotation on a secret that doesn't already have a Lambda function ARN configured and you didn't include such an ARN as a parameter in this call. </p> </li> <li> <p>The secret is managed by another service, and you must use that service to update it. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html">Secrets managed by other Amazon Web Services services</a>.</p> </li> </ul>
+            capo_secrets_manager.errors.resource_not_found_exception.ResourceNotFoundException: <p>Secrets Manager can't find the resource that you asked for.</p>
+            capo_secrets_manager.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To list the resource-based policies attached to a secret
+            The following example shows how to list the resource-based policies attached to a secret.
+
+            >>> client.list_resource_policies(secret_id='MyTestDatabaseSecret')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_secrets_manager.types.list_resource_policies_request.ListResourcePoliciesRequest]",
+        ) -> OperationResponse[
+            "capo_secrets_manager.types.list_resource_policies_response.ListResourcePoliciesResponse"
+        ]:
+            import capo_secrets_manager._operations.secretsmanager.list_resource_policies
+
+            output, http_response = (
+                capo_secrets_manager._operations.secretsmanager.list_resource_policies.list_resource_policies(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourcePolicies")
+        )
+        input_: capo_secrets_manager.types.list_resource_policies_request.ListResourcePoliciesRequest = {
+            "secret_id": secret_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_resource_policies(
+        self,
+        secret_id: "capo_secrets_manager.types.secret_id_type.SecretIdType",
+        *,
+        config_overrides: Optional[SecretsManagerClientConfig] = None,
+        max_results: Optional[
+            "capo_secrets_manager.types.max_results_type.MaxResultsType"
+        ] = None,
+        next_token: Optional[
+            "capo_secrets_manager.types.next_token_type.NextTokenType"
+        ] = None,
+    ) -> "Iterator[capo_secrets_manager.types.resource_policy_summary.ResourcePolicySummary]":
+        _token = next_token
+        while True:
+            _response = self.list_resource_policies(
+                secret_id,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("resource_policies",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     def list_secrets(
         self,
@@ -1069,7 +1322,7 @@ class SecretsManagerClient:
             "capo_secrets_manager.types.boolean_type.BooleanType"
         ] = None,
     ) -> "capo_secrets_manager.types.list_secret_version_ids_response.ListSecretVersionIdsResponse":
-        """<p>Lists the versions of a secret. Secrets Manager uses staging labels to indicate the different versions of a secret. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version"> Secrets Manager concepts: Versions</a>.</p> <p>To list the secrets in the account, use <a>ListSecrets</a>.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:ListSecretVersionIds</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
+        """<p>Lists the versions of a secret. Secrets Manager uses staging labels to indicate the different versions of a secret. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version"> Secrets Manager concepts: Versions</a>.</p> <p>To list the secrets in the account, use <a>ListSecrets</a>.</p> <note> <p> <code>ListSecretVersionIds</code> only returns versions that contain a secret value. To see all version IDs that have staging labels attached, including ones without a secret value, call <code>DescribeSecret</code> and check <code>VersionIdsToStages</code>.</p> </note> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:ListSecretVersionIds</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
 
         Args:
             secret_id: <p>The ARN or name of the secret whose versions you want to list.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
@@ -1161,6 +1414,9 @@ class SecretsManagerClient:
         resource_policy: "capo_secrets_manager.types.non_empty_resource_policy_type.NonEmptyResourcePolicyType",
         *,
         config_overrides: Optional[SecretsManagerClientConfig] = None,
+        policy_name: Optional[
+            "capo_secrets_manager.types.resource_policy_name_type.ResourcePolicyNameType"
+        ] = None,
         block_public_policy: Optional[
             "capo_secrets_manager.types.boolean_type.BooleanType"
         ] = None,
@@ -1170,6 +1426,7 @@ class SecretsManagerClient:
         Args:
             secret_id: <p>The ARN or name of the secret to attach the resource-based policy.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>
             resource_policy: <p>A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions policy examples</a>.</p>
+            policy_name: <p>The name of the resource policy to attach. If you don't specify this field, Secrets Manager uses <code>default</code>. You can only attach the <code>default</code> policy; if you specify any other name, the operation returns an <code>InvalidParameterException</code>.</p>
             block_public_policy: <p>Specifies whether to block resource-based policies that allow broad access to the secret, for example those that use a wildcard for the principal. By default, public policies aren't blocked.</p> <important> <p>Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing public access from being granted through the resource policies that are directly attached to your secrets. In addition to using these features, carefully inspect the following policies to confirm that they do not grant public access:</p> <ul> <li> <p>Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)</p> </li> <li> <p>Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management Service (KMS) keys)</p> </li> </ul> <p>To review permissions to your secrets, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html">Determine who has permissions to your secrets</a>.</p> </important>
 
         Raises:
@@ -1209,6 +1466,8 @@ class SecretsManagerClient:
             "secret_id": secret_id,
             "resource_policy": resource_policy,
         }
+        if policy_name is not None:
+            input_["policy_name"] = policy_name
         if block_public_policy is not None:
             input_["block_public_policy"] = block_public_policy
 
@@ -1592,10 +1851,10 @@ class SecretsManagerClient:
         *,
         config_overrides: Optional[SecretsManagerClientConfig] = None,
     ) -> "capo_secrets_manager.types.stop_replication_to_replica_response.StopReplicationToReplicaResponse":
-        """<p>Removes the link between the replica secret and the primary secret and promotes the replica to a primary secret in the replica Region.</p> <p>You must call this operation from the Region in which you want to promote the replica to a primary secret.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:StopReplicationToReplica</code>. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
+        """<p>Removes the link between a replica secret and its primary secret, and stops replication to the replica. You call this operation from the replica account or Region. Depending on the type of replica, the behavior is:</p> <ul> <li> <p> <b>Cross-Region replica</b>: promotes the replica to a standalone primary secret in the replica Region.</p> </li> <li> <p> <b>Cross-account replica</b>: promotes the replica in your account to a standalone secret and stops replication from its primary secret in the other account. Secrets Manager updates the primary secret's replication status to <code>Detached</code> for this replica.</p> </li> </ul> <p>To stop cross-account replication from the primary account instead, use <a>DisassociateCrossAccountReplica</a>.</p> <p>Secrets Manager generates a CloudTrail log entry when you call this action. Do not include sensitive information in request parameters because it might be logged. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html">Logging Secrets Manager events with CloudTrail</a>.</p> <p> <b>Required permissions: </b> <code>secretsmanager:StopReplicationToReplica</code>. For cross-account replica secrets, you must also have <code>secretsmanager:DeleteResourcePolicy</code> permissions. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions"> IAM policy actions for Secrets Manager</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access control in Secrets Manager</a>. </p>
 
         Args:
-            secret_id: <p>The name of the secret or the replica ARN. The replica ARN is the same as the original primary secret ARN expect the Region is changed to the replica Region. </p>
+            secret_id: <p>The ARN or name of the replica secret.</p> <p>For a cross-region replica, the replica ARN is the same as the original primary secret ARN except that the Region is changed to the replica Region. For a cross-account replica, this is the ARN or name of the replica secret in your account.</p>
 
         Raises:
             capo_secrets_manager.errors.internal_service_error.InternalServiceError: <p>An error occurred on the server side.</p>
@@ -1603,6 +1862,12 @@ class SecretsManagerClient:
             capo_secrets_manager.errors.invalid_request_exception.InvalidRequestException: <p>A parameter value is not valid for the current state of the resource.</p> <p>Possible causes:</p> <ul> <li> <p>The secret is scheduled for deletion.</p> </li> <li> <p>You tried to enable rotation on a secret that doesn't already have a Lambda function ARN configured and you didn't include such an ARN as a parameter in this call. </p> </li> <li> <p>The secret is managed by another service, and you must use that service to update it. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html">Secrets managed by other Amazon Web Services services</a>.</p> </li> </ul>
             capo_secrets_manager.errors.resource_not_found_exception.ResourceNotFoundException: <p>Secrets Manager can't find the resource that you asked for.</p>
             capo_secrets_manager.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            To stop cross-account replication from the replica account
+            The following example, called from the replica account, unlinks a cross-account replica secret from its primary secret in another account and stops replication. The secret remains in the replica account as a standalone secret.
+
+            >>> client.stop_replication_to_replica(secret_id='arn:aws:secretsmanager:us-west-2:222222222222:secret:MyReplicaSecret-a1b2c3')
         """
 
         def _handler(

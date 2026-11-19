@@ -24,7 +24,7 @@ class ListQueuesRequest(TypedDict, closed=True):
     ]
     """The principal IDs to include in the list of queues."""
     status: NotRequired["capo_deadline.types.queue_status.QueueStatus"]
-    """<p>The status of the queues listed.</p> <ul> <li> <p> <code>ACTIVE</code>–The queues are active.</p> </li> <li> <p> <code>SCHEDULING</code>–The queues are scheduling.</p> </li> <li> <p> <code>SCHEDULING_BLOCKED</code>–The queue scheduling is blocked for these queues.</p> </li> </ul>"""
+    """<p>The status of the queues listed.</p> <ul> <li> <p> <code>ACTIVE</code> - The queues are active.</p> </li> <li> <p> <code>SCHEDULING</code> - The queues are scheduling.</p> </li> <li> <p> <code>SCHEDULING_BLOCKED</code> - The queue scheduling is blocked for these queues.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

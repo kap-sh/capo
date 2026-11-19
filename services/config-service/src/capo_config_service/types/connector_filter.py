@@ -17,7 +17,7 @@ class ConnectorFilter(TypedDict, closed=True):
     filter_values: NotRequired[
         "capo_config_service.types.filter_value_list.FilterValueList"
     ]
-    """<p>The value of the filter. For <code>provider</code>, valid values include: <code>AZURE</code>.</p>"""
+    """<p>The value of the filter. For <code>provider</code>, valid values include:</p> <ul> <li> <p> <code>AZURE</code> – The connector is for Microsoft Azure</p> </li> <li> <p> <code>GCP</code> – The connector is for Google Cloud</p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---

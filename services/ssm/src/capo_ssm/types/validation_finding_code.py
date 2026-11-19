@@ -5,6 +5,8 @@ from typing import Literal, TypeAlias, cast
 ValidationFindingCode: TypeAlias = Literal[
     "TargetInaccessible",
     "TargetUnusable",
+    "TargetMissingPermissions",
+    "TargetApiDisabled",
     "TargetStateWarning",
     "AwsRoleAssumptionFailed",
     "WebIdentityTokenFailed",

@@ -1,0 +1,8 @@
+---
+title: Countermeasures
+---
+
+::: capo_guardduty.types.countermeasures.Countermeasures
+    options:
+      show_source: true
+      merge_init_into_class: false

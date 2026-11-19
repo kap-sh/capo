@@ -14,6 +14,7 @@ import capo_resiliencehubv2._protocol.eventstream
 import capo_resiliencehubv2.errors.access_denied_exception
 import capo_resiliencehubv2.errors.internal_server_exception
 import capo_resiliencehubv2.errors.resource_not_found_exception
+import capo_resiliencehubv2.errors.throttling_exception
 import capo_resiliencehubv2.errors.validation_exception
 import capo_resiliencehubv2.types.get_test_template_request
 import capo_resiliencehubv2.types.get_test_template_response
@@ -42,6 +43,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_resiliencehubv2.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
+                data, message, response=response
+            )
+        case "ThrottlingException":
+            raise capo_resiliencehubv2.errors.throttling_exception.ThrottlingException.from_json(
                 data, message, response=response
             )
         case "ValidationException":

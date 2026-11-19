@@ -15,7 +15,7 @@ class VariablePaymentTermConfiguration(TypedDict, closed=True):
     expiration_duration: NotRequired[
         "capo_marketplace_agreement.types.iso8601_duration.ISO8601Duration"
     ]
-    """<p>Defines the duration after which a payment request is automatically approved if no further action is taken. This only applies when the payment request approval strategy is set to <code>AUTO_APPROVE_ON_EXPIRATION</code>. The duration is represented in the ISO_8601 format (e.g., P10D for 10 days).</p>"""
+    """<p>Defines the duration after which a payment request is automatically approved if no further action is taken. This only applies when the payment request approval strategy is set to <code>AUTO_APPROVE_ON_EXPIRATION</code>. The duration is represented in the ISO_8601 format (for example, P10D for 10 days).</p>"""
 
 
 # --- awsJson1_0 ser/de ---

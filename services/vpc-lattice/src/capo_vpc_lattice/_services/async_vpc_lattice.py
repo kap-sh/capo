@@ -2500,7 +2500,7 @@ class AsyncVPCLatticeClient:
             security_group_ids: <p>The IDs of the security groups to apply to the resource gateway. The security groups must be in the same VPC.</p>
             ip_address_type: <p>A resource gateway can have IPv4, IPv6 or dualstack addresses. The IP address type of a resource gateway must be compatible with the subnets of the resource gateway and the IP address type of the resource, as described here: </p> <ul> <li> <p> <b>IPv4</b>Assign IPv4 addresses to your resource gateway network interfaces. This option is supported only if all selected subnets have IPv4 address ranges, and the resource also has an IPv4 address.</p> </li> <li> <p> <b>IPv6</b>Assign IPv6 addresses to your resource gateway network interfaces. This option is supported only if all selected subnets are IPv6 only subnets, and the resource also has an IPv6 address.</p> </li> <li> <p> <b>Dualstack</b>Assign both IPv4 and IPv6 addresses to your resource gateway network interfaces. This option is supported only if all selected subnets have both IPv4 and IPv6 address ranges, and the resource either has an IPv4 or IPv6 address.</p> </li> </ul> <p>The IP address type of the resource gateway is independent of the IP address type of the client or the VPC endpoint through which the resource is accessed.</p>
             ipv4_addresses_per_eni: <p>The number of IPv4 addresses in each ENI for the resource gateway.</p>
-            resource_config_dns_resolution: <p>Indicates how DNS is resolved for resource configurations associated with this resource gateway. This value is set when you create the resource gateway and can't be changed afterward. The default is <code>PUBLIC</code>.</p> <ul> <li> <p> <code>IN_VPC</code> - DNS resolution occurs privately within the resource gateway's VPC. DNS queries for resources behind this resource gateway resolve using the DNS resolvers defined in the VPC's DHCP option sets. Use this when your resource domain names are hosted in private Route 53 hosted zones or on-premises DNS servers reachable from the VPC. A CIDR resource configuration requires a resource gateway that uses <code>IN_VPC</code>, and an <code>IN_VPC</code> resource gateway can't be used for ARN resource configurations, so a single resource gateway can't serve both ARN and CIDR resource configurations.</p> </li> <li> <p> <code>PUBLIC</code> - DNS resolution occurs against public DNS resolvers. DNS queries for resources behind this resource gateway resolve using standard public DNS. Use this when your resource domain names are publicly resolvable.</p> </li> </ul>
+            resource_config_dns_resolution: <p>Indicates how DNS is resolved for resource configurations associated with this resource gateway. The default is <code>PUBLIC</code>. To change the value after you create the resource gateway, use <code>UpdateResourceGateway</code>.</p> <ul> <li> <p> <code>IN_VPC</code> - DNS resolution occurs privately within the resource gateway's VPC. DNS queries for resources behind this resource gateway resolve using the DNS resolvers defined in the VPC's DHCP option sets. Use this when your resource domain names are hosted in private Route 53 hosted zones or on-premises DNS servers reachable from the VPC. A CIDR resource configuration requires a resource gateway that uses <code>IN_VPC</code>, and an <code>IN_VPC</code> resource gateway can't be used for ARN resource configurations, so a single resource gateway can't serve both ARN and CIDR resource configurations.</p> <p>DNS queries for an <code>IN_VPC</code> resource gateway use UDP only, with no TCP fallback. If responses exceed 8.4 KB, DNS resolution fails. The DNS resolver must be recursive. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/resource-gateway.html#resource-config-dns-resolution">Resource Config DNS Resolution</a> in the <i>Amazon VPC Lattice User Guide</i>.</p> </li> <li> <p> <code>PUBLIC</code> - DNS resolution occurs against public DNS resolvers. DNS queries for resources behind this resource gateway resolve using standard public DNS. Use this when your resource domain names are publicly resolvable.</p> </li> </ul>
             tags: <p>The tags for the resource gateway.</p>
 
         Raises:
@@ -2619,12 +2619,16 @@ class AsyncVPCLatticeClient:
         security_group_ids: Optional[
             "capo_vpc_lattice.types.security_group_list.SecurityGroupList"
         ] = None,
+        resource_config_dns_resolution: Optional[
+            "capo_vpc_lattice.types.resource_config_dns_resolution.ResourceConfigDnsResolution"
+        ] = None,
     ) -> "capo_vpc_lattice.types.update_resource_gateway_response.UpdateResourceGatewayResponse":
         """<p>Updates the specified resource gateway.</p>
 
         Args:
             resource_gateway_identifier: <p>The ID or ARN of the resource gateway.</p>
             security_group_ids: <p>The IDs of the security groups associated with the resource gateway.</p>
+            resource_config_dns_resolution: <p>Indicates how DNS is resolved for resource configurations associated with this resource gateway.</p> <ul> <li> <p> <code>IN_VPC</code> - DNS resolution occurs privately within the resource gateway's VPC. Use this when your resource domain names are hosted in private Route 53 hosted zones or on-premises DNS servers reachable from the VPC.</p> </li> <li> <p> <code>PUBLIC</code> - DNS resolution occurs against public DNS resolvers. Use this when your resource domain names are publicly resolvable.</p> </li> </ul>
 
         Raises:
             capo_vpc_lattice.errors.access_denied_exception.AccessDeniedException: <p>The user does not have sufficient access to perform this action.</p>
@@ -2659,6 +2663,8 @@ class AsyncVPCLatticeClient:
         }
         if security_group_ids is not None:
             input_["security_group_ids"] = security_group_ids
+        if resource_config_dns_resolution is not None:
+            input_["resource_config_dns_resolution"] = resource_config_dns_resolution
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -3653,7 +3659,7 @@ class AsyncVPCLatticeClient:
         *,
         config_overrides: Optional[AsyncVPCLatticeClientConfig] = None,
     ) -> "capo_vpc_lattice.types.delete_service_network_response.DeleteServiceNetworkResponse":
-        """<p>Deletes a service network. You can only delete the service network if there is no service or VPC associated with it. If you delete a service network, all resources related to the service network, such as the resource policy, auth policy, and access log subscriptions, are also deleted. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#delete-service-network">Delete a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
+        """<p>Deletes a service network. You can only delete the service network if there are no services, VPCs, resource configurations, or service network endpoints associated with it. Only the owner of a service network endpoint can remove it from the service network, by deleting the endpoint. If you delete a service network, all resources related to the service network, such as the resource policy, auth policy, and access log subscriptions, are also deleted. For more information, see <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/service-networks.html#delete-service-network">Delete a service network</a> in the <i>Amazon VPC Lattice User Guide</i>.</p>
 
         Args:
             service_network_identifier: <p>The ID or ARN of the service network.</p>

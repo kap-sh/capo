@@ -17,7 +17,7 @@ class BulkEmailEntry(TypedDict, closed=True):
     destination: "capo_sesv2.types.destination.Destination"
     """<p>Represents the destination of the message, consisting of To:, CC:, and BCC: fields.</p> <note> <p>Amazon SES does not support the SMTPUTF8 extension, as described in <a href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the local part of a destination email address (the part of the email address that precedes the @ sign) may only contain <a href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the domain part of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded using Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>.</p> </note>"""
     replacement_tags: NotRequired["capo_sesv2.types.message_tag_list.MessageTagList"]
-    """<p>A list of tags, in the form of name/value pairs, to apply to an email that you send using the <code>SendBulkTemplatedEmail</code> operation. Tags correspond to characteristics of the email that you define, so that you can publish email sending events.</p>"""
+    """<p>A list of tags, in the form of name/value pairs, to apply to an email that you send using the <code>SendBulkEmail</code> operation. Tags correspond to characteristics of the email that you define, so that you can publish email sending events.</p>"""
     replacement_email_content: NotRequired[
         "capo_sesv2.types.replacement_email_content.ReplacementEmailContent"
     ]

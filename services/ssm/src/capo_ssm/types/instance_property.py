@@ -86,7 +86,7 @@ class InstanceProperty(TypedDict, closed=True):
     source_id: NotRequired["capo_ssm.types.source_id.SourceId"]
     """<p>The ID of the source resource.</p>"""
     source_type: NotRequired["capo_ssm.types.source_type.SourceType"]
-    """<p>The type of the source resource. Valid values: <code>AWS::EC2::Instance</code> | <code>AWS::SSM::ManagedInstance</code> | <code>AWS::IoT::Thing</code> | <code>Microsoft.Compute/virtualMachines</code>.</p>"""
+    """<p>The type of the source resource. Valid values: <code>AWS::EC2::Instance</code> | <code>AWS::SSM::ManagedInstance</code> | <code>AWS::IoT::Thing</code> | <code>Microsoft.Compute/virtualMachines</code> | <code>compute.googleapis.com/Instance</code>.</p>"""
     source_location: NotRequired["capo_ssm.types.source_location.SourceLocation"]
     """<p>The location of the source resource in the third-party cloud environment.</p>"""
     availability_zone: NotRequired["capo_ssm.types.availability_zone.AvailabilityZone"]

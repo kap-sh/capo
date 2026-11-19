@@ -14,7 +14,9 @@ class ListAgentContextsRequest(TypedDict, closed=True):
     profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn"
     """<p>The Amazon Resource Name (ARN) of the profile to list contexts for.</p>"""
     max_results: NotRequired["capo_wellarchitected.types.max_results.MaxResults"]
+    """<p>The maximum number of contexts to return in a single call. Default is 100.</p>"""
     next_token: NotRequired["capo_wellarchitected.types.next_token.NextToken"]
+    """<p>A pagination token returned from a previous call to continue retrieving results.</p>"""
 
 
 # --- restJson1 ser/de ---

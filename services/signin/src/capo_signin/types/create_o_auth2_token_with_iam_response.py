@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class CreateOAuth2TokenWithIAMResponse(TypedDict, closed=True):
     access_token: "capo_signin.types.o_auth_access_token.OAuthAccessToken"
-    """Access token containing principal identity, resource scope, and session metadata."""
+    """The access token containing principal identity, resource scope, and session metadata."""
     token_type: "capo_signin.types.bearer_token_type.BearerTokenType"
     """The token type. Always "Bearer" as defined in RFC 6749."""
     expires_in: "capo_signin.types.token_expires_in.TokenExpiresIn"
-    """Token lifetime in seconds. Value is the minimum of the caller's session validity and 1 hour (3600 seconds)."""
+    """The token lifetime in seconds. Value is the minimum of the caller's session validity and 1 hour (3600 seconds)."""
 
 
 # --- restJson1 ser/de ---

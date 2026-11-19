@@ -24,6 +24,7 @@ import capo_route53globalresolver.types.global_resolver_ip_address_type
 import capo_route53globalresolver.types.i_pv4_addresses
 import capo_route53globalresolver.types.i_pv6_addresses
 import capo_route53globalresolver.types.iso8601_time_string
+import capo_route53globalresolver.types.public_ip_status
 import capo_route53globalresolver.types.regions
 from capo_route53globalresolver._protocol.errors import parse_error_metadata_json
 from capo_route53globalresolver._rule_engine._endpoint_rule_set import (

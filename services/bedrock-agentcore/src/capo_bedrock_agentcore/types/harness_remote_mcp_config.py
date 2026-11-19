@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_bedrock_agentcore.types.harness_remote_mcp_outbound_auth
     import capo_bedrock_agentcore.types.harness_remote_mcp_url
     import capo_bedrock_agentcore.types.http_headers_map
 
@@ -14,6 +15,10 @@ class HarnessRemoteMcpConfig(TypedDict, closed=True):
     """<p>URL of the MCP endpoint.</p>"""
     headers: NotRequired["capo_bedrock_agentcore.types.http_headers_map.HttpHeadersMap"]
     """<p>Custom headers to include when connecting to the remote MCP server.</p>"""
+    outbound_auth: NotRequired[
+        "capo_bedrock_agentcore.types.harness_remote_mcp_outbound_auth.HarnessRemoteMcpOutboundAuth"
+    ]
+    """<p>How the harness authenticates to this MCP server. Defaults to no authentication.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -25,6 +30,14 @@ def serialize_json(value: HarnessRemoteMcpConfig) -> dict:
 
         out["headers"] = capo_bedrock_agentcore.types.http_headers_map.serialize_json(
             value["headers"]
+        )
+    if "outbound_auth" in value:
+        import capo_bedrock_agentcore.types.harness_remote_mcp_outbound_auth
+
+        out["outboundAuth"] = (
+            capo_bedrock_agentcore.types.harness_remote_mcp_outbound_auth.serialize_json(
+                value["outbound_auth"]
+            )
         )
     return out
 
@@ -40,6 +53,14 @@ def deserialize_json(data: dict) -> HarnessRemoteMcpConfig:
 
         out["headers"] = capo_bedrock_agentcore.types.http_headers_map.deserialize_json(
             data["headers"]
+        )
+    if data.get("outboundAuth") is not None:
+        import capo_bedrock_agentcore.types.harness_remote_mcp_outbound_auth
+
+        out["outbound_auth"] = (
+            capo_bedrock_agentcore.types.harness_remote_mcp_outbound_auth.deserialize_json(
+                data["outboundAuth"]
+            )
         )
     return out
 

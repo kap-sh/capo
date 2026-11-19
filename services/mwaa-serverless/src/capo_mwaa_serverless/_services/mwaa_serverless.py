@@ -48,6 +48,8 @@ from capo_mwaa_serverless._services._pipeline import (
 
 if TYPE_CHECKING:
     import capo_mwaa_serverless.types.code
+    import capo_mwaa_serverless.types.create_airflow_ui_url_request
+    import capo_mwaa_serverless.types.create_airflow_ui_url_response
     import capo_mwaa_serverless.types.create_workflow_request
     import capo_mwaa_serverless.types.create_workflow_response
     import capo_mwaa_serverless.types.definition_s3_location
@@ -57,6 +59,7 @@ if TYPE_CHECKING:
     import capo_mwaa_serverless.types.encryption_configuration
     import capo_mwaa_serverless.types.engine_version
     import capo_mwaa_serverless.types.environment
+    import capo_mwaa_serverless.types.expires_in_seconds_integer
     import capo_mwaa_serverless.types.generic_string
     import capo_mwaa_serverless.types.get_task_instance_request
     import capo_mwaa_serverless.types.get_task_instance_response
@@ -81,6 +84,7 @@ if TYPE_CHECKING:
     import capo_mwaa_serverless.types.network_configuration
     import capo_mwaa_serverless.types.object_map
     import capo_mwaa_serverless.types.role_arn
+    import capo_mwaa_serverless.types.session_duration_in_seconds_integer
     import capo_mwaa_serverless.types.start_workflow_run_request
     import capo_mwaa_serverless.types.start_workflow_run_response
     import capo_mwaa_serverless.types.stop_workflow_run_request
@@ -218,6 +222,74 @@ class MWAAServerlessClient:
             anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
+
+    def create_airflow_ui_url(
+        self,
+        *,
+        config_overrides: Optional[MWAAServerlessClientConfig] = None,
+        expires_in_seconds: Optional[
+            "capo_mwaa_serverless.types.expires_in_seconds_integer.ExpiresInSecondsInteger"
+        ] = None,
+        session_duration_in_seconds: Optional[
+            "capo_mwaa_serverless.types.session_duration_in_seconds_integer.SessionDurationInSecondsInteger"
+        ] = None,
+    ) -> "capo_mwaa_serverless.types.create_airflow_ui_url_response.CreateAirflowUiUrlResponse":
+        """<p>Creates a launch URL that opens the Apache Airflow UI for your workflows in Amazon Managed Workflows for Apache Airflow Serverless. The UI shows the workflows in your account in the current AWS Region. To start a UI session, open the URL in a browser before it expires.</p> <p>The UI runs with the permissions of the IAM identity that you use to call this operation. You see only the workflows, workflow runs, and logs that the identity can read, and you can start a workflow run only if the identity has permission to start one.</p> <p>The UI session uses the caller's permissions. The session works only from the network address that opened the URL. It ends at <code>SessionExpiresAt</code> or when you sign out from the UI.</p>
+
+        Args:
+            expires_in_seconds: <p>Specifies the number of seconds that the launch URL stays valid. This value limits only the time to open the URL, not the length of the UI session. The default is 300.</p>
+            session_duration_in_seconds: <p>Specifies the number of seconds that the UI session lasts, starting from when you call this operation. The default is 43200 (12 hours).</p>
+
+        Raises:
+            capo_mwaa_serverless.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permission to perform this action.</p>
+            capo_mwaa_serverless.errors.conflict_exception.ConflictException: <p>You cannot create a resource that already exists, or the resource is in a state that prevents the requested operation.</p>
+            capo_mwaa_serverless.errors.internal_server_exception.InternalServerException: <p>An unexpected server-side error occurred during request processing.</p>
+            capo_mwaa_serverless.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
+            capo_mwaa_serverless.errors.throttling_exception.ThrottlingException: <p>The request was denied because too many requests were made in a short period, exceeding the service rate limits. Amazon Managed Workflows for Apache Airflow Serverless implements throttling controls to ensure fair resource allocation across all customers in the multi-tenant environment. This helps maintain service stability and performance. If you encounter throttling, implement exponential backoff and retry logic in your applications, or consider distributing your API calls over a longer time period.</p>
+            capo_mwaa_serverless.errors.validation_exception.ValidationException: <p>The specified request parameters are invalid, missing, or inconsistent with Amazon Managed Workflows for Apache Airflow Serverless service requirements. This can occur when workflow definitions contain unsupported operators, when required IAM permissions are missing, when S3 locations are inaccessible, or when network configurations are invalid. The service validates workflow definitions, execution roles, and resource configurations to ensure compatibility with the managed Airflow environment and security requirements.</p>
+            capo_mwaa_serverless.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mwaa_serverless.types.create_airflow_ui_url_request.CreateAirflowUiUrlRequest]",
+        ) -> OperationResponse[
+            "capo_mwaa_serverless.types.create_airflow_ui_url_response.CreateAirflowUiUrlResponse"
+        ]:
+            import capo_mwaa_serverless._operations.amazon_mwaa_serverless.create_airflow_ui_url
+
+            output, http_response = (
+                capo_mwaa_serverless._operations.amazon_mwaa_serverless.create_airflow_ui_url.create_airflow_ui_url(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_mwaa_serverless.types.create_airflow_ui_url_response.CreateAirflowUiUrlResponse",
+        ) -> dict[str, Any]:
+            import capo_mwaa_serverless.types.create_airflow_ui_url_response
+
+            return capo_mwaa_serverless.types.create_airflow_ui_url_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAirflowUiUrl", redact_output=_redact_output),
+        )
+        input_: capo_mwaa_serverless.types.create_airflow_ui_url_request.CreateAirflowUiUrlRequest = {}
+        if expires_in_seconds is not None:
+            input_["expires_in_seconds"] = expires_in_seconds
+        if session_duration_in_seconds is not None:
+            input_["session_duration_in_seconds"] = session_duration_in_seconds
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def list_tags_for_resource(
         self,

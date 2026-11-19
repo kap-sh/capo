@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class DeleteServiceLinkedRoleResponse(TypedDict, closed=True):
     deletion_task_id: "capo_iam.types.deletion_task_id_type.DeletionTaskIdType"
-    """<p>The deletion task identifier that you can use to check the status of the deletion. This identifier is returned in the format <code>task/aws-service-role/<service-principal-name>/<role-name>/<task-uuid></code>.</p>"""
+    """<p>The deletion task identifier that you can use to check the status of the deletion. This identifier is returned in the format <code>task/aws-service-role/&lt;service-principal-name&gt;/&lt;role-name&gt;/&lt;task-uuid&gt;</code>.</p>"""
 
 
 # --- awsQuery ser/de ---

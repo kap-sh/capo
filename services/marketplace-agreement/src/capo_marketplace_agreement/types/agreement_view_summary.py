@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.acceptor
     import capo_marketplace_agreement.types.agreement_status
     import capo_marketplace_agreement.types.agreement_type
+    import capo_marketplace_agreement.types.contact_type_list
     import capo_marketplace_agreement.types.end_time_behavior_reason_code
     import capo_marketplace_agreement.types.end_time_behavior_type
     import capo_marketplace_agreement.types.entitlement_list
@@ -25,7 +26,7 @@ class AgreementViewSummary(TypedDict, closed=True):
     start_time: NotRequired["capo_marketplace_agreement.types.timestamp.Timestamp"]
     """<p>The date and time when the agreement starts.</p>"""
     end_time: NotRequired["capo_marketplace_agreement.types.timestamp.Timestamp"]
-    """<p>The date and time when the agreement ends. The field is <code>null</code> for pay-as-you-go agreements, which don’t have end dates.</p>"""
+    """<p>The date and time when the agreement ends. The field is <code>null</code> for pay-as-you-go agreements, which don't have end dates.</p>"""
     last_update_time: NotRequired[
         "capo_marketplace_agreement.types.timestamp.Timestamp"
     ]
@@ -66,6 +67,10 @@ class AgreementViewSummary(TypedDict, closed=True):
         "capo_marketplace_agreement.types.timestamp.Timestamp"
     ]
     """<p>The date and time when the free trial of the agreement ends. This field is present only when the agreement includes a free trial.</p> <p>For an agreement that includes both a free trial and usage-based pricing, the agreement converts to paid usage at this time.</p>"""
+    includes_contact_of_type: NotRequired[
+        "capo_marketplace_agreement.types.contact_type_list.ContactTypeList"
+    ]
+    """<p>The types of contact information on file for the agreement. For example, <code>ACCEPTOR</code> indicates that the acceptor's contact information is on file, which you can retrieve with <code>GetAgreementContacts</code>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -173,6 +178,14 @@ def serialize_aws_json_1_0(value: AgreementViewSummary) -> dict:
                 value["free_trial_end_time"]
             )
         )
+    if "includes_contact_of_type" in value:
+        import capo_marketplace_agreement.types.contact_type_list
+
+        out["includesContactOfType"] = (
+            capo_marketplace_agreement.types.contact_type_list.serialize_aws_json_1_0(
+                value["includes_contact_of_type"]
+            )
+        )
     return out
 
 
@@ -278,6 +291,14 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementViewSummary:
         out["free_trial_end_time"] = (
             capo_marketplace_agreement.types.timestamp.deserialize_aws_json_1_0(
                 data["freeTrialEndTime"]
+            )
+        )
+    if data.get("includesContactOfType") is not None:
+        import capo_marketplace_agreement.types.contact_type_list
+
+        out["includes_contact_of_type"] = (
+            capo_marketplace_agreement.types.contact_type_list.deserialize_aws_json_1_0(
+                data["includesContactOfType"]
             )
         )
     return out

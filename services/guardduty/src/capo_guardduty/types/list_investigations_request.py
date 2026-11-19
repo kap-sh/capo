@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_guardduty.types.detector_id
+    import capo_guardduty.types.investigation_filter_criteria
     import capo_guardduty.types.investigation_sort_criteria
     import capo_guardduty.types.max_results
     import capo_guardduty.types.next_token
@@ -14,6 +15,10 @@ if TYPE_CHECKING:
 class ListInvestigationsRequest(TypedDict, closed=True):
     detector_id: "capo_guardduty.types.detector_id.DetectorId"
     """<p>The unique ID of the GuardDuty detector whose investigations you want to list.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>"""
+    filter_criteria: NotRequired[
+        "capo_guardduty.types.investigation_filter_criteria.InvestigationFilterCriteria"
+    ]
+    """<p>The criteria used to filter investigations. GuardDuty returns only the investigations that match all of the specified criteria.</p>"""
     sort_criteria: NotRequired[
         "capo_guardduty.types.investigation_sort_criteria.InvestigationSortCriteria"
     ]
@@ -27,6 +32,14 @@ class ListInvestigationsRequest(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: ListInvestigationsRequest) -> dict:
     out: dict = {}
+    if "filter_criteria" in value:
+        import capo_guardduty.types.investigation_filter_criteria
+
+        out["filterCriteria"] = (
+            capo_guardduty.types.investigation_filter_criteria.serialize_json(
+                value["filter_criteria"]
+            )
+        )
     if "sort_criteria" in value:
         import capo_guardduty.types.investigation_sort_criteria
 
@@ -44,6 +57,14 @@ def serialize_json(value: ListInvestigationsRequest) -> dict:
 
 def deserialize_json(data: dict) -> ListInvestigationsRequest:
     out: ListInvestigationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("filterCriteria") is not None:
+        import capo_guardduty.types.investigation_filter_criteria
+
+        out["filter_criteria"] = (
+            capo_guardduty.types.investigation_filter_criteria.deserialize_json(
+                data["filterCriteria"]
+            )
+        )
     if data.get("sortCriteria") is not None:
         import capo_guardduty.types.investigation_sort_criteria
 

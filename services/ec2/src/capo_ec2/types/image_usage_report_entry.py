@@ -19,7 +19,7 @@ class ImageUsageReportEntry(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_ec2.types.image_usage_resource_type_name.ImageUsageResourceTypeName"
     ]
-    """<p>The type of resource (<code>ec2:Instance</code> or <code>ec2:LaunchTemplate</code>).</p>"""
+    """<p>The type of resource (<code>ec2:Instance</code> | <code>ec2:LaunchTemplate</code> | <code>imagebuilder:ImageRecipe</code> | <code>imagebuilder:ContainerRecipe</code>).</p>"""
     report_id: NotRequired["capo_ec2.types.image_usage_report_id.ImageUsageReportId"]
     """<p>The ID of the report.</p>"""
     usage_count: NotRequired["capo_ec2.types.long.Long"]

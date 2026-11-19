@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The type of a context, describing the kind of application or environment metadata it carries.</p>"""
 ContextType: TypeAlias = Literal["APPLICATION",]
 
 

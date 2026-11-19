@@ -89,6 +89,8 @@ if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_names_list
     import capo_config_service.types.conformance_pack_names_to_summarize_list
     import capo_config_service.types.conformance_pack_rule_compliance
+    import capo_config_service.types.conformance_pack_scope
+    import capo_config_service.types.conformance_pack_source
     import capo_config_service.types.conformance_pack_status_detail
     import capo_config_service.types.connector_configuration
     import capo_config_service.types.connector_filter_list
@@ -151,6 +153,7 @@ if TYPE_CHECKING:
     import capo_config_service.types.describe_conformance_pack_compliance_response
     import capo_config_service.types.describe_conformance_pack_status_request
     import capo_config_service.types.describe_conformance_pack_status_response
+    import capo_config_service.types.describe_conformance_packs_filters
     import capo_config_service.types.describe_conformance_packs_request
     import capo_config_service.types.describe_conformance_packs_response
     import capo_config_service.types.describe_delivery_channel_status_request
@@ -2460,6 +2463,9 @@ class ConfigServiceClient:
         conformance_pack_names: Optional[
             "capo_config_service.types.conformance_pack_names_list.ConformancePackNamesList"
         ] = None,
+        filters: Optional[
+            "capo_config_service.types.describe_conformance_packs_filters.DescribeConformancePacksFilters"
+        ] = None,
         limit: Optional[
             "capo_config_service.types.page_size_limit.PageSizeLimit"
         ] = None,
@@ -2469,6 +2475,7 @@ class ConfigServiceClient:
 
         Args:
             conformance_pack_names: <p>Comma-separated list of conformance pack names for which you want details. If you do not specify any names, Config returns details for all your conformance packs. </p>
+            filters: <p>Returns a filtered list of custom or managed conformance packs. By default, if the filter is not defined, Config returns details for all your conformance packs.</p>
             limit: <p>The maximum number of conformance packs returned on each page.</p>
             next_token: <p>The <code>nextToken</code> string returned in a previous request that you use to request the next page of results in a paginated response.</p>
 
@@ -2500,6 +2507,8 @@ class ConfigServiceClient:
         input_: capo_config_service.types.describe_conformance_packs_request.DescribeConformancePacksRequest = {}
         if conformance_pack_names is not None:
             input_["conformance_pack_names"] = conformance_pack_names
+        if filters is not None:
+            input_["filters"] = filters
         if limit is not None:
             input_["limit"] = limit
         if next_token is not None:
@@ -2520,6 +2529,9 @@ class ConfigServiceClient:
         conformance_pack_names: Optional[
             "capo_config_service.types.conformance_pack_names_list.ConformancePackNamesList"
         ] = None,
+        filters: Optional[
+            "capo_config_service.types.describe_conformance_packs_filters.DescribeConformancePacksFilters"
+        ] = None,
         limit: Optional[
             "capo_config_service.types.page_size_limit.PageSizeLimit"
         ] = None,
@@ -2530,6 +2542,7 @@ class ConfigServiceClient:
             _response = self.describe_conformance_packs(
                 config_overrides=config_overrides,
                 conformance_pack_names=conformance_pack_names,
+                filters=filters,
                 limit=limit,
                 next_token=_token,
             )
@@ -2547,6 +2560,9 @@ class ConfigServiceClient:
         conformance_pack_names: Optional[
             "capo_config_service.types.conformance_pack_names_list.ConformancePackNamesList"
         ] = None,
+        filters: Optional[
+            "capo_config_service.types.describe_conformance_packs_filters.DescribeConformancePacksFilters"
+        ] = None,
         limit: Optional[
             "capo_config_service.types.page_size_limit.PageSizeLimit"
         ] = None,
@@ -2556,6 +2572,7 @@ class ConfigServiceClient:
 
         Args:
             conformance_pack_names: <p>Comma-separated list of conformance pack names.</p>
+            filters: <p>Returns a filtered list of custom or managed conformance pack statuses. By default, if the filter is not defined, Config returns details for all your conformance packs.</p>
             limit: <p>The maximum number of conformance packs status returned on each page.</p>
             next_token: <p>The <code>nextToken</code> string returned in a previous request that you use to request the next page of results in a paginated response.</p>
 
@@ -2586,6 +2603,8 @@ class ConfigServiceClient:
         input_: capo_config_service.types.describe_conformance_pack_status_request.DescribeConformancePackStatusRequest = {}
         if conformance_pack_names is not None:
             input_["conformance_pack_names"] = conformance_pack_names
+        if filters is not None:
+            input_["filters"] = filters
         if limit is not None:
             input_["limit"] = limit
         if next_token is not None:
@@ -2606,6 +2625,9 @@ class ConfigServiceClient:
         conformance_pack_names: Optional[
             "capo_config_service.types.conformance_pack_names_list.ConformancePackNamesList"
         ] = None,
+        filters: Optional[
+            "capo_config_service.types.describe_conformance_packs_filters.DescribeConformancePacksFilters"
+        ] = None,
         limit: Optional[
             "capo_config_service.types.page_size_limit.PageSizeLimit"
         ] = None,
@@ -2616,6 +2638,7 @@ class ConfigServiceClient:
             _response = self.describe_conformance_pack_status(
                 config_overrides=config_overrides,
                 conformance_pack_names=conformance_pack_names,
+                filters=filters,
                 limit=limit,
                 next_token=_token,
             )
@@ -5969,8 +5992,14 @@ class ConfigServiceClient:
             "capo_config_service.types.template_ssm_document_details.TemplateSSMDocumentDetails"
         ] = None,
         tags: Optional["capo_config_service.types.tags_list.TagsList"] = None,
+        source: Optional[
+            "capo_config_service.types.conformance_pack_source.ConformancePackSource"
+        ] = None,
+        scope: Optional[
+            "capo_config_service.types.conformance_pack_scope.ConformancePackScope"
+        ] = None,
     ) -> "capo_config_service.types.put_conformance_pack_response.PutConformancePackResponse":
-        """<p>Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across an organization. For information on how many conformance packs you can have per account, see <a href="https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html"> <b>Service Limits</b> </a> in the <i>Config Developer Guide</i>.</p> <important> <p>When you use <code>PutConformancePack</code> to deploy conformance packs in your account, the operation can create Config rules and remediation actions without requiring <code>config:PutConfigRule</code> or <code>config:PutRemediationConfigurations</code> permissions in your account IAM policies.</p> <p>This API uses the <code>AWSServiceRoleForConfigConforms</code> service-linked role in your account to create conformance pack resources. This service-linked role includes the permissions to create Config rules and remediation configurations, even if your account IAM policies explicitly deny these actions.</p> </important> <p>This API creates a service-linked role <code>AWSServiceRoleForConfigConforms</code> in your account. The service-linked role is created only when the role does not exist in your account. </p> <note> <p>You must specify only one of the follow parameters: <code>TemplateS3Uri</code>, <code>TemplateBody</code> or <code>TemplateSSMDocumentDetails</code>.</p> </note> <note> <p> <b>Tags are added at creation and cannot be updated with this operation</b> </p> <p> <code>PutConformancePack</code> is an idempotent API. Subsequent requests won't create a duplicate resource if one was already created. If a following request has different <code>tags</code> values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, <code>tags</code> will not be updated, even if they are different.</p> <p>Use <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_TagResource.html">TagResource</a> and <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_UntagResource.html">UntagResource</a> to update tags after creation.</p> </note>
+        """<p>Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across an organization. For information on how many conformance packs you can have per account, see <a href="https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html"> <b>Service Limits</b> </a> in the <i>Config Developer Guide</i>.</p> <important> <p>When you use <code>PutConformancePack</code> to deploy conformance packs in your account, the operation can create Config rules and remediation actions without requiring <code>config:PutConfigRule</code> or <code>config:PutRemediationConfigurations</code> permissions in your account IAM policies.</p> <p>This API uses the <code>AWSServiceRoleForConfigConforms</code> service-linked role in your account to create conformance pack resources. This service-linked role includes the permissions to create Config rules and remediation configurations, even if your account IAM policies explicitly deny these actions.</p> </important> <p>This API creates a service-linked role <code>AWSServiceRoleForConfigConforms</code> in your account. The service-linked role is created only when the role does not exist in your account. </p> <note> <p>For custom conformance packs, you must specify only one of <code>TemplateS3Uri</code>, <code>TemplateBody</code>, <code>TemplateSSMDocumentDetails</code>.</p> <p>For managed conformance packs, you must specify <code>Source</code>. Do not specify <code>TemplateS3Uri</code>, <code>TemplateBody</code>, <code>TemplateSSMDocumentDetails</code>, <code>DeliveryS3Bucket</code>, or <code>DeliveryS3KeyPrefix</code>.</p> </note> <note> <p> <b>Tags are added at creation and cannot be updated with this operation</b> </p> <p> <code>PutConformancePack</code> is an idempotent API. Subsequent requests won't create a duplicate resource if one was already created. If a following request has different <code>tags</code> values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, <code>tags</code> will not be updated, even if they are different.</p> <p>Use <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_TagResource.html">TagResource</a> and <a href="https://docs.aws.amazon.com/config/latest/APIReference/API_UntagResource.html">UntagResource</a> to update tags after creation.</p> </note>
 
         Args:
             conformance_pack_name: <p>The unique name of the conformance pack you want to deploy.</p>
@@ -5978,9 +6007,11 @@ class ConfigServiceClient:
             template_body: <p>A string that contains the full conformance pack template body. The structure containing the template body has a minimum length of 1 byte and a maximum length of 51,200 bytes.</p> <note> <p>You can use a YAML template with two resource types: Config rule (<code>AWS::Config::ConfigRule</code>) and remediation action (<code>AWS::Config::RemediationConfiguration</code>).</p> </note>
             delivery_s3_bucket: <p>The name of the Amazon S3 bucket where Config stores conformance pack templates.</p> <note> <p>This field is optional.</p> </note>
             delivery_s3_key_prefix: <p>The prefix for the Amazon S3 bucket. </p> <note> <p>This field is optional.</p> </note>
-            conformance_pack_input_parameters: <p>A list of <code>ConformancePackInputParameter</code> objects.</p>
+            conformance_pack_input_parameters: <p>A list of <code>ConformancePackInputParameter</code> objects. Custom conformance packs can have at most 60 input parameters. Managed conformance packs can have at most 330 input parameters.</p>
             template_ssm_document_details: <p>An object of type <code>TemplateSSMDocumentDetails</code>, which contains the name or the Amazon Resource Name (ARN) of the Amazon Web Services Systems Manager document (SSM document) and the version of the SSM document that is used to create a conformance pack.</p>
             tags: <p>The tags for the conformance pack. Each tag consists of a key and an optional value, both of which you define.</p>
+            source: <p>An object of type <code>ConformancePackSource</code>, which contains the identifier of the managed conformance pack that you want to deploy. If you specify a source, Config creates a managed conformance pack. Managed conformance packs are predefined collections of Config rules that are created and maintained by Amazon Web Services.</p> <note> <p>If you specify a source, you cannot specify <code>TemplateS3Uri</code>, <code>TemplateBody</code>, <code>TemplateSSMDocumentDetails</code>, <code>DeliveryS3Bucket</code>, or <code>DeliveryS3KeyPrefix</code>. You cannot convert an existing conformance pack between a managed conformance pack and a custom conformance pack. You also cannot change the source of an existing managed conformance pack.</p> </note>
+            scope: <p>An object of type <code>ConformancePackScope</code> that defines which resources can trigger an evaluation for Config rules in the conformance pack. The scope can include a tag key and optional tag value. Specify a scope to constrain the resources that can trigger an evaluation for rules in the conformance pack. If you do not specify a scope, all rules in the conformance pack are unscoped.</p> <note> <p>This field is optional and is supported only for managed conformance packs. If you specify a scope, you must also specify <code>Source</code>.</p> </note>
 
         Raises:
             capo_config_service.errors.conformance_pack_template_validation_exception.ConformancePackTemplateValidationException: <p>You have specified a template that is not valid or supported.</p>
@@ -6027,6 +6058,10 @@ class ConfigServiceClient:
             input_["template_ssm_document_details"] = template_ssm_document_details
         if tags is not None:
             input_["tags"] = tags
+        if source is not None:
+            input_["source"] = source
+        if scope is not None:
+            input_["scope"] = scope
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

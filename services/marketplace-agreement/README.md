@@ -18,9 +18,9 @@ from capo_marketplace_agreement import AsyncMarketplaceAgreementClient
 
 async def main():
     async with AsyncMarketplaceAgreementClient() as marketplace_agreement:
-        # Example: call the accept_agreement_cancellation_request operation
-        response = await marketplace_agreement.accept_agreement_cancellation_request()
-        print(response["agreement_id"])
+        # Example: call the accept_agreement_approval operation
+        response = await marketplace_agreement.accept_agreement_approval()
+        print(response)
 ```
 
 ## Pagination
@@ -50,7 +50,7 @@ from capo_marketplace_agreement.error import AccessDeniedException
 async def main():
     async with AsyncMarketplaceAgreementClient() as marketplace_agreement:
         try:
-            await marketplace_agreement.accept_agreement_cancellation_request()
+            await marketplace_agreement.accept_agreement_approval()
         except AccessDeniedException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -71,11 +71,11 @@ from capo_marketplace_agreement import AsyncMarketplaceAgreementClient
 async def main():
     async with AsyncMarketplaceAgreementClient() as marketplace_agreement:
         # Default: 3 attempts for every operation
-        response = await marketplace_agreement.accept_agreement_cancellation_request()
+        response = await marketplace_agreement.accept_agreement_approval()
 
         # Override per operation
-        response = await marketplace_agreement.accept_agreement_cancellation_request(config_overrides={"retry_max_attempts": 5})
+        response = await marketplace_agreement.accept_agreement_approval(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await marketplace_agreement.accept_agreement_cancellation_request(config_overrides={"retry_max_attempts": 1})
+        response = await marketplace_agreement.accept_agreement_approval(config_overrides={"retry_max_attempts": 1})
 ```

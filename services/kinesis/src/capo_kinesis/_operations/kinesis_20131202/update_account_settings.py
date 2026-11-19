@@ -110,6 +110,8 @@ def build_request(
             ConsumerARN=options.consumer_arn,
             ResourceARN=options.resource_arn,
             ChannelARN=options.channel_arn,
+            QueueARN=options.queue_arn,
+            ResourceType=options.resource_type,
             AccountId=options.account_id,
             AccountIdEndpointMode=options.account_id_endpoint_mode,
         )

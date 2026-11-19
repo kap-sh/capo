@@ -16,6 +16,7 @@ import capo_athena.errors.invalid_request_exception
 import capo_athena.errors.metadata_exception
 import capo_athena.types.list_table_metadata_input
 import capo_athena.types.list_table_metadata_output
+import capo_athena.types.table_attributes_list
 import capo_athena.types.table_metadata_list
 from capo_athena._protocol.errors import parse_error_metadata_json
 from capo_athena._rule_engine._endpoint_rule_set import EndpointParams, resolve

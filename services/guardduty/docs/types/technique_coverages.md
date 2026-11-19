@@ -1,0 +1,8 @@
+---
+title: TechniqueCoverages
+---
+
+::: capo_guardduty.types.technique_coverages.TechniqueCoverages
+    options:
+      show_source: true
+      merge_init_into_class: false

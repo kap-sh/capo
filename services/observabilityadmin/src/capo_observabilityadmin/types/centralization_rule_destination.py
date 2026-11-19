@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.account_identifier
     import capo_observabilityadmin.types.destination_logs_configuration
     import capo_observabilityadmin.types.destination_metrics_configuration
+    import capo_observabilityadmin.types.destination_profiles_configuration
     import capo_observabilityadmin.types.region
 
 
@@ -26,6 +27,10 @@ class CentralizationRuleDestination(TypedDict, closed=True):
         "capo_observabilityadmin.types.destination_metrics_configuration.DestinationMetricsConfiguration"
     ]
     """<p>Metric specific configuration for centralization destination metrics.</p>"""
+    destination_profiles_configuration: NotRequired[
+        "capo_observabilityadmin.types.destination_profiles_configuration.DestinationProfilesConfiguration"
+    ]
+    """<p>Profile-specific configuration for centralization destination profiles.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -48,6 +53,14 @@ def serialize_json(value: CentralizationRuleDestination) -> dict:
         out["DestinationMetricsConfiguration"] = (
             capo_observabilityadmin.types.destination_metrics_configuration.serialize_json(
                 value["destination_metrics_configuration"]
+            )
+        )
+    if "destination_profiles_configuration" in value:
+        import capo_observabilityadmin.types.destination_profiles_configuration
+
+        out["DestinationProfilesConfiguration"] = (
+            capo_observabilityadmin.types.destination_profiles_configuration.serialize_json(
+                value["destination_profiles_configuration"]
             )
         )
     return out
@@ -75,6 +88,14 @@ def deserialize_json(data: dict) -> CentralizationRuleDestination:
         out["destination_metrics_configuration"] = (
             capo_observabilityadmin.types.destination_metrics_configuration.deserialize_json(
                 data["DestinationMetricsConfiguration"]
+            )
+        )
+    if data.get("DestinationProfilesConfiguration") is not None:
+        import capo_observabilityadmin.types.destination_profiles_configuration
+
+        out["destination_profiles_configuration"] = (
+            capo_observabilityadmin.types.destination_profiles_configuration.deserialize_json(
+                data["DestinationProfilesConfiguration"]
             )
         )
     return out

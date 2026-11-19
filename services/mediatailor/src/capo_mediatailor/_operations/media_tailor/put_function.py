@@ -17,6 +17,7 @@ import capo_mediatailor.types.aws_service_request_configuration
 import capo_mediatailor.types.concurrent_executor_configuration
 import capo_mediatailor.types.custom_output_configuration
 import capo_mediatailor.types.function_type
+import capo_mediatailor.types.hls_tag_processor_configuration
 import capo_mediatailor.types.http_request_configuration
 import capo_mediatailor.types.put_function_request
 import capo_mediatailor.types.put_function_response

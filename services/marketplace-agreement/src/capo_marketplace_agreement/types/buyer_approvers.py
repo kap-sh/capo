@@ -1,0 +1,42 @@
+"""Generated from Smithy shape ``com.amazonaws.marketplaceagreement#BuyerApprovers``."""
+
+from typing import TYPE_CHECKING, Any, TypeAlias
+
+if TYPE_CHECKING:
+    import capo_marketplace_agreement.types.approver
+
+BuyerApprovers: TypeAlias = list["capo_marketplace_agreement.types.approver.Approver"]
+
+
+# --- awsJson1_0 ser/de ---
+def serialize_aws_json_1_0(value: BuyerApprovers) -> list:
+    import capo_marketplace_agreement.types.approver
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_marketplace_agreement.types.approver.serialize_aws_json_1_0(item)
+        )
+    return out
+
+
+def deserialize_aws_json_1_0(data: list) -> BuyerApprovers:
+    import capo_marketplace_agreement.types.approver
+
+    out: BuyerApprovers = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.approver.deserialize_aws_json_1_0(item)
+        )
+    return out
+
+
+def redact_sensitive(value: BuyerApprovers) -> list[Any]:
+    import capo_marketplace_agreement.types.approver
+
+    return [
+        capo_marketplace_agreement.types.approver.redact_sensitive(item)
+        for item in value
+    ]

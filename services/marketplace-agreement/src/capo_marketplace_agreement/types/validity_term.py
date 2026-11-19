@@ -21,15 +21,15 @@ class ValidityTerm(TypedDict, closed=True):
     agreement_duration: NotRequired[
         "capo_marketplace_agreement.types.bounded_string.BoundedString"
     ]
-    """<p>Defines the duration that the agreement remains active. If <code>AgreementStartDate</code> isn’t provided, the agreement duration is relative to the agreement signature time. The duration is represented in the ISO_8601 format.</p>"""
+    """<p>Defines the duration that the agreement remains active. If <code>AgreementStartDate</code> isn't provided, the agreement duration is relative to the agreement signature time. The duration is represented in the ISO_8601 format.</p>"""
     agreement_start_date: NotRequired[
         "capo_marketplace_agreement.types.timestamp.Timestamp"
     ]
-    """<p>Defines the date when agreement starts. The agreement starts at 00:00:00.000 UTC on the date provided. If <code>AgreementStartDate</code> isn’t provided, the agreement start date is determined based on agreement signature time.</p>"""
+    """<p>Defines the date when agreement starts. The agreement starts at 00:00:00.000 UTC on the date provided. If <code>AgreementStartDate</code> isn't provided, the agreement start date is determined based on agreement signature time.</p>"""
     agreement_end_date: NotRequired[
         "capo_marketplace_agreement.types.timestamp.Timestamp"
     ]
-    """<p>Defines the date when the agreement ends. The agreement ends at 23:59:59.999 UTC on the date provided. If <code>AgreementEndDate</code> isn’t provided, the agreement end date is determined by the validity of individual terms.</p>"""
+    """<p>Defines the date when the agreement ends. The agreement ends at 23:59:59.999 UTC on the date provided. If <code>AgreementEndDate</code> isn't provided, the agreement end date is determined by the validity of individual terms.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

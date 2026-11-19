@@ -13,6 +13,7 @@ import capo_health._auth._sigv4
 import capo_health._protocol.eventstream
 import capo_health.types.describe_entity_aggregates_request
 import capo_health.types.describe_entity_aggregates_response
+import capo_health.types.entity_aggregate_filter
 import capo_health.types.entity_aggregate_list
 import capo_health.types.event_arns_list
 from capo_health._protocol.errors import parse_error_metadata_json

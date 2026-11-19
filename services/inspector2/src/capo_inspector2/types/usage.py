@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class Usage(TypedDict, closed=True):
     type: NotRequired["capo_inspector2.types.usage_type.UsageType"]
-    """<p>The type scan.</p>"""
+    """<p>The type of scan. Valid values:</p> <ul> <li> <p>Amazon Web Services – <code>EC2_INSTANCE_HOURS</code>, <code>EC2_AGENTLESS_INSTANCE_HOURS</code>, <code>EC2_AMI_HOURS</code>, <code>EC2_AMI_ONE_SHOT_SCAN</code>, <code>ECR_INITIAL_SCAN</code>, <code>ECR_RESCAN</code>, <code>LAMBDA_FUNCTION_HOURS</code>, <code>LAMBDA_FUNCTION_CODE_HOURS</code>, <code>CODE_REPOSITORY_SAST</code>, <code>CODE_REPOSITORY_IAC</code>, or <code>CODE_REPOSITORY_SCA</code>.</p> </li> <li> <p>Microsoft Azure – <code>AZURE_VM_AGENT_BASED_INSTANCE_HOURS</code>, <code>AZURE_CONTAINER_IMAGE_INITIAL_SCAN</code>, <code>AZURE_CONTAINER_IMAGE_RESCAN</code>, or <code>AZURE_SERVERLESS_FUNCTION_HOURS</code>.</p> </li> <li> <p>Google Cloud Platform (GCP) – <code>GCP_VM_AGENT_BASED_INSTANCE_HOURS</code>, <code>GCP_CONTAINER_IMAGE_INITIAL_SCAN</code>, <code>GCP_CONTAINER_IMAGE_RESCAN</code>, or <code>GCP_CLOUD_RUN_HOURS</code> (Cloud Run functions).</p> </li> </ul>"""
     total: "capo_inspector2.types.usage_value.UsageValue"
     """<p>The total of usage.</p>"""
     estimated_monthly_cost: (
@@ -24,7 +24,7 @@ class Usage(TypedDict, closed=True):
     currency: NotRequired["capo_inspector2.types.currency.Currency"]
     """<p>The currency type used when calculating usage data.</p>"""
     cloud_provider: NotRequired["capo_inspector2.types.cloud_provider.CloudProvider"]
-    """<p>The cloud provider associated with the usage information.</p>"""
+    """<p>The cloud provider associated with the usage information. Valid values:</p> <ul> <li> <p> <code>AWS</code> – Amazon Web Services resources.</p> </li> <li> <p> <code>AZURE</code> – Microsoft Azure resources.</p> </li> <li> <p> <code>GCP</code> – Google Cloud Platform (GCP) resources.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

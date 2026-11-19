@@ -48,6 +48,7 @@
 - [EnabledBaselineParameterSummary](enabled_baseline_parameter_summary.md)
 - [EnabledBaselineParameters](enabled_baseline_parameters.md)
 - [EnabledBaselineParentIdentifiers](enabled_baseline_parent_identifiers.md)
+- [EnabledBaselineSourceDrift](enabled_baseline_source_drift.md)
 - [EnabledBaselineSummary](enabled_baseline_summary.md)
 - [EnabledBaselineTargetIdentifiers](enabled_baseline_target_identifiers.md)
 - [EnabledBaselines](enabled_baselines.md)

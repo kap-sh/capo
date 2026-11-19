@@ -502,6 +502,7 @@
 - [WorkspaceImageState](workspace_image_state.md)
 - [WorkspaceList](workspace_list.md)
 - [WorkspaceName](workspace_name.md)
+- [WorkspaceOSUserMode](workspace_os_user_mode.md)
 - [WorkspaceProperties](workspace_properties.md)
 - [WorkspaceRequest](workspace_request.md)
 - [WorkspaceRequestList](workspace_request_list.md)

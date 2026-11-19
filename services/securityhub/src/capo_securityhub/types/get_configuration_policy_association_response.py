@@ -30,7 +30,7 @@ class GetConfigurationPolicyAssociationResponse(TypedDict, closed=True):
     association_status: NotRequired[
         "capo_securityhub.types.configuration_policy_association_status.ConfigurationPolicyAssociationStatus"
     ]
-    """<p> The current status of the association between the specified target and the configuration. </p>"""
+    """<p> The current status of the association between the specified target and the configuration. Possible values are: </p> <ul> <li> <p> <code>PENDING</code> - The association is in progress.</p> </li> <li> <p> <code>SUCCESS</code> - The association succeeded.</p> </li> <li> <p> <code>FAILED</code> - The association failed. For details, see <code>AssociationStatusMessage</code>.</p> </li> <li> <p> <code>DISABLED</code> - Central configuration is disabled because the organization is managed by Security Hub CSPM policies in Organizations.</p> </li> </ul>"""
     association_status_message: NotRequired[
         "capo_securityhub.types.non_empty_string.NonEmptyString"
     ]

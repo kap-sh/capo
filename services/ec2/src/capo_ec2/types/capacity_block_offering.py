@@ -8,6 +8,7 @@ from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_ec2.types.boxed_integer
+    import capo_ec2.types.capacity_block_offering_segment_set
     import capo_ec2.types.capacity_reservation_tenancy
     import capo_ec2.types.integer
     import capo_ec2.types.millisecond_date_time
@@ -46,6 +47,10 @@ class CapacityBlockOffering(TypedDict, closed=True):
     """<p>The number of minutes (in addition to <code>capacityBlockDurationHours</code>) for the duration of the Capacity Block reservation. For example, if a Capacity Block starts at <b>08:55</b> and ends at <b>11:30</b>, the minutes field would be <b>35</b>.</p>"""
     zone_type: NotRequired["capo_ec2.types.string.String"]
     """<p>The type of zone where the Capacity Block offering is available.</p>"""
+    capacity_block_offering_segments: NotRequired[
+        "capo_ec2.types.capacity_block_offering_segment_set.CapacityBlockOfferingSegmentSet"
+    ]
+    """<p>The individual segments that compose the Capacity Block offering. Each segment describes a distinct block of capacity with its own Availability Zone, instance type, schedule, and pricing.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -108,6 +113,14 @@ def serialize_ec2_query(
         )
     if "zone_type" in value:
         pairs.append((f"{key_prefix}ZoneType", str(value["zone_type"])))
+    if "capacity_block_offering_segments" in value:
+        import capo_ec2.types.capacity_block_offering_segment_set
+
+        capo_ec2.types.capacity_block_offering_segment_set.serialize_ec2_query(
+            value["capacity_block_offering_segments"],
+            pairs,
+            f"{key_prefix}CapacityBlockOfferingSegmentSet",
+        )
 
 
 def deserialize_ec2_query(el: Element) -> CapacityBlockOffering:
@@ -174,4 +187,13 @@ def deserialize_ec2_query(el: Element) -> CapacityBlockOffering:
     child_zone_type = el.find("zoneType")
     if child_zone_type is not None:
         out["zone_type"] = str(child_zone_type.text or "")
+    child_capacity_block_offering_segments = el.find("capacityBlockOfferingSegmentSet")
+    if child_capacity_block_offering_segments is not None:
+        import capo_ec2.types.capacity_block_offering_segment_set
+
+        out["capacity_block_offering_segments"] = (
+            capo_ec2.types.capacity_block_offering_segment_set.deserialize_ec2_query(
+                child_capacity_block_offering_segments
+            )
+        )
     return out

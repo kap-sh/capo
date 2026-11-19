@@ -18,9 +18,9 @@ from capo_kinesis import AsyncKinesisClient
 
 async def main():
     async with AsyncKinesisClient() as kinesis:
-        # Example: call the add_tags_to_stream operation
-        response = await kinesis.add_tags_to_stream()
-        print(response)
+        # Example: call the acknowledge_dead_letter_queue_records operation
+        response = await kinesis.acknowledge_dead_letter_queue_records()
+        print(response["successful"])
 ```
 
 ## Pagination
@@ -64,7 +64,7 @@ from capo_kinesis.error import AccessDeniedException
 async def main():
     async with AsyncKinesisClient() as kinesis:
         try:
-            await kinesis.add_tags_to_stream()
+            await kinesis.acknowledge_dead_letter_queue_records()
         except AccessDeniedException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -85,11 +85,11 @@ from capo_kinesis import AsyncKinesisClient
 async def main():
     async with AsyncKinesisClient() as kinesis:
         # Default: 3 attempts for every operation
-        response = await kinesis.add_tags_to_stream()
+        response = await kinesis.acknowledge_dead_letter_queue_records()
 
         # Override per operation
-        response = await kinesis.add_tags_to_stream(config_overrides={"retry_max_attempts": 5})
+        response = await kinesis.acknowledge_dead_letter_queue_records(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await kinesis.add_tags_to_stream(config_overrides={"retry_max_attempts": 1})
+        response = await kinesis.acknowledge_dead_letter_queue_records(config_overrides={"retry_max_attempts": 1})
 ```

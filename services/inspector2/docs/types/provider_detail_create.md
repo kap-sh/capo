@@ -12,3 +12,9 @@ title: ProviderDetailCreate
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_inspector2.types.provider_detail_create.ProviderDetailCreateGcpMember
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

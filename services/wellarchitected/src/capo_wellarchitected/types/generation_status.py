@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The status of a recommendation generation process.</p>"""
 GenerationStatus: TypeAlias = Literal[
     "QUEUED",
     "IN_PROGRESS",

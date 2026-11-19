@@ -77,11 +77,15 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.admin_list_groups_for_user_response
     import capo_cognito_identity_provider.types.admin_list_user_auth_events_request
     import capo_cognito_identity_provider.types.admin_list_user_auth_events_response
+    import capo_cognito_identity_provider.types.admin_list_user_sessions_request
+    import capo_cognito_identity_provider.types.admin_list_user_sessions_response
     import capo_cognito_identity_provider.types.admin_remove_user_from_group_request
     import capo_cognito_identity_provider.types.admin_reset_user_password_request
     import capo_cognito_identity_provider.types.admin_reset_user_password_response
     import capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_request
     import capo_cognito_identity_provider.types.admin_respond_to_auth_challenge_response
+    import capo_cognito_identity_provider.types.admin_revoke_user_session_request
+    import capo_cognito_identity_provider.types.admin_revoke_user_session_response
     import capo_cognito_identity_provider.types.admin_set_user_mfa_preference_request
     import capo_cognito_identity_provider.types.admin_set_user_mfa_preference_response
     import capo_cognito_identity_provider.types.admin_set_user_password_request
@@ -107,12 +111,15 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.attribute_mapping_type
     import capo_cognito_identity_provider.types.attribute_name_list_type
     import capo_cognito_identity_provider.types.attribute_name_type
+    import capo_cognito_identity_provider.types.audience_list_type
     import capo_cognito_identity_provider.types.auth_event_type
     import capo_cognito_identity_provider.types.auth_flow_type
     import capo_cognito_identity_provider.types.auth_parameters_type
     import capo_cognito_identity_provider.types.auth_session_validity_type
     import capo_cognito_identity_provider.types.boolean_type
     import capo_cognito_identity_provider.types.callback_ur_ls_list_type
+    import capo_cognito_identity_provider.types.cancel_point_in_time_recovery_request
+    import capo_cognito_identity_provider.types.cancel_point_in_time_recovery_response
     import capo_cognito_identity_provider.types.challenge_name_type
     import capo_cognito_identity_provider.types.challenge_responses_type
     import capo_cognito_identity_provider.types.change_password_request
@@ -123,6 +130,8 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.client_permission_list_type
     import capo_cognito_identity_provider.types.client_secret_id_type
     import capo_cognito_identity_provider.types.client_secret_type
+    import capo_cognito_identity_provider.types.client_sso_session_config_type
+    import capo_cognito_identity_provider.types.client_type_type
     import capo_cognito_identity_provider.types.complete_web_authn_registration_request
     import capo_cognito_identity_provider.types.complete_web_authn_registration_response
     import capo_cognito_identity_provider.types.compromised_credentials_risk_configuration_type
@@ -157,6 +166,8 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.css_type
     import capo_cognito_identity_provider.types.custom_attributes_list_type
     import capo_cognito_identity_provider.types.custom_domain_config_type
+    import capo_cognito_identity_provider.types.date_type
+    import capo_cognito_identity_provider.types.dcr_configuration_type
     import capo_cognito_identity_provider.types.delete_group_request
     import capo_cognito_identity_provider.types.delete_identity_provider_request
     import capo_cognito_identity_provider.types.delete_managed_login_branding_request
@@ -183,6 +194,8 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.describe_managed_login_branding_by_client_response
     import capo_cognito_identity_provider.types.describe_managed_login_branding_request
     import capo_cognito_identity_provider.types.describe_managed_login_branding_response
+    import capo_cognito_identity_provider.types.describe_point_in_time_recovery_request
+    import capo_cognito_identity_provider.types.describe_point_in_time_recovery_response
     import capo_cognito_identity_provider.types.describe_resource_server_request
     import capo_cognito_identity_provider.types.describe_resource_server_response
     import capo_cognito_identity_provider.types.describe_risk_configuration_request
@@ -224,6 +237,9 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.get_client_token_response
     import capo_cognito_identity_provider.types.get_csv_header_request
     import capo_cognito_identity_provider.types.get_csv_header_response
+    import capo_cognito_identity_provider.types.get_derived_token_request
+    import capo_cognito_identity_provider.types.get_derived_token_response
+    import capo_cognito_identity_provider.types.get_derived_token_token_model_type
     import capo_cognito_identity_provider.types.get_device_request
     import capo_cognito_identity_provider.types.get_device_response
     import capo_cognito_identity_provider.types.get_group_request
@@ -244,8 +260,12 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.get_user_attribute_verification_code_response
     import capo_cognito_identity_provider.types.get_user_auth_factors_request
     import capo_cognito_identity_provider.types.get_user_auth_factors_response
+    import capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_request
+    import capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_response
     import capo_cognito_identity_provider.types.get_user_pool_mfa_config_request
     import capo_cognito_identity_provider.types.get_user_pool_mfa_config_response
+    import capo_cognito_identity_provider.types.get_user_pool_session_configuration_request
+    import capo_cognito_identity_provider.types.get_user_pool_session_configuration_response
     import capo_cognito_identity_provider.types.get_user_request
     import capo_cognito_identity_provider.types.get_user_response
     import capo_cognito_identity_provider.types.global_sign_out_request
@@ -259,7 +279,10 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.image_file_type
     import capo_cognito_identity_provider.types.initiate_auth_request
     import capo_cognito_identity_provider.types.initiate_auth_response
+    import capo_cognito_identity_provider.types.initiate_point_in_time_recovery_request
+    import capo_cognito_identity_provider.types.initiate_point_in_time_recovery_response
     import capo_cognito_identity_provider.types.integer_type
+    import capo_cognito_identity_provider.types.issued_token_type_identifier_type
     import capo_cognito_identity_provider.types.issuer_configuration_type
     import capo_cognito_identity_provider.types.key_configuration_type
     import capo_cognito_identity_provider.types.lambda_config_type
@@ -271,6 +294,8 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.list_groups_response
     import capo_cognito_identity_provider.types.list_identity_providers_request
     import capo_cognito_identity_provider.types.list_identity_providers_response
+    import capo_cognito_identity_provider.types.list_point_in_time_recoveries_request
+    import capo_cognito_identity_provider.types.list_point_in_time_recoveries_response
     import capo_cognito_identity_provider.types.list_providers_limit_type
     import capo_cognito_identity_provider.types.list_resource_servers_limit_type
     import capo_cognito_identity_provider.types.list_resource_servers_request
@@ -290,6 +315,8 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.list_user_pool_replicas_response
     import capo_cognito_identity_provider.types.list_user_pools_request
     import capo_cognito_identity_provider.types.list_user_pools_response
+    import capo_cognito_identity_provider.types.list_user_sessions_request
+    import capo_cognito_identity_provider.types.list_user_sessions_response
     import capo_cognito_identity_provider.types.list_users_in_group_request
     import capo_cognito_identity_provider.types.list_users_in_group_response
     import capo_cognito_identity_provider.types.list_users_request
@@ -322,14 +349,19 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.region_name_type
     import capo_cognito_identity_provider.types.resend_confirmation_code_request
     import capo_cognito_identity_provider.types.resend_confirmation_code_response
+    import capo_cognito_identity_provider.types.resource_list_type
     import capo_cognito_identity_provider.types.resource_server_identifier_type
     import capo_cognito_identity_provider.types.resource_server_name_type
     import capo_cognito_identity_provider.types.resource_server_scope_list_type
     import capo_cognito_identity_provider.types.resource_server_type
     import capo_cognito_identity_provider.types.respond_to_auth_challenge_request
     import capo_cognito_identity_provider.types.respond_to_auth_challenge_response
+    import capo_cognito_identity_provider.types.restore_id_type
+    import capo_cognito_identity_provider.types.revoke_associated_sessions_type
     import capo_cognito_identity_provider.types.revoke_token_request
     import capo_cognito_identity_provider.types.revoke_token_response
+    import capo_cognito_identity_provider.types.revoke_user_session_request
+    import capo_cognito_identity_provider.types.revoke_user_session_response
     import capo_cognito_identity_provider.types.risk_exception_configuration_type
     import capo_cognito_identity_provider.types.routing_type
     import capo_cognito_identity_provider.types.schema_attributes_list_type
@@ -337,6 +369,7 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.search_pagination_token_type
     import capo_cognito_identity_provider.types.searched_attribute_names_list_type
     import capo_cognito_identity_provider.types.secret_hash_type
+    import capo_cognito_identity_provider.types.session_id_type
     import capo_cognito_identity_provider.types.session_type
     import capo_cognito_identity_provider.types.set_log_delivery_configuration_request
     import capo_cognito_identity_provider.types.set_log_delivery_configuration_response
@@ -346,8 +379,12 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.set_ui_customization_response
     import capo_cognito_identity_provider.types.set_user_mfa_preference_request
     import capo_cognito_identity_provider.types.set_user_mfa_preference_response
+    import capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_request
+    import capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_response
     import capo_cognito_identity_provider.types.set_user_pool_mfa_config_request
     import capo_cognito_identity_provider.types.set_user_pool_mfa_config_response
+    import capo_cognito_identity_provider.types.set_user_pool_session_configuration_request
+    import capo_cognito_identity_provider.types.set_user_pool_session_configuration_response
     import capo_cognito_identity_provider.types.set_user_settings_request
     import capo_cognito_identity_provider.types.set_user_settings_response
     import capo_cognito_identity_provider.types.sign_up_request
@@ -359,6 +396,8 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.software_token_mfa_config_type
     import capo_cognito_identity_provider.types.software_token_mfa_settings_type
     import capo_cognito_identity_provider.types.software_token_mfa_user_code_type
+    import capo_cognito_identity_provider.types.start_point_in_time_recovery_request
+    import capo_cognito_identity_provider.types.start_point_in_time_recovery_response
     import capo_cognito_identity_provider.types.start_user_import_job_request
     import capo_cognito_identity_provider.types.start_user_import_job_response
     import capo_cognito_identity_provider.types.start_web_authn_registration_request
@@ -374,6 +413,7 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.terms_name_type
     import capo_cognito_identity_provider.types.terms_source_type
     import capo_cognito_identity_provider.types.token_model_type
+    import capo_cognito_identity_provider.types.token_type_identifier_type
     import capo_cognito_identity_provider.types.token_validity_units_type
     import capo_cognito_identity_provider.types.untag_resource_request
     import capo_cognito_identity_provider.types.untag_resource_response
@@ -419,6 +459,8 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.user_pool_tags_list_type
     import capo_cognito_identity_provider.types.user_pool_tags_type
     import capo_cognito_identity_provider.types.user_pool_tier_type
+    import capo_cognito_identity_provider.types.user_pool_token_session_config_type
+    import capo_cognito_identity_provider.types.user_session_tracking_type
     import capo_cognito_identity_provider.types.user_type
     import capo_cognito_identity_provider.types.username_attributes_list_type
     import capo_cognito_identity_provider.types.username_configuration_type
@@ -2120,6 +2162,95 @@ class CognitoIdentityProviderClient:
             if not _token:
                 break
 
+    def admin_list_user_sessions(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        username: "capo_cognito_identity_provider.types.username_type.UsernameType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+        next_token: Optional[
+            "capo_cognito_identity_provider.types.pagination_key.PaginationKey"
+        ] = None,
+    ) -> "capo_cognito_identity_provider.types.admin_list_user_sessions_response.AdminListUserSessionsResponse":
+        """<p>Lists the active sessions for a specified user as an administrator. The response includes both token sessions and SSO sessions. Only active sessions are returned; revoked and expired sessions aren't included. Amazon Cognito returns all of a user's sessions in a single page of up to 125 sessions. The results are eventually consistent, and new sessions are typically included within a few seconds.</p>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool that contains the user.</p>
+            username: <p>The username of the user whose sessions you want to list.</p>
+            next_token: <p>A pagination token that Amazon Cognito returned in a previous response. Use this value to retrieve the next page of results if a <code>NextToken</code> was included in a prior response.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.user_not_found_exception.UserNotFoundException: <p>This exception is thrown when a user isn't found.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example list the active sessions of a user as an administrator
+            The following example lists the active sessions for the user testuser. The response contains one token session that originated from an SSO session, and the SSO session it came through.
+
+            >>> client.admin_list_user_sessions(user_pool_id='us-east-1_EXAMPLE', username='testuser')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.admin_list_user_sessions_request.AdminListUserSessionsRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.admin_list_user_sessions_response.AdminListUserSessionsResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.admin_list_user_sessions
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.admin_list_user_sessions.admin_list_user_sessions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_list_user_sessions_request.AdminListUserSessionsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_list_user_sessions_request
+
+            return capo_cognito_identity_provider.types.admin_list_user_sessions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.admin_list_user_sessions_response.AdminListUserSessionsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_list_user_sessions_response
+
+            return capo_cognito_identity_provider.types.admin_list_user_sessions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AdminListUserSessions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_cognito_identity_provider.types.admin_list_user_sessions_request.AdminListUserSessionsRequest = {
+            "user_pool_id": user_pool_id,
+            "username": username,
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def admin_remove_user_from_group(
         self,
         user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
@@ -2379,6 +2510,85 @@ class CognitoIdentityProviderClient:
             input_["context_data"] = context_data
         if client_metadata is not None:
             input_["client_metadata"] = client_metadata
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def admin_revoke_user_session(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        username: "capo_cognito_identity_provider.types.username_type.UsernameType",
+        session_id: "capo_cognito_identity_provider.types.session_id_type.SessionIdType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+        revoke_associated_sessions: Optional[
+            "capo_cognito_identity_provider.types.revoke_associated_sessions_type.RevokeAssociatedSessionsType"
+        ] = None,
+    ) -> "capo_cognito_identity_provider.types.admin_revoke_user_session_response.AdminRevokeUserSessionResponse":
+        """<p>Revokes a specific user session as an administrator. Amazon Cognito revokes all refresh and access tokens that are associated with the session and deletes the session record. You can revoke either a token session or an SSO session, and you can optionally cascade the revocation to linked sessions.</p>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool that contains the session.</p>
+            username: <p>The username of the user who owns the session. The username must match the user associated with the <code>SessionId</code>, to confirm they are the intended target user.</p>
+            session_id: <p>The ID of the session to revoke. This is a 28-character string of lowercase letters and digits, prefixed with <code>tkn</code> for a token session or <code>sso</code> for an SSO session.</p>
+            revoke_associated_sessions: <p>Specifies whether to also revoke the sessions that are linked to the targeted session. <code>NONE</code>, the default, revokes only the targeted session. <code>LINKED</code> also revokes the directly linked session or sessions, interpreted relative to the type of the targeted session: revoking a token session also revokes the parent SSO session it came through, and revoking an SSO session also revokes the token sessions that came through it. The set of linked sessions is eventually consistent, so associated sessions are typically revoked within a few seconds.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.user_not_found_exception.UserNotFoundException: <p>This exception is thrown when a user isn't found.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example revoke a user session as an administrator
+            The following example revokes a token session for the user testuser and cascades the revocation to the parent SSO session that the token session came through.
+
+            >>> client.admin_revoke_user_session(user_pool_id='us-east-1_EXAMPLE', username='testuser', session_id='tknm5k9p2q7r4s8t1v6w3x0y5z2b', revoke_associated_sessions='LINKED')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.admin_revoke_user_session_request.AdminRevokeUserSessionRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.admin_revoke_user_session_response.AdminRevokeUserSessionResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.admin_revoke_user_session
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.admin_revoke_user_session.admin_revoke_user_session(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.admin_revoke_user_session_request.AdminRevokeUserSessionRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.admin_revoke_user_session_request
+
+            return capo_cognito_identity_provider.types.admin_revoke_user_session_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AdminRevokeUserSession", redact_input=_redact_input),
+        )
+        input_: capo_cognito_identity_provider.types.admin_revoke_user_session_request.AdminRevokeUserSessionRequest = {
+            "user_pool_id": user_pool_id,
+            "username": username,
+            "session_id": session_id,
+        }
+        if revoke_associated_sessions is not None:
+            input_["revoke_associated_sessions"] = revoke_associated_sessions
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2983,6 +3193,61 @@ class CognitoIdentityProviderClient:
             input_["access_token"] = access_token
         if session is not None:
             input_["session"] = session
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def cancel_point_in_time_recovery(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        restore_id: "capo_cognito_identity_provider.types.restore_id_type.RestoreIdType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+    ) -> "capo_cognito_identity_provider.types.cancel_point_in_time_recovery_response.CancelPointInTimeRecoveryResponse":
+        """<p>Cancels a point-in-time recovery of a user pool before Amazon Cognito applies any changes. You can cancel a recovery when its status is <code>PREVIEW_GENERATING</code> or <code>PREVIEW_GENERATED</code>. When you cancel a recovery, Amazon Cognito discards the recovery preview, resumes write operations in the user pool, and sets the status of the recovery to <code>PREVIEW_CANCELLED</code>. Your user pool data doesn't change.</p> <p>You can't cancel a recovery after you start it with a request.</p> <note> <p>Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM permission in a policy.</p> <p class="title"> <b>Learn more</b> </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html">Signing Amazon Web Services API Requests</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html">Using the Amazon Cognito user pools API and user pool endpoints</a> </p> </li> </ul> </note>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool that contains the recovery that you want to cancel.</p>
+            restore_id: <p>The ID of the recovery that you want to cancel. Amazon Cognito returns this ID in the response to an <code>InitiatePointInTimeRecovery</code> request.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.concurrent_modification_exception.ConcurrentModificationException: <p>This exception is thrown if two or more modifications are happening concurrently.</p>
+            capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception.FeatureUnavailableInTierException: <p>This exception is thrown when a feature that you attempted to use or configure isn't included in your user pool's current feature plan. This can occur when:</p> <ul> <li> <p>You configure a feature that your feature plan doesn't support.</p> </li> <li> <p>You make a request that uses a feature that requires a higher feature plan.</p> </li> </ul> <p>To resolve this issue, upgrade your user pool to a feature plan that includes the feature.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.cancel_point_in_time_recovery_request.CancelPointInTimeRecoveryRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.cancel_point_in_time_recovery_response.CancelPointInTimeRecoveryResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.cancel_point_in_time_recovery
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.cancel_point_in_time_recovery.cancel_point_in_time_recovery(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelPointInTimeRecovery")
+        )
+        input_: capo_cognito_identity_provider.types.cancel_point_in_time_recovery_request.CancelPointInTimeRecoveryRequest = {
+            "user_pool_id": user_pool_id,
+            "restore_id": restore_id,
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3978,6 +4243,9 @@ class CognitoIdentityProviderClient:
         user_pool_add_ons: Optional[
             "capo_cognito_identity_provider.types.user_pool_add_ons_type.UserPoolAddOnsType"
         ] = None,
+        dcr_configuration: Optional[
+            "capo_cognito_identity_provider.types.dcr_configuration_type.DcrConfigurationType"
+        ] = None,
         username_configuration: Optional[
             "capo_cognito_identity_provider.types.username_configuration_type.UsernameConfigurationType"
         ] = None,
@@ -4021,6 +4289,7 @@ class CognitoIdentityProviderClient:
             admin_create_user_config: <p>The configuration for administrative creation of users. Includes the template for the invitation message for new users, the duration of temporary passwords, and permitting self-service sign-up.</p>
             schema: <p>An array of attributes for the new user pool. You can add custom attributes and modify the properties of default attributes. The specifications in this parameter set the required attributes in your user pool. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">Working with user attributes</a>.</p>
             user_pool_add_ons: <p>Contains settings for activation of threat protection, including the operating mode and additional authentication types. To log user security information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to potentially unwanted traffic to your user pool, set to <code>ENFORCED</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html">Adding advanced security to a user pool</a>. To activate this setting, your user pool must be on the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html"> Plus tier</a>.</p>
+            dcr_configuration: <p>The dynamic client registration configuration for the user pool. With dynamic client registration, applications can register their own app clients at runtime through the registration endpoint of your user pool domain. To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p>
             username_configuration: <p>Sets the case sensitivity option for sign-in usernames. When <code>CaseSensitive</code> is <code>false</code> (case insensitive), users can sign in with any combination of capital and lowercase letters. For example, <code>username</code>, <code>USERNAME</code>, or <code>UserName</code>, or for email, <code>email@example.com</code> or <code>EMaiL@eXamplE.Com</code>. For most use cases, set case sensitivity to <code>false</code> as a best practice. When usernames and email addresses are case insensitive, Amazon Cognito treats any variation in case as the same user, and prevents a case variation from being assigned to the same attribute for a different user.</p> <p>When <code>CaseSensitive</code> is <code>true</code> (case sensitive), Amazon Cognito interprets <code>USERNAME</code> and <code>UserName</code> as distinct users.</p> <p>This configuration is immutable after you set it.</p>
             account_recovery_setting: <p>The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>. You can use this setting to define a preferred method when a user has more than one method available. With this setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor authentication (MFA) activated. Email MFA is also disqualifying for account recovery with email. In the absence of this setting, Amazon Cognito uses the legacy behavior to determine the recovery method where SMS is preferred over email.</p> <p>As a best practice, configure both <code>verified_email</code> and <code>verified_phone_number</code>, with one having a higher priority than the other.</p>
             user_pool_tier: <p>The user pool <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-sign-in-feature-plans.html">feature plan</a>, or tier. This parameter determines the eligibility of the user pool for features like managed login, access-token customization, and threat protection. Defaults to <code>ESSENTIALS</code>.</p>
@@ -4109,6 +4378,8 @@ class CognitoIdentityProviderClient:
             input_["schema"] = schema
         if user_pool_add_ons is not None:
             input_["user_pool_add_ons"] = user_pool_add_ons
+        if dcr_configuration is not None:
+            input_["dcr_configuration"] = dcr_configuration
         if username_configuration is not None:
             input_["username_configuration"] = username_configuration
         if account_recovery_setting is not None:
@@ -4216,7 +4487,7 @@ class CognitoIdentityProviderClient:
             token_validity_units: <p>The units that validity times are represented in. The default unit for refresh tokens is days, and the default for ID and access tokens are hours.</p>
             read_attributes: <p>The list of user attributes that you want your app client to have read access to. After your user authenticates in your app, their access token authorizes them to read their own attribute value for any attribute in this list.</p> <p>When you don't specify the <code>ReadAttributes</code> for your app client, your app can read the values of <code>email_verified</code>, <code>phone_number_verified</code>, and the standard attributes of your user pool. When your user pool app client has read access to these default attributes, <code>ReadAttributes</code> doesn't return any information. Amazon Cognito only populates <code>ReadAttributes</code> in the API response if you have specified your own custom set of read attributes.</p>
             write_attributes: <p>The list of user attributes that you want your app client to have write access to. After your user authenticates in your app, their access token authorizes them to set or modify their own attribute value for any attribute in this list.</p> <p>When you don't specify the <code>WriteAttributes</code> for your app client, your app can write the values of the Standard attributes of your user pool. When your user pool has write access to these default attributes, <code>WriteAttributes</code> doesn't return any information. Amazon Cognito only populates <code>WriteAttributes</code> in the API response if you have specified your own custom set of write attributes.</p> <p>If your app client allows users to sign in through an IdP, this array must include all attributes that you have mapped to IdP attributes. Amazon Cognito updates mapped attributes when users sign in to your application through an IdP. If your app client does not have write access to a mapped attribute, Amazon Cognito throws an error when it tries to update the attribute. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html">Specifying IdP Attribute Mappings for Your user pool</a>.</p>
-            explicit_auth_flows: <p>The <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html">authentication flows</a> that you want your user pool client to support. For each app client in your user pool, you can sign in your users with any combination of one or more flows, including with a user name and Secure Remote Password (SRP), a user name and password, or a custom authentication process that you define with Lambda functions.</p> <note> <p>If you don't specify a value for <code>ExplicitAuthFlows</code>, your app client supports <code>ALLOW_REFRESH_TOKEN_AUTH</code>, <code>ALLOW_USER_SRP_AUTH</code>, and <code>ALLOW_CUSTOM_AUTH</code>. </p> </note> <p>The values for authentication flow options include the following.</p> <ul> <li> <p> <code>ALLOW_USER_AUTH</code>: Enable selection-based sign-in with <code>USER_AUTH</code>. This setting covers username-password, secure remote password (SRP), passwordless, and passkey authentication. This authentiation flow can do username-password and SRP authentication without other <code>ExplicitAuthFlows</code> permitting them. For example users can complete an SRP challenge through <code>USER_AUTH</code> without the flow <code>USER_SRP_AUTH</code> being active for the app client. This flow doesn't include <code>CUSTOM_AUTH</code>. </p> <p>To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p> </li> <li> <p> <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow, your app passes a user name and password to Amazon Cognito in the request, instead of using the Secure Remote Password (SRP) protocol to securely transmit the password.</p> </li> <li> <p> <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p> </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based authentication. In this flow, Amazon Cognito receives the password in the request instead of using the SRP protocol to verify passwords.</p> </li> <li> <p> <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP-based authentication.</p> </li> <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh tokens.</p> </li> </ul> <p>In some environments, you will see the values <code>ADMIN_NO_SRP_AUTH</code>, <code>CUSTOM_AUTH_FLOW_ONLY</code>, or <code>USER_PASSWORD_AUTH</code>. You can't assign these legacy <code>ExplicitAuthFlows</code> values to user pool clients at the same time as values that begin with <code>ALLOW_</code>, like <code>ALLOW_USER_SRP_AUTH</code>.</p>
+            explicit_auth_flows: <p>The <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html">authentication flows</a> that you want your user pool client to support. For each app client in your user pool, you can sign in your users with any combination of one or more flows, including with a user name and Secure Remote Password (SRP), a user name and password, or a custom authentication process that you define with Lambda functions.</p> <note> <p>If you don't specify a value for <code>ExplicitAuthFlows</code>, your app client supports <code>ALLOW_REFRESH_TOKEN_AUTH</code>, <code>ALLOW_USER_SRP_AUTH</code>, and <code>ALLOW_CUSTOM_AUTH</code>. </p> </note> <p>The values for authentication flow options include the following.</p> <ul> <li> <p> <code>ALLOW_USER_AUTH</code>: Enable selection-based sign-in with <code>USER_AUTH</code>. This setting covers username-password, secure remote password (SRP), passwordless, and passkey authentication. This authentiation flow can do username-password and SRP authentication without other <code>ExplicitAuthFlows</code> permitting them. For example users can complete an SRP challenge through <code>USER_AUTH</code> without the flow <code>USER_SRP_AUTH</code> being active for the app client. This flow doesn't include <code>CUSTOM_AUTH</code>. </p> <p>To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p> </li> <li> <p> <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow, your app passes a user name and password to Amazon Cognito in the request, instead of using the Secure Remote Password (SRP) protocol to securely transmit the password.</p> </li> <li> <p> <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p> </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based authentication. In this flow, Amazon Cognito receives the password in the request instead of using the SRP protocol to verify passwords.</p> </li> <li> <p> <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP-based authentication.</p> </li> <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh tokens.</p> </li> <li> <p> <code>ALLOW_TOKEN_EXCHANGE_IMPERSONATION</code> – Use this flow to request <code>GetDerivedToken</code> token exchanges without an <code>ActorToken</code>. The issued token represents the subject user directly.</p> </li> <li> <p> <code>ALLOW_TOKEN_EXCHANGE_DELEGATION</code> – Use this flow to request <code>GetDerivedToken</code> token exchanges that include an <code>ActorToken</code>. The issued token carries an <code>act</code> claim that identifies the intermediary acting on the behalf of the subject.</p> </li> </ul> <p>In some environments, you will see the values <code>ADMIN_NO_SRP_AUTH</code>, <code>CUSTOM_AUTH_FLOW_ONLY</code>, or <code>USER_PASSWORD_AUTH</code>. You can't assign these legacy <code>ExplicitAuthFlows</code> values to user pool clients at the same time as values that begin with <code>ALLOW_</code>, like <code>ALLOW_USER_SRP_AUTH</code>.</p>
             supported_identity_providers: <p>A list of provider names for the identity providers (IdPs) that are supported on this client. The following are supported: <code>COGNITO</code>, <code>Facebook</code>, <code>Google</code>, <code>SignInWithApple</code>, and <code>LoginWithAmazon</code>. You can also specify the names that you configured for the SAML and OIDC IdPs in your user pool, for example <code>MySAMLIdP</code> or <code>MyOIDCIdP</code>.</p> <p>This parameter sets the IdPs that <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html">managed login</a> will display on the login page for your app client. The removal of <code>COGNITO</code> from this list doesn't prevent authentication operations for local users with the user pools API in an Amazon Web Services SDK. The only way to prevent SDK-based authentication is to block access with a <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-waf.html">WAF rule</a>. </p>
             callback_ur_ls: <p>A list of allowed redirect, or callback, URLs for managed login authentication. These URLs are the paths where you want to send your users' browsers after they complete authentication with managed login or a third-party IdP. Typically, callback URLs are the home of an application that uses OAuth or OIDC libraries to process authentication outcomes.</p> <p>A redirect URI must meet the following requirements:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li> <p>Be registered with the authorization server. Amazon Cognito doesn't accept authorization requests with <code>redirect_uri</code> values that aren't in the list of <code>CallbackURLs</code> that you provide in this parameter.</p> </li> <li> <p>Not include a fragment component.</p> </li> </ul> <p>See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for callback URLs to <code>http://localhost</code>, <code>http://127.0.0.1</code> and <code>http://[::1]</code>. These callback URLs are for testing purposes only. You can specify custom TCP ports for your callback URLs.</p> <p>App callback URLs such as <code>myapp://example</code> are also supported.</p>
             logout_ur_ls: <p>A list of allowed logout URLs for managed login authentication. When you pass <code>logout_uri</code> and <code>client_id</code> parameters to <code>/logout</code>, Amazon Cognito signs out your user and redirects them to the logout URL. This parameter describes the URLs that you want to be the permitted targets of <code>logout_uri</code>. A typical use of these URLs is when a user selects "Sign out" and you redirect them to your public homepage. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/logout-endpoint.html">Logout endpoint</a>.</p>
@@ -5415,6 +5686,60 @@ class CognitoIdentityProviderClient:
         response.response.close()
         return response.output
 
+    def describe_point_in_time_recovery(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        restore_id: "capo_cognito_identity_provider.types.restore_id_type.RestoreIdType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+    ) -> "capo_cognito_identity_provider.types.describe_point_in_time_recovery_response.DescribePointInTimeRecoveryResponse":
+        """<p>Returns details about a point-in-time recovery of a user pool, including its status and the point in time that it restores the user pool to. After Amazon Cognito generates the recovery preview, the response also includes the number of entities that the recovery creates, updates, and deletes. Review the preview before you apply the recovery with a request or discard it with a request.</p> <note> <p>Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM permission in a policy.</p> <p class="title"> <b>Learn more</b> </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html">Signing Amazon Web Services API Requests</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html">Using the Amazon Cognito user pools API and user pool endpoints</a> </p> </li> </ul> </note>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool that contains the recovery that you want to describe.</p>
+            restore_id: <p>The ID of the recovery that you want to describe. Amazon Cognito returns this ID in the response to an <code>InitiatePointInTimeRecovery</code> request.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception.FeatureUnavailableInTierException: <p>This exception is thrown when a feature that you attempted to use or configure isn't included in your user pool's current feature plan. This can occur when:</p> <ul> <li> <p>You configure a feature that your feature plan doesn't support.</p> </li> <li> <p>You make a request that uses a feature that requires a higher feature plan.</p> </li> </ul> <p>To resolve this issue, upgrade your user pool to a feature plan that includes the feature.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.describe_point_in_time_recovery_request.DescribePointInTimeRecoveryRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.describe_point_in_time_recovery_response.DescribePointInTimeRecoveryResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.describe_point_in_time_recovery
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.describe_point_in_time_recovery.describe_point_in_time_recovery(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePointInTimeRecovery")
+        )
+        input_: capo_cognito_identity_provider.types.describe_point_in_time_recovery_request.DescribePointInTimeRecoveryRequest = {
+            "user_pool_id": user_pool_id,
+            "restore_id": restore_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def describe_resource_server(
         self,
         user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
@@ -6230,6 +6555,150 @@ class CognitoIdentityProviderClient:
         response.response.close()
         return response.output
 
+    def get_derived_token(
+        self,
+        client_id: "capo_cognito_identity_provider.types.client_id_type.ClientIdType",
+        subject_token: "capo_cognito_identity_provider.types.get_derived_token_token_model_type.GetDerivedTokenTokenModelType",
+        subject_token_type: "capo_cognito_identity_provider.types.token_type_identifier_type.TokenTypeIdentifierType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+        client_secret: Optional[
+            "capo_cognito_identity_provider.types.client_secret_type.ClientSecretType"
+        ] = None,
+        subject_token_provider_name: Optional[
+            "capo_cognito_identity_provider.types.provider_name_type.ProviderNameType"
+        ] = None,
+        actor_token: Optional[
+            "capo_cognito_identity_provider.types.get_derived_token_token_model_type.GetDerivedTokenTokenModelType"
+        ] = None,
+        actor_token_type: Optional[
+            "capo_cognito_identity_provider.types.token_type_identifier_type.TokenTypeIdentifierType"
+        ] = None,
+        actor_token_provider_name: Optional[
+            "capo_cognito_identity_provider.types.provider_name_type.ProviderNameType"
+        ] = None,
+        scopes: Optional[
+            "capo_cognito_identity_provider.types.scope_list_type.ScopeListType"
+        ] = None,
+        audiences: Optional[
+            "capo_cognito_identity_provider.types.audience_list_type.AudienceListType"
+        ] = None,
+        resources: Optional[
+            "capo_cognito_identity_provider.types.resource_list_type.ResourceListType"
+        ] = None,
+        requested_token_type: Optional[
+            "capo_cognito_identity_provider.types.issued_token_type_identifier_type.IssuedTokenTypeIdentifierType"
+        ] = None,
+    ) -> "capo_cognito_identity_provider.types.get_derived_token_response.GetDerivedTokenResponse":
+        """<p>Exchanges an existing token for a new token that is scoped and audience-bound for a specific downstream service, following the OAuth 2.0 Token Exchange grant type. For more information about the OAuth 2.0 Token Exchange grant type, see <a href="https://tools.ietf.org/html/rfc8693">RFC 8693 - OAuth 2.0 Token Exchange</a> on the IETF website. Present a <code>SubjectToken</code>, the credential that you already hold, to receive a new token appropriate for calling a specific resource server or audience.</p> <p>If you also present an <code>ActorToken</code> that identifies an intermediary service, the issued token carries an <code>act</code> claim that identifies the intermediary, and downstream services can distinguish a user acting directly from an intermediary acting on the user's behalf. If you don't present an <code>ActorToken</code>, the issued token appears as if the user acted directly.</p> <p>To use this operation, you must have IAM credentials, or you must present the requesting app client's <code>ClientId</code> and, if the client has a secret, <code>ClientSecret</code>, in the request.</p> <p>The requesting app client must have <code>ALLOW_TOKEN_EXCHANGE_IMPERSONATION</code> or <code>ALLOW_TOKEN_EXCHANGE_DELEGATION</code> in its <code>ExplicitAuthFlows</code> (depending on whether you include an <code>ActorToken</code>), or the request fails.</p>
+
+        Args:
+            client_id: <p>The ID of the app client that requests the token exchange.</p>
+            client_secret: <p>The client secret of the requested app client, if the client has a secret.</p>
+            subject_token: <p>The token that you want to exchange for a new token. This is the credential that represents the identity of the party on behalf of whom the request is being made.</p>
+            subject_token_type: <p>The type of the <code>SubjectToken</code> that you want to exchange. Valid values:</p> <ul> <li> <p> <code>ACCESS_TOKEN</code> – The subject token is an access token.</p> </li> <li> <p> <code>ID_TOKEN</code> – The subject token is an ID token.</p> </li> <li> <p> <code>SAML2</code> – The subject token is a SAML 2.0 assertion.</p> </li> </ul>
+            subject_token_provider_name: <p>The name of the third-party identity provider that issued the <code>SubjectToken</code>, if the subject token isn't a Amazon Cognito token. Provide this value when your <code>SubjectToken</code> came from a SAML or OIDC provider that you registered with your user pool, so that Amazon Cognito can validate it against that provider's configuration. Omit this parameter for a Amazon Cognito ID or access token.</p>
+            actor_token: <p>A token that identifies the intermediary service that is exchanging the token on behalf of the user. When you provide an <code>ActorToken</code>, the token that Amazon Cognito issues carries an <code>act</code> claim that identifies the intermediary, so that downstream services can distinguish a user acting directly from an intermediary acting on the user's behalf.</p>
+            actor_token_type: <p>The type of the <code>ActorToken</code> that you provide. Required when you provide an <code>ActorToken</code>. Valid values:</p> <ul> <li> <p> <code>ACCESS_TOKEN</code> – The actor token is an access token.</p> </li> <li> <p> <code>ID_TOKEN</code> – The actor token is an ID token.</p> </li> <li> <p> <code>SAML2</code> – The actor token is a SAML 2.0 assertion.</p> </li> </ul>
+            actor_token_provider_name: <p>The name of the third-party identity provider that issued the <code>ActorToken</code>, if the actor token isn't a Amazon Cognito token.</p>
+            scopes: <p>The scopes that you want the new token to have. Amazon Cognito issues a token with the intersection of these requested scopes, the scopes of your <code>SubjectToken</code>, and the scopes that are allowed for the requesting app client. If you don't specify any scopes, Amazon Cognito issues a token with the same scopes as your <code>SubjectToken</code>.</p>
+            audiences: <p>The logical name of the target service where you intend to use the issued token. You can't request both <code>Audiences</code> and <code>Resources</code> in the same request.</p>
+            resources: <p>The identifier of a resource server in your user pool where you intend to use the issued token. You can't request both <code>Resources</code> and <code>Audiences</code> in the same request.</p>
+            requested_token_type: <p>The type of token that you want Amazon Cognito to issue. Valid values:</p> <ul> <li> <p> <code>ACCESS_TOKEN</code> – Issues an access token.</p> </li> <li> <p> <code>ID_TOKEN</code> – Issues an ID token.</p> </li> </ul> <p>Amazon Cognito can't issue a SAML assertion, so <code>SAML2</code> isn't a valid value for this parameter.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.forbidden_exception.ForbiddenException: <p>This exception is thrown when WAF doesn't allow your request based on a web ACL that's associated with your user pool.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_lambda_response_exception.InvalidLambdaResponseException: <p>This exception is thrown when Amazon Cognito encounters an invalid Lambda response.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.unexpected_lambda_exception.UnexpectedLambdaException: <p>This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.</p>
+            capo_cognito_identity_provider.errors.user_lambda_validation_exception.UserLambdaValidationException: <p>This exception is thrown when the Amazon Cognito service encounters a user validation exception with the Lambda service.</p>
+            capo_cognito_identity_provider.errors.user_not_found_exception.UserNotFoundException: <p>This exception is thrown when a user isn't found.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example exchange a subject token for an audience-bound access token
+            The following example exchanges an access token for a new access token that is scoped and audience-bound for the solar-system-data resource server.
+
+            >>> client.get_derived_token(client_id='1example23456789', client_secret='13ka4h7u28d9oo44tqpq9djqsfvhvu8rk4d2ighvpu0k8fj1c2r9', subject_token='eyJra456defEXAMPLE', subject_token_type='ACCESS_TOKEN', audiences=['solar-system-data'], scopes=['solar-system-data/asteroids.read'])
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.get_derived_token_request.GetDerivedTokenRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.get_derived_token_response.GetDerivedTokenResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.get_derived_token
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.get_derived_token.get_derived_token(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_derived_token_request.GetDerivedTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_derived_token_request
+
+            return capo_cognito_identity_provider.types.get_derived_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.get_derived_token_response.GetDerivedTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_derived_token_response
+
+            return capo_cognito_identity_provider.types.get_derived_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDerivedToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_cognito_identity_provider.types.get_derived_token_request.GetDerivedTokenRequest = {
+            "client_id": client_id,
+            "subject_token": subject_token,
+            "subject_token_type": subject_token_type,
+        }
+        if client_secret is not None:
+            input_["client_secret"] = client_secret
+        if subject_token_provider_name is not None:
+            input_["subject_token_provider_name"] = subject_token_provider_name
+        if actor_token is not None:
+            input_["actor_token"] = actor_token
+        if actor_token_type is not None:
+            input_["actor_token_type"] = actor_token_type
+        if actor_token_provider_name is not None:
+            input_["actor_token_provider_name"] = actor_token_provider_name
+        if scopes is not None:
+            input_["scopes"] = scopes
+        if audiences is not None:
+            input_["audiences"] = audiences
+        if resources is not None:
+            input_["resources"] = resources
+        if requested_token_type is not None:
+            input_["requested_token_type"] = requested_token_type
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_device(
         self,
         device_key: "capo_cognito_identity_provider.types.device_key_type.DeviceKeyType",
@@ -6987,6 +7456,88 @@ class CognitoIdentityProviderClient:
         response.response.close()
         return response.output
 
+    def get_user_pool_client_session_configuration(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        client_id: "capo_cognito_identity_provider.types.client_id_type.ClientIdType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+    ) -> "capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_response.GetUserPoolClientSessionConfigurationResponse":
+        """<p>Retrieves the session configuration for a user pool app client. If you have never called <code>SetUserPoolClientSessionConfiguration</code> for the app client, this operation returns the default SSO session maximum validity of <code>60</code> minutes.</p>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool that contains the app client.</p>
+            client_id: <p>The ID of the app client where you want to retrieve the session configuration.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example get the session configuration of an app client
+            The following example returns the per-client session configuration, showing an SSO session validity of 43200 minutes (30 days).
+
+            >>> client.get_user_pool_client_session_configuration(user_pool_id='us-east-1_EXAMPLE', client_id='1example23456789')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_request.GetUserPoolClientSessionConfigurationRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_response.GetUserPoolClientSessionConfigurationResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.get_user_pool_client_session_configuration
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.get_user_pool_client_session_configuration.get_user_pool_client_session_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_request.GetUserPoolClientSessionConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_request
+
+            return capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_response.GetUserPoolClientSessionConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_response
+
+            return capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetUserPoolClientSessionConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_cognito_identity_provider.types.get_user_pool_client_session_configuration_request.GetUserPoolClientSessionConfigurationRequest = {
+            "user_pool_id": user_pool_id,
+            "client_id": client_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_user_pool_mfa_config(
         self,
         user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
@@ -7025,6 +7576,62 @@ class CognitoIdentityProviderClient:
             config_overrides, OperationLogging("GetUserPoolMfaConfig")
         )
         input_: capo_cognito_identity_provider.types.get_user_pool_mfa_config_request.GetUserPoolMfaConfigRequest = {
+            "user_pool_id": user_pool_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_user_pool_session_configuration(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+    ) -> "capo_cognito_identity_provider.types.get_user_pool_session_configuration_response.GetUserPoolSessionConfigurationResponse":
+        """<p>Retrieves the session tracking configuration for a user pool, including whether session tracking is enabled and the pool-wide maximum number of active token sessions for each user. If you have never called <code>SetUserPoolSessionConfiguration</code> for the user pool, this operation returns the default values: <code>UserSessionTracking</code> as <code>DISABLED</code> and a <code>MaxPerUser</code> value of <code>20</code>.</p>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool where you want to retrieve the session configuration.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example get the session configuration of a user pool
+            The following example returns the pool-level session configuration, showing that session tracking is enabled with a maximum of 20 concurrent token sessions per user.
+
+            >>> client.get_user_pool_session_configuration(user_pool_id='us-east-1_EXAMPLE')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.get_user_pool_session_configuration_request.GetUserPoolSessionConfigurationRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.get_user_pool_session_configuration_response.GetUserPoolSessionConfigurationResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.get_user_pool_session_configuration
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.get_user_pool_session_configuration.get_user_pool_session_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserPoolSessionConfiguration")
+        )
+        input_: capo_cognito_identity_provider.types.get_user_pool_session_configuration_request.GetUserPoolSessionConfigurationRequest = {
             "user_pool_id": user_pool_id
         }
 
@@ -7213,6 +7820,62 @@ class CognitoIdentityProviderClient:
             input_["user_context_data"] = user_context_data
         if session is not None:
             input_["session"] = session
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def initiate_point_in_time_recovery(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        restore_timestamp: "capo_cognito_identity_provider.types.date_type.DateType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+    ) -> "capo_cognito_identity_provider.types.initiate_point_in_time_recovery_response.InitiatePointInTimeRecoveryResponse":
+        """<p>Initiates a point-in-time recovery of a user pool to a time in the past that you specify. This operation is the first step of a recovery and doesn't change your user pool data. Amazon Cognito pauses write operations in the user pool and generates a recovery preview when capacity is available in the Amazon Web Services Region, so the preview might not be available immediately. The preview shows the number of entities that the recovery creates, updates, and deletes. To check the status of the recovery and review the preview, make a request. When the status is <code>PREVIEW_GENERATED</code>, apply the recovery with a request or discard it with a request. The time that it takes to generate the recovery preview doesn't depend on the size of your user pool.</p> <important> <p>Point-in-time recovery is a disaster recovery feature. Use it to recover from accidental or unauthorized changes that affect your user data, for example the deletion or corruption of many users. Don't use point-in-time recovery to remove users that were created recently or to revert changes to individual users. To delete or update individual users, use operations like and .</p> </important> <p>While a recovery is in progress, Amazon Cognito blocks operations that write to the user pool, for example user sign-up, user creation, and attribute updates. Sign-in and read operations continue to work, with the following exceptions.</p> <ul> <li> <p>Users who must set a new password, set up MFA, or respond to a TOTP MFA challenge can't complete sign-in. Sign-in with the <code>NEW_PASSWORD_REQUIRED</code>, <code>MFA_SETUP</code>, and <code>SOFTWARE_TOKEN_MFA</code> challenges fails until the recovery ends.</p> </li> <li> <p>Federated users can sign in only if they have previously signed in to the user pool and their attributes from the external identity provider haven't changed.</p> </li> <li> <p>You can't create or start user import jobs. Start your import jobs after the recovery ends.</p> </li> </ul> <p>If you don't start or cancel the recovery within 24 hours after you initiate it, the recovery preview expires. Amazon Cognito then resumes write operations and doesn't change your user pool data. The 24-hour period includes the time that Amazon Cognito waits for available capacity.</p> <p>A point-in-time recovery restores user data, including user profiles and attributes, group memberships, passwords, MFA settings, and passkeys. It doesn't restore user pool configuration, for example app clients, the attribute schema, encryption settings, or multi-Region replication settings. Users who changed their password after the recovery point keep their current password.</p> <p>The following requirements and limits apply to point-in-time recovery.</p> <ul> <li> <p>Your user pool must be on the Essentials or Plus <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-sign-in-feature-plans.html">feature plan</a>. With the Essentials feature plan, you can recover your user pool to a point in time up to 1 day in the past. With the Plus feature plan, you can recover up to 14 days in the past. Your user pool must have been on the required feature plan at the recovery point. For example, to recover to a point in time 14 days ago, your user pool must have been on the Plus feature plan for the past 14 days.</p> </li> <li> <p>The recovery point must be at least 15 minutes in the past and can't be earlier than the creation time of the user pool.</p> </li> <li> <p>A user pool can have only one active recovery at a time.</p> </li> <li> <p>An Amazon Web Services account can have up to five active recoveries at a time across all of its user pools. An organization in Amazon Web Services Organizations can have up to ten active recoveries at a time across all of its accounts.</p> </li> <li> <p>You can complete one recovery of a user pool in a 24-hour period.</p> </li> <li> <p>You can create up to three recovery previews of a user pool, ten recovery previews in an Amazon Web Services account, and 15 recovery previews in an organization in Amazon Web Services Organizations in a 24-hour period. You can create up to ten recovery previews of a user pool in a 30-day period.</p> </li> <li> <p>You can't initiate a recovery while a user import job is in progress in your user pool. Wait for the import job to complete, or stop it with a request, and then initiate the recovery.</p> </li> <li> <p>In a user pool with multi-Region replication, you can initiate a recovery only in the primary Amazon Web Services Region, and only after replication is complete.</p> </li> <li> <p>If your user pool uses a customer managed key in KMS for encryption, the key must remain enabled and accessible to Amazon Cognito for the duration of the recovery.</p> </li> <li> <p>Some user pools don't support point-in-time recovery, for example some older user pools and user pools that contain user data with characters or formats that point-in-time recovery doesn't support. If your user pool doesn't support it, Amazon Cognito returns an error when you initiate a recovery. To get help with this limitation, contact Amazon Web Services Support.</p> </li> </ul> <note> <p>Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM permission in a policy.</p> <p class="title"> <b>Learn more</b> </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html">Signing Amazon Web Services API Requests</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html">Using the Amazon Cognito user pools API and user pool endpoints</a> </p> </li> </ul> </note>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool that you want to recover.</p>
+            restore_timestamp: <p>The point in time that you want to recover your user pool to. Amazon Cognito reverts changes to user data that occurred after this time. The recovery point must be at least 15 minutes in the past and within the recovery period of your user pool feature plan: up to 1 day in the past with the Essentials feature plan, or up to 14 days in the past with the Plus feature plan.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.concurrent_modification_exception.ConcurrentModificationException: <p>This exception is thrown if two or more modifications are happening concurrently.</p>
+            capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception.FeatureUnavailableInTierException: <p>This exception is thrown when a feature that you attempted to use or configure isn't included in your user pool's current feature plan. This can occur when:</p> <ul> <li> <p>You configure a feature that your feature plan doesn't support.</p> </li> <li> <p>You make a request that uses a feature that requires a higher feature plan.</p> </li> </ul> <p>To resolve this issue, upgrade your user pool to a feature plan that includes the feature.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.limit_exceeded_exception.LimitExceededException: <p>This exception is thrown when a user exceeds the limit for a requested Amazon Web Services resource.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.initiate_point_in_time_recovery_request.InitiatePointInTimeRecoveryRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.initiate_point_in_time_recovery_response.InitiatePointInTimeRecoveryResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.initiate_point_in_time_recovery
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.initiate_point_in_time_recovery.initiate_point_in_time_recovery(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitiatePointInTimeRecovery")
+        )
+        input_: capo_cognito_identity_provider.types.initiate_point_in_time_recovery_request.InitiatePointInTimeRecoveryRequest = {
+            "user_pool_id": user_pool_id,
+            "restore_timestamp": restore_timestamp,
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -7489,6 +8152,69 @@ class CognitoIdentityProviderClient:
             if not _token:
                 break
 
+    def list_point_in_time_recoveries(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+        next_token: Optional[
+            "capo_cognito_identity_provider.types.pagination_key_type.PaginationKeyType"
+        ] = None,
+        max_results: Optional[
+            "capo_cognito_identity_provider.types.pool_query_limit_type.PoolQueryLimitType"
+        ] = None,
+    ) -> "capo_cognito_identity_provider.types.list_point_in_time_recoveries_response.ListPointInTimeRecoveriesResponse":
+        """<p>Lists the point-in-time recoveries of a user pool, including the active recovery and past recoveries. The response lists the most recent recoveries first and doesn't include recovery previews. To get the recovery preview of a recovery, make a request.</p> <note> <p>Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM permission in a policy.</p> <p class="title"> <b>Learn more</b> </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html">Signing Amazon Web Services API Requests</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html">Using the Amazon Cognito user pools API and user pool endpoints</a> </p> </li> </ul> </note>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool where you want to list point-in-time recoveries.</p>
+            next_token: <p>This API operation returns a limited number of results. The pagination token is an identifier that you can present in an additional API request with the same parameters. When you include the pagination token, Amazon Cognito returns the next set of items after the current list. Subsequent requests return a new pagination token. By use of this token, you can paginate through the full list of items.</p>
+            max_results: <p>The maximum number of recoveries that you want Amazon Cognito to return in the response. Valid values are 1 through 60. The default value is 60.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception.FeatureUnavailableInTierException: <p>This exception is thrown when a feature that you attempted to use or configure isn't included in your user pool's current feature plan. This can occur when:</p> <ul> <li> <p>You configure a feature that your feature plan doesn't support.</p> </li> <li> <p>You make a request that uses a feature that requires a higher feature plan.</p> </li> </ul> <p>To resolve this issue, upgrade your user pool to a feature plan that includes the feature.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.list_point_in_time_recoveries_request.ListPointInTimeRecoveriesRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.list_point_in_time_recoveries_response.ListPointInTimeRecoveriesResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.list_point_in_time_recoveries
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.list_point_in_time_recoveries.list_point_in_time_recoveries(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPointInTimeRecoveries")
+        )
+        input_: capo_cognito_identity_provider.types.list_point_in_time_recoveries_request.ListPointInTimeRecoveriesRequest = {
+            "user_pool_id": user_pool_id
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def list_resource_servers(
         self,
         user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
@@ -7760,6 +8486,9 @@ class CognitoIdentityProviderClient:
         next_token: Optional[
             "capo_cognito_identity_provider.types.pagination_key.PaginationKey"
         ] = None,
+        client_type: Optional[
+            "capo_cognito_identity_provider.types.client_type_type.ClientTypeType"
+        ] = None,
     ) -> "capo_cognito_identity_provider.types.list_user_pool_clients_response.ListUserPoolClientsResponse":
         """<p>Given a user pool ID, lists app clients. App clients are sets of rules for the access that you want a user pool to grant to one application. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html">App clients</a>.</p> <note> <p>Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM permission in a policy.</p> <p class="title"> <b>Learn more</b> </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html">Signing Amazon Web Services API Requests</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html">Using the Amazon Cognito user pools API and user pool endpoints</a> </p> </li> </ul> </note>
 
@@ -7767,6 +8496,7 @@ class CognitoIdentityProviderClient:
             user_pool_id: <p>The ID of the user pool where you want to list user pool clients.</p>
             max_results: <p>The maximum number of app clients that you want Amazon Cognito to return in the response.</p>
             next_token: <p>This API operation returns a limited number of results. The pagination token is an identifier that you can present in an additional API request with the same parameters. When you include the pagination token, Amazon Cognito returns the next set of items after the current list. Subsequent requests return a new pagination token. By use of this token, you can paginate through the full list of items.</p>
+            client_type: <p>Returns only app clients of this type. For dynamic client registration (<code>DCR</code>) and other app clients, the following values are valid.</p> <dl> <dt>REGULAR</dt> <dd> <p>An app client not created through dynamic client registration.</p> </dd> <dt>DCR</dt> <dd> <p>An app client created through dynamic client registration.</p> </dd> </dl> <p>If you omit <code>ClientType</code>, the response includes app clients of all types. When you set this filter, a page of results can contain fewer app clients than <code>MaxResults</code>, or none, while the response still includes a <code>NextToken</code>. Continue to request pages until the response has no <code>NextToken</code>. The app clients in the response don't include their type. To get the type of an app client, call <code>DescribeUserPoolClient</code>.</p>
 
         Raises:
             capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
@@ -7812,6 +8542,8 @@ class CognitoIdentityProviderClient:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if client_type is not None:
+            input_["client_type"] = client_type
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -7832,6 +8564,9 @@ class CognitoIdentityProviderClient:
         next_token: Optional[
             "capo_cognito_identity_provider.types.pagination_key.PaginationKey"
         ] = None,
+        client_type: Optional[
+            "capo_cognito_identity_provider.types.client_type_type.ClientTypeType"
+        ] = None,
     ) -> "Iterator[capo_cognito_identity_provider.types.user_pool_client_description.UserPoolClientDescription]":
         _token = next_token
         while True:
@@ -7840,6 +8575,7 @@ class CognitoIdentityProviderClient:
                 config_overrides=config_overrides,
                 max_results=max_results,
                 next_token=_token,
+                client_type=client_type,
             )
             _page = _resolve_path(_response, ("user_pool_clients",))
             for _item in _page or []:
@@ -8192,6 +8928,95 @@ class CognitoIdentityProviderClient:
             _token = _resolve_path(_response, ("pagination_token",))
             if not _token:
                 break
+
+    def list_user_sessions(
+        self,
+        access_token: "capo_cognito_identity_provider.types.token_model_type.TokenModelType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+        next_token: Optional[
+            "capo_cognito_identity_provider.types.pagination_key.PaginationKey"
+        ] = None,
+    ) -> "capo_cognito_identity_provider.types.list_user_sessions_response.ListUserSessionsResponse":
+        """<p>Lists the active sessions for the currently signed-in user. Amazon Cognito authorizes this operation with the user's access token and returns all of the user's active sessions across every app client in the user pool, including both token sessions and SSO sessions. The <code>IsCurrentSession</code> field identifies the session that the calling access token belongs to. The results are eventually consistent, and new sessions are typically included within a few seconds.</p>
+
+        Args:
+            access_token: <p>A valid access token that Amazon Cognito issued to the user whose sessions you want to list. Amazon Cognito derives the user pool and username from this token.</p>
+            next_token: <p>A pagination token that Amazon Cognito returned in a previous response. Use this value to retrieve the next page of results if a <code>NextToken</code> was included in a prior response.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.forbidden_exception.ForbiddenException: <p>This exception is thrown when WAF doesn't allow your request based on a web ACL that's associated with your user pool.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.password_reset_required_exception.PasswordResetRequiredException: <p>This exception is thrown when a password reset is required.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.user_not_confirmed_exception.UserNotConfirmedException: <p>This exception is thrown when a user isn't confirmed successfully.</p>
+            capo_cognito_identity_provider.errors.user_not_found_exception.UserNotFoundException: <p>This exception is thrown when a user isn't found.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example list a user's own active sessions
+            The following example lists the active sessions for the user who owns the provided access token. The IsCurrentSession field identifies the session that the access token belongs to.
+
+            >>> client.list_user_sessions(access_token='eyJra456defEXAMPLE')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.list_user_sessions_request.ListUserSessionsRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.list_user_sessions_response.ListUserSessionsResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.list_user_sessions
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.list_user_sessions.list_user_sessions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.list_user_sessions_request.ListUserSessionsRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_user_sessions_request
+
+            return capo_cognito_identity_provider.types.list_user_sessions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.list_user_sessions_response.ListUserSessionsResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.list_user_sessions_response
+
+            return capo_cognito_identity_provider.types.list_user_sessions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListUserSessions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_cognito_identity_provider.types.list_user_sessions_request.ListUserSessionsRequest = {
+            "access_token": access_token
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def list_users_in_group(
         self,
@@ -8601,6 +9426,9 @@ class CognitoIdentityProviderClient:
         client_secret: Optional[
             "capo_cognito_identity_provider.types.client_secret_type.ClientSecretType"
         ] = None,
+        revoke_associated_sessions: Optional[
+            "capo_cognito_identity_provider.types.revoke_associated_sessions_type.RevokeAssociatedSessionsType"
+        ] = None,
     ) -> (
         "capo_cognito_identity_provider.types.revoke_token_response.RevokeTokenResponse"
     ):
@@ -8610,6 +9438,7 @@ class CognitoIdentityProviderClient:
             token: <p>The refresh token that you want to revoke.</p>
             client_id: <p>The ID of the app client where the token that you want to revoke was issued.</p>
             client_secret: <p>The client secret of the requested app client, if the client has a secret.</p>
+            revoke_associated_sessions: <p>Specifies whether to also revoke the SSO session that is linked to the token session being revoked. <code>NONE</code>, the default, revokes only the token session that is associated with the refresh token. <code>LINKED</code> also revokes the parent SSO session that the token session came through; the other token sessions that came through that SSO session aren't revoked. <code>LINKED</code> has no effect when session tracking is disabled or when the token session has no parent SSO session.</p>
 
         Raises:
             capo_cognito_identity_provider.errors.forbidden_exception.ForbiddenException: <p>This exception is thrown when WAF doesn't allow your request based on a web ACL that's associated with your user pool.</p>
@@ -8656,6 +9485,87 @@ class CognitoIdentityProviderClient:
         }
         if client_secret is not None:
             input_["client_secret"] = client_secret
+        if revoke_associated_sessions is not None:
+            input_["revoke_associated_sessions"] = revoke_associated_sessions
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def revoke_user_session(
+        self,
+        access_token: "capo_cognito_identity_provider.types.token_model_type.TokenModelType",
+        session_id: "capo_cognito_identity_provider.types.session_id_type.SessionIdType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+        revoke_associated_sessions: Optional[
+            "capo_cognito_identity_provider.types.revoke_associated_sessions_type.RevokeAssociatedSessionsType"
+        ] = None,
+    ) -> "capo_cognito_identity_provider.types.revoke_user_session_response.RevokeUserSessionResponse":
+        """<p>Revokes a specific session for the currently signed-in user. Amazon Cognito authorizes this operation with the user's access token, revokes all refresh and access tokens that are associated with the session, and deletes the session record. You can't revoke the session that the calling access token belongs to.</p>
+
+        Args:
+            access_token: <p>A valid access token that Amazon Cognito issued to the user. Amazon Cognito uses this token to authorize the request and to identify the user.</p>
+            session_id: <p>The ID of the session to revoke. This is a 28-character string of lowercase letters and digits, prefixed with <code>tkn</code> for a token session or <code>sso</code> for an SSO session. This value can't identify the caller's own current session.</p>
+            revoke_associated_sessions: <p>Specifies whether to also revoke the sessions that are linked to the targeted session. <code>NONE</code>, the default, revokes only the targeted session. <code>LINKED</code> also revokes the directly linked session or sessions, interpreted relative to the type of the targeted session: revoking a token session also revokes the parent SSO session it came through, and revoking an SSO session also revokes the token sessions that came through it. The set of linked sessions is eventually consistent, so associated sessions are typically revoked within a few seconds.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.forbidden_exception.ForbiddenException: <p>This exception is thrown when WAF doesn't allow your request based on a web ACL that's associated with your user pool.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.password_reset_required_exception.PasswordResetRequiredException: <p>This exception is thrown when a password reset is required.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.user_not_confirmed_exception.UserNotConfirmedException: <p>This exception is thrown when a user isn't confirmed successfully.</p>
+            capo_cognito_identity_provider.errors.user_not_found_exception.UserNotFoundException: <p>This exception is thrown when a user isn't found.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example revoke one of a user's own sessions
+            The following example revokes a single token session that belongs to the user who owns the provided access token, such as signing out a lost or stolen device. Only the targeted session is revoked.
+
+            >>> client.revoke_user_session(access_token='eyJra456defEXAMPLE', session_id='tknm5k9p2q7r4s8t1v6w3x0y5z2b', revoke_associated_sessions='NONE')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.revoke_user_session_request.RevokeUserSessionRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.revoke_user_session_response.RevokeUserSessionResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.revoke_user_session
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.revoke_user_session.revoke_user_session(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.revoke_user_session_request.RevokeUserSessionRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.revoke_user_session_request
+
+            return capo_cognito_identity_provider.types.revoke_user_session_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RevokeUserSession", redact_input=_redact_input),
+        )
+        input_: capo_cognito_identity_provider.types.revoke_user_session_request.RevokeUserSessionRequest = {
+            "access_token": access_token,
+            "session_id": session_id,
+        }
+        if revoke_associated_sessions is not None:
+            input_["revoke_associated_sessions"] = revoke_associated_sessions
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -8998,6 +9908,93 @@ class CognitoIdentityProviderClient:
         response.response.close()
         return response.output
 
+    def set_user_pool_client_session_configuration(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        client_id: "capo_cognito_identity_provider.types.client_id_type.ClientIdType",
+        sso_session: "capo_cognito_identity_provider.types.client_sso_session_config_type.ClientSSOSessionConfigType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+    ) -> "capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_response.SetUserPoolClientSessionConfigurationResponse":
+        """<p>Sets the session configuration for a user pool app client. The configurable client-level setting is the maximum validity period for silent reuse of an SSO session. This operation performs a full replacement of the client-level session configuration; every request parameter is required, and session tracking must be enabled for the user pool. The user pool must be in the Essentials or Plus tier. Otherwise, this operation returns a <code>FeatureUnavailableInTierException</code>.</p>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool that contains the app client.</p>
+            client_id: <p>The ID of the app client that you want to configure.</p>
+            sso_session: <p>The SSO session settings for the app client.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.concurrent_modification_exception.ConcurrentModificationException: <p>This exception is thrown if two or more modifications are happening concurrently.</p>
+            capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception.FeatureUnavailableInTierException: <p>This exception is thrown when a feature that you attempted to use or configure isn't included in your user pool's current feature plan. This can occur when:</p> <ul> <li> <p>You configure a feature that your feature plan doesn't support.</p> </li> <li> <p>You make a request that uses a feature that requires a higher feature plan.</p> </li> </ul> <p>To resolve this issue, upgrade your user pool to a feature plan that includes the feature.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example set the SSO session validity for an app client
+            The following example configures an app client to silently reuse an SSO session for up to 43200 minutes (30 days) since the last authentication before requiring the user to sign in again.
+
+            >>> client.set_user_pool_client_session_configuration(user_pool_id='us-east-1_EXAMPLE', client_id='1example23456789', sso_session={'MaxValidityMinutes': 43200})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_request.SetUserPoolClientSessionConfigurationRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_response.SetUserPoolClientSessionConfigurationResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.set_user_pool_client_session_configuration
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.set_user_pool_client_session_configuration.set_user_pool_client_session_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_request.SetUserPoolClientSessionConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_request
+
+            return capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_response.SetUserPoolClientSessionConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_response
+
+            return capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SetUserPoolClientSessionConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_cognito_identity_provider.types.set_user_pool_client_session_configuration_request.SetUserPoolClientSessionConfigurationRequest = {
+            "user_pool_id": user_pool_id,
+            "client_id": client_id,
+            "sso_session": sso_session,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def set_user_pool_mfa_config(
         self,
         user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
@@ -9075,6 +10072,70 @@ class CognitoIdentityProviderClient:
             input_["mfa_configuration"] = mfa_configuration
         if web_authn_configuration is not None:
             input_["web_authn_configuration"] = web_authn_configuration
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def set_user_pool_session_configuration(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        user_session_tracking: "capo_cognito_identity_provider.types.user_session_tracking_type.UserSessionTrackingType",
+        token_session: "capo_cognito_identity_provider.types.user_pool_token_session_config_type.UserPoolTokenSessionConfigType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+    ) -> "capo_cognito_identity_provider.types.set_user_pool_session_configuration_response.SetUserPoolSessionConfigurationResponse":
+        """<p>Enables or disables session tracking for a user pool, and sets the pool-wide maximum number of active token sessions that each user can have. This operation performs a full replacement of the pool-level session configuration; every request parameter is required. The user pool must be in the Essentials or Plus tier. Otherwise, this operation returns a <code>FeatureUnavailableInTierException</code>.</p>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool where you want to configure session tracking.</p>
+            user_session_tracking: <p>Specifies whether Amazon Cognito tracks sessions for users in the user pool. Set this value to <code>ENABLED</code> to turn on server-side session tracking, or <code>DISABLED</code> to turn it off. When you set this value to <code>DISABLED</code> while the user pool remains active, existing client-level session configurations are retained but dormant, and are reactivated when you enable tracking again.</p>
+            token_session: <p>The pool-wide token session settings to apply.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.concurrent_modification_exception.ConcurrentModificationException: <p>This exception is thrown if two or more modifications are happening concurrently.</p>
+            capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception.FeatureUnavailableInTierException: <p>This exception is thrown when a feature that you attempted to use or configure isn't included in your user pool's current feature plan. This can occur when:</p> <ul> <li> <p>You configure a feature that your feature plan doesn't support.</p> </li> <li> <p>You make a request that uses a feature that requires a higher feature plan.</p> </li> </ul> <p>To resolve this issue, upgrade your user pool to a feature plan that includes the feature.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example enable session tracking for a user pool
+            The following example enables server-side session tracking for a user pool and sets the pool-wide maximum to 20 concurrent token sessions per user.
+
+            >>> client.set_user_pool_session_configuration(user_pool_id='us-east-1_EXAMPLE', user_session_tracking='ENABLED', token_session={'MaxPerUser': 20})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.set_user_pool_session_configuration_request.SetUserPoolSessionConfigurationRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.set_user_pool_session_configuration_response.SetUserPoolSessionConfigurationResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.set_user_pool_session_configuration
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.set_user_pool_session_configuration.set_user_pool_session_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetUserPoolSessionConfiguration")
+        )
+        input_: capo_cognito_identity_provider.types.set_user_pool_session_configuration_request.SetUserPoolSessionConfigurationRequest = {
+            "user_pool_id": user_pool_id,
+            "user_session_tracking": user_session_tracking,
+            "token_session": token_session,
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -9272,6 +10333,61 @@ class CognitoIdentityProviderClient:
             input_["user_context_data"] = user_context_data
         if client_metadata is not None:
             input_["client_metadata"] = client_metadata
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def start_point_in_time_recovery(
+        self,
+        user_pool_id: "capo_cognito_identity_provider.types.user_pool_id_type.UserPoolIdType",
+        restore_id: "capo_cognito_identity_provider.types.restore_id_type.RestoreIdType",
+        *,
+        config_overrides: Optional[CognitoIdentityProviderClientConfig] = None,
+    ) -> "capo_cognito_identity_provider.types.start_point_in_time_recovery_response.StartPointInTimeRecoveryResponse":
+        """<p>Applies a point-in-time recovery to a user pool. Before you start a recovery, review the recovery preview in the response to a request. You can start a recovery when its status is <code>PREVIEW_GENERATED</code>.</p> <p>When you start a recovery, Amazon Cognito sets its status to <code>RESTORING</code> and restores user data in the user pool to its state at the recovery point. Write operations in the user pool remain paused until the recovery is complete. Sign-in and read operations continue to work. When the status of the recovery changes to <code>RESTORE_COMPLETED</code>, Amazon Cognito resumes write operations.</p> <p>You can't cancel a recovery after you start it.</p> <note> <p>Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM permission in a policy.</p> <p class="title"> <b>Learn more</b> </p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html">Signing Amazon Web Services API Requests</a> </p> </li> <li> <p> <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html">Using the Amazon Cognito user pools API and user pool endpoints</a> </p> </li> </ul> </note>
+
+        Args:
+            user_pool_id: <p>The ID of the user pool that contains the recovery that you want to start.</p>
+            restore_id: <p>The ID of the recovery that you want to start. Amazon Cognito returns this ID in the response to an <code>InitiatePointInTimeRecovery</code> request.</p>
+
+        Raises:
+            capo_cognito_identity_provider.errors.concurrent_modification_exception.ConcurrentModificationException: <p>This exception is thrown if two or more modifications are happening concurrently.</p>
+            capo_cognito_identity_provider.errors.feature_unavailable_in_tier_exception.FeatureUnavailableInTierException: <p>This exception is thrown when a feature that you attempted to use or configure isn't included in your user pool's current feature plan. This can occur when:</p> <ul> <li> <p>You configure a feature that your feature plan doesn't support.</p> </li> <li> <p>You make a request that uses a feature that requires a higher feature plan.</p> </li> </ul> <p>To resolve this issue, upgrade your user pool to a feature plan that includes the feature.</p>
+            capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException: <p>This exception is thrown when Amazon Cognito encounters an internal error.</p>
+            capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException: <p>This exception is thrown when the Amazon Cognito service encounters an invalid parameter.</p>
+            capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException: <p>This exception is thrown when a user isn't authorized.</p>
+            capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException: <p>This exception is thrown when an operation is not available in the current region or for the current user pool configuration. This can occur when attempting to perform operations that are not supported in secondary replica regions.</p>
+            capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when the Amazon Cognito service can't find the requested resource.</p>
+            capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException: <p>This exception is thrown when the user has made too many requests for a given operation.</p>
+            capo_cognito_identity_provider.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_cognito_identity_provider.types.start_point_in_time_recovery_request.StartPointInTimeRecoveryRequest]",
+        ) -> OperationResponse[
+            "capo_cognito_identity_provider.types.start_point_in_time_recovery_response.StartPointInTimeRecoveryResponse"
+        ]:
+            import capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.start_point_in_time_recovery
+
+            output, http_response = (
+                capo_cognito_identity_provider._operations.aws_cognito_identity_provider_service.start_point_in_time_recovery.start_point_in_time_recovery(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPointInTimeRecovery")
+        )
+        input_: capo_cognito_identity_provider.types.start_point_in_time_recovery_request.StartPointInTimeRecoveryRequest = {
+            "user_pool_id": user_pool_id,
+            "restore_id": restore_id,
+        }
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -10288,6 +11404,9 @@ class CognitoIdentityProviderClient:
         user_pool_add_ons: Optional[
             "capo_cognito_identity_provider.types.user_pool_add_ons_type.UserPoolAddOnsType"
         ] = None,
+        dcr_configuration: Optional[
+            "capo_cognito_identity_provider.types.dcr_configuration_type.DcrConfigurationType"
+        ] = None,
         account_recovery_setting: Optional[
             "capo_cognito_identity_provider.types.account_recovery_setting_type.AccountRecoverySettingType"
         ] = None,
@@ -10328,6 +11447,7 @@ class CognitoIdentityProviderClient:
             user_pool_tags: <p>The tag keys and values to assign to the user pool. A tag is a label that you can use to categorize and manage user pools in different ways, such as by purpose, owner, environment, or other criteria.</p>
             admin_create_user_config: <p>The configuration for administrative creation of users. Includes the template for the invitation message for new users, the duration of temporary passwords, and permitting self-service sign-up.</p>
             user_pool_add_ons: <p>Contains settings for activation of threat protection, including the operating mode and additional authentication types. To log user security information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to potentially unwanted traffic to your user pool, set to <code>ENFORCED</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html">Adding advanced security to a user pool</a>. To activate this setting, your user pool must be on the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html"> Plus tier</a>.</p>
+            dcr_configuration: <p>The dynamic client registration configuration for the user pool. With dynamic client registration, applications can register their own app clients at runtime through the registration endpoint of your user pool domain. To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p> <p>If you omit this parameter, Amazon Cognito keeps the existing configuration. If you include it, Amazon Cognito replaces the existing configuration with the one that you provide. Members that you omit revert to their default values, and an omitted <code>EnableStatus</code> turns dynamic client registration on.</p> <p>To change the feature plan of the user pool to Lite, you must also set <code>EnableStatus</code> to <code>Disabled</code>.</p>
             account_recovery_setting: <p>The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>. You can use this setting to define a preferred method when a user has more than one method available. With this setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to determine the recovery method where SMS is preferred through email.</p>
             pool_name: <p>The updated name of your user pool.</p>
             user_pool_tier: <p>The user pool <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-sign-in-feature-plans.html">feature plan</a>, or tier. This parameter determines the eligibility of the user pool for features like managed login, access-token customization, and threat protection. Defaults to <code>ESSENTIALS</code>.</p>
@@ -10407,6 +11527,8 @@ class CognitoIdentityProviderClient:
             input_["admin_create_user_config"] = admin_create_user_config
         if user_pool_add_ons is not None:
             input_["user_pool_add_ons"] = user_pool_add_ons
+        if dcr_configuration is not None:
+            input_["dcr_configuration"] = dcr_configuration
         if account_recovery_setting is not None:
             input_["account_recovery_setting"] = account_recovery_setting
         if pool_name is not None:
@@ -10510,7 +11632,7 @@ class CognitoIdentityProviderClient:
             token_validity_units: <p>The units that validity times are represented in. The default unit for refresh tokens is days, and the default for ID and access tokens are hours.</p>
             read_attributes: <p>The list of user attributes that you want your app client to have read access to. After your user authenticates in your app, their access token authorizes them to read their own attribute value for any attribute in this list.</p> <p>When you don't specify the <code>ReadAttributes</code> for your app client, your app can read the values of <code>email_verified</code>, <code>phone_number_verified</code>, and the standard attributes of your user pool. When your user pool app client has read access to these default attributes, <code>ReadAttributes</code> doesn't return any information. Amazon Cognito only populates <code>ReadAttributes</code> in the API response if you have specified your own custom set of read attributes.</p>
             write_attributes: <p>The list of user attributes that you want your app client to have write access to. After your user authenticates in your app, their access token authorizes them to set or modify their own attribute value for any attribute in this list.</p> <p>When you don't specify the <code>WriteAttributes</code> for your app client, your app can write the values of the Standard attributes of your user pool. When your user pool has write access to these default attributes, <code>WriteAttributes</code> doesn't return any information. Amazon Cognito only populates <code>WriteAttributes</code> in the API response if you have specified your own custom set of write attributes.</p> <p>If your app client allows users to sign in through an IdP, this array must include all attributes that you have mapped to IdP attributes. Amazon Cognito updates mapped attributes when users sign in to your application through an IdP. If your app client does not have write access to a mapped attribute, Amazon Cognito throws an error when it tries to update the attribute. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html">Specifying IdP Attribute Mappings for Your user pool</a>.</p>
-            explicit_auth_flows: <p>The <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html">authentication flows</a> that you want your user pool client to support. For each app client in your user pool, you can sign in your users with any combination of one or more flows, including with a user name and Secure Remote Password (SRP), a user name and password, or a custom authentication process that you define with Lambda functions.</p> <note> <p>If you don't specify a value for <code>ExplicitAuthFlows</code>, your app client supports <code>ALLOW_REFRESH_TOKEN_AUTH</code>, <code>ALLOW_USER_SRP_AUTH</code>, and <code>ALLOW_CUSTOM_AUTH</code>. </p> </note> <p>The values for authentication flow options include the following.</p> <ul> <li> <p> <code>ALLOW_USER_AUTH</code>: Enable selection-based sign-in with <code>USER_AUTH</code>. This setting covers username-password, secure remote password (SRP), passwordless, and passkey authentication. This authentiation flow can do username-password and SRP authentication without other <code>ExplicitAuthFlows</code> permitting them. For example users can complete an SRP challenge through <code>USER_AUTH</code> without the flow <code>USER_SRP_AUTH</code> being active for the app client. This flow doesn't include <code>CUSTOM_AUTH</code>. </p> <p>To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p> </li> <li> <p> <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow, your app passes a user name and password to Amazon Cognito in the request, instead of using the Secure Remote Password (SRP) protocol to securely transmit the password.</p> </li> <li> <p> <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p> </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based authentication. In this flow, Amazon Cognito receives the password in the request instead of using the SRP protocol to verify passwords.</p> </li> <li> <p> <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP-based authentication.</p> </li> <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh tokens.</p> </li> </ul> <p>In some environments, you will see the values <code>ADMIN_NO_SRP_AUTH</code>, <code>CUSTOM_AUTH_FLOW_ONLY</code>, or <code>USER_PASSWORD_AUTH</code>. You can't assign these legacy <code>ExplicitAuthFlows</code> values to user pool clients at the same time as values that begin with <code>ALLOW_</code>, like <code>ALLOW_USER_SRP_AUTH</code>.</p>
+            explicit_auth_flows: <p>The <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html">authentication flows</a> that you want your user pool client to support. For each app client in your user pool, you can sign in your users with any combination of one or more flows, including with a user name and Secure Remote Password (SRP), a user name and password, or a custom authentication process that you define with Lambda functions.</p> <note> <p>If you don't specify a value for <code>ExplicitAuthFlows</code>, your app client supports <code>ALLOW_REFRESH_TOKEN_AUTH</code>, <code>ALLOW_USER_SRP_AUTH</code>, and <code>ALLOW_CUSTOM_AUTH</code>. </p> </note> <p>The values for authentication flow options include the following.</p> <ul> <li> <p> <code>ALLOW_USER_AUTH</code>: Enable selection-based sign-in with <code>USER_AUTH</code>. This setting covers username-password, secure remote password (SRP), passwordless, and passkey authentication. This authentiation flow can do username-password and SRP authentication without other <code>ExplicitAuthFlows</code> permitting them. For example users can complete an SRP challenge through <code>USER_AUTH</code> without the flow <code>USER_SRP_AUTH</code> being active for the app client. This flow doesn't include <code>CUSTOM_AUTH</code>. </p> <p>To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p> </li> <li> <p> <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow, your app passes a user name and password to Amazon Cognito in the request, instead of using the Secure Remote Password (SRP) protocol to securely transmit the password.</p> </li> <li> <p> <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p> </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based authentication. In this flow, Amazon Cognito receives the password in the request instead of using the SRP protocol to verify passwords.</p> </li> <li> <p> <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP-based authentication.</p> </li> <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh tokens.</p> </li> <li> <p> <code>ALLOW_TOKEN_EXCHANGE_IMPERSONATION</code> – Use this flow to request <code>GetDerivedToken</code> token exchanges without an <code>ActorToken</code>. The issued token represents the subject user directly.</p> </li> <li> <p> <code>ALLOW_TOKEN_EXCHANGE_DELEGATION</code> – Use this flow to request <code>GetDerivedToken</code> token exchanges that include an <code>ActorToken</code>. The issued token carries an <code>act</code> claim that identifies the intermediary acting on the behalf of the subject.</p> </li> </ul> <p>In some environments, you will see the values <code>ADMIN_NO_SRP_AUTH</code>, <code>CUSTOM_AUTH_FLOW_ONLY</code>, or <code>USER_PASSWORD_AUTH</code>. You can't assign these legacy <code>ExplicitAuthFlows</code> values to user pool clients at the same time as values that begin with <code>ALLOW_</code>, like <code>ALLOW_USER_SRP_AUTH</code>.</p>
             supported_identity_providers: <p>A list of provider names for the identity providers (IdPs) that are supported on this client. The following are supported: <code>COGNITO</code>, <code>Facebook</code>, <code>Google</code>, <code>SignInWithApple</code>, and <code>LoginWithAmazon</code>. You can also specify the names that you configured for the SAML and OIDC IdPs in your user pool, for example <code>MySAMLIdP</code> or <code>MyOIDCIdP</code>.</p> <p>This parameter sets the IdPs that <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html">managed login</a> will display on the login page for your app client. The removal of <code>COGNITO</code> from this list doesn't prevent authentication operations for local users with the user pools API in an Amazon Web Services SDK. The only way to prevent SDK-based authentication is to block access with a <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-waf.html">WAF rule</a>. </p>
             callback_ur_ls: <p>A list of allowed redirect, or callback, URLs for managed login authentication. These URLs are the paths where you want to send your users' browsers after they complete authentication with managed login or a third-party IdP. Typically, callback URLs are the home of an application that uses OAuth or OIDC libraries to process authentication outcomes.</p> <p>A redirect URI must meet the following requirements:</p> <ul> <li> <p>Be an absolute URI.</p> </li> <li> <p>Be registered with the authorization server. Amazon Cognito doesn't accept authorization requests with <code>redirect_uri</code> values that aren't in the list of <code>CallbackURLs</code> that you provide in this parameter.</p> </li> <li> <p>Not include a fragment component.</p> </li> </ul> <p>See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.</p> <p>Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.</p> <p>App callback URLs such as <code>myapp://example</code> are also supported.</p>
             logout_ur_ls: <p>A list of allowed logout URLs for managed login authentication. When you pass <code>logout_uri</code> and <code>client_id</code> parameters to <code>/logout</code>, Amazon Cognito signs out your user and redirects them to the logout URL. This parameter describes the URLs that you want to be the permitted targets of <code>logout_uri</code>. A typical use of these URLs is when a user selects "Sign out" and you redirect them to your public homepage. For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/logout-endpoint.html">Logout endpoint</a>.</p>

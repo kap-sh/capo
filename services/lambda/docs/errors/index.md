@@ -45,6 +45,8 @@
 - [ResourceInUseException](ResourceInUseException.md)
 - [ResourceNotFoundException](ResourceNotFoundException.md)
 - [ResourceNotReadyException](ResourceNotReadyException.md)
+- [RuntimeAliasDeletedException](RuntimeAliasDeletedException.md)
+- [RuntimeVersionDeletedException](RuntimeVersionDeletedException.md)
 - [S3FilesMountConnectivityException](S3FilesMountConnectivityException.md)
 - [S3FilesMountFailureException](S3FilesMountFailureException.md)
 - [S3FilesMountTimeoutException](S3FilesMountTimeoutException.md)

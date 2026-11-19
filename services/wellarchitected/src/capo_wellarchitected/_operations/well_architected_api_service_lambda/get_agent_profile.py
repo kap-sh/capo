@@ -21,7 +21,9 @@ import capo_wellarchitected.types.aggregation_configurations
 import capo_wellarchitected.types.field_errors
 import capo_wellarchitected.types.get_agent_profile_request
 import capo_wellarchitected.types.get_agent_profile_response
+import capo_wellarchitected.types.organizational_aggregation_configuration
 import capo_wellarchitected.types.pillars
+import capo_wellarchitected.types.profile_type
 import capo_wellarchitected.types.tags
 from capo_wellarchitected._protocol.errors import parse_error_metadata_json
 from capo_wellarchitected._rule_engine._endpoint_rule_set import EndpointParams, resolve

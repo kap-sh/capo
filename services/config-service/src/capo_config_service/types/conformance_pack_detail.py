@@ -9,6 +9,9 @@ if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_id
     import capo_config_service.types.conformance_pack_input_parameters
     import capo_config_service.types.conformance_pack_name
+    import capo_config_service.types.conformance_pack_scope
+    import capo_config_service.types.conformance_pack_source
+    import capo_config_service.types.conformance_pack_type
     import capo_config_service.types.date
     import capo_config_service.types.delivery_s3_bucket
     import capo_config_service.types.delivery_s3_key_prefix
@@ -51,6 +54,18 @@ class ConformancePackDetail(TypedDict, closed=True):
         "capo_config_service.types.template_ssm_document_details.TemplateSSMDocumentDetails"
     ]
     """<p>An object that contains the name or Amazon Resource Name (ARN) of the Amazon Web Services Systems Manager document (SSM document) and the version of the SSM document that is used to create a conformance pack.</p>"""
+    type: NotRequired[
+        "capo_config_service.types.conformance_pack_type.ConformancePackType"
+    ]
+    """<p>The type of the conformance pack. Valid values:</p> <ul> <li> <p> <code>CUSTOM</code> – A custom conformance pack.</p> </li> <li> <p> <code>MANAGED</code> – A managed conformance pack.</p> </li> </ul>"""
+    source: NotRequired[
+        "capo_config_service.types.conformance_pack_source.ConformancePackSource"
+    ]
+    """<p>Contains the identifier of the managed conformance pack that Config deploys in your account.</p> <note> <p>This field applies only to managed conformance packs. Custom conformance packs leave it empty.</p> </note>"""
+    scope: NotRequired[
+        "capo_config_service.types.conformance_pack_scope.ConformancePackScope"
+    ]
+    """<p>An object of type <code>ConformancePackScope</code>, which contains the tag key and optional tag value that defines which resources trigger an evaluation for the Config rules in the managed conformance pack.</p> <note> <p>Managed conformance packs with a scope populate this field. Custom conformance packs leave it empty.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -87,6 +102,30 @@ def serialize_aws_json_1_1(value: ConformancePackDetail) -> dict:
         out["TemplateSSMDocumentDetails"] = (
             capo_config_service.types.template_ssm_document_details.serialize_aws_json_1_1(
                 value["template_ssm_document_details"]
+            )
+        )
+    if "type" in value:
+        import capo_config_service.types.conformance_pack_type
+
+        out["Type"] = (
+            capo_config_service.types.conformance_pack_type.serialize_aws_json_1_1(
+                value["type"]
+            )
+        )
+    if "source" in value:
+        import capo_config_service.types.conformance_pack_source
+
+        out["Source"] = (
+            capo_config_service.types.conformance_pack_source.serialize_aws_json_1_1(
+                value["source"]
+            )
+        )
+    if "scope" in value:
+        import capo_config_service.types.conformance_pack_scope
+
+        out["Scope"] = (
+            capo_config_service.types.conformance_pack_scope.serialize_aws_json_1_1(
+                value["scope"]
             )
         )
     return out
@@ -134,6 +173,30 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackDetail:
         out["template_ssm_document_details"] = (
             capo_config_service.types.template_ssm_document_details.deserialize_aws_json_1_1(
                 data["TemplateSSMDocumentDetails"]
+            )
+        )
+    if data.get("Type") is not None:
+        import capo_config_service.types.conformance_pack_type
+
+        out["type"] = (
+            capo_config_service.types.conformance_pack_type.deserialize_aws_json_1_1(
+                data["Type"]
+            )
+        )
+    if data.get("Source") is not None:
+        import capo_config_service.types.conformance_pack_source
+
+        out["source"] = (
+            capo_config_service.types.conformance_pack_source.deserialize_aws_json_1_1(
+                data["Source"]
+            )
+        )
+    if data.get("Scope") is not None:
+        import capo_config_service.types.conformance_pack_scope
+
+        out["scope"] = (
+            capo_config_service.types.conformance_pack_scope.deserialize_aws_json_1_1(
+                data["Scope"]
             )
         )
     return out

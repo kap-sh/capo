@@ -60,6 +60,8 @@ class CreateDistributionRequest(TypedDict, closed=True):
     """<p>Specifies whether to enable Web Application Firewall (WAF) for the distribution. WAF inspects viewer requests and blocks requests that match the WAF rule groups that you enable.</p> <p>When you enable WAF without specifying the <code>wafRules</code> parameter, the distribution has no WAF rule groups enabled and doesn't block any requests.</p> <note> <p>WAF is available only for distributions that use the <code>medium_1_0</code> or <code>large_1_0</code> bundle.</p> </note>"""
     waf_rules: NotRequired["capo_lightsail.types.waf_rule_list.WafRuleList"]
     """<p>An array of objects that describe the WAF rule groups to enable for the distribution.</p> <p>The WAF rule groups that you can specify depend on the bundle of the distribution:</p> <ul> <li> <p> <code>medium_1_0</code> – Supports the <code>AWSManagedRulesCommonRuleSet</code>, <code>AWSManagedRulesKnownBadInputsRuleSet</code>, and <code>AWSManagedRulesAnonymousIpList</code> rule groups.</p> </li> <li> <p> <code>large_1_0</code> – Supports the rule groups for <code>medium_1_0</code>, plus <code>AWSManagedRulesAdminProtectionRuleSet</code>, <code>AWSManagedRulesSQLiRuleSet</code>, <code>AWSManagedRulesLinuxRuleSet</code>, <code>AWSManagedRulesUnixRuleSet</code>, <code>AWSManagedRulesWindowsRuleSet</code>, <code>AWSManagedRulesPHPRuleSet</code>, <code>AWSManagedRulesWordPressRuleSet</code>, <code>AWSManagedRulesAmazonIpReputationList</code>, <code>AWSManagedRulesATPRuleSet</code>, <code>AWSManagedRulesACFPRuleSet</code>, and <code>AWSManagedRulesBotControlRuleSet</code> rule groups.</p> </li> </ul>"""
+    subdomain_name: NotRequired["capo_lightsail.types.string.string"]
+    """<p>The Lightsail subdomain to create and associate with the distribution (for example, <code>mysite</code>, for the web address <code>mysite.amazonlightsail.com</code>).</p> <p>After the distribution is deployed, Lightsail creates the subdomain and associates it with the distribution. If Lightsail can't create or associate the subdomain, it still creates the distribution, but the <code>CreateDistribution</code> operation fails and the <code>state</code> of the distribution's <code>subdomain</code> is <code>Error</code>. To check the status, use the <code>subdomain</code> parameter of the distribution.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -139,6 +141,8 @@ def serialize_aws_json_1_1(value: CreateDistributionRequest) -> dict:
         out["wafRules"] = capo_lightsail.types.waf_rule_list.serialize_aws_json_1_1(
             value["waf_rules"]
         )
+    if "subdomain_name" in value:
+        out["subdomainName"] = value["subdomain_name"]
     return out
 
 
@@ -232,4 +236,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDistributionRequest:
         out["waf_rules"] = capo_lightsail.types.waf_rule_list.deserialize_aws_json_1_1(
             data["wafRules"]
         )
+    if data.get("subdomainName") is not None:
+        out["subdomain_name"] = data["subdomainName"]
     return out

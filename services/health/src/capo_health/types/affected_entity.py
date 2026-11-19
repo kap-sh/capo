@@ -6,13 +6,14 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_health.types.account_id
+    import capo_health.types.account_tag_set
     import capo_health.types.entity_arn
     import capo_health.types.entity_metadata
     import capo_health.types.entity_status_code
     import capo_health.types.entity_url
     import capo_health.types.entity_value
     import capo_health.types.event_arn
-    import capo_health.types.tag_set
+    import capo_health.types.resource_tag_set
     import capo_health.types.timestamp
 
 
@@ -31,8 +32,10 @@ class AffectedEntity(TypedDict, closed=True):
     """<p>The most recent time that the entity was updated.</p>"""
     status_code: NotRequired["capo_health.types.entity_status_code.entityStatusCode"]
     """<p>The most recent status of the entity affected by the event. The possible values are <code>IMPAIRED</code>, <code>UNIMPAIRED</code>, <code>UNKNOWN</code>, <code>PENDING</code>, and <code>RESOLVED</code>.</p>"""
-    tags: NotRequired["capo_health.types.tag_set.tagSet"]
-    """<p>A map of entity tags attached to the affected entity.</p> <note> <p>Currently, the <code>tags</code> property isn't supported.</p> </note>"""
+    resource_tags: NotRequired["capo_health.types.resource_tag_set.ResourceTagSet"]
+    """<p>A map of resource tag key-value pairs attached to the affected entity.</p>"""
+    account_tags: NotRequired["capo_health.types.account_tag_set.AccountTagSet"]
+    """<p>A map of account tag key-value pairs for the account that owns the affected entity. This field is returned only by DescribeAffectedEntitiesForOrganization and is not populated by DescribeAffectedEntities.</p>"""
     entity_metadata: NotRequired["capo_health.types.entity_metadata.entityMetadata"]
     """<p>Additional metadata about the affected entity.</p>"""
 
@@ -62,10 +65,18 @@ def serialize_aws_json_1_1(value: AffectedEntity) -> dict:
         out["statusCode"] = capo_health.types.entity_status_code.serialize_aws_json_1_1(
             value["status_code"]
         )
-    if "tags" in value:
-        import capo_health.types.tag_set
+    if "resource_tags" in value:
+        import capo_health.types.resource_tag_set
 
-        out["tags"] = capo_health.types.tag_set.serialize_aws_json_1_1(value["tags"])
+        out["resourceTags"] = capo_health.types.resource_tag_set.serialize_aws_json_1_1(
+            value["resource_tags"]
+        )
+    if "account_tags" in value:
+        import capo_health.types.account_tag_set
+
+        out["accountTags"] = capo_health.types.account_tag_set.serialize_aws_json_1_1(
+            value["account_tags"]
+        )
     if "entity_metadata" in value:
         import capo_health.types.entity_metadata
 
@@ -103,10 +114,22 @@ def deserialize_aws_json_1_1(data: dict) -> AffectedEntity:
                 data["statusCode"]
             )
         )
-    if data.get("tags") is not None:
-        import capo_health.types.tag_set
+    if data.get("resourceTags") is not None:
+        import capo_health.types.resource_tag_set
 
-        out["tags"] = capo_health.types.tag_set.deserialize_aws_json_1_1(data["tags"])
+        out["resource_tags"] = (
+            capo_health.types.resource_tag_set.deserialize_aws_json_1_1(
+                data["resourceTags"]
+            )
+        )
+    if data.get("accountTags") is not None:
+        import capo_health.types.account_tag_set
+
+        out["account_tags"] = (
+            capo_health.types.account_tag_set.deserialize_aws_json_1_1(
+                data["accountTags"]
+            )
+        )
     if data.get("entityMetadata") is not None:
         import capo_health.types.entity_metadata
 

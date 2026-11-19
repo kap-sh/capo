@@ -1,6 +1,9 @@
 # Types
 
+- [AuthorizedUrlString](authorized_url_string.md)
 - [Code](code.md)
+- [CreateAirflowUiUrlRequest](create_airflow_ui_url_request.md)
+- [CreateAirflowUiUrlResponse](create_airflow_ui_url_response.md)
 - [CreateWorkflowRequest](create_workflow_request.md)
 - [CreateWorkflowResponse](create_workflow_response.md)
 - [DefinitionS3Location](definition_s3_location.md)
@@ -15,6 +18,7 @@
 - [EnvironmentVariableValue](environment_variable_value.md)
 - [EnvironmentVariablesMap](environment_variables_map.md)
 - [ErrorMessage](error_message.md)
+- [ExpiresInSecondsInteger](expires_in_seconds_integer.md)
 - [GenericMap](generic_map.md)
 - [GenericString](generic_string.md)
 - [GetTaskInstanceRequest](get_task_instance_request.md)
@@ -47,6 +51,8 @@
 - [ScheduleConfiguration](schedule_configuration.md)
 - [SecurityGroupIds](security_group_ids.md)
 - [SecurityGroupString](security_group_string.md)
+- [SessionDurationInSecondsInteger](session_duration_in_seconds_integer.md)
+- [SessionIdString](session_id_string.md)
 - [StartWorkflowRunRequest](start_workflow_run_request.md)
 - [StartWorkflowRunResponse](start_workflow_run_response.md)
 - [StopWorkflowRunRequest](stop_workflow_run_request.md)

@@ -20,23 +20,23 @@ class UpdateAgentProfileRequest(TypedDict, closed=True):
     display_name: NotRequired[
         "capo_wellarchitected.types.sensitive_string.SensitiveString"
     ]
-    """<p>The updated display name of the profile.</p>"""
+    """<p>The updated display name of the profile. Omit this field to keep the current display name. A display name is required, so it cannot be cleared.</p>"""
     description: NotRequired[
         "capo_wellarchitected.types.sensitive_string.SensitiveString"
     ]
-    """<p>The updated description of the profile.</p>"""
+    """<p>The updated description of the profile. Omit this field to keep the current description, or supply an empty string to clear it; a cleared description is read back as absent rather than as an empty string.</p>"""
     execution_role_arn: NotRequired["capo_wellarchitected.types.role_arn.RoleArn"]
-    """<p>The updated ARN of the IAM execution role.</p>"""
+    """<p>The updated ARN of the IAM execution role. Omit this field to keep the current execution role.</p>"""
     aggregation_configuration: NotRequired[
         "capo_wellarchitected.types.aggregation_configurations.AggregationConfigurations"
     ]
-    """<p>The updated aggregation configuration.</p>"""
+    """<p>The updated aggregation configuration, as a list of per-account entries. Omit this field to keep the current entries, or supply an empty list to remove them all. The field remains set either way — an emptied configuration is read back as an empty list, not as an absent field.</p>"""
     business_overview: NotRequired[
         "capo_wellarchitected.types.sensitive_string.SensitiveString"
     ]
-    """<p>The updated business overview for the profile.</p>"""
+    """<p>The updated business overview for the profile. Omit this field to keep the current business overview, or supply an empty string to clear it; a cleared business overview is read back as absent rather than as an empty string.</p>"""
     pillars: NotRequired["capo_wellarchitected.types.pillars.Pillars"]
-    """<p>The updated Well-Architected Tool Framework pillars for the profile.</p>"""
+    """<p>The updated Amazon Web Services Well-Architected Framework pillars for the profile. Omit this field to keep the current pillars. A profile must target at least one pillar, so an empty list is rejected.</p>"""
     deletion_protection: NotRequired["bool"]
     """<p>Indicates whether deletion protection is enabled for the profile.</p>"""
 

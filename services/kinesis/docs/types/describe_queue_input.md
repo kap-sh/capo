@@ -1,0 +1,8 @@
+---
+title: DescribeQueueInput
+---
+
+::: capo_kinesis.types.describe_queue_input.DescribeQueueInput
+    options:
+      show_source: true
+      merge_init_into_class: false

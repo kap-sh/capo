@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.licensing
     import capo_mgn.types.positive_integer
     import capo_mgn.types.post_launch_actions
+    import capo_mgn.types.tag_key
     import capo_mgn.types.tag_value
     import capo_mgn.types.target_instance_type_right_sizing_method
 
@@ -30,6 +31,8 @@ class UpdateLaunchConfigurationTemplateRequest(TypedDict, closed=True):
     """<p>Enable map auto tagging.</p>"""
     map_auto_tagging_mpe_id: NotRequired["capo_mgn.types.tag_value.TagValue"]
     """<p>Launch configuration template map auto tagging MPE ID.</p>"""
+    map_auto_tagging_key: NotRequired["capo_mgn.types.tag_key.TagKey"]
+    """<p>Launch configuration template map auto tagging key.</p>"""
     launch_disposition: NotRequired[
         "capo_mgn.types.launch_disposition.LaunchDisposition"
     ]
@@ -77,6 +80,8 @@ def serialize_json(value: UpdateLaunchConfigurationTemplateRequest) -> dict:
         out["enableMapAutoTagging"] = value["enable_map_auto_tagging"]
     if "map_auto_tagging_mpe_id" in value:
         out["mapAutoTaggingMpeID"] = value["map_auto_tagging_mpe_id"]
+    if "map_auto_tagging_key" in value:
+        out["mapAutoTaggingKey"] = value["map_auto_tagging_key"]
     if "launch_disposition" in value:
         out["launchDisposition"] = value["launch_disposition"]
     if "target_instance_type_right_sizing_method" in value:
@@ -137,6 +142,8 @@ def deserialize_json(data: dict) -> UpdateLaunchConfigurationTemplateRequest:
         out["enable_map_auto_tagging"] = data["enableMapAutoTagging"]
     if data.get("mapAutoTaggingMpeID") is not None:
         out["map_auto_tagging_mpe_id"] = data["mapAutoTaggingMpeID"]
+    if data.get("mapAutoTaggingKey") is not None:
+        out["map_auto_tagging_key"] = data["mapAutoTaggingKey"]
     if data.get("launchDisposition") is not None:
         out["launch_disposition"] = data["launchDisposition"]
     if data.get("targetInstanceTypeRightSizingMethod") is not None:

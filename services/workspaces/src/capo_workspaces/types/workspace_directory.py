@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     import capo_workspaces.types.workspace_directory_name
     import capo_workspaces.types.workspace_directory_state
     import capo_workspaces.types.workspace_directory_type
+    import capo_workspaces.types.workspace_os_user_mode
     import capo_workspaces.types.workspace_type
 
 
@@ -127,6 +128,10 @@ class WorkspaceDirectory(TypedDict, closed=True):
         "capo_workspaces.types.streaming_properties.StreamingProperties"
     ]
     """<p>The streaming properties to configure.</p>"""
+    workspace_os_user_mode: NotRequired[
+        "capo_workspaces.types.workspace_os_user_mode.WorkspaceOSUserMode"
+    ]
+    """<p>Indicates how users are set up on the WorkSpace operating system.</p>"""
     error_message: NotRequired["capo_workspaces.types.description.Description"]
     """<p>The error message returned.</p>"""
 
@@ -298,6 +303,14 @@ def serialize_aws_json_1_1(value: WorkspaceDirectory) -> dict:
                 value["streaming_properties"]
             )
         )
+    if "workspace_os_user_mode" in value:
+        import capo_workspaces.types.workspace_os_user_mode
+
+        out["WorkspaceOsUserMode"] = (
+            capo_workspaces.types.workspace_os_user_mode.serialize_aws_json_1_1(
+                value["workspace_os_user_mode"]
+            )
+        )
     if "error_message" in value:
         out["ErrorMessage"] = value["error_message"]
     return out
@@ -467,6 +480,14 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceDirectory:
         out["streaming_properties"] = (
             capo_workspaces.types.streaming_properties.deserialize_aws_json_1_1(
                 data["StreamingProperties"]
+            )
+        )
+    if data.get("WorkspaceOsUserMode") is not None:
+        import capo_workspaces.types.workspace_os_user_mode
+
+        out["workspace_os_user_mode"] = (
+            capo_workspaces.types.workspace_os_user_mode.deserialize_aws_json_1_1(
+                data["WorkspaceOsUserMode"]
             )
         )
     if data.get("ErrorMessage") is not None:

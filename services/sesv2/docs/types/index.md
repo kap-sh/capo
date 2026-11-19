@@ -1,6 +1,7 @@
 # Types
 
 - [AccountDetails](account_details.md)
+- [AccountSharedPoolDeliveryMode](account_shared_pool_delivery_mode.md)
 - [AdditionalContactEmailAddress](additional_contact_email_address.md)
 - [AdditionalContactEmailAddresses](additional_contact_email_addresses.md)
 - [AdminEmail](admin_email.md)
@@ -139,6 +140,7 @@
 - [DeliverabilityTestReports](deliverability_test_reports.md)
 - [DeliverabilityTestStatus](deliverability_test_status.md)
 - [DeliverabilityTestSubject](deliverability_test_subject.md)
+- [DeliveryAttributes](delivery_attributes.md)
 - [DeliveryEventType](delivery_event_type.md)
 - [DeliveryOptions](delivery_options.md)
 - [Description](description.md)
@@ -417,6 +419,8 @@
 - [ProcessedRecordsCount](processed_records_count.md)
 - [PutAccountDedicatedIpWarmupAttributesRequest](put_account_dedicated_ip_warmup_attributes_request.md)
 - [PutAccountDedicatedIpWarmupAttributesResponse](put_account_dedicated_ip_warmup_attributes_response.md)
+- [PutAccountDeliveryAttributesRequest](put_account_delivery_attributes_request.md)
+- [PutAccountDeliveryAttributesResponse](put_account_delivery_attributes_response.md)
 - [PutAccountDetailsRequest](put_account_details_request.md)
 - [PutAccountDetailsResponse](put_account_details_response.md)
 - [PutAccountPricingAttributesRequest](put_account_pricing_attributes_request.md)
@@ -515,6 +519,7 @@
 - [SendingStatus](sending_status.md)
 - [SentLast24Hours](sent_last24_hours.md)
 - [SerialNumber](serial_number.md)
+- [SharedPoolDeliveryMode](shared_pool_delivery_mode.md)
 - [SignatureFormat](signature_format.md)
 - [SigningScheme](signing_scheme.md)
 - [SmimeSigningScheme](smime_signing_scheme.md)

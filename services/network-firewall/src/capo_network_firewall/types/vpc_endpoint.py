@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 class VpcEndpoint(TypedDict, closed=True):
     vpc_id: "capo_network_firewall.types.vpc_id.VpcId"
-    """<p>The unique identifier of the VPC where Network Firewall creates the proxy mode firewall endpoint. </p>"""
+    """<p>The ID of the VPC where Network Firewall creates the endpoints and NAT gateways of a proxy mode firewall.</p>"""
     subnet_mappings: "capo_network_firewall.types.subnet_mappings.SubnetMappings"
-    """<p>The subnets in which Network Firewall creates the firewall endpoint for a proxy mode firewall. Each subnet must belong to a different Availability Zone in the VPC. </p>"""
+    """<p>The subnets where Network Firewall creates the firewall endpoints of a proxy mode firewall. Specify one subnet for each Availability Zone, and a NAT gateway mapping in each of those Availability Zones.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.marketplaceagreement#AgreementEntitlementList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.agreement_entitlement
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_0(data: list) -> AgreementEntitlementList:
             )
         )
     return out
+
+
+def redact_sensitive(value: AgreementEntitlementList) -> list[Any]:
+    import capo_marketplace_agreement.types.agreement_entitlement
+
+    return [
+        capo_marketplace_agreement.types.agreement_entitlement.redact_sensitive(item)
+        for item in value
+    ]

@@ -27,7 +27,7 @@ class ListDurableExecutionsByFunctionRequest(TypedDict, closed=True):
     ]
     """<p>Filter executions by name. Only executions with names that matches this string are returned.</p>"""
     statuses: NotRequired["capo_lambda.types.execution_status_list.ExecutionStatusList"]
-    """<p>Filter executions by status. Valid values: RUNNING, SUCCEEDED, FAILED, TIMED_OUT, STOPPED.</p>"""
+    """<p>Filters the executions by status. Specify one of the following values:</p> <ul> <li> <p> <code>RUNNING</code> – The execution is running or waiting for pending operations to complete.</p> </li> <li> <p> <code>PAUSING</code> – The execution is waiting for an in-progress invocation to reach its next checkpoint before it pauses.</p> </li> <li> <p> <code>PAUSED</code> – The execution is paused, and Lambda doesn't invoke your function.</p> </li> <li> <p> <code>SUCCEEDED</code> – The execution completed successfully.</p> </li> <li> <p> <code>FAILED</code> – The execution completed with an error.</p> </li> <li> <p> <code>TIMED_OUT</code> – The execution exceeded its execution timeout.</p> </li> <li> <p> <code>STOPPED</code> – A <code>StopDurableExecution</code> request stopped the execution.</p> </li> <li> <p> <code>DELETING</code> – A <code>DeleteDurableExecution</code> request is deleting the execution and its data.</p> </li> </ul>"""
     started_after: NotRequired[
         "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
     ]

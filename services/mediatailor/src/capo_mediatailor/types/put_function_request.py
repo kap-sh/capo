@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_mediatailor.types.concurrent_executor_configuration
     import capo_mediatailor.types.custom_output_configuration
     import capo_mediatailor.types.function_type
+    import capo_mediatailor.types.hls_tag_processor_configuration
     import capo_mediatailor.types.http_request_configuration
     import capo_mediatailor.types.sequential_executor_configuration
     import capo_mediatailor.types.vast_request_configuration
@@ -20,7 +21,7 @@ class PutFunctionRequest(TypedDict, closed=True):
     function_id: "capo_mediatailor.types.__string.__string"
     """<p>The identifier of the function. The identifier must be unique within your account.</p>"""
     function_type: "capo_mediatailor.types.function_type.FunctionType"
-    """<p>The type of the function, which determines what the function can do at runtime. Valid values:</p> <ul> <li> <p> <code>CUSTOM_OUTPUT</code> – Evaluates expressions and produces output bindings with no external calls.</p> </li> <li> <p> <code>HTTP_REQUEST</code> – Makes an HTTP call to an external service and evaluates output expressions that can reference the response.</p> </li> <li> <p> <code>AWS_SERVICE_REQUEST</code> – Makes an authenticated request to a supported AWS service API and evaluates output expressions that can reference the response.</p> </li> <li> <p> <code>VAST_REQUEST</code> – Calls a VAST endpoint, parses the response as VAST, and makes the parsed ads available to output expressions.</p> </li> <li> <p> <code>SEQUENTIAL_EXECUTOR</code> – Runs a sequence of child functions in order, passing data between steps through temporary data.</p> </li> <li> <p> <code>CONCURRENT_EXECUTOR</code> – Runs a set of child functions in parallel, up to a maximum concurrency, and combines their output when all functions complete.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-types.html">Function types and composition</a> in the <i>MediaTailor User Guide</i>.</p>"""
+    """<p>The type of the function, which determines what the function can do at runtime. Valid values:</p> <ul> <li> <p> <code>CUSTOM_OUTPUT</code> – Evaluates expressions and produces output bindings with no external calls.</p> </li> <li> <p> <code>HTTP_REQUEST</code> – Makes an HTTP call to an external service and evaluates output expressions that can reference the response.</p> </li> <li> <p> <code>AWS_SERVICE_REQUEST</code> – Makes an authenticated request to a supported AWS service API and evaluates output expressions that can reference the response.</p> </li> <li> <p> <code>HLS_TAG_PROCESSOR</code> – Reads and changes HLS tags in the origin manifest at the <code>POST_ORIGIN_RESPONSE</code> lifecycle hook.</p> </li> <li> <p> <code>VAST_REQUEST</code> – Calls a VAST endpoint, parses the response as VAST, and makes the parsed ads available to output expressions.</p> </li> <li> <p> <code>SEQUENTIAL_EXECUTOR</code> – Runs a sequence of child functions in order, passing data between steps through temporary data.</p> </li> <li> <p> <code>CONCURRENT_EXECUTOR</code> – Runs a set of child functions in parallel, up to a maximum concurrency, and combines their output when all functions complete.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/monetization-functions-types.html">Function types and composition</a> in the <i>MediaTailor User Guide</i>.</p>"""
     description: NotRequired["capo_mediatailor.types.__string.__string"]
     """<p>A description of the function.</p>"""
     http_request_configuration: NotRequired[
@@ -47,6 +48,10 @@ class PutFunctionRequest(TypedDict, closed=True):
         "capo_mediatailor.types.vast_request_configuration.VastRequestConfiguration"
     ]
     """<p>The configuration for a <code>VAST_REQUEST</code> function. Specifies the HTTP method, URL, headers, body, timeout, and output expressions. Required when <code>FunctionType</code> is <code>VAST_REQUEST</code>.</p>"""
+    hls_tag_processor_configuration: NotRequired[
+        "capo_mediatailor.types.hls_tag_processor_configuration.HlsTagProcessorConfiguration"
+    ]
+    """<p>The configuration for an <code>HLS_TAG_PROCESSOR</code> function. Specifies the runtime, tag filter, optional run condition, and output expressions. Required when <code>FunctionType</code> is <code>HLS_TAG_PROCESSOR</code>.</p>"""
     tags: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
     """<p>The tags to assign to the function. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>"""
 
@@ -107,6 +112,14 @@ def serialize_json(value: PutFunctionRequest) -> dict:
         out["VastRequestConfiguration"] = (
             capo_mediatailor.types.vast_request_configuration.serialize_json(
                 value["vast_request_configuration"]
+            )
+        )
+    if "hls_tag_processor_configuration" in value:
+        import capo_mediatailor.types.hls_tag_processor_configuration
+
+        out["HlsTagProcessorConfiguration"] = (
+            capo_mediatailor.types.hls_tag_processor_configuration.serialize_json(
+                value["hls_tag_processor_configuration"]
             )
         )
     if "tags" in value:
@@ -180,6 +193,14 @@ def deserialize_json(data: dict) -> PutFunctionRequest:
         out["vast_request_configuration"] = (
             capo_mediatailor.types.vast_request_configuration.deserialize_json(
                 data["VastRequestConfiguration"]
+            )
+        )
+    if data.get("HlsTagProcessorConfiguration") is not None:
+        import capo_mediatailor.types.hls_tag_processor_configuration
+
+        out["hls_tag_processor_configuration"] = (
+            capo_mediatailor.types.hls_tag_processor_configuration.deserialize_json(
+                data["HlsTagProcessorConfiguration"]
             )
         )
     if data.get("tags") is not None:

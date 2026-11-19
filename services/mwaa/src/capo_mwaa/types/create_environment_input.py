@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_mwaa.types.environment_class
     import capo_mwaa.types.environment_name
     import capo_mwaa.types.iam_role_arn
+    import capo_mwaa.types.identity_center_configuration
     import capo_mwaa.types.kms_key
     import capo_mwaa.types.logging_configuration_input
     import capo_mwaa.types.max_webservers
@@ -25,6 +26,7 @@ if TYPE_CHECKING:
     import capo_mwaa.types.s3_object_version
     import capo_mwaa.types.schedulers
     import capo_mwaa.types.tag_map
+    import capo_mwaa.types.team_map
     import capo_mwaa.types.webserver_access_mode
     import capo_mwaa.types.weekly_maintenance_window_start
 
@@ -96,6 +98,12 @@ class CreateEnvironmentInput(TypedDict, closed=True):
     """<p> The minimum number of web servers that you want to run in your environment. Amazon MWAA scales the number of Apache Airflow web servers up to the number you specify for <code>MaxWebservers</code> when you interact with your Apache Airflow environment using Apache Airflow REST API, or the Apache Airflow CLI. As the transaction-per-second rate, and the network load, decrease, Amazon MWAA disposes of the additional web servers, and scales down to the number set in <code>MinxWebserers</code>. </p> <p>Valid values: For environments larger than mw1.micro, accepts values from <code>2</code> to <code>5</code>. Defaults to <code>2</code> for all environment sizes except mw1.micro, which defaults to <code>1</code>.</p>"""
     max_webservers: NotRequired["capo_mwaa.types.max_webservers.MaxWebservers"]
     """<p> The maximum number of web servers that you want to run in your environment. Amazon MWAA scales the number of Apache Airflow web servers up to the number you specify for <code>MaxWebservers</code> when you interact with your Apache Airflow environment using Apache Airflow REST API, or the Apache Airflow CLI. For example, in scenarios where your workload requires network calls to the Apache Airflow REST API with a high transaction-per-second (TPS) rate, Amazon MWAA will increase the number of web servers up to the number set in <code>MaxWebserers</code>. As TPS rates decrease Amazon MWAA disposes of the additional web servers, and scales down to the number set in <code>MinxWebserers</code>. </p> <p>Valid values: For environments larger than mw1.micro, accepts values from <code>2</code> to <code>5</code>. Defaults to <code>2</code> for all environment sizes except mw1.micro, which defaults to <code>1</code>.</p>"""
+    identity_center_configuration: NotRequired[
+        "capo_mwaa.types.identity_center_configuration.IdentityCenterConfiguration"
+    ]
+    """<p>The Amazon Web Services IAM Identity Center configuration used to authenticate users to the Apache Airflow web UI for your environment.</p>"""
+    teams: NotRequired["capo_mwaa.types.team_map.TeamMap"]
+    """<p>A map of teams to configure for Apache Airflow multi-team support on your Amazon MWAA environment. Each entry maps a team name to a object that defines the Amazon S3 location of that team's DAG code. The team name must match the display name of an Amazon Web Services IAM Identity Center group that you associate with your environment, so you must configure IAM Identity Center for the environment before you add teams. You can configure between <code>1</code> and <code>20</code> teams. For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/multi-team-environments.html">Apache Airflow multi-team environments</a>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -163,6 +171,18 @@ def serialize_json(value: CreateEnvironmentInput) -> dict:
         out["MinWebservers"] = value["min_webservers"]
     if "max_webservers" in value:
         out["MaxWebservers"] = value["max_webservers"]
+    if "identity_center_configuration" in value:
+        import capo_mwaa.types.identity_center_configuration
+
+        out["IdentityCenterConfiguration"] = (
+            capo_mwaa.types.identity_center_configuration.serialize_json(
+                value["identity_center_configuration"]
+            )
+        )
+    if "teams" in value:
+        import capo_mwaa.types.team_map
+
+        out["Teams"] = capo_mwaa.types.team_map.serialize_json(value["teams"])
     return out
 
 
@@ -246,6 +266,18 @@ def deserialize_json(data: dict) -> CreateEnvironmentInput:
         out["min_webservers"] = data["MinWebservers"]
     if data.get("MaxWebservers") is not None:
         out["max_webservers"] = data["MaxWebservers"]
+    if data.get("IdentityCenterConfiguration") is not None:
+        import capo_mwaa.types.identity_center_configuration
+
+        out["identity_center_configuration"] = (
+            capo_mwaa.types.identity_center_configuration.deserialize_json(
+                data["IdentityCenterConfiguration"]
+            )
+        )
+    if data.get("Teams") is not None:
+        import capo_mwaa.types.team_map
+
+        out["teams"] = capo_mwaa.types.team_map.deserialize_json(data["Teams"])
     return out
 
 

@@ -17,6 +17,7 @@ import capo_emr_serverless.errors.internal_server_exception
 import capo_emr_serverless.errors.resource_not_found_exception
 import capo_emr_serverless.errors.validation_exception
 import capo_emr_serverless.types.configuration_overrides
+import capo_emr_serverless.types.flex_execution
 import capo_emr_serverless.types.job_driver
 import capo_emr_serverless.types.job_run_execution_iam_policy
 import capo_emr_serverless.types.retry_policy

@@ -32,6 +32,7 @@ from capo_wafv2._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_wafv2.types.analytics_config
     import capo_wafv2.types.api_key
     import capo_wafv2.types.api_key_token_domains
     import capo_wafv2.types.application_config
@@ -759,6 +760,9 @@ class AsyncWAFV2Client:
         monetization_config: Optional[
             "capo_wafv2.types.monetization_config.MonetizationConfig"
         ] = None,
+        analytics_config: Optional[
+            "capo_wafv2.types.analytics_config.AnalyticsConfig"
+        ] = None,
     ) -> "capo_wafv2.types.create_web_acl_response.CreateWebACLResponse":
         """<p>Creates a <a>WebACL</a> per the specifications provided.</p> <p> A web ACL defines a collection of rules to use to inspect and control web requests. Each rule has a statement that defines what to look for in web requests and an action that WAF applies to requests that match the statement. In the web ACL, you assign a default action to take (allow, block) for any request that does not match any of the rules. The rules in a web ACL can be a combination of the types <a>Rule</a>, <a>RuleGroup</a>, and managed rule group. You can associate a web ACL with one or more Amazon Web Services resources to protect. The resource types include Amazon CloudFront distribution, Amazon API Gateway REST API, Application Load Balancer, AppSync GraphQL API, Amazon Cognito user pool, App Runner service, Amplify application, Amazon Web Services Verified Access instance, and Amazon Bedrock AgentCore Gateway. </p>
 
@@ -779,6 +783,7 @@ class AsyncWAFV2Client:
             on_source_d_do_s_protection_config: <p>Specifies the type of DDoS protection to apply to web request data for a web ACL. For most scenarios, it is recommended to use the default protection level, <code>ACTIVE_UNDER_DDOS</code>. If a web ACL is associated with multiple Application Load Balancers, the changes you make to DDoS protection in that web ACL will apply to all associated Application Load Balancers.</p>
             application_config: <p>Configures the ability for the WAF console to store and retrieve application attributes during the web ACL creation process. Application attributes help WAF give recommendations for protection packs.</p>
             monetization_config: <p>The monetization configuration for the web ACL. Provide this when any rule in the web ACL uses the <code>Monetize</code> action.</p>
+            analytics_config: <p>Specifies the security analytics configuration for the web ACL. For more information, see <a>AnalyticsConfig</a>. </p>
 
         Raises:
             capo_wafv2.errors.waf_configuration_warning_exception.WAFConfigurationWarningException: <p>The operation failed because you are inspecting the web request body, headers, or cookies without specifying how to handle oversize components. Rules that inspect the body must either provide an <code>OversizeHandling</code> configuration or they must be preceded by a <code>SizeConstraintStatement</code> that blocks the body content from being too large. Rules that inspect the headers or cookies must provide an <code>OversizeHandling</code> configuration. </p> <p>Provide the handling configuration and retry your operation.</p> <p>Alternately, you can suppress this warning by adding the following tag to the resource that you provide to this operation: <code>Tag</code> (key:<code>WAF:OversizeFieldsHandlingConstraintOptOut</code>, value:<code>true</code>).</p>
@@ -848,6 +853,8 @@ class AsyncWAFV2Client:
             input_["application_config"] = application_config
         if monetization_config is not None:
             input_["monetization_config"] = monetization_config
+        if analytics_config is not None:
+            input_["analytics_config"] = analytics_config
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -3952,6 +3959,9 @@ class AsyncWAFV2Client:
         monetization_config: Optional[
             "capo_wafv2.types.monetization_config.MonetizationConfig"
         ] = None,
+        analytics_config: Optional[
+            "capo_wafv2.types.analytics_config.AnalyticsConfig"
+        ] = None,
     ) -> "capo_wafv2.types.update_web_acl_response.UpdateWebACLResponse":
         """<p>Updates the specified <a>WebACL</a>. While updating a web ACL, WAF provides continuous coverage to the resources that you have associated with the web ACL. </p> <note> <p>This operation completely replaces the mutable specifications that you already have for the web ACL with the ones that you provide to this call. </p> <p>To modify a web ACL, do the following: </p> <ol> <li> <p>Retrieve it by calling <a>GetWebACL</a> </p> </li> <li> <p>Update its settings as needed</p> </li> <li> <p>Provide the complete web ACL specification to this call</p> </li> </ol> </note> <p> A web ACL defines a collection of rules to use to inspect and control web requests. Each rule has a statement that defines what to look for in web requests and an action that WAF applies to requests that match the statement. In the web ACL, you assign a default action to take (allow, block) for any request that does not match any of the rules. The rules in a web ACL can be a combination of the types <a>Rule</a>, <a>RuleGroup</a>, and managed rule group. You can associate a web ACL with one or more Amazon Web Services resources to protect. The resource types include Amazon CloudFront distribution, Amazon API Gateway REST API, Application Load Balancer, AppSync GraphQL API, Amazon Cognito user pool, App Runner service, Amplify application, Amazon Web Services Verified Access instance, and Amazon Bedrock AgentCore Gateway. </p> <p> <b>Temporary inconsistencies during updates</b> </p> <p>When you create or change a web ACL or other WAF resources, the changes take a small amount of time to propagate to all areas where the resources are stored. The propagation time can be from a few seconds to a number of minutes. </p> <p>The following are examples of the temporary inconsistencies that you might notice during change propagation: </p> <ul> <li> <p>After you create a web ACL, if you try to associate it with a resource, you might get an exception indicating that the web ACL is unavailable. </p> </li> <li> <p>After you add a rule group to a web ACL, the new rule group rules might be in effect in one area where the web ACL is used and not in another.</p> </li> <li> <p>After you change a rule action setting, you might see the old action in some places and the new action in others. </p> </li> <li> <p>After you add an IP address to an IP set that is in use in a blocking rule, the new address might be blocked in one area while still allowed in another.</p> </li> </ul>
 
@@ -3973,6 +3983,7 @@ class AsyncWAFV2Client:
             on_source_d_do_s_protection_config: <p>Specifies the type of DDoS protection to apply to web request data for a web ACL. For most scenarios, it is recommended to use the default protection level, <code>ACTIVE_UNDER_DDOS</code>. If a web ACL is associated with multiple Application Load Balancers, the changes you make to DDoS protection in that web ACL will apply to all associated Application Load Balancers.</p>
             application_config: <p>Configures the ability for the WAF console to store and retrieve application attributes. Application attributes help WAF give recommendations for protection packs.</p> <p>When using <code>UpdateWebACL</code>, <code>ApplicationConfig</code> follows these rules:</p> <ul> <li> <p>If you omit <code>ApplicationConfig</code> from the request, all existing entries in the web ACL are retained.</p> </li> <li> <p>If you include <code>ApplicationConfig</code>, entries must match the existing values exactly. Any attempt to modify existing entries will result in an error.</p> </li> </ul>
             monetization_config: <p>The monetization configuration for the web ACL. Provide this when any rule in the web ACL uses the <code>Monetize</code> action.</p>
+            analytics_config: <p>Specifies the security analytics configuration for the web ACL. For more information, see <a>AnalyticsConfig</a>. </p>
 
         Raises:
             capo_wafv2.errors.waf_configuration_warning_exception.WAFConfigurationWarningException: <p>The operation failed because you are inspecting the web request body, headers, or cookies without specifying how to handle oversize components. Rules that inspect the body must either provide an <code>OversizeHandling</code> configuration or they must be preceded by a <code>SizeConstraintStatement</code> that blocks the body content from being too large. Rules that inspect the headers or cookies must provide an <code>OversizeHandling</code> configuration. </p> <p>Provide the handling configuration and retry your operation.</p> <p>Alternately, you can suppress this warning by adding the following tag to the resource that you provide to this operation: <code>Tag</code> (key:<code>WAF:OversizeFieldsHandlingConstraintOptOut</code>, value:<code>true</code>).</p>
@@ -4041,6 +4052,8 @@ class AsyncWAFV2Client:
             input_["application_config"] = application_config
         if monetization_config is not None:
             input_["monetization_config"] = monetization_config
+        if analytics_config is not None:
+            input_["analytics_config"] = analytics_config
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

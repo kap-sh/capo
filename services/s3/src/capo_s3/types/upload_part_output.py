@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     import capo_s3.types.checksum_xxhash64
     import capo_s3.types.checksum_xxhash128
     import capo_s3.types.e_tag
+    import capo_s3.types.object_version_id
     import capo_s3.types.request_charged
     import capo_s3.types.server_side_encryption
     import capo_s3.types.sse_customer_algorithm
@@ -70,6 +71,8 @@ class UploadPartOutput(TypedDict, closed=True):
     bucket_key_enabled: NotRequired["capo_s3.types.bucket_key_enabled.BucketKeyEnabled"]
     """<p>Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).</p>"""
     request_charged: NotRequired["capo_s3.types.request_charged.RequestCharged"]
+    version_id: NotRequired["capo_s3.types.object_version_id.ObjectVersionId"]
+    """<p>Version ID of the object.</p> <p>Returns the Version ID of the object for the uploaded part, if bucket versioning is enabled.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
 
 
 # --- restXml ser/de ---

@@ -40,6 +40,8 @@ import capo_lambda.errors.request_too_large_exception
 import capo_lambda.errors.resource_conflict_exception
 import capo_lambda.errors.resource_not_found_exception
 import capo_lambda.errors.resource_not_ready_exception
+import capo_lambda.errors.runtime_alias_deleted_exception
+import capo_lambda.errors.runtime_version_deleted_exception
 import capo_lambda.errors.s3_files_mount_connectivity_exception
 import capo_lambda.errors.s3_files_mount_failure_exception
 import capo_lambda.errors.s3_files_mount_timeout_exception
@@ -184,6 +186,14 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotReadyException":
             raise capo_lambda.errors.resource_not_ready_exception.ResourceNotReadyException.from_json(
+                data, message, response=response
+            )
+        case "RuntimeAliasDeletedException":
+            raise capo_lambda.errors.runtime_alias_deleted_exception.RuntimeAliasDeletedException.from_json(
+                data, message, response=response
+            )
+        case "RuntimeVersionDeletedException":
+            raise capo_lambda.errors.runtime_version_deleted_exception.RuntimeVersionDeletedException.from_json(
                 data, message, response=response
             )
         case "S3FilesMountConnectivityException":

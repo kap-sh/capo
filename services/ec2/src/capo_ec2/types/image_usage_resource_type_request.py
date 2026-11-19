@@ -15,7 +15,7 @@ class ImageUsageResourceTypeRequest(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_ec2.types.image_usage_resource_type_name.ImageUsageResourceTypeName"
     ]
-    """<p>The resource type.</p> <p>Valid values: <code>ec2:Instance</code> | <code>ec2:LaunchTemplate</code> </p>"""
+    """<p>The resource type.</p> <p>Valid values: <code>ec2:Instance</code> | <code>ec2:LaunchTemplate</code> | <code>imagebuilder:ImageRecipe</code> | <code>imagebuilder:ContainerRecipe</code> </p>"""
     resource_type_options: NotRequired[
         "capo_ec2.types.image_usage_resource_type_option_request_list.ImageUsageResourceTypeOptionRequestList"
     ]

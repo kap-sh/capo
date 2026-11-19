@@ -1,0 +1,8 @@
+---
+title: MetricGroupResponse
+---
+
+::: capo_dsql.types.metric_group_response.MetricGroupResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

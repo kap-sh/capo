@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.resource_arn
     import capo_route53globalresolver.types.resource_id
     import capo_route53globalresolver.types.resource_name_short
+    import capo_route53globalresolver.types.segment_name
 
 
 class CreateAccessSourceOutput(TypedDict, closed=True):
@@ -25,7 +26,13 @@ class CreateAccessSourceOutput(TypedDict, closed=True):
     id: "capo_route53globalresolver.types.resource_id.ResourceId"
     """<p>The unique identifier for the access source.</p>"""
     ip_address_type: "capo_route53globalresolver.types.ip_address_type.IpAddressType"
-    """<p>The IP address type for this access source (IPv4 or IPv6).</p>"""
+    """<p>The IP address type for this access source. Valid values are IPV4, IPV6, and NONE.</p>"""
+    core_network_endpoint_id: NotRequired[
+        "capo_route53globalresolver.types.resource_id.ResourceId"
+    ]
+    """<p>The ID of the core network endpoint associated with this access source.</p>"""
+    segment: NotRequired["capo_route53globalresolver.types.segment_name.SegmentName"]
+    """<p>The name of the segment associated with this access source.</p>"""
     name: NotRequired[
         "capo_route53globalresolver.types.resource_name_short.ResourceNameShort"
     ]
@@ -44,7 +51,7 @@ class CreateAccessSourceOutput(TypedDict, closed=True):
 def serialize_json(value: CreateAccessSourceOutput) -> dict:
     out: dict = {}
     out["arn"] = value["arn"]
-    out["cidr"] = value["cidr"]
+    out["cidr"] = value.get("cidr", "")
     import capo_route53globalresolver.types.iso8601_time_string
 
     out["createdAt"] = (
@@ -57,9 +64,13 @@ def serialize_json(value: CreateAccessSourceOutput) -> dict:
 
     out["ipAddressType"] = (
         capo_route53globalresolver.types.ip_address_type.serialize_json(
-            value["ip_address_type"]
+            value.get("ip_address_type", "NONE")
         )
     )
+    if "core_network_endpoint_id" in value:
+        out["coreNetworkEndpointId"] = value["core_network_endpoint_id"]
+    if "segment" in value:
+        out["segment"] = value["segment"]
     if "name" in value:
         out["name"] = value["name"]
     out["dnsViewId"] = value["dns_view_id"]
@@ -118,11 +129,11 @@ def deserialize_json(data: dict) -> CreateAccessSourceOutput:
             )
         )
     else:
-        import typing
-
-        out["ip_address_type"] = typing.cast(
-            "capo_route53globalresolver.types.ip_address_type.IpAddressType", ""
-        )
+        out["ip_address_type"] = "NONE"
+    if data.get("coreNetworkEndpointId") is not None:
+        out["core_network_endpoint_id"] = data["coreNetworkEndpointId"]
+    if data.get("segment") is not None:
+        out["segment"] = data["segment"]
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("dnsViewId") is not None:

@@ -22,7 +22,7 @@ class QueueFleetAssociationSummary(TypedDict, closed=True):
     status: (
         "capo_deadline.types.queue_fleet_association_status.QueueFleetAssociationStatus"
     )
-    """<p>The status of task scheduling in the queue-fleet association.</p> <ul> <li> <p> <code>ACTIVE</code>–Association is active.</p> </li> <li> <p> <code>STOP_SCHEDULING_AND_COMPLETE_TASKS</code>–Association has stopped scheduling new tasks and is completing current tasks.</p> </li> <li> <p> <code>STOP_SCHEDULING_AND_CANCEL_TASKS</code>–Association has stopped scheduling new tasks and is canceling current tasks.</p> </li> <li> <p> <code>STOPPED</code>–Association has been stopped.</p> </li> </ul>"""
+    """<p>The status of task scheduling in the queue-fleet association.</p> <ul> <li> <p> <code>ACTIVE</code> - Association is active.</p> </li> <li> <p> <code>STOP_SCHEDULING_AND_COMPLETE_TASKS</code> - Association has stopped scheduling new tasks and is completing current tasks.</p> </li> <li> <p> <code>STOP_SCHEDULING_AND_CANCEL_TASKS</code> - Association has stopped scheduling new tasks and is canceling current tasks.</p> </li> <li> <p> <code>STOPPED</code> - Association has been stopped.</p> </li> </ul>"""
     created_at: "capo_deadline.types.created_at.CreatedAt"
     """The date and time the resource was created."""
     created_by: "capo_deadline.types.created_by.CreatedBy"

@@ -78,6 +78,7 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.backlog_task_description
     import capo_devops_agent.types.backlog_task_title
     import capo_devops_agent.types.certificate_string
+    import capo_devops_agent.types.chat_archive_status
     import capo_devops_agent.types.chat_execution_id
     import capo_devops_agent.types.create_agent_space_input
     import capo_devops_agent.types.create_agent_space_output
@@ -128,6 +129,8 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.get_association_output
     import capo_devops_agent.types.get_backlog_task_request
     import capo_devops_agent.types.get_backlog_task_response
+    import capo_devops_agent.types.get_chat_request
+    import capo_devops_agent.types.get_chat_response
     import capo_devops_agent.types.get_operator_app_input
     import capo_devops_agent.types.get_operator_app_output
     import capo_devops_agent.types.get_recommendation_request
@@ -234,6 +237,8 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.update_association_output
     import capo_devops_agent.types.update_backlog_task_request
     import capo_devops_agent.types.update_backlog_task_response
+    import capo_devops_agent.types.update_chat_request
+    import capo_devops_agent.types.update_chat_response
     import capo_devops_agent.types.update_goal_request
     import capo_devops_agent.types.update_goal_response
     import capo_devops_agent.types.update_operator_app_idp_config_input
@@ -1186,6 +1191,63 @@ class AsyncDevOpsAgentClient:
         await response.response.aclose()
         return response.output
 
+    async def get_chat(
+        self,
+        agent_space_id: "capo_devops_agent.types.agent_space_identifier.AgentSpaceIdentifier",
+        execution_id: "capo_devops_agent.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[AsyncDevOpsAgentClientConfig] = None,
+    ) -> "capo_devops_agent.types.get_chat_response.GetChatResponse":
+        """<p>Retrieves the details of a chat execution, including its execution ID, summary, timestamps, and archive status.</p>
+
+        Args:
+            agent_space_id: <p>The unique identifier of the agent space that contains the chat execution.</p>
+            execution_id: <p>The unique identifier of the chat execution to retrieve.</p>
+
+        Raises:
+            capo_devops_agent.errors.access_denied_exception.AccessDeniedException: <p>Access to the requested resource is denied due to insufficient permissions.</p>
+            capo_devops_agent.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource.</p>
+            capo_devops_agent.errors.content_size_exceeded_exception.ContentSizeExceededException: <p>This exception is thrown when the content size exceeds the allowed limit.</p>
+            capo_devops_agent.errors.internal_server_exception.InternalServerException: <p>This exception is thrown when an unexpected error occurs in the processing of a request.</p>
+            capo_devops_agent.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more parameters provided in the request are invalid.</p>
+            capo_devops_agent.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found.</p>
+            capo_devops_agent.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request would exceed the service quota limit.</p>
+            capo_devops_agent.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Please slow down and try again.</p>
+            capo_devops_agent.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_devops_agent.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_devops_agent.types.get_chat_request.GetChatRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_devops_agent.types.get_chat_response.GetChatResponse"
+        ]:
+            import capo_devops_agent._operations.dev_ops_agent.get_chat
+
+            (
+                output,
+                http_response,
+            ) = await capo_devops_agent._operations.dev_ops_agent.get_chat.async_get_chat(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChat")
+        )
+        input_: capo_devops_agent.types.get_chat_request.GetChatRequest = {
+            "agent_space_id": agent_space_id,
+            "execution_id": execution_id,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_recommendation(
         self,
         agent_space_id: "capo_devops_agent.types.agent_space_identifier.AgentSpaceIdentifier",
@@ -1791,6 +1853,9 @@ class AsyncDevOpsAgentClient:
         user_id: Optional["capo_devops_agent.types.resource_id.ResourceId"] = None,
         max_results: Optional[int] = None,
         next_token: Optional[str] = None,
+        archive_status: Optional[
+            "capo_devops_agent.types.chat_archive_status.ChatArchiveStatus"
+        ] = None,
     ) -> "capo_devops_agent.types.list_chats_response.ListChatsResponse":
         """<p>Retrieves a paginated list of the user's recent chat executions</p>
 
@@ -1799,6 +1864,7 @@ class AsyncDevOpsAgentClient:
             user_id: <p>The user identifier to list chats for. This field is deprecated and will be ignored — the service resolves user identity from the authenticated session.</p>
             max_results: <p>Maximum number of results to return</p>
             next_token: <p>Token for pagination</p>
+            archive_status: <p>The archive status to filter by. Use this parameter to list only archived chat executions or only active ones.</p>
 
         Raises:
             capo_devops_agent.errors.access_denied_exception.AccessDeniedException: <p>Access to the requested resource is denied due to insufficient permissions.</p>
@@ -1840,6 +1906,8 @@ class AsyncDevOpsAgentClient:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if archive_status is not None:
+            input_["archive_status"] = archive_status
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2908,6 +2976,78 @@ class AsyncDevOpsAgentClient:
         }
         if task_status is not None:
             input_["task_status"] = task_status
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_chat(
+        self,
+        agent_space_id: "capo_devops_agent.types.agent_space_identifier.AgentSpaceIdentifier",
+        execution_id: "capo_devops_agent.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[AsyncDevOpsAgentClientConfig] = None,
+        summary: Optional[str] = None,
+        archive_status: Optional[
+            "capo_devops_agent.types.chat_archive_status.ChatArchiveStatus"
+        ] = None,
+        client_token: Optional[str] = None,
+    ) -> "capo_devops_agent.types.update_chat_response.UpdateChatResponse":
+        """<p>Updates a chat execution. You can use this operation to change the chat execution's summary or to archive or unarchive it.</p><p>Archiving a chat execution hides it from the default chat list. Unarchiving a chat execution restores it to the default chat list.</p>
+
+        Args:
+            agent_space_id: <p>The unique identifier of the agent space that contains the chat execution to update.</p>
+            execution_id: <p>The unique identifier of the chat execution to update.</p>
+            summary: <p>The new summary to set for the chat execution.</p>
+            archive_status: <p>The archive status to set for the chat execution. Use this parameter to archive the chat execution, hiding it from the default chat list, or to unarchive it, restoring it to the default chat list.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the service ignores the request, but does not return an error.</p>
+
+        Raises:
+            capo_devops_agent.errors.access_denied_exception.AccessDeniedException: <p>Access to the requested resource is denied due to insufficient permissions.</p>
+            capo_devops_agent.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource.</p>
+            capo_devops_agent.errors.content_size_exceeded_exception.ContentSizeExceededException: <p>This exception is thrown when the content size exceeds the allowed limit.</p>
+            capo_devops_agent.errors.internal_server_exception.InternalServerException: <p>This exception is thrown when an unexpected error occurs in the processing of a request.</p>
+            capo_devops_agent.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more parameters provided in the request are invalid.</p>
+            capo_devops_agent.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource could not be found.</p>
+            capo_devops_agent.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request would exceed the service quota limit.</p>
+            capo_devops_agent.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Please slow down and try again.</p>
+            capo_devops_agent.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_devops_agent.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_devops_agent.types.update_chat_request.UpdateChatRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_devops_agent.types.update_chat_response.UpdateChatResponse"
+        ]:
+            import capo_devops_agent._operations.dev_ops_agent.update_chat
+
+            (
+                output,
+                http_response,
+            ) = await capo_devops_agent._operations.dev_ops_agent.update_chat.async_update_chat(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChat")
+        )
+        input_: capo_devops_agent.types.update_chat_request.UpdateChatRequest = {
+            "agent_space_id": agent_space_id,
+            "execution_id": execution_id,
+        }
+        if summary is not None:
+            input_["summary"] = summary
+        if archive_status is not None:
+            input_["archive_status"] = archive_status
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token

@@ -15,6 +15,7 @@ import capo_sagemaker.errors.resource_not_found
 import capo_sagemaker.types.describe_cluster_extension_request
 import capo_sagemaker.types.describe_cluster_extension_response
 import capo_sagemaker.types.extension_details
+import capo_sagemaker.types.extension_health
 import capo_sagemaker.types.extension_node_summary
 from capo_sagemaker._protocol.errors import parse_error_metadata_json
 from capo_sagemaker._rule_engine._endpoint_rule_set import EndpointParams, resolve

@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_ec2.types.additional_key_exchanges_request_specification
     import capo_ec2.types.boolean
     import capo_ec2.types.ike_versions_request_list
     import capo_ec2.types.integer
@@ -61,11 +62,11 @@ class VpnTunnelOptionsSpecification(TypedDict, closed=True):
     phase1_dh_group_numbers: NotRequired[
         "capo_ec2.types.phase1_dh_group_numbers_request_list.Phase1DHGroupNumbersRequestList"
     ]
-    """<p>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 1 IKE negotiations.</p> <p>Valid values: <code>2</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>19</code> | <code>20</code> | <code>21</code> | <code>22</code> | <code>23</code> | <code>24</code> </p>"""
+    """<p>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 1 IKE negotiations.</p> <p>Valid values: <code>2</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>19</code> | <code>20</code> | <code>21</code> | <code>22</code> | <code>23</code> | <code>24</code> | <code>35</code> </p>"""
     phase2_dh_group_numbers: NotRequired[
         "capo_ec2.types.phase2_dh_group_numbers_request_list.Phase2DHGroupNumbersRequestList"
     ]
-    """<p>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 2 IKE negotiations.</p> <p>Valid values: <code>2</code> | <code>5</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>19</code> | <code>20</code> | <code>21</code> | <code>22</code> | <code>23</code> | <code>24</code> </p>"""
+    """<p>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 2 IKE negotiations.</p> <p>Valid values: <code>2</code> | <code>5</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>19</code> | <code>20</code> | <code>21</code> | <code>22</code> | <code>23</code> | <code>24</code> | <code>35</code> | <code>36</code> | <code>37</code> </p>"""
     ike_versions: NotRequired[
         "capo_ec2.types.ike_versions_request_list.IKEVersionsRequestList"
     ]
@@ -78,6 +79,14 @@ class VpnTunnelOptionsSpecification(TypedDict, closed=True):
     """<p>Options for logging VPN tunnel activity.</p>"""
     enable_tunnel_lifecycle_control: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p>Turn on or off tunnel endpoint lifecycle control feature.</p>"""
+    phase1_additional_key_exchanges: NotRequired[
+        "capo_ec2.types.additional_key_exchanges_request_specification.AdditionalKeyExchangesRequestSpecification"
+    ]
+    """<p>One or more additional key exchange rounds that are permitted for the VPN tunnel for phase 1 IKE negotiations. Additional key exchanges occur after the initial Diffie-Hellman exchange. Each round must have a unique round number.</p> <p>Additional key exchanges are supported only with IKEv2. You can't specify a <code>required</code> round if <code>IKEVersions</code> contains only <code>ikev1</code>.</p>"""
+    phase2_additional_key_exchanges: NotRequired[
+        "capo_ec2.types.additional_key_exchanges_request_specification.AdditionalKeyExchangesRequestSpecification"
+    ]
+    """<p>One or more additional key exchange rounds that are permitted for the VPN tunnel for phase 2 IKE negotiations. Additional key exchanges occur after the initial Diffie-Hellman exchange. Each round must have a unique round number.</p> <p>Additional key exchanges are supported only with IKEv2. You can't specify a <code>required</code> round if <code>IKEVersions</code> contains only <code>ikev1</code>.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -197,6 +206,22 @@ def serialize_ec2_query(
                 "true" if value["enable_tunnel_lifecycle_control"] else "false",
             )
         )
+    if "phase1_additional_key_exchanges" in value:
+        import capo_ec2.types.additional_key_exchanges_request_specification
+
+        capo_ec2.types.additional_key_exchanges_request_specification.serialize_ec2_query(
+            value["phase1_additional_key_exchanges"],
+            pairs,
+            f"{key_prefix}Phase1AdditionalKeyExchange",
+        )
+    if "phase2_additional_key_exchanges" in value:
+        import capo_ec2.types.additional_key_exchanges_request_specification
+
+        capo_ec2.types.additional_key_exchanges_request_specification.serialize_ec2_query(
+            value["phase2_additional_key_exchanges"],
+            pairs,
+            f"{key_prefix}Phase2AdditionalKeyExchange",
+        )
 
 
 def deserialize_ec2_query(el: Element) -> VpnTunnelOptionsSpecification:
@@ -313,6 +338,24 @@ def deserialize_ec2_query(el: Element) -> VpnTunnelOptionsSpecification:
         out["enable_tunnel_lifecycle_control"] = (
             child_enable_tunnel_lifecycle_control.text or ""
         ).lower() == "true"
+    child_phase1_additional_key_exchanges = el.find("Phase1AdditionalKeyExchange")
+    if child_phase1_additional_key_exchanges is not None:
+        import capo_ec2.types.additional_key_exchanges_request_specification
+
+        out["phase1_additional_key_exchanges"] = (
+            capo_ec2.types.additional_key_exchanges_request_specification.deserialize_ec2_query(
+                child_phase1_additional_key_exchanges
+            )
+        )
+    child_phase2_additional_key_exchanges = el.find("Phase2AdditionalKeyExchange")
+    if child_phase2_additional_key_exchanges is not None:
+        import capo_ec2.types.additional_key_exchanges_request_specification
+
+        out["phase2_additional_key_exchanges"] = (
+            capo_ec2.types.additional_key_exchanges_request_specification.deserialize_ec2_query(
+                child_phase2_additional_key_exchanges
+            )
+        )
     return out
 
 

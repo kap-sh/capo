@@ -1060,7 +1060,7 @@ class imagebuilderClient:
             image_tags: <p>The tags that Image Builder applies to the Image Builder image resource that this pipeline's scheduled executions create. These tags don't apply to the output AMI. To tag output AMIs, use <code>amiTags</code> in the pipeline's distribution configuration.</p>
             client_token: <p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>
             image_scanning_configuration: <p>The settings that determine whether and how Amazon Inspector scans the images that this pipeline creates.</p>
-            workflows: <p>The array of workflow configuration objects for builds that this pipeline starts. You must also specify <code>executionRole</code> when you provide workflows.</p>
+            workflows: <p>The array of workflow configuration objects for builds that this pipeline starts. If you specify workflows, they replace the default workflows that Image Builder otherwise runs for the pipeline's builds. For example, if your list doesn't include a test workflow, the pipeline's builds don't run one. You must also specify <code>executionRole</code> when you provide workflows.</p>
             execution_role: <p>The name or Amazon Resource Name (ARN) for the IAM role you create that grants Image Builder access to perform workflow actions.</p>
             logging_configuration: <p>Specifies the logging configuration for the image pipeline. Use this to define custom CloudWatch Logs log groups for your pipeline execution logs and image build logs. The service manages log groups with names starting with <code>/aws/imagebuilder/</code> using the service-linked role. For custom log group names outside of this prefix, you must also provide an <code>executionRole</code>.</p>
             dry_run: <p>Validates the required permissions and request parameters without performing the operation. If validation succeeds, the operation returns a <code>DryRunOperationException</code> error response.</p>
@@ -3507,8 +3507,8 @@ class imagebuilderClient:
         """<p>Returns a list of component build versions for the specified component version ARN. You can only list build versions for components that your account owns. Deprecated build versions aren't included in the results.</p>
 
         Args:
-            component_version_arn: <p>The component version ARN whose build versions you want to list. The ARN must specify an exact version, without a build number suffix. If you don't specify an ARN, Image Builder returns build versions for the components that your account owns.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            component_version_arn: <p>The component version ARN whose build versions you want to list. The ARN must specify an exact version, without a build number suffix. If you don't specify an ARN, Image Builder returns build versions for the components that your account owns.</p> <p>If the ARN that you specify doesn't exist, Image Builder returns an empty list rather than a <code>ResourceNotFoundException</code> error.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -3610,7 +3610,7 @@ class imagebuilderClient:
             owner: <p>Filters results based on the type of owner for the component. By default, this request returns a list of components that your account owns. To see results for other types of owners, you can specify components that Amazon manages, components from the Amazon Web Services Marketplace, third party components, or components that other accounts have shared with you.</p>
             filters: <p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>description</code> </p> </li> <li> <p> <code>name</code> </p> </li> <li> <p> <code>platform</code> </p> </li> <li> <p> <code>productCodes</code> </p> </li> <li> <p> <code>status</code> </p> </li> <li> <p> <code>supportedOsVersion</code> </p> </li> <li> <p> <code>type</code> </p> </li> <li> <p> <code>version</code> </p> </li> </ul>
             by_name: <p>Specifies whether to return one entry per component name, with all versions of each component aggregated. Defaults to <code>false</code>, which returns one entry per component version. You can't combine this option with the <code>version</code> filter.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -3716,7 +3716,7 @@ class imagebuilderClient:
         Args:
             owner: <p>Returns container recipes belonging to the specified owner, that have been shared with you. You can omit this field to return container recipes belonging to your account. For container recipes, the valid owner values are <code>Self</code>, <code>Shared</code>, and <code>Amazon</code>.</p>
             filters: <p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>containerType</code> </p> </li> <li> <p> <code>name</code> </p> </li> <li> <p> <code>parentImage</code> </p> </li> <li> <p> <code>platform</code> </p> </li> </ul>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -3816,7 +3816,7 @@ class imagebuilderClient:
 
         Args:
             filters: <p>You can filter on <code>name</code> to streamline results.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -3916,9 +3916,9 @@ class imagebuilderClient:
         """<p>Returns a list of image build versions.</p>
 
         Args:
-            image_version_arn: <p>The Amazon Resource Name (ARN) of the image version whose build versions you want to retrieve. The ARN must specify an exact version (<code><major>.<minor>.<patch></code>) - wildcards aren't allowed. This parameter is optional. If you don't specify it, Image Builder returns build versions for all of the images in your account.</p>
+            image_version_arn: <p>The Amazon Resource Name (ARN) of the image version whose build versions you want to retrieve. The ARN must specify an exact version (<code><major>.<minor>.<patch></code>) - wildcards aren't allowed. This parameter is optional. If you don't specify it, Image Builder returns build versions for all of the images in your account.</p> <p>If the ARN that you specify doesn't exist, Image Builder returns an empty list rather than a <code>ResourceNotFoundException</code> error.</p>
             filters: <p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>name</code> </p> </li> <li> <p> <code>osVersion</code> </p> </li> <li> <p> <code>platform</code> </p> </li> <li> <p> <code>type</code> </p> </li> <li> <p> <code>version</code> </p> </li> </ul>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -4022,7 +4022,7 @@ class imagebuilderClient:
 
         Args:
             image_build_version_arn: <p>The Amazon Resource Name (ARN) of the image build version whose packages you want to list. The value must be a full build version ARN.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -4119,9 +4119,9 @@ class imagebuilderClient:
         """<p>Returns a list of images created by the specified pipeline.</p>
 
         Args:
-            image_pipeline_arn: <p>The Amazon Resource Name (ARN) of the image pipeline whose images you want to view.</p>
+            image_pipeline_arn: <p>The Amazon Resource Name (ARN) of the image pipeline whose images you want to view.</p> <p>If the ARN that you specify doesn't exist, Image Builder returns an empty list rather than a <code>ResourceNotFoundException</code> error.</p>
             filters: <p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>name</code> </p> </li> <li> <p> <code>version</code> </p> </li> </ul>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -4222,7 +4222,7 @@ class imagebuilderClient:
 
         Args:
             filters: <p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>description</code> </p> </li> <li> <p> <code>distributionConfigurationArn</code> </p> </li> <li> <p> <code>imageRecipeArn</code> </p> </li> <li> <p> <code>infrastructureConfigurationArn</code> </p> </li> <li> <p> <code>name</code> </p> </li> <li> <p> <code>status</code> </p> </li> </ul>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -4320,7 +4320,7 @@ class imagebuilderClient:
         Args:
             owner: <p>You can specify the recipe owner to filter results by that owner. By default, this request will only show image recipes owned by your account. To filter by a different owner, specify one of the <code>Valid Values</code> that are listed for this parameter.</p>
             filters: <p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>name</code> </p> </li> <li> <p> <code>parentImage</code> </p> </li> <li> <p> <code>platform</code> </p> </li> </ul>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -4427,7 +4427,7 @@ class imagebuilderClient:
             owner: <p>Filters the list to images owned by you, by Amazon, or shared with you by other accounts. By default, only your account's images are returned.</p>
             filters: <p>Use the following filters to streamline results:</p> <ul> <li> <p> <code>name</code> </p> </li> <li> <p> <code>osVersion</code> </p> </li> <li> <p> <code>platform</code> </p> </li> <li> <p> <code>type</code> </p> </li> <li> <p> <code>version</code> </p> </li> </ul>
             by_name: <p>Specifies whether to return one entry per image name, with all versions of each image aggregated. Defaults to <code>false</code>, which returns one entry per image version. You can't combine this option with the <code>version</code> filter.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
             include_deprecated: <p>Specifies whether to include deprecated Amazon-managed images in the results. Deprecated images that you own are always returned. Defaults to <code>false</code>.</p>
 
@@ -4626,7 +4626,7 @@ class imagebuilderClient:
 
         Args:
             filters: <p>An array of name value pairs that you can use to filter your results. You can use the following filters to streamline results:</p> <ul> <li> <p> <code>imageBuildVersionArn</code> – Filters findings by the image build version that was scanned.</p> </li> <li> <p> <code>imagePipelineArn</code> – Filters findings by the pipeline that created the scanned image.</p> </li> <li> <p> <code>vulnerabilityId</code> – Filters findings by vulnerability ID, for example a CVE ID.</p> </li> <li> <p> <code>severity</code> – Filters findings by severity level.</p> </li> </ul> <p>If you don't request a filter, then all findings in your account are listed.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -4724,7 +4724,7 @@ class imagebuilderClient:
 
         Args:
             filters: <p>You can filter on <code>name</code> to streamline results.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -4826,7 +4826,7 @@ class imagebuilderClient:
         Args:
             lifecycle_execution_id: <p>The unique identifier for a runtime instance of the lifecycle policy.</p>
             parent_resource_id: <p>The Amazon Resource Name (ARN) of an image build version to get the output resources for, such as AMIs or container images in Amazon ECR. You can get this value from the <code>resourceId</code> in the top-level response. If you leave this property empty, the response lists the Image Builder resources that the lifecycle execution identified for lifecycle actions. If the image build version that you specify in <code>parentResourceId</code> wasn't part of this lifecycle execution, the response contains an empty list.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -4927,7 +4927,7 @@ class imagebuilderClient:
         """<p>Retrieves the lifecycle runtime history for the specified resource.</p>
 
         Args:
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
             resource_arn: <p>The Amazon Resource Name (ARN) of the resource for which to list lifecycle executions. Specify a lifecycle policy ARN to list its executions, or an image build version ARN to list the executions that <a>StartResourceStateUpdate</a> started for that image. Other ARN types aren't valid for this request.</p>
 
@@ -5024,7 +5024,7 @@ class imagebuilderClient:
 
         Args:
             filters: <p>Use the following filters to streamline results: <code>name</code>, <code>resourceType</code>, and <code>status</code>. Filter names are matched exactly as shown.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -5171,7 +5171,7 @@ class imagebuilderClient:
         """<p>Lists the workflow steps in your Amazon Web Services account that have paused at a <code>WaitForAction</code> step, and are waiting for you to respond. To send a response, call <a>SendWorkflowStepAction</a>.</p>
 
         Args:
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -5265,7 +5265,7 @@ class imagebuilderClient:
 
         Args:
             workflow_version_arn: <p>The Amazon Resource Name (ARN) of the workflow resource for which to get a list of build versions. The version segments can contain wildcards (<code>x</code>) to match multiple versions of the workflow. If you don't specify an ARN, the response lists build versions for all of the workflows in your account.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -5362,7 +5362,7 @@ class imagebuilderClient:
         """<p>Returns a list of workflow runtime instance metadata objects for a specific image build version.</p>
 
         Args:
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
             image_build_version_arn: <p>List all workflow runtime instances for the specified image build version resource ARN.</p>
 
@@ -5463,7 +5463,7 @@ class imagebuilderClient:
             owner: <p>Filters results based on the workflow owner. By default, this request returns the workflows that your account owns (<code>Self</code>). Specify <code>Amazon</code> to list the workflows that Image Builder manages. Image Builder rejects the <code>Shared</code> and <code>ThirdParty</code> owner values for workflows, and <code>AWSMarketplace</code> returns no results.</p>
             filters: <p>Filters to narrow the list of workflows. You can filter on <code>name</code>, <code>version</code>, <code>description</code>, and <code>type</code>.</p>
             by_name: <p>Specifies whether to return one entry per workflow name, with all versions of each workflow aggregated. Defaults to <code>false</code>, which returns one entry per workflow version. You can't combine this option with the <code>version</code> filter.</p>
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
 
         Raises:
@@ -5566,7 +5566,7 @@ class imagebuilderClient:
         """<p>Returns runtime data for each step in a runtime instance of the workflow that you specify in the request.</p>
 
         Args:
-            max_results: <p>The maximum number of items to return in a single request.</p>
+            max_results: <p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>
             next_token: <p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>
             workflow_execution_id: <p>The unique identifier that Image Builder assigned to keep track of runtime details when it ran the workflow.</p>
 
@@ -6307,7 +6307,7 @@ class imagebuilderClient:
             "capo_imagebuilder.types.non_empty_string.NonEmptyString"
         ] = None,
     ) -> "capo_imagebuilder.types.update_distribution_configuration_response.UpdateDistributionConfigurationResponse":
-        """<p>Updates a distribution configuration. Distribution configurations define and configure the outputs for your images, including the target Regions, accounts, and settings for each Region.</p> <note> <p>This operation doesn't support selective updates. The request replaces the stored configuration, so include every setting that you want to keep.</p> </note>
+        """<p>Updates a distribution configuration. Distribution configurations define and configure the outputs for your images, including the target Regions, accounts, and settings for each Region.</p> <note> <p>This operation doesn't support selective updates. The request replaces the entire distribution configuration, so include every setting that you want to keep. Any optional property that you omit is removed or reset to its default.</p> </note>
 
         Args:
             distribution_configuration_arn: <p>The Amazon Resource Name (ARN) of the distribution configuration that you want to update.</p>
@@ -6410,7 +6410,7 @@ class imagebuilderClient:
         ] = None,
         image_tags: Optional["capo_imagebuilder.types.tag_map.TagMap"] = None,
     ) -> "capo_imagebuilder.types.update_image_pipeline_response.UpdateImagePipelineResponse":
-        """<p>Updates an image pipeline. Use image pipelines to automate the creation and distribution of images. You must specify exactly one recipe for your image, using either a <code>containerRecipeArn</code> or an <code>imageRecipeArn</code>. The recipe must be the same type, image or container, as the pipeline's current recipe.</p> <note> <p>UpdateImagePipeline does not support selective updates. The request replaces the pipeline's entire configuration, so include every setting that you want to keep. Any optional property that you omit is removed or reset to its default.</p> </note>
+        """<p>Updates an image pipeline. Use image pipelines to automate the creation and distribution of images. You must specify exactly one recipe for your image, using either a <code>containerRecipeArn</code> or an <code>imageRecipeArn</code>. The recipe must be the same type, image or container, as the pipeline's current recipe.</p> <note> <p>This operation doesn't support selective updates. The request replaces the entire pipeline configuration, so include every setting that you want to keep. Any optional property that you omit is removed or reset to its default.</p> </note>
 
         Args:
             image_pipeline_arn: <p>The Amazon Resource Name (ARN) of the image pipeline that you want to update.</p>
@@ -6425,7 +6425,7 @@ class imagebuilderClient:
             status: <p>The status of the image pipeline. Defaults to <code>ENABLED</code> when omitted. To keep a pipeline disabled, include this property set to <code>DISABLED</code> in your update request.</p>
             client_token: <p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>
             image_scanning_configuration: <p>The updated settings that determine whether and how Amazon Inspector scans the images that this pipeline creates.</p>
-            workflows: <p>The array of workflow configuration objects for builds that this pipeline starts. You must also specify <code>executionRole</code> when you provide workflows.</p>
+            workflows: <p>The array of workflow configuration objects for builds that this pipeline starts. If you specify workflows, they replace the default workflows that Image Builder otherwise runs for the pipeline's builds. For example, if your list doesn't include a test workflow, the pipeline's builds don't run one. You must also specify <code>executionRole</code> when you provide workflows.</p>
             logging_configuration: <p>Specifies the logging configuration for the image pipeline. Use this to define custom CloudWatch Logs log groups for your pipeline execution logs and image build logs. The service manages log groups with names starting with <code>/aws/imagebuilder/</code> using the service-linked role. For custom log group names outside of this prefix, you must also provide an <code>executionRole</code>.</p>
             execution_role: <p>The name or Amazon Resource Name (ARN) for the IAM role you create that grants Image Builder access to perform workflow actions. If you omit this property, the pipeline reverts to the Image Builder service-linked role.</p>
             image_tags: <p>The tags that Image Builder applies to the Image Builder image resource that this pipeline's scheduled executions create. These tags don't apply to the output AMI. To tag output AMIs, use <code>amiTags</code> in the pipeline's distribution configuration.</p>
@@ -6548,7 +6548,7 @@ class imagebuilderClient:
             "capo_imagebuilder.types.parent_instance_configuration.ParentInstanceConfiguration"
         ] = None,
     ) -> "capo_imagebuilder.types.update_infrastructure_configuration_response.UpdateInfrastructureConfigurationResponse":
-        """<p>Updates an infrastructure configuration. An infrastructure configuration defines the environment in which Image Builder builds and tests your image.</p> <note> <p>This operation doesn't support selective updates. The request replaces the configuration, so include every setting that you want to keep. Omitted optional properties are cleared.</p> </note>
+        """<p>Updates an infrastructure configuration. An infrastructure configuration defines the environment in which Image Builder builds and tests your image.</p> <note> <p>This operation doesn't support selective updates. The request replaces the entire infrastructure configuration, so include every setting that you want to keep. Any optional property that you omit is removed or reset to its default.</p> </note>
 
         Args:
             infrastructure_configuration_arn: <p>The Amazon Resource Name (ARN) of the infrastructure configuration that you want to update.</p>
@@ -6662,7 +6662,7 @@ class imagebuilderClient:
             "capo_imagebuilder.types.lifecycle_policy_status.LifecyclePolicyStatus"
         ] = None,
     ) -> "capo_imagebuilder.types.update_lifecycle_policy_response.UpdateLifecyclePolicyResponse":
-        """<p>Updates the specified lifecycle policy. The request replaces the existing policy configuration rather than merging changes, so re-specify every setting that you want to keep. The <code>resourceType</code> must match the existing policy's value.</p>
+        """<p>Updates the specified lifecycle policy. The <code>resourceType</code> must match the existing policy's value.</p> <note> <p>This operation doesn't support selective updates. The request replaces the entire lifecycle policy configuration, so include every setting that you want to keep. Any optional property that you omit is removed or reset to its default.</p> </note>
 
         Args:
             lifecycle_policy_arn: <p>The Amazon Resource Name (ARN) of the lifecycle policy resource.</p>

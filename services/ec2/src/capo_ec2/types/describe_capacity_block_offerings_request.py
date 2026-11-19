@@ -8,6 +8,7 @@ from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_ec2.types.boolean
+    import capo_ec2.types.capacity_block_instance_type_preference_set
     import capo_ec2.types.describe_capacity_block_offerings_max_results
     import capo_ec2.types.integer
     import capo_ec2.types.millisecond_date_time
@@ -43,6 +44,10 @@ class DescribeCapacityBlockOfferingsRequest(TypedDict, closed=True):
     """<p>The number of EC2 UltraServers in the offerings.</p>"""
     all_availability_zones: NotRequired["capo_ec2.types.boolean.Boolean"]
     """<p> Include all Availability Zones and Local Zones, regardless of your opt-in status. If you do not use this parameter, the results include available offerings from all Availability Zones in the Amazon Web Services Region and Local Zones you are opted into. </p>"""
+    instance_type_preferences: NotRequired[
+        "capo_ec2.types.capacity_block_instance_type_preference_set.CapacityBlockInstanceTypePreferenceSet"
+    ]
+    """<p>List of instance type preferences for the Capacity Block offering search. Accepts one or more instance type names. Either this or the legacy <code>InstanceType</code> parameter is required.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -91,6 +96,14 @@ def serialize_ec2_query(
                 f"{key_prefix}AllAvailabilityZones",
                 "true" if value["all_availability_zones"] else "false",
             )
+        )
+    if "instance_type_preferences" in value:
+        import capo_ec2.types.capacity_block_instance_type_preference_set
+
+        capo_ec2.types.capacity_block_instance_type_preference_set.serialize_ec2_query(
+            value["instance_type_preferences"],
+            pairs,
+            f"{key_prefix}InstanceTypePreference",
         )
 
 
@@ -143,4 +156,13 @@ def deserialize_ec2_query(el: Element) -> DescribeCapacityBlockOfferingsRequest:
         out["all_availability_zones"] = (
             child_all_availability_zones.text or ""
         ).lower() == "true"
+    child_instance_type_preferences = el.find("InstanceTypePreference")
+    if child_instance_type_preferences is not None:
+        import capo_ec2.types.capacity_block_instance_type_preference_set
+
+        out["instance_type_preferences"] = (
+            capo_ec2.types.capacity_block_instance_type_preference_set.deserialize_ec2_query(
+                child_instance_type_preferences
+            )
+        )
     return out

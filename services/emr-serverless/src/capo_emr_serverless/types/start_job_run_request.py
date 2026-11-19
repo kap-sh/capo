@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_emr_serverless.types.client_token
     import capo_emr_serverless.types.configuration_overrides
     import capo_emr_serverless.types.duration
+    import capo_emr_serverless.types.flex_execution
     import capo_emr_serverless.types.iam_role_arn
     import capo_emr_serverless.types.job_driver
     import capo_emr_serverless.types.job_run_execution_iam_policy
@@ -47,6 +48,10 @@ class StartJobRunRequest(TypedDict, closed=True):
     """<p>The mode of the job run when it starts.</p>"""
     retry_policy: NotRequired["capo_emr_serverless.types.retry_policy.RetryPolicy"]
     """<p>The retry policy when job run starts.</p>"""
+    flex_execution: NotRequired[
+        "capo_emr_serverless.types.flex_execution.FlexExecution"
+    ]
+    """<p>The Amazon EMR Serverless Flex settings for the job run. If you don't specify these settings, the job run doesn't use Flex capacity.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -91,6 +96,12 @@ def serialize_json(value: StartJobRunRequest) -> dict:
 
         out["retryPolicy"] = capo_emr_serverless.types.retry_policy.serialize_json(
             value["retry_policy"]
+        )
+    if "flex_execution" in value:
+        import capo_emr_serverless.types.flex_execution
+
+        out["flexExecution"] = capo_emr_serverless.types.flex_execution.serialize_json(
+            value["flex_execution"]
         )
     return out
 
@@ -142,6 +153,14 @@ def deserialize_json(data: dict) -> StartJobRunRequest:
 
         out["retry_policy"] = capo_emr_serverless.types.retry_policy.deserialize_json(
             data["retryPolicy"]
+        )
+    if data.get("flexExecution") is not None:
+        import capo_emr_serverless.types.flex_execution
+
+        out["flex_execution"] = (
+            capo_emr_serverless.types.flex_execution.deserialize_json(
+                data["flexExecution"]
+            )
         )
     return out
 

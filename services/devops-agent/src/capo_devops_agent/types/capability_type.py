@@ -6,6 +6,8 @@ from typing import Literal, TypeAlias, cast
 CapabilityType: TypeAlias = Literal[
     "RELEASE_READINESS_REVIEW",
     "RELEASE_READINESS_REVIEW_AUTOMATED_TESTING",
+    "CODE_CHANGE_RISK_ANALYSIS",
+    "CODE_CHANGE_RISK_ANALYSIS_AUTOMATED_TESTING",
 ]
 
 

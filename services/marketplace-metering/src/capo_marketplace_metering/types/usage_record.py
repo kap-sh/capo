@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_marketplace_metering.types.usage_allocations
     import capo_marketplace_metering.types.usage_dimension
     import capo_marketplace_metering.types.usage_quantity
+    import capo_marketplace_metering.types.usage_quantity_as_decimal_string
 
 
 class UsageRecord(TypedDict, closed=True):
@@ -26,11 +27,15 @@ class UsageRecord(TypedDict, closed=True):
     quantity: NotRequired[
         "capo_marketplace_metering.types.usage_quantity.UsageQuantity"
     ]
-    """<p>The quantity of usage consumed by the customer for the given dimension and time. Defaults to <code>0</code> if not specified.</p>"""
+    """<p>The quantity of usage consumed by the customer for the given dimension and time, as a whole number. Defaults to <code>0</code> if neither <code>Quantity</code> nor <code>QuantityAsDecimal</code> is specified.</p> <p>Use <code>QuantityAsDecimal</code> instead. You can't specify both <code>Quantity</code> and <code>QuantityAsDecimal</code> in a usage record.</p>"""
+    quantity_as_decimal: NotRequired[
+        "capo_marketplace_metering.types.usage_quantity_as_decimal_string.UsageQuantityAsDecimalString"
+    ]
+    """<p>The quantity of usage consumed by the customer for the given dimension and time, as a decimal string. Use this instead of <code>Quantity</code> to report fractional usage.</p> <p>A non-negative decimal number, for example <code>17.42</code>.</p> <p>You can't specify both <code>Quantity</code> and <code>QuantityAsDecimal</code> in a usage record. If you provide <code>UsageAllocations</code>, each allocation must use <code>AllocatedUsageQuantityAsDecimal</code>. If any usage record fails these checks, the entire <code>BatchMeterUsage</code> request fails and no records are processed.</p> <p>Quantities are compared by value when checking for duplicate records, so <code>17</code>, <code>17.0</code>, and <code>17.00</code> are the same quantity, whether you send it in <code>Quantity</code> or <code>QuantityAsDecimal</code>.</p>"""
     usage_allocations: NotRequired[
         "capo_marketplace_metering.types.usage_allocations.UsageAllocations"
     ]
-    """<p>The set of <code>UsageAllocations</code> to submit. The sum of all <code>UsageAllocation</code> quantities must equal the Quantity of the <code>UsageRecord</code>.</p>"""
+    """<p>The set of <code>UsageAllocations</code> to submit. The sum of all <code>UsageAllocation</code> quantities must equal the quantity of the <code>UsageRecord</code> (<code>Quantity</code> or <code>QuantityAsDecimal</code>). Allocations must use the same type of quantity as the usage record: <code>AllocatedUsageQuantity</code> with <code>Quantity</code>, or <code>AllocatedUsageQuantityAsDecimal</code> with <code>QuantityAsDecimal</code>.</p>"""
     customer_aws_account_id: NotRequired[
         "capo_marketplace_metering.types.customer_aws_account_id.CustomerAWSAccountId"
     ]
@@ -51,6 +56,8 @@ def serialize_aws_json_1_1(value: UsageRecord) -> dict:
     out["Dimension"] = value["dimension"]
     if "quantity" in value:
         out["Quantity"] = value["quantity"]
+    if "quantity_as_decimal" in value:
+        out["QuantityAsDecimal"] = value["quantity_as_decimal"]
     if "usage_allocations" in value:
         import capo_marketplace_metering.types.usage_allocations
 
@@ -90,6 +97,8 @@ def deserialize_aws_json_1_1(data: dict) -> UsageRecord:
         out["dimension"] = ""
     if data.get("Quantity") is not None:
         out["quantity"] = data["Quantity"]
+    if data.get("QuantityAsDecimal") is not None:
+        out["quantity_as_decimal"] = data["QuantityAsDecimal"]
     if data.get("UsageAllocations") is not None:
         import capo_marketplace_metering.types.usage_allocations
 

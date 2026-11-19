@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_s3.types.initiator
     import capo_s3.types.multipart_upload_id
     import capo_s3.types.object_key
+    import capo_s3.types.object_version_id
     import capo_s3.types.owner
     import capo_s3.types.storage_class
 
@@ -36,6 +37,8 @@ class MultipartUpload(TypedDict, closed=True):
     """<p>The algorithm that was used to create a checksum of the object.</p>"""
     checksum_type: NotRequired["capo_s3.types.checksum_type.ChecksumType"]
     """<p>The checksum type that is used to calculate the object’s checksum value. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html">Checking object integrity</a> in the <i>Amazon S3 User Guide</i>.</p>"""
+    version_id: NotRequired["capo_s3.types.object_version_id.ObjectVersionId"]
+    """<p>Version ID of the object.</p> <p>Returns the Version ID of the object for the multipart upload, if bucket versioning is enabled.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
 
 
 # --- restXml ser/de ---
@@ -75,6 +78,8 @@ def serialize_xml(value: MultipartUpload, parent: Element, tag: str) -> None:
         capo_s3.types.checksum_type.serialize_xml(
             value["checksum_type"], el, "ChecksumType"
         )
+    if "version_id" in value:
+        SubElement(el, "VersionId").text = str(value["version_id"])
 
 
 def deserialize_xml(el: Element) -> MultipartUpload:
@@ -121,4 +126,7 @@ def deserialize_xml(el: Element) -> MultipartUpload:
         out["checksum_type"] = capo_s3.types.checksum_type.deserialize_xml(
             child_checksum_type
         )
+    child_version_id = el.find("VersionId")
+    if child_version_id is not None:
+        out["version_id"] = str(child_version_id.text or "")
     return out

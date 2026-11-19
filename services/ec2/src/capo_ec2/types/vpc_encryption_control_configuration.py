@@ -48,6 +48,14 @@ class VpcEncryptionControlConfiguration(TypedDict, closed=True):
         "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
     ]
     """<p>Specifies whether to exclude Elastic File System traffic from encryption enforcement.</p>"""
+    global_accelerator_exclusion: NotRequired[
+        "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
+    ]
+    """<p>Specifies whether to exclude Amazon Web Services Global Accelerator traffic from encryption enforcement.</p>"""
+    api_gateway_v2_exclusion: NotRequired[
+        "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
+    ]
+    """<p>Specifies whether to exclude Amazon API Gateway V2 traffic from encryption enforcement.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -116,6 +124,22 @@ def serialize_ec2_query(
             value["elastic_file_system_exclusion"],
             pairs,
             f"{key_prefix}ElasticFileSystemExclusion",
+        )
+    if "global_accelerator_exclusion" in value:
+        import capo_ec2.types.vpc_encryption_control_exclusion_state_input
+
+        capo_ec2.types.vpc_encryption_control_exclusion_state_input.serialize_ec2_query(
+            value["global_accelerator_exclusion"],
+            pairs,
+            f"{key_prefix}GlobalAcceleratorExclusion",
+        )
+    if "api_gateway_v2_exclusion" in value:
+        import capo_ec2.types.vpc_encryption_control_exclusion_state_input
+
+        capo_ec2.types.vpc_encryption_control_exclusion_state_input.serialize_ec2_query(
+            value["api_gateway_v2_exclusion"],
+            pairs,
+            f"{key_prefix}ApiGatewayV2Exclusion",
         )
 
 
@@ -200,6 +224,24 @@ def deserialize_ec2_query(el: Element) -> VpcEncryptionControlConfiguration:
         out["elastic_file_system_exclusion"] = (
             capo_ec2.types.vpc_encryption_control_exclusion_state_input.deserialize_ec2_query(
                 child_elastic_file_system_exclusion
+            )
+        )
+    child_global_accelerator_exclusion = el.find("GlobalAcceleratorExclusion")
+    if child_global_accelerator_exclusion is not None:
+        import capo_ec2.types.vpc_encryption_control_exclusion_state_input
+
+        out["global_accelerator_exclusion"] = (
+            capo_ec2.types.vpc_encryption_control_exclusion_state_input.deserialize_ec2_query(
+                child_global_accelerator_exclusion
+            )
+        )
+    child_api_gateway_v2_exclusion = el.find("ApiGatewayV2Exclusion")
+    if child_api_gateway_v2_exclusion is not None:
+        import capo_ec2.types.vpc_encryption_control_exclusion_state_input
+
+        out["api_gateway_v2_exclusion"] = (
+            capo_ec2.types.vpc_encryption_control_exclusion_state_input.deserialize_ec2_query(
+                child_api_gateway_v2_exclusion
             )
         )
     return out

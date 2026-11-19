@@ -48,6 +48,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.ssm_document_external_parameters
     import capo_mgn.types.ssm_document_parameters
     import capo_mgn.types.strictly_positive_integer
+    import capo_mgn.types.tag_key
     import capo_mgn.types.tag_value
     import capo_mgn.types.tags_map
     import capo_mgn.types.target_instance_type_right_sizing_method
@@ -71,6 +72,7 @@ class LaunchConfigurationTemplateResource:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         tags: Optional["capo_mgn.types.tags_map.TagsMap"] = None,
         launch_disposition: Optional[
             "capo_mgn.types.launch_disposition.LaunchDisposition"
@@ -103,6 +105,7 @@ class LaunchConfigurationTemplateResource:
             post_launch_actions: <p>Launch configuration template post launch actions.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration template map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration template map auto tagging key.</p>
             tags: <p>Request to associate tags during creation of a Launch Configuration Template.</p>
             launch_disposition: <p>Launch disposition.</p>
             target_instance_type_right_sizing_method: <p>Target instance type right-sizing method.</p>
@@ -168,6 +171,8 @@ class LaunchConfigurationTemplateResource:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if tags is not None:
             input_["tags"] = tags
         if launch_disposition is not None:
@@ -215,6 +220,7 @@ class LaunchConfigurationTemplateResource:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         launch_disposition: Optional[
             "capo_mgn.types.launch_disposition.LaunchDisposition"
         ] = None,
@@ -245,6 +251,7 @@ class LaunchConfigurationTemplateResource:
             post_launch_actions: <p>Post Launch Action to execute on the Test or Cutover instance.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration template map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration template map auto tagging key.</p>
             launch_disposition: <p>Launch disposition.</p>
             target_instance_type_right_sizing_method: <p>Target instance type right-sizing method.</p>
             copy_private_ip: <p>Copy private Ip.</p>
@@ -301,6 +308,8 @@ class LaunchConfigurationTemplateResource:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if launch_disposition is not None:
             input_["launch_disposition"] = launch_disposition
         if target_instance_type_right_sizing_method is not None:
@@ -686,6 +695,7 @@ class AsyncLaunchConfigurationTemplateResource:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         tags: Optional["capo_mgn.types.tags_map.TagsMap"] = None,
         launch_disposition: Optional[
             "capo_mgn.types.launch_disposition.LaunchDisposition"
@@ -718,6 +728,7 @@ class AsyncLaunchConfigurationTemplateResource:
             post_launch_actions: <p>Launch configuration template post launch actions.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration template map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration template map auto tagging key.</p>
             tags: <p>Request to associate tags during creation of a Launch Configuration Template.</p>
             launch_disposition: <p>Launch disposition.</p>
             target_instance_type_right_sizing_method: <p>Target instance type right-sizing method.</p>
@@ -784,6 +795,8 @@ class AsyncLaunchConfigurationTemplateResource:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if tags is not None:
             input_["tags"] = tags
         if launch_disposition is not None:
@@ -831,6 +844,7 @@ class AsyncLaunchConfigurationTemplateResource:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         launch_disposition: Optional[
             "capo_mgn.types.launch_disposition.LaunchDisposition"
         ] = None,
@@ -861,6 +875,7 @@ class AsyncLaunchConfigurationTemplateResource:
             post_launch_actions: <p>Post Launch Action to execute on the Test or Cutover instance.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration template map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration template map auto tagging key.</p>
             launch_disposition: <p>Launch disposition.</p>
             target_instance_type_right_sizing_method: <p>Target instance type right-sizing method.</p>
             copy_private_ip: <p>Copy private Ip.</p>
@@ -918,6 +933,8 @@ class AsyncLaunchConfigurationTemplateResource:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if launch_disposition is not None:
             input_["launch_disposition"] = launch_disposition
         if target_instance_type_right_sizing_method is not None:

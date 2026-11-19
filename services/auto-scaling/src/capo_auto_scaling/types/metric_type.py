@@ -6,6 +6,7 @@ from capo_auto_scaling._protocol.xml import Element
 
 MetricType: TypeAlias = Literal[
     "ASGAverageCPUUtilization",
+    "ASGAverageCPUUtilizationHighResolution",
     "ASGAverageNetworkIn",
     "ASGAverageNetworkOut",
     "ALBRequestCountPerTarget",

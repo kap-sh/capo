@@ -11,11 +11,12 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.ip_address_type
     import capo_route53globalresolver.types.resource_id
     import capo_route53globalresolver.types.resource_name_short
+    import capo_route53globalresolver.types.segment_name
     import capo_route53globalresolver.types.tags
 
 
 class CreateAccessSourceInput(TypedDict, closed=True):
-    cidr: "capo_route53globalresolver.types.cidr.Cidr"
+    cidr: NotRequired["capo_route53globalresolver.types.cidr.Cidr"]
     """<p>The IP address or CIDR range that is allowed to send DNS queries to the Route 53 Global Resolver.</p>"""
     client_token: NotRequired[
         "capo_route53globalresolver.types.client_token.ClientToken"
@@ -24,11 +25,17 @@ class CreateAccessSourceInput(TypedDict, closed=True):
     ip_address_type: NotRequired[
         "capo_route53globalresolver.types.ip_address_type.IpAddressType"
     ]
-    """<p>The IP address type for this access source. Valid values are IPv4 and IPv6 (if the Route 53 Global Resolver supports dual-stack).</p>"""
+    """<p>The IP address type for this access source. Valid values are IPV4, IPV6, and NONE. If you provide a CIDR range, this defaults to IPV4; otherwise it defaults to NONE.</p>"""
     name: NotRequired[
         "capo_route53globalresolver.types.resource_name_short.ResourceNameShort"
     ]
     """<p>A descriptive name for the access source.</p>"""
+    core_network_endpoint_id: NotRequired[
+        "capo_route53globalresolver.types.resource_id.ResourceId"
+    ]
+    """<p>The ID of the core network endpoint to associate with this access source.</p>"""
+    segment: NotRequired["capo_route53globalresolver.types.segment_name.SegmentName"]
+    """<p>The name of the segment to associate with this access source.</p>"""
     dns_view_id: "capo_route53globalresolver.types.resource_id.ResourceId"
     """<p>The ID of the DNS view to associate with this access source.</p>"""
     protocol: "capo_route53globalresolver.types.dns_protocol.DnsProtocol"
@@ -40,7 +47,8 @@ class CreateAccessSourceInput(TypedDict, closed=True):
 # --- restJson1 ser/de ---
 def serialize_json(value: CreateAccessSourceInput) -> dict:
     out: dict = {}
-    out["cidr"] = value["cidr"]
+    if "cidr" in value:
+        out["cidr"] = value["cidr"]
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
     if "ip_address_type" in value:
@@ -53,6 +61,10 @@ def serialize_json(value: CreateAccessSourceInput) -> dict:
         )
     if "name" in value:
         out["name"] = value["name"]
+    if "core_network_endpoint_id" in value:
+        out["coreNetworkEndpointId"] = value["core_network_endpoint_id"]
+    if "segment" in value:
+        out["segment"] = value["segment"]
     out["dnsViewId"] = value["dns_view_id"]
     import capo_route53globalresolver.types.dns_protocol
 
@@ -72,8 +84,6 @@ def deserialize_json(data: dict) -> CreateAccessSourceInput:
     out: CreateAccessSourceInput = {}  # type: ignore[typeddict-item]
     if data.get("cidr") is not None:
         out["cidr"] = data["cidr"]
-    else:
-        out["cidr"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("ipAddressType") is not None:
@@ -86,6 +96,10 @@ def deserialize_json(data: dict) -> CreateAccessSourceInput:
         )
     if data.get("name") is not None:
         out["name"] = data["name"]
+    if data.get("coreNetworkEndpointId") is not None:
+        out["core_network_endpoint_id"] = data["coreNetworkEndpointId"]
+    if data.get("segment") is not None:
+        out["segment"] = data["segment"]
     if data.get("dnsViewId") is not None:
         out["dns_view_id"] = data["dnsViewId"]
     else:

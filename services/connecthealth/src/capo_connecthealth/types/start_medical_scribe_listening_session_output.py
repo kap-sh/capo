@@ -43,7 +43,7 @@ class StartMedicalScribeListeningSessionOutput(TypedDict, closed=True):
     response_stream: NotRequired[
         "capo_connecthealth.types.medical_scribe_output_stream.MedicalScribeOutputStream"
     ]
-    """<p>The output stream containing transcript events</p>"""
+    """<p>The output stream that contains transcript events, periodontal chart events, checklist events, and errors.</p>"""
 
 
 def redact_sensitive(value: StartMedicalScribeListeningSessionOutput) -> dict[str, Any]:

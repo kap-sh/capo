@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#GetAgentRecommendationGenerationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -9,9 +9,12 @@ if TYPE_CHECKING:
 
     import capo_wellarchitected.types.agent_profile_arn
     import capo_wellarchitected.types.error_details
+    import capo_wellarchitected.types.generation_recommendation_types
     import capo_wellarchitected.types.generation_status
+    import capo_wellarchitected.types.generation_type
     import capo_wellarchitected.types.progress
     import capo_wellarchitected.types.scope
+    import capo_wellarchitected.types.sensitive_document
     import capo_wellarchitected.types.uuid
 
 
@@ -34,18 +37,28 @@ class GetAgentRecommendationGenerationResponse(TypedDict, closed=True):
     """<p>The identifier of the user or system that last modified this generation.</p>"""
     last_modified_at: NotRequired["datetime.datetime"]
     """<p>The timestamp when the generation was last modified.</p>"""
-    additional_context: NotRequired["object"]
-    """<p>Additional context information provided to guide the recommendation generation process.</p>"""
-    scope: NotRequired["capo_wellarchitected.types.scope.Scope"]
-    """<p>The scope configuration that defines which pillars and goals to focus on during generation.</p>"""
+    generation_type: NotRequired[
+        "capo_wellarchitected.types.generation_type.GenerationType"
+    ]
+    """<p>How the generation was started.</p>"""
+    generation_recommendation_types: NotRequired[
+        "capo_wellarchitected.types.generation_recommendation_types.GenerationRecommendationTypes"
+    ]
+    """<p>The recommendation types the generation covers.</p>"""
     started_at: NotRequired["datetime.datetime"]
     """<p>The timestamp when the recommendation generation process started.</p>"""
     ended_at: NotRequired["datetime.datetime"]
     """<p>The timestamp when the recommendation generation process completed.</p>"""
-    progress: NotRequired["capo_wellarchitected.types.progress.Progress"]
-    """<p>Current progress information including steps completed and completion percentage.</p>"""
     error_details: NotRequired["capo_wellarchitected.types.error_details.ErrorDetails"]
     """<p>Details about the error if the generation status is ERROR.</p>"""
+    additional_context: NotRequired[
+        "capo_wellarchitected.types.sensitive_document.SensitiveDocument"
+    ]
+    """<p>The additional context that was provided when the generation was started. For <code>ARCHITECTURE</code> generations, this includes the location of the reviewed IaC template and the lenses used.</p>"""
+    scope: NotRequired["capo_wellarchitected.types.scope.Scope"]
+    """<p>The scope configuration that defines which pillars and goals to focus on during generation.</p>"""
+    progress: NotRequired["capo_wellarchitected.types.progress.Progress"]
+    """<p>Current progress information including steps completed and completion percentage.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -82,12 +95,22 @@ def serialize_json(value: GetAgentRecommendationGenerationResponse) -> dict:
         out["lastModifiedAt"] = capo_wellarchitected._protocol.serialize.fmt_date_time(
             value["last_modified_at"]
         )
-    if "additional_context" in value:
-        out["additionalContext"] = value["additional_context"]
-    if "scope" in value:
-        import capo_wellarchitected.types.scope
+    if "generation_type" in value:
+        import capo_wellarchitected.types.generation_type
 
-        out["scope"] = capo_wellarchitected.types.scope.serialize_json(value["scope"])
+        out["generationType"] = (
+            capo_wellarchitected.types.generation_type.serialize_json(
+                value["generation_type"]
+            )
+        )
+    if "generation_recommendation_types" in value:
+        import capo_wellarchitected.types.generation_recommendation_types
+
+        out["generationRecommendationTypes"] = (
+            capo_wellarchitected.types.generation_recommendation_types.serialize_json(
+                value["generation_recommendation_types"]
+            )
+        )
     if "started_at" in value:
         import capo_wellarchitected._protocol.serialize
 
@@ -100,17 +123,23 @@ def serialize_json(value: GetAgentRecommendationGenerationResponse) -> dict:
         out["endedAt"] = capo_wellarchitected._protocol.serialize.fmt_date_time(
             value["ended_at"]
         )
-    if "progress" in value:
-        import capo_wellarchitected.types.progress
-
-        out["progress"] = capo_wellarchitected.types.progress.serialize_json(
-            value["progress"]
-        )
     if "error_details" in value:
         import capo_wellarchitected.types.error_details
 
         out["errorDetails"] = capo_wellarchitected.types.error_details.serialize_json(
             value["error_details"]
+        )
+    if "additional_context" in value:
+        out["additionalContext"] = value["additional_context"]
+    if "scope" in value:
+        import capo_wellarchitected.types.scope
+
+        out["scope"] = capo_wellarchitected.types.scope.serialize_json(value["scope"])
+    if "progress" in value:
+        import capo_wellarchitected.types.progress
+
+        out["progress"] = capo_wellarchitected.types.progress.serialize_json(
+            value["progress"]
         )
     return out
 
@@ -167,12 +196,22 @@ def deserialize_json(data: dict) -> GetAgentRecommendationGenerationResponse:
         out["last_modified_at"] = datetime.datetime.fromisoformat(
             data["lastModifiedAt"].replace("Z", "+00:00")
         )
-    if data.get("additionalContext") is not None:
-        out["additional_context"] = data["additionalContext"]
-    if data.get("scope") is not None:
-        import capo_wellarchitected.types.scope
+    if data.get("generationType") is not None:
+        import capo_wellarchitected.types.generation_type
 
-        out["scope"] = capo_wellarchitected.types.scope.deserialize_json(data["scope"])
+        out["generation_type"] = (
+            capo_wellarchitected.types.generation_type.deserialize_json(
+                data["generationType"]
+            )
+        )
+    if data.get("generationRecommendationTypes") is not None:
+        import capo_wellarchitected.types.generation_recommendation_types
+
+        out["generation_recommendation_types"] = (
+            capo_wellarchitected.types.generation_recommendation_types.deserialize_json(
+                data["generationRecommendationTypes"]
+            )
+        )
     if data.get("startedAt") is not None:
         import datetime
 
@@ -185,12 +224,6 @@ def deserialize_json(data: dict) -> GetAgentRecommendationGenerationResponse:
         out["ended_at"] = datetime.datetime.fromisoformat(
             data["endedAt"].replace("Z", "+00:00")
         )
-    if data.get("progress") is not None:
-        import capo_wellarchitected.types.progress
-
-        out["progress"] = capo_wellarchitected.types.progress.deserialize_json(
-            data["progress"]
-        )
     if data.get("errorDetails") is not None:
         import capo_wellarchitected.types.error_details
 
@@ -199,4 +232,23 @@ def deserialize_json(data: dict) -> GetAgentRecommendationGenerationResponse:
                 data["errorDetails"]
             )
         )
+    if data.get("additionalContext") is not None:
+        out["additional_context"] = data["additionalContext"]
+    if data.get("scope") is not None:
+        import capo_wellarchitected.types.scope
+
+        out["scope"] = capo_wellarchitected.types.scope.deserialize_json(data["scope"])
+    if data.get("progress") is not None:
+        import capo_wellarchitected.types.progress
+
+        out["progress"] = capo_wellarchitected.types.progress.deserialize_json(
+            data["progress"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetAgentRecommendationGenerationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "additional_context" in value:
+        out["additional_context"] = "*** Sensitive Data Redacted ***"
     return out

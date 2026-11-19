@@ -14,6 +14,7 @@ class HarnessAgentCoreRuntimeEnvironmentRequest(TypedDict, closed=True):
     lifecycle_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.lifecycle_configuration.LifecycleConfiguration"
     ]
+    """<p>The lifecycle configuration for the harness's runtime environment. For a harness, <code>idleRuntimeSessionTimeout</code> and <code>maxLifetime</code> each accept a value between 60 and 28800 seconds (8 hours), and <code>idleRuntimeSessionTimeout</code> must be less than or equal to <code>maxLifetime</code>. Values above 28800 seconds are rejected with a <code>ValidationException</code>.</p>"""
     network_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.network_configuration.NetworkConfiguration"
     ]

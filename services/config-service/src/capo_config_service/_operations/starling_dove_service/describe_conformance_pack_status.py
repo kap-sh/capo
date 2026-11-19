@@ -18,6 +18,7 @@ import capo_config_service.types.conformance_pack_names_list
 import capo_config_service.types.conformance_pack_status_details_list
 import capo_config_service.types.describe_conformance_pack_status_request
 import capo_config_service.types.describe_conformance_pack_status_response
+import capo_config_service.types.describe_conformance_packs_filters
 from capo_config_service._protocol.errors import parse_error_metadata_json
 from capo_config_service._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_config_service._services._pipeline import (

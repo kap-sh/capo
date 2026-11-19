@@ -18,9 +18,11 @@ import capo_mwaa.errors.validation_exception
 import capo_mwaa.types.airflow_configuration_options
 import capo_mwaa.types.create_environment_input
 import capo_mwaa.types.create_environment_output
+import capo_mwaa.types.identity_center_configuration
 import capo_mwaa.types.logging_configuration_input
 import capo_mwaa.types.network_configuration
 import capo_mwaa.types.tag_map
+import capo_mwaa.types.team_map
 from capo_mwaa._protocol.errors import parse_error_metadata_json
 from capo_mwaa._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_mwaa._services._pipeline import (

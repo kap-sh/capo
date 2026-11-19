@@ -137,6 +137,8 @@ class DBCluster(TypedDict, closed=True):
         "capo_neptune.types.serverless_v2_scaling_configuration_info.ServerlessV2ScalingConfigurationInfo"
     ]
     """<p>Shows the scaling configuration for a Neptune Serverless DB cluster.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.</p>"""
+    serverless_v2_platform_version: NotRequired["capo_neptune.types.string.String"]
+    """<p>The serverless platform version used by the Neptune Serverless DB cluster.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.</p>"""
     global_cluster_identifier: NotRequired[
         "capo_neptune.types.global_cluster_identifier.GlobalClusterIdentifier"
     ]
@@ -359,6 +361,13 @@ def serialize_query(
             value["serverless_v2_scaling_configuration"],
             pairs,
             f"{key_prefix}ServerlessV2ScalingConfiguration",
+        )
+    if "serverless_v2_platform_version" in value:
+        pairs.append(
+            (
+                f"{key_prefix}ServerlessV2PlatformVersion",
+                str(value["serverless_v2_platform_version"]),
+            )
         )
     if "global_cluster_identifier" in value:
         pairs.append(
@@ -598,6 +607,11 @@ def deserialize_query(el: Element) -> DBCluster:
             capo_neptune.types.serverless_v2_scaling_configuration_info.deserialize_query(
                 child_serverless_v2_scaling_configuration
             )
+        )
+    child_serverless_v2_platform_version = el.find("ServerlessV2PlatformVersion")
+    if child_serverless_v2_platform_version is not None:
+        out["serverless_v2_platform_version"] = str(
+            child_serverless_v2_platform_version.text or ""
         )
     child_global_cluster_identifier = el.find("GlobalClusterIdentifier")
     if child_global_cluster_identifier is not None:

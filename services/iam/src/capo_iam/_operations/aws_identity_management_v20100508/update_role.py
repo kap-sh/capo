@@ -11,6 +11,7 @@ from typing_extensions import Never
 import capo_iam._auth._signers
 import capo_iam._auth._sigv4
 import capo_iam._protocol.eventstream
+import capo_iam.errors.invalid_input_exception
 import capo_iam.errors.no_such_entity_exception
 import capo_iam.errors.service_failure_exception
 import capo_iam.errors.unmodifiable_entity_exception
@@ -32,6 +33,10 @@ def handle_error(response: zapros.Response) -> Never:
     code, message = parse_error_metadata(root)
     error_el = find_error_element(root)
     match code:
+        case "InvalidInput":
+            raise capo_iam.errors.invalid_input_exception.InvalidInputException.from_query(
+                error_el, message, response=response
+            )
         case "NoSuchEntity":
             raise capo_iam.errors.no_such_entity_exception.NoSuchEntityException.from_query(
                 error_el, message, response=response

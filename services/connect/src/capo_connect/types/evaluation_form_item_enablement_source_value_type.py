@@ -2,7 +2,13 @@
 
 from typing import Literal, TypeAlias, cast
 
-EvaluationFormItemEnablementSourceValueType: TypeAlias = Literal["OPTION_REF_ID",]
+EvaluationFormItemEnablementSourceValueType: TypeAlias = Literal[
+    "OPTION_REF_ID",
+    "STRING_VALUE",
+    "NUMERIC_VALUE",
+    "BOOLEAN_VALUE",
+    "DATETIME_VALUE",
+]
 
 
 # --- restJson1 ser/de ---

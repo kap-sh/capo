@@ -106,6 +106,7 @@ if TYPE_CHECKING:
     import capo_securityhub.types.code_repository_details
     import capo_securityhub.types.container_details
     import capo_securityhub.types.field_map
+    import capo_securityhub.types.gcp_resource_details
 
 
 class ResourceDetails(TypedDict, closed=True):
@@ -505,6 +506,10 @@ class ResourceDetails(TypedDict, closed=True):
         "capo_securityhub.types.azure_resource_details.AzureResourceDetails"
     ]
     """<p>Details about an Azure resource that is related to a finding.</p>"""
+    gcp_resource: NotRequired[
+        "capo_securityhub.types.gcp_resource_details.GcpResourceDetails"
+    ]
+    """<p>Details about a GCP resource that is related to a finding.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -1292,6 +1297,8 @@ def serialize_json(value: ResourceDetails) -> dict:
         )
     if "azure_resource" in value:
         out["AzureResource"] = value["azure_resource"]
+    if "gcp_resource" in value:
+        out["GcpResource"] = value["gcp_resource"]
     return out
 
 
@@ -2093,4 +2100,6 @@ def deserialize_json(data: dict) -> ResourceDetails:
         )
     if data.get("AzureResource") is not None:
         out["azure_resource"] = data["AzureResource"]
+    if data.get("GcpResource") is not None:
+        out["gcp_resource"] = data["GcpResource"]
     return out

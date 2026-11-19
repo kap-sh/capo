@@ -17,7 +17,7 @@ class UserContext(TypedDict, closed=True):
     domain_id: NotRequired["capo_sagemaker.types.string.String"]
     """<p>The domain associated with the user.</p>"""
     iam_identity: NotRequired["capo_sagemaker.types.iam_identity.IamIdentity"]
-    """<p>The IAM Identity details associated with the user. These details are associated with model package groups, model packages, and project entities only.</p>"""
+    """<p>The IAM Identity details associated with the user. These details are associated with model package groups, model packages, project entities, hubs, and hub content only.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

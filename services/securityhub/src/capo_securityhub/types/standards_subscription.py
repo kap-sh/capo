@@ -37,7 +37,7 @@ class StandardsSubscription(TypedDict, closed=True):
     ]
     """<p>The reason for the current status.</p>"""
     provider: NotRequired["capo_securityhub.types.standards_provider.StandardsProvider"]
-    """<p>The cloud provider whose resources the standard evaluates. For example, <code>AWS</code> or <code>Azure</code>.</p>"""
+    """<p>The cloud provider whose resources the standard evaluates. For example, <code>AWS</code>, <code>Azure</code>, or <code>GCP</code>.</p>"""
 
 
 # --- restJson1 ser/de ---

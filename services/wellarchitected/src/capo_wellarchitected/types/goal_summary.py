@@ -19,7 +19,7 @@ class GoalSummary(TypedDict, closed=True):
     profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn"
     """<p>The Amazon Resource Name (ARN) of the associated profile.</p>"""
     pillars: "capo_wellarchitected.types.pillars.Pillars"
-    """<p>The Well-Architected Tool Framework pillars associated with this goal.</p>"""
+    """<p>The Amazon Web Services Well-Architected Framework pillars associated with this goal.</p>"""
     title: "capo_wellarchitected.types.sensitive_string.SensitiveString"
     """<p>The title of the goal.</p>"""
     description: NotRequired[

@@ -8,16 +8,19 @@ from typing_extensions import NotRequired, TypedDict
 from capo_lambda_core.errors import ServiceError
 
 if TYPE_CHECKING:
-    import capo_lambda_core.types.string
+    import capo_lambda_core.types.aws_gir_api_string
     import capo_lambda_core.types.throttle_reason
 
 
 class TooManyRequestsException_(TypedDict, closed=True):
-    retry_after_seconds: NotRequired["capo_lambda_core.types.string.String"]
+    retry_after_seconds: NotRequired[
+        "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+    ]
     """<p>The number of seconds to wait before retrying the request.</p>"""
-    type: NotRequired["capo_lambda_core.types.string.String"]
+    type: NotRequired["capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"]
     """<p>The exception type.</p>"""
-    message: NotRequired["capo_lambda_core.types.string.String"]
+    message: NotRequired["capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"]
+    """<p>The error message that describes the exception.</p>"""
     reason: NotRequired["capo_lambda_core.types.throttle_reason.ThrottleReason"]
     """<p>The reason for the throttling.</p>"""
 

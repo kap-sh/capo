@@ -12,6 +12,7 @@ import capo_sagemaker._auth._signers
 import capo_sagemaker._auth._sigv4
 import capo_sagemaker._protocol.eventstream
 import capo_sagemaker.types.async_inference_config
+import capo_sagemaker.types.cross_region_traffic_config
 import capo_sagemaker.types.data_capture_config_summary
 import capo_sagemaker.types.deployment_config
 import capo_sagemaker.types.describe_endpoint_input

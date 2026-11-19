@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_elasticache.types.connection_type
     import capo_elasticache.types.endpoint
     import capo_elasticache.types.integer_optional
+    import capo_elasticache.types.integration_list
     import capo_elasticache.types.migration_summary
     import capo_elasticache.types.network_type
     import capo_elasticache.types.security_group_ids_list
@@ -71,6 +72,8 @@ class ServerlessCache(TypedDict, closed=True):
     """<p>The connection type for the serverless cache. Must be either <code>vpc</code> | <code>public</code>. If not specified, defaults to <code>vpc</code>.</p>"""
     migration: NotRequired["capo_elasticache.types.migration_summary.MigrationSummary"]
     """<p>Provides a summary of the migration status for the serverless cache.</p>"""
+    integrations: NotRequired["capo_elasticache.types.integration_list.IntegrationList"]
+    """<p>Configured integrations and their status.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -174,6 +177,12 @@ def serialize_query(
 
         capo_elasticache.types.migration_summary.serialize_query(
             value["migration"], pairs, f"{key_prefix}Migration"
+        )
+    if "integrations" in value:
+        import capo_elasticache.types.integration_list
+
+        capo_elasticache.types.integration_list.serialize_query(
+            value["integrations"], pairs, f"{key_prefix}Integrations"
         )
 
 
@@ -289,5 +298,12 @@ def deserialize_query(el: Element) -> ServerlessCache:
 
         out["migration"] = capo_elasticache.types.migration_summary.deserialize_query(
             child_migration
+        )
+    child_integrations = el.find("Integrations")
+    if child_integrations is not None:
+        import capo_elasticache.types.integration_list
+
+        out["integrations"] = capo_elasticache.types.integration_list.deserialize_query(
+            child_integrations
         )
     return out

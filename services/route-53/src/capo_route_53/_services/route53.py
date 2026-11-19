@@ -69,6 +69,8 @@ if TYPE_CHECKING:
     import capo_route_53.types.create_key_signing_key_response
     import capo_route_53.types.create_query_logging_config_request
     import capo_route_53.types.create_query_logging_config_response
+    import capo_route_53.types.create_resource_record_set_protections_request
+    import capo_route_53.types.create_resource_record_set_protections_response
     import capo_route_53.types.create_reusable_delegation_set_request
     import capo_route_53.types.create_reusable_delegation_set_response
     import capo_route_53.types.create_traffic_policy_instance_request
@@ -91,6 +93,8 @@ if TYPE_CHECKING:
     import capo_route_53.types.delete_key_signing_key_response
     import capo_route_53.types.delete_query_logging_config_request
     import capo_route_53.types.delete_query_logging_config_response
+    import capo_route_53.types.delete_resource_record_set_protections_request
+    import capo_route_53.types.delete_resource_record_set_protections_response
     import capo_route_53.types.delete_reusable_delegation_set_request
     import capo_route_53.types.delete_reusable_delegation_set_response
     import capo_route_53.types.delete_traffic_policy_instance_request
@@ -182,6 +186,8 @@ if TYPE_CHECKING:
     import capo_route_53.types.list_hosted_zones_response
     import capo_route_53.types.list_query_logging_configs_request
     import capo_route_53.types.list_query_logging_configs_response
+    import capo_route_53.types.list_resource_record_set_protections_request
+    import capo_route_53.types.list_resource_record_set_protections_response
     import capo_route_53.types.list_resource_record_sets_request
     import capo_route_53.types.list_resource_record_sets_response
     import capo_route_53.types.list_reusable_delegation_sets_request
@@ -214,6 +220,9 @@ if TYPE_CHECKING:
     import capo_route_53.types.resource_id
     import capo_route_53.types.resource_path
     import capo_route_53.types.resource_record_set_identifier
+    import capo_route_53.types.resource_record_set_protection
+    import capo_route_53.types.resource_record_set_protection_config_batch
+    import capo_route_53.types.resource_record_set_protection_key_batch
     import capo_route_53.types.reusable_delegation_set_limit_type
     import capo_route_53.types.rr_type
     import capo_route_53.types.search_string
@@ -555,14 +564,14 @@ class Route53Client:
         *,
         config_overrides: Optional[Route53ClientConfig] = None,
     ) -> "capo_route_53.types.change_resource_record_sets_response.ChangeResourceRecordSetsResponse":
-        """<p>Creates, changes, or deletes a resource record set, which contains authoritative DNS information for a specified domain name or subdomain name. For example, you can use <code>ChangeResourceRecordSets</code> to create a resource record set that routes traffic for test.example.com to a web server that has an IP address of 192.0.2.44.</p> <p> <b>Deleting Resource Record Sets</b> </p> <p>To delete a resource record set, you must specify all the same values that you specified when you created it.</p> <p> <b>Change Batches and Transactional Changes</b> </p> <p>The request body must include a document with a <code>ChangeResourceRecordSetsRequest</code> element. The request body contains a list of change items, known as a change batch. Change batches are considered transactional changes. Route 53 validates the changes in the request and then either makes all or none of the changes in the change batch request. This ensures that DNS routing isn't adversely affected by partial changes to the resource record sets in a hosted zone. </p> <p>For example, suppose a change batch request contains two changes: it deletes the <code>CNAME</code> resource record set for www.example.com and creates an alias resource record set for www.example.com. If validation for both records succeeds, Route 53 deletes the first resource record set and creates the second resource record set in a single operation. If validation for either the <code>DELETE</code> or the <code>CREATE</code> action fails, then the request is canceled, and the original <code>CNAME</code> record continues to exist.</p> <note> <p>If you try to delete the same resource record set more than once in a single change batch, Route 53 returns an <code>InvalidChangeBatch</code> error.</p> </note> <p> <b>Traffic Flow</b> </p> <p>To create resource record sets for complex routing configurations, use either the traffic flow visual editor in the Route 53 console or the API actions for traffic policies and traffic policy instances. Save the configuration as a traffic policy, then associate the traffic policy with one or more domain names (such as example.com) or subdomain names (such as www.example.com), in the same hosted zone or in multiple hosted zones. You can roll back the updates if the new configuration isn't performing as expected. For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html">Using Traffic Flow to Route DNS Traffic</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> <p> <b>Create, Delete, and Upsert</b> </p> <p>Use <code>ChangeResourceRecordsSetsRequest</code> to perform the following actions:</p> <ul> <li> <p> <code>CREATE</code>: Creates a resource record set that has the specified values.</p> </li> <li> <p> <code>DELETE</code>: Deletes an existing resource record set that has the specified values.</p> </li> <li> <p> <code>UPSERT</code>: If a resource set doesn't exist, Route 53 creates it. If a resource set exists Route 53 updates it with the values in the request. </p> </li> </ul> <p> <b>Syntaxes for Creating, Updating, and Deleting Resource Record Sets</b> </p> <p>The syntax for a request depends on the type of resource record set that you want to create, delete, or update, such as weighted, alias, or failover. The XML elements in your request must appear in the order listed in the syntax. </p> <p>For an example for each type of resource record set, see "Examples."</p> <p>Don't refer to the syntax in the "Parameter Syntax" section, which includes all of the elements for every kind of resource record set that you can create, delete, or update by using <code>ChangeResourceRecordSets</code>. </p> <p> <b>Change Propagation to Route 53 DNS Servers</b> </p> <p>When you submit a <code>ChangeResourceRecordSets</code> request, Route 53 propagates your changes to all of the Route 53 authoritative DNS servers managing the hosted zone. While your changes are propagating, <code>GetChange</code> returns a status of <code>PENDING</code>. When propagation is complete, <code>GetChange</code> returns a status of <code>INSYNC</code>. Changes generally propagate to all Route 53 name servers managing the hosted zone within 60 seconds. For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a>.</p> <p> <b>Limits on ChangeResourceRecordSets Requests</b> </p> <p>For information about the limits on a <code>ChangeResourceRecordSets</code> request, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html">Limits</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
+        """<p>Creates, changes, or deletes a resource record set, which contains authoritative DNS information for a specified domain name or subdomain name. For example, you can use <code>ChangeResourceRecordSets</code> to create a resource record set that routes traffic for test.example.com to a web server that has an IP address of 192.0.2.44.</p> <p> <b>Deleting Resource Record Sets</b> </p> <p>To delete a resource record set, you must specify all the same values that you specified when you created it.</p> <p> <b>Change Batches and Transactional Changes</b> </p> <p>The request body must include a document with a <code>ChangeResourceRecordSetsRequest</code> element. The request body contains a list of change items, known as a change batch. Change batches are considered transactional changes. Route 53 validates the changes in the request and then either makes all or none of the changes in the change batch request. This ensures that DNS routing isn't adversely affected by partial changes to the resource record sets in a hosted zone. </p> <p>For example, suppose a change batch request contains two changes: it deletes the <code>CNAME</code> resource record set for www.example.com and creates an alias resource record set for www.example.com. If validation for both records succeeds, Route 53 deletes the first resource record set and creates the second resource record set in a single operation. If validation for either the <code>DELETE</code> or the <code>CREATE</code> action fails, then the request is canceled, and the original <code>CNAME</code> record continues to exist.</p> <note> <p>If you try to delete the same resource record set more than once in a single change batch, Route 53 returns an <code>InvalidChangeBatch</code> error.</p> </note> <p> <b>Protected Resource Record Sets</b> </p> <p>If a resource record set protection exists for a name and type, Route 53 rejects any change in the change batch that creates, updates, or deletes a resource record set with that name and type. Because change batches are transactional, Route 53 rejects the entire request and returns an <code>InvalidChangeBatch</code> error. Route 53 identifies each protected resource record set in the error message and includes the protection's comment, if any. To make the change, first delete the protection by using <code>DeleteResourceRecordSetProtections</code>. To see which resource record sets are protected, use <code>ListResourceRecordSetProtections</code>.</p> <p> <b>Traffic Flow</b> </p> <p>To create resource record sets for complex routing configurations, use either the traffic flow visual editor in the Route 53 console or the API actions for traffic policies and traffic policy instances. Save the configuration as a traffic policy, then associate the traffic policy with one or more domain names (such as example.com) or subdomain names (such as www.example.com), in the same hosted zone or in multiple hosted zones. You can roll back the updates if the new configuration isn't performing as expected. For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html">Using Traffic Flow to Route DNS Traffic</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> <p> <b>Create, Delete, and Upsert</b> </p> <p>Use <code>ChangeResourceRecordsSetsRequest</code> to perform the following actions:</p> <ul> <li> <p> <code>CREATE</code>: Creates a resource record set that has the specified values.</p> </li> <li> <p> <code>DELETE</code>: Deletes an existing resource record set that has the specified values.</p> </li> <li> <p> <code>UPSERT</code>: If a resource set doesn't exist, Route 53 creates it. If a resource set exists Route 53 updates it with the values in the request. </p> </li> </ul> <p> <b>Syntaxes for Creating, Updating, and Deleting Resource Record Sets</b> </p> <p>The syntax for a request depends on the type of resource record set that you want to create, delete, or update, such as weighted, alias, or failover. The XML elements in your request must appear in the order listed in the syntax. </p> <p>For an example for each type of resource record set, see "Examples."</p> <p>Don't refer to the syntax in the "Parameter Syntax" section, which includes all of the elements for every kind of resource record set that you can create, delete, or update by using <code>ChangeResourceRecordSets</code>. </p> <p> <b>Change Propagation to Route 53 DNS Servers</b> </p> <p>When you submit a <code>ChangeResourceRecordSets</code> request, Route 53 propagates your changes to all of the Route 53 authoritative DNS servers managing the hosted zone. While your changes are propagating, <code>GetChange</code> returns a status of <code>PENDING</code>. When propagation is complete, <code>GetChange</code> returns a status of <code>INSYNC</code>. Changes generally propagate to all Route 53 name servers managing the hosted zone within 60 seconds. For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a>.</p> <p> <b>Limits on ChangeResourceRecordSets Requests</b> </p> <p>For information about the limits on a <code>ChangeResourceRecordSets</code> request, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html">Limits</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
 
         Args:
             hosted_zone_id: <p>The ID of the hosted zone that contains the resource record sets that you want to change.</p>
             change_batch: <p>A complex type that contains an optional comment and the <code>Changes</code> element.</p>
 
         Raises:
-            capo_route_53.errors.invalid_change_batch.InvalidChangeBatch: <p>This exception contains a list of messages that might contain one or more error messages. Each error message indicates one error in the change batch.</p>
+            capo_route_53.errors.invalid_change_batch.InvalidChangeBatch: <p>This exception contains a list of messages that might contain one or more error messages. Each error message indicates one error in the change batch.</p> <p>Route 53 also returns this error when the change batch creates, updates, or deletes a resource record set whose name and type have a resource record set protection. To make the change, first delete the protection by using <code>DeleteResourceRecordSetProtections</code>.</p>
             capo_route_53.errors.invalid_input.InvalidInput: <p>The input is not valid.</p>
             capo_route_53.errors.no_such_health_check.NoSuchHealthCheck: <p>No health check exists with the specified ID.</p>
             capo_route_53.errors.no_such_hosted_zone.NoSuchHostedZone: <p>No hosted zone exists with the ID that you specified.</p>
@@ -990,6 +999,59 @@ class Route53Client:
         input_: capo_route_53.types.create_query_logging_config_request.CreateQueryLoggingConfigRequest = {
             "hosted_zone_id": hosted_zone_id,
             "cloud_watch_logs_log_group_arn": cloud_watch_logs_log_group_arn,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def create_resource_record_set_protections(
+        self,
+        hosted_zone_id: "capo_route_53.types.resource_id.ResourceId",
+        protections: "capo_route_53.types.resource_record_set_protection_config_batch.ResourceRecordSetProtectionConfigBatch",
+        *,
+        config_overrides: Optional[Route53ClientConfig] = None,
+    ) -> "capo_route_53.types.create_resource_record_set_protections_response.CreateResourceRecordSetProtectionsResponse":
+        """<p>Creates one or more resource record set protections in a hosted zone. A protection applies to every resource record set in the hosted zone that has the specified name and type. While a protection exists, Route 53 rejects any <code>ChangeResourceRecordSets</code> request that creates, updates, or deletes a resource record set with that name and type, and returns an <code>InvalidChangeBatch</code> error. To change a protected resource record set, first delete its protection by using <code>DeleteResourceRecordSetProtections</code>.</p> <p>You can create a protection for a name and type that doesn't have a resource record set yet. In that case, Route 53 also rejects requests to create that resource record set.</p> <p>You can't delete a hosted zone that has protections. To delete the hosted zone, first delete all of its protections by using <code>DeleteResourceRecordSetProtections</code>.</p> <p>The request is atomic. Route 53 either creates all of the protections in the request or none of them. If one or more entries fail, the response is an error that lists the failing entries and the reason that each one failed. Route 53 checks for invalid entries before it checks for existing protections, so if any entry is invalid, the error lists only the invalid entries.</p> <p>The error that Route 53 returns depends on the failures:</p> <ul> <li> <p>If every entry already has a protection, Route 53 returns a <code>ProtectionAlreadyExists</code> error.</p> </li> <li> <p>For any other combination of failures, Route 53 returns an <code>InvalidResourceRecordSetProtectionBatch</code> error.</p> </li> </ul> <p>You can specify up to 100 protections in one request. The number of protections that you can have in a hosted zone is limited by a quota. If the request would exceed that quota, Route 53 returns a <code>LimitsExceeded</code> error.</p>
+
+        Args:
+            hosted_zone_id: <p>The ID of the hosted zone that contains the resource record sets that you want to protect.</p>
+            protections: <p>The protections to create. Each entry specifies a resource record set name and type, and an optional comment. The list must contain at least one entry and can contain up to 100 entries. Each name and type can appear only once in the list.</p>
+
+        Raises:
+            capo_route_53.errors.invalid_input.InvalidInput: <p>The input is not valid.</p>
+            capo_route_53.errors.invalid_resource_record_set_protection_batch.InvalidResourceRecordSetProtectionBatch: <p>One or more entries in the request couldn't be processed, so Route 53 didn't create or delete any of the protections in the request. The <code>Errors</code> element lists the failing entries and the reason that each one failed.</p>
+            capo_route_53.errors.limits_exceeded.LimitsExceeded: <p>This operation can't be completed because the current account has reached the limit on the resource you are trying to create. To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the Amazon Web Services Support Center.</p>
+            capo_route_53.errors.no_such_hosted_zone.NoSuchHostedZone: <p>No hosted zone exists with the ID that you specified.</p>
+            capo_route_53.errors.prior_request_not_complete.PriorRequestNotComplete: <p>If Amazon Route 53 can't process a request before the next request arrives, it will reject subsequent requests for the same hosted zone and return an <code>HTTP 400 error</code> (<code>Bad request</code>). If Route 53 returns this error repeatedly for the same request, we recommend that you wait, in intervals of increasing duration, before you try the request again.</p>
+            capo_route_53.errors.protection_already_exists.ProtectionAlreadyExists: <p>A protection already exists for every name and type in the request, so Route 53 didn't create any protections. The <code>Errors</code> element lists each entry.</p>
+            capo_route_53.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_route_53.types.create_resource_record_set_protections_request.CreateResourceRecordSetProtectionsRequest]",
+        ) -> OperationResponse[
+            "capo_route_53.types.create_resource_record_set_protections_response.CreateResourceRecordSetProtectionsResponse"
+        ]:
+            import capo_route_53._operations.aws_dns_v20130401.create_resource_record_set_protections
+
+            output, http_response = (
+                capo_route_53._operations.aws_dns_v20130401.create_resource_record_set_protections.create_resource_record_set_protections(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceRecordSetProtections")
+        )
+        input_: capo_route_53.types.create_resource_record_set_protections_request.CreateResourceRecordSetProtectionsRequest = {
+            "hosted_zone_id": hosted_zone_id,
+            "protections": protections,
         }
 
         response = execute_pipeline(
@@ -1440,7 +1502,7 @@ class Route53Client:
         *,
         config_overrides: Optional[Route53ClientConfig] = None,
     ) -> "capo_route_53.types.delete_hosted_zone_response.DeleteHostedZoneResponse":
-        """<p>Deletes a hosted zone.</p> <p>If the hosted zone was created by another service, such as Cloud Map, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DeleteHostedZone.html#delete-public-hosted-zone-created-by-another-service">Deleting Public Hosted Zones That Were Created by Another Service</a> in the <i>Amazon Route 53 Developer Guide</i> for information about how to delete it. (The process is the same for public and private hosted zones that were created by another service.)</p> <p>If you want to keep your domain registration but you want to stop routing internet traffic to your website or web application, we recommend that you delete resource record sets in the hosted zone instead of deleting the hosted zone.</p> <important> <p>If you delete a hosted zone, you can't undelete it. You must create a new hosted zone and update the name servers for your domain registration, which can require up to 48 hours to take effect. (If you delegated responsibility for a subdomain to a hosted zone and you delete the child hosted zone, you must update the name servers in the parent hosted zone.) In addition, if you delete a hosted zone, someone could hijack the domain and route traffic to their own resources using your domain name.</p> </important> <p>If you want to avoid the monthly charge for the hosted zone, you can transfer DNS service for the domain to a free DNS service. When you transfer DNS service, you have to update the name servers for the domain registration. If the domain is registered with Route 53, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_UpdateDomainNameservers.html">UpdateDomainNameservers</a> for information about how to replace Route 53 name servers with name servers for the new DNS service. If the domain is registered with another registrar, use the method provided by the registrar to update name servers for the domain registration. For more information, perform an internet search on "free DNS service."</p> <p>You can delete a hosted zone only if it contains only the default SOA and NS records and has DNSSEC signing disabled. If the hosted zone contains other records or has DNSSEC enabled, you must delete the records and disable DNSSEC before deletion. Attempting to delete a hosted zone with additional records or DNSSEC enabled returns a <code>HostedZoneNotEmpty</code> error. For information about deleting records, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ChangeResourceRecordSets.html">ChangeResourceRecordSets</a>. </p> <p>To verify that the hosted zone has been deleted, do one of the following:</p> <ul> <li> <p>Use the <code>GetHostedZone</code> action to request information about the hosted zone.</p> </li> <li> <p>Use the <code>ListHostedZones</code> action to get a list of the hosted zones associated with the current Amazon Web Services account.</p> </li> </ul>
+        """<p>Deletes a hosted zone.</p> <p>If the hosted zone was created by another service, such as Cloud Map, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DeleteHostedZone.html#delete-public-hosted-zone-created-by-another-service">Deleting Public Hosted Zones That Were Created by Another Service</a> in the <i>Amazon Route 53 Developer Guide</i> for information about how to delete it. (The process is the same for public and private hosted zones that were created by another service.)</p> <p>If you want to keep your domain registration but you want to stop routing internet traffic to your website or web application, we recommend that you delete resource record sets in the hosted zone instead of deleting the hosted zone.</p> <important> <p>If you delete a hosted zone, you can't undelete it. You must create a new hosted zone and update the name servers for your domain registration, which can require up to 48 hours to take effect. (If you delegated responsibility for a subdomain to a hosted zone and you delete the child hosted zone, you must update the name servers in the parent hosted zone.) In addition, if you delete a hosted zone, someone could hijack the domain and route traffic to their own resources using your domain name.</p> </important> <p>If you want to avoid the monthly charge for the hosted zone, you can transfer DNS service for the domain to a free DNS service. When you transfer DNS service, you have to update the name servers for the domain registration. If the domain is registered with Route 53, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_UpdateDomainNameservers.html">UpdateDomainNameservers</a> for information about how to replace Route 53 name servers with name servers for the new DNS service. If the domain is registered with another registrar, use the method provided by the registrar to update name servers for the domain registration. For more information, perform an internet search on "free DNS service."</p> <p>You can delete a hosted zone only if it contains only the default SOA and NS records and has DNSSEC signing disabled. If the hosted zone contains other records or has DNSSEC enabled, you must delete the records and disable DNSSEC before deletion. Attempting to delete a hosted zone with additional records or DNSSEC enabled returns a <code>HostedZoneNotEmpty</code> error. For information about deleting records, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ChangeResourceRecordSets.html">ChangeResourceRecordSets</a>. </p> <p>You also can't delete a hosted zone that has resource record set protections. To see the protections in a hosted zone, use <code>ListResourceRecordSetProtections</code>. To delete them, use <code>DeleteResourceRecordSetProtections</code>.</p> <p>To verify that the hosted zone has been deleted, do one of the following:</p> <ul> <li> <p>Use the <code>GetHostedZone</code> action to request information about the hosted zone.</p> </li> <li> <p>Use the <code>ListHostedZones</code> action to get a list of the hosted zones associated with the current Amazon Web Services account.</p> </li> </ul>
 
         Args:
             id: <p>The ID of the hosted zone you want to delete.</p>
@@ -1573,6 +1635,57 @@ class Route53Client:
         )
         input_: capo_route_53.types.delete_query_logging_config_request.DeleteQueryLoggingConfigRequest = {
             "id": id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_resource_record_set_protections(
+        self,
+        hosted_zone_id: "capo_route_53.types.resource_id.ResourceId",
+        protections: "capo_route_53.types.resource_record_set_protection_key_batch.ResourceRecordSetProtectionKeyBatch",
+        *,
+        config_overrides: Optional[Route53ClientConfig] = None,
+    ) -> "capo_route_53.types.delete_resource_record_set_protections_response.DeleteResourceRecordSetProtectionsResponse":
+        """<p>Deletes one or more resource record set protections from a hosted zone. After a protection is deleted, you can change the resource record sets that have that name and type by using <code>ChangeResourceRecordSets</code>.</p> <p>The request is atomic. Route 53 either deletes all of the protections in the request or none of them. If one or more entries fail, for example because no protection exists for the specified name and type, Route 53 returns an <code>InvalidResourceRecordSetProtectionBatch</code> error that lists the failing entries and the reason that each one failed.</p> <p>You can specify up to 100 protections in one request.</p>
+
+        Args:
+            hosted_zone_id: <p>The ID of the hosted zone that contains the protections that you want to delete.</p>
+            protections: <p>The name and type of each protection to delete. The list must contain at least one entry and can contain up to 100 entries. Each name and type can appear only once in the list.</p>
+
+        Raises:
+            capo_route_53.errors.invalid_input.InvalidInput: <p>The input is not valid.</p>
+            capo_route_53.errors.invalid_resource_record_set_protection_batch.InvalidResourceRecordSetProtectionBatch: <p>One or more entries in the request couldn't be processed, so Route 53 didn't create or delete any of the protections in the request. The <code>Errors</code> element lists the failing entries and the reason that each one failed.</p>
+            capo_route_53.errors.no_such_hosted_zone.NoSuchHostedZone: <p>No hosted zone exists with the ID that you specified.</p>
+            capo_route_53.errors.prior_request_not_complete.PriorRequestNotComplete: <p>If Amazon Route 53 can't process a request before the next request arrives, it will reject subsequent requests for the same hosted zone and return an <code>HTTP 400 error</code> (<code>Bad request</code>). If Route 53 returns this error repeatedly for the same request, we recommend that you wait, in intervals of increasing duration, before you try the request again.</p>
+            capo_route_53.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_route_53.types.delete_resource_record_set_protections_request.DeleteResourceRecordSetProtectionsRequest]",
+        ) -> OperationResponse[
+            "capo_route_53.types.delete_resource_record_set_protections_response.DeleteResourceRecordSetProtectionsResponse"
+        ]:
+            import capo_route_53._operations.aws_dns_v20130401.delete_resource_record_set_protections
+
+            output, http_response = (
+                capo_route_53._operations.aws_dns_v20130401.delete_resource_record_set_protections.delete_resource_record_set_protections(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceRecordSetProtections")
+        )
+        input_: capo_route_53.types.delete_resource_record_set_protections_request.DeleteResourceRecordSetProtectionsRequest = {
+            "hosted_zone_id": hosted_zone_id,
+            "protections": protections,
         }
 
         response = execute_pipeline(
@@ -3435,6 +3548,100 @@ class Route53Client:
                 max_results=max_results,
             )
             _page = _resolve_path(_response, ("query_logging_configs",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_resource_record_set_protections(
+        self,
+        hosted_zone_id: "capo_route_53.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[Route53ClientConfig] = None,
+        start_record_name: Optional["capo_route_53.types.dns_name.DNSName"] = None,
+        start_record_type: Optional["capo_route_53.types.rr_type.RRType"] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[
+            "capo_route_53.types.pagination_token.PaginationToken"
+        ] = None,
+    ) -> "capo_route_53.types.list_resource_record_set_protections_response.ListResourceRecordSetProtectionsResponse":
+        """<p>Lists the resource record set protections in a hosted zone. We recommend using pagination to ensure that the operation returns quickly and successfully.</p> <p>If the response includes a <code>NextToken</code> element, there are more protections to list. To get the next page of results, submit another request and specify the value of <code>NextToken</code> in the <code>NextToken</code> parameter.</p>
+
+        Args:
+            hosted_zone_id: <p>The ID of the hosted zone that contains the protections that you want to list.</p>
+            start_record_name: <p>The first resource record set name that you want Route 53 to list protections for. If you don't specify a value, the list starts with the first protection in the hosted zone.</p> <p>If you specify <code>NextToken</code>, Route 53 ignores <code>StartRecordName</code>.</p>
+            start_record_type: <p>The first resource record set type, within the name specified by <code>StartRecordName</code>, that you want Route 53 to list protections for. If you specify <code>StartRecordType</code>, you must also specify <code>StartRecordName</code>.</p> <p>If you specify <code>NextToken</code>, Route 53 ignores <code>StartRecordType</code>.</p>
+            max_results: <p>The maximum number of protections that you want Route 53 to return in this response. If you don't specify a value, or if you specify a value greater than 300, Route 53 returns up to 300 protections.</p>
+            next_token: <p>If the response to a previous <code>ListResourceRecordSetProtections</code> request included a <code>NextToken</code> element, specify that value here to get the next page of results.</p>
+
+        Raises:
+            capo_route_53.errors.invalid_input.InvalidInput: <p>The input is not valid.</p>
+            capo_route_53.errors.invalid_pagination_token.InvalidPaginationToken: <p>The value that you specified to get the second or subsequent page of results is invalid.</p>
+            capo_route_53.errors.no_such_hosted_zone.NoSuchHostedZone: <p>No hosted zone exists with the ID that you specified.</p>
+            capo_route_53.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_route_53.types.list_resource_record_set_protections_request.ListResourceRecordSetProtectionsRequest]",
+        ) -> OperationResponse[
+            "capo_route_53.types.list_resource_record_set_protections_response.ListResourceRecordSetProtectionsResponse"
+        ]:
+            import capo_route_53._operations.aws_dns_v20130401.list_resource_record_set_protections
+
+            output, http_response = (
+                capo_route_53._operations.aws_dns_v20130401.list_resource_record_set_protections.list_resource_record_set_protections(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceRecordSetProtections")
+        )
+        input_: capo_route_53.types.list_resource_record_set_protections_request.ListResourceRecordSetProtectionsRequest = {
+            "hosted_zone_id": hosted_zone_id
+        }
+        if start_record_name is not None:
+            input_["start_record_name"] = start_record_name
+        if start_record_type is not None:
+            input_["start_record_type"] = start_record_type
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_resource_record_set_protections(
+        self,
+        hosted_zone_id: "capo_route_53.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[Route53ClientConfig] = None,
+        start_record_name: Optional["capo_route_53.types.dns_name.DNSName"] = None,
+        start_record_type: Optional["capo_route_53.types.rr_type.RRType"] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[
+            "capo_route_53.types.pagination_token.PaginationToken"
+        ] = None,
+    ) -> "Iterator[capo_route_53.types.resource_record_set_protection.ResourceRecordSetProtection]":
+        _token = next_token
+        while True:
+            _response = self.list_resource_record_set_protections(
+                hosted_zone_id,
+                config_overrides=config_overrides,
+                start_record_name=start_record_name,
+                start_record_type=start_record_type,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("resource_record_set_protections",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))

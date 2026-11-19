@@ -36,7 +36,7 @@ class GetCloudConnectorResult(TypedDict, closed=True):
     config_connector_arn: NotRequired[
         "capo_ssm.types.config_connector_arn.ConfigConnectorArn"
     ]
-    """<p>The ARN of the Amazon Web Services Config connector associated with this cloud connector.</p>"""
+    """<p>The ARN of the Amazon Web Services Config connector associated with this cloud connector. This value is returned only if the cloud connector was created with an Amazon Web Services Config connector.</p>"""
     created_at: NotRequired["capo_ssm.types.date_time.DateTime"]
     """<p>The date and time the cloud connector was created.</p>"""
     updated_at: NotRequired["capo_ssm.types.date_time.DateTime"]

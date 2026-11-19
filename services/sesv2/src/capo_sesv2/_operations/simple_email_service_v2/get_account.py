@@ -14,6 +14,7 @@ import capo_sesv2._protocol.eventstream
 import capo_sesv2.errors.bad_request_exception
 import capo_sesv2.errors.too_many_requests_exception
 import capo_sesv2.types.account_details
+import capo_sesv2.types.delivery_attributes
 import capo_sesv2.types.get_account_request
 import capo_sesv2.types.get_account_response
 import capo_sesv2.types.pricing_attributes

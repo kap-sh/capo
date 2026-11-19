@@ -25,7 +25,7 @@ class WorkGroupSummary(TypedDict, closed=True):
     creation_time: NotRequired["capo_athena.types.date.Date"]
     """<p>The workgroup creation date and time.</p>"""
     engine_version: NotRequired["capo_athena.types.engine_version.EngineVersion"]
-    """<p>The engine version setting for all queries on the workgroup. Queries on the <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this setting.</p>"""
+    """<p>The engine version setting for all queries on the workgroup.</p>"""
     identity_center_application_arn: NotRequired[
         "capo_athena.types.identity_center_application_arn.IdentityCenterApplicationArn"
     ]

@@ -26,6 +26,7 @@ import capo_lambda.types.execution_status
 import capo_lambda.types.execution_timestamp
 import capo_lambda.types.get_durable_execution_request
 import capo_lambda.types.get_durable_execution_response
+import capo_lambda.types.pause_details
 import capo_lambda.types.trace_header
 from capo_lambda._protocol.errors import parse_error_metadata_json
 from capo_lambda._rule_engine._endpoint_rule_set import EndpointParams, resolve

@@ -16,7 +16,7 @@ class ListCoverageStatisticsRequest(TypedDict, closed=True):
     ]
     """<p>An object that contains details on the filters to apply to the coverage data for your environment.</p>"""
     group_by: NotRequired["capo_inspector2.types.group_key.GroupKey"]
-    """<p>The value to group the results by.</p>"""
+    """<p>The value to group the results by. For multi-cloud resources, use <code>PROVIDER</code>, <code>PROVIDER_ACCOUNT_ID</code> (Azure subscription ID or Google Cloud Platform (GCP) project ID), <code>PROVIDER_ORG_ID</code> (Azure tenant ID or Google Cloud Platform (GCP) organization ID), or <code>PROVIDER_REGION</code>.</p>"""
     next_token: NotRequired["capo_inspector2.types.next_token.NextToken"]
     """<p>A token to use for paginating results that are returned in the response. Set the value of this parameter to null for the first request to a list action. For subsequent calls, use the <code>NextToken</code> value returned from the previous request to continue listing results after the first page.</p>"""
 

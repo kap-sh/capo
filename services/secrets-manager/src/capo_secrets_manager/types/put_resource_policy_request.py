@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_secrets_manager.types.boolean_type
     import capo_secrets_manager.types.non_empty_resource_policy_type
+    import capo_secrets_manager.types.resource_policy_name_type
     import capo_secrets_manager.types.secret_id_type
 
 
@@ -15,6 +16,10 @@ class PutResourcePolicyRequest(TypedDict, closed=True):
     """<p>The ARN or name of the secret to attach the resource-based policy.</p> <p>For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding a secret from a partial ARN</a>.</p>"""
     resource_policy: "capo_secrets_manager.types.non_empty_resource_policy_type.NonEmptyResourcePolicyType"
     """<p>A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions policy examples</a>.</p>"""
+    policy_name: NotRequired[
+        "capo_secrets_manager.types.resource_policy_name_type.ResourcePolicyNameType"
+    ]
+    """<p>The name of the resource policy to attach. If you don't specify this field, Secrets Manager uses <code>default</code>. You can only attach the <code>default</code> policy; if you specify any other name, the operation returns an <code>InvalidParameterException</code>.</p>"""
     block_public_policy: NotRequired[
         "capo_secrets_manager.types.boolean_type.BooleanType"
     ]
@@ -26,6 +31,8 @@ def serialize_aws_json_1_1(value: PutResourcePolicyRequest) -> dict:
     out: dict = {}
     out["SecretId"] = value["secret_id"]
     out["ResourcePolicy"] = value["resource_policy"]
+    if "policy_name" in value:
+        out["PolicyName"] = value["policy_name"]
     if "block_public_policy" in value:
         out["BlockPublicPolicy"] = value["block_public_policy"]
     return out
@@ -41,6 +48,8 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourcePolicyRequest:
         out["resource_policy"] = data["ResourcePolicy"]
     else:
         out["resource_policy"] = ""
+    if data.get("PolicyName") is not None:
+        out["policy_name"] = data["PolicyName"]
     if data.get("BlockPublicPolicy") is not None:
         out["block_public_policy"] = data["BlockPublicPolicy"]
     return out

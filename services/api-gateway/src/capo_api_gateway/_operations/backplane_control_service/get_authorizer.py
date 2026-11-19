@@ -19,6 +19,7 @@ import capo_api_gateway.errors.unauthorized_exception
 import capo_api_gateway.types.authorizer
 import capo_api_gateway.types.authorizer_type
 import capo_api_gateway.types.get_authorizer_request
+import capo_api_gateway.types.jwt_configuration
 import capo_api_gateway.types.list_of_ar_ns
 from capo_api_gateway._protocol.errors import parse_error_metadata_json
 from capo_api_gateway._rule_engine._endpoint_rule_set import EndpointParams, resolve

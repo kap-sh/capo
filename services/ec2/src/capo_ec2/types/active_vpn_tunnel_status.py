@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_ec2.types.active_additional_key_exchanges_list
     import capo_ec2.types.integer
     import capo_ec2.types.string
     import capo_ec2.types.vpn_tunnel_provisioning_status
@@ -33,6 +34,14 @@ class ActiveVpnTunnelStatus(TypedDict, closed=True):
     """<p>The current provisioning status of the VPN tunnel.</p>"""
     provisioning_status_reason: NotRequired["capo_ec2.types.string.String"]
     """<p>The reason for the current provisioning status.</p>"""
+    phase1_additional_key_exchanges: NotRequired[
+        "capo_ec2.types.active_additional_key_exchanges_list.ActiveAdditionalKeyExchangesList"
+    ]
+    """<p>The additional key exchanges negotiated in Phase 1 IKE negotiations.</p>"""
+    phase2_additional_key_exchanges: NotRequired[
+        "capo_ec2.types.active_additional_key_exchanges_list.ActiveAdditionalKeyExchangesList"
+    ]
+    """<p>The additional key exchanges negotiated in Phase 2 IKE negotiations.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -87,6 +96,22 @@ def serialize_ec2_query(
                 str(value["provisioning_status_reason"]),
             )
         )
+    if "phase1_additional_key_exchanges" in value:
+        import capo_ec2.types.active_additional_key_exchanges_list
+
+        capo_ec2.types.active_additional_key_exchanges_list.serialize_ec2_query(
+            value["phase1_additional_key_exchanges"],
+            pairs,
+            f"{key_prefix}Phase1AdditionalKeyExchangeSet",
+        )
+    if "phase2_additional_key_exchanges" in value:
+        import capo_ec2.types.active_additional_key_exchanges_list
+
+        capo_ec2.types.active_additional_key_exchanges_list.serialize_ec2_query(
+            value["phase2_additional_key_exchanges"],
+            pairs,
+            f"{key_prefix}Phase2AdditionalKeyExchangeSet",
+        )
 
 
 def deserialize_ec2_query(el: Element) -> ActiveVpnTunnelStatus:
@@ -133,5 +158,23 @@ def deserialize_ec2_query(el: Element) -> ActiveVpnTunnelStatus:
     if child_provisioning_status_reason is not None:
         out["provisioning_status_reason"] = str(
             child_provisioning_status_reason.text or ""
+        )
+    child_phase1_additional_key_exchanges = el.find("phase1AdditionalKeyExchangeSet")
+    if child_phase1_additional_key_exchanges is not None:
+        import capo_ec2.types.active_additional_key_exchanges_list
+
+        out["phase1_additional_key_exchanges"] = (
+            capo_ec2.types.active_additional_key_exchanges_list.deserialize_ec2_query(
+                child_phase1_additional_key_exchanges
+            )
+        )
+    child_phase2_additional_key_exchanges = el.find("phase2AdditionalKeyExchangeSet")
+    if child_phase2_additional_key_exchanges is not None:
+        import capo_ec2.types.active_additional_key_exchanges_list
+
+        out["phase2_additional_key_exchanges"] = (
+            capo_ec2.types.active_additional_key_exchanges_list.deserialize_ec2_query(
+                child_phase2_additional_key_exchanges
+            )
         )
     return out

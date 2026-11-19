@@ -42,7 +42,7 @@ class GetAgentRecommendationResponse(TypedDict, closed=True):
     profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn"
     """<p>The Amazon Resource Name (ARN) of the associated profile.</p>"""
     generation_id: NotRequired["capo_wellarchitected.types.uuid.UUID"]
-    """<p>The identifier of the generation process that produced this recommendation.</p>"""
+    """<p>The identifier of the generation that produced this recommendation.</p>"""
     title: "capo_wellarchitected.types.sensitive_string.SensitiveString"
     """<p>The title of the recommendation.</p>"""
     description: "capo_wellarchitected.types.sensitive_string.SensitiveString"
@@ -50,7 +50,7 @@ class GetAgentRecommendationResponse(TypedDict, closed=True):
     type: "capo_wellarchitected.types.recommendation_type.RecommendationType"
     """<p>The type of the recommendation.</p>"""
     pillar: "capo_wellarchitected.types.pillar.Pillar"
-    """<p>The Well-Architected Tool Framework pillar that the recommendation addresses.</p>"""
+    """<p>The Amazon Web Services Well-Architected Framework pillar that the recommendation addresses.</p>"""
     priority: "capo_wellarchitected.types.priority.Priority"
     """<p>The priority of the recommendation.</p>"""
     effort: "capo_wellarchitected.types.effort.Effort"

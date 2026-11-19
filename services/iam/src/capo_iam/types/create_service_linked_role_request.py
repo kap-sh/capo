@@ -18,7 +18,7 @@ class CreateServiceLinkedRoleRequest(TypedDict, closed=True):
     description: NotRequired["capo_iam.types.role_description_type.roleDescriptionType"]
     """<p>The description of the role.</p>"""
     custom_suffix: NotRequired["capo_iam.types.custom_suffix_type.customSuffixType"]
-    """<p></p> <p>A string that you provide, which is combined with the service-provided prefix to form the complete role name. If you make multiple requests for the same service, then you must supply a different <code>CustomSuffix</code> for each request. Otherwise the request fails with a duplicate role name error. For example, you could add <code>-1</code> or <code>-debug</code> to the suffix.</p> <p>Some services do not support the <code>CustomSuffix</code> parameter. If you provide an optional suffix and the operation fails, try the operation again without the suffix.</p>"""
+    """<p/> <p>A string that you provide, which is combined with the service-provided prefix to form the complete role name. If you make multiple requests for the same service, then you must supply a different <code>CustomSuffix</code> for each request. Otherwise the request fails with a duplicate role name error. For example, you could add <code>-1</code> or <code>-debug</code> to the suffix.</p> <p>Some services do not support the <code>CustomSuffix</code> parameter. If you provide an optional suffix and the operation fails, try the operation again without the suffix.</p>"""
 
 
 # --- awsQuery ser/de ---

@@ -7,6 +7,7 @@ SourceType: TypeAlias = Literal[
     "AWS::IoT::Thing",
     "AWS::SSM::ManagedInstance",
     "Microsoft.Compute/virtualMachines",
+    "compute.googleapis.com/Instance",
 ]
 
 

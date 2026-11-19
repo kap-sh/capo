@@ -24,10 +24,11 @@ import capo_network_firewall.types.enabled_analysis_types
 import capo_network_firewall.types.encryption_configuration
 import capo_network_firewall.types.firewall
 import capo_network_firewall.types.firewall_status
-import capo_network_firewall.types.nat_gateway_mappings_list
+import capo_network_firewall.types.nat_gateway_create_mappings_list
 import capo_network_firewall.types.proxy_settings
 import capo_network_firewall.types.subnet_mappings
 import capo_network_firewall.types.tag_list
+import capo_network_firewall.types.transparent_filtering_nat_scope
 import capo_network_firewall.types.vpc_endpoint
 from capo_network_firewall._protocol.errors import parse_error_metadata_json
 from capo_network_firewall._rule_engine._endpoint_rule_set import (

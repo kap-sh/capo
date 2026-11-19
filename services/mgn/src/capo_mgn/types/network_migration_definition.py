@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
     import capo_mgn.types.arn
     import capo_mgn.types.cidr_mappings_list
+    import capo_mgn.types.definition_type
     import capo_mgn.types.network_migration_definition_description
     import capo_mgn.types.network_migration_definition_id
     import capo_mgn.types.network_migration_definition_name
@@ -40,6 +41,8 @@ class NetworkMigrationDefinition(TypedDict, closed=True):
         "capo_mgn.types.source_configuration_list.SourceConfigurationList"
     ]
     """<p>A list of source configurations for the network migration.</p>"""
+    definition_type: NotRequired["capo_mgn.types.definition_type.DefinitionType"]
+    """<p>Specifies the type of the definition. <code>MIGRATION</code> migrates an existing network. <code>NEW_NETWORK</code> designs a new network.</p>"""
     target_s3_configuration: NotRequired[
         "capo_mgn.types.target_s3_configuration.TargetS3Configuration"
     ]
@@ -83,6 +86,8 @@ def serialize_json(value: NetworkMigrationDefinition) -> dict:
                 value["source_configurations"]
             )
         )
+    if "definition_type" in value:
+        out["definitionType"] = value["definition_type"]
     if "target_s3_configuration" in value:
         import capo_mgn.types.target_s3_configuration
 
@@ -150,6 +155,8 @@ def deserialize_json(data: dict) -> NetworkMigrationDefinition:
                 data["sourceConfigurations"]
             )
         )
+    if data.get("definitionType") is not None:
+        out["definition_type"] = data["definitionType"]
     if data.get("targetS3Configuration") is not None:
         import capo_mgn.types.target_s3_configuration
 

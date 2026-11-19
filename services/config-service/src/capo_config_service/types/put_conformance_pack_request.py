@@ -7,6 +7,8 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_input_parameters
     import capo_config_service.types.conformance_pack_name
+    import capo_config_service.types.conformance_pack_scope
+    import capo_config_service.types.conformance_pack_source
     import capo_config_service.types.delivery_s3_bucket
     import capo_config_service.types.delivery_s3_key_prefix
     import capo_config_service.types.tags_list
@@ -37,13 +39,21 @@ class PutConformancePackRequest(TypedDict, closed=True):
     conformance_pack_input_parameters: NotRequired[
         "capo_config_service.types.conformance_pack_input_parameters.ConformancePackInputParameters"
     ]
-    """<p>A list of <code>ConformancePackInputParameter</code> objects.</p>"""
+    """<p>A list of <code>ConformancePackInputParameter</code> objects. Custom conformance packs can have at most 60 input parameters. Managed conformance packs can have at most 330 input parameters.</p>"""
     template_ssm_document_details: NotRequired[
         "capo_config_service.types.template_ssm_document_details.TemplateSSMDocumentDetails"
     ]
     """<p>An object of type <code>TemplateSSMDocumentDetails</code>, which contains the name or the Amazon Resource Name (ARN) of the Amazon Web Services Systems Manager document (SSM document) and the version of the SSM document that is used to create a conformance pack.</p>"""
     tags: NotRequired["capo_config_service.types.tags_list.TagsList"]
     """<p>The tags for the conformance pack. Each tag consists of a key and an optional value, both of which you define.</p>"""
+    source: NotRequired[
+        "capo_config_service.types.conformance_pack_source.ConformancePackSource"
+    ]
+    """<p>An object of type <code>ConformancePackSource</code>, which contains the identifier of the managed conformance pack that you want to deploy. If you specify a source, Config creates a managed conformance pack. Managed conformance packs are predefined collections of Config rules that are created and maintained by Amazon Web Services.</p> <note> <p>If you specify a source, you cannot specify <code>TemplateS3Uri</code>, <code>TemplateBody</code>, <code>TemplateSSMDocumentDetails</code>, <code>DeliveryS3Bucket</code>, or <code>DeliveryS3KeyPrefix</code>. You cannot convert an existing conformance pack between a managed conformance pack and a custom conformance pack. You also cannot change the source of an existing managed conformance pack.</p> </note>"""
+    scope: NotRequired[
+        "capo_config_service.types.conformance_pack_scope.ConformancePackScope"
+    ]
+    """<p>An object of type <code>ConformancePackScope</code> that defines which resources can trigger an evaluation for Config rules in the conformance pack. The scope can include a tag key and optional tag value. Specify a scope to constrain the resources that can trigger an evaluation for rules in the conformance pack. If you do not specify a scope, all rules in the conformance pack are unscoped.</p> <note> <p>This field is optional and is supported only for managed conformance packs. If you specify a scope, you must also specify <code>Source</code>.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -79,6 +89,22 @@ def serialize_aws_json_1_1(value: PutConformancePackRequest) -> dict:
 
         out["Tags"] = capo_config_service.types.tags_list.serialize_aws_json_1_1(
             value["tags"]
+        )
+    if "source" in value:
+        import capo_config_service.types.conformance_pack_source
+
+        out["Source"] = (
+            capo_config_service.types.conformance_pack_source.serialize_aws_json_1_1(
+                value["source"]
+            )
+        )
+    if "scope" in value:
+        import capo_config_service.types.conformance_pack_scope
+
+        out["Scope"] = (
+            capo_config_service.types.conformance_pack_scope.serialize_aws_json_1_1(
+                value["scope"]
+            )
         )
     return out
 
@@ -118,5 +144,21 @@ def deserialize_aws_json_1_1(data: dict) -> PutConformancePackRequest:
 
         out["tags"] = capo_config_service.types.tags_list.deserialize_aws_json_1_1(
             data["Tags"]
+        )
+    if data.get("Source") is not None:
+        import capo_config_service.types.conformance_pack_source
+
+        out["source"] = (
+            capo_config_service.types.conformance_pack_source.deserialize_aws_json_1_1(
+                data["Source"]
+            )
+        )
+    if data.get("Scope") is not None:
+        import capo_config_service.types.conformance_pack_scope
+
+        out["scope"] = (
+            capo_config_service.types.conformance_pack_scope.deserialize_aws_json_1_1(
+                data["Scope"]
+            )
         )
     return out

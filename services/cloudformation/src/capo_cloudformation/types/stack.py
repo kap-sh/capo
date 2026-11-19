@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_cloudformation._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_cloudformation.types.alias_name
     import capo_cloudformation.types.capabilities
     import capo_cloudformation.types.change_set_id
     import capo_cloudformation.types.creation_time
@@ -113,6 +114,8 @@ class Stack(TypedDict, closed=True):
         "capo_cloudformation.types.last_operations.LastOperations"
     ]
     """<p>Information about the most recent operations performed on this stack.</p>"""
+    alias_name: NotRequired["capo_cloudformation.types.alias_name.AliasName"]
+    """<p>The alias assigned to the stack, if one has been set. An alias is an alternative name that can be used in place of the stack name in any CloudFormation API call that accepts the <code>StackName</code> parameter.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -251,6 +254,8 @@ def serialize_query(value: Stack, pairs: list[tuple[str, str]], prefix: str) -> 
         capo_cloudformation.types.last_operations.serialize_query(
             value["last_operations"], pairs, f"{key_prefix}LastOperations"
         )
+    if "alias_name" in value:
+        pairs.append((f"{key_prefix}AliasName", str(value["alias_name"])))
 
 
 def deserialize_query(el: Element) -> Stack:
@@ -418,4 +423,7 @@ def deserialize_query(el: Element) -> Stack:
                 child_last_operations
             )
         )
+    child_alias_name = el.find("AliasName")
+    if child_alias_name is not None:
+        out["alias_name"] = str(child_alias_name.text or "")
     return out

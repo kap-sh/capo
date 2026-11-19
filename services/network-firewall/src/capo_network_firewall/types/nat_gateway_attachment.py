@@ -13,15 +13,15 @@ if TYPE_CHECKING:
 
 class NatGatewayAttachment(TypedDict, closed=True):
     nat_gateway_id: "capo_network_firewall.types.nat_gateway_id.NatGatewayId"
-    """<p>A unique identifier for the NAT gateway to use with proxy resources.</p>"""
+    """<p>The ID of the NAT gateway.</p>"""
     status: "capo_network_firewall.types.nat_gateway_attachment_status.NatGatewayAttachmentStatus"
-    """<p>The current status of the NAT gateway attachment. </p> <p>When this value is <code>READY</code>, the attachment is available to proxy traffic. Otherwise, this value reflects its state, for example <code>CREATING</code> or <code>DELETING</code>.</p>"""
+    """<p>The status of the NAT gateway attachment. <code>READY</code> means that the NAT gateway is attached and the firewall can send traffic through it. Other values are <code>CREATING</code>, <code>UPDATING</code>, <code>DELETING</code>, and <code>FAILED</code>.</p>"""
     status_message: NotRequired[
         "capo_network_firewall.types.status_reason.StatusReason"
     ]
-    """<p>If Network Firewall encounters an issue with the NAT gateway attachment, it populates this with an explanation of the problem. </p>"""
+    """<p>The reason that Network Firewall couldn't create or attach the NAT gateway, if it couldn't.</p>"""
     dns_name: NotRequired["capo_network_firewall.types.dns_name.DnsName"]
-    """<p>The DNS name that resolves to the firewall's proxy for traffic sent through this NAT gateway attachment. </p>"""
+    """<p>The proxy DNS name of the firewall in this Availability Zone. This is the same as the <code>DnsName</code> of the firewall's <code>Attachment</code>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

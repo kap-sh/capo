@@ -22,7 +22,7 @@ class FreeTrialInfo(TypedDict, closed=True):
     status: "capo_inspector2.types.free_trial_status.FreeTrialStatus"
     """<p>The order to sort results by.</p>"""
     cloud_provider: NotRequired["capo_inspector2.types.cloud_provider.CloudProvider"]
-    """<p>The cloud provider associated with the free trial information.</p>"""
+    """<p>The cloud provider associated with the free trial information. Valid values:</p> <ul> <li> <p> <code>AWS</code> – Amazon Web Services resources.</p> </li> <li> <p> <code>AZURE</code> – Microsoft Azure resources.</p> </li> <li> <p> <code>GCP</code> – Google Cloud Platform (GCP) resources.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

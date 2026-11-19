@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_mediatailor.types.concurrent_executor_configuration
     import capo_mediatailor.types.custom_output_configuration
     import capo_mediatailor.types.function_type
+    import capo_mediatailor.types.hls_tag_processor_configuration
     import capo_mediatailor.types.http_request_configuration
     import capo_mediatailor.types.sequential_executor_configuration
     import capo_mediatailor.types.vast_request_configuration
@@ -47,6 +48,10 @@ class Function(TypedDict, closed=True):
         "capo_mediatailor.types.vast_request_configuration.VastRequestConfiguration"
     ]
     """<p>The configuration for a <code>VAST_REQUEST</code> function.</p>"""
+    hls_tag_processor_configuration: NotRequired[
+        "capo_mediatailor.types.hls_tag_processor_configuration.HlsTagProcessorConfiguration"
+    ]
+    """<p>The configuration for an <code>HLS_TAG_PROCESSOR</code> function.</p>"""
     tags: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
     """<p>The tags assigned to the function. Tags are key-value pairs that you can associate with Amazon resources to help with organization, access control, and cost tracking. For more information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor Resources</a>.</p>"""
     arn: NotRequired["capo_mediatailor.types.__string.__string"]
@@ -110,6 +115,14 @@ def serialize_json(value: Function) -> dict:
         out["VastRequestConfiguration"] = (
             capo_mediatailor.types.vast_request_configuration.serialize_json(
                 value["vast_request_configuration"]
+            )
+        )
+    if "hls_tag_processor_configuration" in value:
+        import capo_mediatailor.types.hls_tag_processor_configuration
+
+        out["HlsTagProcessorConfiguration"] = (
+            capo_mediatailor.types.hls_tag_processor_configuration.serialize_json(
+                value["hls_tag_processor_configuration"]
             )
         )
     if "tags" in value:
@@ -189,6 +202,14 @@ def deserialize_json(data: dict) -> Function:
         out["vast_request_configuration"] = (
             capo_mediatailor.types.vast_request_configuration.deserialize_json(
                 data["VastRequestConfiguration"]
+            )
+        )
+    if data.get("HlsTagProcessorConfiguration") is not None:
+        import capo_mediatailor.types.hls_tag_processor_configuration
+
+        out["hls_tag_processor_configuration"] = (
+            capo_mediatailor.types.hls_tag_processor_configuration.deserialize_json(
+                data["HlsTagProcessorConfiguration"]
             )
         )
     if data.get("tags") is not None:

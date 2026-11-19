@@ -17,6 +17,7 @@ import capo_kms.errors.kms_internal_exception
 import capo_kms.types.key_list
 import capo_kms.types.list_keys_request
 import capo_kms.types.list_keys_response
+import capo_kms.types.resource_owners_list
 from capo_kms._protocol.errors import parse_error_metadata_json
 from capo_kms._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_kms._services._pipeline import (

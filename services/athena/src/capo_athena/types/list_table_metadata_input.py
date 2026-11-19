@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_athena.types.expression_string
     import capo_athena.types.max_table_metadata_count
     import capo_athena.types.name_string
+    import capo_athena.types.table_attributes_list
     import capo_athena.types.token
     import capo_athena.types.work_group_name
 
@@ -28,6 +29,10 @@ class ListTableMetadataInput(TypedDict, closed=True):
     """<p>Specifies the maximum number of results to return.</p>"""
     work_group: NotRequired["capo_athena.types.work_group_name.WorkGroupName"]
     """<p>The name of the workgroup for which the metadata is being fetched. Required if requesting an IAM Identity Center enabled Glue Data Catalog.</p>"""
+    attributes_to_get: NotRequired[
+        "capo_athena.types.table_attributes_list.TableAttributesList"
+    ]
+    """<p>Specifies the table properties returned by the <code>ListTableMetadata</code> call. This parameter doesn't accept an empty list, and the request must include <code>NAME</code>. The valid combinations of values are <code>NAME</code>, which returns the name of each table, and <code>NAME</code> and <code>TABLE_TYPE</code>, which return the name and table type of each table. The remaining properties are omitted. If you omit this parameter, all table properties are returned.</p> <p>Requesting only the properties you need can reduce response time for databases that contain many tables.</p> <p>This parameter applies only to the Glue Data Catalog. For other data catalog types, it is ignored.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -43,6 +48,14 @@ def serialize_aws_json_1_1(value: ListTableMetadataInput) -> dict:
         out["MaxResults"] = value["max_results"]
     if "work_group" in value:
         out["WorkGroup"] = value["work_group"]
+    if "attributes_to_get" in value:
+        import capo_athena.types.table_attributes_list
+
+        out["AttributesToGet"] = (
+            capo_athena.types.table_attributes_list.serialize_aws_json_1_1(
+                value["attributes_to_get"]
+            )
+        )
     return out
 
 
@@ -64,4 +77,12 @@ def deserialize_aws_json_1_1(data: dict) -> ListTableMetadataInput:
         out["max_results"] = data["MaxResults"]
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
+    if data.get("AttributesToGet") is not None:
+        import capo_athena.types.table_attributes_list
+
+        out["attributes_to_get"] = (
+            capo_athena.types.table_attributes_list.deserialize_aws_json_1_1(
+                data["AttributesToGet"]
+            )
+        )
     return out

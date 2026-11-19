@@ -6,6 +6,8 @@ PostStreamArtifactGenerationStatus: TypeAlias = Literal[
     "IN_PROGRESS",
     "FAILED",
     "COMPLETED",
+    "PENDING",
+    "SKIPPED",
 ]
 
 

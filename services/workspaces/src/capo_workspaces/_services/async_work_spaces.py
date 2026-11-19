@@ -326,6 +326,7 @@ if TYPE_CHECKING:
     import capo_workspaces.types.workspace_image_ingestion_process
     import capo_workspaces.types.workspace_image_name
     import capo_workspaces.types.workspace_name
+    import capo_workspaces.types.workspace_os_user_mode
     import capo_workspaces.types.workspace_properties
     import capo_workspaces.types.workspace_request_list
     import capo_workspaces.types.workspace_type
@@ -4892,6 +4893,9 @@ class AsyncWorkSpacesClient:
         user_identity_type: Optional[
             "capo_workspaces.types.user_identity_type.UserIdentityType"
         ] = None,
+        workspace_os_user_mode: Optional[
+            "capo_workspaces.types.workspace_os_user_mode.WorkspaceOSUserMode"
+        ] = None,
         idc_instance_arn: Optional["capo_workspaces.types.arn.ARN"] = None,
         microsoft_entra_config: Optional[
             "capo_workspaces.types.microsoft_entra_config.MicrosoftEntraConfig"
@@ -4914,6 +4918,7 @@ class AsyncWorkSpacesClient:
             workspace_directory_name: <p>The name of the directory to register.</p>
             workspace_directory_description: <p>Description of the directory to register.</p>
             user_identity_type: <p>The type of identity management the user is using.</p>
+            workspace_os_user_mode: <p>Indicates how users are set up on the WorkSpace operating system. To use local users with an AWS IAM Identity Center directory, specify <code>LOCAL_USER</code>.</p>
             idc_instance_arn: <p>The Amazon Resource Name (ARN) of the identity center instance.</p>
             microsoft_entra_config: <p>The details about Microsoft Entra config.</p>
             workspace_type: <p>Indicates whether the directory's WorkSpace type is personal or pools.</p>
@@ -4967,6 +4972,8 @@ class AsyncWorkSpacesClient:
             input_["workspace_directory_description"] = workspace_directory_description
         if user_identity_type is not None:
             input_["user_identity_type"] = user_identity_type
+        if workspace_os_user_mode is not None:
+            input_["workspace_os_user_mode"] = workspace_os_user_mode
         if idc_instance_arn is not None:
             input_["idc_instance_arn"] = idc_instance_arn
         if microsoft_entra_config is not None:

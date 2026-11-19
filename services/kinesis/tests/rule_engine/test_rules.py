@@ -673,7 +673,7 @@ def test_resourcearn_as_streamarn_test__invalid_a():
 def test_resourcearn_as_streamarn_test__invalid_a():
     """ResourceARN as StreamARN test: Invalid ARN: Kinesis ARNs only support stream arn types"""
     params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, ResourceARN='arn:aws:kinesis:us-east-1:123:accesspoint/testStream')
-    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Unsupported resource type `accesspoint`. Expected: stream or channel')):
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Unsupported resource type `accesspoint`. Expected: stream, channel, or queue.')):
         resolve(params)
 
 def test_resourcearn_as_streamarn_test__operation():
@@ -823,7 +823,7 @@ def test_resourcearn_as_consumerarn_test__invalid():
 def test_resourcearn_as_consumerarn_test__invalid():
     """ResourceARN as ConsumerARN test: Invalid ARN: Kinesis ARNs only support stream arn/consumer arn types"""
     params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, ResourceARN='arn:aws:kinesis:us-east-1:123:accesspoint/testStream/consumer/test-consumer:1525898737')
-    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Unsupported resource type `accesspoint`. Expected: stream or channel')):
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Unsupported resource type `accesspoint`. Expected: stream, channel, or queue.')):
         resolve(params)
 
 def test_resourcearn_as_consumerarn_test__operati():
@@ -931,7 +931,7 @@ def test_resourcearn_as_consumerarn_test__account():
 def test_resourcearn_as_channelarn_test__invalid_():
     """ResourceARN as ChannelARN test: Invalid ARN: unsupported resource type"""
     params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:298091445058:accesspoint/apu0zt8ge6utbndxe')
-    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Unsupported resource type `accesspoint`. Expected: stream or channel')):
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Unsupported resource type `accesspoint`. Expected: stream, channel, or queue.')):
         resolve(params)
 
 def test_resourcearn_as_channelarn_test__invalid_():
@@ -1384,6 +1384,30 @@ def test_account_id__streamid_and_resource_arn_wi():
     result = resolve(params)
     assert result.url == 'https://af4lwng4k01746835071.xyz.control-kinesis.us-west-2.amazonaws.com'
 
+def test_resourcearn_with_queue_type__basic_contr():
+    """ResourceARN with queue type: basic control endpoint"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.control-kinesis-queues.us-east-1.amazonaws.com'
+
+def test_resourcearn_with_queue_type__fips():
+    """ResourceARN with queue type: FIPS"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.control-kinesis-queues-fips.us-east-1.amazonaws.com'
+
+def test_resourcearn_with_queue_type__dualstack():
+    """ResourceARN with queue type: DualStack"""
+    params = EndpointParams(Region='us-west-2', UseFIPS=False, UseDualStack=True, OperationType='control', ResourceARN='arn:aws:kinesis:us-west-2:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.control-kinesis-queues.us-west-2.api.aws'
+
+def test_resourcearn_with_channel_type__basic_con():
+    """ResourceARN with channel type: basic control endpoint"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:298091445058:channel/apu0zt8ge6utbndxe')
+    result = resolve(params)
+    assert result.url == 'https://apu0zt8ge6utbndxe.control-kinesis.us-east-1.amazonaws.com'
+
 def test_account_id_with_account_id_endpoint_mode():
     """Account Id with account id endpoint mode disabled"""
     params = EndpointParams(Region='us-west-2', UseFIPS=False, UseDualStack=False, OperationType='control', AccountId='123', AccountIdEndpointMode='disabled')
@@ -1629,3 +1653,357 @@ def test_listchannels__account_id_endpoint_mode_d():
     params = EndpointParams(Region='us-west-2', UseFIPS=False, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='disabled')
     result = resolve(params)
     assert result.url == 'https://kinesis.us-west-2.amazonaws.com'
+
+def test_queuearn__basic_endpoint_resolution_with():
+    """QueueARN: basic endpoint resolution with control operation type"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.control-kinesis-queues.us-east-1.amazonaws.com'
+
+def test_queuearn__endpoint_with_fips():
+    """QueueARN: endpoint with FIPS"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.control-kinesis-queues-fips.us-east-1.amazonaws.com'
+
+def test_queuearn__endpoint_with_dualstack():
+    """QueueARN: endpoint with DualStack"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=True, OperationType='control', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.control-kinesis-queues.us-east-1.api.aws'
+
+def test_queuearn__endpoint_with_fips_and_dualsta():
+    """QueueARN: endpoint with FIPS and DualStack"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=True, OperationType='control', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.control-kinesis-queues-fips.us-east-1.api.aws'
+
+def test_queuearn__data_operation_type():
+    """QueueARN: data operation type"""
+    params = EndpointParams(Region='us-west-2', UseFIPS=False, UseDualStack=False, OperationType='data', ResourceType='queue', QueueARN='arn:aws:kinesis:us-west-2:123456789012:queue/abc123def456')
+    result = resolve(params)
+    assert result.url == 'https://abc123def456.data-kinesis-queues.us-west-2.amazonaws.com'
+
+def test_queuearn__data_operation_type_with_fips():
+    """QueueARN: data operation type with FIPS"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=False, OperationType='data', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/abc123def456')
+    result = resolve(params)
+    assert result.url == 'https://abc123def456.data-kinesis-queues-fips.us-east-1.amazonaws.com'
+
+def test_queuearn__data_operation_type_with_duals():
+    """QueueARN: data operation type with DualStack"""
+    params = EndpointParams(Region='us-west-2', UseFIPS=False, UseDualStack=True, OperationType='data', ResourceType='queue', QueueARN='arn:aws:kinesis:us-west-2:123456789012:queue/abc123def456')
+    result = resolve(params)
+    assert result.url == 'https://abc123def456.data-kinesis-queues.us-west-2.api.aws'
+
+def test_queuearn__vpce_endpoint_override_is_resp():
+    """QueueARN: VPCE endpoint override is respected as-is"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId', Endpoint='https://my-vpce-xyz.vpce.amazonaws.com')
+    result = resolve(params)
+    assert result.url == 'https://my-vpce-xyz.vpce.amazonaws.com'
+
+def test_invalid_queuearn__wrong_arn_type():
+    """Invalid QueueARN: wrong arn type"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:stream/test-stream')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: QueueARN only supports `queue` ARN types, found: `stream`.')):
+        resolve(params)
+
+def test_invalid_queuearn__missing_queue_id():
+    """Invalid QueueARN: missing queue id"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Missing queue id.')):
+        resolve(params)
+
+def test_invalid_queuearn__non_kinesis_service():
+    """Invalid QueueARN: non-kinesis service"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws:sqs:us-east-1:123456789012:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: The ARN was not for the Kinesis service, found: sqs.')):
+        resolve(params)
+
+def test_queue_accountid__basic_endpoint_with_acc():
+    """Queue AccountId: basic endpoint with AccountId"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='preferred', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://123456789012.control-kinesis-queues.us-east-1.amazonaws.com'
+
+def test_queue_accountid__endpoint_with_fips():
+    """Queue AccountId: endpoint with FIPS"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='preferred', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://123456789012.control-kinesis-queues-fips.us-east-1.amazonaws.com'
+
+def test_queue_accountid__endpoint_with_dualstack():
+    """Queue AccountId: endpoint with DualStack"""
+    params = EndpointParams(Region='us-west-2', UseFIPS=False, UseDualStack=True, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='preferred', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://123456789012.control-kinesis-queues.us-west-2.api.aws'
+
+def test_queue_accountid__endpoint_with_fips_and_():
+    """Queue AccountId: endpoint with FIPS and DualStack"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=True, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='preferred', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://123456789012.control-kinesis-queues-fips.us-east-1.api.aws'
+
+def test_queuearn__regular_endpoint_override_is_r():
+    """QueueARN: regular endpoint override is respected as-is"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId', Endpoint='https://kinesis-queues.us-east-1.amazonaws.com')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-east-1.amazonaws.com'
+
+def test_queue_accountid__disabled_mode_falls_bac():
+    """Queue AccountId: disabled mode falls back to regional queue endpoint"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='disabled', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-east-1.amazonaws.com'
+
+def test_queue_accountid__disabled_mode_with_fips():
+    """Queue AccountId: disabled mode with FIPS falls back to regional queue FIPS endpoint"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='disabled', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues-fips.us-east-1.amazonaws.com'
+
+def test_queue_accountid__disabled_mode_with_dual():
+    """Queue AccountId: disabled mode with DualStack falls back to regional queue DualStack endpoint"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=True, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='disabled', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-east-1.api.aws'
+
+def test_queue_accountid__disabled_mode_with_fips():
+    """Queue AccountId: disabled mode with FIPS and DualStack falls back to regional queue FIPS DualStack endpoint"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=True, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='disabled', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues-fips.us-east-1.api.aws'
+
+def test_resourcearn_with_queue_type__missing_que():
+    """ResourceARN with queue type: missing queue id errors"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:123456789012:queue')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Missing queue id.')):
+        resolve(params)
+
+def test_resourcearn_with_channel_type__missing_c():
+    """ResourceARN with channel type: missing channel id errors"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:123456789012:channel')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Missing channel id.')):
+        resolve(params)
+
+def test_resourcearn_with_unsupported_type__consu():
+    """ResourceARN with unsupported type: consumer type is rejected"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:123456789012:consumer/test-consumer')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Unsupported resource type `consumer`. Expected: stream, channel, or queue.')):
+        resolve(params)
+
+def test_queuearn_and_streamarn_both_set__streama():
+    """QueueARN and StreamARN both set: StreamARN wins by rule ordering today (ResourceType is not yet authoritative on the stream path; revisit if a both-ARN API is introduced)"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', StreamARN='arn:aws:kinesis:us-east-1:123:stream/test-stream', ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://123.control-kinesis.us-east-1.amazonaws.com'
+
+def test_queuearn_set_but_resourcetype_absent__er():
+    """QueueARN set but ResourceType absent: errors instead of misrouting to the default kinesis endpoint"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: ResourceType must be "queue" when QueueARN is set.')):
+        resolve(params)
+
+def test_queuearn_set_but_resourcetype_is_not_que():
+    """QueueARN set but ResourceType is not queue:  errors instead of misrouting to the default kinesis endpoint"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='stream', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape('Invalid Configuration: ResourceType must be "queue" when QueueARN is set.')):
+        resolve(params)
+
+def test_accountid_without_resourcetype__non_queu():
+    """AccountId without ResourceType: non-queue account endpoint is unchanged (no -queues suffix)"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='preferred')
+    result = resolve(params)
+    assert result.url == 'https://123456789012.control-kinesis.us-east-1.amazonaws.com'
+
+def test_queue_accountid__required_mode_with_no_a():
+    """Queue AccountId: required mode with no AccountId errors"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', AccountIdEndpointMode='required', ResourceType='queue')
+    with pytest.raises(EndpointError, match=re.escape('AccountIdEndpointMode is required but no AccountID was provided or able to be loaded')):
+        resolve(params)
+
+def test_queuearn__operationtype_not_set_errors():
+    """QueueARN: OperationType not set errors"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, ResourceType='queue', QueueARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape('Operation Type is not set. Please contact service team for resolution.')):
+        resolve(params)
+
+def test_queuearn__aws_iso_region_falls_back_to_r():
+    """QueueARN: aws-iso region falls back to regional queue endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-iso-east-1.c2s.ic.gov'
+
+def test_queuearn__aws_iso_b_region_falls_back_to():
+    """QueueARN: aws-iso-b region falls back to regional queue endpoint"""
+    params = EndpointParams(Region='us-isob-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws-iso-b:kinesis:us-isob-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-isob-east-1.sc2s.sgov.gov'
+
+def test_queue_accountid_in_aws_iso__disabled_mod():
+    """Queue AccountId in aws-iso: disabled mode falls back to regional queue endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='disabled', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-iso-east-1.c2s.ic.gov'
+
+def test_resourcearn_with_queue_type_in_aws_iso__():
+    """ResourceARN with queue type in aws-iso: falls back to regional queue endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-iso-east-1.c2s.ic.gov'
+
+def test_resourcearn_with_queue_type_in_aws_iso_b():
+    """ResourceARN with queue type in aws-iso-b: falls back to regional queue endpoint"""
+    params = EndpointParams(Region='us-isob-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso-b:kinesis:us-isob-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-isob-east-1.sc2s.sgov.gov'
+
+def test_queue_accountid_in_aws_iso__preferred_mo():
+    """Queue AccountId in aws-iso: preferred mode falls back to regional queue endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='preferred', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-iso-east-1.c2s.ic.gov'
+
+def test_queuearn__aws_iso_region_with_fips_falls():
+    """QueueARN: aws-iso region with FIPS falls back to regional queue FIPS endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues-fips.us-iso-east-1.c2s.ic.gov'
+
+def test_resourcearn_with_queue_type_in_aws_iso_w():
+    """ResourceARN with queue type in aws-iso with FIPS: falls back to regional queue FIPS endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues-fips.us-iso-east-1.c2s.ic.gov'
+
+def test_queuearn__aws_iso_region_with_dualstack_():
+    """QueueARN: aws-iso region with DualStack falls back to regional queue DualStack endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=True, OperationType='control', ResourceType='queue', QueueARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-iso-east-1.api.aws.ic.gov'
+
+def test_queuearn__aws_iso_region_with_fips_and_d():
+    """QueueARN: aws-iso region with FIPS and DualStack falls back to regional queue FIPS DualStack endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=True, OperationType='control', ResourceType='queue', QueueARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test_resourcearn_with_queue_type_in_aws_iso_w():
+    """ResourceARN with queue type in aws-iso with DualStack: falls back to regional queue DualStack endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=True, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues.us-iso-east-1.api.aws.ic.gov'
+
+def test_resourcearn_with_queue_type_in_aws_iso_w():
+    """ResourceARN with queue type in aws-iso with FIPS and DualStack: falls back to regional queue FIPS DualStack endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=True, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test_queue_accountid_in_aws_iso__preferred_mo():
+    """Queue AccountId in aws-iso: preferred mode with FIPS falls back to regional queue FIPS endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='preferred', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues-fips.us-iso-east-1.c2s.ic.gov'
+
+def test_queue_accountid_in_aws_iso__disabled_mod():
+    """Queue AccountId in aws-iso: disabled mode with FIPS falls back to regional queue FIPS endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', AccountId='123456789012', AccountIdEndpointMode='disabled', ResourceType='queue')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-queues-fips.us-iso-east-1.c2s.ic.gov'
+
+def test_resourcearn_with_channel_type_in_aws_iso():
+    """ResourceARN with channel type in aws-iso: falls back to default kinesis endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:channel/myChannelId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis.us-iso-east-1.c2s.ic.gov'
+
+def test_resourcearn_with_channel_type_in_aws_iso():
+    """ResourceARN with channel type in aws-iso with FIPS: falls back to default kinesis FIPS endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:channel/myChannelId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-fips.us-iso-east-1.c2s.ic.gov'
+
+def test_channelarn_in_aws_iso__falls_back_to_def():
+    """ChannelARN in aws-iso: falls back to default kinesis endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ChannelARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:channel/myChannelId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis.us-iso-east-1.c2s.ic.gov'
+
+def test_channelarn_in_aws_iso_with_fips__falls_b():
+    """ChannelARN in aws-iso with FIPS: falls back to default kinesis FIPS endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=False, OperationType='control', ChannelARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:channel/myChannelId')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-fips.us-iso-east-1.c2s.ic.gov'
+
+def test_resourcearn_queue_in_aws_iso__non_kinesi():
+    """ResourceARN queue in aws-iso: non-kinesis service should error"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso:sqs:us-iso-east-1:123456789012:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: The ARN was not for the Kinesis service, found: sqs.')):
+        resolve(params)
+
+def test_resourcearn_queue_in_aws_iso__partition_():
+    """ResourceARN queue in aws-iso: partition mismatch should error"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape("Partition: aws from ARN doesn't match with partition name: aws-iso.")):
+        resolve(params)
+
+def test_resourcearn_queue_in_aws_iso__missing_qu():
+    """ResourceARN queue in aws-iso: missing queue id should error"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Missing queue id.')):
+        resolve(params)
+
+def test_resourcearn_queue_in_aws_iso__invalid_ac():
+    """ResourceARN queue in aws-iso: invalid account id should error"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:invalid..account:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Invalid account id.')):
+        resolve(params)
+
+def test_resourcearn_queue_in_aws_iso__operationt():
+    """ResourceARN queue in aws-iso: OperationType not set should error"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape('Operation Type is not set. Please contact service team for resolution.')):
+        resolve(params)
+
+def test_resourcearn_queue_in_aws_iso__invalid_qu():
+    """ResourceARN queue in aws-iso: invalid queue id should error"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:queue/invalid.queue.id')
+    with pytest.raises(EndpointError, match=re.escape('Invalid ARN: Invalid queue id.')):
+        resolve(params)
+
+def test_streamarn_in_aws_iso_with_dualstack__fal():
+    """StreamARN in aws-iso with DualStack: falls back to default kinesis DualStack endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=True, OperationType='control', StreamARN='arn:aws-iso:kinesis:us-iso-east-1:123:stream/test-stream')
+    result = resolve(params)
+    assert result.url == 'https://kinesis.us-iso-east-1.api.aws.ic.gov'
+
+def test_streamarn_in_aws_iso_with_fips_and_duals():
+    """StreamARN in aws-iso with FIPS and DualStack: falls back to default kinesis FIPS DualStack endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=True, UseDualStack=True, OperationType='control', StreamARN='arn:aws-iso:kinesis:us-iso-east-1:123:stream/test-stream')
+    result = resolve(params)
+    assert result.url == 'https://kinesis-fips.us-iso-east-1.api.aws.ic.gov'
+
+def test_streamarn_in_aws_iso__missing_arn_type_f():
+    """StreamARN in aws-iso: missing ARN type falls back to default kinesis endpoint"""
+    params = EndpointParams(Region='us-iso-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', StreamARN='arn:aws-iso:kinesis:us-iso-east-1:123456789012:')
+    result = resolve(params)
+    assert result.url == 'https://kinesis.us-iso-east-1.c2s.ic.gov'
+
+def test_queuearn__partition_mismatch_errors():
+    """QueueARN: partition mismatch errors"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=False, UseDualStack=False, OperationType='control', ResourceType='queue', QueueARN='arn:aws-cn:kinesis:cn-north-1:123456789012:queue/myQueueId')
+    with pytest.raises(EndpointError, match=re.escape("Partition: aws-cn from ARN doesn't match with partition name: aws.")):
+        resolve(params)
+
+def test_resourcearn_with_queue_type__fips_and_du():
+    """ResourceARN with queue type: FIPS and DualStack"""
+    params = EndpointParams(Region='us-east-1', UseFIPS=True, UseDualStack=True, OperationType='control', ResourceARN='arn:aws:kinesis:us-east-1:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.control-kinesis-queues-fips.us-east-1.api.aws'
+
+def test_resourcearn_with_queue_type__data_operat():
+    """ResourceARN with queue type: data operation type"""
+    params = EndpointParams(Region='us-west-2', UseFIPS=False, UseDualStack=False, OperationType='data', ResourceARN='arn:aws:kinesis:us-west-2:123456789012:queue/myQueueId')
+    result = resolve(params)
+    assert result.url == 'https://myQueueId.data-kinesis-queues.us-west-2.amazonaws.com'

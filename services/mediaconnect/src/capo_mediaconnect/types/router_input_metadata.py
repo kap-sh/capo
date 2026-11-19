@@ -8,6 +8,7 @@ from capo_mediaconnect.errors import DeserializationError, SerializationError
 from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
+    import capo_mediaconnect.types.rtmp_source_metadata_info
     import capo_mediaconnect.types.transport_media_info
 
 
@@ -17,8 +18,14 @@ class RouterInputMetadataTransportStreamMediaInfoMember(TypedDict, closed=True):
     )
 
 
+class RouterInputMetadataRtmpInfoMember(TypedDict, closed=True):
+    RtmpInfo: "capo_mediaconnect.types.rtmp_source_metadata_info.RtmpSourceMetadataInfo"
+
+
 RouterInputMetadata: TypeAlias = (
-    RouterInputMetadataTransportStreamMediaInfoMember | UnknownUnionMember
+    RouterInputMetadataTransportStreamMediaInfoMember
+    | RouterInputMetadataRtmpInfoMember
+    | UnknownUnionMember
 )
 
 
@@ -36,6 +43,14 @@ def serialize_json(value: RouterInputMetadata) -> dict:
                 value["TransportStreamMediaInfo"]
             )
         }
+    elif "RtmpInfo" in value:
+        import capo_mediaconnect.types.rtmp_source_metadata_info
+
+        return {
+            "rtmpInfo": capo_mediaconnect.types.rtmp_source_metadata_info.serialize_json(
+                value["RtmpInfo"]
+            )
+        }
     else:
         raise SerializationError("RouterInputMetadata: no variant present")
 
@@ -47,6 +62,14 @@ def deserialize_json(data: dict) -> RouterInputMetadata:
         return {
             "TransportStreamMediaInfo": capo_mediaconnect.types.transport_media_info.deserialize_json(
                 data["transportStreamMediaInfo"]
+            )
+        }
+    elif data.get("rtmpInfo") is not None:
+        import capo_mediaconnect.types.rtmp_source_metadata_info
+
+        return {
+            "RtmpInfo": capo_mediaconnect.types.rtmp_source_metadata_info.deserialize_json(
+                data["rtmpInfo"]
             )
         }
     else:

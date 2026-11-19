@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     import capo_workspaces.types.user_identity_type
     import capo_workspaces.types.workspace_directory_description
     import capo_workspaces.types.workspace_directory_name
+    import capo_workspaces.types.workspace_os_user_mode
     import capo_workspaces.types.workspace_type
 
 
@@ -44,6 +45,10 @@ class RegisterWorkspaceDirectoryRequest(TypedDict, closed=True):
         "capo_workspaces.types.user_identity_type.UserIdentityType"
     ]
     """<p>The type of identity management the user is using.</p>"""
+    workspace_os_user_mode: NotRequired[
+        "capo_workspaces.types.workspace_os_user_mode.WorkspaceOSUserMode"
+    ]
+    """<p>Indicates how users are set up on the WorkSpace operating system. To use local users with an AWS IAM Identity Center directory, specify <code>LOCAL_USER</code>.</p>"""
     idc_instance_arn: NotRequired["capo_workspaces.types.arn.ARN"]
     """<p>The Amazon Resource Name (ARN) of the identity center instance.</p>"""
     microsoft_entra_config: NotRequired[
@@ -93,6 +98,14 @@ def serialize_aws_json_1_1(value: RegisterWorkspaceDirectoryRequest) -> dict:
         out["UserIdentityType"] = (
             capo_workspaces.types.user_identity_type.serialize_aws_json_1_1(
                 value["user_identity_type"]
+            )
+        )
+    if "workspace_os_user_mode" in value:
+        import capo_workspaces.types.workspace_os_user_mode
+
+        out["WorkspaceOsUserMode"] = (
+            capo_workspaces.types.workspace_os_user_mode.serialize_aws_json_1_1(
+                value["workspace_os_user_mode"]
             )
         )
     if "idc_instance_arn" in value:
@@ -158,6 +171,14 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterWorkspaceDirectoryRequest:
         out["user_identity_type"] = (
             capo_workspaces.types.user_identity_type.deserialize_aws_json_1_1(
                 data["UserIdentityType"]
+            )
+        )
+    if data.get("WorkspaceOsUserMode") is not None:
+        import capo_workspaces.types.workspace_os_user_mode
+
+        out["workspace_os_user_mode"] = (
+            capo_workspaces.types.workspace_os_user_mode.deserialize_aws_json_1_1(
+                data["WorkspaceOsUserMode"]
             )
         )
     if data.get("IdcInstanceArn") is not None:

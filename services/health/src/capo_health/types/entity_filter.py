@@ -6,11 +6,11 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_health.types.date_time_range_list
+    import capo_health.types.describe_affected_entities_tag_filter
     import capo_health.types.entity_arn_list
     import capo_health.types.entity_status_code_list
     import capo_health.types.entity_value_list
     import capo_health.types.event_arn_list
-    import capo_health.types.tag_filter
 
 
 class EntityFilter(TypedDict, closed=True):
@@ -24,8 +24,10 @@ class EntityFilter(TypedDict, closed=True):
         "capo_health.types.date_time_range_list.dateTimeRangeList"
     ]
     """<p>A list of the most recent dates and times that the entity was updated.</p>"""
-    tags: NotRequired["capo_health.types.tag_filter.tagFilter"]
-    """<p>A map of entity tags attached to the affected entity.</p> <note> <p>Currently, the <code>tags</code> property isn't supported.</p> </note>"""
+    tags: NotRequired[
+        "capo_health.types.describe_affected_entities_tag_filter.DescribeAffectedEntitiesTagFilter"
+    ]
+    """<p>A map of tag keys to lists of tag values. A tag matches when its key is in the map and its value is one of the values listed for that key. The filter matches when at least one key in the map matches.</p>"""
     status_codes: NotRequired[
         "capo_health.types.entity_status_code_list.entityStatusCodeList"
     ]
@@ -63,9 +65,13 @@ def serialize_aws_json_1_1(value: EntityFilter) -> dict:
             )
         )
     if "tags" in value:
-        import capo_health.types.tag_filter
+        import capo_health.types.describe_affected_entities_tag_filter
 
-        out["tags"] = capo_health.types.tag_filter.serialize_aws_json_1_1(value["tags"])
+        out["tags"] = (
+            capo_health.types.describe_affected_entities_tag_filter.serialize_aws_json_1_1(
+                value["tags"]
+            )
+        )
     if "status_codes" in value:
         import capo_health.types.entity_status_code_list
 
@@ -110,10 +116,12 @@ def deserialize_aws_json_1_1(data: dict) -> EntityFilter:
             )
         )
     if data.get("tags") is not None:
-        import capo_health.types.tag_filter
+        import capo_health.types.describe_affected_entities_tag_filter
 
-        out["tags"] = capo_health.types.tag_filter.deserialize_aws_json_1_1(
-            data["tags"]
+        out["tags"] = (
+            capo_health.types.describe_affected_entities_tag_filter.deserialize_aws_json_1_1(
+                data["tags"]
+            )
         )
     if data.get("statusCodes") is not None:
         import capo_health.types.entity_status_code_list

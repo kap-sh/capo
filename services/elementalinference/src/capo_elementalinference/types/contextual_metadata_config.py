@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_elementalinference.types.custom_questions_config
     import capo_elementalinference.types.extended_analysis_mode
     import capo_elementalinference.types.summary_generation_mode
 
@@ -17,7 +18,11 @@ class ContextualMetadataConfig(TypedDict, closed=True):
     extended_analysis: NotRequired[
         "capo_elementalinference.types.extended_analysis_mode.ExtendedAnalysisMode"
     ]
-    """<p>Specifies whether Elemental Inference generates extended analysis of the media content for this output. Extended analysis identifies the people, environments, brands, and on-screen text in the media content. This setting is independent of <code>summaryGeneration</code>. </p> <p>Valid values:</p> <ul> <li> <p>ENABLED (default) – Elemental Inference populates the people, environments, brands, and on-screen text fields. </p> </li> <li> <p>DISABLED – Elemental Inference doesn't populate the people, environments, brands, and on-screen text fields. </p> </li> </ul>"""
+    """<p>Specifies whether Elemental Inference generates extended analysis of the media content for this output. Extended analysis identifies the people, environments, brands, and on-screen text in the media content. This setting is independent of <code>summaryGeneration</code>. </p> <p>Valid values:</p> <ul> <li> <p>ENABLED (default) – Elemental Inference populates the people, environments, brands, and on-screen text fields. </p> </li> <li> <p>DISABLED – Elemental Inference doesn't populate the people, environments, brands, and on-screen text fields. </p> </li> </ul> <p>If you specify <code>customQuestions</code>, you must set this property to DISABLED. </p>"""
+    custom_questions: NotRequired[
+        "capo_elementalinference.types.custom_questions_config.CustomQuestionsConfig"
+    ]
+    """<p>The question sets that you ask Elemental Inference about each shot, each scene, or both, in this output. </p> <p>If you specify customQuestions, you must also set extendedAnalysis to DISABLED. If you omit extendedAnalysis, it defaults to ENABLED, and the request fails. </p> <p>While a feed references a version of a question set, you can't delete that version or the question set. </p>"""
 
 
 # --- restJson1 ser/de ---
@@ -39,6 +44,14 @@ def serialize_json(value: ContextualMetadataConfig) -> dict:
                 value["extended_analysis"]
             )
         )
+    if "custom_questions" in value:
+        import capo_elementalinference.types.custom_questions_config
+
+        out["customQuestions"] = (
+            capo_elementalinference.types.custom_questions_config.serialize_json(
+                value["custom_questions"]
+            )
+        )
     return out
 
 
@@ -58,6 +71,14 @@ def deserialize_json(data: dict) -> ContextualMetadataConfig:
         out["extended_analysis"] = (
             capo_elementalinference.types.extended_analysis_mode.deserialize_json(
                 data["extendedAnalysis"]
+            )
+        )
+    if data.get("customQuestions") is not None:
+        import capo_elementalinference.types.custom_questions_config
+
+        out["custom_questions"] = (
+            capo_elementalinference.types.custom_questions_config.deserialize_json(
+                data["customQuestions"]
             )
         )
     return out

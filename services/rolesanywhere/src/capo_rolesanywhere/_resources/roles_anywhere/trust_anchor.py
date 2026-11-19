@@ -15,6 +15,7 @@ from capo_rolesanywhere._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_rolesanywhere.types.alias_name
     import capo_rolesanywhere.types.create_trust_anchor_request
     import capo_rolesanywhere.types.list_request
     import capo_rolesanywhere.types.list_trust_anchors_response
@@ -25,8 +26,8 @@ if TYPE_CHECKING:
     import capo_rolesanywhere.types.tag_list
     import capo_rolesanywhere.types.trust_anchor_detail
     import capo_rolesanywhere.types.trust_anchor_detail_response
+    import capo_rolesanywhere.types.trust_anchor_identifier
     import capo_rolesanywhere.types.update_trust_anchor_request
-    import capo_rolesanywhere.types.uuid
     from capo_rolesanywhere._services.async_roles_anywhere import (
         AsyncRolesAnywhereClient,
         AsyncRolesAnywhereClientConfig,
@@ -53,6 +54,7 @@ class TrustAnchor:
         notification_settings: Optional[
             "capo_rolesanywhere.types.notification_settings.NotificationSettings"
         ] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Creates a trust anchor to establish trust between IAM Roles Anywhere and your certificate authority (CA). You can define a trust anchor as a reference to an Private Certificate Authority (Private CA) or by uploading a CA certificate. Your Amazon Web Services workloads can authenticate with the trust anchor using certificates issued by the CA in exchange for temporary Amazon Web Services credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:CreateTrustAnchor</code>. </p>
 
@@ -63,6 +65,7 @@ class TrustAnchor:
             crl_dp_revocation_enabled: <p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>
             tags: <p>The tags to attach to the trust anchor.</p>
             notification_settings: <p>A list of notification settings to be associated to the trust anchor.</p>
+            alias_name: <p>An alias for the trust anchor. When you set an alias, the response includes the alias ARN of the trust anchor in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -112,6 +115,8 @@ class TrustAnchor:
             input_["tags"] = tags
         if notification_settings is not None:
             input_["notification_settings"] = notification_settings
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -123,14 +128,14 @@ class TrustAnchor:
 
     def read(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Gets a trust anchor.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -171,20 +176,22 @@ class TrustAnchor:
 
     def update(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
         source: Optional["capo_rolesanywhere.types.source.Source"] = None,
         crl_dp_revocation_enabled: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Updates a trust anchor. You establish trust between IAM Roles Anywhere and your certificate authority (CA) by configuring a trust anchor. You can define a trust anchor as a reference to an Private Certificate Authority (Private CA) or by uploading a CA certificate. Your Amazon Web Services workloads can authenticate with the trust anchor using certificates issued by the CA in exchange for temporary Amazon Web Services credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
             name: <p>The name of the trust anchor.</p>
             source: <p>The trust anchor type and its related certificate data.</p>
             crl_dp_revocation_enabled: <p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>
+            alias_name: <p>The alias for the trust anchor.</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -220,6 +227,8 @@ class TrustAnchor:
             input_["source"] = source
         if crl_dp_revocation_enabled is not None:
             input_["crl_dp_revocation_enabled"] = crl_dp_revocation_enabled
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -231,14 +240,14 @@ class TrustAnchor:
 
     def delete(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Deletes a trust anchor.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -331,14 +340,14 @@ class TrustAnchor:
 
     def disable_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Disables a trust anchor. When disabled, temporary credential requests specifying this trust anchor are unauthorized.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -378,14 +387,14 @@ class TrustAnchor:
 
     def enable_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Enables a trust anchor. When enabled, certificates in the trust anchor chain are authorized for trust validation. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -440,6 +449,7 @@ class AsyncTrustAnchor:
         notification_settings: Optional[
             "capo_rolesanywhere.types.notification_settings.NotificationSettings"
         ] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Creates a trust anchor to establish trust between IAM Roles Anywhere and your certificate authority (CA). You can define a trust anchor as a reference to an Private Certificate Authority (Private CA) or by uploading a CA certificate. Your Amazon Web Services workloads can authenticate with the trust anchor using certificates issued by the CA in exchange for temporary Amazon Web Services credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:CreateTrustAnchor</code>. </p>
 
@@ -450,6 +460,7 @@ class AsyncTrustAnchor:
             crl_dp_revocation_enabled: <p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>
             tags: <p>The tags to attach to the trust anchor.</p>
             notification_settings: <p>A list of notification settings to be associated to the trust anchor.</p>
+            alias_name: <p>An alias for the trust anchor. When you set an alias, the response includes the alias ARN of the trust anchor in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -500,6 +511,8 @@ class AsyncTrustAnchor:
             input_["tags"] = tags
         if notification_settings is not None:
             input_["notification_settings"] = notification_settings
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -511,14 +524,14 @@ class AsyncTrustAnchor:
 
     async def read(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Gets a trust anchor.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -560,20 +573,22 @@ class AsyncTrustAnchor:
 
     async def update(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
         source: Optional["capo_rolesanywhere.types.source.Source"] = None,
         crl_dp_revocation_enabled: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Updates a trust anchor. You establish trust between IAM Roles Anywhere and your certificate authority (CA) by configuring a trust anchor. You can define a trust anchor as a reference to an Private Certificate Authority (Private CA) or by uploading a CA certificate. Your Amazon Web Services workloads can authenticate with the trust anchor using certificates issued by the CA in exchange for temporary Amazon Web Services credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
             name: <p>The name of the trust anchor.</p>
             source: <p>The trust anchor type and its related certificate data.</p>
             crl_dp_revocation_enabled: <p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>
+            alias_name: <p>The alias for the trust anchor.</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -610,6 +625,8 @@ class AsyncTrustAnchor:
             input_["source"] = source
         if crl_dp_revocation_enabled is not None:
             input_["crl_dp_revocation_enabled"] = crl_dp_revocation_enabled
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -621,14 +638,14 @@ class AsyncTrustAnchor:
 
     async def delete(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Deletes a trust anchor.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -723,14 +740,14 @@ class AsyncTrustAnchor:
 
     async def disable_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Disables a trust anchor. When disabled, temporary credential requests specifying this trust anchor are unauthorized.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -771,14 +788,14 @@ class AsyncTrustAnchor:
 
     async def enable_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Enables a trust anchor. When enabled, certificates in the trust anchor chain are authorized for trust validation. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>

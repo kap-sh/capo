@@ -9,14 +9,21 @@ from capo_ssm.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_ssm.types.azure_configuration
+    import capo_ssm.types.gcp_configuration
 
 
 class CloudConnectorConfigurationAzureConfigurationMember(TypedDict, closed=True):
     AzureConfiguration: "capo_ssm.types.azure_configuration.AzureConfiguration"
 
 
+class CloudConnectorConfigurationGcpConfigurationMember(TypedDict, closed=True):
+    GcpConfiguration: "capo_ssm.types.gcp_configuration.GcpConfiguration"
+
+
 CloudConnectorConfiguration: TypeAlias = (
-    CloudConnectorConfigurationAzureConfigurationMember | UnknownUnionMember
+    CloudConnectorConfigurationAzureConfigurationMember
+    | CloudConnectorConfigurationGcpConfigurationMember
+    | UnknownUnionMember
 )
 
 
@@ -34,6 +41,14 @@ def serialize_aws_json_1_1(value: CloudConnectorConfiguration) -> dict:
                 value["AzureConfiguration"]
             )
         }
+    elif "GcpConfiguration" in value:
+        import capo_ssm.types.gcp_configuration
+
+        return {
+            "GcpConfiguration": capo_ssm.types.gcp_configuration.serialize_aws_json_1_1(
+                value["GcpConfiguration"]
+            )
+        }
     else:
         raise SerializationError("CloudConnectorConfiguration: no variant present")
 
@@ -45,6 +60,14 @@ def deserialize_aws_json_1_1(data: dict) -> CloudConnectorConfiguration:
         return {
             "AzureConfiguration": capo_ssm.types.azure_configuration.deserialize_aws_json_1_1(
                 data["AzureConfiguration"]
+            )
+        }
+    elif data.get("GcpConfiguration") is not None:
+        import capo_ssm.types.gcp_configuration
+
+        return {
+            "GcpConfiguration": capo_ssm.types.gcp_configuration.deserialize_aws_json_1_1(
+                data["GcpConfiguration"]
             )
         }
     else:

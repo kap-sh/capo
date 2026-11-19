@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_secrets_manager.types.kms_key_id_type
     import capo_secrets_manager.types.medea_type_type
     import capo_secrets_manager.types.name_type
+    import capo_secrets_manager.types.secret_arn_type
     import capo_secrets_manager.types.secret_binary_type
     import capo_secrets_manager.types.secret_string_type
     import capo_secrets_manager.types.tag_list_type
@@ -50,6 +51,10 @@ class CreateSecretRequest(TypedDict, closed=True):
     """<p>Specifies whether to overwrite a secret with the same name in the destination Region. By default, secrets aren't overwritten.</p>"""
     type: NotRequired["capo_secrets_manager.types.medea_type_type.MedeaTypeType"]
     """<p>The exact string that identifies the partner that holds the external secret. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/managed-external-secrets.html">Using Secrets Manager managed external secrets</a>.</p>"""
+    cross_account_primary_arn: NotRequired[
+        "capo_secrets_manager.types.secret_arn_type.SecretARNType"
+    ]
+    """<p>The ARN of a primary secret in another Amazon Web Services account. Include this field to create a cross-account replica secret that receives replicated data from that primary secret. The primary secret must be in the same Amazon Web Services Region and partition as the replica, and you must specify a customer managed KMS key in <code>KmsKeyId</code>. You can't include <code>SecretString</code>, <code>SecretBinary</code>, <code>Description</code>, <code>AddReplicaRegions</code>, or <code>Type</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -90,6 +95,8 @@ def serialize_aws_json_1_1(value: CreateSecretRequest) -> dict:
         out["ForceOverwriteReplicaSecret"] = value["force_overwrite_replica_secret"]
     if "type" in value:
         out["Type"] = value["type"]
+    if "cross_account_primary_arn" in value:
+        out["CrossAccountPrimaryARN"] = value["cross_account_primary_arn"]
     return out
 
 
@@ -133,6 +140,8 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSecretRequest:
         out["force_overwrite_replica_secret"] = data["ForceOverwriteReplicaSecret"]
     if data.get("Type") is not None:
         out["type"] = data["Type"]
+    if data.get("CrossAccountPrimaryARN") is not None:
+        out["cross_account_primary_arn"] = data["CrossAccountPrimaryARN"]
     return out
 
 

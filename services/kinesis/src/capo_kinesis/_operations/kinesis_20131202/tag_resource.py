@@ -12,10 +12,12 @@ import capo_kinesis._auth._signers
 import capo_kinesis._auth._sigv4
 import capo_kinesis._protocol.eventstream
 import capo_kinesis.errors.access_denied_exception
+import capo_kinesis.errors.internal_failure_exception
 import capo_kinesis.errors.invalid_argument_exception
 import capo_kinesis.errors.limit_exceeded_exception
 import capo_kinesis.errors.resource_in_use_exception
 import capo_kinesis.errors.resource_not_found_exception
+import capo_kinesis.errors.validation_exception
 import capo_kinesis.types.tag_map
 import capo_kinesis.types.tag_resource_input
 from capo_kinesis._protocol.errors import parse_error_metadata_json
@@ -36,6 +38,10 @@ def handle_error(response: zapros.Response) -> Never:
             raise capo_kinesis.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
                 data, message, response=response
             )
+        case "InternalFailureException":
+            raise capo_kinesis.errors.internal_failure_exception.InternalFailureException.from_aws_json_1_1(
+                data, message, response=response
+            )
         case "InvalidArgumentException":
             raise capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
                 data, message, response=response
@@ -50,6 +56,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
+                data, message, response=response
+            )
+        case "ValidationException":
+            raise capo_kinesis.errors.validation_exception.ValidationException.from_aws_json_1_1(
                 data, message, response=response
             )
         case _:
@@ -100,6 +110,8 @@ def build_request(
             ConsumerARN=options.consumer_arn,
             ResourceARN=input_.get("resource_arn"),
             ChannelARN=options.channel_arn,
+            QueueARN=options.queue_arn,
+            ResourceType=options.resource_type,
             AccountId=options.account_id,
             AccountIdEndpointMode=options.account_id_endpoint_mode,
         )

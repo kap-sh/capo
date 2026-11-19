@@ -2,7 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""<p>The status of a job.</p> <ul> <li> <p> <code>CREATED</code> – Job has just been created.</p> </li> <li> <p> <code>PROCESSING</code> – Job is processing.</p> </li> <li> <p> <code>ERROR</code> – An error occurred during processing.</p> </li> <li> <p> <code>COMPLETED</code> – Job has completed processing successfully.</p> </li> </ul>"""
+"""<p>The status of a job.</p> <ul> <li> <p> <code>CREATED</code> – Job has just been created.</p> </li> <li> <p> <code>PROCESSING</code> – Job is processing.</p> </li> <li> <p> <code>COMPLETED</code> – Job has completed processing successfully.</p> </li> <li> <p> <code>FAILED</code> – An error occurred during processing.</p> </li> <li> <p> <code>CANCELLED</code> – Job has been canceled.</p> </li> </ul>"""
 JobStatus: TypeAlias = Literal[
     "CREATED",
     "PROCESSING",

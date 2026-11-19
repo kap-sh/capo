@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_connect.types.boolean
+    import capo_connect.types.evaluation_form_item_enablement_configuration
     import capo_connect.types.evaluation_form_item_weight
     import capo_connect.types.evaluation_form_items_list
     import capo_connect.types.evaluation_form_question_instructions
@@ -33,6 +34,10 @@ class EvaluationFormSection(TypedDict, closed=True):
         "capo_connect.types.evaluation_form_score_threshold_list.EvaluationFormScoreThresholdList"
     ]
     """<p>The score thresholds for performance categories.</p>"""
+    enablement: NotRequired[
+        "capo_connect.types.evaluation_form_item_enablement_configuration.EvaluationFormItemEnablementConfiguration"
+    ]
+    """<p>The conditional enablement configuration of the section. Sections use the same enablement model as questions.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -63,6 +68,14 @@ def serialize_json(value: EvaluationFormSection) -> dict:
         out["ScoreThresholds"] = (
             capo_connect.types.evaluation_form_score_threshold_list.serialize_json(
                 value["score_thresholds"]
+            )
+        )
+    if "enablement" in value:
+        import capo_connect.types.evaluation_form_item_enablement_configuration
+
+        out["Enablement"] = (
+            capo_connect.types.evaluation_form_item_enablement_configuration.serialize_json(
+                value["enablement"]
             )
         )
     return out
@@ -102,6 +115,14 @@ def deserialize_json(data: dict) -> EvaluationFormSection:
         out["score_thresholds"] = (
             capo_connect.types.evaluation_form_score_threshold_list.deserialize_json(
                 data["ScoreThresholds"]
+            )
+        )
+    if data.get("Enablement") is not None:
+        import capo_connect.types.evaluation_form_item_enablement_configuration
+
+        out["enablement"] = (
+            capo_connect.types.evaluation_form_item_enablement_configuration.deserialize_json(
+                data["Enablement"]
             )
         )
     return out

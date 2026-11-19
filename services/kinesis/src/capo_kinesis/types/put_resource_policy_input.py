@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class PutResourcePolicyInput(TypedDict, closed=True):
     resource_arn: "capo_kinesis.types.resource_arn.ResourceARN"
-    """<p>The Amazon Resource Name (ARN) of the data stream or consumer.</p>"""
+    """<p>The Amazon Resource Name (ARN) of a data stream, a queue, or an enhanced fan-out consumer.</p>"""
     stream_id: NotRequired["capo_kinesis.types.stream_id.StreamId"]
     """<p>Not Implemented. Reserved for future use.</p>"""
     policy: "capo_kinesis.types.policy.Policy"

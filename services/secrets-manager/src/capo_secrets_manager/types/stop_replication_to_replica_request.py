@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class StopReplicationToReplicaRequest(TypedDict, closed=True):
     secret_id: "capo_secrets_manager.types.secret_id_type.SecretIdType"
-    """<p>The name of the secret or the replica ARN. The replica ARN is the same as the original primary secret ARN expect the Region is changed to the replica Region. </p>"""
+    """<p>The ARN or name of the replica secret.</p> <p>For a cross-region replica, the replica ARN is the same as the original primary secret ARN except that the Region is changed to the replica Region. For a cross-account replica, this is the ARN or name of the replica secret in your account.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

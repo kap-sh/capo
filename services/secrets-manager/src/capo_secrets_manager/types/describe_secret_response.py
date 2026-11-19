@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_secrets_manager.types.cross_account_primary_type
+    import capo_secrets_manager.types.cross_account_replica_list_type
     import capo_secrets_manager.types.deleted_date_type
     import capo_secrets_manager.types.description_type
     import capo_secrets_manager.types.external_secret_rotation_metadata_type
@@ -99,6 +101,14 @@ class DescribeSecretResponse(TypedDict, closed=True):
         "capo_secrets_manager.types.replication_status_list_type.ReplicationStatusListType"
     ]
     """<p>A list of the replicas of this secret and their status: </p> <ul> <li> <p> <code>Failed</code>, which indicates that the replica was not created.</p> </li> <li> <p> <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.</p> </li> <li> <p> <code>InSync</code>, which indicates that the replica was created.</p> </li> </ul>"""
+    cross_account_primary: NotRequired[
+        "capo_secrets_manager.types.cross_account_primary_type.CrossAccountPrimaryType"
+    ]
+    """<p>Information about the primary secret in the other Amazon Web Services account that this cross-account replica secret replicates from, including the primary secret ARN and the replication status. This field is omitted if the secret is not a cross-account replica.</p>"""
+    cross_account_replicas: NotRequired[
+        "capo_secrets_manager.types.cross_account_replica_list_type.CrossAccountReplicaListType"
+    ]
+    """<p>A list of this secret's cross-account replica secrets and their replication status, if this secret is the primary for cross-account replication. This field is omitted if the secret has no cross-account replicas.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -212,6 +222,22 @@ def serialize_aws_json_1_1(value: DescribeSecretResponse) -> dict:
                 value["replication_status"]
             )
         )
+    if "cross_account_primary" in value:
+        import capo_secrets_manager.types.cross_account_primary_type
+
+        out["CrossAccountPrimary"] = (
+            capo_secrets_manager.types.cross_account_primary_type.serialize_aws_json_1_1(
+                value["cross_account_primary"]
+            )
+        )
+    if "cross_account_replicas" in value:
+        import capo_secrets_manager.types.cross_account_replica_list_type
+
+        out["CrossAccountReplicas"] = (
+            capo_secrets_manager.types.cross_account_replica_list_type.serialize_aws_json_1_1(
+                value["cross_account_replicas"]
+            )
+        )
     return out
 
 
@@ -321,6 +347,22 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSecretResponse:
         out["replication_status"] = (
             capo_secrets_manager.types.replication_status_list_type.deserialize_aws_json_1_1(
                 data["ReplicationStatus"]
+            )
+        )
+    if data.get("CrossAccountPrimary") is not None:
+        import capo_secrets_manager.types.cross_account_primary_type
+
+        out["cross_account_primary"] = (
+            capo_secrets_manager.types.cross_account_primary_type.deserialize_aws_json_1_1(
+                data["CrossAccountPrimary"]
+            )
+        )
+    if data.get("CrossAccountReplicas") is not None:
+        import capo_secrets_manager.types.cross_account_replica_list_type
+
+        out["cross_account_replicas"] = (
+            capo_secrets_manager.types.cross_account_replica_list_type.deserialize_aws_json_1_1(
+                data["CrossAccountReplicas"]
             )
         )
     return out

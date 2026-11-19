@@ -12,9 +12,11 @@ if TYPE_CHECKING:
     import capo_s3_control.types.config_id
     import capo_s3_control.types.exclude
     import capo_s3_control.types.include
+    import capo_s3_control.types.int_access_tiers
     import capo_s3_control.types.is_enabled
     import capo_s3_control.types.storage_lens_arn
     import capo_s3_control.types.storage_lens_aws_org
+    import capo_s3_control.types.storage_lens_cost_and_usage_reports_publish
     import capo_s3_control.types.storage_lens_data_export
     import capo_s3_control.types.storage_lens_expanded_prefixes_data_export
     import capo_s3_control.types.storage_lens_prefix_level_delimiter
@@ -37,6 +39,10 @@ class StorageLensConfiguration(TypedDict, closed=True):
         "capo_s3_control.types.storage_lens_expanded_prefixes_data_export.StorageLensExpandedPrefixesDataExport"
     ]
     """<p>A container that configures your S3 Storage Lens expanded prefixes metrics report. </p>"""
+    cost_and_usage_reports_publish: NotRequired[
+        "capo_s3_control.types.storage_lens_cost_and_usage_reports_publish.StorageLensCostAndUsageReportsPublish"
+    ]
+    """<p>A container for the configuration used to publish S3 Storage Lens cost data to Amazon Web Services Cost and Usage Reports (Amazon Web Services CUR).</p>"""
     is_enabled: "capo_s3_control.types.is_enabled.IsEnabled"
     """<p>A container for whether the S3 Storage Lens configuration is enabled.</p>"""
     aws_org: NotRequired["capo_s3_control.types.storage_lens_aws_org.StorageLensAwsOrg"]
@@ -49,6 +55,10 @@ class StorageLensConfiguration(TypedDict, closed=True):
         "capo_s3_control.types.storage_lens_prefix_level_delimiter.StorageLensPrefixLevelDelimiter"
     ]
     """<p>A container for all prefix delimiters that are used for object keys in this S3 Storage Lens configuration. The prefix delimiters determine how S3 Storage Lens counts prefix depth, by separating the hierarchical levels in object keys.</p> <note> <ul> <li> <p>If either a prefix delimiter or existing delimiter is undefined, Amazon S3 uses the delimiter that’s defined.</p> </li> <li> <p>If both the prefix delimiter and existing delimiter are undefined, S3 uses <code>/</code> as the default delimiter.</p> </li> <li> <p>When custom delimiters are used, both the prefix delimiter and existing delimiter must specify the same special character. Otherwise, your request results in an error.</p> </li> </ul> </note>"""
+    int_access_tiers: NotRequired[
+        "capo_s3_control.types.int_access_tiers.IntAccessTiers"
+    ]
+    """<p>A container element for S3 Storage Lens Intelligent-Tiering access tier metrics.</p>"""
 
 
 # --- restXml ser/de ---
@@ -80,6 +90,12 @@ def serialize_xml(value: StorageLensConfiguration, parent: Element, tag: str) ->
         capo_s3_control.types.storage_lens_expanded_prefixes_data_export.serialize_xml(
             value["expanded_prefixes_data_export"], el, "ExpandedPrefixesDataExport"
         )
+    if "cost_and_usage_reports_publish" in value:
+        import capo_s3_control.types.storage_lens_cost_and_usage_reports_publish
+
+        capo_s3_control.types.storage_lens_cost_and_usage_reports_publish.serialize_xml(
+            value["cost_and_usage_reports_publish"], el, "CostAndUsageReportsPublish"
+        )
     SubElement(el, "IsEnabled").text = (
         "true" if value.get("is_enabled", False) else "false"
     )
@@ -93,6 +109,12 @@ def serialize_xml(value: StorageLensConfiguration, parent: Element, tag: str) ->
         SubElement(el, "StorageLensArn").text = str(value["storage_lens_arn"])
     if "prefix_delimiter" in value:
         SubElement(el, "PrefixDelimiter").text = str(value["prefix_delimiter"])
+    if "int_access_tiers" in value:
+        import capo_s3_control.types.int_access_tiers
+
+        capo_s3_control.types.int_access_tiers.serialize_xml(
+            value["int_access_tiers"], el, "IntAccessTiers"
+        )
 
 
 def deserialize_xml(el: Element) -> StorageLensConfiguration:
@@ -139,6 +161,15 @@ def deserialize_xml(el: Element) -> StorageLensConfiguration:
                 child_expanded_prefixes_data_export
             )
         )
+    child_cost_and_usage_reports_publish = el.find("CostAndUsageReportsPublish")
+    if child_cost_and_usage_reports_publish is not None:
+        import capo_s3_control.types.storage_lens_cost_and_usage_reports_publish
+
+        out["cost_and_usage_reports_publish"] = (
+            capo_s3_control.types.storage_lens_cost_and_usage_reports_publish.deserialize_xml(
+                child_cost_and_usage_reports_publish
+            )
+        )
     child_is_enabled = el.find("IsEnabled")
     if child_is_enabled is not None:
         out["is_enabled"] = (child_is_enabled.text or "").lower() == "true"
@@ -157,4 +188,13 @@ def deserialize_xml(el: Element) -> StorageLensConfiguration:
     child_prefix_delimiter = el.find("PrefixDelimiter")
     if child_prefix_delimiter is not None:
         out["prefix_delimiter"] = str(child_prefix_delimiter.text or "")
+    child_int_access_tiers = el.find("IntAccessTiers")
+    if child_int_access_tiers is not None:
+        import capo_s3_control.types.int_access_tiers
+
+        out["int_access_tiers"] = (
+            capo_s3_control.types.int_access_tiers.deserialize_xml(
+                child_int_access_tiers
+            )
+        )
     return out

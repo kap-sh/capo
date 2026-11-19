@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.application_type
     import capo_wellarchitected.types.context_account_id_list
     import capo_wellarchitected.types.context_aws_service_list
+    import capo_wellarchitected.types.context_organizational_unit_id_list
     import capo_wellarchitected.types.context_region_list
     import capo_wellarchitected.types.context_resource_tag_list
     import capo_wellarchitected.types.context_resource_type_list
@@ -36,6 +37,10 @@ class ContextContent(TypedDict, closed=True):
         "capo_wellarchitected.types.context_resource_tag_list.ContextResourceTagList"
     ]
     """<p>Resource tags used to scope this application context.</p>"""
+    organizational_unit_ids: NotRequired[
+        "capo_wellarchitected.types.context_organizational_unit_id_list.ContextOrganizationalUnitIdList"
+    ]
+    """<p>The AWS Organizations organizational unit (OU) IDs associated with this application context. Valid only for organizational profiles; rejected for standard profiles.</p>"""
     application_overview: NotRequired[
         "capo_wellarchitected.types.sensitive_string.SensitiveString"
     ]
@@ -97,6 +102,14 @@ def serialize_json(value: ContextContent) -> dict:
         out["resourceTags"] = (
             capo_wellarchitected.types.context_resource_tag_list.serialize_json(
                 value["resource_tags"]
+            )
+        )
+    if "organizational_unit_ids" in value:
+        import capo_wellarchitected.types.context_organizational_unit_id_list
+
+        out["organizationalUnitIds"] = (
+            capo_wellarchitected.types.context_organizational_unit_id_list.serialize_json(
+                value["organizational_unit_ids"]
             )
         )
     if "application_overview" in value:
@@ -164,6 +177,14 @@ def deserialize_json(data: dict) -> ContextContent:
         out["resource_tags"] = (
             capo_wellarchitected.types.context_resource_tag_list.deserialize_json(
                 data["resourceTags"]
+            )
+        )
+    if data.get("organizationalUnitIds") is not None:
+        import capo_wellarchitected.types.context_organizational_unit_id_list
+
+        out["organizational_unit_ids"] = (
+            capo_wellarchitected.types.context_organizational_unit_id_list.deserialize_json(
+                data["organizationalUnitIds"]
             )
         )
     if data.get("applicationOverview") is not None:

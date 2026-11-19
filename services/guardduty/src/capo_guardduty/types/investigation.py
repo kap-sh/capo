@@ -10,10 +10,12 @@ if TYPE_CHECKING:
     import capo_guardduty.types.investigation_error_details
     import capo_guardduty.types.investigation_id
     import capo_guardduty.types.investigation_metadata
+    import capo_guardduty.types.investigation_scope
     import capo_guardduty.types.investigation_status
+    import capo_guardduty.types.investigation_summary_data
+    import capo_guardduty.types.investigation_summary_text
     import capo_guardduty.types.risk_details
     import capo_guardduty.types.risk_level
-    import capo_guardduty.types.string
     import capo_guardduty.types.timestamp
     import capo_guardduty.types.trigger_prompt
     import capo_guardduty.types.triggered_by
@@ -42,8 +44,16 @@ class Investigation(TypedDict, closed=True):
     """<p>A human-readable description of the assessed risk.</p>"""
     confidence: NotRequired["capo_guardduty.types.confidence.Confidence"]
     """<p>The confidence level of the investigation's assessment. Possible values are <code>Unknown</code>, <code>Low</code>, <code>Medium</code>, and <code>High</code>.</p>"""
-    summary: NotRequired["capo_guardduty.types.string.String"]
-    """<p>A structured summary of the investigation findings, including affected resources, threat assessment, and recommended remediation steps.</p>"""
+    summary: NotRequired[
+        "capo_guardduty.types.investigation_summary_text.InvestigationSummaryText"
+    ]
+    """<p>A summary of the investigation results as text, up to 262,144 characters. Returned only when the investigation status is <code>COMPLETED</code>. When you set <code>SummaryFormat</code> to <code>STRUCTURED</code>, the summary is returned in <code>SummaryData</code> instead, unless it isn't available in a structured form, in which case it's returned in this field.</p>"""
+    summary_data: NotRequired[
+        "capo_guardduty.types.investigation_summary_data.InvestigationSummaryData"
+    ]
+    """<p>A structured summary of the investigation results. GuardDuty returns this field only when you set <code>SummaryFormat</code> to <code>STRUCTURED</code>, the investigation status is <code>COMPLETED</code>, and the summary is available in a structured form. When this field is returned, <code>Summary</code> isn't returned.</p>"""
+    scope: NotRequired["capo_guardduty.types.investigation_scope.InvestigationScope"]
+    """<p>Information about what the investigation analyzed, including the investigation type, the finding, account, or organization that was analyzed, and, for <code>ACCOUNT</code> and <code>ORGANIZATION</code> investigations, the time window over which the investigation queried data. Returned only when the investigation status is <code>COMPLETED</code>.</p>"""
     start_time: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
     """<p>The timestamp at which the investigation started.</p>"""
     end_time: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
@@ -95,6 +105,20 @@ def serialize_json(value: Investigation) -> dict:
         )
     if "summary" in value:
         out["summary"] = value["summary"]
+    if "summary_data" in value:
+        import capo_guardduty.types.investigation_summary_data
+
+        out["summaryData"] = (
+            capo_guardduty.types.investigation_summary_data.serialize_json(
+                value["summary_data"]
+            )
+        )
+    if "scope" in value:
+        import capo_guardduty.types.investigation_scope
+
+        out["scope"] = capo_guardduty.types.investigation_scope.serialize_json(
+            value["scope"]
+        )
     if "start_time" in value:
         import capo_guardduty.types.timestamp
 
@@ -154,6 +178,20 @@ def deserialize_json(data: dict) -> Investigation:
         )
     if data.get("summary") is not None:
         out["summary"] = data["summary"]
+    if data.get("summaryData") is not None:
+        import capo_guardduty.types.investigation_summary_data
+
+        out["summary_data"] = (
+            capo_guardduty.types.investigation_summary_data.deserialize_json(
+                data["summaryData"]
+            )
+        )
+    if data.get("scope") is not None:
+        import capo_guardduty.types.investigation_scope
+
+        out["scope"] = capo_guardduty.types.investigation_scope.deserialize_json(
+            data["scope"]
+        )
     if data.get("startTime") is not None:
         import capo_guardduty.types.timestamp
 

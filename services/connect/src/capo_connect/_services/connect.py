@@ -303,6 +303,8 @@ if TYPE_CHECKING:
     import capo_connect.types.deactivate_evaluation_form_request
     import capo_connect.types.deactivate_evaluation_form_response
     import capo_connect.types.default_vocabulary
+    import capo_connect.types.delete_all_entity_sessions_request
+    import capo_connect.types.delete_all_entity_sessions_response
     import capo_connect.types.delete_attached_file_request
     import capo_connect.types.delete_attached_file_response
     import capo_connect.types.delete_contact_data_request
@@ -489,6 +491,7 @@ if TYPE_CHECKING:
     import capo_connect.types.email_attachments
     import capo_connect.types.endpoint
     import capo_connect.types.entity_arn
+    import capo_connect.types.entity_id
     import capo_connect.types.entity_type
     import capo_connect.types.epoch_milliseconds
     import capo_connect.types.evaluate_data_table_values_request
@@ -1011,6 +1014,7 @@ if TYPE_CHECKING:
     import capo_connect.types.send_outbound_email_response
     import capo_connect.types.send_outbound_web_notification_request
     import capo_connect.types.send_outbound_web_notification_response
+    import capo_connect.types.session_entity_type
     import capo_connect.types.session_id
     import capo_connect.types.session_inactivity_duration_minutes
     import capo_connect.types.sign_in_config
@@ -6683,6 +6687,62 @@ class ConnectClient:
             "instance_id": instance_id,
             "evaluation_form_id": evaluation_form_id,
             "evaluation_form_version": evaluation_form_version,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_all_entity_sessions(
+        self,
+        instance_id: "capo_connect.types.instance_id.InstanceId",
+        entity_id: "capo_connect.types.entity_id.EntityId",
+        entity_type: "capo_connect.types.session_entity_type.SessionEntityType",
+        *,
+        config_overrides: Optional[ConnectClientConfig] = None,
+    ) -> "capo_connect.types.delete_all_entity_sessions_response.DeleteAllEntitySessionsResponse":
+        """<p>Deletes all active sessions for the specified entity in the specified Connect Customer instance. The operation supports only the <code>USER</code> entity type, so you can use it to sign out all of a user's active sessions. Use it when you need to end a user's access right away, for example when they leave your organization or you suspect that their credentials are compromised.</p>
+
+        Args:
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            entity_id: <p>The identifier of the entity whose sessions you want to delete. For <code>USER</code>, use the user ID or the user ARN.</p>
+            entity_type: <p>The type of entity whose sessions you want to delete.</p> <note> <p>The only valid value is <code>USER</code>, which signs out a user in your Connect Customer instance.</p> </note>
+
+        Raises:
+            capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
+            capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
+            capo_connect.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more of the specified parameters are not valid.</p>
+            capo_connect.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
+            capo_connect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
+            capo_connect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
+            capo_connect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connect.types.delete_all_entity_sessions_request.DeleteAllEntitySessionsRequest]",
+        ) -> OperationResponse[
+            "capo_connect.types.delete_all_entity_sessions_response.DeleteAllEntitySessionsResponse"
+        ]:
+            import capo_connect._operations.amazon_connect_service.delete_all_entity_sessions
+
+            output, http_response = (
+                capo_connect._operations.amazon_connect_service.delete_all_entity_sessions.delete_all_entity_sessions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAllEntitySessions")
+        )
+        input_: capo_connect.types.delete_all_entity_sessions_request.DeleteAllEntitySessionsRequest = {
+            "instance_id": instance_id,
+            "entity_id": entity_id,
+            "entity_type": entity_type,
         }
 
         response = execute_pipeline(
@@ -28898,7 +28958,7 @@ class ConnectClient:
 
         Args:
             auto_accept_configs: <p>The list of auto-accept configuration settings for each channel. When auto-accept is enabled for a channel, available agents are automatically connected to contacts from that channel without needing to manually accept. Auto-accept connects agents to contacts in less than one second.</p>
-            after_contact_work_configs: <p>The list of after contact work (ACW) timeout configuration settings for each channel. ACW timeout specifies how many seconds agents have for after contact work, such as entering notes about the contact. The minimum setting is 1 second, and the maximum is 2,000,000 seconds (24 days). Enter 0 for an indefinite amount of time, meaning agents must manually choose to end ACW.</p>
+            after_contact_work_configs: <p>The list of after contact work (ACW) timeout configuration settings for each channel. ACW timeout specifies how many seconds agents have for after contact work, such as entering notes about the contact. The minimum setting is 1 second, and the maximum is 2,000,000 seconds (24 days). For the CHAT channel, the maximum for a specific duration is 5,400 seconds (90 minutes); higher values end ACW after 90 minutes. For all channels, including chat, you can enter 0 for an indefinite amount of time, meaning agents must manually choose to end ACW.</p>
             phone_number_configs: <p>The list of phone number configuration settings for each channel.</p>
             persistent_connection_configs: <p>The list of persistent connection configuration settings for each channel.</p>
             voice_enhancement_configs: <p>The list of voice enhancement configuration settings for each channel.</p>

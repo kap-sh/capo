@@ -31,7 +31,7 @@ class Integration(TypedDict, closed=True):
     connection_id: NotRequired["capo_api_gateway.types.string.String"]
     """<p>The ID of the VpcLink used for the integration when <code>connectionType=VPC_LINK</code> and undefined, otherwise.</p>"""
     credentials: NotRequired["capo_api_gateway.types.string.String"]
-    r"""<p>Specifies the credentials required for the integration, if any. For AWS integrations, three options are available. To specify an IAM Role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify the string <code>arn:aws:iam::\*:user/\*</code>. To use resource-based permissions on supported Amazon Web Services services, specify null.</p>"""
+    r"""<p>Specifies the credentials required for the integration, if any. For Amazon Web Services integrations, three options are available. To specify an IAM Role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify the string <code>arn:aws:iam::\*:user/\*</code>. To use resource-based permissions on supported Amazon Web Services services, specify null.</p>"""
     request_parameters: NotRequired[
         "capo_api_gateway.types.map_of_string_to_string.MapOfStringToString"
     ]
@@ -65,7 +65,7 @@ class Integration(TypedDict, closed=True):
     ]
     """<p> The response transfer mode of the integration. </p>"""
     integration_target: NotRequired["capo_api_gateway.types.string.String"]
-    """<p> The ALB or NLB listener to send the request to. </p>"""
+    """<p> The ALB or NLB ARN to send the request to. </p>"""
 
 
 # --- restJson1 ser/de ---

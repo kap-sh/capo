@@ -25,6 +25,14 @@ class SelfservicePermissions(TypedDict, closed=True):
     """<p>Specifies whether users can switch the running mode of their WorkSpace.</p>"""
     rebuild_workspace: NotRequired["capo_workspaces.types.reconnect_enum.ReconnectEnum"]
     """<p>Specifies whether users can rebuild the operating system of a WorkSpace to its original state.</p>"""
+    nested_virtualization: NotRequired[
+        "capo_workspaces.types.reconnect_enum.ReconnectEnum"
+    ]
+    """<p>Specifies whether users can enable or disable nested virtualization on their WorkSpace. The default value is <code>DISABLED</code>. For more information, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/nested-virtualization.html">Nested virtualization for Amazon WorkSpaces</a>.</p>"""
+    enable_end_user_advisor: NotRequired[
+        "capo_workspaces.types.reconnect_enum.ReconnectEnum"
+    ]
+    """<p>Specifies whether users can use End User Advisor in the WorkSpaces client for Windows to see their session health and get recommended actions for common issues. The default value is <code>ENABLED</code>. For more information, see Proactive troubleshooting for your WorkSpaces users.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -70,6 +78,22 @@ def serialize_aws_json_1_1(value: SelfservicePermissions) -> dict:
                 value["rebuild_workspace"]
             )
         )
+    if "nested_virtualization" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["NestedVirtualization"] = (
+            capo_workspaces.types.reconnect_enum.serialize_aws_json_1_1(
+                value["nested_virtualization"]
+            )
+        )
+    if "enable_end_user_advisor" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["EnableEndUserAdvisor"] = (
+            capo_workspaces.types.reconnect_enum.serialize_aws_json_1_1(
+                value["enable_end_user_advisor"]
+            )
+        )
     return out
 
 
@@ -113,6 +137,22 @@ def deserialize_aws_json_1_1(data: dict) -> SelfservicePermissions:
         out["rebuild_workspace"] = (
             capo_workspaces.types.reconnect_enum.deserialize_aws_json_1_1(
                 data["RebuildWorkspace"]
+            )
+        )
+    if data.get("NestedVirtualization") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["nested_virtualization"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_aws_json_1_1(
+                data["NestedVirtualization"]
+            )
+        )
+    if data.get("EnableEndUserAdvisor") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["enable_end_user_advisor"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_aws_json_1_1(
+                data["EnableEndUserAdvisor"]
             )
         )
     return out

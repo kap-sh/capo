@@ -157,6 +157,12 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_node_provisioning_mode
     import capo_sagemaker.types.cluster_node_recovery
     import capo_sagemaker.types.cluster_node_summary
+    import capo_sagemaker.types.cluster_operation_id
+    import capo_sagemaker.types.cluster_operation_max_results
+    import capo_sagemaker.types.cluster_operation_sort_by
+    import capo_sagemaker.types.cluster_operation_status
+    import capo_sagemaker.types.cluster_operation_summary
+    import capo_sagemaker.types.cluster_operation_type
     import capo_sagemaker.types.cluster_orchestrator
     import capo_sagemaker.types.cluster_restricted_instance_group_specifications
     import capo_sagemaker.types.cluster_restricted_instance_groups_config
@@ -258,6 +264,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.create_inference_experiment_response
     import capo_sagemaker.types.create_inference_recommendations_job_request
     import capo_sagemaker.types.create_inference_recommendations_job_response
+    import capo_sagemaker.types.create_inference_router_input
+    import capo_sagemaker.types.create_inference_router_output
     import capo_sagemaker.types.create_job_request
     import capo_sagemaker.types.create_job_response
     import capo_sagemaker.types.create_labeling_job_request
@@ -333,6 +341,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.create_workteam_response
     import capo_sagemaker.types.creation_time
     import capo_sagemaker.types.cross_account_filter_option
+    import capo_sagemaker.types.cross_region_traffic_config
     import capo_sagemaker.types.customer_metadata_key_list
     import capo_sagemaker.types.customer_metadata_map
     import capo_sagemaker.types.data_capture_config
@@ -377,6 +386,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.delete_edge_deployment_stage_request
     import capo_sagemaker.types.delete_endpoint_config_input
     import capo_sagemaker.types.delete_endpoint_input
+    import capo_sagemaker.types.delete_endpoint_policy_request
+    import capo_sagemaker.types.delete_endpoint_policy_response
     import capo_sagemaker.types.delete_experiment_request
     import capo_sagemaker.types.delete_experiment_response
     import capo_sagemaker.types.delete_feature_group_request
@@ -395,6 +406,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.delete_inference_component_input
     import capo_sagemaker.types.delete_inference_experiment_request
     import capo_sagemaker.types.delete_inference_experiment_response
+    import capo_sagemaker.types.delete_inference_router_input
     import capo_sagemaker.types.delete_job_request
     import capo_sagemaker.types.delete_job_response
     import capo_sagemaker.types.delete_mlflow_app_request
@@ -466,6 +478,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.describe_cluster_extension_response
     import capo_sagemaker.types.describe_cluster_node_request
     import capo_sagemaker.types.describe_cluster_node_response
+    import capo_sagemaker.types.describe_cluster_operation_request
+    import capo_sagemaker.types.describe_cluster_operation_response
     import capo_sagemaker.types.describe_cluster_request
     import capo_sagemaker.types.describe_cluster_response
     import capo_sagemaker.types.describe_cluster_scheduler_config_request
@@ -520,6 +534,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.describe_inference_experiment_response
     import capo_sagemaker.types.describe_inference_recommendations_job_request
     import capo_sagemaker.types.describe_inference_recommendations_job_response
+    import capo_sagemaker.types.describe_inference_router_input
+    import capo_sagemaker.types.describe_inference_router_output
     import capo_sagemaker.types.describe_job_request
     import capo_sagemaker.types.describe_job_response
     import capo_sagemaker.types.describe_job_schema_version_request
@@ -638,6 +654,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.endpoint_config_summary
     import capo_sagemaker.types.endpoint_name
     import capo_sagemaker.types.endpoint_name_contains
+    import capo_sagemaker.types.endpoint_policy_document
     import capo_sagemaker.types.endpoint_sort_key
     import capo_sagemaker.types.endpoint_status
     import capo_sagemaker.types.endpoint_summary
@@ -660,6 +677,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.extension_name
     import capo_sagemaker.types.extension_summary
     import capo_sagemaker.types.extension_version
+    import capo_sagemaker.types.extension_version_summary
     import capo_sagemaker.types.feature_additions
     import capo_sagemaker.types.feature_definitions
     import capo_sagemaker.types.feature_description
@@ -680,6 +698,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.generate_candidate_definitions_only
     import capo_sagemaker.types.get_device_fleet_report_request
     import capo_sagemaker.types.get_device_fleet_report_response
+    import capo_sagemaker.types.get_endpoint_policy_request
+    import capo_sagemaker.types.get_endpoint_policy_response
     import capo_sagemaker.types.get_lineage_group_policy_request
     import capo_sagemaker.types.get_lineage_group_policy_response
     import capo_sagemaker.types.get_model_package_group_policy_input
@@ -769,6 +789,9 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.inference_experiment_type
     import capo_sagemaker.types.inference_recommendations_job
     import capo_sagemaker.types.inference_recommendations_job_step
+    import capo_sagemaker.types.inference_router_client_token
+    import capo_sagemaker.types.inference_router_name
+    import capo_sagemaker.types.inference_router_summary
     import capo_sagemaker.types.inference_specification
     import capo_sagemaker.types.infra_check_config
     import capo_sagemaker.types.input_config
@@ -832,10 +855,14 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.list_candidates_for_auto_ml_job_response
     import capo_sagemaker.types.list_cluster_events_request
     import capo_sagemaker.types.list_cluster_events_response
+    import capo_sagemaker.types.list_cluster_extension_versions_request
+    import capo_sagemaker.types.list_cluster_extension_versions_response
     import capo_sagemaker.types.list_cluster_extensions_request
     import capo_sagemaker.types.list_cluster_extensions_response
     import capo_sagemaker.types.list_cluster_nodes_request
     import capo_sagemaker.types.list_cluster_nodes_response
+    import capo_sagemaker.types.list_cluster_operations_request
+    import capo_sagemaker.types.list_cluster_operations_response
     import capo_sagemaker.types.list_cluster_scheduler_configs_request
     import capo_sagemaker.types.list_cluster_scheduler_configs_response
     import capo_sagemaker.types.list_clusters_request
@@ -897,6 +924,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.list_inference_recommendations_jobs_request
     import capo_sagemaker.types.list_inference_recommendations_jobs_response
     import capo_sagemaker.types.list_inference_recommendations_jobs_sort_by
+    import capo_sagemaker.types.list_inference_routers_input
+    import capo_sagemaker.types.list_inference_routers_output
     import capo_sagemaker.types.list_job_schema_versions_request
     import capo_sagemaker.types.list_job_schema_versions_response
     import capo_sagemaker.types.list_jobs_request
@@ -1186,6 +1215,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.project_sort_by
     import capo_sagemaker.types.project_sort_order
     import capo_sagemaker.types.project_summary
+    import capo_sagemaker.types.put_endpoint_policy_request
+    import capo_sagemaker.types.put_endpoint_policy_response
     import capo_sagemaker.types.put_model_package_group_policy_input
     import capo_sagemaker.types.put_model_package_group_policy_output
     import capo_sagemaker.types.query_filters
@@ -1229,6 +1260,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.retry_strategy
     import capo_sagemaker.types.role_arn
     import capo_sagemaker.types.root_access
+    import capo_sagemaker.types.routing_target_list
     import capo_sagemaker.types.s3_uri
     import capo_sagemaker.types.sage_maker_image_version_alias
     import capo_sagemaker.types.sage_maker_image_version_aliases
@@ -1439,6 +1471,8 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.update_inference_component_runtime_config_output
     import capo_sagemaker.types.update_inference_experiment_request
     import capo_sagemaker.types.update_inference_experiment_response
+    import capo_sagemaker.types.update_inference_router_input
+    import capo_sagemaker.types.update_inference_router_output
     import capo_sagemaker.types.update_mlflow_app_request
     import capo_sagemaker.types.update_mlflow_app_response
     import capo_sagemaker.types.update_mlflow_tracking_server_request
@@ -4145,6 +4179,9 @@ class AsyncSageMakerClient:
         metrics_config: Optional[
             "capo_sagemaker.types.metrics_config.MetricsConfig"
         ] = None,
+        cross_region_traffic_config: Optional[
+            "capo_sagemaker.types.cross_region_traffic_config.CrossRegionTrafficConfig"
+        ] = None,
     ) -> (
         "capo_sagemaker.types.create_endpoint_config_output.CreateEndpointConfigOutput"
     ):
@@ -4161,6 +4198,7 @@ class AsyncSageMakerClient:
             execution_role_arn: <p>The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker AI can assume to perform actions on your behalf. For more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">SageMaker AI Roles</a>. </p> <note> <p>To be able to pass this role to Amazon SageMaker AI, the caller of this action must have the <code>iam:PassRole</code> permission.</p> </note>
             enable_network_isolation: <p>Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or outbound network calls can be made to or from the model containers.</p>
             metrics_config: <p>The configuration parameters for utilization metrics.</p>
+            cross_region_traffic_config: <p>The cross-Region traffic cap for the endpoint. The cap limits the requests per second that the endpoint accepts from inference routers in other Amazon Web Services Regions. If you don't specify it, these requests aren't limited. You can't specify it with serverless variants or with <code>AsyncInferenceConfig</code>. For information about the cross-Region traffic cap, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-router.html#inference-router-cross-region-limit">Limit requests from other Regions</a>.</p>
 
         Raises:
             capo_sagemaker.errors.resource_limit_exceeded.ResourceLimitExceeded: <p> You have exceeded an SageMaker resource limit. For example, you might have too many training jobs created. </p>
@@ -4210,6 +4248,8 @@ class AsyncSageMakerClient:
             input_["enable_network_isolation"] = enable_network_isolation
         if metrics_config is not None:
             input_["metrics_config"] = metrics_config
+        if cross_region_traffic_config is not None:
+            input_["cross_region_traffic_config"] = cross_region_traffic_config
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -5302,6 +5342,73 @@ class AsyncSageMakerClient:
         await response.response.aclose()
         return response.output
 
+    async def create_inference_router(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        inference_router_name: Optional[
+            "capo_sagemaker.types.inference_router_name.InferenceRouterName"
+        ] = None,
+        routing_targets: Optional[
+            "capo_sagemaker.types.routing_target_list.RoutingTargetList"
+        ] = None,
+        client_token: Optional[
+            "capo_sagemaker.types.inference_router_client_token.InferenceRouterClientToken"
+        ] = None,
+        tags: Optional["capo_sagemaker.types.tag_list.TagList"] = None,
+    ) -> "capo_sagemaker.types.create_inference_router_output.CreateInferenceRouterOutput":
+        """<p>Creates an inference router. An inference router is a Regional SageMaker AI resource that sends each inference request to one of the endpoints or inference components that you list for a routing target. These destinations can be in any Amazon Web Services account, and in any Amazon Web Services Region in the same partition as the router.</p> <p>The router's status is <code>Creating</code> until it's ready to use. SageMaker AI checks that each endpoint is a real-time or asynchronous endpoint, as the routing target requires, and rejects one of the wrong type. It checks endpoints in other accounts with your credentials, so the endpoint policy must allow <code>sagemaker:DescribeEndpoint</code>. SageMaker AI accepts an endpoint that it can't check, for example one that doesn't exist. Requests to it fail if it's the wrong type or doesn't exist. To see the status of each destination, call <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeInferenceRouter.html">DescribeInferenceRouter</a> and see the <code>RoutingStatus</code> of each destination.</p> <p>To invoke the router, use <code>InvokeInferenceRouter</code> or <code>InvokeInferenceRouterAsync</code>. For information about inference routers, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-router.html">Route requests across Regions with inference routers</a>.</p>
+
+        Args:
+            inference_router_name: <p>The name of the inference router. The name must be unique within your account in the current Amazon Web Services Region. The name is case sensitive.</p>
+            routing_targets: <p>The routing targets of the inference router. Each routing target is a model that callers name when they invoke the router, and the destinations that serve it.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you reuse a client token, use the same request parameters. Otherwise, the request fails.</p>
+            tags: <p>A list of key-value pairs to apply to the inference router. For information about tagging, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a> in the <i>Amazon Web Services General Reference</i>.</p>
+
+        Raises:
+            capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
+            capo_sagemaker.errors.resource_already_exists.ResourceAlreadyExists: <p>The resource that you are trying to create already exists. Use a different resource name, or delete the existing resource before retrying.</p>
+            capo_sagemaker.errors.resource_limit_exceeded.ResourceLimitExceeded: <p> You have exceeded an SageMaker resource limit. For example, you might have too many training jobs created. </p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.create_inference_router_input.CreateInferenceRouterInput]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.create_inference_router_output.CreateInferenceRouterOutput"
+        ]:
+            import capo_sagemaker._operations.sage_maker.create_inference_router
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.create_inference_router.async_create_inference_router(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInferenceRouter")
+        )
+        input_: capo_sagemaker.types.create_inference_router_input.CreateInferenceRouterInput = {}
+        if inference_router_name is not None:
+            input_["inference_router_name"] = inference_router_name
+        if routing_targets is not None:
+            input_["routing_targets"] = routing_targets
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def create_job(
         self,
         *,
@@ -5317,7 +5424,7 @@ class AsyncSageMakerClient:
         ] = None,
         tags: Optional["capo_sagemaker.types.tag_list.TagList"] = None,
     ) -> "capo_sagemaker.types.create_job_response.CreateJobResponse":
-        """<p>Creates a model customization job in Amazon SageMaker. A job runs a workload based on the job category and configuration you provide. You specify the job category, a schema-versioned configuration document, and an IAM role that grants Amazon SageMaker permission to access resources on your behalf.</p> <p>Use the <code>AgentRFT</code> category to fine-tune a model using multi-turn reinforcement learning with reward signals. Use the <code>AgentRFTEvaluation</code> category to evaluate a fine-tuned or base model by running multi-turn rollouts against a held-out prompt dataset and computing metrics such as pass@k and mean reward.</p> <p>Before creating a job, call <code>ListJobSchemaVersions</code> and <code>DescribeJobSchemaVersion</code> to retrieve the configuration schema for your job category. The <code>JobConfigDocument</code> must conform to the schema specified by <code>JobConfigSchemaVersion</code>.</p> <p>The following operations are related to <code>CreateJob</code>:</p> <ul> <li> <p> <code>DescribeJob</code> </p> </li> <li> <p> <code>ListJobs</code> </p> </li> <li> <p> <code>StopJob</code> </p> </li> <li> <p> <code>DeleteJob</code> </p> </li> <li> <p> <code>ListJobSchemaVersions</code> </p> </li> <li> <p> <code>DescribeJobSchemaVersion</code> </p> </li> </ul>
+        """<p>Creates a model customization job in Amazon SageMaker. A job runs a workload based on the job category and configuration you provide. You specify the job category, a schema-versioned configuration document, and an IAM role that grants Amazon SageMaker permission to access resources on your behalf.</p> <p>Specify one of the following job categories, which determines the type of workload that the job runs:</p> <dl> <dt>AgentRFT</dt> <dd> <p>Fine-tune a model using multi-turn reinforcement learning with reward signals.</p> </dd> <dt>AgentRFTEvaluation</dt> <dd> <p>Evaluate a fine-tuned or base model by running multi-turn rollouts against a held-out prompt dataset. This category computes metrics such as pass@k and mean reward.</p> </dd> <dt>DataQualityEvaluation</dt> <dd> <p>Evaluate the quality of a generated or bring-your-own dataset using quality metrics or your own specification.</p> </dd> <dt>DataTransformation</dt> <dd> <p>Transform datasets into the format you need, for example for model customization.</p> </dd> <dt>SyntheticDataGeneration</dt> <dd> <p>Generate synthetic training and testing datasets from your context data and specifications.</p> </dd> </dl> <p>Before creating a job, call <code>ListJobSchemaVersions</code> and <code>DescribeJobSchemaVersion</code> to retrieve the configuration schema for your job category. The <code>JobConfigDocument</code> must conform to the schema specified by <code>JobConfigSchemaVersion</code>.</p> <p>The following operations are related to <code>CreateJob</code>:</p> <ul> <li> <p> <code>DescribeJob</code> </p> </li> <li> <p> <code>ListJobs</code> </p> </li> <li> <p> <code>StopJob</code> </p> </li> <li> <p> <code>DeleteJob</code> </p> </li> <li> <p> <code>ListJobSchemaVersions</code> </p> </li> <li> <p> <code>DescribeJobSchemaVersion</code> </p> </li> </ul>
 
         Args:
             job_name: <p>The name of the job. The name must be unique within your account and Amazon Web Services Region.</p>
@@ -9657,6 +9764,54 @@ class AsyncSageMakerClient:
         await response.response.aclose()
         return response.output
 
+    async def delete_endpoint_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        endpoint_name: Optional[
+            "capo_sagemaker.types.endpoint_name.EndpointName"
+        ] = None,
+    ) -> "capo_sagemaker.types.delete_endpoint_policy_response.DeleteEndpointPolicyResponse":
+        """<p>Deletes the resource-based policy that is attached to an endpoint. After you delete the policy, other accounts can no longer send requests to the endpoint through an inference router. The endpoint continues to serve requests from your account. If the endpoint doesn't have a policy, the operation succeeds.</p> <p>The change typically takes effect within 30 seconds, and can take up to 5 minutes. To revoke access for one account only, use <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_PutEndpointPolicy.html">PutEndpointPolicy</a> to replace the policy with one that doesn't include that account.</p>
+
+        Args:
+            endpoint_name: <p>The name of the endpoint. The endpoint must be in your account and in the current Amazon Web Services Region.</p>
+
+        Raises:
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.delete_endpoint_policy_request.DeleteEndpointPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.delete_endpoint_policy_response.DeleteEndpointPolicyResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.delete_endpoint_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.delete_endpoint_policy.async_delete_endpoint_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpointPolicy")
+        )
+        input_: capo_sagemaker.types.delete_endpoint_policy_request.DeleteEndpointPolicyRequest = {}
+        if endpoint_name is not None:
+            input_["endpoint_name"] = endpoint_name
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete_experiment(
         self,
         *,
@@ -10250,6 +10405,53 @@ class AsyncSageMakerClient:
         input_: capo_sagemaker.types.delete_inference_experiment_request.DeleteInferenceExperimentRequest = {}
         if name is not None:
             input_["name"] = name
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_inference_router(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        inference_router_name: Optional[
+            "capo_sagemaker.types.inference_router_name.InferenceRouterName"
+        ] = None,
+    ) -> None:
+        """<p>Deletes an inference router. The endpoints and inference components that the router sends requests to aren't deleted.</p> <p>If the router is being created, updated, or deleted, you get a <code>ConflictException</code>.</p>
+
+        Args:
+            inference_router_name: <p>The name of the inference router to delete.</p>
+
+        Raises:
+            capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.delete_inference_router_input.DeleteInferenceRouterInput]",
+        ) -> AsyncOperationResponse[None]:
+            import capo_sagemaker._operations.sage_maker.delete_inference_router
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.delete_inference_router.async_delete_inference_router(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInferenceRouter")
+        )
+        input_: capo_sagemaker.types.delete_inference_router_input.DeleteInferenceRouterInput = {}
+        if inference_router_name is not None:
+            input_["inference_router_name"] = inference_router_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -12283,7 +12485,7 @@ class AsyncSageMakerClient:
             "capo_sagemaker.types.extension_arn.ExtensionArn"
         ] = None,
     ) -> "capo_sagemaker.types.describe_cluster_extension_response.DescribeClusterExtensionResponse":
-        """<p>Retrieves information about an extension installed on a SageMaker HyperPod cluster. The information includes the extension's version, configuration, and status, and a summary of how many cluster nodes are running the current version and configuration of the extension.</p>
+        """<p>Retrieves information about an extension installed on a SageMaker HyperPod cluster. The information includes the extension's version, configuration, and status, and a summary of how many cluster nodes are running the current version and configuration of the extension. If the extension has problems on some nodes, the response also lists the problems and how many nodes each one affects.</p>
 
         Args:
             cluster_arn: <p>The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster on which the extension is installed.</p>
@@ -12375,6 +12577,60 @@ class AsyncSageMakerClient:
             input_["node_id"] = node_id
         if node_logical_id is not None:
             input_["node_logical_id"] = node_logical_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def describe_cluster_operation(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_name: Optional[
+            "capo_sagemaker.types.cluster_name_or_arn.ClusterNameOrArn"
+        ] = None,
+        operation_id: Optional[
+            "capo_sagemaker.types.cluster_operation_id.ClusterOperationId"
+        ] = None,
+    ) -> "capo_sagemaker.types.describe_cluster_operation_response.DescribeClusterOperationResponse":
+        """<p>Retrieves detailed information about a specific operation for a given HyperPod cluster, such as a scaling operation or a deep health check. Use the <code>OperationId</code> returned by the <code>ListClusterOperations</code> operation to identify the operation to describe.</p>
+
+        Args:
+            cluster_name: <p>The name or Amazon Resource Name (ARN) of the HyperPod cluster associated with the operation.</p>
+            operation_id: <p>The unique identifier (UUID) of the operation to describe. This ID can be obtained from the <code>ListClusterOperations</code> operation.</p>
+
+        Raises:
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.describe_cluster_operation_request.DescribeClusterOperationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.describe_cluster_operation_response.DescribeClusterOperationResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.describe_cluster_operation
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.describe_cluster_operation.async_describe_cluster_operation(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterOperation")
+        )
+        input_: capo_sagemaker.types.describe_cluster_operation_request.DescribeClusterOperationRequest = {}
+        if cluster_name is not None:
+            input_["cluster_name"] = cluster_name
+        if operation_id is not None:
+            input_["operation_id"] = operation_id
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -13679,6 +13935,54 @@ class AsyncSageMakerClient:
         input_: capo_sagemaker.types.describe_inference_recommendations_job_request.DescribeInferenceRecommendationsJobRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def describe_inference_router(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        inference_router_name: Optional[
+            "capo_sagemaker.types.inference_router_name.InferenceRouterName"
+        ] = None,
+    ) -> "capo_sagemaker.types.describe_inference_router_output.DescribeInferenceRouterOutput":
+        """<p>Returns information about an inference router, including the routing status of each destination.</p> <p>SageMaker AI checks each destination with your permissions when you call this operation, so callers with different permissions can see a different <code>RoutingStatus</code>. To get the router's tags, use <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ListTags.html">ListTags</a>.</p>
+
+        Args:
+            inference_router_name: <p>The name of the inference router to describe.</p>
+
+        Raises:
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.describe_inference_router_input.DescribeInferenceRouterInput]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.describe_inference_router_output.DescribeInferenceRouterOutput"
+        ]:
+            import capo_sagemaker._operations.sage_maker.describe_inference_router
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.describe_inference_router.async_describe_inference_router(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInferenceRouter")
+        )
+        input_: capo_sagemaker.types.describe_inference_router_input.DescribeInferenceRouterInput = {}
+        if inference_router_name is not None:
+            input_["inference_router_name"] = inference_router_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -15885,6 +16189,54 @@ class AsyncSageMakerClient:
         await response.response.aclose()
         return response.output
 
+    async def get_endpoint_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        endpoint_name: Optional[
+            "capo_sagemaker.types.endpoint_name.EndpointName"
+        ] = None,
+    ) -> "capo_sagemaker.types.get_endpoint_policy_response.GetEndpointPolicyResponse":
+        """<p>Returns the resource-based policy that is attached to an endpoint. If the endpoint doesn't have a policy, you get a <code>ValidationException</code>.</p>
+
+        Args:
+            endpoint_name: <p>The name of the endpoint. The endpoint must be in your account and in the current Amazon Web Services Region.</p>
+
+        Raises:
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.get_endpoint_policy_request.GetEndpointPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.get_endpoint_policy_response.GetEndpointPolicyResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.get_endpoint_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.get_endpoint_policy.async_get_endpoint_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEndpointPolicy")
+        )
+        input_: capo_sagemaker.types.get_endpoint_policy_request.GetEndpointPolicyRequest = {}
+        if endpoint_name is not None:
+            input_["endpoint_name"] = endpoint_name
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_lineage_group_policy(
         self,
         *,
@@ -17726,6 +18078,9 @@ class AsyncSageMakerClient:
         resource_type: Optional[
             "capo_sagemaker.types.cluster_event_resource_type.ClusterEventResourceType"
         ] = None,
+        operation_id: Optional[
+            "capo_sagemaker.types.cluster_operation_id.ClusterOperationId"
+        ] = None,
         max_results: Optional[
             "capo_sagemaker.types.cluster_event_max_results.ClusterEventMaxResults"
         ] = None,
@@ -17742,6 +18097,7 @@ class AsyncSageMakerClient:
             sort_by: <p>The field to use for sorting the event list. Currently, the only supported value is <code>EventTime</code>.</p>
             sort_order: <p>The order in which to sort the results. Valid values are <code>Ascending</code> or <code>Descending</code> (the default is <code>Descending</code>).</p>
             resource_type: <p>The type of resource for which to filter events. Valid values are <code>Cluster</code>, <code>InstanceGroup</code>, or <code>Instance</code>.</p>
+            operation_id: <p>The unique identifier (UUID) of a cluster operation for which to filter events. If specified, only events associated with this operation are returned. This ID can be obtained from the <code>ListClusterOperations</code> operation.</p>
             max_results: <p>The maximum number of events to return in the response. Valid range is 1 to 100.</p>
             next_token: <p>A token to retrieve the next set of results. This token is obtained from the output of a previous <code>ListClusterEvents</code> call.</p>
 
@@ -17785,6 +18141,8 @@ class AsyncSageMakerClient:
             input_["sort_order"] = sort_order
         if resource_type is not None:
             input_["resource_type"] = resource_type
+        if operation_id is not None:
+            input_["operation_id"] = operation_id
         if max_results is not None:
             input_["max_results"] = max_results
         if next_token is not None:
@@ -17816,6 +18174,9 @@ class AsyncSageMakerClient:
         resource_type: Optional[
             "capo_sagemaker.types.cluster_event_resource_type.ClusterEventResourceType"
         ] = None,
+        operation_id: Optional[
+            "capo_sagemaker.types.cluster_operation_id.ClusterOperationId"
+        ] = None,
         max_results: Optional[
             "capo_sagemaker.types.cluster_event_max_results.ClusterEventMaxResults"
         ] = None,
@@ -17835,6 +18196,7 @@ class AsyncSageMakerClient:
                 sort_by=sort_by,
                 sort_order=sort_order,
                 resource_type=resource_type,
+                operation_id=operation_id,
                 max_results=max_results,
                 next_token=_token,
             )
@@ -17936,6 +18298,86 @@ class AsyncSageMakerClient:
                 creation_time_before=creation_time_before,
             )
             _page = _resolve_path(_response, ("extensions",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_cluster_extension_versions(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        extension_name: Optional[
+            "capo_sagemaker.types.extension_name.ExtensionName"
+        ] = None,
+        max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
+    ) -> "capo_sagemaker.types.list_cluster_extension_versions_response.ListClusterExtensionVersionsResponse":
+        """<p>Lists the versions of an extension that you can install on a SageMaker HyperPod cluster, from the highest version to the lowest. Use a version from this list as the <code>ExtensionVersion</code> in <code>CreateClusterExtension</code> or <code>UpdateClusterExtension</code>.</p> <p>The list contains only versions that you can install. Versions that SageMaker HyperPod no longer offers for new installations don't appear. If SageMaker HyperPod doesn't offer an extension with the name that you specify, the response contains an empty list.</p>
+
+        Args:
+            extension_name: <p>The name of the extension whose versions you want to list, for example <code>sagemaker-observability</code>.</p>
+            max_results: <p>The maximum number of versions to return in the response. If you don't specify a value, SageMaker HyperPod returns up to 100 versions.</p>
+            next_token: <p>If the result of the previous <code>ListClusterExtensionVersions</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of versions, use the token in the next request.</p>
+
+        Raises:
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.list_cluster_extension_versions_request.ListClusterExtensionVersionsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.list_cluster_extension_versions_response.ListClusterExtensionVersionsResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.list_cluster_extension_versions
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.list_cluster_extension_versions.async_list_cluster_extension_versions(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterExtensionVersions")
+        )
+        input_: capo_sagemaker.types.list_cluster_extension_versions_request.ListClusterExtensionVersionsRequest = {}
+        if extension_name is not None:
+            input_["extension_name"] = extension_name
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_cluster_extension_versions(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        extension_name: Optional[
+            "capo_sagemaker.types.extension_name.ExtensionName"
+        ] = None,
+        max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
+    ) -> "AsyncIterator[capo_sagemaker.types.extension_version_summary.ExtensionVersionSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_cluster_extension_versions(
+                config_overrides=config_overrides,
+                extension_name=extension_name,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("extension_versions",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -18069,6 +18511,147 @@ class AsyncSageMakerClient:
                 include_node_logical_ids=include_node_logical_ids,
             )
             _page = _resolve_path(_response, ("cluster_node_summaries",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_cluster_operations(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_name: Optional[
+            "capo_sagemaker.types.cluster_name_or_arn.ClusterNameOrArn"
+        ] = None,
+        status: Optional[
+            "capo_sagemaker.types.cluster_operation_status.ClusterOperationStatus"
+        ] = None,
+        type: Optional[
+            "capo_sagemaker.types.cluster_operation_type.ClusterOperationType"
+        ] = None,
+        creation_time_after: Optional[
+            "capo_sagemaker.types.timestamp.Timestamp"
+        ] = None,
+        creation_time_before: Optional[
+            "capo_sagemaker.types.timestamp.Timestamp"
+        ] = None,
+        sort_by: Optional[
+            "capo_sagemaker.types.cluster_operation_sort_by.ClusterOperationSortBy"
+        ] = None,
+        sort_order: Optional["capo_sagemaker.types.sort_order.SortOrder"] = None,
+        max_results: Optional[
+            "capo_sagemaker.types.cluster_operation_max_results.ClusterOperationMaxResults"
+        ] = None,
+        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
+    ) -> "capo_sagemaker.types.list_cluster_operations_response.ListClusterOperationsResponse":
+        """<p>Retrieves a list of operation summaries for a specified HyperPod cluster, such as scaling operations and deep health checks. The operation supports filtering, sorting, and pagination of results.</p>
+
+        Args:
+            cluster_name: <p>The name or Amazon Resource Name (ARN) of the HyperPod cluster for which to list operations.</p>
+            status: <p>The operation status to filter by. If specified, only operations with this status are returned. Valid values are <code>InProgress</code>, <code>Superseded</code>, or <code>Done</code>.</p>
+            type: <p>The operation type to filter by. If specified, only operations of this type are returned. Valid values are <code>Scaling</code> or <code>DeepHealthCheck</code>.</p>
+            creation_time_after: <p>The start of the time range for filtering operations. Only operations created after this time are included in the results.</p>
+            creation_time_before: <p>The end of the time range for filtering operations. Only operations created before this time are included in the results.</p>
+            sort_by: <p>The field to use for sorting the operation list. Currently, the only supported value is <code>CreationTime</code>.</p>
+            sort_order: <p>The order in which to sort the results. Valid values are <code>Ascending</code> or <code>Descending</code> (the default is <code>Descending</code>).</p>
+            max_results: <p>The maximum number of operations to return in the response. Valid range is 1 to 100.</p>
+            next_token: <p>A token to retrieve the next set of results. This token is obtained from the output of a previous <code>ListClusterOperations</code> call.</p>
+
+        Raises:
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.list_cluster_operations_request.ListClusterOperationsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.list_cluster_operations_response.ListClusterOperationsResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.list_cluster_operations
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.list_cluster_operations.async_list_cluster_operations(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterOperations")
+        )
+        input_: capo_sagemaker.types.list_cluster_operations_request.ListClusterOperationsRequest = {}
+        if cluster_name is not None:
+            input_["cluster_name"] = cluster_name
+        if status is not None:
+            input_["status"] = status
+        if type is not None:
+            input_["type"] = type
+        if creation_time_after is not None:
+            input_["creation_time_after"] = creation_time_after
+        if creation_time_before is not None:
+            input_["creation_time_before"] = creation_time_before
+        if sort_by is not None:
+            input_["sort_by"] = sort_by
+        if sort_order is not None:
+            input_["sort_order"] = sort_order
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_cluster_operations(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        cluster_name: Optional[
+            "capo_sagemaker.types.cluster_name_or_arn.ClusterNameOrArn"
+        ] = None,
+        status: Optional[
+            "capo_sagemaker.types.cluster_operation_status.ClusterOperationStatus"
+        ] = None,
+        type: Optional[
+            "capo_sagemaker.types.cluster_operation_type.ClusterOperationType"
+        ] = None,
+        creation_time_after: Optional[
+            "capo_sagemaker.types.timestamp.Timestamp"
+        ] = None,
+        creation_time_before: Optional[
+            "capo_sagemaker.types.timestamp.Timestamp"
+        ] = None,
+        sort_by: Optional[
+            "capo_sagemaker.types.cluster_operation_sort_by.ClusterOperationSortBy"
+        ] = None,
+        sort_order: Optional["capo_sagemaker.types.sort_order.SortOrder"] = None,
+        max_results: Optional[
+            "capo_sagemaker.types.cluster_operation_max_results.ClusterOperationMaxResults"
+        ] = None,
+        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
+    ) -> "AsyncIterator[capo_sagemaker.types.cluster_operation_summary.ClusterOperationSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_cluster_operations(
+                config_overrides=config_overrides,
+                cluster_name=cluster_name,
+                status=status,
+                type=type,
+                creation_time_after=creation_time_after,
+                creation_time_before=creation_time_before,
+                sort_by=sort_by,
+                sort_order=sort_order,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("cluster_operation_summaries",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -21571,6 +22154,78 @@ class AsyncSageMakerClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("steps",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_inference_routers(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
+    ) -> (
+        "capo_sagemaker.types.list_inference_routers_output.ListInferenceRoutersOutput"
+    ):
+        """<p>Lists the inference routers in your account in the current Amazon Web Services Region. A router that you just created might not appear in the list right away.</p>
+
+        Args:
+            max_results: <p>The maximum number of inference routers to return in the response.</p>
+            next_token: <p>If the previous response was truncated, you receive this token. To get the next set of inference routers, use it in your next request.</p>
+
+        Raises:
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.list_inference_routers_input.ListInferenceRoutersInput]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.list_inference_routers_output.ListInferenceRoutersOutput"
+        ]:
+            import capo_sagemaker._operations.sage_maker.list_inference_routers
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.list_inference_routers.async_list_inference_routers(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInferenceRouters")
+        )
+        input_: capo_sagemaker.types.list_inference_routers_input.ListInferenceRoutersInput = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_inference_routers(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
+    ) -> "AsyncIterator[capo_sagemaker.types.inference_router_summary.InferenceRouterSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_inference_routers(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("inference_routers",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -25122,7 +25777,7 @@ class AsyncSageMakerClient:
             sort_order: <p>The sort order for results.</p>
             next_token: <p>If the result of the previous <code>ListPipelines</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of pipelines, use the token in the next request.</p>
             max_results: <p>The maximum number of pipelines to return in the response.</p>
-            managed_by: <p>Filters the pipelines by who manages them. Specify <code>AWS</code> to return pipelines that AWS manages, or <code>CUSTOMER</code> to return pipelines that you created. If you don't specify a value, the response includes both.</p>
+            managed_by: <p>Filters the pipelines by who manages them. Specify <code>AWS</code> to return pipelines that Amazon Web Services manages, or <code>CUSTOMER</code> to return pipelines that you created. If you don't specify a value, the response includes both.</p>
 
         Raises:
             capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -27446,6 +28101,60 @@ class AsyncSageMakerClient:
             if not _token:
                 break
 
+    async def put_endpoint_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        endpoint_name: Optional[
+            "capo_sagemaker.types.endpoint_name.EndpointName"
+        ] = None,
+        resource_policy: Optional[
+            "capo_sagemaker.types.endpoint_policy_document.EndpointPolicyDocument"
+        ] = None,
+    ) -> "capo_sagemaker.types.put_endpoint_policy_response.PutEndpointPolicyResponse":
+        """<p>Attaches a resource-based policy to an endpoint. With an endpoint policy, you can allow other Amazon Web Services accounts to send requests to your endpoint, or to inference components on it, through an inference router. The policy that you specify replaces the endpoint's existing policy, if it has one.</p> <p>You can't attach a policy to an endpoint whose status is <code>Deleting</code> or <code>Failed</code>. SageMaker AI rejects a policy that doesn't follow the endpoint policy rules. For information about the policy rules, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-router-cross-account.html">Use destinations in other accounts</a>.</p> <p>Policy changes typically take effect within 30 seconds, and can take up to 5 minutes. If you delete the endpoint, its policy is also deleted, and a new endpoint with the same name has no policy.</p>
+
+        Args:
+            endpoint_name: <p>The name of the endpoint. The endpoint must be in your account and in the current Amazon Web Services Region.</p>
+            resource_policy: <p>The endpoint policy, as a JSON policy document. The policy can contain only ASCII characters. For information about the policy rules, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-router-cross-account.html">Use destinations in other accounts</a>.</p>
+
+        Raises:
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.put_endpoint_policy_request.PutEndpointPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.put_endpoint_policy_response.PutEndpointPolicyResponse"
+        ]:
+            import capo_sagemaker._operations.sage_maker.put_endpoint_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.put_endpoint_policy.async_put_endpoint_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEndpointPolicy")
+        )
+        input_: capo_sagemaker.types.put_endpoint_policy_request.PutEndpointPolicyRequest = {}
+        if endpoint_name is not None:
+            input_["endpoint_name"] = endpoint_name
+        if resource_policy is not None:
+            input_["resource_policy"] = resource_policy
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def put_model_package_group_policy(
         self,
         *,
@@ -28472,7 +29181,7 @@ class AsyncSageMakerClient:
             pipeline_version_id: <p>The ID of the pipeline version to start execution from. You can't specify this with <code>PipelineVersionAlias</code>.</p>
             mlflow_experiment_name: <p> The MLflow experiment name of the pipeline execution. </p>
             pipeline_version_alias: <p>The alias of the pipeline version to start the execution from. You can't specify this with <code>PipelineVersionId</code>. If no version of the pipeline has this alias, the request fails with a <code>ResourceNotFound</code> error.</p>
-            role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. You must specify this parameter when you start an execution of a pipeline that AWS manages. You can't specify it for a pipeline that you create, because its executions use the pipeline's role.</p>
+            role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. You must specify this parameter when you start an execution of a pipeline that Amazon Web Services manages. You can't specify it for a pipeline that you create, because its executions use the pipeline's role.</p>
 
         Raises:
             capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
@@ -29881,7 +30590,7 @@ class AsyncSageMakerClient:
         ] = None,
         client_token: Optional["capo_sagemaker.types.string.String"] = None,
     ) -> "capo_sagemaker.types.update_cluster_extension_response.UpdateClusterExtensionResponse":
-        """<p>Updates the configuration or the version of an extension installed on a SageMaker HyperPod cluster. SageMaker HyperPod applies the change to every node in the cluster. You can change the configuration, the version, or both in one request.</p> <ul> <li> <p> <b>Configuration:</b> You can change settings by sending <code>ConfigurationValues</code>. Settings that you include are changed. Settings that you omit keep their current values. A setting with the value <code>null</code> is removed and returns to its default value.</p> </li> <li> <p> <b>Version:</b> You can update to a later version. You can't update to an earlier version. To use an earlier version, delete the extension and create it again with that version.</p> </li> </ul> <p>You can't update an extension while it is being deleted.</p>
+        """<p>Updates the configuration or the version of an extension installed on a SageMaker HyperPod cluster. SageMaker HyperPod applies the change to every node in the cluster. You can change the configuration, the version, or both in one request.</p> <ul> <li> <p> <b>Configuration:</b> You can change settings by sending <code>ConfigurationValues</code>. Settings that you include are changed. Settings that you omit keep their current values. A setting with the value <code>null</code> is removed and returns to its default value.</p> </li> <li> <p> <b>Version:</b> You can update to a later version. You can't update to an earlier version. To use an earlier version, delete the extension and create it again with that version.</p> </li> </ul> <p>To retry the operation on nodes where it failed, fix the cause that <code>DescribeClusterExtension</code> reports in <code>Health</code>, and then send an <code>UpdateClusterExtension</code> request that doesn't change the version or the configuration.</p> <p>You can't update an extension while it is being deleted.</p>
 
         Args:
             cluster_arn: <p>The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster on which the extension is installed.</p>
@@ -31409,6 +32118,62 @@ class AsyncSageMakerClient:
             input_["data_storage_config"] = data_storage_config
         if shadow_mode_config is not None:
             input_["shadow_mode_config"] = shadow_mode_config
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_inference_router(
+        self,
+        *,
+        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
+        inference_router_name: Optional[
+            "capo_sagemaker.types.inference_router_name.InferenceRouterName"
+        ] = None,
+        routing_targets: Optional[
+            "capo_sagemaker.types.routing_target_list.RoutingTargetList"
+        ] = None,
+    ) -> "capo_sagemaker.types.update_inference_router_output.UpdateInferenceRouterOutput":
+        """<p>Updates the routing targets of an inference router. The routing targets that you specify replace all of the router's existing routing targets. To change one routing target, call <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeInferenceRouter.html">DescribeInferenceRouter</a>, edit the routing targets, and send all of them.</p> <p>The update is applied in full or not at all, and each request uses either the previous configuration or the new one. Updates typically take effect within about 2 minutes.</p> <p>If the router is being created, updated, or deleted, or another request changes it at the same time, you get a <code>ConflictException</code>. Describe the router, and then send your update again.</p>
+
+        Args:
+            inference_router_name: <p>The name of the inference router to update.</p>
+            routing_targets: <p>The complete list of routing targets for the inference router. To remove the last routing target, delete the router.</p>
+
+        Raises:
+            capo_sagemaker.errors.conflict_exception.ConflictException: <p>There was a conflict when you attempted to modify a SageMaker entity such as an <code>Experiment</code> or <code>Artifact</code>.</p>
+            capo_sagemaker.errors.resource_limit_exceeded.ResourceLimitExceeded: <p> You have exceeded an SageMaker resource limit. For example, you might have too many training jobs created. </p>
+            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
+            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sagemaker.types.update_inference_router_input.UpdateInferenceRouterInput]",
+        ) -> AsyncOperationResponse[
+            "capo_sagemaker.types.update_inference_router_output.UpdateInferenceRouterOutput"
+        ]:
+            import capo_sagemaker._operations.sage_maker.update_inference_router
+
+            (
+                output,
+                http_response,
+            ) = await capo_sagemaker._operations.sage_maker.update_inference_router.async_update_inference_router(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInferenceRouter")
+        )
+        input_: capo_sagemaker.types.update_inference_router_input.UpdateInferenceRouterInput = {}
+        if inference_router_name is not None:
+            input_["inference_router_name"] = inference_router_name
+        if routing_targets is not None:
+            input_["routing_targets"] = routing_targets
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

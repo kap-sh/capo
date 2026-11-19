@@ -1,0 +1,8 @@
+---
+title: GcpCapabilityScope
+---
+
+::: capo_inspector2.types.gcp_capability_scope.GcpCapabilityScope
+    options:
+      show_source: true
+      merge_init_into_class: false

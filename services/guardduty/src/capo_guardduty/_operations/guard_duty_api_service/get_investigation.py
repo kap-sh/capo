@@ -19,6 +19,7 @@ import capo_guardduty.errors.resource_not_found_exception
 import capo_guardduty.types.get_investigation_request
 import capo_guardduty.types.get_investigation_response
 import capo_guardduty.types.investigation
+import capo_guardduty.types.summary_format
 from capo_guardduty._protocol.errors import parse_error_metadata_json
 from capo_guardduty._rule_engine._endpoint_rule_set import EndpointParams, resolve
 from capo_guardduty._services._pipeline import (
@@ -115,6 +116,8 @@ def build_request(
             Endpoint=options.endpoint,
         )
     )  # noqa: F841
+    import capo_guardduty.types.summary_format
+
     url = (
         endpoint.url.rstrip("/")
         + "/detector/{DetectorId}/investigation/{InvestigationId}"
@@ -122,6 +125,15 @@ def build_request(
     url = url.replace("{DetectorId}", quote(input_["detector_id"], safe=""))
     url = url.replace("{InvestigationId}", quote(input_["investigation_id"], safe=""))
     params: list[tuple[str, str]] = []
+    if "summary_format" in input_:
+        params.append(
+            (
+                "summaryFormat",
+                capo_guardduty.types.summary_format.serialize_json(
+                    input_["summary_format"]
+                ),
+            )
+        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

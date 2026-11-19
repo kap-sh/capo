@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_lightsail.types.distribution_custom_error_response_list
     import capo_lightsail.types.ip_address_type
     import capo_lightsail.types.iso_date
+    import capo_lightsail.types.lightsail_distribution_subdomain
     import capo_lightsail.types.non_empty_string
     import capo_lightsail.types.origin
     import capo_lightsail.types.resource_location
@@ -75,13 +76,17 @@ class LightsailDistribution(TypedDict, closed=True):
     ]
     """<p>The minimum TLS protocol version that the distribution can use to communicate with viewers.</p>"""
     default_root_object: NotRequired["capo_lightsail.types.string.string"]
-    """<p>The object (for example, <code>index.html</code>) that the distribution returns when a viewer requests the root URL of the distribution (<code>/</code>) instead of a specific object.</p>"""
+    """<p>The object (for example, <code>index.html</code>) that the distribution returns when a viewer requests the root URL of the distribution (<code>/</code>) instead of a specific object.</p> <p>This value is returned only when you specify <code>distributionName</code> in your <code>GetDistributions</code> request. It isn't included in the response when you list all of your distributions.</p>"""
     custom_error_responses: NotRequired[
         "capo_lightsail.types.distribution_custom_error_response_list.DistributionCustomErrorResponseList"
     ]
-    """<p>An array of objects that describe the custom error responses configured for the distribution.</p>"""
+    """<p>An array of objects that describe the custom error responses configured for the distribution.</p> <p>This value is returned only when you specify <code>distributionName</code> in your <code>GetDistributions</code> request. It isn't included in the response when you list all of your distributions.</p>"""
     waf: NotRequired["capo_lightsail.types.waf_config.WafConfig"]
     """<p>An object that describes the Web Application Firewall (WAF) configuration of the distribution.</p>"""
+    subdomain: NotRequired[
+        "capo_lightsail.types.lightsail_distribution_subdomain.LightsailDistributionSubdomain"
+    ]
+    """<p>An object that describes the Lightsail subdomain that's associated with the distribution, or is being associated with it.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -196,6 +201,14 @@ def serialize_aws_json_1_1(value: LightsailDistribution) -> dict:
 
         out["waf"] = capo_lightsail.types.waf_config.serialize_aws_json_1_1(
             value["waf"]
+        )
+    if "subdomain" in value:
+        import capo_lightsail.types.lightsail_distribution_subdomain
+
+        out["subdomain"] = (
+            capo_lightsail.types.lightsail_distribution_subdomain.serialize_aws_json_1_1(
+                value["subdomain"]
+            )
         )
     return out
 
@@ -315,5 +328,13 @@ def deserialize_aws_json_1_1(data: dict) -> LightsailDistribution:
 
         out["waf"] = capo_lightsail.types.waf_config.deserialize_aws_json_1_1(
             data["waf"]
+        )
+    if data.get("subdomain") is not None:
+        import capo_lightsail.types.lightsail_distribution_subdomain
+
+        out["subdomain"] = (
+            capo_lightsail.types.lightsail_distribution_subdomain.deserialize_aws_json_1_1(
+                data["subdomain"]
+            )
         )
     return out

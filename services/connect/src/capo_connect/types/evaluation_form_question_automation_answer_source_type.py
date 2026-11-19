@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 EvaluationFormQuestionAutomationAnswerSourceType: TypeAlias = Literal[
     "CONTACT_LENS_DATA",
     "GEN_AI",
+    "CONDITION",
 ]
 
 

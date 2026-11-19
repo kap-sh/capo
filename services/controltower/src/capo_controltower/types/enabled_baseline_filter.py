@@ -33,6 +33,10 @@ class EnabledBaselineFilter(TypedDict, closed=True):
         "capo_controltower.types.enabled_baseline_drift_statuses.EnabledBaselineDriftStatuses"
     ]
     """<p>A list of <code>EnabledBaselineDriftStatus</code> items for enabled baselines.</p>"""
+    source_drift_statuses: NotRequired[
+        "capo_controltower.types.enabled_baseline_drift_statuses.EnabledBaselineDriftStatuses"
+    ]
+    """<p>A list of <code>EnabledBaselineDriftStatus</code> items for enabled baselines.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -78,6 +82,14 @@ def serialize_json(value: EnabledBaselineFilter) -> dict:
                 value["inheritance_drift_statuses"]
             )
         )
+    if "source_drift_statuses" in value:
+        import capo_controltower.types.enabled_baseline_drift_statuses
+
+        out["sourceDriftStatuses"] = (
+            capo_controltower.types.enabled_baseline_drift_statuses.serialize_json(
+                value["source_drift_statuses"]
+            )
+        )
     return out
 
 
@@ -121,6 +133,14 @@ def deserialize_json(data: dict) -> EnabledBaselineFilter:
         out["inheritance_drift_statuses"] = (
             capo_controltower.types.enabled_baseline_drift_statuses.deserialize_json(
                 data["inheritanceDriftStatuses"]
+            )
+        )
+    if data.get("sourceDriftStatuses") is not None:
+        import capo_controltower.types.enabled_baseline_drift_statuses
+
+        out["source_drift_statuses"] = (
+            capo_controltower.types.enabled_baseline_drift_statuses.deserialize_json(
+                data["sourceDriftStatuses"]
             )
         )
     return out

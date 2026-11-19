@@ -20,9 +20,12 @@ if TYPE_CHECKING:
     import capo_lambda.types.checkpoint_durable_execution_response
     import capo_lambda.types.checkpoint_token
     import capo_lambda.types.client_token
+    import capo_lambda.types.delete_durable_execution_request
+    import capo_lambda.types.delete_durable_execution_response
     import capo_lambda.types.durable_execution_arn
     import capo_lambda.types.error_object
     import capo_lambda.types.event
+    import capo_lambda.types.execution_timeout_paused
     import capo_lambda.types.get_durable_execution_history_request
     import capo_lambda.types.get_durable_execution_history_response
     import capo_lambda.types.get_durable_execution_request
@@ -33,6 +36,12 @@ if TYPE_CHECKING:
     import capo_lambda.types.item_count
     import capo_lambda.types.operation
     import capo_lambda.types.operation_updates
+    import capo_lambda.types.pause_durable_execution_request
+    import capo_lambda.types.pause_durable_execution_response
+    import capo_lambda.types.pause_reason
+    import capo_lambda.types.resume_durable_execution_request
+    import capo_lambda.types.resume_durable_execution_response
+    import capo_lambda.types.resume_reason
     import capo_lambda.types.reverse_order
     import capo_lambda.types.stop_durable_execution_request
     import capo_lambda.types.stop_durable_execution_response
@@ -206,6 +215,55 @@ class DurableExecution:
         response.response.close()
         return response.output
 
+    def delete_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[LambdaClientConfig] = None,
+    ) -> "capo_lambda.types.delete_durable_execution_response.DeleteDurableExecutionResponse":
+        """<p>Deletes a completed Lambda <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a> and its data. The execution must be in a terminal state (<code>SUCCEEDED</code>, <code>FAILED</code>, <code>STOPPED</code>, or <code>TIMED_OUT</code>). Otherwise, this operation returns a <code>ResourceConflictException</code>.</p> <p>The execution has <code>DELETING</code> status until the deletion finishes. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-delete.html">Deleting durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda.types.delete_durable_execution_request.DeleteDurableExecutionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda.types.delete_durable_execution_response.DeleteDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.delete_durable_execution
+
+            output, http_response = (
+                capo_lambda._operations.aws_gir_api_service.delete_durable_execution.delete_durable_execution(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDurableExecution")
+        )
+        input_: capo_lambda.types.delete_durable_execution_request.DeleteDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_durable_execution_history(
         self,
         durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
@@ -362,6 +420,156 @@ class DurableExecution:
         response.response.close()
         return response.output
 
+    def pause_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[LambdaClientConfig] = None,
+        client_token: Optional["capo_lambda.types.client_token.ClientToken"] = None,
+        reason: Optional["capo_lambda.types.pause_reason.PauseReason"] = None,
+        execution_timeout_paused: Optional[
+            "capo_lambda.types.execution_timeout_paused.ExecutionTimeoutPaused"
+        ] = None,
+    ) -> "capo_lambda.types.pause_durable_execution_response.PauseDurableExecutionResponse":
+        """<p>Pauses a running <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. While an execution is paused, Lambda doesn't invoke your function, but pending operations such as waits and callbacks continue to complete.</p> <p>If an invocation is in progress, the execution status changes to <code>PAUSING</code> until the invocation reaches its next checkpoint, and then changes to <code>PAUSED</code>. This operation returns a successful response while the execution status is still <code>RUNNING</code>, and the status changes when Lambda processes the request. For more information about pausing executions, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-pause-resume.html">Pausing and resuming durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide so that the request completes no more than one time. If you repeat a request with the same client token and parameters within 15 minutes, Lambda doesn't pause the execution again and returns a successful response instead of an error.</p>
+            reason: <p>A description of why you're pausing the execution. Lambda records the reason in the execution history.</p>
+            execution_timeout_paused: <p>Specifies whether to pause the execution timeout while the execution is paused. If <code>true</code>, Lambda extends the execution timeout by the time the execution spends paused. An execution with a paused timeout still times out 366 days after it started. The default value is <code>true</code>.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>Lambda couldn't decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS permissions.</p>
+            capo_lambda.errors.kms_disabled_exception.KMSDisabledException: <p>Lambda couldn't decrypt the environment variables because the KMS key used is disabled. Check the Lambda function's KMS key settings.</p>
+            capo_lambda.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>Lambda couldn't decrypt the environment variables because the state of the KMS key used is not valid for Decrypt. Check the function's KMS key settings.</p>
+            capo_lambda.errors.kms_not_found_exception.KMSNotFoundException: <p>Lambda couldn't decrypt the environment variables because the KMS key was not found. Check the function's KMS key settings.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda.types.pause_durable_execution_response.PauseDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.pause_durable_execution
+
+            output, http_response = (
+                capo_lambda._operations.aws_gir_api_service.pause_durable_execution.pause_durable_execution(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.pause_durable_execution_request
+
+            return capo_lambda.types.pause_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PauseDurableExecution", redact_input=_redact_input),
+        )
+        input_: capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if reason is not None:
+            input_["reason"] = reason
+        if execution_timeout_paused is not None:
+            input_["execution_timeout_paused"] = execution_timeout_paused
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def resume_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[LambdaClientConfig] = None,
+        client_token: Optional["capo_lambda.types.client_token.ClientToken"] = None,
+        reason: Optional["capo_lambda.types.resume_reason.ResumeReason"] = None,
+    ) -> "capo_lambda.types.resume_durable_execution_response.ResumeDurableExecutionResponse":
+        """<p>Resumes a paused <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. If the pause interrupted an invocation, or an operation completed while the execution was paused, Lambda invokes your function. Otherwise, the execution continues to wait for its pending operations.</p> <p>If the execution status is <code>PAUSING</code>, this operation cancels the pause, and the in-progress invocation continues. This operation returns a successful response while the execution status is still <code>PAUSED</code> or <code>PAUSING</code>, and the status changes to <code>RUNNING</code> when Lambda processes the request. For more information about resuming executions, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-pause-resume.html">Pausing and resuming durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide so that the request completes no more than one time. If you repeat a request with the same client token and parameters within 15 minutes, Lambda doesn't resume the execution again and returns a successful response instead of an error.</p>
+            reason: <p>A description of why you're resuming the execution. Lambda records the reason in the execution history.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>Lambda couldn't decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS permissions.</p>
+            capo_lambda.errors.kms_disabled_exception.KMSDisabledException: <p>Lambda couldn't decrypt the environment variables because the KMS key used is disabled. Check the Lambda function's KMS key settings.</p>
+            capo_lambda.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>Lambda couldn't decrypt the environment variables because the state of the KMS key used is not valid for Decrypt. Check the function's KMS key settings.</p>
+            capo_lambda.errors.kms_not_found_exception.KMSNotFoundException: <p>Lambda couldn't decrypt the environment variables because the KMS key was not found. Check the function's KMS key settings.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda.types.resume_durable_execution_response.ResumeDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.resume_durable_execution
+
+            output, http_response = (
+                capo_lambda._operations.aws_gir_api_service.resume_durable_execution.resume_durable_execution(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.resume_durable_execution_request
+
+            return capo_lambda.types.resume_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ResumeDurableExecution", redact_input=_redact_input),
+        )
+        input_: capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if reason is not None:
+            input_["reason"] = reason
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def stop_durable_execution(
         self,
         durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
@@ -371,7 +579,7 @@ class DurableExecution:
     ) -> (
         "capo_lambda.types.stop_durable_execution_response.StopDurableExecutionResponse"
     ):
-        """<p>Stops a running <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. The execution transitions to STOPPED status and cannot be resumed. Any in-progress operations are terminated.</p>
+        """<p>Stops a running or paused <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. The execution transitions to STOPPED status and cannot be resumed. Any in-progress operations are terminated.</p>
 
         Args:
             durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
@@ -595,6 +803,56 @@ class AsyncDurableExecution:
         await response.response.aclose()
         return response.output
 
+    async def delete_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[AsyncLambdaClientConfig] = None,
+    ) -> "capo_lambda.types.delete_durable_execution_response.DeleteDurableExecutionResponse":
+        """<p>Deletes a completed Lambda <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a> and its data. The execution must be in a terminal state (<code>SUCCEEDED</code>, <code>FAILED</code>, <code>STOPPED</code>, or <code>TIMED_OUT</code>). Otherwise, this operation returns a <code>ResourceConflictException</code>.</p> <p>The execution has <code>DELETING</code> status until the deletion finishes. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-delete.html">Deleting durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_lambda.types.delete_durable_execution_request.DeleteDurableExecutionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_lambda.types.delete_durable_execution_response.DeleteDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.delete_durable_execution
+
+            (
+                output,
+                http_response,
+            ) = await capo_lambda._operations.aws_gir_api_service.delete_durable_execution.async_delete_durable_execution(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDurableExecution")
+        )
+        input_: capo_lambda.types.delete_durable_execution_request.DeleteDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_durable_execution_history(
         self,
         durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
@@ -753,6 +1011,158 @@ class AsyncDurableExecution:
         await response.response.aclose()
         return response.output
 
+    async def pause_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[AsyncLambdaClientConfig] = None,
+        client_token: Optional["capo_lambda.types.client_token.ClientToken"] = None,
+        reason: Optional["capo_lambda.types.pause_reason.PauseReason"] = None,
+        execution_timeout_paused: Optional[
+            "capo_lambda.types.execution_timeout_paused.ExecutionTimeoutPaused"
+        ] = None,
+    ) -> "capo_lambda.types.pause_durable_execution_response.PauseDurableExecutionResponse":
+        """<p>Pauses a running <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. While an execution is paused, Lambda doesn't invoke your function, but pending operations such as waits and callbacks continue to complete.</p> <p>If an invocation is in progress, the execution status changes to <code>PAUSING</code> until the invocation reaches its next checkpoint, and then changes to <code>PAUSED</code>. This operation returns a successful response while the execution status is still <code>RUNNING</code>, and the status changes when Lambda processes the request. For more information about pausing executions, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-pause-resume.html">Pausing and resuming durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide so that the request completes no more than one time. If you repeat a request with the same client token and parameters within 15 minutes, Lambda doesn't pause the execution again and returns a successful response instead of an error.</p>
+            reason: <p>A description of why you're pausing the execution. Lambda records the reason in the execution history.</p>
+            execution_timeout_paused: <p>Specifies whether to pause the execution timeout while the execution is paused. If <code>true</code>, Lambda extends the execution timeout by the time the execution spends paused. An execution with a paused timeout still times out 366 days after it started. The default value is <code>true</code>.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>Lambda couldn't decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS permissions.</p>
+            capo_lambda.errors.kms_disabled_exception.KMSDisabledException: <p>Lambda couldn't decrypt the environment variables because the KMS key used is disabled. Check the Lambda function's KMS key settings.</p>
+            capo_lambda.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>Lambda couldn't decrypt the environment variables because the state of the KMS key used is not valid for Decrypt. Check the function's KMS key settings.</p>
+            capo_lambda.errors.kms_not_found_exception.KMSNotFoundException: <p>Lambda couldn't decrypt the environment variables because the KMS key was not found. Check the function's KMS key settings.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_lambda.types.pause_durable_execution_response.PauseDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.pause_durable_execution
+
+            (
+                output,
+                http_response,
+            ) = await capo_lambda._operations.aws_gir_api_service.pause_durable_execution.async_pause_durable_execution(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.pause_durable_execution_request
+
+            return capo_lambda.types.pause_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PauseDurableExecution", redact_input=_redact_input),
+        )
+        input_: capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if reason is not None:
+            input_["reason"] = reason
+        if execution_timeout_paused is not None:
+            input_["execution_timeout_paused"] = execution_timeout_paused
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def resume_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[AsyncLambdaClientConfig] = None,
+        client_token: Optional["capo_lambda.types.client_token.ClientToken"] = None,
+        reason: Optional["capo_lambda.types.resume_reason.ResumeReason"] = None,
+    ) -> "capo_lambda.types.resume_durable_execution_response.ResumeDurableExecutionResponse":
+        """<p>Resumes a paused <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. If the pause interrupted an invocation, or an operation completed while the execution was paused, Lambda invokes your function. Otherwise, the execution continues to wait for its pending operations.</p> <p>If the execution status is <code>PAUSING</code>, this operation cancels the pause, and the in-progress invocation continues. This operation returns a successful response while the execution status is still <code>PAUSED</code> or <code>PAUSING</code>, and the status changes to <code>RUNNING</code> when Lambda processes the request. For more information about resuming executions, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-pause-resume.html">Pausing and resuming durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide so that the request completes no more than one time. If you repeat a request with the same client token and parameters within 15 minutes, Lambda doesn't resume the execution again and returns a successful response instead of an error.</p>
+            reason: <p>A description of why you're resuming the execution. Lambda records the reason in the execution history.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>Lambda couldn't decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS permissions.</p>
+            capo_lambda.errors.kms_disabled_exception.KMSDisabledException: <p>Lambda couldn't decrypt the environment variables because the KMS key used is disabled. Check the Lambda function's KMS key settings.</p>
+            capo_lambda.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>Lambda couldn't decrypt the environment variables because the state of the KMS key used is not valid for Decrypt. Check the function's KMS key settings.</p>
+            capo_lambda.errors.kms_not_found_exception.KMSNotFoundException: <p>Lambda couldn't decrypt the environment variables because the KMS key was not found. Check the function's KMS key settings.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_lambda.types.resume_durable_execution_response.ResumeDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.resume_durable_execution
+
+            (
+                output,
+                http_response,
+            ) = await capo_lambda._operations.aws_gir_api_service.resume_durable_execution.async_resume_durable_execution(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.resume_durable_execution_request
+
+            return capo_lambda.types.resume_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ResumeDurableExecution", redact_input=_redact_input),
+        )
+        input_: capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if reason is not None:
+            input_["reason"] = reason
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def stop_durable_execution(
         self,
         durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
@@ -762,7 +1172,7 @@ class AsyncDurableExecution:
     ) -> (
         "capo_lambda.types.stop_durable_execution_response.StopDurableExecutionResponse"
     ):
-        """<p>Stops a running <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. The execution transitions to STOPPED status and cannot be resumed. Any in-progress operations are terminated.</p>
+        """<p>Stops a running or paused <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. The execution transitions to STOPPED status and cannot be resumed. Any in-progress operations are terminated.</p>
 
         Args:
             durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>

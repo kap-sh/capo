@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class ListKeyPoliciesResponse(TypedDict, closed=True):
     policy_names: NotRequired["capo_kms.types.policy_name_list.PolicyNameList"]
-    """<p>A list of key policy names. The only valid value is <code>default</code>.</p>"""
+    """<p>A list of key policy names. Valid values are:</p> <dl> <dt>default</dt> <dd> <p>The key policy that you manage.</p> </dd> <dt>AWS_RAM</dt> <dd> <p>The key policy that RAM manages for KMS keys that you share through RAM.</p> </dd> </dl>"""
     next_marker: NotRequired["capo_kms.types.marker_type.MarkerType"]
     """<p>When <code>Truncated</code> is true, this element is present and contains the value to use for the <code>Marker</code> parameter in a subsequent request.</p>"""
     truncated: "capo_kms.types.boolean_type.BooleanType"

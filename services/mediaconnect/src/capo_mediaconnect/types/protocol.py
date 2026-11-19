@@ -15,6 +15,7 @@ Protocol: TypeAlias = Literal[
     "fujitsu-qos",
     "udp",
     "ndi-speed-hq",
+    "rtmp-push",
 ]
 
 

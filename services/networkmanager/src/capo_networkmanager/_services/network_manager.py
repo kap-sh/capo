@@ -40,6 +40,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.action
     import capo_networkmanager.types.associate_connect_peer_request
     import capo_networkmanager.types.associate_connect_peer_response
+    import capo_networkmanager.types.associate_context_store_request
+    import capo_networkmanager.types.associate_context_store_response
     import capo_networkmanager.types.associate_customer_gateway_request
     import capo_networkmanager.types.associate_customer_gateway_response
     import capo_networkmanager.types.associate_link_request
@@ -69,6 +71,11 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.connection_id_list
     import capo_networkmanager.types.constrained_string
     import capo_networkmanager.types.constrained_string_list
+    import capo_networkmanager.types.context_change
+    import capo_networkmanager.types.context_entry
+    import capo_networkmanager.types.context_store
+    import capo_networkmanager.types.context_store_association
+    import capo_networkmanager.types.context_store_id
     import capo_networkmanager.types.core_network_change
     import capo_networkmanager.types.core_network_change_event
     import capo_networkmanager.types.core_network_id
@@ -83,6 +90,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.create_connect_peer_response
     import capo_networkmanager.types.create_connection_request
     import capo_networkmanager.types.create_connection_response
+    import capo_networkmanager.types.create_context_store_request
+    import capo_networkmanager.types.create_context_store_response
     import capo_networkmanager.types.create_core_network_prefix_list_association_request
     import capo_networkmanager.types.create_core_network_prefix_list_association_response
     import capo_networkmanager.types.create_core_network_request
@@ -114,6 +123,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.delete_connect_peer_response
     import capo_networkmanager.types.delete_connection_request
     import capo_networkmanager.types.delete_connection_response
+    import capo_networkmanager.types.delete_context_store_request
+    import capo_networkmanager.types.delete_context_store_response
     import capo_networkmanager.types.delete_core_network_policy_version_request
     import capo_networkmanager.types.delete_core_network_policy_version_response
     import capo_networkmanager.types.delete_core_network_prefix_list_association_request
@@ -142,6 +153,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.direct_connect_gateway_arn
     import capo_networkmanager.types.disassociate_connect_peer_request
     import capo_networkmanager.types.disassociate_connect_peer_response
+    import capo_networkmanager.types.disassociate_context_store_request
+    import capo_networkmanager.types.disassociate_context_store_response
     import capo_networkmanager.types.disassociate_customer_gateway_request
     import capo_networkmanager.types.disassociate_customer_gateway_response
     import capo_networkmanager.types.disassociate_link_request
@@ -161,6 +174,12 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.get_connect_peer_response
     import capo_networkmanager.types.get_connections_request
     import capo_networkmanager.types.get_connections_response
+    import capo_networkmanager.types.get_context_store_association_request
+    import capo_networkmanager.types.get_context_store_association_response
+    import capo_networkmanager.types.get_context_store_request
+    import capo_networkmanager.types.get_context_store_response
+    import capo_networkmanager.types.get_context_version_request
+    import capo_networkmanager.types.get_context_version_response
     import capo_networkmanager.types.get_core_network_change_events_request
     import capo_networkmanager.types.get_core_network_change_events_response
     import capo_networkmanager.types.get_core_network_change_set_request
@@ -224,6 +243,14 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.list_attachments_response
     import capo_networkmanager.types.list_connect_peers_request
     import capo_networkmanager.types.list_connect_peers_response
+    import capo_networkmanager.types.list_context_changes_request
+    import capo_networkmanager.types.list_context_changes_response
+    import capo_networkmanager.types.list_context_store_associations_request
+    import capo_networkmanager.types.list_context_store_associations_response
+    import capo_networkmanager.types.list_context_stores_request
+    import capo_networkmanager.types.list_context_stores_response
+    import capo_networkmanager.types.list_contexts_request
+    import capo_networkmanager.types.list_contexts_response
     import capo_networkmanager.types.list_core_network_policy_versions_request
     import capo_networkmanager.types.list_core_network_policy_versions_response
     import capo_networkmanager.types.list_core_network_prefix_list_associations_request
@@ -302,6 +329,8 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.update_attachment_nat_configuration_response
     import capo_networkmanager.types.update_connection_request
     import capo_networkmanager.types.update_connection_response
+    import capo_networkmanager.types.update_context_store_request
+    import capo_networkmanager.types.update_context_store_response
     import capo_networkmanager.types.update_core_network_request
     import capo_networkmanager.types.update_core_network_response
     import capo_networkmanager.types.update_device_request
@@ -544,6 +573,62 @@ class NetworkManagerClient:
         }
         if link_id is not None:
             input_["link_id"] = link_id
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def associate_context_store(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        transit_gateway_arn: Optional[
+            "capo_networkmanager.types.transit_gateway_arn.TransitGatewayArn"
+        ] = None,
+    ) -> "capo_networkmanager.types.associate_context_store_response.AssociateContextStoreResponse":
+        """<p>Associates a transit gateway with a context store. The transit gateway must be registered with the global network of the context store, and can't be associated with more than one context store. The context store must be in the <code>AVAILABLE</code> state.</p> <p>The association is in the <code>ASSOCIATING</code> state when it's created, and changes to <code>ASSOCIATED</code> when it's complete.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+            transit_gateway_arn: <p>The Amazon Resource Name (ARN) of the transit gateway to associate with the context store.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.conflict_exception.ConflictException: <p>There was a conflict processing the request. Updating or deleting the resource can cause an inconsistent state.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.associate_context_store_request.AssociateContextStoreRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.associate_context_store_response.AssociateContextStoreResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.associate_context_store
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.associate_context_store.associate_context_store(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateContextStore")
+        )
+        input_: capo_networkmanager.types.associate_context_store_request.AssociateContextStoreRequest = {
+            "context_store_id": context_store_id
+        }
+        if transit_gateway_arn is not None:
+            input_["transit_gateway_arn"] = transit_gateway_arn
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -973,6 +1058,74 @@ class NetworkManagerClient:
         input_["client_token"] = client_token
         if subnet_arn is not None:
             input_["subnet_arn"] = subnet_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def create_context_store(
+        self,
+        global_network_id: "capo_networkmanager.types.global_network_id.GlobalNetworkId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        description: Optional[
+            "capo_networkmanager.types.constrained_string.ConstrainedString"
+        ] = None,
+        tags: Optional["capo_networkmanager.types.tag_list.TagList"] = None,
+        client_token: Optional[
+            "capo_networkmanager.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_networkmanager.types.create_context_store_response.CreateContextStoreResponse":
+        """<p>Creates a context store in a global network. A context store maintains context entries, such as security groups, subnets, and attachments, for the resources connected to the transit gateways that you associate with it.</p> <p>The context store is in the <code>PENDING</code> state when it's created, and changes to <code>AVAILABLE</code> when it's ready to use.</p>
+
+        Args:
+            global_network_id: <p>The ID of the global network to create the context store in.</p>
+            description: <p>A description of the context store.</p> <p>Constraints: Maximum length of 256 characters. Only printable ASCII characters are allowed.</p>
+            tags: <p>The tags to apply to the context store during creation.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.conflict_exception.ConflictException: <p>There was a conflict processing the request. Updating or deleting the resource can cause an inconsistent state.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>A service limit was exceeded.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.create_context_store_request.CreateContextStoreRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.create_context_store_response.CreateContextStoreResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.create_context_store
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.create_context_store.create_context_store(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContextStore")
+        )
+        input_: capo_networkmanager.types.create_context_store_request.CreateContextStoreRequest = {
+            "global_network_id": global_network_id
+        }
+        if description is not None:
+            input_["description"] = description
+        if tags is not None:
+            input_["tags"] = tags
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2021,6 +2174,56 @@ class NetworkManagerClient:
         response.response.close()
         return response.output
 
+    def delete_context_store(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+    ) -> "capo_networkmanager.types.delete_context_store_response.DeleteContextStoreResponse":
+        """<p>Deletes a context store. The context store must be in the <code>AVAILABLE</code> state. You must disassociate all transit gateways from the context store before you can delete it.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store to delete.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.conflict_exception.ConflictException: <p>There was a conflict processing the request. Updating or deleting the resource can cause an inconsistent state.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.delete_context_store_request.DeleteContextStoreRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.delete_context_store_response.DeleteContextStoreResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.delete_context_store
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.delete_context_store.delete_context_store(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContextStore")
+        )
+        input_: capo_networkmanager.types.delete_context_store_request.DeleteContextStoreRequest = {
+            "context_store_id": context_store_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_core_network(
         self,
         core_network_id: "capo_networkmanager.types.core_network_id.CoreNetworkId",
@@ -2700,6 +2903,59 @@ class NetworkManagerClient:
         response.response.close()
         return response.output
 
+    def disassociate_context_store(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        transit_gateway_arn: "capo_networkmanager.types.transit_gateway_arn.TransitGatewayArn",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+    ) -> "capo_networkmanager.types.disassociate_context_store_response.DisassociateContextStoreResponse":
+        """<p>Disassociates a transit gateway from a context store. The association must be in the <code>ASSOCIATED</code> or <code>FAILED</code> state. The association stays in the <code>DISASSOCIATING</code> state until the disassociation completes.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+            transit_gateway_arn: <p>The Amazon Resource Name (ARN) of the transit gateway to disassociate from the context store.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.conflict_exception.ConflictException: <p>There was a conflict processing the request. Updating or deleting the resource can cause an inconsistent state.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.disassociate_context_store_request.DisassociateContextStoreRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.disassociate_context_store_response.DisassociateContextStoreResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.disassociate_context_store
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.disassociate_context_store.disassociate_context_store(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateContextStore")
+        )
+        input_: capo_networkmanager.types.disassociate_context_store_request.DisassociateContextStoreRequest = {
+            "context_store_id": context_store_id,
+            "transit_gateway_arn": transit_gateway_arn,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def disassociate_customer_gateway(
         self,
         global_network_id: "capo_networkmanager.types.global_network_id.GlobalNetworkId",
@@ -3209,6 +3465,156 @@ class NetworkManagerClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    def get_context_store(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+    ) -> "capo_networkmanager.types.get_context_store_response.GetContextStoreResponse":
+        """<p>Returns information about a context store.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.get_context_store_request.GetContextStoreRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.get_context_store_response.GetContextStoreResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.get_context_store
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.get_context_store.get_context_store(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContextStore")
+        )
+        input_: capo_networkmanager.types.get_context_store_request.GetContextStoreRequest = {
+            "context_store_id": context_store_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_context_store_association(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        transit_gateway_arn: "capo_networkmanager.types.transit_gateway_arn.TransitGatewayArn",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+    ) -> "capo_networkmanager.types.get_context_store_association_response.GetContextStoreAssociationResponse":
+        """<p>Returns information about the association between a context store and a transit gateway.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+            transit_gateway_arn: <p>The Amazon Resource Name (ARN) of the transit gateway.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.get_context_store_association_request.GetContextStoreAssociationRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.get_context_store_association_response.GetContextStoreAssociationResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.get_context_store_association
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.get_context_store_association.get_context_store_association(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContextStoreAssociation")
+        )
+        input_: capo_networkmanager.types.get_context_store_association_request.GetContextStoreAssociationRequest = {
+            "context_store_id": context_store_id,
+            "transit_gateway_arn": transit_gateway_arn,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_context_version(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+    ) -> "capo_networkmanager.types.get_context_version_response.GetContextVersionResponse":
+        """<p>Returns the current version of the context entries of a context store. The context store must be in the <code>AVAILABLE</code> state.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.get_context_version_request.GetContextVersionRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.get_context_version_response.GetContextVersionResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.get_context_version
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.get_context_version.get_context_version(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContextVersion")
+        )
+        input_: capo_networkmanager.types.get_context_version_request.GetContextVersionRequest = {
+            "context_store_id": context_store_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def get_core_network(
         self,
@@ -5666,6 +6072,351 @@ class NetworkManagerClient:
             if not _token:
                 break
 
+    def list_context_changes(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        from_version_id: "capo_networkmanager.types.constrained_string.ConstrainedString",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "capo_networkmanager.types.list_context_changes_response.ListContextChangesResponse":
+        """<p>Returns the context entries that were added to or removed from a context store after the specified version. The context store must be in the <code>AVAILABLE</code> state.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+            from_version_id: <p>The version to return changes from. Specify a version returned by <code>ListContexts</code>, <code>GetContextVersion</code>, or the <code>ToVersionId</code> of a previous <code>ListContextChanges</code> request. If the version is no longer available, the request fails, and you must call <code>ListContexts</code> to get the current context entries.</p>
+            max_results: <p>The maximum number of results to return.</p>
+            next_token: <p>The token for the next page of results.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.list_context_changes_request.ListContextChangesRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.list_context_changes_response.ListContextChangesResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.list_context_changes
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.list_context_changes.list_context_changes(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContextChanges")
+        )
+        input_: capo_networkmanager.types.list_context_changes_request.ListContextChangesRequest = {
+            "context_store_id": context_store_id,
+            "from_version_id": from_version_id,
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_context_changes(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        from_version_id: "capo_networkmanager.types.constrained_string.ConstrainedString",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_networkmanager.types.context_change.ContextChange]":
+        _token = next_token
+        while True:
+            _response = self.list_context_changes(
+                context_store_id,
+                from_version_id,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("context_changes",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_contexts(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "capo_networkmanager.types.list_contexts_response.ListContextsResponse":
+        """<p>Returns the context entries of a context store, and the version of the context entries. To get the context entries that were added or removed after this version, specify the returned <code>VersionId</code> in a <code>ListContextChanges</code> request. The context store must be in the <code>AVAILABLE</code> state.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+            max_results: <p>The maximum number of results to return.</p>
+            next_token: <p>The token for the next page of results.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.list_contexts_request.ListContextsRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.list_contexts_response.ListContextsResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.list_contexts
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.list_contexts.list_contexts(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContexts")
+        )
+        input_: capo_networkmanager.types.list_contexts_request.ListContextsRequest = {
+            "context_store_id": context_store_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_contexts(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_networkmanager.types.context_entry.ContextEntry]":
+        _token = next_token
+        while True:
+            _response = self.list_contexts(
+                context_store_id,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("contexts",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_context_store_associations(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "capo_networkmanager.types.list_context_store_associations_response.ListContextStoreAssociationsResponse":
+        """<p>Returns the transit gateway associations of a context store.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+            max_results: <p>The maximum number of results to return.</p>
+            next_token: <p>The token for the next page of results.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.list_context_store_associations_request.ListContextStoreAssociationsRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.list_context_store_associations_response.ListContextStoreAssociationsResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.list_context_store_associations
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.list_context_store_associations.list_context_store_associations(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContextStoreAssociations")
+        )
+        input_: capo_networkmanager.types.list_context_store_associations_request.ListContextStoreAssociationsRequest = {
+            "context_store_id": context_store_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_context_store_associations(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_networkmanager.types.context_store_association.ContextStoreAssociation]":
+        _token = next_token
+        while True:
+            _response = self.list_context_store_associations(
+                context_store_id,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("context_store_associations",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_context_stores(
+        self,
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        global_network_id: Optional[
+            "capo_networkmanager.types.global_network_id.GlobalNetworkId"
+        ] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "capo_networkmanager.types.list_context_stores_response.ListContextStoresResponse":
+        """<p>Returns the context stores in your account. You can optionally return only the context stores in a specific global network.</p>
+
+        Args:
+            global_network_id: <p>The ID of a global network. If you specify this parameter, only the context stores in the global network are returned.</p>
+            max_results: <p>The maximum number of results to return.</p>
+            next_token: <p>The token for the next page of results.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.list_context_stores_request.ListContextStoresRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.list_context_stores_response.ListContextStoresResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.list_context_stores
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.list_context_stores.list_context_stores(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContextStores")
+        )
+        input_: capo_networkmanager.types.list_context_stores_request.ListContextStoresRequest = {}
+        if global_network_id is not None:
+            input_["global_network_id"] = global_network_id
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_context_stores(
+        self,
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        global_network_id: Optional[
+            "capo_networkmanager.types.global_network_id.GlobalNetworkId"
+        ] = None,
+        max_results: Optional[
+            "capo_networkmanager.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_networkmanager.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_networkmanager.types.context_store.ContextStore]":
+        _token = next_token
+        while True:
+            _response = self.list_context_stores(
+                config_overrides=config_overrides,
+                global_network_id=global_network_id,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("context_stores",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def list_core_network_policy_versions(
         self,
         core_network_id: "capo_networkmanager.types.core_network_id.CoreNetworkId",
@@ -7076,6 +7827,62 @@ class NetworkManagerClient:
             input_["link_id"] = link_id
         if connected_link_id is not None:
             input_["connected_link_id"] = connected_link_id
+        if description is not None:
+            input_["description"] = description
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_context_store(
+        self,
+        context_store_id: "capo_networkmanager.types.context_store_id.ContextStoreId",
+        *,
+        config_overrides: Optional[NetworkManagerClientConfig] = None,
+        description: Optional[
+            "capo_networkmanager.types.constrained_string.ConstrainedString"
+        ] = None,
+    ) -> "capo_networkmanager.types.update_context_store_response.UpdateContextStoreResponse":
+        """<p>Updates the description of a context store. The context store must be in the <code>AVAILABLE</code> state.</p>
+
+        Args:
+            context_store_id: <p>The ID of the context store.</p>
+            description: <p>The new description of the context store.</p> <p>Constraints: Maximum length of 256 characters. Only printable ASCII characters are allowed.</p>
+
+        Raises:
+            capo_networkmanager.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_networkmanager.errors.conflict_exception.ConflictException: <p>There was a conflict processing the request. Updating or deleting the resource can cause an inconsistent state.</p>
+            capo_networkmanager.errors.internal_server_exception.InternalServerException: <p>The request has failed due to an internal error.</p>
+            capo_networkmanager.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource could not be found.</p>
+            capo_networkmanager.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_networkmanager.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints.</p>
+            capo_networkmanager.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_networkmanager.types.update_context_store_request.UpdateContextStoreRequest]",
+        ) -> OperationResponse[
+            "capo_networkmanager.types.update_context_store_response.UpdateContextStoreResponse"
+        ]:
+            import capo_networkmanager._operations.network_manager.update_context_store
+
+            output, http_response = (
+                capo_networkmanager._operations.network_manager.update_context_store.update_context_store(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContextStore")
+        )
+        input_: capo_networkmanager.types.update_context_store_request.UpdateContextStoreRequest = {
+            "context_store_id": context_store_id
+        }
         if description is not None:
             input_["description"] = description
 

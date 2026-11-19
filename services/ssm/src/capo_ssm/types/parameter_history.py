@@ -48,7 +48,7 @@ class ParameterHistory(TypedDict, closed=True):
     policies: NotRequired["capo_ssm.types.parameter_policy_list.ParameterPolicyList"]
     """<p>Information about the policies assigned to a parameter.</p> <p> <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html">Assigning parameter policies</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.</p>"""
     data_type: NotRequired["capo_ssm.types.parameter_data_type.ParameterDataType"]
-    """<p>The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is <code>text</code>.</p>"""
+    """<p>The data type of the parameter, such as <code>text</code>, <code>aws:ec2:image</code>, or <code>json</code>. The default is <code>text</code>. For the list of data types, see the <code>DataType</code> parameter of <code>PutParameter</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

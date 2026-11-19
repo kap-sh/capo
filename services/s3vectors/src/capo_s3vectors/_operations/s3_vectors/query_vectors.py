@@ -24,6 +24,7 @@ import capo_s3vectors.errors.too_many_requests_exception
 import capo_s3vectors.errors.validation_exception
 import capo_s3vectors.types.distance_metric
 import capo_s3vectors.types.index_mode
+import capo_s3vectors.types.query_text_list
 import capo_s3vectors.types.query_vectors_input
 import capo_s3vectors.types.query_vectors_output
 import capo_s3vectors.types.query_vectors_output_list

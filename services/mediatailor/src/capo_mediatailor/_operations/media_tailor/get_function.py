@@ -19,6 +19,7 @@ import capo_mediatailor.types.custom_output_configuration
 import capo_mediatailor.types.function_type
 import capo_mediatailor.types.get_function_request
 import capo_mediatailor.types.get_function_response
+import capo_mediatailor.types.hls_tag_processor_configuration
 import capo_mediatailor.types.http_request_configuration
 import capo_mediatailor.types.sequential_executor_configuration
 import capo_mediatailor.types.vast_request_configuration

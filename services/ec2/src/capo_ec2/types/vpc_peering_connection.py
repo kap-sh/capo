@@ -8,6 +8,7 @@ from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_ec2.types.date_time
+    import capo_ec2.types.multipath_resilience_status
     import capo_ec2.types.string
     import capo_ec2.types.tag_list
     import capo_ec2.types.vpc_peering_connection_state_reason
@@ -33,6 +34,10 @@ class VpcPeeringConnection(TypedDict, closed=True):
     """<p>Any tags assigned to the resource.</p>"""
     vpc_peering_connection_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the VPC peering connection.</p>"""
+    multipath_resilience_status: NotRequired[
+        "capo_ec2.types.multipath_resilience_status.MultipathResilienceStatus"
+    ]
+    """<p>The multipath resilience status of the VPC peering connection. The possible values are:</p> <ul> <li> <p> <code>enabled</code> – Both the requester and the accepter allow multipath resilience.</p> </li> <li> <p> <code>pending</code> – Either the requester or the accepter allows multipath resilience, but not both.</p> </li> <li> <p> <code>disabled</code> – Neither the requester nor the accepter allows multipath resilience.</p> </li> </ul>"""
 
 
 # --- ec2Query ser/de ---
@@ -76,6 +81,14 @@ def serialize_ec2_query(
                 f"{key_prefix}VpcPeeringConnectionId",
                 str(value["vpc_peering_connection_id"]),
             )
+        )
+    if "multipath_resilience_status" in value:
+        import capo_ec2.types.multipath_resilience_status
+
+        capo_ec2.types.multipath_resilience_status.serialize_ec2_query(
+            value["multipath_resilience_status"],
+            pairs,
+            f"{key_prefix}MultipathResilienceStatus",
         )
 
 
@@ -124,5 +137,14 @@ def deserialize_ec2_query(el: Element) -> VpcPeeringConnection:
     if child_vpc_peering_connection_id is not None:
         out["vpc_peering_connection_id"] = str(
             child_vpc_peering_connection_id.text or ""
+        )
+    child_multipath_resilience_status = el.find("multipathResilienceStatus")
+    if child_multipath_resilience_status is not None:
+        import capo_ec2.types.multipath_resilience_status
+
+        out["multipath_resilience_status"] = (
+            capo_ec2.types.multipath_resilience_status.deserialize_ec2_query(
+                child_multipath_resilience_status
+            )
         )
     return out

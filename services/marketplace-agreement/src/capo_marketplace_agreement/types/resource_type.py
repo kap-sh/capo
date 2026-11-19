@@ -11,6 +11,8 @@ ResourceType: TypeAlias = Literal[
     "Invoice",
     "AgreementCancellationRequest",
     "BillingAdjustmentRequest",
+    "AgreementApproval",
+    "AgreementRequestApprovalPlan",
 ]
 
 

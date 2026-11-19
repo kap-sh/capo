@@ -37,6 +37,7 @@ if TYPE_CHECKING:
     import capo_dsql.types.list_clusters_input
     import capo_dsql.types.list_clusters_output
     import capo_dsql.types.max_results
+    import capo_dsql.types.metric_group_request_list
     import capo_dsql.types.multi_region_properties
     import capo_dsql.types.next_token
     import capo_dsql.types.policy_document
@@ -70,6 +71,9 @@ class Cluster:
             "capo_dsql.types.multi_region_properties.MultiRegionProperties"
         ] = None,
         policy: Optional["capo_dsql.types.policy_document.PolicyDocument"] = None,
+        metric_groups: Optional[
+            "capo_dsql.types.metric_group_request_list.MetricGroupRequestList"
+        ] = None,
         bypass_policy_lockout_safety_check: Optional[
             "capo_dsql.types.bypass_policy_lockout_safety_check.BypassPolicyLockoutSafetyCheck"
         ] = None,
@@ -83,6 +87,7 @@ class Cluster:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully, the subsequent retries with the same client token return the result from the original successful request and they have no additional effect.</p> <p>If you don't specify a client token, the Amazon Web Services SDK automatically generates one.</p>
             multi_region_properties: <p>The configuration settings when creating a multi-Region cluster, including the witness region and linked cluster properties.</p>
             policy: <p>An optional resource-based policy document in JSON format that defines access permissions for the cluster.</p>
+            metric_groups: <p>The metric groups to enable for advanced monitoring on the cluster. Advanced monitoring collects detailed, query-level database metrics to help you analyze and resolve performance issues. If you omit this parameter, no metric groups are enabled.</p>
             bypass_policy_lockout_safety_check: <p>An optional field that controls whether to bypass the lockout prevention check. When set to true, this parameter allows you to apply a policy that might lock you out of the cluster. Use with caution.</p>
 
         Raises:
@@ -131,6 +136,8 @@ class Cluster:
             input_["multi_region_properties"] = multi_region_properties
         if policy is not None:
             input_["policy"] = policy
+        if metric_groups is not None:
+            input_["metric_groups"] = metric_groups
         if bypass_policy_lockout_safety_check is not None:
             input_["bypass_policy_lockout_safety_check"] = (
                 bypass_policy_lockout_safety_check
@@ -209,6 +216,9 @@ class Cluster:
         multi_region_properties: Optional[
             "capo_dsql.types.multi_region_properties.MultiRegionProperties"
         ] = None,
+        metric_groups: Optional[
+            "capo_dsql.types.metric_group_request_list.MetricGroupRequestList"
+        ] = None,
     ) -> "capo_dsql.types.update_cluster_output.UpdateClusterOutput":
         """<p>The <i>UpdateCluster</i> API allows you to modify both single-Region and multi-Region cluster configurations. With the <i>multiRegionProperties</i> parameter, you can add or modify witness Region support and manage peer relationships with clusters in other Regions.</p> <note> <p>Note that updating multi-Region clusters requires additional IAM permissions beyond those needed for standard cluster updates, as detailed in the Permissions section.</p> </note> <p> <b>Required permissions</b> </p> <dl> <dt>dsql:UpdateCluster</dt> <dd> <p>Permission to update a DSQL cluster.</p> <p>Resources: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> </dd> </dl> <dl> <dt>dsql:PutMultiRegionProperties</dt> <dd> <p>Permission to configure multi-Region properties for a cluster.</p> <p>Resources: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> </dd> </dl> <dl> <dt>dsql:GetCluster</dt> <dd> <p>Permission to retrieve cluster information.</p> <p>Resources: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> </dd> <dt>dsql:AddPeerCluster</dt> <dd> <p>Permission to add peer clusters.</p> <p>Resources:</p> <ul> <li> <p>Local cluster: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> </li> <li> <p>Each peer cluster: exact ARN of each specified peer cluster</p> </li> </ul> </dd> <dt>dsql:RemovePeerCluster</dt> <dd> <p>Permission to remove peer clusters. When you list peer clusters in <code>multiRegionProperties.clusters</code>, you need this permission for each current peer cluster that your list omits.</p> <p>Resources:</p> <ul> <li> <p>Each removed peer cluster: exact ARN of each removed peer cluster, in its own Region</p> </li> </ul> </dd> </dl> <dl> <dt>dsql:PutWitnessRegion</dt> <dd> <p>Permission to set a witness Region.</p> <p>Resources: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> <p>Condition Keys: dsql:WitnessRegion (matching the specified witness Region)</p> <p> <b>This permission is checked both in the cluster Region and in the witness Region.</b> </p> </dd> </dl> <important> <ul> <li> <p>The witness Region specified in <code>multiRegionProperties.witnessRegion</code> cannot be the same as the cluster's Region.</p> </li> <li> <p>When you list peer clusters in <code>multiRegionProperties.clusters</code>, you need <code>dsql:AddPeerCluster</code> for every peer cluster in your request. You need <code>dsql:RemovePeerCluster</code> only for the peer clusters that the update removes.</p> </li> </ul> </important>
 
@@ -218,6 +228,7 @@ class Cluster:
             kms_encryption_key: <p>The KMS key that encrypts and protects the data on your cluster. You can specify the ARN, ID, or alias of an existing key or have Amazon Web Services create a default key for you.</p> <p>To switch to the key owned by Amazon Web Services, specify the reserved value <code>AWS_OWNED_KMS_KEY</code>.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully. The subsequent retries with the same client token return the result from the original successful request and they have no additional effect.</p> <p>If you don't specify a client token, the Amazon Web Services SDK automatically generates one.</p>
             multi_region_properties: <p>The new multi-Region cluster configuration settings to be applied during an update operation.</p>
+            metric_groups: <p>The complete set of metric groups to enable for advanced monitoring on the cluster. This list replaces the current set, so any metric group that you don't include is disabled. To disable all metric groups, specify an empty list (<code>[]</code>). If you omit this parameter, the current setting doesn't change.</p> <p>To view the metric groups enabled on a cluster, use <i>GetCluster</i>.</p>
 
         Raises:
             capo_dsql.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -263,6 +274,8 @@ class Cluster:
         input_["client_token"] = client_token
         if multi_region_properties is not None:
             input_["multi_region_properties"] = multi_region_properties
+        if metric_groups is not None:
+            input_["metric_groups"] = metric_groups
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -643,6 +656,9 @@ class AsyncCluster:
             "capo_dsql.types.multi_region_properties.MultiRegionProperties"
         ] = None,
         policy: Optional["capo_dsql.types.policy_document.PolicyDocument"] = None,
+        metric_groups: Optional[
+            "capo_dsql.types.metric_group_request_list.MetricGroupRequestList"
+        ] = None,
         bypass_policy_lockout_safety_check: Optional[
             "capo_dsql.types.bypass_policy_lockout_safety_check.BypassPolicyLockoutSafetyCheck"
         ] = None,
@@ -656,6 +672,7 @@ class AsyncCluster:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully, the subsequent retries with the same client token return the result from the original successful request and they have no additional effect.</p> <p>If you don't specify a client token, the Amazon Web Services SDK automatically generates one.</p>
             multi_region_properties: <p>The configuration settings when creating a multi-Region cluster, including the witness region and linked cluster properties.</p>
             policy: <p>An optional resource-based policy document in JSON format that defines access permissions for the cluster.</p>
+            metric_groups: <p>The metric groups to enable for advanced monitoring on the cluster. Advanced monitoring collects detailed, query-level database metrics to help you analyze and resolve performance issues. If you omit this parameter, no metric groups are enabled.</p>
             bypass_policy_lockout_safety_check: <p>An optional field that controls whether to bypass the lockout prevention check. When set to true, this parameter allows you to apply a policy that might lock you out of the cluster. Use with caution.</p>
 
         Raises:
@@ -705,6 +722,8 @@ class AsyncCluster:
             input_["multi_region_properties"] = multi_region_properties
         if policy is not None:
             input_["policy"] = policy
+        if metric_groups is not None:
+            input_["metric_groups"] = metric_groups
         if bypass_policy_lockout_safety_check is not None:
             input_["bypass_policy_lockout_safety_check"] = (
                 bypass_policy_lockout_safety_check
@@ -788,6 +807,9 @@ class AsyncCluster:
         multi_region_properties: Optional[
             "capo_dsql.types.multi_region_properties.MultiRegionProperties"
         ] = None,
+        metric_groups: Optional[
+            "capo_dsql.types.metric_group_request_list.MetricGroupRequestList"
+        ] = None,
     ) -> "capo_dsql.types.update_cluster_output.UpdateClusterOutput":
         """<p>The <i>UpdateCluster</i> API allows you to modify both single-Region and multi-Region cluster configurations. With the <i>multiRegionProperties</i> parameter, you can add or modify witness Region support and manage peer relationships with clusters in other Regions.</p> <note> <p>Note that updating multi-Region clusters requires additional IAM permissions beyond those needed for standard cluster updates, as detailed in the Permissions section.</p> </note> <p> <b>Required permissions</b> </p> <dl> <dt>dsql:UpdateCluster</dt> <dd> <p>Permission to update a DSQL cluster.</p> <p>Resources: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> </dd> </dl> <dl> <dt>dsql:PutMultiRegionProperties</dt> <dd> <p>Permission to configure multi-Region properties for a cluster.</p> <p>Resources: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> </dd> </dl> <dl> <dt>dsql:GetCluster</dt> <dd> <p>Permission to retrieve cluster information.</p> <p>Resources: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> </dd> <dt>dsql:AddPeerCluster</dt> <dd> <p>Permission to add peer clusters.</p> <p>Resources:</p> <ul> <li> <p>Local cluster: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> </li> <li> <p>Each peer cluster: exact ARN of each specified peer cluster</p> </li> </ul> </dd> <dt>dsql:RemovePeerCluster</dt> <dd> <p>Permission to remove peer clusters. When you list peer clusters in <code>multiRegionProperties.clusters</code>, you need this permission for each current peer cluster that your list omits.</p> <p>Resources:</p> <ul> <li> <p>Each removed peer cluster: exact ARN of each removed peer cluster, in its own Region</p> </li> </ul> </dd> </dl> <dl> <dt>dsql:PutWitnessRegion</dt> <dd> <p>Permission to set a witness Region.</p> <p>Resources: <code>arn:aws:dsql:<i>region</i>:<i>account-id</i>:cluster/<i>cluster-id</i> </code> </p> <p>Condition Keys: dsql:WitnessRegion (matching the specified witness Region)</p> <p> <b>This permission is checked both in the cluster Region and in the witness Region.</b> </p> </dd> </dl> <important> <ul> <li> <p>The witness Region specified in <code>multiRegionProperties.witnessRegion</code> cannot be the same as the cluster's Region.</p> </li> <li> <p>When you list peer clusters in <code>multiRegionProperties.clusters</code>, you need <code>dsql:AddPeerCluster</code> for every peer cluster in your request. You need <code>dsql:RemovePeerCluster</code> only for the peer clusters that the update removes.</p> </li> </ul> </important>
 
@@ -797,6 +819,7 @@ class AsyncCluster:
             kms_encryption_key: <p>The KMS key that encrypts and protects the data on your cluster. You can specify the ARN, ID, or alias of an existing key or have Amazon Web Services create a default key for you.</p> <p>To switch to the key owned by Amazon Web Services, specify the reserved value <code>AWS_OWNED_KMS_KEY</code>.</p>
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Idempotency ensures that an API request completes only once. With an idempotent request, if the original request completes successfully. The subsequent retries with the same client token return the result from the original successful request and they have no additional effect.</p> <p>If you don't specify a client token, the Amazon Web Services SDK automatically generates one.</p>
             multi_region_properties: <p>The new multi-Region cluster configuration settings to be applied during an update operation.</p>
+            metric_groups: <p>The complete set of metric groups to enable for advanced monitoring on the cluster. This list replaces the current set, so any metric group that you don't include is disabled. To disable all metric groups, specify an empty list (<code>[]</code>). If you omit this parameter, the current setting doesn't change.</p> <p>To view the metric groups enabled on a cluster, use <i>GetCluster</i>.</p>
 
         Raises:
             capo_dsql.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -843,6 +866,8 @@ class AsyncCluster:
         input_["client_token"] = client_token
         if multi_region_properties is not None:
             input_["multi_region_properties"] = multi_region_properties
+        if metric_groups is not None:
+            input_["metric_groups"] = metric_groups
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

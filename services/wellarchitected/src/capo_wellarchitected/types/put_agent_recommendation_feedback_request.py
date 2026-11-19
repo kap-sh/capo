@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#PutAgentRecommendationFeedbackRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.agent_recommendation_arn
     import capo_wellarchitected.types.feedback_category
     import capo_wellarchitected.types.recommendation_feedback_type
+    import capo_wellarchitected.types.sensitive_string
 
 
 class PutAgentRecommendationFeedbackRequest(TypedDict, closed=True):
@@ -21,7 +22,7 @@ class PutAgentRecommendationFeedbackRequest(TypedDict, closed=True):
         "capo_wellarchitected.types.feedback_category.FeedbackCategory"
     ]
     """<p>Optional category classifying the nature of the feedback.</p>"""
-    comments: NotRequired["str"]
+    comments: NotRequired["capo_wellarchitected.types.sensitive_string.SensitiveString"]
     """<p>Optional comments providing additional context about the feedback.</p>"""
 
 
@@ -75,4 +76,11 @@ def deserialize_json(data: dict) -> PutAgentRecommendationFeedbackRequest:
         )
     if data.get("comments") is not None:
         out["comments"] = data["comments"]
+    return out
+
+
+def redact_sensitive(value: PutAgentRecommendationFeedbackRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "comments" in value:
+        out["comments"] = "*** Sensitive Data Redacted ***"
     return out

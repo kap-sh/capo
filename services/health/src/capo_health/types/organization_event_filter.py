@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_health.types.event_status_code_list
     import capo_health.types.event_type_category_list2
     import capo_health.types.event_type_list2
+    import capo_health.types.organization_event_tag_filter
     import capo_health.types.region_list
     import capo_health.types.service_list
 
@@ -50,6 +51,10 @@ class OrganizationEventFilter(TypedDict, closed=True):
     """<p>A list of event status codes.</p>"""
     personas: NotRequired["capo_health.types.event_persona_list.EventPersonaList"]
     """<p>A list of persona values to filter events. Use this to filter events based on their target audience: <code>OPERATIONS</code>, <code>SECURITY</code>, or <code>BILLING</code>.</p>"""
+    tags: NotRequired[
+        "capo_health.types.organization_event_tag_filter.OrganizationEventTagFilter"
+    ]
+    """<p>A map of tag keys to lists of tag values. A tag matches when its key is in the map and its value is one of the values listed for that key. Matching is case sensitive, and the filter matches when at least one key in the map matches.</p> <p>An event is returned when one of its affected accounts, or one of the entities of those accounts, has tags that match.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -147,6 +152,14 @@ def serialize_aws_json_1_1(value: OrganizationEventFilter) -> dict:
         out["personas"] = capo_health.types.event_persona_list.serialize_aws_json_1_1(
             value["personas"]
         )
+    if "tags" in value:
+        import capo_health.types.organization_event_tag_filter
+
+        out["tags"] = (
+            capo_health.types.organization_event_tag_filter.serialize_aws_json_1_1(
+                value["tags"]
+            )
+        )
     return out
 
 
@@ -243,5 +256,13 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationEventFilter:
 
         out["personas"] = capo_health.types.event_persona_list.deserialize_aws_json_1_1(
             data["personas"]
+        )
+    if data.get("tags") is not None:
+        import capo_health.types.organization_event_tag_filter
+
+        out["tags"] = (
+            capo_health.types.organization_event_tag_filter.deserialize_aws_json_1_1(
+                data["tags"]
+            )
         )
     return out

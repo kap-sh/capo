@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_lambda.types.accelerator_config
     import capo_lambda.types.capacity_provider_config
     import capo_lambda.types.dead_letter_config
     import capo_lambda.types.description
@@ -13,6 +14,7 @@ if TYPE_CHECKING:
     import capo_lambda.types.ephemeral_storage
     import capo_lambda.types.file_system_config_list
     import capo_lambda.types.function_name
+    import capo_lambda.types.function_runtime_config
     import capo_lambda.types.handler
     import capo_lambda.types.image_config
     import capo_lambda.types.kms_key_arn
@@ -68,7 +70,7 @@ class UpdateFunctionConfigurationRequest(TypedDict, closed=True):
     ephemeral_storage: NotRequired[
         "capo_lambda.types.ephemeral_storage.EphemeralStorage"
     ]
-    """<p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>"""
+    """<p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For functions that use <code>AcceleratorConfig</code>, the maximum is 32,768 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>"""
     snap_start: NotRequired["capo_lambda.types.snap_start.SnapStart"]
     """<p>The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">SnapStart</a> setting.</p>"""
     logging_config: NotRequired["capo_lambda.types.logging_config.LoggingConfig"]
@@ -79,6 +81,14 @@ class UpdateFunctionConfigurationRequest(TypedDict, closed=True):
     """<p>Configuration for the capacity provider that manages compute resources for Lambda functions.</p>"""
     durable_config: NotRequired["capo_lambda.types.durable_config.DurableConfig"]
     """<p>Configuration settings for <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable functions</a>, including execution timeout, retention period for execution history, and an optional ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your durable execution's payload data, including input, output, and error payloads.</p>"""
+    runtime_config: NotRequired[
+        "capo_lambda.types.function_runtime_config.FunctionRuntimeConfig"
+    ]
+    """<p>The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime alias that your function uses.</p>"""
+    accelerator_config: NotRequired[
+        "capo_lambda.types.accelerator_config.AcceleratorConfig"
+    ]
+    """<p>The accelerator resource settings for a Lambda execution environment.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -175,6 +185,18 @@ def serialize_json(value: UpdateFunctionConfigurationRequest) -> dict:
 
         out["DurableConfig"] = capo_lambda.types.durable_config.serialize_json(
             value["durable_config"]
+        )
+    if "runtime_config" in value:
+        import capo_lambda.types.function_runtime_config
+
+        out["RuntimeConfig"] = capo_lambda.types.function_runtime_config.serialize_json(
+            value["runtime_config"]
+        )
+    if "accelerator_config" in value:
+        import capo_lambda.types.accelerator_config
+
+        out["AcceleratorConfig"] = capo_lambda.types.accelerator_config.serialize_json(
+            value["accelerator_config"]
         )
     return out
 
@@ -274,6 +296,22 @@ def deserialize_json(data: dict) -> UpdateFunctionConfigurationRequest:
 
         out["durable_config"] = capo_lambda.types.durable_config.deserialize_json(
             data["DurableConfig"]
+        )
+    if data.get("RuntimeConfig") is not None:
+        import capo_lambda.types.function_runtime_config
+
+        out["runtime_config"] = (
+            capo_lambda.types.function_runtime_config.deserialize_json(
+                data["RuntimeConfig"]
+            )
+        )
+    if data.get("AcceleratorConfig") is not None:
+        import capo_lambda.types.accelerator_config
+
+        out["accelerator_config"] = (
+            capo_lambda.types.accelerator_config.deserialize_json(
+                data["AcceleratorConfig"]
+            )
         )
     return out
 

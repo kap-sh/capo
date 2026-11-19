@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_ecs.types.gateway_connector_deregistration_delay
     import capo_ecs.types.gateway_connector_filters
     import capo_ecs.types.gateway_connector_health_check
     import capo_ecs.types.string
@@ -21,6 +22,10 @@ class GatewayConnector(TypedDict, closed=True):
         "capo_ecs.types.gateway_connector_filters.GatewayConnectorFilters"
     ]
     """<p>The filters that control which gateway ingress paths the connector applies to.</p>"""
+    deregistration_delay: NotRequired[
+        "capo_ecs.types.gateway_connector_deregistration_delay.GatewayConnectorDeregistrationDelay"
+    ]
+    """<p>The deregistration delay settings for the targets of this connector.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -41,6 +46,14 @@ def serialize_aws_json_1_1(value: GatewayConnector) -> dict:
         out["filters"] = (
             capo_ecs.types.gateway_connector_filters.serialize_aws_json_1_1(
                 value["filters"]
+            )
+        )
+    if "deregistration_delay" in value:
+        import capo_ecs.types.gateway_connector_deregistration_delay
+
+        out["deregistrationDelay"] = (
+            capo_ecs.types.gateway_connector_deregistration_delay.serialize_aws_json_1_1(
+                value["deregistration_delay"]
             )
         )
     return out
@@ -66,6 +79,14 @@ def deserialize_aws_json_1_1(data: dict) -> GatewayConnector:
         out["filters"] = (
             capo_ecs.types.gateway_connector_filters.deserialize_aws_json_1_1(
                 data["filters"]
+            )
+        )
+    if data.get("deregistrationDelay") is not None:
+        import capo_ecs.types.gateway_connector_deregistration_delay
+
+        out["deregistration_delay"] = (
+            capo_ecs.types.gateway_connector_deregistration_delay.deserialize_aws_json_1_1(
+                data["deregistrationDelay"]
             )
         )
     return out

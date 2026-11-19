@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_emr_serverless.types.configuration_overrides
     import capo_emr_serverless.types.date
     import capo_emr_serverless.types.duration
+    import capo_emr_serverless.types.flex_execution
     import capo_emr_serverless.types.iam_role_arn
     import capo_emr_serverless.types.image_configuration
     import capo_emr_serverless.types.job_arn
@@ -105,6 +106,10 @@ class JobRun(TypedDict, closed=True):
         "capo_emr_serverless.types.worker_type_specification_map.WorkerTypeSpecificationMap"
     ]
     """<p>The specification applied to each worker type. Includes the JobRun-level ImageConfiguration when the applicationLevelDigestResolution is false for the application.</p>"""
+    flex_execution: NotRequired[
+        "capo_emr_serverless.types.flex_execution.FlexExecution"
+    ]
+    """<p>The Amazon EMR Serverless Flex settings for the job run.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -234,6 +239,12 @@ def serialize_json(value: JobRun) -> dict:
             capo_emr_serverless.types.worker_type_specification_map.serialize_json(
                 value["worker_type_specifications"]
             )
+        )
+    if "flex_execution" in value:
+        import capo_emr_serverless.types.flex_execution
+
+        out["flexExecution"] = capo_emr_serverless.types.flex_execution.serialize_json(
+            value["flex_execution"]
         )
     return out
 
@@ -400,6 +411,14 @@ def deserialize_json(data: dict) -> JobRun:
         out["worker_type_specifications"] = (
             capo_emr_serverless.types.worker_type_specification_map.deserialize_json(
                 data["workerTypeSpecifications"]
+            )
+        )
+    if data.get("flexExecution") is not None:
+        import capo_emr_serverless.types.flex_execution
+
+        out["flex_execution"] = (
+            capo_emr_serverless.types.flex_execution.deserialize_json(
+                data["flexExecution"]
             )
         )
     return out

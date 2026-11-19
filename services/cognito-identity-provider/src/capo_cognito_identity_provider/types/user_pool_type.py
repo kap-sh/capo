@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.alias_attributes_list_type
     import capo_cognito_identity_provider.types.arn_type
     import capo_cognito_identity_provider.types.date_type
+    import capo_cognito_identity_provider.types.dcr_configuration_type
     import capo_cognito_identity_provider.types.deletion_protection_type
     import capo_cognito_identity_provider.types.device_configuration_type
     import capo_cognito_identity_provider.types.domain_type
@@ -157,6 +158,10 @@ class UserPoolType(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.user_pool_add_ons_type.UserPoolAddOnsType"
     ]
     """<p>Contains settings for activation of threat protection, including the operating mode and additional authentication types. To log user security information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to potentially unwanted traffic to your user pool, set to <code>ENFORCED</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html">Adding advanced security to a user pool</a>. To activate this setting, your user pool must be on the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-plus.html"> Plus tier</a>.</p>"""
+    dcr_configuration: NotRequired[
+        "capo_cognito_identity_provider.types.dcr_configuration_type.DcrConfigurationType"
+    ]
+    """<p>The dynamic client registration configuration for the user pool. With dynamic client registration, applications can register their own app clients at runtime through the registration endpoint of your user pool domain. To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p>"""
     username_configuration: NotRequired[
         "capo_cognito_identity_provider.types.username_configuration_type.UsernameConfigurationType"
     ]
@@ -359,6 +364,14 @@ def serialize_aws_json_1_1(value: UserPoolType) -> dict:
         out["UserPoolAddOns"] = (
             capo_cognito_identity_provider.types.user_pool_add_ons_type.serialize_aws_json_1_1(
                 value["user_pool_add_ons"]
+            )
+        )
+    if "dcr_configuration" in value:
+        import capo_cognito_identity_provider.types.dcr_configuration_type
+
+        out["DcrConfiguration"] = (
+            capo_cognito_identity_provider.types.dcr_configuration_type.serialize_aws_json_1_1(
+                value["dcr_configuration"]
             )
         )
     if "username_configuration" in value:
@@ -590,6 +603,14 @@ def deserialize_aws_json_1_1(data: dict) -> UserPoolType:
         out["user_pool_add_ons"] = (
             capo_cognito_identity_provider.types.user_pool_add_ons_type.deserialize_aws_json_1_1(
                 data["UserPoolAddOns"]
+            )
+        )
+    if data.get("DcrConfiguration") is not None:
+        import capo_cognito_identity_provider.types.dcr_configuration_type
+
+        out["dcr_configuration"] = (
+            capo_cognito_identity_provider.types.dcr_configuration_type.deserialize_aws_json_1_1(
+                data["DcrConfiguration"]
             )
         )
     if data.get("UsernameConfiguration") is not None:

@@ -52,10 +52,16 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.context_content
     import capo_wellarchitected.types.context_summary
     import capo_wellarchitected.types.context_type
+    import capo_wellarchitected.types.create_agent_basic_profile_request
+    import capo_wellarchitected.types.create_agent_basic_profile_response
     import capo_wellarchitected.types.create_agent_context_request
     import capo_wellarchitected.types.create_agent_context_response
     import capo_wellarchitected.types.create_agent_goal_request
     import capo_wellarchitected.types.create_agent_goal_response
+    import capo_wellarchitected.types.create_agent_organizational_profile_request
+    import capo_wellarchitected.types.create_agent_organizational_profile_response
+    import capo_wellarchitected.types.create_agent_organizational_report_request
+    import capo_wellarchitected.types.create_agent_organizational_report_response
     import capo_wellarchitected.types.create_agent_profile_request
     import capo_wellarchitected.types.create_agent_profile_response
     import capo_wellarchitected.types.create_lens_share_input
@@ -80,8 +86,14 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.delete_agent_context_response
     import capo_wellarchitected.types.delete_agent_goal_request
     import capo_wellarchitected.types.delete_agent_goal_response
+    import capo_wellarchitected.types.delete_agent_organizational_report_request
+    import capo_wellarchitected.types.delete_agent_organizational_report_response
+    import capo_wellarchitected.types.delete_agent_profile_policy_request
+    import capo_wellarchitected.types.delete_agent_profile_policy_response
     import capo_wellarchitected.types.delete_agent_profile_request
     import capo_wellarchitected.types.delete_agent_profile_response
+    import capo_wellarchitected.types.delete_agent_recommendation_policy_request
+    import capo_wellarchitected.types.delete_agent_recommendation_policy_response
     import capo_wellarchitected.types.delete_lens_input
     import capo_wellarchitected.types.delete_lens_share_input
     import capo_wellarchitected.types.delete_profile_input
@@ -100,10 +112,20 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.get_agent_context_response
     import capo_wellarchitected.types.get_agent_goal_request
     import capo_wellarchitected.types.get_agent_goal_response
+    import capo_wellarchitected.types.get_agent_organizational_report_data_request
+    import capo_wellarchitected.types.get_agent_organizational_report_data_response
+    import capo_wellarchitected.types.get_agent_organizational_report_request
+    import capo_wellarchitected.types.get_agent_organizational_report_response
+    import capo_wellarchitected.types.get_agent_preferences_request
+    import capo_wellarchitected.types.get_agent_preferences_response
+    import capo_wellarchitected.types.get_agent_profile_policy_request
+    import capo_wellarchitected.types.get_agent_profile_policy_response
     import capo_wellarchitected.types.get_agent_profile_request
     import capo_wellarchitected.types.get_agent_profile_response
     import capo_wellarchitected.types.get_agent_recommendation_generation_request
     import capo_wellarchitected.types.get_agent_recommendation_generation_response
+    import capo_wellarchitected.types.get_agent_recommendation_policy_request
+    import capo_wellarchitected.types.get_agent_recommendation_policy_response
     import capo_wellarchitected.types.get_agent_recommendation_request
     import capo_wellarchitected.types.get_agent_recommendation_response
     import capo_wellarchitected.types.get_answer_input
@@ -155,6 +177,8 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.list_agent_contexts_response
     import capo_wellarchitected.types.list_agent_goals_request
     import capo_wellarchitected.types.list_agent_goals_response
+    import capo_wellarchitected.types.list_agent_organizational_reports_request
+    import capo_wellarchitected.types.list_agent_organizational_reports_response
     import capo_wellarchitected.types.list_agent_profiles_request
     import capo_wellarchitected.types.list_agent_profiles_response
     import capo_wellarchitected.types.list_agent_recommendation_generations_request
@@ -207,11 +231,17 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.next_token
     import capo_wellarchitected.types.notes
     import capo_wellarchitected.types.organization_sharing_status
+    import capo_wellarchitected.types.organizational_aggregation_configuration
+    import capo_wellarchitected.types.organizational_report_filters
+    import capo_wellarchitected.types.organizational_report_format
+    import capo_wellarchitected.types.organizational_report_state
+    import capo_wellarchitected.types.organizational_report_summary
     import capo_wellarchitected.types.permission_type
     import capo_wellarchitected.types.pillar
     import capo_wellarchitected.types.pillar_id
     import capo_wellarchitected.types.pillar_notes
     import capo_wellarchitected.types.pillars
+    import capo_wellarchitected.types.preference_updates
     import capo_wellarchitected.types.profile_arn
     import capo_wellarchitected.types.profile_arns
     import capo_wellarchitected.types.profile_description
@@ -220,8 +250,14 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.profile_owner_type
     import capo_wellarchitected.types.profile_question_updates
     import capo_wellarchitected.types.profile_version
+    import capo_wellarchitected.types.put_agent_preferences_request
+    import capo_wellarchitected.types.put_agent_preferences_response
+    import capo_wellarchitected.types.put_agent_profile_policy_request
+    import capo_wellarchitected.types.put_agent_profile_policy_response
     import capo_wellarchitected.types.put_agent_recommendation_feedback_request
     import capo_wellarchitected.types.put_agent_recommendation_feedback_response
+    import capo_wellarchitected.types.put_agent_recommendation_policy_request
+    import capo_wellarchitected.types.put_agent_recommendation_policy_response
     import capo_wellarchitected.types.question_id
     import capo_wellarchitected.types.question_priority
     import capo_wellarchitected.types.recommendation_feedback_type
@@ -232,13 +268,20 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.recommendation_types
     import capo_wellarchitected.types.remediation_type
     import capo_wellarchitected.types.report_format
+    import capo_wellarchitected.types.report_label
     import capo_wellarchitected.types.resource_arn
+    import capo_wellarchitected.types.resource_policy
     import capo_wellarchitected.types.review_template_arns
     import capo_wellarchitected.types.review_template_lens_aliases
     import capo_wellarchitected.types.review_template_lenses
     import capo_wellarchitected.types.role_arn
+    import capo_wellarchitected.types.s3_bucket_arn
+    import capo_wellarchitected.types.s3_object_key
     import capo_wellarchitected.types.scope
     import capo_wellarchitected.types.selected_choices
+    import capo_wellarchitected.types.send_agent_organizational_report_data_to_s3_request
+    import capo_wellarchitected.types.send_agent_organizational_report_data_to_s3_response
+    import capo_wellarchitected.types.sensitive_document
     import capo_wellarchitected.types.sensitive_string
     import capo_wellarchitected.types.share_id
     import capo_wellarchitected.types.share_invitation_action
@@ -264,6 +307,8 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.update_agent_context_response
     import capo_wellarchitected.types.update_agent_goal_request
     import capo_wellarchitected.types.update_agent_goal_response
+    import capo_wellarchitected.types.update_agent_organizational_profile_request
+    import capo_wellarchitected.types.update_agent_organizational_profile_response
     import capo_wellarchitected.types.update_agent_profile_request
     import capo_wellarchitected.types.update_agent_profile_response
     import capo_wellarchitected.types.update_agent_recommendation_status_request
@@ -534,6 +579,56 @@ class WellArchitectedClient:
         response.response.close()
         return response.output
 
+    def create_agent_basic_profile(
+        self,
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+        tags: Optional["capo_wellarchitected.types.tags.Tags"] = None,
+    ) -> "capo_wellarchitected.types.create_agent_basic_profile_response.CreateAgentBasicProfileResponse":
+        """<p>Creates a Basic profile for the calling account. No configuration input is required because the account and region are inferred from the caller. The profile uses the reserved name <code>basic</code>. This operation is idempotent. Calling it twice returns the same ARN. Each account can have at most one Basic profile.</p>
+
+        Args:
+            tags: <p>Tags to apply to the Basic profile at creation time.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.conflict_exception.ConflictException: <p>The resource has already been processed, was deleted, or is too large.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The user has reached their resource quota.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.create_agent_basic_profile_request.CreateAgentBasicProfileRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.create_agent_basic_profile_response.CreateAgentBasicProfileResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.create_agent_basic_profile
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.create_agent_basic_profile.create_agent_basic_profile(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAgentBasicProfile")
+        )
+        input_: capo_wellarchitected.types.create_agent_basic_profile_request.CreateAgentBasicProfileRequest = {}
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def create_agent_context(
         self,
         profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
@@ -641,7 +736,7 @@ class WellArchitectedClient:
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
             profile_arn: <p>The Amazon Resource Name (ARN) of the profile to associate the goal with.</p>
-            pillars: <p>The Well-Architected Tool Framework pillars to associate with this goal.</p>
+            pillars: <p>The Amazon Web Services Well-Architected Framework pillars to associate with this goal.</p>
             title: <p>The title of the goal.</p>
             description: <p>A description of the goal.</p>
 
@@ -719,6 +814,183 @@ class WellArchitectedClient:
         response.response.close()
         return response.output
 
+    def create_agent_organizational_profile(
+        self,
+        name: str,
+        pillars: "capo_wellarchitected.types.pillars.Pillars",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+        display_name: Optional[
+            "capo_wellarchitected.types.sensitive_string.SensitiveString"
+        ] = None,
+        description: Optional[
+            "capo_wellarchitected.types.sensitive_string.SensitiveString"
+        ] = None,
+        business_overview: Optional[
+            "capo_wellarchitected.types.sensitive_string.SensitiveString"
+        ] = None,
+        deletion_protection: Optional[bool] = None,
+        client_token: Optional[str] = None,
+        organizational_aggregation_configuration: Optional[
+            "capo_wellarchitected.types.organizational_aggregation_configuration.OrganizationalAggregationConfiguration"
+        ] = None,
+        tags: Optional["capo_wellarchitected.types.tags.Tags"] = None,
+    ) -> "capo_wellarchitected.types.create_agent_organizational_profile_response.CreateAgentOrganizationalProfileResponse":
+        """<p>Creates an Organizational Profile for use with AWS Organizations integration. Organizational Profiles are scoped to an AWS Organization and do not require an execution role or aggregation configuration. The organization is inferred from the caller's identity.</p>
+
+        Args:
+            name: <p>The system name of the organizational profile.</p>
+            display_name: <p>The display name of the organizational profile shown to users.</p>
+            description: <p>A description of the organizational profile.</p>
+            business_overview: <p>The business overview for this organizational profile.</p>
+            pillars: <p>The Amazon Web Services Well-Architected Framework pillars to associate with this organizational profile.</p>
+            deletion_protection: <p>Indicates whether deletion protection is enabled for the organizational profile.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
+            organizational_aggregation_configuration: <p>The organizational monitoring boundary. Contains organizational unit or root entries and individual account entries that define the scope for the profile.</p>
+            tags: <p>The tags to associate with the organizational profile.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.conflict_exception.ConflictException: <p>The resource has already been processed, was deleted, or is too large.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The user has reached their resource quota.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.create_agent_organizational_profile_request.CreateAgentOrganizationalProfileRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.create_agent_organizational_profile_response.CreateAgentOrganizationalProfileResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.create_agent_organizational_profile
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.create_agent_organizational_profile.create_agent_organizational_profile(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_wellarchitected.types.create_agent_organizational_profile_request.CreateAgentOrganizationalProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.create_agent_organizational_profile_request
+
+            return capo_wellarchitected.types.create_agent_organizational_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wellarchitected.types.create_agent_organizational_profile_response.CreateAgentOrganizationalProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.create_agent_organizational_profile_response
+
+            return capo_wellarchitected.types.create_agent_organizational_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentOrganizationalProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_wellarchitected.types.create_agent_organizational_profile_request.CreateAgentOrganizationalProfileRequest = {
+            "name": name,
+            "pillars": pillars,
+        }
+        if display_name is not None:
+            input_["display_name"] = display_name
+        if description is not None:
+            input_["description"] = description
+        if business_overview is not None:
+            input_["business_overview"] = business_overview
+        if deletion_protection is not None:
+            input_["deletion_protection"] = deletion_protection
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if organizational_aggregation_configuration is not None:
+            input_["organizational_aggregation_configuration"] = (
+                organizational_aggregation_configuration
+            )
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def create_agent_organizational_report(
+        self,
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+        client_token: Optional[str] = None,
+        label: Optional["capo_wellarchitected.types.report_label.ReportLabel"] = None,
+        filters: Optional[
+            "capo_wellarchitected.types.organizational_report_filters.OrganizationalReportFilters"
+        ] = None,
+    ) -> "capo_wellarchitected.types.create_agent_organizational_report_response.CreateAgentOrganizationalReportResponse":
+        """<p>Creates an Organizational Report, which is an asynchronously-materialized, point-in-time snapshot of recommendations across all Agent Profiles within the caller's AWS Organization. You can optionally narrow the scope with filters. The operation is idempotent on the caller-supplied clientToken. The AWS Organization the report belongs to is inferred from the caller's authorization context. Reports are retained for 90 days from creation, after which they are automatically deleted. Use DeleteAgentOrganizationalReport to delete a report earlier.</p>
+
+        Args:
+            client_token: <p>A caller-supplied idempotency token. Two create calls sharing the same token within the service's idempotency window return the same reportId.</p>
+            label: <p>Optional human-readable label (1-500 characters) that helps callers distinguish reports created with the same filters. Carried through list and get responses.</p>
+            filters: <p>Optional filters narrowing the report's scope. Absent means the report covers the whole organization.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.conflict_exception.ConflictException: <p>The resource has already been processed, was deleted, or is too large.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The user has reached their resource quota.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.create_agent_organizational_report_request.CreateAgentOrganizationalReportRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.create_agent_organizational_report_response.CreateAgentOrganizationalReportResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.create_agent_organizational_report
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.create_agent_organizational_report.create_agent_organizational_report(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAgentOrganizationalReport")
+        )
+        input_: capo_wellarchitected.types.create_agent_organizational_report_request.CreateAgentOrganizationalReportRequest = {}
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if label is not None:
+            input_["label"] = label
+        if filters is not None:
+            input_["filters"] = filters
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def create_agent_profile(
         self,
         name: str,
@@ -747,7 +1019,7 @@ class WellArchitectedClient:
             display_name: <p>The display name of the profile shown to users.</p>
             description: <p>A description of the profile.</p>
             business_overview: <p>The business overview for this profile.</p>
-            pillars: <p>The Well-Architected Tool Framework pillars to associate with this profile.</p>
+            pillars: <p>The Amazon Web Services Well-Architected Framework pillars to associate with this profile.</p>
             deletion_protection: <p>Indicates whether deletion protection is enabled for the profile.</p>
             execution_role_arn: <p>The ARN of the IAM execution role used for recommendation actions.</p>
             aggregation_configuration: <p>The aggregation configuration that defines which Amazon Web Services accounts and Regions to analyze.</p>
@@ -1616,6 +1888,55 @@ class WellArchitectedClient:
         response.response.close()
         return response.output
 
+    def delete_agent_organizational_report(
+        self,
+        report_id: "capo_wellarchitected.types.uuid.UUID",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.delete_agent_organizational_report_response.DeleteAgentOrganizationalReportResponse":
+        """<p>Deletes an Organizational Report and its associated artifacts. The operation is idempotent, so repeated calls for a report that has already been deleted return success.</p>
+
+        Args:
+            report_id: <p>Identifier of the report to delete.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.delete_agent_organizational_report_request.DeleteAgentOrganizationalReportRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.delete_agent_organizational_report_response.DeleteAgentOrganizationalReportResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.delete_agent_organizational_report
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.delete_agent_organizational_report.delete_agent_organizational_report(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgentOrganizationalReport")
+        )
+        input_: capo_wellarchitected.types.delete_agent_organizational_report_request.DeleteAgentOrganizationalReportRequest = {
+            "report_id": report_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_agent_profile(
         self,
         profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
@@ -1656,6 +1977,104 @@ class WellArchitectedClient:
         )
         input_: capo_wellarchitected.types.delete_agent_profile_request.DeleteAgentProfileRequest = {
             "profile_arn": profile_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_agent_profile_policy(
+        self,
+        profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.delete_agent_profile_policy_response.DeleteAgentProfilePolicyResponse":
+        """<p>Removes the resource-based policy from an Agent Profile. This revokes all cross-account access previously granted by the policy. Only the profile owner can call this operation.</p>
+
+        Args:
+            profile_arn: <p>The ARN of the Agent Profile whose policy to delete.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.delete_agent_profile_policy_request.DeleteAgentProfilePolicyRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.delete_agent_profile_policy_response.DeleteAgentProfilePolicyResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.delete_agent_profile_policy
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.delete_agent_profile_policy.delete_agent_profile_policy(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgentProfilePolicy")
+        )
+        input_: capo_wellarchitected.types.delete_agent_profile_policy_request.DeleteAgentProfilePolicyRequest = {
+            "profile_arn": profile_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_agent_recommendation_policy(
+        self,
+        recommendation_arn: "capo_wellarchitected.types.agent_recommendation_arn.AgentRecommendationArn",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.delete_agent_recommendation_policy_response.DeleteAgentRecommendationPolicyResponse":
+        """<p>Removes the resource-based policy from an individual Agent Recommendation. This revokes all cross-account access previously granted by the policy. The recommendation owner or any principal with profile write access on the parent profile can call this operation.</p>
+
+        Args:
+            recommendation_arn: <p>The ARN of the Agent Recommendation whose policy to delete.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.delete_agent_recommendation_policy_request.DeleteAgentRecommendationPolicyRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.delete_agent_recommendation_policy_response.DeleteAgentRecommendationPolicyResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.delete_agent_recommendation_policy
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.delete_agent_recommendation_policy.delete_agent_recommendation_policy(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgentRecommendationPolicy")
+        )
+        input_: capo_wellarchitected.types.delete_agent_recommendation_policy_request.DeleteAgentRecommendationPolicyRequest = {
+            "recommendation_arn": recommendation_arn
         }
 
         response = execute_pipeline(
@@ -2387,6 +2806,147 @@ class WellArchitectedClient:
         response.response.close()
         return response.output
 
+    def get_agent_organizational_report(
+        self,
+        report_id: "capo_wellarchitected.types.uuid.UUID",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.get_agent_organizational_report_response.GetAgentOrganizationalReportResponse":
+        """<p>Retrieves metadata and current state for a single Organizational Report. The coverageSummary is populated once the report reaches COMPLETED and is absent for reports still in progress or in a failed state.</p>
+
+        Args:
+            report_id: <p>Identifier of the report to retrieve.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.get_agent_organizational_report_request.GetAgentOrganizationalReportRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.get_agent_organizational_report_response.GetAgentOrganizationalReportResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_organizational_report
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_organizational_report.get_agent_organizational_report(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentOrganizationalReport")
+        )
+        input_: capo_wellarchitected.types.get_agent_organizational_report_request.GetAgentOrganizationalReportRequest = {
+            "report_id": report_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_agent_organizational_report_data(
+        self,
+        report_id: "capo_wellarchitected.types.uuid.UUID",
+        format: "capo_wellarchitected.types.organizational_report_format.OrganizationalReportFormat",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.get_agent_organizational_report_data_response.GetAgentOrganizationalReportDataResponse":
+        """<p>Retrieves the data artifact for a completed Organizational Report as a short-lived presigned S3 URL. The response contains the URL in downloadUrl and its expiration in expiresAt. To have the service write the artifact directly into a caller-owned bucket instead, use SendAgentOrganizationalReportDataToS3.</p>
+
+        Args:
+            report_id: <p>Identifier of the report whose data is being retrieved.</p>
+            format: <p>Format of the returned artifact (CSV, JSON, or PARQUET).</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.get_agent_organizational_report_data_request.GetAgentOrganizationalReportDataRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.get_agent_organizational_report_data_response.GetAgentOrganizationalReportDataResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_organizational_report_data
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_organizational_report_data.get_agent_organizational_report_data(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentOrganizationalReportData")
+        )
+        input_: capo_wellarchitected.types.get_agent_organizational_report_data_request.GetAgentOrganizationalReportDataRequest = {
+            "report_id": report_id,
+            "format": format,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_agent_preferences(
+        self, *, config_overrides: Optional[WellArchitectedClientConfig] = None
+    ) -> "capo_wellarchitected.types.get_agent_preferences_response.GetAgentPreferencesResponse":
+        """<p>Returns the caller's complete set of Well-Architected Agent preferences with their current states.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.get_agent_preferences_request.GetAgentPreferencesRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.get_agent_preferences_response.GetAgentPreferencesResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_preferences
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_preferences.get_agent_preferences(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentPreferences")
+        )
+        input_: capo_wellarchitected.types.get_agent_preferences_request.GetAgentPreferencesRequest = {}
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_agent_profile(
         self,
         profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
@@ -2450,6 +3010,55 @@ class WellArchitectedClient:
         response.response.close()
         return response.output
 
+    def get_agent_profile_policy(
+        self,
+        profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.get_agent_profile_policy_response.GetAgentProfilePolicyResponse":
+        """<p>Retrieves the resource-based policy attached to an Agent Profile. Only the profile owner can call this operation.</p>
+
+        Args:
+            profile_arn: <p>The ARN of the Agent Profile whose policy to retrieve.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.get_agent_profile_policy_request.GetAgentProfilePolicyRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.get_agent_profile_policy_response.GetAgentProfilePolicyResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_profile_policy
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_profile_policy.get_agent_profile_policy(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentProfilePolicy")
+        )
+        input_: capo_wellarchitected.types.get_agent_profile_policy_request.GetAgentProfilePolicyRequest = {
+            "profile_arn": profile_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_agent_recommendation(
         self,
         recommendation_arn: "capo_wellarchitected.types.agent_recommendation_arn.AgentRecommendationArn",
@@ -2459,7 +3068,7 @@ class WellArchitectedClient:
             "capo_wellarchitected.types.remediation_type.RemediationType"
         ] = None,
     ) -> "capo_wellarchitected.types.get_agent_recommendation_response.GetAgentRecommendationResponse":
-        """<p>Retrieves detailed information about a specific optimization recommendation, including its impact analysis, content, and implementation guidance.</p>
+        """<important> <p>Application-level recommendations are a new recommendation format currently in beta. We are actively seeking customer feedback to improve their quality and relevance. As with any AI-generated content, please thoroughly review each recommendation before taking any action based on it.</p> </important> <p>Retrieves detailed information about a specific optimization recommendation, including its impact analysis, content, and implementation guidance.</p>
 
         Args:
             recommendation_arn: <p>The Amazon Resource Name (ARN) of the recommendation to retrieve.</p>
@@ -2522,7 +3131,7 @@ class WellArchitectedClient:
         *,
         config_overrides: Optional[WellArchitectedClientConfig] = None,
     ) -> "capo_wellarchitected.types.get_agent_recommendation_generation_response.GetAgentRecommendationGenerationResponse":
-        """<p>Retrieves information about a recommendation generation process, including its status, progress, and results. Recommendation generation is asynchronous: poll this operation until status reaches a terminal value of COMPLETED (results are ready) or ERROR (see errorDetails). Intermediate values are QUEUED and IN_PROGRESS.</p>
+        """<important> <p>Application-level recommendations are a new recommendation format currently in beta. We are actively seeking customer feedback to improve their quality and relevance. As with any AI-generated content, please thoroughly review each recommendation before taking any action based on it.</p> </important> <p>Retrieves information about a recommendation generation process, including its status, progress, and results. Recommendation generation is asynchronous: poll this operation until status reaches a terminal value of COMPLETED (results are ready) or ERROR (see errorDetails). Intermediate values are QUEUED and IN_PROGRESS.</p>
 
         Args:
             profile_arn: <p>The ARN of the optimization profile associated with this generation.</p>
@@ -2551,12 +3160,73 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_wellarchitected.types.get_agent_recommendation_generation_response.GetAgentRecommendationGenerationResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.get_agent_recommendation_generation_response
+
+            return capo_wellarchitected.types.get_agent_recommendation_generation_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetAgentRecommendationGeneration")
+            config_overrides,
+            OperationLogging(
+                "GetAgentRecommendationGeneration", redact_output=_redact_output
+            ),
         )
         input_: capo_wellarchitected.types.get_agent_recommendation_generation_request.GetAgentRecommendationGenerationRequest = {
             "profile_arn": profile_arn,
             "generation_id": generation_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_agent_recommendation_policy(
+        self,
+        recommendation_arn: "capo_wellarchitected.types.agent_recommendation_arn.AgentRecommendationArn",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.get_agent_recommendation_policy_response.GetAgentRecommendationPolicyResponse":
+        """<p>Retrieves the resource-based policy attached to an individual Agent Recommendation. The recommendation owner or any principal with profile write access on the parent profile can call this operation.</p>
+
+        Args:
+            recommendation_arn: <p>The ARN of the Agent Recommendation whose policy to retrieve.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.get_agent_recommendation_policy_request.GetAgentRecommendationPolicyRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.get_agent_recommendation_policy_response.GetAgentRecommendationPolicyResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_recommendation_policy
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.get_agent_recommendation_policy.get_agent_recommendation_policy(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentRecommendationPolicy")
+        )
+        input_: capo_wellarchitected.types.get_agent_recommendation_policy_request.GetAgentRecommendationPolicyRequest = {
+            "recommendation_arn": recommendation_arn
         }
 
         response = execute_pipeline(
@@ -3401,6 +4071,8 @@ class WellArchitectedClient:
 
         Args:
             profile_arn: <p>The Amazon Resource Name (ARN) of the profile to list contexts for.</p>
+            max_results: <p>The maximum number of contexts to return in a single call. Default is 100.</p>
+            next_token: <p>A pagination token returned from a previous call to continue retrieving results.</p>
 
         Raises:
             capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -3573,6 +4245,93 @@ class WellArchitectedClient:
             if not _token:
                 break
 
+    def list_agent_organizational_reports(
+        self,
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+        max_results: Optional[
+            "capo_wellarchitected.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_wellarchitected.types.next_token.NextToken"] = None,
+        state: Optional[
+            "capo_wellarchitected.types.organizational_report_state.OrganizationalReportState"
+        ] = None,
+    ) -> "capo_wellarchitected.types.list_agent_organizational_reports_response.ListAgentOrganizationalReportsResponse":
+        """<p>Lists Organizational Reports owned by the caller's account within the caller's AWS Organization, ordered by most recently created first. Supports pagination and an optional state filter.</p>
+
+        Args:
+            max_results: <p>Maximum number of items to return in a single page. Defaults to 100.</p>
+            next_token: <p>Pagination token from a previous ListAgentOrganizationalReports response. Absent on the first page.</p>
+            state: <p>Optional filter restricting the response to reports in a single lifecycle state.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.list_agent_organizational_reports_request.ListAgentOrganizationalReportsRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.list_agent_organizational_reports_response.ListAgentOrganizationalReportsResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.list_agent_organizational_reports
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.list_agent_organizational_reports.list_agent_organizational_reports(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgentOrganizationalReports")
+        )
+        input_: capo_wellarchitected.types.list_agent_organizational_reports_request.ListAgentOrganizationalReportsRequest = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if state is not None:
+            input_["state"] = state
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_agent_organizational_reports(
+        self,
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+        max_results: Optional[
+            "capo_wellarchitected.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_wellarchitected.types.next_token.NextToken"] = None,
+        state: Optional[
+            "capo_wellarchitected.types.organizational_report_state.OrganizationalReportState"
+        ] = None,
+    ) -> "Iterator[capo_wellarchitected.types.organizational_report_summary.OrganizationalReportSummary]":
+        _token = next_token
+        while True:
+            _response = self.list_agent_organizational_reports(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+                state=state,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def list_agent_profiles(
         self,
         *,
@@ -3675,7 +4434,7 @@ class WellArchitectedClient:
         ] = None,
         next_token: Optional["capo_wellarchitected.types.next_token.NextToken"] = None,
     ) -> "capo_wellarchitected.types.list_agent_recommendation_generations_response.ListAgentRecommendationGenerationsResponse":
-        """<p>Lists recommendation generation processes for a specified profile.</p>
+        """<important> <p>Application-level recommendations are a new recommendation format currently in beta. We are actively seeking customer feedback to improve their quality and relevance. As with any AI-generated content, please thoroughly review each recommendation before taking any action based on it.</p> </important> <p>Lists recommendation generation processes for a specified profile.</p>
 
         Args:
             profile_arn: <p>The Amazon Resource Name (ARN) of the optimization profile to list generation processes for.</p>
@@ -3769,7 +4528,7 @@ class WellArchitectedClient:
         ] = None,
         next_token: Optional["capo_wellarchitected.types.next_token.NextToken"] = None,
     ) -> "capo_wellarchitected.types.list_agent_recommendation_items_response.ListAgentRecommendationItemsResponse":
-        """<p>Lists recommendation items for a specific recommendation. Recommendation items provide detailed information about individual optimization opportunities.</p>
+        """<important> <p>Application-level recommendations are a new recommendation format currently in beta. We are actively seeking customer feedback to improve their quality and relevance. As with any AI-generated content, please thoroughly review each recommendation before taking any action based on it.</p> </important> <p>Lists recommendation items for a specific recommendation. Recommendation items provide detailed information about individual optimization opportunities.</p>
 
         Args:
             recommendation_arn: <p>The Amazon Resource Name (ARN) of the recommendation to list items for.</p>
@@ -3864,7 +4623,7 @@ class WellArchitectedClient:
         ] = None,
         pillar: Optional["capo_wellarchitected.types.pillar.Pillar"] = None,
     ) -> "capo_wellarchitected.types.list_agent_recommendations_response.ListAgentRecommendationsResponse":
-        """<p>Lists active optimization recommendations for a specified profile with optional filtering by state.</p>
+        """<important> <p>Application-level recommendations are a new recommendation format currently in beta. We are actively seeking customer feedback to improve their quality and relevance. As with any AI-generated content, please thoroughly review each recommendation before taking any action based on it.</p> </important> <p>Lists active optimization recommendations for a specified profile with optional filtering by state.</p>
 
         Args:
             profile_arn: <p>The Amazon Resource Name (ARN) of the optimization profile to list recommendations for.</p>
@@ -5703,6 +6462,107 @@ class WellArchitectedClient:
             if not _token:
                 break
 
+    def put_agent_preferences(
+        self,
+        preferences: "capo_wellarchitected.types.preference_updates.PreferenceUpdates",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.put_agent_preferences_response.PutAgentPreferencesResponse":
+        """<p>Creates or replaces the caller's Well-Architected Agent preferences. Each supplied update sets the desired state of one preference. Preferences not named in the request are left unchanged. Enabling or disabling is performed synchronously, so a failure to reach the requested state is returned as a modeled exception rather than a FAILED status. On success the operation returns an empty response. Call GetAgentPreferences to read the resulting state. The account the preferences belong to is inferred from the caller's authorization context.</p>
+
+        Args:
+            preferences: <p>Preference updates to apply. A given preference key may appear at most once.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.conflict_exception.ConflictException: <p>The resource has already been processed, was deleted, or is too large.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.put_agent_preferences_request.PutAgentPreferencesRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.put_agent_preferences_response.PutAgentPreferencesResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.put_agent_preferences
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.put_agent_preferences.put_agent_preferences(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAgentPreferences")
+        )
+        input_: capo_wellarchitected.types.put_agent_preferences_request.PutAgentPreferencesRequest = {
+            "preferences": preferences
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def put_agent_profile_policy(
+        self,
+        profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
+        policy: "capo_wellarchitected.types.resource_policy.ResourcePolicy",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.put_agent_profile_policy_response.PutAgentProfilePolicyResponse":
+        """<p>Attaches or replaces a resource-based policy on an Agent Profile. The policy controls cross-account access to the profile and its child resources such as recommendations, goals, and contexts. Only the profile owner can call this operation. The policy must be valid IAM JSON with Allow-only statements and no negation condition operators.</p>
+
+        Args:
+            profile_arn: <p>The ARN of the Agent Profile to attach the policy to.</p>
+            policy: <p>The IAM resource-based policy document in JSON format. Maximum size 50KB.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.put_agent_profile_policy_request.PutAgentProfilePolicyRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.put_agent_profile_policy_response.PutAgentProfilePolicyResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.put_agent_profile_policy
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.put_agent_profile_policy.put_agent_profile_policy(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAgentProfilePolicy")
+        )
+        input_: capo_wellarchitected.types.put_agent_profile_policy_request.PutAgentProfilePolicyRequest = {
+            "profile_arn": profile_arn,
+            "policy": policy,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def put_agent_recommendation_feedback(
         self,
         recommendation_arn: "capo_wellarchitected.types.agent_recommendation_arn.AgentRecommendationArn",
@@ -5712,7 +6572,9 @@ class WellArchitectedClient:
         feedback_category: Optional[
             "capo_wellarchitected.types.feedback_category.FeedbackCategory"
         ] = None,
-        comments: Optional[str] = None,
+        comments: Optional[
+            "capo_wellarchitected.types.sensitive_string.SensitiveString"
+        ] = None,
     ) -> "capo_wellarchitected.types.put_agent_recommendation_feedback_response.PutAgentRecommendationFeedbackResponse":
         """<p>Submits user feedback on a recommendation to help improve future optimization suggestions and track implementation outcomes.</p>
 
@@ -5745,8 +6607,20 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_wellarchitected.types.put_agent_recommendation_feedback_request.PutAgentRecommendationFeedbackRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.put_agent_recommendation_feedback_request
+
+            return capo_wellarchitected.types.put_agent_recommendation_feedback_request.redact_sensitive(
+                input_
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("PutAgentRecommendationFeedback")
+            config_overrides,
+            OperationLogging(
+                "PutAgentRecommendationFeedback", redact_input=_redact_input
+            ),
         )
         input_: capo_wellarchitected.types.put_agent_recommendation_feedback_request.PutAgentRecommendationFeedbackRequest = {
             "recommendation_arn": recommendation_arn,
@@ -5765,24 +6639,136 @@ class WellArchitectedClient:
         response.response.close()
         return response.output
 
+    def put_agent_recommendation_policy(
+        self,
+        recommendation_arn: "capo_wellarchitected.types.agent_recommendation_arn.AgentRecommendationArn",
+        policy: "capo_wellarchitected.types.resource_policy.ResourcePolicy",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.put_agent_recommendation_policy_response.PutAgentRecommendationPolicyResponse":
+        """<p>Attaches or replaces a resource-based policy on an individual Agent Recommendation. The policy controls cross-account access to the recommendation and its child resources such as items and remediations. The recommendation owner or any principal with profile write access on the parent profile can call this operation. The policy must be valid IAM JSON with Allow-only statements and no negation condition operators.</p>
+
+        Args:
+            recommendation_arn: <p>The ARN of the Agent Recommendation to attach the policy to.</p>
+            policy: <p>The IAM resource-based policy document in JSON format. Maximum size 50KB.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.put_agent_recommendation_policy_request.PutAgentRecommendationPolicyRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.put_agent_recommendation_policy_response.PutAgentRecommendationPolicyResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.put_agent_recommendation_policy
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.put_agent_recommendation_policy.put_agent_recommendation_policy(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAgentRecommendationPolicy")
+        )
+        input_: capo_wellarchitected.types.put_agent_recommendation_policy_request.PutAgentRecommendationPolicyRequest = {
+            "recommendation_arn": recommendation_arn,
+            "policy": policy,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def send_agent_organizational_report_data_to_s3(
+        self,
+        report_id: "capo_wellarchitected.types.uuid.UUID",
+        format: "capo_wellarchitected.types.organizational_report_format.OrganizationalReportFormat",
+        bucket_arn: "capo_wellarchitected.types.s3_bucket_arn.S3BucketArn",
+        object_key: "capo_wellarchitected.types.s3_object_key.S3ObjectKey",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+    ) -> "capo_wellarchitected.types.send_agent_organizational_report_data_to_s3_response.SendAgentOrganizationalReportDataToS3Response":
+        """<p>Writes the data artifact for a completed Organizational Report directly into a caller-owned S3 bucket. The artifact is written in the requested format to the supplied bucketArn and objectKey, and the resulting S3 location is returned in deliveredTo. This operation creates an S3 object and should not be retried indiscriminately. To download the artifact through a short-lived presigned URL instead, use GetAgentOrganizationalReportData.</p>
+
+        Args:
+            report_id: <p>Identifier of the report whose data is being delivered.</p>
+            format: <p>Format of the delivered artifact (CSV, JSON, or PARQUET).</p>
+            bucket_arn: <p>ARN of the caller-owned S3 bucket that will receive the artifact.</p>
+            object_key: <p>S3 object key under bucketArn where the artifact will be written.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.send_agent_organizational_report_data_to_s3_request.SendAgentOrganizationalReportDataToS3Request]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.send_agent_organizational_report_data_to_s3_response.SendAgentOrganizationalReportDataToS3Response"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.send_agent_organizational_report_data_to_s3
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.send_agent_organizational_report_data_to_s3.send_agent_organizational_report_data_to_s3(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendAgentOrganizationalReportDataToS3")
+        )
+        input_: capo_wellarchitected.types.send_agent_organizational_report_data_to_s3_request.SendAgentOrganizationalReportDataToS3Request = {
+            "report_id": report_id,
+            "format": format,
+            "bucket_arn": bucket_arn,
+            "object_key": object_key,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def start_agent_recommendation_generation(
         self,
         profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
         types: "capo_wellarchitected.types.recommendation_types.RecommendationTypes",
-        scope: "capo_wellarchitected.types.scope.Scope",
         *,
         config_overrides: Optional[WellArchitectedClientConfig] = None,
         name: Optional[str] = None,
-        additional_context: Optional[object] = None,
+        additional_context: Optional[
+            "capo_wellarchitected.types.sensitive_document.SensitiveDocument"
+        ] = None,
+        scope: Optional["capo_wellarchitected.types.scope.Scope"] = None,
     ) -> "capo_wellarchitected.types.start_agent_recommendation_generation_response.StartAgentRecommendationGenerationResponse":
-        """<p>Initiates a new recommendation generation process for the specified optimization profile. This asynchronous operation analyzes your Amazon Web Services resources and generates optimization recommendations based on the configured pillars and scope. Use GetAgentRecommendationGeneration to check status.</p>
+        """<p>Starts a recommendation generation process for the specified agent profile. This asynchronous operation returns immediately. Use <code>GetAgentRecommendationGeneration</code> to check the status of the generation.</p> <p>Currently, only the <code>ARCHITECTURE</code> recommendation type is supported. <code>RESOURCE</code> and <code>APPLICATION</code> recommendations are generated only by the scheduled generation cycle and cannot be started with this operation.</p> <p>For the <code>ARCHITECTURE</code> type, the generation analyzes the infrastructure as code (IaC) template that you specify in <code>additionalContext</code>, and returns updated templates with best practice fixes applied. You must specify <code>scope</code> and <code>additionalContext</code>. You can optionally specify <code>name</code>.</p> <p>Architecture review generations are subject to a daily quota for each profile. For more information, see <a href="https://docs.aws.amazon.com/wellarchitected/latest/userguide/agent-quotas.html">Quotas and limits</a> in the Amazon Web Services Well-Architected User Guide.</p>
 
         Args:
             profile_arn: <p>The Amazon Resource Name (ARN) of the optimization profile to use for generating recommendations.</p>
-            types: <p>The types of recommendations to generate.</p>
-            name: <p>An optional name for this generation process to help identify it in lists and logs.</p>
-            additional_context: <p>Optional additional context to guide the recommendation generation, such as specific business requirements or constraints.</p>
-            scope: <p>Scope configuration to focus the generation on specific pillars or goals.</p>
+            types: <p>The types of recommendations to generate. You can specify up to two types in a single request. Currently, only <code>ARCHITECTURE</code> is supported for this operation.</p>
+            name: <p>An optional name for this generation that identifies the architecture review in the console and in <code>ListAgentRecommendationGenerations</code> results. Applies to <code>ARCHITECTURE</code> type only. Must be absent for other types.</p>
+            additional_context: <p>The location of the infrastructure as code (IaC) template to review, and the lenses to review it against. Required for the <code>ARCHITECTURE</code> type. Must be absent for other types. Specify a JSON object with the following members:</p> <ul> <li> <p> <code>s3Uri</code>: The Amazon S3 URI of the IaC template, .zip archive, or folder to review.</p> </li> <li> <p> <code>s3VersionId</code>: The version ID of the Amazon S3 object. If you omit this member, the current version is used.</p> </li> <li> <p> <code>lensArns</code>: The ARNs of the lenses to review against. Only <code>arn:aws:wellarchitected::aws:lens/wellarchitected</code> is supported.</p> </li> </ul>
+            scope: <p>Defines which pillars, goals, and items the review covers. Required for the <code>ARCHITECTURE</code> type. Must be absent for other types.</p>
 
         Raises:
             capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -5808,18 +6794,31 @@ class WellArchitectedClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_wellarchitected.types.start_agent_recommendation_generation_request.StartAgentRecommendationGenerationRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.start_agent_recommendation_generation_request
+
+            return capo_wellarchitected.types.start_agent_recommendation_generation_request.redact_sensitive(
+                input_
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("StartAgentRecommendationGeneration")
+            config_overrides,
+            OperationLogging(
+                "StartAgentRecommendationGeneration", redact_input=_redact_input
+            ),
         )
         input_: capo_wellarchitected.types.start_agent_recommendation_generation_request.StartAgentRecommendationGenerationRequest = {
             "profile_arn": profile_arn,
             "types": types,
-            "scope": scope,
         }
         if name is not None:
             input_["name"] = name
         if additional_context is not None:
             input_["additional_context"] = additional_context
+        if scope is not None:
+            input_["scope"] = scope
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -6121,6 +7120,117 @@ class WellArchitectedClient:
         response.response.close()
         return response.output
 
+    def update_agent_organizational_profile(
+        self,
+        profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
+        *,
+        config_overrides: Optional[WellArchitectedClientConfig] = None,
+        client_token: Optional[str] = None,
+        display_name: Optional[
+            "capo_wellarchitected.types.sensitive_string.SensitiveString"
+        ] = None,
+        description: Optional[
+            "capo_wellarchitected.types.sensitive_string.SensitiveString"
+        ] = None,
+        business_overview: Optional[
+            "capo_wellarchitected.types.sensitive_string.SensitiveString"
+        ] = None,
+        pillars: Optional["capo_wellarchitected.types.pillars.Pillars"] = None,
+        deletion_protection: Optional[bool] = None,
+        organizational_aggregation_configuration: Optional[
+            "capo_wellarchitected.types.organizational_aggregation_configuration.OrganizationalAggregationConfiguration"
+        ] = None,
+    ) -> "capo_wellarchitected.types.update_agent_organizational_profile_response.UpdateAgentOrganizationalProfileResponse":
+        """<p>Updates an Organizational Profile. Organizational Profiles are specific to Profiles created using AWS Organizations integration. Include only the fields you want to change; any field you omit from the request keeps its current value.</p> <p>To clear an optional text field, supply an empty string for it; the field is then unset, and a subsequent read omits it rather than returning an empty string. Omitting the field from the request leaves the stored value in place. <code>description</code> and <code>businessOverview</code> can be cleared this way. <code>displayName</code> cannot be cleared because a display name is required, though you can change it. <code>pillars</code> cannot be cleared because a profile must target at least one pillar.</p> <p> <code>organizationalAggregationConfiguration</code> behaves differently because it is a structure rather than a text field. Supplying it with both its <code>organizationalUnits</code> and <code>accounts</code> lists empty removes every monitored organizational unit and account, but the field itself remains set: a subsequent read returns the structure with two empty lists rather than omitting it. Omitting the field from the request keeps the stored boundary.</p>
+
+        Args:
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
+            profile_arn: <p>The Amazon Resource Name (ARN) of the organizational profile to update.</p>
+            display_name: <p>The updated display name of the organizational profile. Omit this field to keep the current display name. A display name is required, so it cannot be cleared.</p>
+            description: <p>The updated description of the organizational profile. Omit this field to keep the current description, or supply an empty string to clear it; a cleared description is read back as absent rather than as an empty string.</p>
+            business_overview: <p>The updated business overview for the organizational profile. Omit this field to keep the current business overview, or supply an empty string to clear it; a cleared business overview is read back as absent rather than as an empty string.</p>
+            pillars: <p>The updated Amazon Web Services Well-Architected Framework pillars for the organizational profile. Omit this field to keep the current pillars. A profile must target at least one pillar, so an empty list is rejected.</p>
+            deletion_protection: <p>Indicates whether deletion protection is enabled for the organizational profile.</p>
+            organizational_aggregation_configuration: <p>The organizational monitoring boundary. Contains organizational unit or root entries and individual account entries that define the scope for the profile. Omit this field to keep the current boundary, or supply this structure with both its <code>organizationalUnits</code> and <code>accounts</code> lists empty to remove every monitored organizational unit and account. The field remains set either way — an emptied boundary is read back as a structure with two empty lists, not as an absent field.</p>
+
+        Raises:
+            capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
+            capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
+            capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_wellarchitected.types.update_agent_organizational_profile_request.UpdateAgentOrganizationalProfileRequest]",
+        ) -> OperationResponse[
+            "capo_wellarchitected.types.update_agent_organizational_profile_response.UpdateAgentOrganizationalProfileResponse"
+        ]:
+            import capo_wellarchitected._operations.well_architected_api_service_lambda.update_agent_organizational_profile
+
+            output, http_response = (
+                capo_wellarchitected._operations.well_architected_api_service_lambda.update_agent_organizational_profile.update_agent_organizational_profile(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_wellarchitected.types.update_agent_organizational_profile_request.UpdateAgentOrganizationalProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_organizational_profile_request
+
+            return capo_wellarchitected.types.update_agent_organizational_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wellarchitected.types.update_agent_organizational_profile_response.UpdateAgentOrganizationalProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_wellarchitected.types.update_agent_organizational_profile_response
+
+            return capo_wellarchitected.types.update_agent_organizational_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentOrganizationalProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_wellarchitected.types.update_agent_organizational_profile_request.UpdateAgentOrganizationalProfileRequest = {
+            "profile_arn": profile_arn
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if display_name is not None:
+            input_["display_name"] = display_name
+        if description is not None:
+            input_["description"] = description
+        if business_overview is not None:
+            input_["business_overview"] = business_overview
+        if pillars is not None:
+            input_["pillars"] = pillars
+        if deletion_protection is not None:
+            input_["deletion_protection"] = deletion_protection
+        if organizational_aggregation_configuration is not None:
+            input_["organizational_aggregation_configuration"] = (
+                organizational_aggregation_configuration
+            )
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def update_agent_profile(
         self,
         profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn",
@@ -6145,23 +7255,24 @@ class WellArchitectedClient:
         pillars: Optional["capo_wellarchitected.types.pillars.Pillars"] = None,
         deletion_protection: Optional[bool] = None,
     ) -> "capo_wellarchitected.types.update_agent_profile_response.UpdateAgentProfileResponse":
-        """<p>Updates an existing optimization profile's configuration, including its pillars, execution role, and aggregation settings.</p>
+        """<p>Updates an existing optimization profile's configuration, including its pillars, execution role, and aggregation settings. Include only the fields you want to change. Any field you omit from the request keeps its current value, so you do not need to retrieve the profile first and resend the fields you are not changing.</p> <p>To clear an optional text field, supply an empty string for it; the field is then unset, and a subsequent read omits it rather than returning an empty string. Omitting the field from the request leaves the stored value in place. <code>description</code> and <code>businessOverview</code> can be cleared this way. <code>displayName</code> cannot be cleared because a display name is required, though you can change it. <code>pillars</code> cannot be cleared because a profile must target at least one pillar.</p> <p> <code>aggregationConfiguration</code> behaves differently because it is a list of per-account configurations rather than a text field. Supplying an empty list removes every account entry, but the field itself remains set: a subsequent read returns an empty list rather than omitting the field. Omitting it from the request keeps the stored entries.</p>
 
         Args:
             client_token: <p>A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
             profile_arn: <p>The Amazon Resource Name (ARN) of the profile to update.</p>
-            display_name: <p>The updated display name of the profile.</p>
-            description: <p>The updated description of the profile.</p>
-            execution_role_arn: <p>The updated ARN of the IAM execution role.</p>
-            aggregation_configuration: <p>The updated aggregation configuration.</p>
-            business_overview: <p>The updated business overview for the profile.</p>
-            pillars: <p>The updated Well-Architected Tool Framework pillars for the profile.</p>
+            display_name: <p>The updated display name of the profile. Omit this field to keep the current display name. A display name is required, so it cannot be cleared.</p>
+            description: <p>The updated description of the profile. Omit this field to keep the current description, or supply an empty string to clear it; a cleared description is read back as absent rather than as an empty string.</p>
+            execution_role_arn: <p>The updated ARN of the IAM execution role. Omit this field to keep the current execution role.</p>
+            aggregation_configuration: <p>The updated aggregation configuration, as a list of per-account entries. Omit this field to keep the current entries, or supply an empty list to remove them all. The field remains set either way — an emptied configuration is read back as an empty list, not as an absent field.</p>
+            business_overview: <p>The updated business overview for the profile. Omit this field to keep the current business overview, or supply an empty string to clear it; a cleared business overview is read back as absent rather than as an empty string.</p>
+            pillars: <p>The updated Amazon Web Services Well-Architected Framework pillars for the profile. Omit this field to keep the current pillars. A profile must target at least one pillar, so an empty list is rejected.</p>
             deletion_protection: <p>Indicates whether deletion protection is enabled for the profile.</p>
 
         Raises:
             capo_wellarchitected.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
             capo_wellarchitected.errors.internal_server_exception.InternalServerException: <p>There is a problem with the Well-Architected Tool API service.</p>
             capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource was not found.</p>
+            capo_wellarchitected.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The user has reached their resource quota.</p>
             capo_wellarchitected.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
             capo_wellarchitected.errors.validation_exception.ValidationException: <p>The user input is not valid.</p>
             capo_wellarchitected.errors.UnknownServiceError: The service returned an error code this client does not model.

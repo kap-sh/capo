@@ -1,0 +1,8 @@
+---
+title: TeamNameList
+---
+
+::: capo_mwaa.types.team_name_list.TeamNameList
+    options:
+      show_source: true
+      merge_init_into_class: false

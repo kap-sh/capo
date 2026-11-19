@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_identifier
+    import capo_devops_agent.types.chat_archive_status
     import capo_devops_agent.types.resource_id
 
 
@@ -20,6 +21,10 @@ class ListChatsRequest(TypedDict, closed=True):
     """<p>Maximum number of results to return</p>"""
     next_token: NotRequired["str"]
     """<p>Token for pagination</p>"""
+    archive_status: NotRequired[
+        "capo_devops_agent.types.chat_archive_status.ChatArchiveStatus"
+    ]
+    """<p>The archive status to filter by. Use this parameter to list only archived chat executions or only active ones.</p>"""
 
 
 # --- restJson1 ser/de ---

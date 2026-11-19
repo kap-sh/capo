@@ -8,20 +8,26 @@ if TYPE_CHECKING:
     import capo_signin.types.bearer_token_type
     import capo_signin.types.issued_o_auth_access_token_type
     import capo_signin.types.o_auth_access_token
+    import capo_signin.types.resource
+    import capo_signin.types.scope
     import capo_signin.types.token_expires_in
 
 
 class CreateOAuth2TokenWithTokenExchangeResponse(TypedDict, closed=True):
     access_token: "capo_signin.types.o_auth_access_token.OAuthAccessToken"
-    """Access token containing principal identity, resource scope, and session metadata."""
+    """The access token containing principal identity, resource scope, and session metadata."""
     issued_token_type: NotRequired[
         "capo_signin.types.issued_o_auth_access_token_type.IssuedOAuthAccessTokenType"
     ]
-    """The token type of the issued token. Always "urn:ietf:params:oauth:token-type:access_token" as defined in RFC 8693 §2.2.1."""
+    """The token type of the issued token. Returned when "grant_type=urn:ietf:params:oauth:grant-type:token-exchange". Value is "urn:ietf:params:oauth:token-type:access_token" as defined in RFC 8693 §2.2.1."""
     token_type: "capo_signin.types.bearer_token_type.BearerTokenType"
     """The token type. Currently only supports "Bearer" as defined in RFC 6749."""
     expires_in: "capo_signin.types.token_expires_in.TokenExpiresIn"
-    """Token lifetime in seconds. Value is the minimum of the subject token's validity and 1 hour (3600 seconds)."""
+    """The token lifetime in seconds. Value is the minimum of the provided token's validity and 1 hour (3600 seconds)."""
+    resource: NotRequired["capo_signin.types.resource.Resource"]
+    """The resource the access token is scoped to. Returned when "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer"."""
+    scope: NotRequired["capo_signin.types.scope.Scope"]
+    """The IAM managed policy ARNs applied as session policies, as a space-delimited list. Returned when "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer" and the assertion has a scope."""
 
 
 # --- restJson1 ser/de ---
@@ -32,6 +38,10 @@ def serialize_json(value: CreateOAuth2TokenWithTokenExchangeResponse) -> dict:
         out["issued_token_type"] = value["issued_token_type"]
     out["token_type"] = value["token_type"]
     out["expires_in"] = value["expires_in"]
+    if "resource" in value:
+        out["resource"] = value["resource"]
+    if "scope" in value:
+        out["scope"] = value["scope"]
     return out
 
 
@@ -51,6 +61,10 @@ def deserialize_json(data: dict) -> CreateOAuth2TokenWithTokenExchangeResponse:
         out["expires_in"] = data["expires_in"]
     else:
         out["expires_in"] = 0
+    if data.get("resource") is not None:
+        out["resource"] = data["resource"]
+    if data.get("scope") is not None:
+        out["scope"] = data["scope"]
     return out
 
 

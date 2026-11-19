@@ -9,6 +9,7 @@ from capo_inspector2.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_inspector2.types.azure_provider_detail_update
+    import capo_inspector2.types.gcp_provider_detail_update
 
 
 class ProviderDetailUpdateAzureMember(TypedDict, closed=True):
@@ -17,7 +18,13 @@ class ProviderDetailUpdateAzureMember(TypedDict, closed=True):
     )
 
 
-ProviderDetailUpdate: TypeAlias = ProviderDetailUpdateAzureMember | UnknownUnionMember
+class ProviderDetailUpdateGcpMember(TypedDict, closed=True):
+    gcp: "capo_inspector2.types.gcp_provider_detail_update.GcpProviderDetailUpdate"
+
+
+ProviderDetailUpdate: TypeAlias = (
+    ProviderDetailUpdateAzureMember | ProviderDetailUpdateGcpMember | UnknownUnionMember
+)
 
 
 # --- restJson1 ser/de ---
@@ -34,6 +41,14 @@ def serialize_json(value: ProviderDetailUpdate) -> dict:
                 value["azure"]
             )
         }
+    elif "gcp" in value:
+        import capo_inspector2.types.gcp_provider_detail_update
+
+        return {
+            "gcp": capo_inspector2.types.gcp_provider_detail_update.serialize_json(
+                value["gcp"]
+            )
+        }
     else:
         raise SerializationError("ProviderDetailUpdate: no variant present")
 
@@ -45,6 +60,14 @@ def deserialize_json(data: dict) -> ProviderDetailUpdate:
         return {
             "azure": capo_inspector2.types.azure_provider_detail_update.deserialize_json(
                 data["azure"]
+            )
+        }
+    elif data.get("gcp") is not None:
+        import capo_inspector2.types.gcp_provider_detail_update
+
+        return {
+            "gcp": capo_inspector2.types.gcp_provider_detail_update.deserialize_json(
+                data["gcp"]
             )
         }
     else:

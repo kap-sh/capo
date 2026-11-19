@@ -4,7 +4,10 @@ from typing import Literal, TypeAlias, cast
 
 JobCategory: TypeAlias = Literal[
     "AgentRFT",
+    "SyntheticDataGeneration",
+    "DataQualityEvaluation",
     "AgentRFTEvaluation",
+    "DataTransformation",
 ]
 
 

@@ -22,6 +22,7 @@ import capo_mediaconnect.types.__list_of_message_detail
 import capo_mediaconnect.types.describe_flow_source_metadata_request
 import capo_mediaconnect.types.describe_flow_source_metadata_response
 import capo_mediaconnect.types.ndi_source_metadata_info
+import capo_mediaconnect.types.rtmp_source_metadata_info
 import capo_mediaconnect.types.transport_media_info
 from capo_mediaconnect._protocol.errors import parse_error_metadata_json
 from capo_mediaconnect._rule_engine._endpoint_rule_set import EndpointParams, resolve

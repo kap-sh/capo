@@ -8,14 +8,20 @@ from capo_s3._protocol.xml import Element, SubElement
 
 if TYPE_CHECKING:
     import capo_s3.types.prefix
+    import capo_s3.types.replication_rule_not_operator
     import capo_s3.types.tag_set
 
-
-class ReplicationRuleAndOperator(TypedDict, closed=True):
-    prefix: NotRequired["capo_s3.types.prefix.Prefix"]
-    """<p>An object key name prefix that identifies the subset of objects to which the rule applies.</p>"""
-    tags: NotRequired["capo_s3.types.tag_set.TagSet"]
-    """<p>An array of tags containing key and value pairs.</p>"""
+ReplicationRuleAndOperator = TypedDict(
+    "ReplicationRuleAndOperator",
+    {
+        "prefix": NotRequired["capo_s3.types.prefix.Prefix"],
+        "tags": NotRequired["capo_s3.types.tag_set.TagSet"],
+        "not": NotRequired[
+            "capo_s3.types.replication_rule_not_operator.ReplicationRuleNotOperator"
+        ],
+    },
+    closed=True,
+)
 
 
 # --- restXml ser/de ---
@@ -27,6 +33,12 @@ def serialize_xml(value: ReplicationRuleAndOperator, parent: Element, tag: str) 
         import capo_s3.types.tag_set
 
         capo_s3.types.tag_set.serialize_xml_flat(value["tags"], el, "Tag")
+    if "not" in value:
+        import capo_s3.types.replication_rule_not_operator
+
+        capo_s3.types.replication_rule_not_operator.serialize_xml(
+            value["not"], el, "Not"
+        )
 
 
 def deserialize_xml(el: Element) -> ReplicationRuleAndOperator:
@@ -38,4 +50,11 @@ def deserialize_xml(el: Element) -> ReplicationRuleAndOperator:
         import capo_s3.types.tag_set
 
         out["tags"] = capo_s3.types.tag_set.deserialize_xml_flat(el, "Tag")
+    child_not = el.find("Not")
+    if child_not is not None:
+        import capo_s3.types.replication_rule_not_operator
+
+        out["not"] = capo_s3.types.replication_rule_not_operator.deserialize_xml(
+            child_not
+        )
     return out

@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 SecurityControlsProvider: TypeAlias = Literal[
     "AWS",
     "Azure",
+    "GCP",
 ]
 
 

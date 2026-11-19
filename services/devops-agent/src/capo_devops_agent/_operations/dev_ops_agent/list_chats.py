@@ -21,6 +21,7 @@ import capo_devops_agent.errors.resource_not_found_exception
 import capo_devops_agent.errors.service_quota_exceeded_exception
 import capo_devops_agent.errors.throttling_exception
 import capo_devops_agent.errors.validation_exception
+import capo_devops_agent.types.chat_archive_status
 import capo_devops_agent.types.chat_execution_list
 import capo_devops_agent.types.list_chats_request
 import capo_devops_agent.types.list_chats_response
@@ -137,6 +138,8 @@ def build_request(
             UseFIPS=options.use_fips, Endpoint=options.endpoint, Region=options.region
         )
     )  # noqa: F841
+    import capo_devops_agent.types.chat_archive_status
+
     url = endpoint.url.rstrip("/") + "/agents/agent-space/{agentSpaceId}/chat/list"
     url = url.replace("{agentSpaceId}", quote(input_["agent_space_id"], safe=""))
     params: list[tuple[str, str]] = []
@@ -146,6 +149,15 @@ def build_request(
         params.append(("maxResults", str(input_["max_results"])))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
+    if "archive_status" in input_:
+        params.append(
+            (
+                "archiveStatus",
+                capo_devops_agent.types.chat_archive_status.serialize_json(
+                    input_["archive_status"]
+                ),
+            )
+        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

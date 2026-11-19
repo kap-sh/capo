@@ -9,8 +9,11 @@ from capo_connect.errors import DeserializationError
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.evaluation_answers_output_map
+    import capo_connect.types.evaluation_enablement_status_map
+    import capo_connect.types.evaluation_item_resolution_status
     import capo_connect.types.evaluation_metadata
     import capo_connect.types.evaluation_notes_map
+    import capo_connect.types.evaluation_resolved_source_list
     import capo_connect.types.evaluation_scores_map
     import capo_connect.types.evaluation_status
     import capo_connect.types.evaluation_type
@@ -44,6 +47,18 @@ class Evaluation(TypedDict, closed=True):
     """<p>Type of the evaluation. </p>"""
     tags: NotRequired["capo_connect.types.tag_map.TagMap"]
     """<p>The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1", "key2":"value2"} }.</p>"""
+    item_enablement_status: NotRequired[
+        "capo_connect.types.evaluation_enablement_status_map.EvaluationEnablementStatusMap"
+    ]
+    """<p>A map of item (section or question) identifiers to their enablement status, computed by the service from each item's conditional enablement configuration. Disabled items are excluded from scoring. Valid values: <code>ENABLED</code> | <code>DISABLED</code>.</p>"""
+    source_resolution_status: NotRequired[
+        "capo_connect.types.evaluation_item_resolution_status.EvaluationItemResolutionStatus"
+    ]
+    """<p>The aggregate status of resolving the external source data (such as Contact Lens analysis and AI metrics) that is used by conditional enablement in the evaluation. Source data is resolved asynchronously after the evaluation is started. While a source is pending or after it fails to resolve, conditions that depend on it evaluate to the item's <code>DefaultAction</code>. Valid values:</p> <ul> <li> <p> <code>PENDING</code> - One or more sources have not been resolved yet. Call <code>DescribeContactEvaluation</code> again to get updated <code>ItemEnablementStatus</code> values.</p> </li> <li> <p> <code>RESOLVED</code> - All sources have been resolved.</p> </li> <li> <p> <code>FAILED</code> - One or more sources could not be resolved. Dependent conditions use the item's <code>DefaultAction</code>.</p> </li> </ul>"""
+    source_values: NotRequired[
+        "capo_connect.types.evaluation_resolved_source_list.EvaluationResolvedSourceList"
+    ]
+    """<p>The resolved values of the external sources (such as contact data, evaluation metadata, form metadata, and AI metrics) that are used by the conditions in the evaluation form. You can use these values to evaluate the conditions against the current answers without calling <code>DescribeContactEvaluation</code> again.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -95,6 +110,30 @@ def serialize_json(value: Evaluation) -> dict:
         import capo_connect.types.tag_map
 
         out["Tags"] = capo_connect.types.tag_map.serialize_json(value["tags"])
+    if "item_enablement_status" in value:
+        import capo_connect.types.evaluation_enablement_status_map
+
+        out["ItemEnablementStatus"] = (
+            capo_connect.types.evaluation_enablement_status_map.serialize_json(
+                value["item_enablement_status"]
+            )
+        )
+    if "source_resolution_status" in value:
+        import capo_connect.types.evaluation_item_resolution_status
+
+        out["SourceResolutionStatus"] = (
+            capo_connect.types.evaluation_item_resolution_status.serialize_json(
+                value["source_resolution_status"]
+            )
+        )
+    if "source_values" in value:
+        import capo_connect.types.evaluation_resolved_source_list
+
+        out["SourceValues"] = (
+            capo_connect.types.evaluation_resolved_source_list.serialize_json(
+                value["source_values"]
+            )
+        )
     return out
 
 
@@ -186,4 +225,28 @@ def deserialize_json(data: dict) -> Evaluation:
         import capo_connect.types.tag_map
 
         out["tags"] = capo_connect.types.tag_map.deserialize_json(data["Tags"])
+    if data.get("ItemEnablementStatus") is not None:
+        import capo_connect.types.evaluation_enablement_status_map
+
+        out["item_enablement_status"] = (
+            capo_connect.types.evaluation_enablement_status_map.deserialize_json(
+                data["ItemEnablementStatus"]
+            )
+        )
+    if data.get("SourceResolutionStatus") is not None:
+        import capo_connect.types.evaluation_item_resolution_status
+
+        out["source_resolution_status"] = (
+            capo_connect.types.evaluation_item_resolution_status.deserialize_json(
+                data["SourceResolutionStatus"]
+            )
+        )
+    if data.get("SourceValues") is not None:
+        import capo_connect.types.evaluation_resolved_source_list
+
+        out["source_values"] = (
+            capo_connect.types.evaluation_resolved_source_list.deserialize_json(
+                data["SourceValues"]
+            )
+        )
     return out

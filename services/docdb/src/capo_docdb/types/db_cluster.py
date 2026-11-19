@@ -109,6 +109,8 @@ class DBCluster(TypedDict, closed=True):
         "capo_docdb.types.serverless_v2_scaling_configuration_info.ServerlessV2ScalingConfigurationInfo"
     ]
     """<p>The scaling configuration of an Amazon DocumentDB Serverless cluster.</p>"""
+    serverless_v2_platform_version: NotRequired["capo_docdb.types.string.String"]
+    """<p>The version of the Amazon DocumentDB Serverless platform used by the cluster.</p>"""
     master_user_secret: NotRequired[
         "capo_docdb.types.cluster_master_user_secret.ClusterMasterUserSecret"
     ]
@@ -288,6 +290,13 @@ def serialize_query(
             value["serverless_v2_scaling_configuration"],
             pairs,
             f"{key_prefix}ServerlessV2ScalingConfiguration",
+        )
+    if "serverless_v2_platform_version" in value:
+        pairs.append(
+            (
+                f"{key_prefix}ServerlessV2PlatformVersion",
+                str(value["serverless_v2_platform_version"]),
+            )
         )
     if "master_user_secret" in value:
         import capo_docdb.types.cluster_master_user_secret
@@ -484,6 +493,11 @@ def deserialize_query(el: Element) -> DBCluster:
             capo_docdb.types.serverless_v2_scaling_configuration_info.deserialize_query(
                 child_serverless_v2_scaling_configuration
             )
+        )
+    child_serverless_v2_platform_version = el.find("ServerlessV2PlatformVersion")
+    if child_serverless_v2_platform_version is not None:
+        out["serverless_v2_platform_version"] = str(
+            child_serverless_v2_platform_version.text or ""
         )
     child_master_user_secret = el.find("MasterUserSecret")
     if child_master_user_secret is not None:

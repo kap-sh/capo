@@ -65,6 +65,7 @@ from capo_lambda._services._pipeline import (
 from capo_lambda.errors import ServiceError, WaiterTimeoutError
 
 if TYPE_CHECKING:
+    import capo_lambda.types.accelerator_config
     import capo_lambda.types.action
     import capo_lambda.types.add_layer_version_permission_request
     import capo_lambda.types.add_layer_version_permission_response
@@ -119,6 +120,8 @@ if TYPE_CHECKING:
     import capo_lambda.types.delete_capacity_provider_response
     import capo_lambda.types.delete_code_signing_config_request
     import capo_lambda.types.delete_code_signing_config_response
+    import capo_lambda.types.delete_durable_execution_request
+    import capo_lambda.types.delete_durable_execution_response
     import capo_lambda.types.delete_event_source_mapping_request
     import capo_lambda.types.delete_function_code_signing_config_request
     import capo_lambda.types.delete_function_concurrency_request
@@ -147,6 +150,7 @@ if TYPE_CHECKING:
     import capo_lambda.types.event_source_token
     import capo_lambda.types.execution
     import capo_lambda.types.execution_status_list
+    import capo_lambda.types.execution_timeout_paused
     import capo_lambda.types.execution_timestamp
     import capo_lambda.types.file_system_config_list
     import capo_lambda.types.filter_criteria
@@ -155,6 +159,7 @@ if TYPE_CHECKING:
     import capo_lambda.types.function_event_invoke_config
     import capo_lambda.types.function_name
     import capo_lambda.types.function_response_type_list
+    import capo_lambda.types.function_runtime_config
     import capo_lambda.types.function_scaling_config
     import capo_lambda.types.function_url_auth_type
     import capo_lambda.types.function_url_function_name
@@ -220,7 +225,7 @@ if TYPE_CHECKING:
     import capo_lambda.types.kms_key_arn
     import capo_lambda.types.kms_key_arn_non_empty
     import capo_lambda.types.layer_list
-    import capo_lambda.types.layer_name
+    import capo_lambda.types.layer_name_or_arn
     import capo_lambda.types.layer_permission_allowed_action
     import capo_lambda.types.layer_permission_allowed_principal
     import capo_lambda.types.layer_version_arn
@@ -280,6 +285,9 @@ if TYPE_CHECKING:
     import capo_lambda.types.organization_id
     import capo_lambda.types.package_type
     import capo_lambda.types.parallelization_factor
+    import capo_lambda.types.pause_durable_execution_request
+    import capo_lambda.types.pause_durable_execution_response
+    import capo_lambda.types.pause_reason
     import capo_lambda.types.policy_resource_arn
     import capo_lambda.types.positive_integer
     import capo_lambda.types.principal
@@ -312,6 +320,9 @@ if TYPE_CHECKING:
     import capo_lambda.types.reserved_concurrent_executions
     import capo_lambda.types.resource_policy
     import capo_lambda.types.response_streaming_invocation_type
+    import capo_lambda.types.resume_durable_execution_request
+    import capo_lambda.types.resume_durable_execution_response
+    import capo_lambda.types.resume_reason
     import capo_lambda.types.reverse_order
     import capo_lambda.types.revision_id
     import capo_lambda.types.role_arn
@@ -830,7 +841,7 @@ class LambdaClient:
             "capo_lambda.types.max_function_event_invoke_config_list_items.MaxFunctionEventInvokeConfigListItems"
         ] = None,
     ) -> "capo_lambda.types.list_function_event_invoke_configs_response.ListFunctionEventInvokeConfigsResponse":
-        """<p>Retrieves a list of configurations for asynchronous invocation for a function.</p> <p>To configure options for asynchronous invocation, use <a>PutFunctionEventInvokeConfig</a>.</p>
+        """<p>Retrieves a list of configurations for asynchronous invocation for a Lambda Event Function. To retrieve more configurations, use the <code>Marker</code> parameter.</p> <p>To configure options for asynchronous invocation, use <a>PutFunctionEventInvokeConfig</a>.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> - <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -2360,6 +2371,55 @@ class LambdaClient:
         response.response.close()
         return response.output
 
+    def delete_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[LambdaClientConfig] = None,
+    ) -> "capo_lambda.types.delete_durable_execution_response.DeleteDurableExecutionResponse":
+        """<p>Deletes a completed Lambda <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a> and its data. The execution must be in a terminal state (<code>SUCCEEDED</code>, <code>FAILED</code>, <code>STOPPED</code>, or <code>TIMED_OUT</code>). Otherwise, this operation returns a <code>ResourceConflictException</code>.</p> <p>The execution has <code>DELETING</code> status until the deletion finishes. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-delete.html">Deleting durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda.types.delete_durable_execution_request.DeleteDurableExecutionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda.types.delete_durable_execution_response.DeleteDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.delete_durable_execution
+
+            output, http_response = (
+                capo_lambda._operations.aws_gir_api_service.delete_durable_execution.delete_durable_execution(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDurableExecution")
+        )
+        input_: capo_lambda.types.delete_durable_execution_request.DeleteDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_durable_execution_history(
         self,
         durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
@@ -2570,6 +2630,156 @@ class LambdaClient:
             if not _token:
                 break
 
+    def pause_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[LambdaClientConfig] = None,
+        client_token: Optional["capo_lambda.types.client_token.ClientToken"] = None,
+        reason: Optional["capo_lambda.types.pause_reason.PauseReason"] = None,
+        execution_timeout_paused: Optional[
+            "capo_lambda.types.execution_timeout_paused.ExecutionTimeoutPaused"
+        ] = None,
+    ) -> "capo_lambda.types.pause_durable_execution_response.PauseDurableExecutionResponse":
+        """<p>Pauses a running <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. While an execution is paused, Lambda doesn't invoke your function, but pending operations such as waits and callbacks continue to complete.</p> <p>If an invocation is in progress, the execution status changes to <code>PAUSING</code> until the invocation reaches its next checkpoint, and then changes to <code>PAUSED</code>. This operation returns a successful response while the execution status is still <code>RUNNING</code>, and the status changes when Lambda processes the request. For more information about pausing executions, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-pause-resume.html">Pausing and resuming durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide so that the request completes no more than one time. If you repeat a request with the same client token and parameters within 15 minutes, Lambda doesn't pause the execution again and returns a successful response instead of an error.</p>
+            reason: <p>A description of why you're pausing the execution. Lambda records the reason in the execution history.</p>
+            execution_timeout_paused: <p>Specifies whether to pause the execution timeout while the execution is paused. If <code>true</code>, Lambda extends the execution timeout by the time the execution spends paused. An execution with a paused timeout still times out 366 days after it started. The default value is <code>true</code>.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>Lambda couldn't decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS permissions.</p>
+            capo_lambda.errors.kms_disabled_exception.KMSDisabledException: <p>Lambda couldn't decrypt the environment variables because the KMS key used is disabled. Check the Lambda function's KMS key settings.</p>
+            capo_lambda.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>Lambda couldn't decrypt the environment variables because the state of the KMS key used is not valid for Decrypt. Check the function's KMS key settings.</p>
+            capo_lambda.errors.kms_not_found_exception.KMSNotFoundException: <p>Lambda couldn't decrypt the environment variables because the KMS key was not found. Check the function's KMS key settings.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda.types.pause_durable_execution_response.PauseDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.pause_durable_execution
+
+            output, http_response = (
+                capo_lambda._operations.aws_gir_api_service.pause_durable_execution.pause_durable_execution(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.pause_durable_execution_request
+
+            return capo_lambda.types.pause_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PauseDurableExecution", redact_input=_redact_input),
+        )
+        input_: capo_lambda.types.pause_durable_execution_request.PauseDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if reason is not None:
+            input_["reason"] = reason
+        if execution_timeout_paused is not None:
+            input_["execution_timeout_paused"] = execution_timeout_paused
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def resume_durable_execution(
+        self,
+        durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
+        *,
+        config_overrides: Optional[LambdaClientConfig] = None,
+        client_token: Optional["capo_lambda.types.client_token.ClientToken"] = None,
+        reason: Optional["capo_lambda.types.resume_reason.ResumeReason"] = None,
+    ) -> "capo_lambda.types.resume_durable_execution_response.ResumeDurableExecutionResponse":
+        """<p>Resumes a paused <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. If the pause interrupted an invocation, or an operation completed while the execution was paused, Lambda invokes your function. Otherwise, the execution continues to wait for its pending operations.</p> <p>If the execution status is <code>PAUSING</code>, this operation cancels the pause, and the in-progress invocation continues. This operation returns a successful response while the execution status is still <code>PAUSED</code> or <code>PAUSING</code>, and the status changes to <code>RUNNING</code> when Lambda processes the request. For more information about resuming executions, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-pause-resume.html">Pausing and resuming durable executions</a>.</p>
+
+        Args:
+            durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide so that the request completes no more than one time. If you repeat a request with the same client token and parameters within 15 minutes, Lambda doesn't resume the execution again and returns a successful response instead of an error.</p>
+            reason: <p>A description of why you're resuming the execution. Lambda records the reason in the execution history.</p>
+
+        Raises:
+            capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
+            capo_lambda.errors.kms_access_denied_exception.KMSAccessDeniedException: <p>Lambda couldn't decrypt the environment variables because KMS access was denied. Check the Lambda function's KMS permissions.</p>
+            capo_lambda.errors.kms_disabled_exception.KMSDisabledException: <p>Lambda couldn't decrypt the environment variables because the KMS key used is disabled. Check the Lambda function's KMS key settings.</p>
+            capo_lambda.errors.kms_invalid_state_exception.KMSInvalidStateException: <p>Lambda couldn't decrypt the environment variables because the state of the KMS key used is not valid for Decrypt. Check the function's KMS key settings.</p>
+            capo_lambda.errors.kms_not_found_exception.KMSNotFoundException: <p>Lambda couldn't decrypt the environment variables because the KMS key was not found. Check the function's KMS key settings.</p>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
+            capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
+            capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
+            capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
+            capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda.types.resume_durable_execution_response.ResumeDurableExecutionResponse"
+        ]:
+            import capo_lambda._operations.aws_gir_api_service.resume_durable_execution
+
+            output, http_response = (
+                capo_lambda._operations.aws_gir_api_service.resume_durable_execution.resume_durable_execution(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.resume_durable_execution_request
+
+            return capo_lambda.types.resume_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResumeDurableExecution", redact_input=_redact_input),
+        )
+        input_: capo_lambda.types.resume_durable_execution_request.ResumeDurableExecutionRequest = {
+            "durable_execution_arn": durable_execution_arn
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if reason is not None:
+            input_["reason"] = reason
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def stop_durable_execution(
         self,
         durable_execution_arn: "capo_lambda.types.durable_execution_arn.DurableExecutionArn",
@@ -2579,7 +2789,7 @@ class LambdaClient:
     ) -> (
         "capo_lambda.types.stop_durable_execution_response.StopDurableExecutionResponse"
     ):
-        """<p>Stops a running <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. The execution transitions to STOPPED status and cannot be resumed. Any in-progress operations are terminated.</p>
+        """<p>Stops a running or paused <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable execution</a>. The execution transitions to STOPPED status and cannot be resumed. Any in-progress operations are terminated.</p>
 
         Args:
             durable_execution_arn: <p>The Amazon Resource Name (ARN) of the durable execution.</p>
@@ -2721,14 +2931,14 @@ class LambdaClient:
             metrics_config: <p>The metrics configuration for your event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics">Event source mapping metrics</a>.</p>
             logging_config: <p>(Amazon MSK, and self-managed Apache Kafka only) The logging configuration for your event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/esm-logging.html">Event source mapping logging</a>.</p>
             scaling_config: <p>(Amazon SQS only) The scaling configuration for the event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency">Configuring maximum concurrency for Amazon SQS event sources</a>.</p>
-            maximum_batching_window_in_seconds: <p>The maximum amount of time, in seconds, that Lambda spends gathering records before invoking the function. You can configure <code>MaximumBatchingWindowInSeconds</code> to any value from 0 seconds to 300 seconds in increments of seconds.</p> <p>For Kinesis, DynamoDB, and Amazon SQS event sources, the default batching window is 0 seconds. For Amazon MSK, Self-managed Apache Kafka, Amazon MQ, and DocumentDB event sources, the default batching window is 500 ms. Note that because you can only change <code>MaximumBatchingWindowInSeconds</code> in increments of seconds, you cannot revert back to the 500 ms default batching window after you have changed it. To restore the default batching window, you must create a new event source mapping.</p> <p>Related setting: For Kinesis, DynamoDB, and Amazon SQS event sources, when you set <code>BatchSize</code> to a value greater than 10, you must set <code>MaximumBatchingWindowInSeconds</code> to at least 1.</p>
+            maximum_batching_window_in_seconds: <p>The maximum amount of time, in seconds, that Lambda spends gathering records before invoking the function. You can configure <code>MaximumBatchingWindowInSeconds</code> to any value from 0 seconds to 300 seconds in increments of seconds.</p> <p>For Kinesis, DynamoDB, and Amazon SQS event sources, the default batching window is 0 seconds. For Amazon MSK, Self-managed Apache Kafka, Amazon MQ, and DocumentDB event sources, the default batching window is 500 ms. Note that because you can only change <code>MaximumBatchingWindowInSeconds</code> in increments of seconds, you cannot revert back to the 500 ms default batching window after you have changed it. To restore the default batching window, you must create a new event source mapping.</p> <p>Related setting: For Kinesis, DynamoDB, and Amazon SQS event sources, when you set <code>BatchSize</code> to a value greater than 10, you must set <code>MaximumBatchingWindowInSeconds</code> to at least 1.</p> <p>Not supported for Kafka event source mappings when <code>ConsumptionMode</code> is <code>Queue</code>.</p>
             parallelization_factor: <p>(Kinesis and DynamoDB Streams only) The number of batches to process from each shard concurrently.</p>
-            starting_position: <p>The position in a stream from which to start reading. Required for Amazon Kinesis and Amazon DynamoDB Stream event sources. <code>AT_TIMESTAMP</code> is supported only for Amazon Kinesis streams, Amazon DocumentDB, Amazon MSK, and self-managed Apache Kafka.</p>
-            starting_position_timestamp: <p>With <code>StartingPosition</code> set to <code>AT_TIMESTAMP</code>, the time from which to start reading. <code>StartingPositionTimestamp</code> cannot be in the future.</p>
+            starting_position: <p>The position in a stream from which to start reading. Required for Amazon Kinesis and Amazon DynamoDB Stream event sources. <code>AT_TIMESTAMP</code> is supported only for Amazon Kinesis streams, Amazon DocumentDB, Amazon MSK, and self-managed Apache Kafka.</p> <p>Not supported for Kafka event source mappings when <code>ConsumptionMode</code> is <code>Queue</code>.</p>
+            starting_position_timestamp: <p>With <code>StartingPosition</code> set to <code>AT_TIMESTAMP</code>, the time from which to start reading. <code>StartingPositionTimestamp</code> cannot be in the future.</p> <p>Not supported for Kafka event source mappings when <code>ConsumptionMode</code> is <code>Queue</code>.</p>
             destination_config: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) A configuration object that specifies the destination of an event after Lambda processes it.</p>
             maximum_record_age_in_seconds: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) Discard records older than the specified age. The default value is infinite (-1).</p>
             bisect_batch_on_function_error: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) If the function returns an error, split the batch in two and retry.</p>
-            maximum_retry_attempts: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.</p>
+            maximum_retry_attempts: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.</p> <p>For Kafka event source mappings with <code>ConsumptionMode</code> set to <code>Queue</code>, the value -1 (infinite retries) is not supported and the default is 0 (no retries). Lambda releases failed records back to the broker, which redelivers them up to the share group's <code>group.share.delivery.count.limit</code>.</p>
             tags: <p>A list of tags to apply to the event source mapping.</p>
             tumbling_window_in_seconds: <p>(Kinesis and DynamoDB Streams only) The duration in seconds of a processing window for DynamoDB and Kinesis Streams event sources. A value of 0 seconds indicates no tumbling window.</p>
             topics: <p>The name of the Kafka topic.</p>
@@ -2973,12 +3183,12 @@ class LambdaClient:
             kms_key_arn: <p> The ARN of the Key Management Service (KMS) customer managed key that Lambda uses to encrypt your function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics">filter criteria</a>. By default, Lambda does not encrypt your filter criteria object. Specify this property to encrypt data using your own customer managed key. </p>
             metrics_config: <p>The metrics configuration for your event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics">Event source mapping metrics</a>.</p>
             scaling_config: <p>(Amazon SQS only) The scaling configuration for the event source. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency">Configuring maximum concurrency for Amazon SQS event sources</a>.</p>
-            maximum_batching_window_in_seconds: <p>The maximum amount of time, in seconds, that Lambda spends gathering records before invoking the function. You can configure <code>MaximumBatchingWindowInSeconds</code> to any value from 0 seconds to 300 seconds in increments of seconds.</p> <p>For Kinesis, DynamoDB, and Amazon SQS event sources, the default batching window is 0 seconds. For Amazon MSK, Self-managed Apache Kafka, Amazon MQ, and DocumentDB event sources, the default batching window is 500 ms. Note that because you can only change <code>MaximumBatchingWindowInSeconds</code> in increments of seconds, you cannot revert back to the 500 ms default batching window after you have changed it. To restore the default batching window, you must create a new event source mapping.</p> <p>Related setting: For Kinesis, DynamoDB, and Amazon SQS event sources, when you set <code>BatchSize</code> to a value greater than 10, you must set <code>MaximumBatchingWindowInSeconds</code> to at least 1.</p>
+            maximum_batching_window_in_seconds: <p>The maximum amount of time, in seconds, that Lambda spends gathering records before invoking the function. You can configure <code>MaximumBatchingWindowInSeconds</code> to any value from 0 seconds to 300 seconds in increments of seconds.</p> <p>For Kinesis, DynamoDB, and Amazon SQS event sources, the default batching window is 0 seconds. For Amazon MSK, Self-managed Apache Kafka, Amazon MQ, and DocumentDB event sources, the default batching window is 500 ms. Note that because you can only change <code>MaximumBatchingWindowInSeconds</code> in increments of seconds, you cannot revert back to the 500 ms default batching window after you have changed it. To restore the default batching window, you must create a new event source mapping.</p> <p>Related setting: For Kinesis, DynamoDB, and Amazon SQS event sources, when you set <code>BatchSize</code> to a value greater than 10, you must set <code>MaximumBatchingWindowInSeconds</code> to at least 1.</p> <p>Not supported for Kafka event source mappings when <code>ConsumptionMode</code> is <code>Queue</code>.</p>
             parallelization_factor: <p>(Kinesis and DynamoDB Streams only) The number of batches to process from each shard concurrently.</p>
             destination_config: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) A configuration object that specifies the destination of an event after Lambda processes it.</p>
             maximum_record_age_in_seconds: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) Discard records older than the specified age. The default value is infinite (-1).</p>
             bisect_batch_on_function_error: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) If the function returns an error, split the batch in two and retry.</p>
-            maximum_retry_attempts: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.</p>
+            maximum_retry_attempts: <p>(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.</p> <p>For Kafka event source mappings with <code>ConsumptionMode</code> set to <code>Queue</code>, the value -1 (infinite retries) is not supported and the default is 0 (no retries). Lambda releases failed records back to the broker, which redelivers them up to the share group's <code>group.share.delivery.count.limit</code>.</p>
             tumbling_window_in_seconds: <p>(Kinesis and DynamoDB Streams only) The duration in seconds of a processing window for DynamoDB and Kinesis Streams event sources. A value of 0 seconds indicates no tumbling window.</p>
             source_access_configurations: <p>An array of authentication protocols or VPC components required to secure your event source.</p>
             function_response_types: <p>(Kinesis, DynamoDB Streams, Amazon MSK, self-managed Apache Kafka, and Amazon SQS) A list of current response type enums applied to the event source mapping.</p>
@@ -3256,6 +3466,12 @@ class LambdaClient:
         durable_config: Optional[
             "capo_lambda.types.durable_config.DurableConfig"
         ] = None,
+        runtime_config: Optional[
+            "capo_lambda.types.function_runtime_config.FunctionRuntimeConfig"
+        ] = None,
+        accelerator_config: Optional[
+            "capo_lambda.types.accelerator_config.AcceleratorConfig"
+        ] = None,
     ) -> "capo_lambda.types.function_configuration.FunctionConfiguration":
         """<p>Creates a Lambda Event Function. To create a function, you need a <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html">deployment package</a> and an <a href="https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role">execution role</a>. The deployment package is a .zip file archive or container image that contains your function code. The execution role grants the function permission to use Amazon Web Services services, such as Amazon CloudWatch Logs for log streaming and X-Ray for request tracing.</p> <p>If the deployment package is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-images.html">container image</a>, then you set the package type to <code>Image</code>. For a container image, the code property must include the URI of a container image in the Amazon ECR registry. You do not need to specify the handler and runtime properties.</p> <p>If the deployment package is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html#gettingstarted-package-zip">.zip file archive</a>, then you set the package type to <code>Zip</code>. For a .zip file archive, the code property specifies the location of the .zip file. You must also specify the handler and runtime properties. The code in the deployment package must be compatible with the target instruction set architecture of the function (<code>x86-64</code> or <code>arm64</code>). If you do not specify the architecture, then the default value is <code>x86-64</code>.</p> <p>When you create a function, Lambda provisions an instance of the function and its supporting resources. If your function connects to a VPC, this process can take a minute or so. During this time, you can't invoke or modify the function. The <code>State</code>, <code>StateReason</code>, and <code>StateReasonCode</code> fields in the response from <a>GetFunctionConfiguration</a> indicate when the function is ready to invoke. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html">Lambda function states</a>.</p> <p>A function has an unpublished version, and can have published versions and aliases. The unpublished version changes when you update your function's code and configuration. A published version is a snapshot of your function code and configuration that can't be changed. An alias is a named resource that maps to a version, and can be changed to map to a different version. Use the <code>Publish</code> parameter to create version <code>1</code> of your function from its initial configuration.</p> <p>The other parameters let you configure version-specific and function-level settings. You can modify version-specific settings later with <a>UpdateFunctionConfiguration</a>. Function-level settings apply to both the unpublished and published versions of the function, and include tags (<a>TagResource</a>) and per-function concurrency limits (<a>PutFunctionConcurrency</a>).</p> <p>You can use code signing if your deployment package is a .zip file archive. To enable code signing for this function, specify the ARN of a code-signing configuration. When a user attempts to deploy a code package with <a>UpdateFunctionCode</a>, Lambda checks that the code package has a valid signature from a trusted publisher. The code-signing configuration includes set of signing profiles, which define the trusted publishers for this function.</p> <p>If another Amazon Web Services account or an Amazon Web Services service invokes your function, use <a>AddPermission</a> to grant permission by creating a resource-based Identity and Access Management (IAM) policy. You can grant permissions at the function level, on a version, or on an alias.</p> <p>To invoke your function directly, use <a>Invoke</a>. To invoke your function in response to events in other Amazon Web Services services, create an event source mapping (<a>CreateEventSourceMapping</a>), or configure a function trigger in the other service. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html">Invoking Lambda functions</a>.</p>
 
@@ -3282,12 +3498,14 @@ class LambdaClient:
             code_signing_config_arn: <p>To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function.</p>
             image_config: <p>Container image <a href="https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms">configuration values</a> that override the values in the container image Dockerfile.</p>
             architectures: <p>The instruction set architecture that the function supports. Enter a string array with one of the valid values (arm64 or x86_64). The default value is <code>x86_64</code>.</p>
-            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
+            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For functions that use <code>AcceleratorConfig</code>, the maximum is 32,768 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
             snap_start: <p>The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">SnapStart</a> setting.</p>
             logging_config: <p>The function's Amazon CloudWatch Logs configuration settings.</p>
             tenancy_config: <p>Configuration for multi-tenant applications that use Lambda functions. Defines tenant isolation settings and resource allocations. Required for functions supporting multiple tenants.</p>
             capacity_provider_config: <p>Configuration for the capacity provider that manages compute resources for Lambda functions.</p>
             durable_config: <p>Configuration settings for durable functions. Enables creating functions with durability that can remember their state and continue execution even after interruptions.</p>
+            runtime_config: <p>The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime alias that your function uses.</p>
+            accelerator_config: <p>The accelerator resource settings for a Lambda execution environment.</p>
 
         Raises:
             capo_lambda.errors.code_signing_config_not_found_exception.CodeSigningConfigNotFoundException: <p>The specified code signing configuration does not exist.</p>
@@ -3400,6 +3618,10 @@ class LambdaClient:
             input_["capacity_provider_config"] = capacity_provider_config
         if durable_config is not None:
             input_["durable_config"] = durable_config
+        if runtime_config is not None:
+            input_["runtime_config"] = runtime_config
+        if accelerator_config is not None:
+            input_["accelerator_config"] = accelerator_config
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3490,7 +3712,7 @@ class LambdaClient:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> None:
-        """<p>Removes a concurrent execution limit from a function.</p>
+        """<p>Removes a concurrent execution limit from a Lambda Event Function.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -3662,7 +3884,7 @@ class LambdaClient:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> "capo_lambda.types.concurrency.Concurrency":
-        """<p>Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level.</p> <p>Concurrency settings apply to the function as a whole, including all published versions and the unpublished version. Reserving concurrency both ensures that your function has capacity to process the specified number of events simultaneously, and prevents it from scaling beyond that level. Use <a>GetFunction</a> to see the current setting for a function.</p> <p>Use <a>GetAccountSettings</a> to see your Regional concurrency limit. You can reserve concurrency for as many functions as you like, as long as you leave at least 100 simultaneous executions unreserved for functions that aren't configured with a per-function limit. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html">Lambda function scaling</a>.</p>
+        """<p>Sets the maximum number of simultaneous executions for a Lambda Event Function, and reserves capacity for that concurrency level.</p> <p>Concurrency settings apply to the function as a whole, including all published versions and the unpublished version. Reserving concurrency both ensures that your function has capacity to process the specified number of events simultaneously, and prevents it from scaling beyond that level. Use <a>GetFunction</a> to see the current setting for a function.</p> <p>Use <a>GetAccountSettings</a> to see your Regional concurrency limit. You can reserve concurrency for as many functions as you like, as long as you leave at least 100 simultaneous executions unreserved for functions that aren't configured with a per-function limit. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html">Lambda function scaling</a>.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -3887,6 +4109,12 @@ class LambdaClient:
         durable_config: Optional[
             "capo_lambda.types.durable_config.DurableConfig"
         ] = None,
+        runtime_config: Optional[
+            "capo_lambda.types.function_runtime_config.FunctionRuntimeConfig"
+        ] = None,
+        accelerator_config: Optional[
+            "capo_lambda.types.accelerator_config.AcceleratorConfig"
+        ] = None,
     ) -> "capo_lambda.types.function_configuration.FunctionConfiguration":
         """<p>Modifies the version-specific settings of a Lambda Event Function.</p> <p>When you update a function, Lambda provisions an instance of the function and its supporting resources. If your function connects to a VPC, this process can take a minute. During this time, you can't modify the function, but you can still invoke it. The <code>LastUpdateStatus</code>, <code>LastUpdateStatusReason</code>, and <code>LastUpdateStatusReasonCode</code> fields in the response from <a>GetFunctionConfiguration</a> indicate when the update is complete and the function is processing events with the new configuration. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html">Lambda function states</a>.</p> <p>These settings can vary between versions of a function and are locked when you publish a version. You can't modify the configuration of a published version, only the unpublished version.</p> <p>To configure function concurrency, use <a>PutFunctionConcurrency</a>. To grant invoke permissions to an Amazon Web Services account or Amazon Web Services service, use <a>AddPermission</a>.</p>
 
@@ -3907,11 +4135,13 @@ class LambdaClient:
             layers: <p>A list of <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">function layers</a> to add to the function's execution environment. Specify each layer by its ARN, including the version.</p>
             file_system_configs: <p>Connection settings for an Amazon EFS file system or an Amazon S3 Files file system.</p>
             image_config: <p> <a href="https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms">Container image configuration values</a> that override the values in the container image Docker file.</p>
-            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
+            ephemeral_storage: <p>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For functions that use <code>AcceleratorConfig</code>, the maximum is 32,768 MB. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage">Configuring ephemeral storage (console)</a>.</p>
             snap_start: <p>The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">SnapStart</a> setting.</p>
             logging_config: <p>The function's Amazon CloudWatch Logs configuration settings.</p>
             capacity_provider_config: <p>Configuration for the capacity provider that manages compute resources for Lambda functions.</p>
             durable_config: <p>Configuration settings for <a href="https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html">durable functions</a>, including execution timeout, retention period for execution history, and an optional ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your durable execution's payload data, including input, output, and error payloads.</p>
+            runtime_config: <p>The customer-managed runtime configuration for your function. Specifies the customer-managed runtime and the runtime alias that your function uses.</p>
+            accelerator_config: <p>The accelerator resource settings for a Lambda execution environment.</p>
 
         Raises:
             capo_lambda.errors.code_signing_config_not_found_exception.CodeSigningConfigNotFoundException: <p>The specified code signing configuration does not exist.</p>
@@ -4013,6 +4243,10 @@ class LambdaClient:
             input_["capacity_provider_config"] = capacity_provider_config
         if durable_config is not None:
             input_["durable_config"] = durable_config
+        if runtime_config is not None:
+            input_["runtime_config"] = runtime_config
+        if accelerator_config is not None:
+            input_["accelerator_config"] = accelerator_config
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -4198,7 +4432,7 @@ class LambdaClient:
             "capo_lambda.types.numeric_latest_published_or_alias_qualifier.NumericLatestPublishedOrAliasQualifier"
         ] = None,
     ) -> "capo_lambda.types.get_function_response.GetFunctionResponse":
-        """<p>Returns information about the function or function version, with a link to download the deployment package that's valid for 10 minutes. If you specify a function version, only details that are specific to that version are returned.</p>
+        """<p>Returns information about a Lambda Event Function or function version, with a link to download the deployment package that's valid for 10 minutes. If you specify a function version, only details that are specific to that version are returned.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function, version, or alias.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -4754,6 +4988,8 @@ class LambdaClient:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.resource_not_ready_exception.ResourceNotReadyException: <p>The function is inactive and its VPC connection is no longer available. Wait for the VPC connection to reestablish and try again.</p>
+            capo_lambda.errors.runtime_alias_deleted_exception.RuntimeAliasDeletedException: <p>The runtime alias for your function is no longer available. Update your function to use an available runtime alias.</p>
+            capo_lambda.errors.runtime_version_deleted_exception.RuntimeVersionDeletedException: <p>The runtime version used by your function is no longer available. Update your function to use an available runtime version or runtime alias.</p>
             capo_lambda.errors.s3_files_mount_connectivity_exception.S3FilesMountConnectivityException: <p>The Lambda function couldn't make a network connection to the configured S3 Files access point.</p>
             capo_lambda.errors.s3_files_mount_failure_exception.S3FilesMountFailureException: <p>The Lambda function couldn't mount the configured S3 Files access point due to a permission or configuration issue.</p>
             capo_lambda.errors.s3_files_mount_timeout_exception.S3FilesMountTimeoutException: <p>The Lambda function made a network connection to the configured S3 Files access point, but the mount operation timed out.</p>
@@ -4987,6 +5223,8 @@ class LambdaClient:
             capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.resource_not_ready_exception.ResourceNotReadyException: <p>The function is inactive and its VPC connection is no longer available. Wait for the VPC connection to reestablish and try again.</p>
+            capo_lambda.errors.runtime_alias_deleted_exception.RuntimeAliasDeletedException: <p>The runtime alias for your function is no longer available. Update your function to use an available runtime alias.</p>
+            capo_lambda.errors.runtime_version_deleted_exception.RuntimeVersionDeletedException: <p>The runtime version used by your function is no longer available. Update your function to use an available runtime version or runtime alias.</p>
             capo_lambda.errors.s3_files_mount_connectivity_exception.S3FilesMountConnectivityException: <p>The Lambda function couldn't make a network connection to the configured S3 Files access point.</p>
             capo_lambda.errors.s3_files_mount_failure_exception.S3FilesMountFailureException: <p>The Lambda function couldn't mount the configured S3 Files access point due to a permission or configuration issue.</p>
             capo_lambda.errors.s3_files_mount_timeout_exception.S3FilesMountTimeoutException: <p>The Lambda function made a network connection to the configured S3 Files access point, but the mount operation timed out.</p>
@@ -5104,7 +5342,7 @@ class LambdaClient:
             function_name: <p>The name or ARN of the Lambda function. You can specify a function name, a partial ARN, or a full ARN.</p>
             qualifier: <p>The function version to filter executions by. If you don't specify a qualifier, this operation returns executions across all versions of the Lambda function.</p>
             durable_execution_name: <p>Filter executions by name. Only executions with names that matches this string are returned.</p>
-            statuses: <p>Filter executions by status. Valid values: RUNNING, SUCCEEDED, FAILED, TIMED_OUT, STOPPED.</p>
+            statuses: <p>Filters the executions by status. Specify one of the following values:</p> <ul> <li> <p> <code>RUNNING</code> – The execution is running or waiting for pending operations to complete.</p> </li> <li> <p> <code>PAUSING</code> – The execution is waiting for an in-progress invocation to reach its next checkpoint before it pauses.</p> </li> <li> <p> <code>PAUSED</code> – The execution is paused, and Lambda doesn't invoke your function.</p> </li> <li> <p> <code>SUCCEEDED</code> – The execution completed successfully.</p> </li> <li> <p> <code>FAILED</code> – The execution completed with an error.</p> </li> <li> <p> <code>TIMED_OUT</code> – The execution exceeded its execution timeout.</p> </li> <li> <p> <code>STOPPED</code> – A <code>StopDurableExecution</code> request stopped the execution.</p> </li> <li> <p> <code>DELETING</code> – A <code>DeleteDurableExecution</code> request is deleting the execution and its data.</p> </li> </ul>
             started_after: <p>Filter executions that started after this timestamp (ISO 8601 format).</p>
             started_before: <p>Filter executions that started before this timestamp (ISO 8601 format).</p>
             reverse_order: <p>Set to true to return results in chronological order (oldest first). Default is false.</p>
@@ -5325,7 +5563,7 @@ class LambdaClient:
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
     ) -> "capo_lambda.types.put_function_recursion_config_response.PutFunctionRecursionConfigResponse":
-        """<p>Sets your function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html">recursive loop detection</a> configuration.</p> <p>When you configure a Lambda function to output to the same service or resource that invokes the function, it's possible to create an infinite recursive loop. For example, a Lambda function might write a message to an Amazon Simple Queue Service (Amazon SQS) queue, which then invokes the same function. This invocation causes the function to write another message to the queue, which in turn invokes the function again.</p> <p>Lambda can detect certain types of recursive loops shortly after they occur. When Lambda detects a recursive loop and your function's recursive loop detection configuration is set to <code>Terminate</code>, it stops your function being invoked and notifies you.</p>
+        """<p>Sets the <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html">recursive loop detection</a> configuration for a Lambda Event Function.</p> <p>When you configure a Lambda function to output to the same service or resource that invokes the function, it's possible to create an infinite recursive loop. For example, a Lambda function might write a message to an Amazon Simple Queue Service (Amazon SQS) queue, which then invokes the same function. This invocation causes the function to write another message to the queue, which in turn invokes the function again.</p> <p>Lambda can detect certain types of recursive loops shortly after they occur. When Lambda detects a recursive loop and your function's recursive loop detection configuration is set to <code>Terminate</code>, it stops your function being invoked and notifies you.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -5506,7 +5744,7 @@ class LambdaClient:
         cors: Optional["capo_lambda.types.cors.Cors"] = None,
         invoke_mode: Optional["capo_lambda.types.invoke_mode.InvokeMode"] = None,
     ) -> "capo_lambda.types.update_function_url_config_response.UpdateFunctionUrlConfigResponse":
-        """<p>Updates the configuration for a Lambda function URL.</p>
+        """<p>Updates the configuration for a function URL of a Lambda Event Function.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> – <code>my-function</code>.</p> </li> <li> <p> <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.</p> </li> <li> <p> <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -5905,7 +6143,7 @@ class LambdaClient:
             "capo_lambda.types.function_version_latest_published.FunctionVersionLatestPublished"
         ] = None,
     ) -> "capo_lambda.types.function_configuration.FunctionConfiguration":
-        """<p>Creates a <a href="https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">version</a> from the current code and configuration of a function. Use versions to create a snapshot of your function code and configuration that doesn't change.</p> <p>Lambda doesn't publish a version if the function's configuration and code haven't changed since the last version. Use <a>UpdateFunctionCode</a> or <a>UpdateFunctionConfiguration</a> to update the function before publishing a version.</p> <p>Clients can invoke versions directly or with an alias. To create an alias, use <a>CreateAlias</a>.</p>
+        """<p>Creates a <a href="https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">version</a> from the current code and configuration of a Lambda Event Function. Use versions to create a snapshot of your function code and configuration that doesn't change.</p> <p>Lambda doesn't publish a version if the function's configuration and code haven't changed since the last version. Use <a>UpdateFunctionCode</a> or <a>UpdateFunctionConfiguration</a> to update the function before publishing a version.</p> <p>Clients can invoke versions directly or with an alias. To create an alias, use <a>CreateAlias</a>.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> - <code>MyFunction</code>.</p> </li> <li> <p> <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:MyFunction</code>.</p> </li> <li> <p> <b>Partial ARN</b> - <code>123456789012:function:MyFunction</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -5985,7 +6223,7 @@ class LambdaClient:
         marker: Optional["capo_lambda.types.string.String"] = None,
         max_items: Optional["capo_lambda.types.max_list_items.MaxListItems"] = None,
     ) -> "capo_lambda.types.list_versions_by_function_response.ListVersionsByFunctionResponse":
-        """<p>Returns a list of <a href="https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">versions</a>, with the version-specific configuration of each. Lambda returns up to 50 versions per call.</p>
+        """<p>Returns a list of <a href="https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">versions</a> of a Lambda Event Function, with the version-specific configuration of each. Lambda returns up to 50 versions per call.</p>
 
         Args:
             function_name: <p>The name or ARN of the Lambda function.</p> <p class="title"> <b>Name formats</b> </p> <ul> <li> <p> <b>Function name</b> - <code>MyFunction</code>.</p> </li> <li> <p> <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:MyFunction</code>.</p> </li> <li> <p> <b>Partial ARN</b> - <code>123456789012:function:MyFunction</code>.</p> </li> </ul> <p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
@@ -6145,7 +6383,7 @@ class LambdaClient:
 
     def list_layer_versions(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
         compatible_architecture: Optional[
@@ -6219,7 +6457,7 @@ class LambdaClient:
 
     def add_layer_version_permission(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         statement_id: "capo_lambda.types.statement_id.StatementId",
         action: "capo_lambda.types.layer_permission_allowed_action.LayerPermissionAllowedAction",
@@ -6298,7 +6536,7 @@ class LambdaClient:
 
     def delete_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
@@ -6353,7 +6591,7 @@ class LambdaClient:
 
     def get_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
@@ -6464,7 +6702,7 @@ class LambdaClient:
 
     def get_layer_version_policy(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
@@ -6515,7 +6753,7 @@ class LambdaClient:
 
     def publish_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         content: "capo_lambda.types.layer_version_content_input.LayerVersionContentInput",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
@@ -6603,7 +6841,7 @@ class LambdaClient:
 
     def remove_layer_version_permission(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         statement_id: "capo_lambda.types.statement_id.StatementId",
         *,
@@ -6621,6 +6859,7 @@ class LambdaClient:
         Raises:
             capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
             capo_lambda.errors.precondition_failed_exception.PreconditionFailedException: <p>The RevisionId provided does not match the latest RevisionId for the Lambda function or alias.</p> <ul> <li> <p> <b>For AddPermission and RemovePermission API operations:</b> Call <code>GetPolicy</code> to retrieve the latest RevisionId for your resource.</p> </li> <li> <p> <b>For all other API operations:</b> Call <code>GetFunction</code> or <code>GetAlias</code> to retrieve the latest RevisionId for your resource.</p> </li> </ul>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
             capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
@@ -6927,12 +7166,12 @@ class LambdaClient:
             capo_lambda.errors.UnknownServiceError: The service returned an error code this client does not model.
 
         Examples:
-            To get a provisioned concurrency configuration
-            The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified function.
-
-            >>> client.get_provisioned_concurrency_config(function_name='my-function', qualifier='BLUE')
             To view a provisioned concurrency configuration
             The following example displays details for the provisioned concurrency configuration for the BLUE alias of the specified function.
+
+            >>> client.get_provisioned_concurrency_config(function_name='my-function', qualifier='BLUE')
+            To get a provisioned concurrency configuration
+            The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified function.
 
             >>> client.get_provisioned_concurrency_config(function_name='my-function', qualifier='BLUE')
         """

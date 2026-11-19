@@ -27,6 +27,7 @@ import capo_appstream.types.create_image_builder_request
 import capo_appstream.types.create_image_builder_result
 import capo_appstream.types.domain_join_info
 import capo_appstream.types.image_builder
+import capo_appstream.types.image_builder_agent_access_config
 import capo_appstream.types.string_list
 import capo_appstream.types.tags
 import capo_appstream.types.volume_config

@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.source_filter_string
     import capo_observabilityadmin.types.source_logs_configuration
     import capo_observabilityadmin.types.source_metrics_configuration
+    import capo_observabilityadmin.types.source_profiles_configuration
 
 
 class CentralizationRuleSource(TypedDict, closed=True):
@@ -27,6 +28,10 @@ class CentralizationRuleSource(TypedDict, closed=True):
         "capo_observabilityadmin.types.source_metrics_configuration.SourceMetricsConfiguration"
     ]
     """<p>Metric specific configuration for centralization source metrics.</p>"""
+    source_profiles_configuration: NotRequired[
+        "capo_observabilityadmin.types.source_profiles_configuration.SourceProfilesConfiguration"
+    ]
+    """<p>Profile-specific configuration for centralization source profiles.</p>"""
     source_context_graph_configuration: NotRequired[
         "capo_observabilityadmin.types.source_context_graph_configuration.SourceContextGraphConfiguration"
     ]
@@ -57,6 +62,14 @@ def serialize_json(value: CentralizationRuleSource) -> dict:
         out["SourceMetricsConfiguration"] = (
             capo_observabilityadmin.types.source_metrics_configuration.serialize_json(
                 value["source_metrics_configuration"]
+            )
+        )
+    if "source_profiles_configuration" in value:
+        import capo_observabilityadmin.types.source_profiles_configuration
+
+        out["SourceProfilesConfiguration"] = (
+            capo_observabilityadmin.types.source_profiles_configuration.serialize_json(
+                value["source_profiles_configuration"]
             )
         )
     if "source_context_graph_configuration" in value:
@@ -96,6 +109,14 @@ def deserialize_json(data: dict) -> CentralizationRuleSource:
         out["source_metrics_configuration"] = (
             capo_observabilityadmin.types.source_metrics_configuration.deserialize_json(
                 data["SourceMetricsConfiguration"]
+            )
+        )
+    if data.get("SourceProfilesConfiguration") is not None:
+        import capo_observabilityadmin.types.source_profiles_configuration
+
+        out["source_profiles_configuration"] = (
+            capo_observabilityadmin.types.source_profiles_configuration.deserialize_json(
+                data["SourceProfilesConfiguration"]
             )
         )
     if data.get("SourceContextGraphConfiguration") is not None:

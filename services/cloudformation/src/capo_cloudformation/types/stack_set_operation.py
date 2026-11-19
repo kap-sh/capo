@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_cloudformation.types.client_request_token
     import capo_cloudformation.types.deployment_targets
     import capo_cloudformation.types.execution_role_name
+    import capo_cloudformation.types.regional_status_details
     import capo_cloudformation.types.retain_stacks_nullable
     import capo_cloudformation.types.role_arn
     import capo_cloudformation.types.stack_set_drift_detection_details
@@ -71,6 +72,10 @@ class StackSetOperation(TypedDict, closed=True):
         "capo_cloudformation.types.stack_set_operation_status_details.StackSetOperationStatusDetails"
     ]
     """<p>Detailed information about the StackSet operation.</p>"""
+    regional_status_details: NotRequired[
+        "capo_cloudformation.types.regional_status_details.RegionalStatusDetails"
+    ]
+    """<p>The progress detail for each Region of the operation, keyed by Region. Each entry reports the stack instances deployment progress for that Region. This field is returned only by <a>DescribeStackSetOperation</a>. It is not included in the <a>ListStackSetOperations</a> summary.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -148,6 +153,14 @@ def serialize_query(
 
         capo_cloudformation.types.stack_set_operation_status_details.serialize_query(
             value["status_details"], pairs, f"{key_prefix}StatusDetails"
+        )
+    if "regional_status_details" in value:
+        import capo_cloudformation.types.regional_status_details
+
+        capo_cloudformation.types.regional_status_details.serialize_query(
+            value["regional_status_details"],
+            pairs,
+            f"{key_prefix}RegionalStatusDetails",
         )
 
 
@@ -239,6 +252,15 @@ def deserialize_query(el: Element) -> StackSetOperation:
         out["status_details"] = (
             capo_cloudformation.types.stack_set_operation_status_details.deserialize_query(
                 child_status_details
+            )
+        )
+    child_regional_status_details = el.find("RegionalStatusDetails")
+    if child_regional_status_details is not None:
+        import capo_cloudformation.types.regional_status_details
+
+        out["regional_status_details"] = (
+            capo_cloudformation.types.regional_status_details.deserialize_query(
+                child_regional_status_details
             )
         )
     return out

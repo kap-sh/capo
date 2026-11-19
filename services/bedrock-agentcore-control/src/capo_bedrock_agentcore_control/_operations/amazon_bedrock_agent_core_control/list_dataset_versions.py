@@ -18,6 +18,7 @@ import capo_bedrock_agentcore_control.errors.resource_not_found_exception
 import capo_bedrock_agentcore_control.errors.throttling_exception
 import capo_bedrock_agentcore_control.errors.validation_exception
 import capo_bedrock_agentcore_control.types.dataset_version_summary_list
+import capo_bedrock_agentcore_control.types.list_dataset_versions_filter
 import capo_bedrock_agentcore_control.types.list_dataset_versions_request
 import capo_bedrock_agentcore_control.types.list_dataset_versions_response
 from capo_bedrock_agentcore_control._protocol.errors import parse_error_metadata_json
@@ -121,15 +122,17 @@ def build_request(
             Endpoint=options.endpoint,
         )
     )  # noqa: F841
-    url = endpoint.url.rstrip("/") + "/datasets/{datasetId}/versions"
+    url = endpoint.url.rstrip("/") + "/datasets/{datasetId}/versions/list"
     url = url.replace("{datasetId}", quote(input_["dataset_id"], safe=""))
     params: list[tuple[str, str]] = []
-    if "next_token" in input_:
-        params.append(("nextToken", input_["next_token"]))
-    if "max_results" in input_:
-        params.append(("maxResults", str(input_["max_results"])))
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
-    body: bytes | None = b""
+    body: bytes | None = json.dumps(
+        capo_bedrock_agentcore_control.types.list_dataset_versions_request.serialize_json(
+            input_
+        ),
+        allow_nan=False,
+    ).encode()
+    headers["content-type"] = "application/json"
     signer = (
         None
         if options.anonymous
@@ -139,7 +142,7 @@ def build_request(
     for k, v in params:
         normalized_url.search_params.append(k, v)
     return zapros.Request(
-        normalized_url, "GET", headers=headers, body=body, context={"signer": signer}
+        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
     )
 
 

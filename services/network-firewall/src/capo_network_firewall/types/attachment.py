@@ -26,7 +26,7 @@ class Attachment(TypedDict, closed=True):
     ]
     """<p>If Network Firewall fails to create or delete the firewall endpoint in the subnet, it populates this with the reason for the error or failure and how to resolve it. A <code>FAILED</code> status indicates a non-recoverable state, and a <code>ERROR</code> status indicates an issue that you can fix. Depending on the error, it can take as many as 15 minutes to populate this field. For more information about the causes for failiure or errors and solutions available for this field, see <a href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/firewall-troubleshooting-endpoint-failures.html">Troubleshooting firewall endpoint failures</a> in the <i>Network Firewall Developer Guide</i>.</p>"""
     dns_name: NotRequired["capo_network_firewall.types.dns_name.DnsName"]
-    """<p>The DNS name that resolves to the firewall endpoint in the subnet. This is populated for proxy mode firewalls, where clients direct traffic to the firewall's proxy using this name. </p>"""
+    """<p>The proxy DNS name of a proxy mode firewall. Your clients send proxy requests to the firewall at this name. It's your <code>ProxySettings</code> <code>DomainName</code> if you specified one, or a name that Network Firewall generates in the format <code>proxy-<i>id</i>.nfw.<i>region</i>.amazonaws.com</code>.</p> <p>The firewall has one proxy DNS name for every Availability Zone and VPC that it serves. In each Availability Zone, the name resolves to the firewall endpoint in that Availability Zone, so traffic stays in your client's Availability Zone. Your clients must use the VPC's Route 53 Resolver.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

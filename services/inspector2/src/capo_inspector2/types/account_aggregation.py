@@ -19,7 +19,7 @@ class AccountAggregation(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_inspector2.types.aggregation_resource_type.AggregationResourceType"
     ]
-    """<p>The type of resource.</p>"""
+    """<p>The type of resource. For Google Cloud Platform (GCP) resources, the resource type is <code>compute.googleapis.com/Instance</code>, <code>cloudfunctions.googleapis.com/Function</code>, or <code>artifactregistry.googleapis.com/DockerImage</code>.</p>"""
     sort_order: NotRequired["capo_inspector2.types.sort_order.SortOrder"]
     """<p>The sort order (ascending or descending).</p>"""
     sort_by: NotRequired["capo_inspector2.types.account_sort_by.AccountSortBy"]

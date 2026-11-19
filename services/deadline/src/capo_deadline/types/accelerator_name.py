@@ -8,6 +8,7 @@ AcceleratorName: TypeAlias = Literal[
     "l4",
     "l40s",
     "rtx-pro-server-6000",
+    "rtx-pro-4500",
 ]
 
 

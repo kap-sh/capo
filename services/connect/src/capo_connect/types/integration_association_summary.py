@@ -9,8 +9,10 @@ if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.integration_association_id
     import capo_connect.types.integration_type
+    import capo_connect.types.region_name
     import capo_connect.types.source_application_name
     import capo_connect.types.source_type
+    import capo_connect.types.timestamp
     import capo_connect.types.uri
 
 
@@ -35,6 +37,10 @@ class IntegrationAssociationSummary(TypedDict, closed=True):
     """<p>The user-provided, friendly name for the external application.</p>"""
     source_type: NotRequired["capo_connect.types.source_type.SourceType"]
     """<p>The name of the source.</p>"""
+    last_modified_time: NotRequired["capo_connect.types.timestamp.Timestamp"]
+    """<p>The timestamp when the integration association was last modified.</p>"""
+    last_modified_region: NotRequired["capo_connect.types.region_name.RegionName"]
+    """<p>The Amazon Web Services Region where the integration association was last modified.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -64,6 +70,14 @@ def serialize_json(value: IntegrationAssociationSummary) -> dict:
         out["SourceType"] = capo_connect.types.source_type.serialize_json(
             value["source_type"]
         )
+    if "last_modified_time" in value:
+        import capo_connect.types.timestamp
+
+        out["LastModifiedTime"] = capo_connect.types.timestamp.serialize_json(
+            value["last_modified_time"]
+        )
+    if "last_modified_region" in value:
+        out["LastModifiedRegion"] = value["last_modified_region"]
     return out
 
 
@@ -93,4 +107,12 @@ def deserialize_json(data: dict) -> IntegrationAssociationSummary:
         out["source_type"] = capo_connect.types.source_type.deserialize_json(
             data["SourceType"]
         )
+    if data.get("LastModifiedTime") is not None:
+        import capo_connect.types.timestamp
+
+        out["last_modified_time"] = capo_connect.types.timestamp.deserialize_json(
+            data["LastModifiedTime"]
+        )
+    if data.get("LastModifiedRegion") is not None:
+        out["last_modified_region"] = data["LastModifiedRegion"]
     return out

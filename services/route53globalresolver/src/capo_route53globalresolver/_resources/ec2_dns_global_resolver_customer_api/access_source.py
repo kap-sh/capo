@@ -32,6 +32,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.list_access_sources_output
     import capo_route53globalresolver.types.resource_id
     import capo_route53globalresolver.types.resource_name_short
+    import capo_route53globalresolver.types.segment_name
     import capo_route53globalresolver.types.tags
     import capo_route53globalresolver.types.update_access_source_input
     import capo_route53globalresolver.types.update_access_source_output
@@ -51,11 +52,11 @@ class AccessSource:
 
     def create(
         self,
-        cidr: "capo_route53globalresolver.types.cidr.Cidr",
         dns_view_id: "capo_route53globalresolver.types.resource_id.ResourceId",
         protocol: "capo_route53globalresolver.types.dns_protocol.DnsProtocol",
         *,
         config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+        cidr: Optional["capo_route53globalresolver.types.cidr.Cidr"] = None,
         client_token: Optional[
             "capo_route53globalresolver.types.client_token.ClientToken"
         ] = None,
@@ -65,6 +66,12 @@ class AccessSource:
         name: Optional[
             "capo_route53globalresolver.types.resource_name_short.ResourceNameShort"
         ] = None,
+        core_network_endpoint_id: Optional[
+            "capo_route53globalresolver.types.resource_id.ResourceId"
+        ] = None,
+        segment: Optional[
+            "capo_route53globalresolver.types.segment_name.SegmentName"
+        ] = None,
         tags: Optional["capo_route53globalresolver.types.tags.Tags"] = None,
     ) -> "capo_route53globalresolver.types.create_access_source_output.CreateAccessSourceOutput":
         """<p>Creates an access source for a DNS view. Access sources define IP addresses or CIDR ranges that are allowed to send DNS queries to the Route 53 Global Resolver, along with the permitted DNS protocols.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
@@ -72,8 +79,10 @@ class AccessSource:
         Args:
             cidr: <p>The IP address or CIDR range that is allowed to send DNS queries to the Route 53 Global Resolver.</p>
             client_token: <p>A unique string that identifies the request and ensures idempotency.</p>
-            ip_address_type: <p>The IP address type for this access source. Valid values are IPv4 and IPv6 (if the Route 53 Global Resolver supports dual-stack).</p>
+            ip_address_type: <p>The IP address type for this access source. Valid values are IPV4, IPV6, and NONE. If you provide a CIDR range, this defaults to IPV4; otherwise it defaults to NONE.</p>
             name: <p>A descriptive name for the access source.</p>
+            core_network_endpoint_id: <p>The ID of the core network endpoint to associate with this access source.</p>
+            segment: <p>The name of the segment to associate with this access source.</p>
             dns_view_id: <p>The ID of the DNS view to associate with this access source.</p>
             protocol: <p>The DNS protocol that is permitted for this access source. Valid values are Do53 (DNS over port 53), DoT (DNS over TLS), and DoH (DNS over HTTPS).</p>
             tags: <p>Tags to associate with the access source.</p>
@@ -112,10 +121,11 @@ class AccessSource:
             config_overrides, OperationLogging("CreateAccessSource")
         )
         input_: capo_route53globalresolver.types.create_access_source_input.CreateAccessSourceInput = {
-            "cidr": cidr,
             "dns_view_id": dns_view_id,
             "protocol": protocol,
         }
+        if cidr is not None:
+            input_["cidr"] = cidr
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
@@ -123,6 +133,10 @@ class AccessSource:
             input_["ip_address_type"] = ip_address_type
         if name is not None:
             input_["name"] = name
+        if core_network_endpoint_id is not None:
+            input_["core_network_endpoint_id"] = core_network_endpoint_id
+        if segment is not None:
+            input_["segment"] = segment
         if tags is not None:
             input_["tags"] = tags
 
@@ -189,6 +203,9 @@ class AccessSource:
         *,
         config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
         cidr: Optional["capo_route53globalresolver.types.cidr.Cidr"] = None,
+        dns_view_id: Optional[
+            "capo_route53globalresolver.types.resource_id.ResourceId"
+        ] = None,
         ip_address_type: Optional[
             "capo_route53globalresolver.types.ip_address_type.IpAddressType"
         ] = None,
@@ -204,6 +221,7 @@ class AccessSource:
         Args:
             access_source_id: <p>The unique identifier of the access source to update.</p>
             cidr: <p>The CIDR block for the access source.</p>
+            dns_view_id: <p>The ID of the DNS view to associate with this access source.</p>
             ip_address_type: <p>The IP address type for the access source.</p>
             name: <p>The name of the access source.</p>
             protocol: <p>The protocol for the access source.</p>
@@ -241,6 +259,8 @@ class AccessSource:
         }
         if cidr is not None:
             input_["cidr"] = cidr
+        if dns_view_id is not None:
+            input_["dns_view_id"] = dns_view_id
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
         if name is not None:
@@ -369,11 +389,11 @@ class AsyncAccessSource:
 
     async def create(
         self,
-        cidr: "capo_route53globalresolver.types.cidr.Cidr",
         dns_view_id: "capo_route53globalresolver.types.resource_id.ResourceId",
         protocol: "capo_route53globalresolver.types.dns_protocol.DnsProtocol",
         *,
         config_overrides: Optional[AsyncRoute53GlobalResolverClientConfig] = None,
+        cidr: Optional["capo_route53globalresolver.types.cidr.Cidr"] = None,
         client_token: Optional[
             "capo_route53globalresolver.types.client_token.ClientToken"
         ] = None,
@@ -383,6 +403,12 @@ class AsyncAccessSource:
         name: Optional[
             "capo_route53globalresolver.types.resource_name_short.ResourceNameShort"
         ] = None,
+        core_network_endpoint_id: Optional[
+            "capo_route53globalresolver.types.resource_id.ResourceId"
+        ] = None,
+        segment: Optional[
+            "capo_route53globalresolver.types.segment_name.SegmentName"
+        ] = None,
         tags: Optional["capo_route53globalresolver.types.tags.Tags"] = None,
     ) -> "capo_route53globalresolver.types.create_access_source_output.CreateAccessSourceOutput":
         """<p>Creates an access source for a DNS view. Access sources define IP addresses or CIDR ranges that are allowed to send DNS queries to the Route 53 Global Resolver, along with the permitted DNS protocols.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
@@ -390,8 +416,10 @@ class AsyncAccessSource:
         Args:
             cidr: <p>The IP address or CIDR range that is allowed to send DNS queries to the Route 53 Global Resolver.</p>
             client_token: <p>A unique string that identifies the request and ensures idempotency.</p>
-            ip_address_type: <p>The IP address type for this access source. Valid values are IPv4 and IPv6 (if the Route 53 Global Resolver supports dual-stack).</p>
+            ip_address_type: <p>The IP address type for this access source. Valid values are IPV4, IPV6, and NONE. If you provide a CIDR range, this defaults to IPV4; otherwise it defaults to NONE.</p>
             name: <p>A descriptive name for the access source.</p>
+            core_network_endpoint_id: <p>The ID of the core network endpoint to associate with this access source.</p>
+            segment: <p>The name of the segment to associate with this access source.</p>
             dns_view_id: <p>The ID of the DNS view to associate with this access source.</p>
             protocol: <p>The DNS protocol that is permitted for this access source. Valid values are Do53 (DNS over port 53), DoT (DNS over TLS), and DoH (DNS over HTTPS).</p>
             tags: <p>Tags to associate with the access source.</p>
@@ -431,10 +459,11 @@ class AsyncAccessSource:
             config_overrides, OperationLogging("CreateAccessSource")
         )
         input_: capo_route53globalresolver.types.create_access_source_input.CreateAccessSourceInput = {
-            "cidr": cidr,
             "dns_view_id": dns_view_id,
             "protocol": protocol,
         }
+        if cidr is not None:
+            input_["cidr"] = cidr
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
@@ -442,6 +471,10 @@ class AsyncAccessSource:
             input_["ip_address_type"] = ip_address_type
         if name is not None:
             input_["name"] = name
+        if core_network_endpoint_id is not None:
+            input_["core_network_endpoint_id"] = core_network_endpoint_id
+        if segment is not None:
+            input_["segment"] = segment
         if tags is not None:
             input_["tags"] = tags
 
@@ -509,6 +542,9 @@ class AsyncAccessSource:
         *,
         config_overrides: Optional[AsyncRoute53GlobalResolverClientConfig] = None,
         cidr: Optional["capo_route53globalresolver.types.cidr.Cidr"] = None,
+        dns_view_id: Optional[
+            "capo_route53globalresolver.types.resource_id.ResourceId"
+        ] = None,
         ip_address_type: Optional[
             "capo_route53globalresolver.types.ip_address_type.IpAddressType"
         ] = None,
@@ -524,6 +560,7 @@ class AsyncAccessSource:
         Args:
             access_source_id: <p>The unique identifier of the access source to update.</p>
             cidr: <p>The CIDR block for the access source.</p>
+            dns_view_id: <p>The ID of the DNS view to associate with this access source.</p>
             ip_address_type: <p>The IP address type for the access source.</p>
             name: <p>The name of the access source.</p>
             protocol: <p>The protocol for the access source.</p>
@@ -562,6 +599,8 @@ class AsyncAccessSource:
         }
         if cidr is not None:
             input_["cidr"] = cidr
+        if dns_view_id is not None:
+            input_["dns_view_id"] = dns_view_id
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
         if name is not None:

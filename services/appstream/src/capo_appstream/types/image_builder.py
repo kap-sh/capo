@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_appstream.types.arn
     import capo_appstream.types.boolean_object
     import capo_appstream.types.domain_join_info
+    import capo_appstream.types.image_builder_agent_access_config
     import capo_appstream.types.image_builder_state
     import capo_appstream.types.image_builder_state_change_reason
     import capo_appstream.types.latest_appstream_agent_version
@@ -36,7 +37,7 @@ class ImageBuilder(TypedDict, closed=True):
     vpc_config: NotRequired["capo_appstream.types.vpc_config.VpcConfig"]
     """<p>The VPC configuration of the image builder.</p>"""
     instance_type: NotRequired["capo_appstream.types.string.String"]
-    """<p>The instance type for the image builder. The following instance types are available:</p> <ul> <li> <p>stream.standard.small</p> </li> <li> <p>stream.standard.medium</p> </li> <li> <p>stream.standard.large</p> </li> <li> <p>stream.compute.large</p> </li> <li> <p>stream.compute.xlarge</p> </li> <li> <p>stream.compute.2xlarge</p> </li> <li> <p>stream.compute.4xlarge</p> </li> <li> <p>stream.compute.8xlarge</p> </li> <li> <p>stream.memory.large</p> </li> <li> <p>stream.memory.xlarge</p> </li> <li> <p>stream.memory.2xlarge</p> </li> <li> <p>stream.memory.4xlarge</p> </li> <li> <p>stream.memory.8xlarge</p> </li> <li> <p>stream.memory.z1d.large</p> </li> <li> <p>stream.memory.z1d.xlarge</p> </li> <li> <p>stream.memory.z1d.2xlarge</p> </li> <li> <p>stream.memory.z1d.3xlarge</p> </li> <li> <p>stream.memory.z1d.6xlarge</p> </li> <li> <p>stream.memory.z1d.12xlarge</p> </li> <li> <p>stream.graphics.g4dn.xlarge</p> </li> <li> <p>stream.graphics.g4dn.2xlarge</p> </li> <li> <p>stream.graphics.g4dn.4xlarge</p> </li> <li> <p>stream.graphics.g4dn.8xlarge</p> </li> <li> <p>stream.graphics.g4dn.12xlarge</p> </li> <li> <p>stream.graphics.g4dn.16xlarge</p> </li> <li> <p>stream.graphics.g5.xlarge</p> </li> <li> <p>stream.graphics.g5.2xlarge</p> </li> <li> <p>stream.graphics.g5.4xlarge</p> </li> <li> <p>stream.graphics.g5.8xlarge</p> </li> <li> <p>stream.graphics.g5.16xlarge</p> </li> <li> <p>stream.graphics.g5.12xlarge</p> </li> <li> <p>stream.graphics.g5.24xlarge</p> </li> <li> <p>stream.graphics.g6.xlarge</p> </li> <li> <p>stream.graphics.g6.2xlarge</p> </li> <li> <p>stream.graphics.g6.4xlarge</p> </li> <li> <p>stream.graphics.g6.8xlarge</p> </li> <li> <p>stream.graphics.g6.16xlarge</p> </li> <li> <p>stream.graphics.g6.12xlarge</p> </li> <li> <p>stream.graphics.g6.24xlarge</p> </li> <li> <p>stream.graphics.gr6.4xlarge</p> </li> <li> <p>stream.graphics.gr6.8xlarge</p> </li> <li> <p>stream.graphics.g6f.large</p> </li> <li> <p>stream.graphics.g6f.xlarge</p> </li> <li> <p>stream.graphics.g6f.2xlarge</p> </li> <li> <p>stream.graphics.g6f.4xlarge</p> </li> <li> <p>stream.graphics.gr6f.4xlarge</p> </li> </ul>"""
+    """<p>The instance type for the image builder. The following instance types are available:</p> <ul> <li> <p>stream.standard.small</p> </li> <li> <p>stream.standard.medium</p> </li> <li> <p>stream.standard.large</p> </li> <li> <p>stream.compute.large</p> </li> <li> <p>stream.compute.xlarge</p> </li> <li> <p>stream.compute.2xlarge</p> </li> <li> <p>stream.compute.4xlarge</p> </li> <li> <p>stream.compute.8xlarge</p> </li> <li> <p>stream.memory.large</p> </li> <li> <p>stream.memory.xlarge</p> </li> <li> <p>stream.memory.2xlarge</p> </li> <li> <p>stream.memory.4xlarge</p> </li> <li> <p>stream.memory.8xlarge</p> </li> <li> <p>stream.memory.z1d.large</p> </li> <li> <p>stream.memory.z1d.xlarge</p> </li> <li> <p>stream.memory.z1d.2xlarge</p> </li> <li> <p>stream.memory.z1d.3xlarge</p> </li> <li> <p>stream.memory.z1d.6xlarge</p> </li> <li> <p>stream.memory.z1d.12xlarge</p> </li> <li> <p>stream.graphics.g4dn.xlarge</p> </li> <li> <p>stream.graphics.g4dn.2xlarge</p> </li> <li> <p>stream.graphics.g4dn.4xlarge</p> </li> <li> <p>stream.graphics.g4dn.8xlarge</p> </li> <li> <p>stream.graphics.g4dn.12xlarge</p> </li> <li> <p>stream.graphics.g4dn.16xlarge</p> </li> <li> <p>stream.graphics.g5.xlarge</p> </li> <li> <p>stream.graphics.g5.2xlarge</p> </li> <li> <p>stream.graphics.g5.4xlarge</p> </li> <li> <p>stream.graphics.g5.8xlarge</p> </li> <li> <p>stream.graphics.g5.16xlarge</p> </li> <li> <p>stream.graphics.g5.12xlarge</p> </li> <li> <p>stream.graphics.g5.24xlarge</p> </li> <li> <p>stream.graphics.g6.xlarge</p> </li> <li> <p>stream.graphics.g6.2xlarge</p> </li> <li> <p>stream.graphics.g6.4xlarge</p> </li> <li> <p>stream.graphics.g6.8xlarge</p> </li> <li> <p>stream.graphics.g6.16xlarge</p> </li> <li> <p>stream.graphics.g6.12xlarge</p> </li> <li> <p>stream.graphics.g6.24xlarge</p> </li> <li> <p>stream.graphics.gr6.4xlarge</p> </li> <li> <p>stream.graphics.gr6.8xlarge</p> </li> <li> <p>stream.graphics.g6f.large</p> </li> <li> <p>stream.graphics.g6f.xlarge</p> </li> <li> <p>stream.graphics.g6f.2xlarge</p> </li> <li> <p>stream.graphics.g6f.4xlarge</p> </li> <li> <p>stream.graphics.gr6f.4xlarge</p> </li> <li> <p>stream.graphics.g7.2xlarge</p> </li> <li> <p>stream.graphics.g7.4xlarge</p> </li> <li> <p>stream.graphics.g7.8xlarge</p> </li> <li> <p>stream.graphics.g7.12xlarge</p> </li> <li> <p>stream.graphics.g7.24xlarge</p> </li> <li> <p>stream.graphics.g7.48xlarge</p> </li> </ul>"""
     platform: NotRequired["capo_appstream.types.platform_type.PlatformType"]
     """<p>The operating system platform of the image builder.</p>"""
     iam_role_arn: NotRequired["capo_appstream.types.arn.Arn"]
@@ -80,6 +81,10 @@ class ImageBuilder(TypedDict, closed=True):
     """<p>Indicates whether the image builder is using the latest WorkSpaces Applications agent version or not.</p>"""
     disable_imdsv1: NotRequired["capo_appstream.types.boolean_object.BooleanObject"]
     """<p>Indicates whether Instance Metadata Service Version 1 (IMDSv1) is disabled for the image builder.</p>"""
+    agent_access_config: NotRequired[
+        "capo_appstream.types.image_builder_agent_access_config.ImageBuilderAgentAccessConfig"
+    ]
+    """<p>The agent access configuration of the image builder, if agent access is enabled.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -185,6 +190,14 @@ def serialize_aws_json_1_1(value: ImageBuilder) -> dict:
         )
     if "disable_imdsv1" in value:
         out["DisableIMDSV1"] = value["disable_imdsv1"]
+    if "agent_access_config" in value:
+        import capo_appstream.types.image_builder_agent_access_config
+
+        out["AgentAccessConfig"] = (
+            capo_appstream.types.image_builder_agent_access_config.serialize_aws_json_1_1(
+                value["agent_access_config"]
+            )
+        )
     return out
 
 
@@ -292,4 +305,12 @@ def deserialize_aws_json_1_1(data: dict) -> ImageBuilder:
         )
     if data.get("DisableIMDSV1") is not None:
         out["disable_imdsv1"] = data["DisableIMDSV1"]
+    if data.get("AgentAccessConfig") is not None:
+        import capo_appstream.types.image_builder_agent_access_config
+
+        out["agent_access_config"] = (
+            capo_appstream.types.image_builder_agent_access_config.deserialize_aws_json_1_1(
+                data["AgentAccessConfig"]
+            )
+        )
     return out

@@ -10,10 +10,11 @@ if TYPE_CHECKING:
     import capo_wellarchitected.types.agent_profile_arn
     import capo_wellarchitected.types.aggregation_configurations
     import capo_wellarchitected.types.field_errors
+    import capo_wellarchitected.types.organizational_aggregation_configuration
     import capo_wellarchitected.types.pillars
+    import capo_wellarchitected.types.profile_type
     import capo_wellarchitected.types.role_arn
     import capo_wellarchitected.types.sensitive_string
-    import capo_wellarchitected.types.tags
 
 
 class AgentProfileSummary(TypedDict, closed=True):
@@ -31,14 +32,18 @@ class AgentProfileSummary(TypedDict, closed=True):
         "capo_wellarchitected.types.sensitive_string.SensitiveString"
     ]
     """<p>The business overview for this profile.</p>"""
-    pillars: "capo_wellarchitected.types.pillars.Pillars"
-    """<p>The Well-Architected Tool Framework pillars associated with this profile.</p>"""
+    pillars: NotRequired["capo_wellarchitected.types.pillars.Pillars"]
+    """<p>The Amazon Web Services Well-Architected Framework pillars associated with this profile. Not present for basic profiles.</p>"""
     deletion_protection: "bool"
     """<p>Indicates whether deletion protection is enabled for the profile.</p>"""
-    execution_role_arn: "capo_wellarchitected.types.role_arn.RoleArn"
-    """<p>The ARN of the IAM execution role used for recommendation actions.</p>"""
-    aggregation_configuration: "capo_wellarchitected.types.aggregation_configurations.AggregationConfigurations"
-    """<p>The aggregation configuration that defines which Amazon Web Services accounts and Regions to analyze.</p>"""
+    profile_type: NotRequired["capo_wellarchitected.types.profile_type.ProfileType"]
+    """<p>The type of the profile.</p>"""
+    execution_role_arn: NotRequired["capo_wellarchitected.types.role_arn.RoleArn"]
+    """<p>The ARN of the IAM execution role used for recommendation actions. Not present for basic profiles.</p>"""
+    aggregation_configuration: NotRequired[
+        "capo_wellarchitected.types.aggregation_configurations.AggregationConfigurations"
+    ]
+    """<p>The aggregation configuration that defines which Amazon Web Services accounts and Regions to analyze. Not present for basic profiles.</p>"""
     arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn"
     """<p>The Amazon Resource Name (ARN) of the optimization profile.</p>"""
     eligible_for_scheduled_generation: NotRequired["bool"]
@@ -47,8 +52,6 @@ class AgentProfileSummary(TypedDict, closed=True):
     """<p>Indicates whether the profile is valid for manual architecture generation.</p>"""
     field_errors: NotRequired["capo_wellarchitected.types.field_errors.FieldErrors"]
     """<p>A map of field paths to error messages for invalid or missing input fields.</p>"""
-    tags: NotRequired["capo_wellarchitected.types.tags.Tags"]
-    """<p>The tags associated with the profile.</p>"""
     created_by: "str"
     """<p>The identifier of the user or system that created this profile.</p>"""
     created_at: "datetime.datetime"
@@ -57,6 +60,10 @@ class AgentProfileSummary(TypedDict, closed=True):
     """<p>The identifier of the user or system that last modified this profile.</p>"""
     last_modified_at: NotRequired["datetime.datetime"]
     """<p>The timestamp when the profile was last modified.</p>"""
+    organizational_aggregation_configuration: NotRequired[
+        "capo_wellarchitected.types.organizational_aggregation_configuration.OrganizationalAggregationConfiguration"
+    ]
+    """<p>The organizational monitoring boundary. Present only for organizational profiles.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -69,18 +76,29 @@ def serialize_json(value: AgentProfileSummary) -> dict:
         out["description"] = value["description"]
     if "business_overview" in value:
         out["businessOverview"] = value["business_overview"]
-    import capo_wellarchitected.types.pillars
+    if "pillars" in value:
+        import capo_wellarchitected.types.pillars
 
-    out["pillars"] = capo_wellarchitected.types.pillars.serialize_json(value["pillars"])
-    out["deletionProtection"] = value.get("deletion_protection", True)
-    out["executionRoleArn"] = value["execution_role_arn"]
-    import capo_wellarchitected.types.aggregation_configurations
-
-    out["aggregationConfiguration"] = (
-        capo_wellarchitected.types.aggregation_configurations.serialize_json(
-            value["aggregation_configuration"]
+        out["pillars"] = capo_wellarchitected.types.pillars.serialize_json(
+            value["pillars"]
         )
-    )
+    out["deletionProtection"] = value.get("deletion_protection", True)
+    if "profile_type" in value:
+        import capo_wellarchitected.types.profile_type
+
+        out["profileType"] = capo_wellarchitected.types.profile_type.serialize_json(
+            value["profile_type"]
+        )
+    if "execution_role_arn" in value:
+        out["executionRoleArn"] = value["execution_role_arn"]
+    if "aggregation_configuration" in value:
+        import capo_wellarchitected.types.aggregation_configurations
+
+        out["aggregationConfiguration"] = (
+            capo_wellarchitected.types.aggregation_configurations.serialize_json(
+                value["aggregation_configuration"]
+            )
+        )
     out["arn"] = value["arn"]
     if "eligible_for_scheduled_generation" in value:
         out["eligibleForScheduledGeneration"] = value[
@@ -96,10 +114,6 @@ def serialize_json(value: AgentProfileSummary) -> dict:
         out["fieldErrors"] = capo_wellarchitected.types.field_errors.serialize_json(
             value["field_errors"]
         )
-    if "tags" in value:
-        import capo_wellarchitected.types.tags
-
-        out["tags"] = capo_wellarchitected.types.tags.serialize_json(value["tags"])
     out["createdBy"] = value["created_by"]
     import capo_wellarchitected._protocol.serialize
 
@@ -113,6 +127,14 @@ def serialize_json(value: AgentProfileSummary) -> dict:
 
         out["lastModifiedAt"] = capo_wellarchitected._protocol.serialize.fmt_date_time(
             value["last_modified_at"]
+        )
+    if "organizational_aggregation_configuration" in value:
+        import capo_wellarchitected.types.organizational_aggregation_configuration
+
+        out["organizationalAggregationConfiguration"] = (
+            capo_wellarchitected.types.organizational_aggregation_configuration.serialize_json(
+                value["organizational_aggregation_configuration"]
+            )
         )
     return out
 
@@ -135,16 +157,18 @@ def deserialize_json(data: dict) -> AgentProfileSummary:
         out["pillars"] = capo_wellarchitected.types.pillars.deserialize_json(
             data["pillars"]
         )
-    else:
-        out["pillars"] = []
     if data.get("deletionProtection") is not None:
         out["deletion_protection"] = data["deletionProtection"]
     else:
         out["deletion_protection"] = True
+    if data.get("profileType") is not None:
+        import capo_wellarchitected.types.profile_type
+
+        out["profile_type"] = capo_wellarchitected.types.profile_type.deserialize_json(
+            data["profileType"]
+        )
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
-    else:
-        out["execution_role_arn"] = ""
     if data.get("aggregationConfiguration") is not None:
         import capo_wellarchitected.types.aggregation_configurations
 
@@ -153,8 +177,6 @@ def deserialize_json(data: dict) -> AgentProfileSummary:
                 data["aggregationConfiguration"]
             )
         )
-    else:
-        out["aggregation_configuration"] = []
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
@@ -173,10 +195,6 @@ def deserialize_json(data: dict) -> AgentProfileSummary:
         out["field_errors"] = capo_wellarchitected.types.field_errors.deserialize_json(
             data["fieldErrors"]
         )
-    if data.get("tags") is not None:
-        import capo_wellarchitected.types.tags
-
-        out["tags"] = capo_wellarchitected.types.tags.deserialize_json(data["tags"])
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
@@ -198,6 +216,14 @@ def deserialize_json(data: dict) -> AgentProfileSummary:
 
         out["last_modified_at"] = datetime.datetime.fromisoformat(
             data["lastModifiedAt"].replace("Z", "+00:00")
+        )
+    if data.get("organizationalAggregationConfiguration") is not None:
+        import capo_wellarchitected.types.organizational_aggregation_configuration
+
+        out["organizational_aggregation_configuration"] = (
+            capo_wellarchitected.types.organizational_aggregation_configuration.deserialize_json(
+                data["organizationalAggregationConfiguration"]
+            )
         )
     return out
 

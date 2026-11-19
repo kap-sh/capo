@@ -385,6 +385,8 @@
 - [ResourceConfigurationId](resource_configuration_id.md)
 - [ResourceGatewayId](resource_gateway_id.md)
 - [ResourceType](resource_type.md)
+- [ResumePentestJobInput](resume_pentest_job_input.md)
+- [ResumePentestJobOutput](resume_pentest_job_output.md)
 - [RiskLevel](risk_level.md)
 - [RiskLevelFilterList](risk_level_filter_list.md)
 - [RiskType](risk_type.md)

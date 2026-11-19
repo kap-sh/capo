@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.dataset_version
     import capo_bedrock_agentcore_control.types.download_url
     import capo_bedrock_agentcore_control.types.draft_status
+    import capo_bedrock_agentcore_control.types.example_count_by_field
     import capo_bedrock_agentcore_control.types.kms_key_arn
     import capo_bedrock_agentcore_control.types.tags_map
 
@@ -40,9 +41,9 @@ class GetDatasetResponse(TypedDict, closed=True):
     """<p> Publish synchronization state. Only authoritative when status is ACTIVE. MODIFIED indicates DRAFT has unpublished changes. UNMODIFIED indicates DRAFT matches the latest published version. </p>"""
     failure_reason: NotRequired["str"]
     """<p> Populated when status is CREATE_FAILED, UPDATE_FAILED, or DELETE_FAILED. Describes the reason for the failure. </p>"""
-    schema_type: (
+    schema_type: NotRequired[
         "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType"
-    )
+    ]
     """<p> The schema type declared at create time. Immutable after creation. </p>"""
     kms_key_arn: NotRequired[
         "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
@@ -50,6 +51,10 @@ class GetDatasetResponse(TypedDict, closed=True):
     """<p> KMS key ARN used for server-side encryption on service Amazon S3 writes, if configured. </p>"""
     example_count: "int"
     """<p> The number of examples in the DRAFT. </p>"""
+    example_count_by_field: NotRequired[
+        "capo_bedrock_agentcore_control.types.example_count_by_field.ExampleCountByField"
+    ]
+    """<p> The number of examples that have each field, for the resolved version. Absent when the counts are unknown. </p>"""
     download_url: NotRequired[
         "capo_bedrock_agentcore_control.types.download_url.DownloadUrl"
     ]
@@ -88,16 +93,25 @@ def serialize_json(value: GetDatasetResponse) -> dict:
         )
     if "failure_reason" in value:
         out["failureReason"] = value["failure_reason"]
-    import capo_bedrock_agentcore_control.types.dataset_schema_type
+    if "schema_type" in value:
+        import capo_bedrock_agentcore_control.types.dataset_schema_type
 
-    out["schemaType"] = (
-        capo_bedrock_agentcore_control.types.dataset_schema_type.serialize_json(
-            value["schema_type"]
+        out["schemaType"] = (
+            capo_bedrock_agentcore_control.types.dataset_schema_type.serialize_json(
+                value["schema_type"]
+            )
         )
-    )
     if "kms_key_arn" in value:
         out["kmsKeyArn"] = value["kms_key_arn"]
     out["exampleCount"] = value["example_count"]
+    if "example_count_by_field" in value:
+        import capo_bedrock_agentcore_control.types.example_count_by_field
+
+        out["exampleCountByField"] = (
+            capo_bedrock_agentcore_control.types.example_count_by_field.serialize_json(
+                value["example_count_by_field"]
+            )
+        )
     if "download_url" in value:
         out["downloadUrl"] = value["download_url"]
     if "download_url_expires_at" in value:
@@ -183,19 +197,20 @@ def deserialize_json(data: dict) -> GetDatasetResponse:
                 data["schemaType"]
             )
         )
-    else:
-        import typing
-
-        out["schema_type"] = typing.cast(
-            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
-            "",
-        )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("exampleCount") is not None:
         out["example_count"] = data["exampleCount"]
     else:
         out["example_count"] = 0
+    if data.get("exampleCountByField") is not None:
+        import capo_bedrock_agentcore_control.types.example_count_by_field
+
+        out["example_count_by_field"] = (
+            capo_bedrock_agentcore_control.types.example_count_by_field.deserialize_json(
+                data["exampleCountByField"]
+            )
+        )
     if data.get("downloadUrl") is not None:
         out["download_url"] = data["downloadUrl"]
     if data.get("downloadUrlExpiresAt") is not None:

@@ -15,6 +15,7 @@ import capo_guardduty._protocol.eventstream
 import capo_guardduty.errors.access_denied_exception
 import capo_guardduty.errors.bad_request_exception
 import capo_guardduty.errors.internal_server_error_exception
+import capo_guardduty.types.investigation_filter_criteria
 import capo_guardduty.types.investigation_sort_criteria
 import capo_guardduty.types.investigation_summaries
 import capo_guardduty.types.list_investigations_request

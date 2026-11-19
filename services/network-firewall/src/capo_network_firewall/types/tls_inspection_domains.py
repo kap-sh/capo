@@ -1,0 +1,19 @@
+"""Generated from Smithy shape ``com.amazonaws.networkfirewall#TLSInspectionDomains``."""
+
+from typing import TYPE_CHECKING, TypeAlias
+
+if TYPE_CHECKING:
+    import capo_network_firewall.types.tls_inspection_domain
+
+TLSInspectionDomains: TypeAlias = list[
+    "capo_network_firewall.types.tls_inspection_domain.TLSInspectionDomain"
+]
+
+
+# --- awsJson1_0 ser/de ---
+def serialize_aws_json_1_0(value: TLSInspectionDomains) -> list:
+    return list(value)
+
+
+def deserialize_aws_json_1_0(data: list) -> TLSInspectionDomains:
+    return [item for item in data if item is not None]

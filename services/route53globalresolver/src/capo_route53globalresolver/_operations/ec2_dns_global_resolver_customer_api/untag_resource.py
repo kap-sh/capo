@@ -11,7 +11,10 @@ from typing_extensions import Never
 import capo_route53globalresolver._auth._signers
 import capo_route53globalresolver._auth._sigv4
 import capo_route53globalresolver._protocol.eventstream
+import capo_route53globalresolver.errors.access_denied_exception
+import capo_route53globalresolver.errors.internal_server_exception
 import capo_route53globalresolver.errors.resource_not_found_exception
+import capo_route53globalresolver.errors.throttling_exception
 import capo_route53globalresolver.errors.validation_exception
 import capo_route53globalresolver.types.tag_keys
 import capo_route53globalresolver.types.untag_resource_request
@@ -33,8 +36,20 @@ def handle_error(response: zapros.Response) -> Never:
     data = json.loads(response.read())
     code, message = parse_error_metadata_json(response, data)
     match code:
+        case "AccessDeniedException":
+            raise capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException.from_json(
+                data, message, response=response
+            )
+        case "InternalServerException":
+            raise capo_route53globalresolver.errors.internal_server_exception.InternalServerException.from_json(
+                data, message, response=response
+            )
         case "ResourceNotFoundException":
             raise capo_route53globalresolver.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
+                data, message, response=response
+            )
+        case "ThrottlingException":
+            raise capo_route53globalresolver.errors.throttling_exception.ThrottlingException.from_json(
                 data, message, response=response
             )
         case "ValidationException":

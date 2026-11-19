@@ -40,37 +40,59 @@ from capo_connecthealth._services._pipeline import (
 if TYPE_CHECKING:
     import capo_connecthealth.types.activate_subscription_input
     import capo_connecthealth.types.activate_subscription_output
+    import capo_connecthealth.types.artifact_source_id
+    import capo_connecthealth.types.bounded_safe_string
+    import capo_connecthealth.types.create_dataset_input
+    import capo_connecthealth.types.create_dataset_output
     import capo_connecthealth.types.create_domain_input
     import capo_connecthealth.types.create_domain_output
     import capo_connecthealth.types.create_subscription_input
     import capo_connecthealth.types.create_subscription_output
     import capo_connecthealth.types.create_web_app_configuration
+    import capo_connecthealth.types.dataset_config
+    import capo_connecthealth.types.dataset_id
+    import capo_connecthealth.types.dataset_summary
+    import capo_connecthealth.types.dataset_type
     import capo_connecthealth.types.deactivate_subscription_input
     import capo_connecthealth.types.deactivate_subscription_output
+    import capo_connecthealth.types.delete_dataset_input
+    import capo_connecthealth.types.delete_dataset_output
     import capo_connecthealth.types.delete_domain_input
     import capo_connecthealth.types.delete_domain_output
     import capo_connecthealth.types.domain_id
     import capo_connecthealth.types.domain_name
     import capo_connecthealth.types.domain_status
     import capo_connecthealth.types.domain_summary
+    import capo_connecthealth.types.feedback_artifact_type
+    import capo_connecthealth.types.feedback_comments
+    import capo_connecthealth.types.get_dataset_input
+    import capo_connecthealth.types.get_dataset_output
     import capo_connecthealth.types.get_domain_input
     import capo_connecthealth.types.get_domain_output
+    import capo_connecthealth.types.get_medical_coding_job_request
+    import capo_connecthealth.types.get_medical_coding_job_response
     import capo_connecthealth.types.get_medical_scribe_listening_session_input
     import capo_connecthealth.types.get_medical_scribe_listening_session_output
     import capo_connecthealth.types.get_patient_insights_job_request
     import capo_connecthealth.types.get_patient_insights_job_response
     import capo_connecthealth.types.get_subscription_input
     import capo_connecthealth.types.get_subscription_output
+    import capo_connecthealth.types.idempotency_token
     import capo_connecthealth.types.input_data_config
     import capo_connecthealth.types.insights_context
     import capo_connecthealth.types.job_id
     import capo_connecthealth.types.kms_key_arn
+    import capo_connecthealth.types.list_datasets_input
+    import capo_connecthealth.types.list_datasets_output
     import capo_connecthealth.types.list_domains_input
     import capo_connecthealth.types.list_domains_output
     import capo_connecthealth.types.list_subscriptions_input
     import capo_connecthealth.types.list_subscriptions_output
     import capo_connecthealth.types.list_tags_for_resource_input
     import capo_connecthealth.types.list_tags_for_resource_output
+    import capo_connecthealth.types.medical_codes_encounter_context
+    import capo_connecthealth.types.medical_codes_patient_context
+    import capo_connecthealth.types.medical_coding_output_data_config
     import capo_connecthealth.types.medical_scribe_input_stream
     import capo_connecthealth.types.medical_scribe_language_code
     import capo_connecthealth.types.medical_scribe_media_encoding
@@ -79,11 +101,17 @@ if TYPE_CHECKING:
     import capo_connecthealth.types.output_data_config
     import capo_connecthealth.types.patient_insights_encounter_context
     import capo_connecthealth.types.patient_insights_patient_context
+    import capo_connecthealth.types.s3_uri
     import capo_connecthealth.types.scribe_session_id
+    import capo_connecthealth.types.sensitive_non_empty_string
+    import capo_connecthealth.types.start_medical_coding_job_request
+    import capo_connecthealth.types.start_medical_coding_job_response
     import capo_connecthealth.types.start_medical_scribe_listening_session_input
     import capo_connecthealth.types.start_medical_scribe_listening_session_output
     import capo_connecthealth.types.start_patient_insights_job_request
     import capo_connecthealth.types.start_patient_insights_job_response
+    import capo_connecthealth.types.submit_feedback_request
+    import capo_connecthealth.types.submit_feedback_response
     import capo_connecthealth.types.subscription_description
     import capo_connecthealth.types.subscription_id
     import capo_connecthealth.types.tag_key_list
@@ -254,6 +282,68 @@ class ConnectHealthClient:
         response.response.close()
         return response.output
 
+    def create_dataset(
+        self,
+        domain_id: "capo_connecthealth.types.domain_id.DomainId",
+        name: "capo_connecthealth.types.bounded_safe_string.BoundedSafeString",
+        config: "capo_connecthealth.types.dataset_config.DatasetConfig",
+        *,
+        config_overrides: Optional[ConnectHealthClientConfig] = None,
+        client_token: Optional[str] = None,
+    ) -> "capo_connecthealth.types.create_dataset_output.CreateDatasetOutput":
+        """<p>Creates a Dataset in a Domain and starts building it. A new dataset has the status CREATING. When it's ready to use, its status changes to ACTIVE, or to CREATE_FAILED if it fails to build. To check the status, call GetDataset.</p> <p>This operation is idempotent: if you retry a request with the same clientToken, it returns the dataset that the first request created.</p> <p>For a medical coding dataset, Amazon Connect Health uses the coded examples that are in the s3InputPath when you create the dataset, and writes evaluation scores to the s3OutputPath. Later changes to the s3InputPath don't change the dataset. To use this operation, you must have s3:GetObject and s3:ListBucket permissions for the input location and s3:PutObject permission for the output location, and kms:Decrypt and kms:GenerateDataKey permissions if you encrypt the locations with an AWS KMS key.</p> <p>Datasets are in preview release and are subject to change.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the parent Domain.</p>
+            name: <p>A name for the dataset.</p>
+            config: <p>The configuration of the dataset. The member that you set determines the dataset type. You can't change the configuration after you create the dataset.</p>
+            client_token: <p>A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the operation returns the dataset that the first request created. If you reuse a clientToken with different parameters, the request fails with ConflictException. Use a new clientToken for a request with different parameters.</p>
+
+        Raises:
+            capo_connecthealth.errors.access_denied_exception.AccessDeniedException: <p>This error is thrown when the client does not supply proper credentials to the API.</p>
+            capo_connecthealth.errors.conflict_exception.ConflictException: <p>This error is thrown when a resource update is no longer valid due to assumptions about initial state changing.</p>
+            capo_connecthealth.errors.internal_server_exception.InternalServerException: <p>This error is thrown when a transient error causes our API to fail.</p>
+            capo_connecthealth.errors.resource_not_found_exception.ResourceNotFoundException: <p>This error is thrown when the requested resource is not found.</p>
+            capo_connecthealth.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeds a service quota.</p>
+            capo_connecthealth.errors.throttling_exception.ThrottlingException: <p>This error is thrown when the client exceeds the allowed request rate.</p>
+            capo_connecthealth.errors.validation_exception.ValidationException: <p>This error is thrown when the client supplies invalid input to the API.</p>
+            capo_connecthealth.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connecthealth.types.create_dataset_input.CreateDatasetInput]",
+        ) -> OperationResponse[
+            "capo_connecthealth.types.create_dataset_output.CreateDatasetOutput"
+        ]:
+            import capo_connecthealth._operations.connect_health.create_dataset
+
+            output, http_response = (
+                capo_connecthealth._operations.connect_health.create_dataset.create_dataset(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataset")
+        )
+        input_: capo_connecthealth.types.create_dataset_input.CreateDatasetInput = {
+            "domain_id": domain_id,
+            "name": name,
+            "config": config,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def create_domain(
         self,
         name: "capo_connecthealth.types.domain_name.DomainName",
@@ -413,6 +503,59 @@ class ConnectHealthClient:
         response.response.close()
         return response.output
 
+    def delete_dataset(
+        self,
+        domain_id: "capo_connecthealth.types.domain_id.DomainId",
+        dataset_id: "capo_connecthealth.types.dataset_id.DatasetId",
+        *,
+        config_overrides: Optional[ConnectHealthClientConfig] = None,
+    ) -> "capo_connecthealth.types.delete_dataset_output.DeleteDatasetOutput":
+        """<p>Starts deleting a Dataset and the resources that Amazon Connect Health built for it. You can delete a dataset whose status is ACTIVE, CREATE_FAILED, or DELETE_FAILED. The dataset moves to DELETING, and then to DELETED. If the delete fails, the dataset moves to DELETE_FAILED, and you can call DeleteDataset again.</p> <p>Medical coding jobs that already use the dataset finish. Amazon Connect Health rejects new requests that specify the dataset.</p> <p>Datasets are in preview release and are subject to change.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the parent Domain.</p>
+            dataset_id: <p>The unique identifier of the dataset to delete.</p>
+
+        Raises:
+            capo_connecthealth.errors.access_denied_exception.AccessDeniedException: <p>This error is thrown when the client does not supply proper credentials to the API.</p>
+            capo_connecthealth.errors.conflict_exception.ConflictException: <p>This error is thrown when a resource update is no longer valid due to assumptions about initial state changing.</p>
+            capo_connecthealth.errors.internal_server_exception.InternalServerException: <p>This error is thrown when a transient error causes our API to fail.</p>
+            capo_connecthealth.errors.resource_not_found_exception.ResourceNotFoundException: <p>This error is thrown when the requested resource is not found.</p>
+            capo_connecthealth.errors.throttling_exception.ThrottlingException: <p>This error is thrown when the client exceeds the allowed request rate.</p>
+            capo_connecthealth.errors.validation_exception.ValidationException: <p>This error is thrown when the client supplies invalid input to the API.</p>
+            capo_connecthealth.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connecthealth.types.delete_dataset_input.DeleteDatasetInput]",
+        ) -> OperationResponse[
+            "capo_connecthealth.types.delete_dataset_output.DeleteDatasetOutput"
+        ]:
+            import capo_connecthealth._operations.connect_health.delete_dataset
+
+            output, http_response = (
+                capo_connecthealth._operations.connect_health.delete_dataset.delete_dataset(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
+        input_: capo_connecthealth.types.delete_dataset_input.DeleteDatasetInput = {
+            "domain_id": domain_id,
+            "dataset_id": dataset_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_domain(
         self,
         domain_id: "capo_connecthealth.types.domain_id.DomainId",
@@ -458,6 +601,58 @@ class ConnectHealthClient:
         response.response.close()
         return response.output
 
+    def get_dataset(
+        self,
+        domain_id: "capo_connecthealth.types.domain_id.DomainId",
+        dataset_id: "capo_connecthealth.types.dataset_id.DatasetId",
+        *,
+        config_overrides: Optional[ConnectHealthClientConfig] = None,
+    ) -> "capo_connecthealth.types.get_dataset_output.GetDatasetOutput":
+        """<p>Retrieves information about a Dataset, including its status and, after it is built, its results. A dataset whose status is DELETED returns ResourceNotFoundException.</p> <p>Datasets are in preview release and are subject to change.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the parent Domain.</p>
+            dataset_id: <p>The unique identifier of the dataset.</p>
+
+        Raises:
+            capo_connecthealth.errors.access_denied_exception.AccessDeniedException: <p>This error is thrown when the client does not supply proper credentials to the API.</p>
+            capo_connecthealth.errors.internal_server_exception.InternalServerException: <p>This error is thrown when a transient error causes our API to fail.</p>
+            capo_connecthealth.errors.resource_not_found_exception.ResourceNotFoundException: <p>This error is thrown when the requested resource is not found.</p>
+            capo_connecthealth.errors.throttling_exception.ThrottlingException: <p>This error is thrown when the client exceeds the allowed request rate.</p>
+            capo_connecthealth.errors.validation_exception.ValidationException: <p>This error is thrown when the client supplies invalid input to the API.</p>
+            capo_connecthealth.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connecthealth.types.get_dataset_input.GetDatasetInput]",
+        ) -> OperationResponse[
+            "capo_connecthealth.types.get_dataset_output.GetDatasetOutput"
+        ]:
+            import capo_connecthealth._operations.connect_health.get_dataset
+
+            output, http_response = (
+                capo_connecthealth._operations.connect_health.get_dataset.get_dataset(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataset")
+        )
+        input_: capo_connecthealth.types.get_dataset_input.GetDatasetInput = {
+            "domain_id": domain_id,
+            "dataset_id": dataset_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_domain(
         self,
         domain_id: "capo_connecthealth.types.domain_id.DomainId",
@@ -493,6 +688,68 @@ class ConnectHealthClient:
         )
         input_: capo_connecthealth.types.get_domain_input.GetDomainInput = {
             "domain_id": domain_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_medical_coding_job(
+        self,
+        domain_id: "capo_connecthealth.types.domain_id.DomainId",
+        job_id: "capo_connecthealth.types.job_id.JobId",
+        *,
+        config_overrides: Optional[ConnectHealthClientConfig] = None,
+    ) -> "capo_connecthealth.types.get_medical_coding_job_response.GetMedicalCodingJobResponse":
+        """<p>Retrieves information about a medical coding job, including its status and, when it succeeds, the location of its results.</p> <p>Medical coding jobs are in preview release and are subject to change.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the parent Domain.</p>
+            job_id: <p>The unique identifier of the medical coding job.</p>
+
+        Raises:
+            capo_connecthealth.errors.access_denied_exception.AccessDeniedException: <p>This error is thrown when the client does not supply proper credentials to the API.</p>
+            capo_connecthealth.errors.internal_server_exception.InternalServerException: <p>This error is thrown when a transient error causes our API to fail.</p>
+            capo_connecthealth.errors.resource_not_found_exception.ResourceNotFoundException: <p>This error is thrown when the requested resource is not found.</p>
+            capo_connecthealth.errors.throttling_exception.ThrottlingException: <p>This error is thrown when the client exceeds the allowed request rate.</p>
+            capo_connecthealth.errors.validation_exception.ValidationException: <p>This error is thrown when the client supplies invalid input to the API.</p>
+            capo_connecthealth.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connecthealth.types.get_medical_coding_job_request.GetMedicalCodingJobRequest]",
+        ) -> OperationResponse[
+            "capo_connecthealth.types.get_medical_coding_job_response.GetMedicalCodingJobResponse"
+        ]:
+            import capo_connecthealth._operations.connect_health.get_medical_coding_job
+
+            output, http_response = (
+                capo_connecthealth._operations.connect_health.get_medical_coding_job.get_medical_coding_job(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_connecthealth.types.get_medical_coding_job_response.GetMedicalCodingJobResponse",
+        ) -> dict[str, Any]:
+            import capo_connecthealth.types.get_medical_coding_job_response
+
+            return capo_connecthealth.types.get_medical_coding_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMedicalCodingJob", redact_output=_redact_output),
+        )
+        input_: capo_connecthealth.types.get_medical_coding_job_request.GetMedicalCodingJobRequest = {
+            "domain_id": domain_id,
+            "job_id": job_id,
         }
 
         response = execute_pipeline(
@@ -670,6 +927,92 @@ class ConnectHealthClient:
         )
         response.response.close()
         return response.output
+
+    def list_datasets(
+        self,
+        domain_id: "capo_connecthealth.types.domain_id.DomainId",
+        *,
+        config_overrides: Optional[ConnectHealthClientConfig] = None,
+        type: Optional["capo_connecthealth.types.dataset_type.DatasetType"] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_connecthealth.types.list_datasets_output.ListDatasetsOutput":
+        """<p>Lists the Datasets in a Domain. You can list only the datasets of one type. The operation doesn't return datasets whose status is DELETED, and the order of the results isn't specified. We recommend using pagination to ensure that the operation returns quickly and successfully.</p> <p>Datasets are in preview release and are subject to change.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the parent Domain.</p>
+            type: <p>Returns only datasets of this type.</p>
+            next_token: <p>The token for the next page of results, from a previous ListDatasets response. If you don't specify a value, the operation returns the first page of results.</p>
+            max_results: <p>The maximum number of datasets to return in one page. The default is 100.</p>
+
+        Raises:
+            capo_connecthealth.errors.access_denied_exception.AccessDeniedException: <p>This error is thrown when the client does not supply proper credentials to the API.</p>
+            capo_connecthealth.errors.internal_server_exception.InternalServerException: <p>This error is thrown when a transient error causes our API to fail.</p>
+            capo_connecthealth.errors.resource_not_found_exception.ResourceNotFoundException: <p>This error is thrown when the requested resource is not found.</p>
+            capo_connecthealth.errors.throttling_exception.ThrottlingException: <p>This error is thrown when the client exceeds the allowed request rate.</p>
+            capo_connecthealth.errors.validation_exception.ValidationException: <p>This error is thrown when the client supplies invalid input to the API.</p>
+            capo_connecthealth.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connecthealth.types.list_datasets_input.ListDatasetsInput]",
+        ) -> OperationResponse[
+            "capo_connecthealth.types.list_datasets_output.ListDatasetsOutput"
+        ]:
+            import capo_connecthealth._operations.connect_health.list_datasets
+
+            output, http_response = (
+                capo_connecthealth._operations.connect_health.list_datasets.list_datasets(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
+        input_: capo_connecthealth.types.list_datasets_input.ListDatasetsInput = {
+            "domain_id": domain_id
+        }
+        if type is not None:
+            input_["type"] = type
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_datasets(
+        self,
+        domain_id: "capo_connecthealth.types.domain_id.DomainId",
+        *,
+        config_overrides: Optional[ConnectHealthClientConfig] = None,
+        type: Optional["capo_connecthealth.types.dataset_type.DatasetType"] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "Iterator[capo_connecthealth.types.dataset_summary.DatasetSummary]":
+        _token = next_token
+        while True:
+            _response = self.list_datasets(
+                domain_id,
+                config_overrides=config_overrides,
+                type=type,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     def list_domains(
         self,
@@ -869,6 +1212,95 @@ class ConnectHealthClient:
         response.response.close()
         return response.output
 
+    def start_medical_coding_job(
+        self,
+        domain_id: "capo_connecthealth.types.domain_id.DomainId",
+        text: "capo_connecthealth.types.sensitive_non_empty_string.SensitiveNonEmptyString",
+        output_data_config: "capo_connecthealth.types.medical_coding_output_data_config.MedicalCodingOutputDataConfig",
+        *,
+        config_overrides: Optional[ConnectHealthClientConfig] = None,
+        patient_context: Optional[
+            "capo_connecthealth.types.medical_codes_patient_context.MedicalCodesPatientContext"
+        ] = None,
+        encounter_context: Optional[
+            "capo_connecthealth.types.medical_codes_encounter_context.MedicalCodesEncounterContext"
+        ] = None,
+        dataset_id: Optional["capo_connecthealth.types.dataset_id.DatasetId"] = None,
+        client_token: Optional[
+            "capo_connecthealth.types.non_empty_string.NonEmptyString"
+        ] = None,
+    ) -> "capo_connecthealth.types.start_medical_coding_job_response.StartMedicalCodingJobResponse":
+        """<p>Starts an asynchronous job that generates medical codes (ICD-10 and CPT) for clinical text. Call GetMedicalCodingJob to check the status of the job. When the job succeeds, Amazon Connect Health writes the results to the output Amazon S3 location.</p> <p>To tailor the codes to your organization, specify an ACTIVE medical coding dataset in the Domain. If you don't specify a dataset, the job uses the general medical coding knowledge base.</p> <p>Medical coding jobs are in preview release and are subject to change.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the parent Domain.</p>
+            text: <p>The clinical text to generate medical codes for, such as a clinical note.</p>
+            patient_context: <p>Patient context for the job. Providing this information can improve the accuracy of the medical codes.</p>
+            encounter_context: <p>Encounter context for the job. Providing this information can improve the accuracy of the medical codes.</p>
+            output_data_config: <p>The output configuration for the job.</p>
+            dataset_id: <p>The unique identifier of an ACTIVE medical coding dataset in the Domain to code against. If you don't specify a dataset, the job uses the general medical coding knowledge base.</p>
+            client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</p>
+
+        Raises:
+            capo_connecthealth.errors.access_denied_exception.AccessDeniedException: <p>This error is thrown when the client does not supply proper credentials to the API.</p>
+            capo_connecthealth.errors.conflict_exception.ConflictException: <p>This error is thrown when a resource update is no longer valid due to assumptions about initial state changing.</p>
+            capo_connecthealth.errors.internal_server_exception.InternalServerException: <p>This error is thrown when a transient error causes our API to fail.</p>
+            capo_connecthealth.errors.resource_not_found_exception.ResourceNotFoundException: <p>This error is thrown when the requested resource is not found.</p>
+            capo_connecthealth.errors.throttling_exception.ThrottlingException: <p>This error is thrown when the client exceeds the allowed request rate.</p>
+            capo_connecthealth.errors.validation_exception.ValidationException: <p>This error is thrown when the client supplies invalid input to the API.</p>
+            capo_connecthealth.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connecthealth.types.start_medical_coding_job_request.StartMedicalCodingJobRequest]",
+        ) -> OperationResponse[
+            "capo_connecthealth.types.start_medical_coding_job_response.StartMedicalCodingJobResponse"
+        ]:
+            import capo_connecthealth._operations.connect_health.start_medical_coding_job
+
+            output, http_response = (
+                capo_connecthealth._operations.connect_health.start_medical_coding_job.start_medical_coding_job(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_connecthealth.types.start_medical_coding_job_request.StartMedicalCodingJobRequest",
+        ) -> dict[str, Any]:
+            import capo_connecthealth.types.start_medical_coding_job_request
+
+            return capo_connecthealth.types.start_medical_coding_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartMedicalCodingJob", redact_input=_redact_input),
+        )
+        input_: capo_connecthealth.types.start_medical_coding_job_request.StartMedicalCodingJobRequest = {
+            "domain_id": domain_id,
+            "text": text,
+            "output_data_config": output_data_config,
+        }
+        if patient_context is not None:
+            input_["patient_context"] = patient_context
+        if encounter_context is not None:
+            input_["encounter_context"] = encounter_context
+        if dataset_id is not None:
+            input_["dataset_id"] = dataset_id
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     @contextmanager
     def start_medical_scribe_listening_session(
         self,
@@ -1040,6 +1472,99 @@ class ConnectHealthClient:
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
         }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def submit_feedback(
+        self,
+        domain_id: "capo_connecthealth.types.domain_id.DomainId",
+        artifact_source_id: "capo_connecthealth.types.artifact_source_id.ArtifactSourceId",
+        artifact_type: "capo_connecthealth.types.feedback_artifact_type.FeedbackArtifactType",
+        signed_artifact_s3_uri: "capo_connecthealth.types.s3_uri.S3Uri",
+        *,
+        config_overrides: Optional[ConnectHealthClientConfig] = None,
+        subscription_id: Optional[
+            "capo_connecthealth.types.subscription_id.SubscriptionId"
+        ] = None,
+        generated_artifact_s3_uri: Optional[
+            "capo_connecthealth.types.s3_uri.S3Uri"
+        ] = None,
+        comments: Optional[
+            "capo_connecthealth.types.feedback_comments.FeedbackComments"
+        ] = None,
+        client_token: Optional[
+            "capo_connecthealth.types.idempotency_token.IdempotencyToken"
+        ] = None,
+    ) -> "capo_connecthealth.types.submit_feedback_response.SubmitFeedbackResponse":
+        """<p>Submits feedback on a clinical document or a set of medical codes that Amazon Connect Health generated.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the parent Domain.</p>
+            artifact_source_id: <p>The identifier of the artifact source. For a clinical document, this is the session ID. For a set of medical codes, this is the medical coding job ID.</p>
+            subscription_id: <p>The unique identifier of the Subscription.</p>
+            artifact_type: <p>The type of artifact that you submit feedback for. The following values are valid:</p> <ul> <li> <p>CLINICAL_DOC is the clinical document generated for an ambient documentation session.</p> </li> <li> <p>MEDICAL_CODES is the set of medical codes generated by a medical coding job.</p> </li> </ul>
+            signed_artifact_s3_uri: <p>The Amazon Simple Storage Service (Amazon S3) URI of the final artifact that the clinician signed.</p>
+            generated_artifact_s3_uri: <p>The Amazon S3 URI of the clinical document or set of medical codes that Amazon Connect Health generated.</p>
+            comments: <p>Optional comments about the feedback.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If this token matches a previous request, the service ignores the request but does not return an error.</p>
+
+        Raises:
+            capo_connecthealth.errors.access_denied_exception.AccessDeniedException: <p>This error is thrown when the client does not supply proper credentials to the API.</p>
+            capo_connecthealth.errors.internal_server_exception.InternalServerException: <p>This error is thrown when a transient error causes our API to fail.</p>
+            capo_connecthealth.errors.resource_not_found_exception.ResourceNotFoundException: <p>This error is thrown when the requested resource is not found.</p>
+            capo_connecthealth.errors.throttling_exception.ThrottlingException: <p>This error is thrown when the client exceeds the allowed request rate.</p>
+            capo_connecthealth.errors.validation_exception.ValidationException: <p>This error is thrown when the client supplies invalid input to the API.</p>
+            capo_connecthealth.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connecthealth.types.submit_feedback_request.SubmitFeedbackRequest]",
+        ) -> OperationResponse[
+            "capo_connecthealth.types.submit_feedback_response.SubmitFeedbackResponse"
+        ]:
+            import capo_connecthealth._operations.connect_health.submit_feedback
+
+            output, http_response = (
+                capo_connecthealth._operations.connect_health.submit_feedback.submit_feedback(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_connecthealth.types.submit_feedback_request.SubmitFeedbackRequest",
+        ) -> dict[str, Any]:
+            import capo_connecthealth.types.submit_feedback_request
+
+            return capo_connecthealth.types.submit_feedback_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SubmitFeedback", redact_input=_redact_input),
+        )
+        input_: capo_connecthealth.types.submit_feedback_request.SubmitFeedbackRequest = {
+            "domain_id": domain_id,
+            "artifact_source_id": artifact_source_id,
+            "artifact_type": artifact_type,
+            "signed_artifact_s3_uri": signed_artifact_s3_uri,
+        }
+        if subscription_id is not None:
+            input_["subscription_id"] = subscription_id
+        if generated_artifact_s3_uri is not None:
+            input_["generated_artifact_s3_uri"] = generated_artifact_s3_uri
+        if comments is not None:
+            input_["comments"] = comments
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token

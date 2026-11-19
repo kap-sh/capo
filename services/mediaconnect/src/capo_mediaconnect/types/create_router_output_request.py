@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.fabric_configuration
     import capo_mediaconnect.types.maintenance_configuration
     import capo_mediaconnect.types.router_output_configuration
+    import capo_mediaconnect.types.router_output_processors
     import capo_mediaconnect.types.router_output_tier
     import capo_mediaconnect.types.routing_scope
 
@@ -43,6 +44,10 @@ class CreateRouterOutputRequest(TypedDict, closed=True):
     """<p>The fabric configuration settings for the router output.</p>"""
     client_token: NotRequired["capo_mediaconnect.types.client_token.ClientToken"]
     """<p>A unique identifier for the request to ensure idempotency.</p>"""
+    processors: NotRequired[
+        "capo_mediaconnect.types.router_output_processors.RouterOutputProcessors"
+    ]
+    """<p>The processor settings for the router output.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -95,6 +100,14 @@ def serialize_json(value: CreateRouterOutputRequest) -> dict:
         )
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
+    if "processors" in value:
+        import capo_mediaconnect.types.router_output_processors
+
+        out["processors"] = (
+            capo_mediaconnect.types.router_output_processors.serialize_json(
+                value["processors"]
+            )
+        )
     return out
 
 
@@ -170,4 +183,12 @@ def deserialize_json(data: dict) -> CreateRouterOutputRequest:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    if data.get("processors") is not None:
+        import capo_mediaconnect.types.router_output_processors
+
+        out["processors"] = (
+            capo_mediaconnect.types.router_output_processors.deserialize_json(
+                data["processors"]
+            )
+        )
     return out

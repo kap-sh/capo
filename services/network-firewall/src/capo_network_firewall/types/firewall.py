@@ -8,10 +8,11 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.availability_zone_mappings
     import capo_network_firewall.types.aws_account_id
     import capo_network_firewall.types.boolean
+    import capo_network_firewall.types.context_store_id
     import capo_network_firewall.types.description
     import capo_network_firewall.types.enabled_analysis_types
     import capo_network_firewall.types.encryption_configuration
-    import capo_network_firewall.types.nat_gateway_mappings_list
+    import capo_network_firewall.types.nat_gateway_create_mappings_list
     import capo_network_firewall.types.number_of_associations
     import capo_network_firewall.types.proxy_settings
     import capo_network_firewall.types.resource_arn
@@ -20,6 +21,7 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.subnet_mappings
     import capo_network_firewall.types.tag_list
     import capo_network_firewall.types.transit_gateway_id
+    import capo_network_firewall.types.transparent_filtering_nat_scope
     import capo_network_firewall.types.vpc_endpoint
     import capo_network_firewall.types.vpc_id
 
@@ -73,18 +75,28 @@ class Firewall(TypedDict, closed=True):
     """<p>The Availability Zones where the firewall endpoints are created for a transit gateway-attached firewall. Each mapping specifies an Availability Zone where the firewall processes traffic.</p>"""
     availability_zone_change_protection: "capo_network_firewall.types.boolean.Boolean"
     """<p>A setting indicating whether the firewall is protected against changes to its Availability Zone configuration. When set to <code>TRUE</code>, you must first disable this protection before adding or removing Availability Zones.</p>"""
-    nat_gateway_mappings: NotRequired[
-        "capo_network_firewall.types.nat_gateway_mappings_list.NatGatewayMappingsList"
+    nat_gateway_create_mappings: NotRequired[
+        "capo_network_firewall.types.nat_gateway_create_mappings_list.NatGatewayCreateMappingsList"
     ]
-    """<p>The NAT gateways that the firewall uses to proxy traffic. This is set for proxy mode firewalls, where <code>NoSourcePreservation</code> is <code>TRUE</code>. </p>"""
+    """<p>The NAT gateways that you specified for Network Firewall to create for a proxy mode firewall. To get the IDs and status of the NAT gateways that are attached to the firewall, see <code>NatGatewayAttachments</code> in the firewall's <code>SyncStates</code>.</p>"""
     proxy_settings: NotRequired[
         "capo_network_firewall.types.proxy_settings.ProxySettings"
     ]
-    """<p>The listener configuration for the firewall's proxy. This is set for proxy mode firewalls, where <code>NoSourcePreservation</code> is <code>TRUE</code>. </p>"""
-    no_source_preservation: "capo_network_firewall.types.boolean.Boolean"
-    """<p>Indicates whether the firewall operates in proxy mode, in which the source IP address of the traffic is not preserved. When this value is <code>TRUE</code>, the firewall proxies traffic through a NAT gateway and uses the NAT gateway's IP address as the source for traffic reaching the destination. </p>"""
+    """<p>The proxy settings of a proxy mode firewall: its listeners and, if you specified them, your own <code>CertificateArn</code> and <code>DomainName</code>.</p>"""
     vpc_endpoint: NotRequired["capo_network_firewall.types.vpc_endpoint.VpcEndpoint"]
-    """<p>The VPC and subnets for the firewall endpoint. This is set for proxy mode firewalls, where <code>NoSourcePreservation</code> is <code>TRUE</code>. </p>"""
+    """<p>The VPC and subnets for the endpoints of a proxy mode firewall.</p>"""
+    context_store_id: NotRequired[
+        "capo_network_firewall.types.context_store_id.ContextStoreId"
+    ]
+    """<p>The unique identifier of the context store that the firewall uses to resolve context sets in its rule groups. Network Firewall discovers the context store from the transit gateway association in Network Manager. This field is only present for transit gateway-attached firewalls whose transit gateway is associated with a context store.</p>"""
+    context_store_owner_account_id: NotRequired[
+        "capo_network_firewall.types.aws_account_id.AWSAccountId"
+    ]
+    """<p>The Amazon Web Services account ID that owns the context store. This may be different from the firewall owner's account ID.</p>"""
+    transparent_filtering_nat_scope: NotRequired[
+        "capo_network_firewall.types.transparent_filtering_nat_scope.TransparentFilteringNatScope"
+    ]
+    """<p>How a proxy mode firewall handles traffic that isn't sent to its proxy listener. <code>NAT_ALL</code> sends this traffic out through the firewall's NAT gateway after inspection. <code>NAT_NONE</code> returns it to the firewall endpoint without address translation.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -150,12 +162,12 @@ def serialize_aws_json_1_0(value: Firewall) -> dict:
     out["AvailabilityZoneChangeProtection"] = value.get(
         "availability_zone_change_protection", False
     )
-    if "nat_gateway_mappings" in value:
-        import capo_network_firewall.types.nat_gateway_mappings_list
+    if "nat_gateway_create_mappings" in value:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
 
-        out["NatGatewayMappings"] = (
-            capo_network_firewall.types.nat_gateway_mappings_list.serialize_aws_json_1_0(
-                value["nat_gateway_mappings"]
+        out["NatGatewayCreateMappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.serialize_aws_json_1_0(
+                value["nat_gateway_create_mappings"]
             )
         )
     if "proxy_settings" in value:
@@ -166,13 +178,24 @@ def serialize_aws_json_1_0(value: Firewall) -> dict:
                 value["proxy_settings"]
             )
         )
-    out["NoSourcePreservation"] = value.get("no_source_preservation", False)
     if "vpc_endpoint" in value:
         import capo_network_firewall.types.vpc_endpoint
 
         out["VpcEndpoint"] = (
             capo_network_firewall.types.vpc_endpoint.serialize_aws_json_1_0(
                 value["vpc_endpoint"]
+            )
+        )
+    if "context_store_id" in value:
+        out["ContextStoreId"] = value["context_store_id"]
+    if "context_store_owner_account_id" in value:
+        out["ContextStoreOwnerAccountId"] = value["context_store_owner_account_id"]
+    if "transparent_filtering_nat_scope" in value:
+        import capo_network_firewall.types.transparent_filtering_nat_scope
+
+        out["TransparentFilteringNatScope"] = (
+            capo_network_firewall.types.transparent_filtering_nat_scope.serialize_aws_json_1_0(
+                value["transparent_filtering_nat_scope"]
             )
         )
     return out
@@ -264,12 +287,12 @@ def deserialize_aws_json_1_0(data: dict) -> Firewall:
         ]
     else:
         out["availability_zone_change_protection"] = False
-    if data.get("NatGatewayMappings") is not None:
-        import capo_network_firewall.types.nat_gateway_mappings_list
+    if data.get("NatGatewayCreateMappings") is not None:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
 
-        out["nat_gateway_mappings"] = (
-            capo_network_firewall.types.nat_gateway_mappings_list.deserialize_aws_json_1_0(
-                data["NatGatewayMappings"]
+        out["nat_gateway_create_mappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.deserialize_aws_json_1_0(
+                data["NatGatewayCreateMappings"]
             )
         )
     if data.get("ProxySettings") is not None:
@@ -280,16 +303,24 @@ def deserialize_aws_json_1_0(data: dict) -> Firewall:
                 data["ProxySettings"]
             )
         )
-    if data.get("NoSourcePreservation") is not None:
-        out["no_source_preservation"] = data["NoSourcePreservation"]
-    else:
-        out["no_source_preservation"] = False
     if data.get("VpcEndpoint") is not None:
         import capo_network_firewall.types.vpc_endpoint
 
         out["vpc_endpoint"] = (
             capo_network_firewall.types.vpc_endpoint.deserialize_aws_json_1_0(
                 data["VpcEndpoint"]
+            )
+        )
+    if data.get("ContextStoreId") is not None:
+        out["context_store_id"] = data["ContextStoreId"]
+    if data.get("ContextStoreOwnerAccountId") is not None:
+        out["context_store_owner_account_id"] = data["ContextStoreOwnerAccountId"]
+    if data.get("TransparentFilteringNatScope") is not None:
+        import capo_network_firewall.types.transparent_filtering_nat_scope
+
+        out["transparent_filtering_nat_scope"] = (
+            capo_network_firewall.types.transparent_filtering_nat_scope.deserialize_aws_json_1_0(
+                data["TransparentFilteringNatScope"]
             )
         )
     return out

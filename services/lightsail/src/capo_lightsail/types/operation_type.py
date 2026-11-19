@@ -87,6 +87,9 @@ OperationType: TypeAlias = Literal[
     "StopGUISession",
     "SetupInstanceHttps",
     "GetProfile",
+    "CreateSubdomain",
+    "UpdateSubdomainAssociation",
+    "DeleteSubdomain",
 ]
 
 

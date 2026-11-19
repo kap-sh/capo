@@ -41,8 +41,17 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.all_regions
     import capo_observabilityadmin.types.centralization_rule
     import capo_observabilityadmin.types.centralization_rule_summary
+    import capo_observabilityadmin.types.client_token
+    import capo_observabilityadmin.types.connector_configuration
+    import capo_observabilityadmin.types.connector_identifier
+    import capo_observabilityadmin.types.connector_name
+    import capo_observabilityadmin.types.connector_next_token
+    import capo_observabilityadmin.types.connector_query
+    import capo_observabilityadmin.types.connector_summary
     import capo_observabilityadmin.types.create_centralization_rule_for_organization_input
     import capo_observabilityadmin.types.create_centralization_rule_for_organization_output
+    import capo_observabilityadmin.types.create_connector_input
+    import capo_observabilityadmin.types.create_connector_output
     import capo_observabilityadmin.types.create_dataset_integration_input
     import capo_observabilityadmin.types.create_dataset_integration_output
     import capo_observabilityadmin.types.create_s3_table_integration_input
@@ -55,6 +64,8 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.create_telemetry_rule_output
     import capo_observabilityadmin.types.dataset_integration_summary
     import capo_observabilityadmin.types.delete_centralization_rule_for_organization_input
+    import capo_observabilityadmin.types.delete_connector_input
+    import capo_observabilityadmin.types.delete_connector_output
     import capo_observabilityadmin.types.delete_dataset_integration_input
     import capo_observabilityadmin.types.delete_s3_table_integration_input
     import capo_observabilityadmin.types.delete_telemetry_pipeline_input
@@ -64,6 +75,12 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.encryption
     import capo_observabilityadmin.types.get_centralization_rule_for_organization_input
     import capo_observabilityadmin.types.get_centralization_rule_for_organization_output
+    import capo_observabilityadmin.types.get_connector_input
+    import capo_observabilityadmin.types.get_connector_output
+    import capo_observabilityadmin.types.get_connector_telemetry_manifest_input
+    import capo_observabilityadmin.types.get_connector_telemetry_manifest_output
+    import capo_observabilityadmin.types.get_connector_telemetry_setup_input
+    import capo_observabilityadmin.types.get_connector_telemetry_setup_output
     import capo_observabilityadmin.types.get_dataset_integration_input
     import capo_observabilityadmin.types.get_dataset_integration_output
     import capo_observabilityadmin.types.get_s3_table_integration_input
@@ -77,10 +94,15 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.get_telemetry_rule_for_organization_output
     import capo_observabilityadmin.types.get_telemetry_rule_input
     import capo_observabilityadmin.types.get_telemetry_rule_output
+    import capo_observabilityadmin.types.get_third_party_telemetry_enrichment_input
+    import capo_observabilityadmin.types.get_third_party_telemetry_enrichment_output
     import capo_observabilityadmin.types.integration_summary
     import capo_observabilityadmin.types.list_centralization_rules_for_organization_input
     import capo_observabilityadmin.types.list_centralization_rules_for_organization_max_results
     import capo_observabilityadmin.types.list_centralization_rules_for_organization_output
+    import capo_observabilityadmin.types.list_connectors_input
+    import capo_observabilityadmin.types.list_connectors_max_results
+    import capo_observabilityadmin.types.list_connectors_output
     import capo_observabilityadmin.types.list_dataset_integrations_input
     import capo_observabilityadmin.types.list_dataset_integrations_max_results
     import capo_observabilityadmin.types.list_dataset_integrations_output
@@ -90,6 +112,9 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.list_resource_telemetry_input
     import capo_observabilityadmin.types.list_resource_telemetry_max_results
     import capo_observabilityadmin.types.list_resource_telemetry_output
+    import capo_observabilityadmin.types.list_resources_by_connector_input
+    import capo_observabilityadmin.types.list_resources_by_connector_max_results
+    import capo_observabilityadmin.types.list_resources_by_connector_output
     import capo_observabilityadmin.types.list_s3_table_integrations_input
     import capo_observabilityadmin.types.list_s3_table_integrations_max_results
     import capo_observabilityadmin.types.list_s3_table_integrations_output
@@ -104,33 +129,53 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.list_telemetry_rules_input
     import capo_observabilityadmin.types.list_telemetry_rules_max_results
     import capo_observabilityadmin.types.list_telemetry_rules_output
+    import capo_observabilityadmin.types.list_third_party_telemetry_enrichments_input
+    import capo_observabilityadmin.types.list_third_party_telemetry_enrichments_max_results
+    import capo_observabilityadmin.types.list_third_party_telemetry_enrichments_output
     import capo_observabilityadmin.types.next_token
     import capo_observabilityadmin.types.organization_unit_identifiers
+    import capo_observabilityadmin.types.put_connector_telemetry_manifest_input
+    import capo_observabilityadmin.types.put_connector_telemetry_manifest_output
     import capo_observabilityadmin.types.records
     import capo_observabilityadmin.types.regions
     import capo_observabilityadmin.types.resource_arn
     import capo_observabilityadmin.types.resource_identifier_prefix
     import capo_observabilityadmin.types.resource_types
+    import capo_observabilityadmin.types.role_arn
     import capo_observabilityadmin.types.rule_identifier
     import capo_observabilityadmin.types.rule_name
+    import capo_observabilityadmin.types.setup_format
     import capo_observabilityadmin.types.signal_type
     import capo_observabilityadmin.types.start_telemetry_enrichment_output
     import capo_observabilityadmin.types.start_telemetry_evaluation_for_organization_input
     import capo_observabilityadmin.types.start_telemetry_evaluation_input
+    import capo_observabilityadmin.types.start_telemetry_pipeline_refresh_input
+    import capo_observabilityadmin.types.start_telemetry_pipeline_refresh_output
+    import capo_observabilityadmin.types.start_third_party_telemetry_enrichment_input
+    import capo_observabilityadmin.types.start_third_party_telemetry_enrichment_output
     import capo_observabilityadmin.types.stop_telemetry_enrichment_output
+    import capo_observabilityadmin.types.stop_third_party_telemetry_enrichment_input
+    import capo_observabilityadmin.types.stop_third_party_telemetry_enrichment_output
     import capo_observabilityadmin.types.tag_key_list
     import capo_observabilityadmin.types.tag_map_input
     import capo_observabilityadmin.types.tag_resource_input
     import capo_observabilityadmin.types.telemetry_configuration
     import capo_observabilityadmin.types.telemetry_configuration_state
+    import capo_observabilityadmin.types.telemetry_manifest
     import capo_observabilityadmin.types.telemetry_pipeline_configuration
     import capo_observabilityadmin.types.telemetry_pipeline_identifier
     import capo_observabilityadmin.types.telemetry_pipeline_name
     import capo_observabilityadmin.types.telemetry_pipeline_summary
     import capo_observabilityadmin.types.telemetry_rule
     import capo_observabilityadmin.types.telemetry_rule_summary
+    import capo_observabilityadmin.types.telemetry_source_configuration_input
     import capo_observabilityadmin.types.test_telemetry_pipeline_input
     import capo_observabilityadmin.types.test_telemetry_pipeline_output
+    import capo_observabilityadmin.types.third_party_telemetry_enrichment_identifier
+    import capo_observabilityadmin.types.third_party_telemetry_enrichment_name
+    import capo_observabilityadmin.types.third_party_telemetry_enrichment_status
+    import capo_observabilityadmin.types.third_party_telemetry_enrichment_summary
+    import capo_observabilityadmin.types.third_party_telemetry_source
     import capo_observabilityadmin.types.untag_resource_input
     import capo_observabilityadmin.types.update_centralization_rule_for_organization_input
     import capo_observabilityadmin.types.update_centralization_rule_for_organization_output
@@ -318,6 +363,87 @@ class AsyncObservabilityAdminClient:
         }
         if tags is not None:
             input_["tags"] = tags
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def create_connector(
+        self,
+        connector_configuration: "capo_observabilityadmin.types.connector_configuration.ConnectorConfiguration",
+        role_arn: "capo_observabilityadmin.types.role_arn.RoleArn",
+        name: "capo_observabilityadmin.types.connector_name.ConnectorName",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        tags: Optional[
+            "capo_observabilityadmin.types.tag_map_input.TagMapInput"
+        ] = None,
+        client_token: Optional[
+            "capo_observabilityadmin.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_observabilityadmin.types.create_connector_output.CreateConnectorOutput":
+        """<p>Creates a connector to a third-party cloud provider. With a connector, you can discover resources in the provider and collect their telemetry. Currently, Microsoft Azure is the only supported provider.</p>
+
+        Args:
+            connector_configuration: <p>The configuration for connecting to the third-party cloud provider.</p>
+            role_arn: <p>The Amazon Resource Name (ARN) of the Amazon Web Services Identity and Access Management (IAM) role that CloudWatch assumes to get credentials for the third-party cloud provider. The role must trust the Amazon CloudWatch Observability Admin service principal, <code>observabilityadmin.amazonaws.com</code>. The role must also allow <code>sts:GetWebIdentityToken</code> for the provider's token exchange audience.</p>
+            name: <p>The name of the connector. The name must be unique in the account and Region (case-sensitive). If another connector already uses the name, the request fails with a <code>ConflictException</code>.</p> <p>The name can contain letters, digits, hyphens (-), underscores (_) and periods (.), and must start with a letter.</p>
+            tags: <p>The tags that you want to apply to the connector.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the operation completes no more than one time. If you use an Amazon Web Services SDK, the SDK generates this value and reuses it on retries. If this token matches a previous request with the same parameters, the service returns the connector from the first request without an error. If you use the same token with different parameters, including different tags, the service returns a <code>ValidationException</code>. This operation is idempotent when you use the same token and parameters.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.conflict_exception.ConflictException: <p> The requested operation conflicts with the current state of the specified resource or with another request. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p> The requested operation would exceed the allowed quota for the specified resource type. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.create_connector_input.CreateConnectorInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.create_connector_output.CreateConnectorOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.create_connector
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.create_connector.async_create_connector(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_observabilityadmin.types.create_connector_input.CreateConnectorInput",
+        ) -> dict[str, Any]:
+            import capo_observabilityadmin.types.create_connector_input
+
+            return (
+                capo_observabilityadmin.types.create_connector_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnector", redact_input=_redact_input),
+        )
+        input_: capo_observabilityadmin.types.create_connector_input.CreateConnectorInput = {
+            "connector_configuration": connector_configuration,
+            "role_arn": role_arn,
+            "name": name,
+        }
+        if tags is not None:
+            input_["tags"] = tags
+        if client_token is not None:
+            input_["client_token"] = client_token
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -612,6 +738,57 @@ class AsyncObservabilityAdminClient:
         await response.response.aclose()
         return response.output
 
+    async def delete_connector(
+        self,
+        connector_identifier: "capo_observabilityadmin.types.connector_identifier.ConnectorIdentifier",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+    ) -> "capo_observabilityadmin.types.delete_connector_output.DeleteConnectorOutput":
+        """<p>Deletes a connector and its telemetry manifest.</p>
+
+        Args:
+            connector_identifier: <p>The connector to delete. Specify one of the following:</p> <ul> <li> <p>The Amazon Resource Name (ARN) of the connector</p> </li> <li> <p>The ID of the connector</p> </li> </ul>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.invalid_state_exception.InvalidStateException: <p> The requested operation cannot be completed on the specified resource in the current state. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.delete_connector_input.DeleteConnectorInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.delete_connector_output.DeleteConnectorOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.delete_connector
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.delete_connector.async_delete_connector(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
+        input_: capo_observabilityadmin.types.delete_connector_input.DeleteConnectorInput = {
+            "connector_identifier": connector_identifier
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete_dataset_integration(
         self,
         arn: "capo_observabilityadmin.types.resource_arn.ResourceArn",
@@ -846,6 +1023,162 @@ class AsyncObservabilityAdminClient:
         input_: capo_observabilityadmin.types.get_centralization_rule_for_organization_input.GetCentralizationRuleForOrganizationInput = {
             "rule_identifier": rule_identifier
         }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_connector(
+        self,
+        connector_identifier: "capo_observabilityadmin.types.connector_identifier.ConnectorIdentifier",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+    ) -> "capo_observabilityadmin.types.get_connector_output.GetConnectorOutput":
+        """<p>Retrieves the details of a connector.</p>
+
+        Args:
+            connector_identifier: <p>The connector. Specify one of the following:</p> <ul> <li> <p>The Amazon Resource Name (ARN) of the connector</p> </li> <li> <p>The ID of the connector</p> </li> </ul>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.get_connector_input.GetConnectorInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.get_connector_output.GetConnectorOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.get_connector
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.get_connector.async_get_connector(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnector")
+        )
+        input_: capo_observabilityadmin.types.get_connector_input.GetConnectorInput = {
+            "connector_identifier": connector_identifier
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_connector_telemetry_manifest(
+        self,
+        connector_identifier: "capo_observabilityadmin.types.connector_identifier.ConnectorIdentifier",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+    ) -> "capo_observabilityadmin.types.get_connector_telemetry_manifest_output.GetConnectorTelemetryManifestOutput":
+        """<p>Retrieves the telemetry manifest of a connector and its current version. If the connector has no telemetry manifest, this operation returns a <code>ResourceNotFoundException</code>.</p>
+
+        Args:
+            connector_identifier: <p>The connector. Specify one of the following:</p> <ul> <li> <p>The Amazon Resource Name (ARN) of the connector</p> </li> <li> <p>The ID of the connector</p> </li> </ul>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.get_connector_telemetry_manifest_input.GetConnectorTelemetryManifestInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.get_connector_telemetry_manifest_output.GetConnectorTelemetryManifestOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.get_connector_telemetry_manifest
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.get_connector_telemetry_manifest.async_get_connector_telemetry_manifest(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectorTelemetryManifest")
+        )
+        input_: capo_observabilityadmin.types.get_connector_telemetry_manifest_input.GetConnectorTelemetryManifestInput = {
+            "connector_identifier": connector_identifier
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_connector_telemetry_setup(
+        self,
+        connector_identifier: "capo_observabilityadmin.types.connector_identifier.ConnectorIdentifier",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        format: Optional[
+            "capo_observabilityadmin.types.setup_format.SetupFormat"
+        ] = None,
+    ) -> "capo_observabilityadmin.types.get_connector_telemetry_setup_output.GetConnectorTelemetrySetupOutput":
+        """<p>Generates the artifacts that you use to create the infrastructure in your cloud provider that delivers the telemetry declared in the connector's telemetry manifest. This operation doesn't change any resources in your cloud provider or in Amazon Web Services.</p>
+
+        Args:
+            connector_identifier: <p>The connector whose telemetry manifest you want to generate the setup from. Specify one of the following:</p> <ul> <li> <p>The Amazon Resource Name (ARN) of the connector</p> </li> <li> <p>The ID of the connector</p> </li> </ul>
+            format: <p>The format of the setup artifacts. If you omit this value, the service uses the default format for the connector's provider (<code>BICEP</code> for an Azure connector). If the provider doesn't support the format, the service returns a <code>ValidationException</code>.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.get_connector_telemetry_setup_input.GetConnectorTelemetrySetupInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.get_connector_telemetry_setup_output.GetConnectorTelemetrySetupOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.get_connector_telemetry_setup
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.get_connector_telemetry_setup.async_get_connector_telemetry_setup(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectorTelemetrySetup")
+        )
+        input_: capo_observabilityadmin.types.get_connector_telemetry_setup_input.GetConnectorTelemetrySetupInput = {
+            "connector_identifier": connector_identifier
+        }
+        if format is not None:
+            input_["format"] = format
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1177,6 +1510,56 @@ class AsyncObservabilityAdminClient:
         await response.response.aclose()
         return response.output
 
+    async def get_third_party_telemetry_enrichment(
+        self,
+        telemetry_enrichment_identifier: "capo_observabilityadmin.types.third_party_telemetry_enrichment_identifier.ThirdPartyTelemetryEnrichmentIdentifier",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+    ) -> "capo_observabilityadmin.types.get_third_party_telemetry_enrichment_output.GetThirdPartyTelemetryEnrichmentOutput":
+        """<p>Returns the details of a third-party telemetry enrichment, including its status and source configuration.</p>
+
+        Args:
+            telemetry_enrichment_identifier: <p>The identifier of the enrichment to return. You can specify one of the following:</p> <ul> <li> <p>The name of the enrichment.</p> </li> <li> <p>The Amazon Resource Name (ARN) of the enrichment.</p> </li> </ul>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.get_third_party_telemetry_enrichment_input.GetThirdPartyTelemetryEnrichmentInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.get_third_party_telemetry_enrichment_output.GetThirdPartyTelemetryEnrichmentOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.get_third_party_telemetry_enrichment
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.get_third_party_telemetry_enrichment.async_get_third_party_telemetry_enrichment(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetThirdPartyTelemetryEnrichment")
+        )
+        input_: capo_observabilityadmin.types.get_third_party_telemetry_enrichment_input.GetThirdPartyTelemetryEnrichmentInput = {
+            "telemetry_enrichment_identifier": telemetry_enrichment_identifier
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def list_centralization_rules_for_organization(
         self,
         *,
@@ -1271,6 +1654,113 @@ class AsyncObservabilityAdminClient:
             if not _token:
                 break
 
+    async def list_connectors(
+        self,
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        max_results: Optional[
+            "capo_observabilityadmin.types.list_connectors_max_results.ListConnectorsMaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_observabilityadmin.types.connector_next_token.ConnectorNextToken"
+        ] = None,
+    ) -> "capo_observabilityadmin.types.list_connectors_output.ListConnectorsOutput":
+        """<p>Lists the connectors in the account and Region. This operation returns results in pages. To get the next page, pass the returned <code>NextToken</code> in the next call. We recommend that you use pagination to ensure that the operation returns quickly and successfully.</p>
+
+        Args:
+            max_results: <p>The maximum number of connectors to return in one call. The default is 100.</p>
+            next_token: <p>The token for the next page of results, returned by a previous call.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.list_connectors_input.ListConnectorsInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.list_connectors_output.ListConnectorsOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.list_connectors
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.list_connectors.async_list_connectors(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_observabilityadmin.types.list_connectors_input.ListConnectorsInput",
+        ) -> dict[str, Any]:
+            import capo_observabilityadmin.types.list_connectors_input
+
+            return capo_observabilityadmin.types.list_connectors_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_observabilityadmin.types.list_connectors_output.ListConnectorsOutput",
+        ) -> dict[str, Any]:
+            import capo_observabilityadmin.types.list_connectors_output
+
+            return (
+                capo_observabilityadmin.types.list_connectors_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListConnectors",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_observabilityadmin.types.list_connectors_input.ListConnectorsInput = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_connectors(
+        self,
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        max_results: Optional[
+            "capo_observabilityadmin.types.list_connectors_max_results.ListConnectorsMaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_observabilityadmin.types.connector_next_token.ConnectorNextToken"
+        ] = None,
+    ) -> "AsyncIterator[capo_observabilityadmin.types.connector_summary.ConnectorSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_connectors(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("connector_summaries",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def list_dataset_integrations(
         self,
         *,
@@ -1352,6 +1842,94 @@ class AsyncObservabilityAdminClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    async def list_resources_by_connector(
+        self,
+        connector_identifier: "capo_observabilityadmin.types.connector_identifier.ConnectorIdentifier",
+        selector: "capo_observabilityadmin.types.connector_query.ConnectorQuery",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        max_results: Optional[
+            "capo_observabilityadmin.types.list_resources_by_connector_max_results.ListResourcesByConnectorMaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_observabilityadmin.types.connector_next_token.ConnectorNextToken"
+        ] = None,
+    ) -> "capo_observabilityadmin.types.list_resources_by_connector_output.ListResourcesByConnectorOutput":
+        """<p>Lists resources in your cloud provider that the connector can access, such as management groups, subscriptions, resource types, Regions, resources, and Event Hubs. Use the results to build a telemetry manifest. This operation returns results in pages. To get the next page, pass the returned <code>NextToken</code> in the next call. We recommend that you use pagination to ensure that the operation returns quickly and successfully.</p>
+
+        Args:
+            connector_identifier: <p>The connector to use for the query. Specify one of the following:</p> <ul> <li> <p>The Amazon Resource Name (ARN) of the connector</p> </li> <li> <p>The ID of the connector</p> </li> </ul>
+            selector: <p>What to list: one cloud provider, and one type of resource in that provider.</p>
+            max_results: <p>The maximum number of results to return in one call. For an <code>EventHubs</code> query, a page can contain more results than this value.</p>
+            next_token: <p>The token for the next page of results, returned by a previous call.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.list_resources_by_connector_input.ListResourcesByConnectorInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.list_resources_by_connector_output.ListResourcesByConnectorOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.list_resources_by_connector
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.list_resources_by_connector.async_list_resources_by_connector(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_observabilityadmin.types.list_resources_by_connector_input.ListResourcesByConnectorInput",
+        ) -> dict[str, Any]:
+            import capo_observabilityadmin.types.list_resources_by_connector_input
+
+            return capo_observabilityadmin.types.list_resources_by_connector_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_observabilityadmin.types.list_resources_by_connector_output.ListResourcesByConnectorOutput",
+        ) -> dict[str, Any]:
+            import capo_observabilityadmin.types.list_resources_by_connector_output
+
+            return capo_observabilityadmin.types.list_resources_by_connector_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListResourcesByConnector",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
+        input_: capo_observabilityadmin.types.list_resources_by_connector_input.ListResourcesByConnectorInput = {
+            "connector_identifier": connector_identifier,
+            "selector": selector,
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
 
     async def list_resource_telemetry(
         self,
@@ -1695,7 +2273,7 @@ class AsyncObservabilityAdminClient:
         *,
         config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
     ) -> "capo_observabilityadmin.types.list_tags_for_resource_output.ListTagsForResourceOutput":
-        """<p> Lists all tags attached to the specified resource. Supports telemetry rule resources and telemetry pipeline resources. </p>
+        """<p> Lists all tags attached to the specified resource. Supports telemetry rule resources, telemetry pipeline resources, and third-party telemetry enrichment resources. </p>
 
         Args:
             resource_arn: <p> The Amazon Resource Name (ARN) of the telemetry rule resource whose tags you want to list. </p>
@@ -1935,6 +2513,184 @@ class AsyncObservabilityAdminClient:
             if not _token:
                 break
 
+    async def list_third_party_telemetry_enrichments(
+        self,
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        status: Optional[
+            "capo_observabilityadmin.types.third_party_telemetry_enrichment_status.ThirdPartyTelemetryEnrichmentStatus"
+        ] = None,
+        telemetry_source: Optional[
+            "capo_observabilityadmin.types.third_party_telemetry_source.ThirdPartyTelemetrySource"
+        ] = None,
+        max_results: Optional[
+            "capo_observabilityadmin.types.list_third_party_telemetry_enrichments_max_results.ListThirdPartyTelemetryEnrichmentsMaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_observabilityadmin.types.next_token.NextToken"
+        ] = None,
+    ) -> "capo_observabilityadmin.types.list_third_party_telemetry_enrichments_output.ListThirdPartyTelemetryEnrichmentsOutput":
+        """<p>Returns a summary of each third-party telemetry enrichment in your account and Region. To get the full configuration of an enrichment, use <code>GetThirdPartyTelemetryEnrichment</code>. The results are paginated. To get the next page of results, use <code>NextToken</code>.</p>
+
+        Args:
+            status: <p>Returns only the enrichments that have this status. Valid values:</p> <ul> <li> <p> <code>Initializing</code> - CloudWatch is setting up the enrichment. Some telemetry can be enriched before setup completes.</p> </li> <li> <p> <code>Running</code> - The enrichment is active.</p> </li> <li> <p> <code>Stopped</code> - The enrichment is stopped.</p> </li> <li> <p> <code>Impaired</code> - The enrichment has a problem. <code>StatusReason</code> describes the problem.</p> </li> </ul>
+            telemetry_source: <p>Returns only the enrichments for this third-party telemetry source.</p>
+            max_results: <p>The maximum number of results to return in a single call. If you omit this parameter, the operation returns up to 100 results.</p>
+            next_token: <p>The token for the next set of results. A previous call generates this token. If you omit this parameter, the operation returns the first page of results.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.list_third_party_telemetry_enrichments_input.ListThirdPartyTelemetryEnrichmentsInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.list_third_party_telemetry_enrichments_output.ListThirdPartyTelemetryEnrichmentsOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.list_third_party_telemetry_enrichments
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.list_third_party_telemetry_enrichments.async_list_third_party_telemetry_enrichments(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThirdPartyTelemetryEnrichments")
+        )
+        input_: capo_observabilityadmin.types.list_third_party_telemetry_enrichments_input.ListThirdPartyTelemetryEnrichmentsInput = {}
+        if status is not None:
+            input_["status"] = status
+        if telemetry_source is not None:
+            input_["telemetry_source"] = telemetry_source
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_third_party_telemetry_enrichments(
+        self,
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        status: Optional[
+            "capo_observabilityadmin.types.third_party_telemetry_enrichment_status.ThirdPartyTelemetryEnrichmentStatus"
+        ] = None,
+        telemetry_source: Optional[
+            "capo_observabilityadmin.types.third_party_telemetry_source.ThirdPartyTelemetrySource"
+        ] = None,
+        max_results: Optional[
+            "capo_observabilityadmin.types.list_third_party_telemetry_enrichments_max_results.ListThirdPartyTelemetryEnrichmentsMaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_observabilityadmin.types.next_token.NextToken"
+        ] = None,
+    ) -> "AsyncIterator[capo_observabilityadmin.types.third_party_telemetry_enrichment_summary.ThirdPartyTelemetryEnrichmentSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_third_party_telemetry_enrichments(
+                config_overrides=config_overrides,
+                status=status,
+                telemetry_source=telemetry_source,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("telemetry_enrichments",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def put_connector_telemetry_manifest(
+        self,
+        connector_identifier: "capo_observabilityadmin.types.connector_identifier.ConnectorIdentifier",
+        manifest: "capo_observabilityadmin.types.telemetry_manifest.TelemetryManifest",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        expected_version: Optional[int] = None,
+        client_token: Optional[
+            "capo_observabilityadmin.types.client_token.ClientToken"
+        ] = None,
+    ) -> "capo_observabilityadmin.types.put_connector_telemetry_manifest_output.PutConnectorTelemetryManifestOutput":
+        """<p>Creates or replaces the telemetry manifest of a connector. The telemetry manifest declares which resources in your cloud provider to collect telemetry from and which telemetry types to collect. To avoid overwriting changes made by another caller, specify <code>ExpectedVersion</code>.</p>
+
+        Args:
+            connector_identifier: <p>The connector. Specify one of the following:</p> <ul> <li> <p>The Amazon Resource Name (ARN) of the connector</p> </li> <li> <p>The ID of the connector</p> </li> </ul>
+            manifest: <p>The telemetry manifest.</p>
+            expected_version: <p>The version of the telemetry manifest that you expect to replace, as returned by <code>GetConnectorTelemetryManifest</code>. Omit this value when you create the first telemetry manifest. If the value doesn't match the current version, the request fails with a <code>ConflictException</code>.</p>
+            client_token: <p>A unique, case-sensitive identifier that you provide to ensure the operation completes no more than one time. If you use an Amazon Web Services SDK, the SDK generates this value and reuses it on retries. If this token matches a previous request with the same telemetry manifest, the service returns the stored version without an error. If you use the same token with a different telemetry manifest, the service returns a <code>ValidationException</code>. This operation is idempotent when you use the same token and parameters.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.conflict_exception.ConflictException: <p> The requested operation conflicts with the current state of the specified resource or with another request. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.put_connector_telemetry_manifest_input.PutConnectorTelemetryManifestInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.put_connector_telemetry_manifest_output.PutConnectorTelemetryManifestOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.put_connector_telemetry_manifest
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.put_connector_telemetry_manifest.async_put_connector_telemetry_manifest(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_observabilityadmin.types.put_connector_telemetry_manifest_input.PutConnectorTelemetryManifestInput",
+        ) -> dict[str, Any]:
+            import capo_observabilityadmin.types.put_connector_telemetry_manifest_input
+
+            return capo_observabilityadmin.types.put_connector_telemetry_manifest_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutConnectorTelemetryManifest", redact_input=_redact_input
+            ),
+        )
+        input_: capo_observabilityadmin.types.put_connector_telemetry_manifest_input.PutConnectorTelemetryManifestInput = {
+            "connector_identifier": connector_identifier,
+            "manifest": manifest,
+        }
+        if expected_version is not None:
+            input_["expected_version"] = expected_version
+        if client_token is not None:
+            input_["client_token"] = client_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def start_telemetry_enrichment(
         self, *, config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None
     ) -> "capo_observabilityadmin.types.start_telemetry_enrichment_output.StartTelemetryEnrichmentOutput":
@@ -2082,6 +2838,66 @@ class AsyncObservabilityAdminClient:
         await response.response.aclose()
         return response.output
 
+    async def start_third_party_telemetry_enrichment(
+        self,
+        name: "capo_observabilityadmin.types.third_party_telemetry_enrichment_name.ThirdPartyTelemetryEnrichmentName",
+        telemetry_source_configuration: "capo_observabilityadmin.types.telemetry_source_configuration_input.TelemetrySourceConfigurationInput",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+        tags: Optional[
+            "capo_observabilityadmin.types.tag_map_input.TagMapInput"
+        ] = None,
+    ) -> "capo_observabilityadmin.types.start_third_party_telemetry_enrichment_output.StartThirdPartyTelemetryEnrichmentOutput":
+        """<p>Starts a third-party telemetry enrichment. An enrichment adds resource metadata, such as tags, from a third-party telemetry source to the telemetry that CloudWatch receives from the resources of that source.</p> <p>You specify an Amazon Web Services Config connector for your third-party environment, such as a Microsoft Azure tenant. You can use each connector for only one enrichment.</p> <p>To use this operation, you must have the <code>config:PutThirdPartyServiceLinkedConfigurationRecorder</code> permission. If the Amazon Web Services Config service-linked role does not exist in your account, you must also have the <code>iam:CreateServiceLinkedRole</code> permission.</p>
+
+        Args:
+            name: <p>A name for the enrichment. The name must be unique in your account and Region. You can use the name instead of the ARN to identify the enrichment in other operations.</p>
+            telemetry_source_configuration: <p>The third-party telemetry source to collect resource metadata from. Specify exactly one telemetry source.</p>
+            tags: <p>The tags to associate with the enrichment resource.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.conflict_exception.ConflictException: <p> The requested operation conflicts with the current state of the specified resource or with another request. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p> The requested operation would exceed the allowed quota for the specified resource type. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.start_third_party_telemetry_enrichment_input.StartThirdPartyTelemetryEnrichmentInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.start_third_party_telemetry_enrichment_output.StartThirdPartyTelemetryEnrichmentOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.start_third_party_telemetry_enrichment
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.start_third_party_telemetry_enrichment.async_start_third_party_telemetry_enrichment(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartThirdPartyTelemetryEnrichment")
+        )
+        input_: capo_observabilityadmin.types.start_third_party_telemetry_enrichment_input.StartThirdPartyTelemetryEnrichmentInput = {
+            "name": name,
+            "telemetry_source_configuration": telemetry_source_configuration,
+        }
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def stop_telemetry_enrichment(
         self, *, config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None
     ) -> "capo_observabilityadmin.types.stop_telemetry_enrichment_output.StopTelemetryEnrichmentOutput":
@@ -2198,6 +3014,57 @@ class AsyncObservabilityAdminClient:
         await response.response.aclose()
         return response.output
 
+    async def stop_third_party_telemetry_enrichment(
+        self,
+        telemetry_enrichment_identifier: "capo_observabilityadmin.types.third_party_telemetry_enrichment_identifier.ThirdPartyTelemetryEnrichmentIdentifier",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+    ) -> "capo_observabilityadmin.types.stop_third_party_telemetry_enrichment_output.StopThirdPartyTelemetryEnrichmentOutput":
+        """<p>Stops a third-party telemetry enrichment. CloudWatch stops adding resource metadata from the third-party telemetry source to your telemetry.</p> <p>To use this operation, you must have the <code>config:DeleteServiceLinkedConfigurationRecorder</code> permission.</p>
+
+        Args:
+            telemetry_enrichment_identifier: <p>The identifier of the enrichment to stop. You can specify one of the following:</p> <ul> <li> <p>The name of the enrichment.</p> </li> <li> <p>The Amazon Resource Name (ARN) of the enrichment.</p> </li> </ul>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.conflict_exception.ConflictException: <p> The requested operation conflicts with the current state of the specified resource or with another request. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.stop_third_party_telemetry_enrichment_input.StopThirdPartyTelemetryEnrichmentInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.stop_third_party_telemetry_enrichment_output.StopThirdPartyTelemetryEnrichmentOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.stop_third_party_telemetry_enrichment
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.stop_third_party_telemetry_enrichment.async_stop_third_party_telemetry_enrichment(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopThirdPartyTelemetryEnrichment")
+        )
+        input_: capo_observabilityadmin.types.stop_third_party_telemetry_enrichment_input.StopThirdPartyTelemetryEnrichmentInput = {
+            "telemetry_enrichment_identifier": telemetry_enrichment_identifier
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def tag_resource(
         self,
         resource_arn: "capo_observabilityadmin.types.resource_arn.ResourceArn",
@@ -2205,7 +3072,7 @@ class AsyncObservabilityAdminClient:
         *,
         config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
     ) -> None:
-        """<p> Adds or updates tags for a resource. Supports telemetry rule resources and telemetry pipeline resources. </p>
+        """<p> Adds or updates tags for a resource. Supports telemetry rule resources, telemetry pipeline resources, and third-party telemetry enrichment resources. </p>
 
         Args:
             resource_arn: <p> The Amazon Resource Name (ARN) of the telemetry rule resource to tag. </p>
@@ -2315,7 +3182,7 @@ class AsyncObservabilityAdminClient:
         *,
         config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
     ) -> None:
-        """<p> Removes tags from a resource. Supports telemetry rule resources and telemetry pipeline resources. </p>
+        """<p> Removes tags from a resource. Supports telemetry rule resources, telemetry pipeline resources, and third-party telemetry enrichment resources. </p>
 
         Args:
             resource_arn: <p> The Amazon Resource Name (ARN) of the telemetry rule resource to remove tags from. </p>
@@ -2920,6 +3787,57 @@ class AsyncObservabilityAdminClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    async def start_telemetry_pipeline_refresh(
+        self,
+        pipeline_identifier: "capo_observabilityadmin.types.telemetry_pipeline_identifier.TelemetryPipelineIdentifier",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+    ) -> "capo_observabilityadmin.types.start_telemetry_pipeline_refresh_output.StartTelemetryPipelineRefreshOutput":
+        """<p>Starts a refresh of an external-cloud telemetry pipeline. The refresh re-reads the connector's telemetry manifest and re-discovers the sources in scope.</p> <p>The pipeline must be in the <code>ACTIVE</code> or <code>UPDATE_FAILED</code> state, with no refresh already running. You can use <code>GetTelemetryPipeline</code> to track the refresh.</p>
+
+        Args:
+            pipeline_identifier: <p>The Amazon Resource Name (ARN) of the telemetry pipeline to refresh.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.conflict_exception.ConflictException: <p> The requested operation conflicts with the current state of the specified resource or with another request. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.start_telemetry_pipeline_refresh_input.StartTelemetryPipelineRefreshInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.start_telemetry_pipeline_refresh_output.StartTelemetryPipelineRefreshOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.start_telemetry_pipeline_refresh
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.start_telemetry_pipeline_refresh.async_start_telemetry_pipeline_refresh(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTelemetryPipelineRefresh")
+        )
+        input_: capo_observabilityadmin.types.start_telemetry_pipeline_refresh_input.StartTelemetryPipelineRefreshInput = {
+            "pipeline_identifier": pipeline_identifier
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
 
     async def __aenter__(self) -> Self:
         return self

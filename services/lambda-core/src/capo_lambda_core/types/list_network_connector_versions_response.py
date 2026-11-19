@@ -5,14 +5,16 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_lambda_core.types.aws_gir_api_string
     import capo_lambda_core.types.network_connector_versions_list
-    import capo_lambda_core.types.string
 
 
 class ListNetworkConnectorVersionsResponse(TypedDict, closed=True):
     network_connector_versions: "capo_lambda_core.types.network_connector_versions_list.NetworkConnectorVersionsList"
     """<p>A list of connector version summaries for the current page of results.</p>"""
-    next_marker: NotRequired["capo_lambda_core.types.string.String"]
+    next_marker: NotRequired[
+        "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+    ]
     """<p>The pagination token to include in a subsequent request to retrieve the next page. This value is null when there are no more results.</p>"""
 
 

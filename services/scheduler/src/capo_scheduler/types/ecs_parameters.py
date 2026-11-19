@@ -27,7 +27,7 @@ class EcsParameters(TypedDict, closed=True):
     task_count: NotRequired["capo_scheduler.types.task_count.TaskCount"]
     """<p>The number of tasks to create based on <code>TaskDefinition</code>. The default is <code>1</code>.</p>"""
     launch_type: NotRequired["capo_scheduler.types.launch_type.LaunchType"]
-    """<p>Specifies the launch type on which your task is running. The launch type that you specify here must match one of the launch type (compatibilities) of the target task. The <code>FARGATE</code> value is supported only in the Regions where Fargate with Amazon ECS is supported. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html">AWS Fargate on Amazon ECS</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
+    """<p>Specifies the launch type on which your task is running. The launch type that you specify here must match one of the launch type (compatibilities) of the target task. The <code>FARGATE</code> value is supported only in the Regions where Fargate with Amazon ECS is supported. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html">Amazon Web Services Fargate on Amazon ECS</a> in the <i>Amazon ECS Developer Guide</i>.</p>"""
     network_configuration: NotRequired[
         "capo_scheduler.types.network_configuration.NetworkConfiguration"
     ]

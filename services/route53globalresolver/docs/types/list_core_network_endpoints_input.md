@@ -1,0 +1,8 @@
+---
+title: ListCoreNetworkEndpointsInput
+---
+
+::: capo_route53globalresolver.types.list_core_network_endpoints_input.ListCoreNetworkEndpointsInput
+    options:
+      show_source: true
+      merge_init_into_class: false

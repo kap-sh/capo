@@ -52,6 +52,7 @@ from capo_securityagent._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_securityagent.types.actor_list
     import capo_securityagent.types.actor_message
     import capo_securityagent.types.add_artifact_input
     import capo_securityagent.types.add_artifact_output
@@ -115,6 +116,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.batch_update_security_requirements_output
     import capo_securityagent.types.certificate_chain
     import capo_securityagent.types.ci_cd_configuration
+    import capo_securityagent.types.clean_up_strategy
     import capo_securityagent.types.client_id
     import capo_securityagent.types.client_secret
     import capo_securityagent.types.cloud_watch_log
@@ -266,6 +268,8 @@ if TYPE_CHECKING:
     import capo_securityagent.types.report_filters
     import capo_securityagent.types.resource_arn
     import capo_securityagent.types.resource_type
+    import capo_securityagent.types.resume_pentest_job_input
+    import capo_securityagent.types.resume_pentest_job_output
     import capo_securityagent.types.risk_level
     import capo_securityagent.types.risk_type_list
     import capo_securityagent.types.role_arn
@@ -1827,6 +1831,9 @@ class SecurityAgentClient:
         code_remediation_strategy: Optional[
             "capo_securityagent.types.code_remediation_strategy.CodeRemediationStrategy"
         ] = None,
+        clean_up_strategy: Optional[
+            "capo_securityagent.types.clean_up_strategy.CleanUpStrategy"
+        ] = None,
         disable_managed_skills: Optional[
             "capo_securityagent.types.skill_type_list.SkillTypeList"
         ] = None,
@@ -1854,6 +1861,7 @@ class SecurityAgentClient:
             vpc_config: <p>The VPC configuration for the pentest.</p>
             network_traffic_config: <p>The network traffic configuration for the pentest, including custom headers and traffic rules.</p>
             code_remediation_strategy: <p>The code remediation strategy for the pentest. Valid values are AUTOMATIC and DISABLED.</p>
+            clean_up_strategy: <p>The strategy for cleaning up resources after pentest job completion. Valid values are BEST_EFFORT_DELETE and RETAIN_ALL.</p>
             disable_managed_skills: <p>A list of managed skills to disable for this pentest. Valid values include FINDING_PERSONALIZATION and LOGIN_OPTIMIZATION.</p>
             max_task_hours: <p>The maximum number of billable task hours allowed for jobs started from this pentest. Must be a positive number. If not set, jobs run to completion with no budget cap.</p>
             report_destination: <p>The destination for publishing scan reports to an integrated document provider.</p>
@@ -1922,6 +1930,8 @@ class SecurityAgentClient:
             input_["network_traffic_config"] = network_traffic_config
         if code_remediation_strategy is not None:
             input_["code_remediation_strategy"] = code_remediation_strategy
+        if clean_up_strategy is not None:
+            input_["clean_up_strategy"] = clean_up_strategy
         if disable_managed_skills is not None:
             input_["disable_managed_skills"] = disable_managed_skills
         if max_task_hours is not None:
@@ -3978,6 +3988,86 @@ class SecurityAgentClient:
             if not _token:
                 break
 
+    def resume_pentest_job(
+        self,
+        *,
+        config_overrides: Optional[SecurityAgentClientConfig] = None,
+        agent_space_id: Optional[str] = None,
+        pentest_job_id: Optional[str] = None,
+        actors: Optional["capo_securityagent.types.actor_list.ActorList"] = None,
+        network_traffic_config: Optional[
+            "capo_securityagent.types.network_traffic_config.NetworkTrafficConfig"
+        ] = None,
+        vpc_config: Optional["capo_securityagent.types.vpc_config.VpcConfig"] = None,
+        max_task_hours: Optional[float] = None,
+        copy_config_from_pentest: Optional[bool] = None,
+    ) -> "capo_securityagent.types.resume_pentest_job_output.ResumePentestJobOutput":
+        """<p>Resumes a stopped or paused pentest job from its last saved checkpoint. The job keeps its pentest job identifier and continues as a new version, keeping the findings and progress from earlier runs. You can resume a job within 7 days of when it was created.</p>
+
+        Args:
+            agent_space_id: <p>The unique identifier of the agent space.</p>
+            pentest_job_id: <p>The unique identifier of the pentest job to resume.</p>
+            actors: <p>The actors to use for the resumed job. When specified, replaces the actors the job used before it stopped.</p>
+            network_traffic_config: <p>The network traffic configuration to use for the resumed job. When specified, replaces the configuration the job used before it stopped.</p>
+            vpc_config: <p>The VPC configuration to use for the resumed job. When specified, replaces the configuration the job used before it stopped.</p>
+            max_task_hours: <p>The maximum number of task hours for the resumed job. To resume a job that stopped because it reached its task hours limit, specify a higher value.</p>
+            copy_config_from_pentest: <p>Specifies whether to copy the current actors, network traffic configuration, VPC configuration, and maximum task hours from the pentest to the resumed job. The job's scope, such as its target endpoints, is never changed. Values you specify in this request take precedence over copied values.</p>
+
+        Raises:
+            capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_securityagent.types.resume_pentest_job_input.ResumePentestJobInput]",
+        ) -> OperationResponse[
+            "capo_securityagent.types.resume_pentest_job_output.ResumePentestJobOutput"
+        ]:
+            import capo_securityagent._operations.security_agent.resume_pentest_job
+
+            output, http_response = (
+                capo_securityagent._operations.security_agent.resume_pentest_job.resume_pentest_job(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_securityagent.types.resume_pentest_job_input.ResumePentestJobInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.resume_pentest_job_input
+
+            return capo_securityagent.types.resume_pentest_job_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResumePentestJob", redact_input=_redact_input),
+        )
+        input_: capo_securityagent.types.resume_pentest_job_input.ResumePentestJobInput = {}
+        if agent_space_id is not None:
+            input_["agent_space_id"] = agent_space_id
+        if pentest_job_id is not None:
+            input_["pentest_job_id"] = pentest_job_id
+        if actors is not None:
+            input_["actors"] = actors
+        if network_traffic_config is not None:
+            input_["network_traffic_config"] = network_traffic_config
+        if vpc_config is not None:
+            input_["vpc_config"] = vpc_config
+        if max_task_hours is not None:
+            input_["max_task_hours"] = max_task_hours
+        if copy_config_from_pentest is not None:
+            input_["copy_config_from_pentest"] = copy_config_from_pentest
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def start_code_remediation(
         self,
         agent_space_id: str,
@@ -4249,12 +4339,14 @@ class SecurityAgentClient:
         pentest_job_id: str,
         *,
         config_overrides: Optional[SecurityAgentClientConfig] = None,
+        pause: Optional[bool] = None,
     ) -> "capo_securityagent.types.stop_pentest_job_output.StopPentestJobOutput":
         """<p>Stops a running pentest job. The job transitions to a stopping state and then to stopped after cleanup completes.</p>
 
         Args:
             agent_space_id: <p>The unique identifier of the agent space.</p>
             pentest_job_id: <p>The unique identifier of the pentest job to stop.</p>
+            pause: <p>Specifies whether to pause the job instead of stopping it. A paused job moves to <code>PAUSING</code> and then to <code>PAUSED</code>, and you can resume it later with <code>ResumePentestJob</code>. You can pause only a job that is <code>IN_PROGRESS</code>. The default is false.</p>
 
         Raises:
             capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -4281,6 +4373,8 @@ class SecurityAgentClient:
             "agent_space_id": agent_space_id,
             "pentest_job_id": pentest_job_id,
         }
+        if pause is not None:
+            input_["pause"] = pause
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -4716,6 +4810,9 @@ class SecurityAgentClient:
         code_remediation_strategy: Optional[
             "capo_securityagent.types.code_remediation_strategy.CodeRemediationStrategy"
         ] = None,
+        clean_up_strategy: Optional[
+            "capo_securityagent.types.clean_up_strategy.CleanUpStrategy"
+        ] = None,
         disable_managed_skills: Optional[
             "capo_securityagent.types.skill_type_list.SkillTypeList"
         ] = None,
@@ -4744,6 +4841,7 @@ class SecurityAgentClient:
             vpc_config: <p>The updated VPC configuration for the pentest.</p>
             network_traffic_config: <p>The updated network traffic configuration for the pentest.</p>
             code_remediation_strategy: <p>The updated code remediation strategy for the pentest.</p>
+            clean_up_strategy: <p>The updated strategy for cleaning up resources after pentest job completion.</p>
             disable_managed_skills: <p>The updated list of managed skills to disable for this pentest. Valid values include FINDING_PERSONALIZATION and LOGIN_OPTIMIZATION.</p>
             max_task_hours: <p>The updated maximum number of billable task hours allowed for jobs started from this pentest.</p>
             report_destination: <p>The destination for publishing scan reports to an integrated document provider.</p>
@@ -4814,6 +4912,8 @@ class SecurityAgentClient:
             input_["network_traffic_config"] = network_traffic_config
         if code_remediation_strategy is not None:
             input_["code_remediation_strategy"] = code_remediation_strategy
+        if clean_up_strategy is not None:
+            input_["clean_up_strategy"] = clean_up_strategy
         if disable_managed_skills is not None:
             input_["disable_managed_skills"] = disable_managed_skills
         if max_task_hours is not None:

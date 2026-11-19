@@ -70,6 +70,7 @@ if TYPE_CHECKING:
     import capo_rum.types.get_resource_policy_request
     import capo_rum.types.get_resource_policy_response
     import capo_rum.types.iam_role_arn
+    import capo_rum.types.json_value
     import capo_rum.types.list_app_monitors_request
     import capo_rum.types.list_app_monitors_response
     import capo_rum.types.list_rum_metrics_destinations_request
@@ -287,6 +288,7 @@ class AsyncRUMClient:
         *,
         config_overrides: Optional[AsyncRUMClientConfig] = None,
         alias: Optional["capo_rum.types.alias.Alias"] = None,
+        session_metadata: Optional["capo_rum.types.json_value.JsonValue"] = None,
     ) -> "capo_rum.types.put_rum_events_response.PutRumEventsResponse":
         """<p>Sends telemetry events about your application performance and user behavior to CloudWatch RUM. The code snippet that RUM generates for you to add to your application includes <code>PutRumEvents</code> operations to send this data to RUM.</p> <p>Each <code>PutRumEvents</code> operation can send a batch of events from one user session.</p>
 
@@ -297,6 +299,7 @@ class AsyncRUMClient:
             user_details: <p>A structure that contains information about the user session that this batch of events was collected from.</p>
             rum_events: <p>An array of structures that contain the telemetry event data.</p>
             alias: <p>If the app monitor uses a resource-based policy that requires <code>PutRumEvents</code> requests to specify a certain alias, specify that alias here. This alias will be compared to the <code>rum:alias</code> context key in the resource-based policy. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-resource-policies.html">Using resource-based policies with CloudWatch RUM</a>.</p>
+            session_metadata: <p>A JSON serialization of attributes that apply to every event in this batch, such as the browser, device, and operating system of the end user. CloudWatch RUM merges these attributes into each event in the batch, so you send them once for the batch instead of once for each event. If an attribute appears both here and in an individual event's <code>metadata</code>, CloudWatch RUM uses the value in the event's <code>metadata</code>.</p>
 
         Raises:
             capo_rum.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient permissions to perform this action.</p>
@@ -334,6 +337,8 @@ class AsyncRUMClient:
         }
         if alias is not None:
             input_["alias"] = alias
+        if session_metadata is not None:
+            input_["session_metadata"] = session_metadata
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

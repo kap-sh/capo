@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_medialive.types.cmaf_nielsen_id3_behavior
     import capo_medialive.types.cmaf_timed_metadata_id3_frame
     import capo_medialive.types.cmaf_timed_metadata_passthrough
+    import capo_medialive.types.media_package_v2_caption_language_setting
     import capo_medialive.types.media_package_v2_watermarking_settings
     import capo_medialive.types.scte35_type
 
@@ -60,6 +61,10 @@ class MediaPackageV2GroupSettings(TypedDict, closed=True):
         "capo_medialive.types.media_package_v2_watermarking_settings.MediaPackageV2WatermarkingSettings"
     ]
     """Specifies the type of watermarking technology to use."""
+    caption_language_setting: NotRequired[
+        "capo_medialive.types.media_package_v2_caption_language_setting.MediaPackageV2CaptionLanguageSetting"
+    ]
+    """Applies only to 608 Embedded output captions. Controls the CLOSED-CAPTIONS signaling that MediaPackage v2 writes into the HLS manifest it delivers. auto: The default. If captionLanguageMappings is non-empty, the HLS manifest includes a CLOSED-CAPTIONS line for each mapped caption channel. If captionLanguageMappings is empty, the HLS manifest omits any CLOSED-CAPTIONS line. none: The HLS manifest carries CLOSED-CAPTIONS=NONE on each EXT-X-STREAM-INF tag, which signals to players that the stream has no closed captions, so they stop offering a CC track. The API rejects none combined with a non-empty captionLanguageMappings."""
 
 
 # --- restJson1 ser/de ---
@@ -143,6 +148,14 @@ def serialize_json(value: MediaPackageV2GroupSettings) -> dict:
                 value["watermarking_settings"]
             )
         )
+    if "caption_language_setting" in value:
+        import capo_medialive.types.media_package_v2_caption_language_setting
+
+        out["captionLanguageSetting"] = (
+            capo_medialive.types.media_package_v2_caption_language_setting.serialize_json(
+                value["caption_language_setting"]
+            )
+        )
     return out
 
 
@@ -224,6 +237,14 @@ def deserialize_json(data: dict) -> MediaPackageV2GroupSettings:
         out["watermarking_settings"] = (
             capo_medialive.types.media_package_v2_watermarking_settings.deserialize_json(
                 data["watermarkingSettings"]
+            )
+        )
+    if data.get("captionLanguageSetting") is not None:
+        import capo_medialive.types.media_package_v2_caption_language_setting
+
+        out["caption_language_setting"] = (
+            capo_medialive.types.media_package_v2_caption_language_setting.deserialize_json(
+                data["captionLanguageSetting"]
             )
         )
     return out

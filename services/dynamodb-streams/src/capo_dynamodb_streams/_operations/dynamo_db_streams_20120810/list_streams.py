@@ -101,10 +101,14 @@ def build_request(
 ) -> zapros.Request:
     endpoint = resolve(
         EndpointParams(
+            Region=options.region,
             UseDualStack=options.use_dual_stack,
             UseFIPS=options.use_fips,
             Endpoint=options.endpoint,
-            Region=options.region,
+            AccountId=options.account_id,
+            AccountIdEndpointMode=options.account_id_endpoint_mode,
+            StreamArn=options.stream_arn,
+            ShardIterator=options.shard_iterator,
         )
     )  # noqa: F841
     url = endpoint.url.rstrip("/") + ""

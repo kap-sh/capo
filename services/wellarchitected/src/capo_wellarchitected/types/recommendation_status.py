@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The status of a recommendation.</p>"""
 RecommendationStatus: TypeAlias = Literal[
     "ACTIVE",
     "SUPPRESSED",

@@ -27,6 +27,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.global_resolvers_item
     import capo_route53globalresolver.types.list_global_resolvers_input
     import capo_route53globalresolver.types.list_global_resolvers_output
+    import capo_route53globalresolver.types.public_ip_status
     import capo_route53globalresolver.types.region
     import capo_route53globalresolver.types.regions
     import capo_route53globalresolver.types.resource_description
@@ -64,6 +65,9 @@ class GlobalResolver:
         ip_address_type: Optional[
             "capo_route53globalresolver.types.global_resolver_ip_address_type.GlobalResolverIpAddressType"
         ] = None,
+        public_ip_status: Optional[
+            "capo_route53globalresolver.types.public_ip_status.PublicIpStatus"
+        ] = None,
         observability_region: Optional[
             "capo_route53globalresolver.types.region.Region"
         ] = None,
@@ -75,6 +79,7 @@ class GlobalResolver:
             client_token: <p>A unique string that identifies the request and ensures idempotency. If you make multiple requests with the same client token, only one Route 53 Global Resolver is created.</p>
             description: <p>An optional description for the Route 53 Global Resolver instance. Maximum length of 1024 characters.</p>
             ip_address_type: <p>The IP address type for the Route 53 Global Resolver. Valid values are IPV4 (default) or DUAL_STACK for both IPv4 and IPv6 support.</p>
+            public_ip_status: <p>Specifies the public IP connectivity to configure for the Route 53 Global Resolver. Public IP addresses let DNS clients send queries to the resolver over the internet. Valid values are the following:</p> <ul> <li> <p> <code>ENABLED_RESERVED</code> - Public IP connectivity is enabled, and the global anycast public IP addresses are reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RESERVED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses remain reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RELEASED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses are released.</p> </li> </ul>
             name: <p>A descriptive name for the Route 53 Global Resolver instance. Maximum length of 64 characters.</p>
             observability_region: <p>The Amazon Web Services Region where query resolution logs and metrics will be aggregated and delivered. If not specified, logging is not enabled.</p>
             regions: <p>List of Amazon Web Services Regions where the Route 53 Global Resolver will operate. The resolver will be distributed across these Regions to provide global availability and low-latency DNS resolution.</p>
@@ -118,6 +123,8 @@ class GlobalResolver:
             input_["description"] = description
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
+        if public_ip_status is not None:
+            input_["public_ip_status"] = public_ip_status
         if observability_region is not None:
             input_["observability_region"] = observability_region
         if tags is not None:
@@ -197,6 +204,9 @@ class GlobalResolver:
         ip_address_type: Optional[
             "capo_route53globalresolver.types.global_resolver_ip_address_type.GlobalResolverIpAddressType"
         ] = None,
+        public_ip_status: Optional[
+            "capo_route53globalresolver.types.public_ip_status.PublicIpStatus"
+        ] = None,
         regions: Optional["capo_route53globalresolver.types.regions.Regions"] = None,
     ) -> "capo_route53globalresolver.types.update_global_resolver_output.UpdateGlobalResolverOutput":
         """<p>Updates the configuration of a Route 53 Global Resolver instance. You can modify the name, description, and observability Region.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
@@ -207,6 +217,7 @@ class GlobalResolver:
             observability_region: <p>The Amazon Web Services Regions in which the users' Global Resolver query resolution logs will be propagated.</p>
             description: <p>The description of the Global Resolver.</p>
             ip_address_type: <p>The IP address type for the Global Resolver. Valid values are IPV4 or DUAL_STACK for both IPv4 and IPv6 support.</p>
+            public_ip_status: <p>Specifies the public IP connectivity to configure for the Route 53 Global Resolver. Public IP addresses let DNS clients send queries to the resolver over the internet. Valid values are the following:</p> <ul> <li> <p> <code>ENABLED_RESERVED</code> - Public IP connectivity is enabled, and the global anycast public IP addresses are reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RESERVED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses remain reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RELEASED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses are released.</p> </li> </ul>
             regions: <p>The list of Amazon Web Services Regions where the Global Resolver will operate. The resolver will be distributed across these Regions to provide global availability and low-latency DNS resolution.</p>
 
         Raises:
@@ -248,6 +259,8 @@ class GlobalResolver:
             input_["description"] = description
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
+        if public_ip_status is not None:
+            input_["public_ip_status"] = public_ip_status
         if regions is not None:
             input_["regions"] = regions
 
@@ -381,6 +394,9 @@ class AsyncGlobalResolver:
         ip_address_type: Optional[
             "capo_route53globalresolver.types.global_resolver_ip_address_type.GlobalResolverIpAddressType"
         ] = None,
+        public_ip_status: Optional[
+            "capo_route53globalresolver.types.public_ip_status.PublicIpStatus"
+        ] = None,
         observability_region: Optional[
             "capo_route53globalresolver.types.region.Region"
         ] = None,
@@ -392,6 +408,7 @@ class AsyncGlobalResolver:
             client_token: <p>A unique string that identifies the request and ensures idempotency. If you make multiple requests with the same client token, only one Route 53 Global Resolver is created.</p>
             description: <p>An optional description for the Route 53 Global Resolver instance. Maximum length of 1024 characters.</p>
             ip_address_type: <p>The IP address type for the Route 53 Global Resolver. Valid values are IPV4 (default) or DUAL_STACK for both IPv4 and IPv6 support.</p>
+            public_ip_status: <p>Specifies the public IP connectivity to configure for the Route 53 Global Resolver. Public IP addresses let DNS clients send queries to the resolver over the internet. Valid values are the following:</p> <ul> <li> <p> <code>ENABLED_RESERVED</code> - Public IP connectivity is enabled, and the global anycast public IP addresses are reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RESERVED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses remain reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RELEASED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses are released.</p> </li> </ul>
             name: <p>A descriptive name for the Route 53 Global Resolver instance. Maximum length of 64 characters.</p>
             observability_region: <p>The Amazon Web Services Region where query resolution logs and metrics will be aggregated and delivered. If not specified, logging is not enabled.</p>
             regions: <p>List of Amazon Web Services Regions where the Route 53 Global Resolver will operate. The resolver will be distributed across these Regions to provide global availability and low-latency DNS resolution.</p>
@@ -436,6 +453,8 @@ class AsyncGlobalResolver:
             input_["description"] = description
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
+        if public_ip_status is not None:
+            input_["public_ip_status"] = public_ip_status
         if observability_region is not None:
             input_["observability_region"] = observability_region
         if tags is not None:
@@ -516,6 +535,9 @@ class AsyncGlobalResolver:
         ip_address_type: Optional[
             "capo_route53globalresolver.types.global_resolver_ip_address_type.GlobalResolverIpAddressType"
         ] = None,
+        public_ip_status: Optional[
+            "capo_route53globalresolver.types.public_ip_status.PublicIpStatus"
+        ] = None,
         regions: Optional["capo_route53globalresolver.types.regions.Regions"] = None,
     ) -> "capo_route53globalresolver.types.update_global_resolver_output.UpdateGlobalResolverOutput":
         """<p>Updates the configuration of a Route 53 Global Resolver instance. You can modify the name, description, and observability Region.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
@@ -526,6 +548,7 @@ class AsyncGlobalResolver:
             observability_region: <p>The Amazon Web Services Regions in which the users' Global Resolver query resolution logs will be propagated.</p>
             description: <p>The description of the Global Resolver.</p>
             ip_address_type: <p>The IP address type for the Global Resolver. Valid values are IPV4 or DUAL_STACK for both IPv4 and IPv6 support.</p>
+            public_ip_status: <p>Specifies the public IP connectivity to configure for the Route 53 Global Resolver. Public IP addresses let DNS clients send queries to the resolver over the internet. Valid values are the following:</p> <ul> <li> <p> <code>ENABLED_RESERVED</code> - Public IP connectivity is enabled, and the global anycast public IP addresses are reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RESERVED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses remain reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RELEASED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses are released.</p> </li> </ul>
             regions: <p>The list of Amazon Web Services Regions where the Global Resolver will operate. The resolver will be distributed across these Regions to provide global availability and low-latency DNS resolution.</p>
 
         Raises:
@@ -568,6 +591,8 @@ class AsyncGlobalResolver:
             input_["description"] = description
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
+        if public_ip_status is not None:
+            input_["public_ip_status"] = public_ip_status
         if regions is not None:
             input_["regions"] = regions
 

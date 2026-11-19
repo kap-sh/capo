@@ -30,3 +30,15 @@ title: MedicalScribeOutputStream
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_connecthealth.types.medical_scribe_output_stream.MedicalScribeOutputStreamPeriodontalChartEventMember
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2
+
+::: capo_connecthealth.types.medical_scribe_output_stream.MedicalScribeOutputStreamChecklistEventMember
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

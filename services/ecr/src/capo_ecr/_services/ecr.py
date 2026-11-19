@@ -424,7 +424,7 @@ class ECRClient:
             To delete multiple images
             This example deletes images with the tags precise and trusty in a repository called ubuntu in the default registry for an account.
 
-            >>> client.batch_delete_image(repository_name='ubuntu', image_ids=[{'imageTag': 'precise'}])
+            >>> client.batch_delete_image(repository_name='ubuntu', image_ids=[{'imageTag': 'precise'}, {'imageTag': 'trusty'}])
         """
 
         def _handler(

@@ -8,6 +8,8 @@
 - [All](all.md)
 - [AllQueryArguments](all_query_arguments.md)
 - [AllowAction](allow_action.md)
+- [AnalyticsConfig](analytics_config.md)
+- [AnalyticsMode](analytics_mode.md)
 - [AndStatement](and_statement.md)
 - [APIKey](api_key.md)
 - [APIKeySummaries](api_key_summaries.md)

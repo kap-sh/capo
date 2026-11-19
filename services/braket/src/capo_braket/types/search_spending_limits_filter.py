@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class SearchSpendingLimitsFilter(TypedDict, closed=True):
     name: "capo_braket.types.string64.String64"
-    """<p>The name of the field to filter on. Currently only supports <code>deviceArn</code>.</p>"""
+    """<p>The name of the field to filter on. Currently supports <code>deviceArn</code> and <code>spendingLimitArn</code>.</p>"""
     values: "capo_braket.types.string256_list.String256List"
     """<p>An array of values to match against the specified field.</p>"""
     operator: "capo_braket.types.search_spending_limits_filter_operator.SearchSpendingLimitsFilterOperator"

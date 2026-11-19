@@ -32,7 +32,7 @@ class CreateAgentProfileResponse(TypedDict, closed=True):
     ]
     """<p>The business overview of the created profile.</p>"""
     pillars: "capo_wellarchitected.types.pillars.Pillars"
-    """<p>The Well-Architected Tool Framework pillars associated with the created profile.</p>"""
+    """<p>The Amazon Web Services Well-Architected Framework pillars associated with the created profile.</p>"""
     deletion_protection: "bool"
     """<p>Indicates whether deletion protection is enabled.</p>"""
     execution_role_arn: "capo_wellarchitected.types.role_arn.RoleArn"

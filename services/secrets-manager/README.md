@@ -18,9 +18,9 @@ from capo_secrets_manager import AsyncSecretsManagerClient
 
 async def main():
     async with AsyncSecretsManagerClient() as secrets_manager:
-        # Example: call the batch_get_secret_value operation
-        response = await secrets_manager.batch_get_secret_value()
-        print(response["secret_values"])
+        # Example: call the associate_cross_account_replica operation
+        response = await secrets_manager.associate_cross_account_replica()
+        print(response["arn"])
 ```
 
 ## Pagination
@@ -44,14 +44,14 @@ The SDK raises exceptions for errors returned by the API. Catch them to handle f
 
 ```python
 from capo_secrets_manager import AsyncSecretsManagerClient
-from capo_secrets_manager.error import DecryptionFailure
+from capo_secrets_manager.error import InternalServiceError
 
 
 async def main():
     async with AsyncSecretsManagerClient() as secrets_manager:
         try:
-            await secrets_manager.batch_get_secret_value()
-        except DecryptionFailure as e:
+            await secrets_manager.associate_cross_account_replica()
+        except InternalServiceError as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
 ```
@@ -71,11 +71,11 @@ from capo_secrets_manager import AsyncSecretsManagerClient
 async def main():
     async with AsyncSecretsManagerClient() as secrets_manager:
         # Default: 3 attempts for every operation
-        response = await secrets_manager.batch_get_secret_value()
+        response = await secrets_manager.associate_cross_account_replica()
 
         # Override per operation
-        response = await secrets_manager.batch_get_secret_value(config_overrides={"retry_max_attempts": 5})
+        response = await secrets_manager.associate_cross_account_replica(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await secrets_manager.batch_get_secret_value(config_overrides={"retry_max_attempts": 1})
+        response = await secrets_manager.associate_cross_account_replica(config_overrides={"retry_max_attempts": 1})
 ```

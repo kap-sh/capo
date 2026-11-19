@@ -22,6 +22,7 @@ class EvaluationFormMultiSelectQuestionAutomation(TypedDict, closed=True):
     answer_source: NotRequired[
         "capo_connect.types.evaluation_form_question_automation_answer_source.EvaluationFormQuestionAutomationAnswerSource"
     ]
+    """<p>Automation answer source.</p>"""
 
 
 # --- restJson1 ser/de ---

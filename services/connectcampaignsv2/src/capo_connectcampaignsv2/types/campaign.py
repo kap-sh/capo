@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.schedule
     import capo_connectcampaignsv2.types.source
     import capo_connectcampaignsv2.types.tag_map
+    import capo_connectcampaignsv2.types.time_stamp
 
 
 class Campaign(TypedDict, closed=True):
@@ -43,6 +44,10 @@ class Campaign(TypedDict, closed=True):
     communication_limits_override: NotRequired[
         "capo_connectcampaignsv2.types.communication_limits_config.CommunicationLimitsConfig"
     ]
+    last_modified_time: NotRequired[
+        "capo_connectcampaignsv2.types.time_stamp.TimeStamp"
+    ]
+    """The timestamp of the most recent modification to the campaign or its configuration. Null for campaigns created before this field was introduced."""
     tags: NotRequired["capo_connectcampaignsv2.types.tag_map.TagMap"]
 
 
@@ -99,6 +104,14 @@ def serialize_json(value: Campaign) -> dict:
         out["communicationLimitsOverride"] = (
             capo_connectcampaignsv2.types.communication_limits_config.serialize_json(
                 value["communication_limits_override"]
+            )
+        )
+    if "last_modified_time" in value:
+        import capo_connectcampaignsv2.types.time_stamp
+
+        out["lastModifiedTime"] = (
+            capo_connectcampaignsv2.types.time_stamp.serialize_json(
+                value["last_modified_time"]
             )
         )
     if "tags" in value:
@@ -174,6 +187,14 @@ def deserialize_json(data: dict) -> Campaign:
         out["communication_limits_override"] = (
             capo_connectcampaignsv2.types.communication_limits_config.deserialize_json(
                 data["communicationLimitsOverride"]
+            )
+        )
+    if data.get("lastModifiedTime") is not None:
+        import capo_connectcampaignsv2.types.time_stamp
+
+        out["last_modified_time"] = (
+            capo_connectcampaignsv2.types.time_stamp.deserialize_json(
+                data["lastModifiedTime"]
             )
         )
     if data.get("tags") is not None:

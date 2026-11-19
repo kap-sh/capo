@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The priority of a recommendation.</p>"""
 Priority: TypeAlias = Literal[
     "HIGH",
     "MEDIUM",

@@ -21,11 +21,13 @@ if TYPE_CHECKING:
     import capo_mgn.types.code_generation_output_format_types
     import capo_mgn.types.construct_id
     import capo_mgn.types.create_network_migration_definition_request
+    import capo_mgn.types.definition_type
     import capo_mgn.types.delete_network_migration_definition_request
     import capo_mgn.types.delete_network_migration_definition_response
     import capo_mgn.types.get_network_migration_definition_request
     import capo_mgn.types.get_network_migration_mapper_segment_construct_request
     import capo_mgn.types.get_network_migration_mapper_segment_construct_response
+    import capo_mgn.types.insight_producer_id
     import capo_mgn.types.list_network_migration_analyses_filters
     import capo_mgn.types.list_network_migration_analyses_request
     import capo_mgn.types.list_network_migration_analyses_response
@@ -49,6 +51,9 @@ if TYPE_CHECKING:
     import capo_mgn.types.list_network_migration_execution_request_filters
     import capo_mgn.types.list_network_migration_executions_request
     import capo_mgn.types.list_network_migration_executions_response
+    import capo_mgn.types.list_network_migration_insights_filters
+    import capo_mgn.types.list_network_migration_insights_request
+    import capo_mgn.types.list_network_migration_insights_response
     import capo_mgn.types.list_network_migration_mapper_segment_constructs_filters
     import capo_mgn.types.list_network_migration_mapper_segment_constructs_request
     import capo_mgn.types.list_network_migration_mapper_segment_constructs_response
@@ -75,6 +80,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.network_migration_deployer_job_details
     import capo_mgn.types.network_migration_execution
     import capo_mgn.types.network_migration_execution_id
+    import capo_mgn.types.network_migration_insight
     import capo_mgn.types.network_migration_mapper_segment
     import capo_mgn.types.network_migration_mapper_segment_construct
     import capo_mgn.types.network_migration_mapping_job_details
@@ -129,6 +135,9 @@ class NetworkMigrationDefinitionResource:
         source_configurations: Optional[
             "capo_mgn.types.source_configuration_list.SourceConfigurationList"
         ] = None,
+        definition_type: Optional[
+            "capo_mgn.types.definition_type.DefinitionType"
+        ] = None,
         target_deployment: Optional[
             "capo_mgn.types.target_deployment.TargetDeployment"
         ] = None,
@@ -148,6 +157,7 @@ class NetworkMigrationDefinitionResource:
             name: <p>The name of the network migration definition.</p>
             description: <p>A description of the network migration definition.</p>
             source_configurations: <p>A list of source configurations for the network migration.</p>
+            definition_type: <p>Specifies the type of the definition. <code>MIGRATION</code> migrates an existing network. <code>NEW_NETWORK</code> designs a new network. If you omit this value, the definition type is <code>MIGRATION</code>.</p>
             target_s3_configuration: <p>The S3 configuration for storing the target network artifacts.</p>
             target_network: <p>The target network configuration including topology and CIDR ranges.</p>
             target_deployment: <p>The target deployment configuration for the migrated network.</p>
@@ -217,6 +227,8 @@ class NetworkMigrationDefinitionResource:
             input_["description"] = description
         if source_configurations is not None:
             input_["source_configurations"] = source_configurations
+        if definition_type is not None:
+            input_["definition_type"] = definition_type
         if target_deployment is not None:
             input_["target_deployment"] = target_deployment
         if vpc_provisioning_strategy is not None:
@@ -266,6 +278,9 @@ class NetworkMigrationDefinitionResource:
             "capo_mgn.types.cidr_mappings_list.CidrMappingsList"
         ] = None,
         scope_tags: Optional["capo_mgn.types.scope_tags_map.ScopeTagsMap"] = None,
+        definition_type: Optional[
+            "capo_mgn.types.definition_type.DefinitionType"
+        ] = None,
     ) -> "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition":
         """<p>Updates an existing network migration definition with new source or target configurations.</p>
 
@@ -280,6 +295,7 @@ class NetworkMigrationDefinitionResource:
             vpc_provisioning_strategy: <p>Updates whether the migration creates new target VPCs or uses existing ones. Set to <code>USE_EXISTING</code> to migrate into existing VPCs in the target account, or to <code>CREATE_NEW</code> to provision new target VPCs.</p>
             cidr_mappings: <p>The updated list of CIDR mappings that map original source CIDR ranges to updated target CIDR ranges. CIDR mappings can be provided only when <code>vpcProvisioningStrategy</code> is set to <code>USE_EXISTING</code>.</p>
             scope_tags: <p>The updated scope tags for the network migration definition.</p>
+            definition_type: <p>The updated type of the network migration definition.</p>
 
         Raises:
             capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
@@ -352,6 +368,8 @@ class NetworkMigrationDefinitionResource:
             input_["cidr_mappings"] = cidr_mappings
         if scope_tags is not None:
             input_["scope_tags"] = scope_tags
+        if definition_type is not None:
+            input_["definition_type"] = definition_type
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1100,6 +1118,93 @@ class NetworkMigrationDefinitionResource:
         response.response.close()
         return response.output
 
+    def list_network_migration_insights(
+        self,
+        network_migration_definition_id: "capo_mgn.types.network_migration_definition_id.NetworkMigrationDefinitionID",
+        *,
+        config_overrides: Optional[mgnClientConfig] = None,
+        network_migration_execution_id: Optional[
+            "capo_mgn.types.network_migration_execution_id.NetworkMigrationExecutionID"
+        ] = None,
+        producer_id: Optional[
+            "capo_mgn.types.insight_producer_id.InsightProducerID"
+        ] = None,
+        segment_id: Optional["capo_mgn.types.segment_id.SegmentID"] = None,
+        construct_id: Optional["capo_mgn.types.construct_id.ConstructID"] = None,
+        filters: Optional[
+            "capo_mgn.types.list_network_migration_insights_filters.ListNetworkMigrationInsightsFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+    ) -> "capo_mgn.types.list_network_migration_insights_response.ListNetworkMigrationInsightsResponse":
+        """<p>Lists network migration insights for a network migration definition.</p>
+
+        Args:
+            network_migration_definition_id: <p>The unique identifier of the network migration definition.</p>
+            network_migration_execution_id: <p>The unique identifier of the network migration execution to narrow the results to.</p>
+            producer_id: <p>The identifier of the job or API request to narrow the results to.</p>
+            segment_id: <p>The unique identifier of the segment to narrow the results to.</p>
+            construct_id: <p>The unique identifier of the construct to narrow the results to.</p>
+            filters: <p>Filters to apply when listing insights.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+
+        Raises:
+            capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.throttling_exception.ThrottlingException: <p>Reached throttling quota exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List the WARNING insights a mapping job recorded for one construct
+
+            >>> client.list_network_migration_insights(network_migration_definition_id='nmd-54cf850b22f7cf65e', network_migration_execution_id='b1235ba8-398e-4ef0-b803-78c8c85b5021', producer_id='f7aa9266-b070-421b-a630-e503783b7f12', filters={'insightTypes': ['WARNING']})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mgn.types.list_network_migration_insights_request.ListNetworkMigrationInsightsRequest]",
+        ) -> OperationResponse[
+            "capo_mgn.types.list_network_migration_insights_response.ListNetworkMigrationInsightsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_network_migration_insights
+
+            output, http_response = (
+                capo_mgn._operations.application_migration_service.list_network_migration_insights.list_network_migration_insights(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationInsights")
+        )
+        input_: capo_mgn.types.list_network_migration_insights_request.ListNetworkMigrationInsightsRequest = {
+            "network_migration_definition_id": network_migration_definition_id
+        }
+        if network_migration_execution_id is not None:
+            input_["network_migration_execution_id"] = network_migration_execution_id
+        if producer_id is not None:
+            input_["producer_id"] = producer_id
+        if segment_id is not None:
+            input_["segment_id"] = segment_id
+        if construct_id is not None:
+            input_["construct_id"] = construct_id
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def list_network_migration_mapper_segment_constructs(
         self,
         network_migration_execution_id: "capo_mgn.types.network_migration_execution_id.NetworkMigrationExecutionID",
@@ -1112,6 +1217,8 @@ class NetworkMigrationDefinitionResource:
         ] = None,
         max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
         next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        include_enriched_properties: Optional[bool] = None,
+        include_configuration: Optional[bool] = None,
     ) -> "capo_mgn.types.list_network_migration_mapper_segment_constructs_response.ListNetworkMigrationMapperSegmentConstructsResponse":
         """<p>Lists constructs within a mapper segment, representing individual infrastructure components like VPCs, subnets, or security groups.</p>
 
@@ -1122,6 +1229,8 @@ class NetworkMigrationDefinitionResource:
             filters: <p>Filters to apply when listing constructs, such as construct type or ID.</p>
             max_results: <p>The maximum number of results to return in a single call.</p>
             next_token: <p>The token for the next page of results.</p>
+            include_enriched_properties: <p>Whether to return construct properties using their native value types.</p>
+            include_configuration: <p>Whether to return construct-type-specific behavioral configuration.</p>
 
         Raises:
             capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
@@ -1168,6 +1277,10 @@ class NetworkMigrationDefinitionResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if include_enriched_properties is not None:
+            input_["include_enriched_properties"] = include_enriched_properties
+        if include_configuration is not None:
+            input_["include_configuration"] = include_configuration
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1835,6 +1948,9 @@ class AsyncNetworkMigrationDefinitionResource:
         source_configurations: Optional[
             "capo_mgn.types.source_configuration_list.SourceConfigurationList"
         ] = None,
+        definition_type: Optional[
+            "capo_mgn.types.definition_type.DefinitionType"
+        ] = None,
         target_deployment: Optional[
             "capo_mgn.types.target_deployment.TargetDeployment"
         ] = None,
@@ -1854,6 +1970,7 @@ class AsyncNetworkMigrationDefinitionResource:
             name: <p>The name of the network migration definition.</p>
             description: <p>A description of the network migration definition.</p>
             source_configurations: <p>A list of source configurations for the network migration.</p>
+            definition_type: <p>Specifies the type of the definition. <code>MIGRATION</code> migrates an existing network. <code>NEW_NETWORK</code> designs a new network. If you omit this value, the definition type is <code>MIGRATION</code>.</p>
             target_s3_configuration: <p>The S3 configuration for storing the target network artifacts.</p>
             target_network: <p>The target network configuration including topology and CIDR ranges.</p>
             target_deployment: <p>The target deployment configuration for the migrated network.</p>
@@ -1924,6 +2041,8 @@ class AsyncNetworkMigrationDefinitionResource:
             input_["description"] = description
         if source_configurations is not None:
             input_["source_configurations"] = source_configurations
+        if definition_type is not None:
+            input_["definition_type"] = definition_type
         if target_deployment is not None:
             input_["target_deployment"] = target_deployment
         if vpc_provisioning_strategy is not None:
@@ -1973,6 +2092,9 @@ class AsyncNetworkMigrationDefinitionResource:
             "capo_mgn.types.cidr_mappings_list.CidrMappingsList"
         ] = None,
         scope_tags: Optional["capo_mgn.types.scope_tags_map.ScopeTagsMap"] = None,
+        definition_type: Optional[
+            "capo_mgn.types.definition_type.DefinitionType"
+        ] = None,
     ) -> "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition":
         """<p>Updates an existing network migration definition with new source or target configurations.</p>
 
@@ -1987,6 +2109,7 @@ class AsyncNetworkMigrationDefinitionResource:
             vpc_provisioning_strategy: <p>Updates whether the migration creates new target VPCs or uses existing ones. Set to <code>USE_EXISTING</code> to migrate into existing VPCs in the target account, or to <code>CREATE_NEW</code> to provision new target VPCs.</p>
             cidr_mappings: <p>The updated list of CIDR mappings that map original source CIDR ranges to updated target CIDR ranges. CIDR mappings can be provided only when <code>vpcProvisioningStrategy</code> is set to <code>USE_EXISTING</code>.</p>
             scope_tags: <p>The updated scope tags for the network migration definition.</p>
+            definition_type: <p>The updated type of the network migration definition.</p>
 
         Raises:
             capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
@@ -2060,6 +2183,8 @@ class AsyncNetworkMigrationDefinitionResource:
             input_["cidr_mappings"] = cidr_mappings
         if scope_tags is not None:
             input_["scope_tags"] = scope_tags
+        if definition_type is not None:
+            input_["definition_type"] = definition_type
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2819,6 +2944,94 @@ class AsyncNetworkMigrationDefinitionResource:
         await response.response.aclose()
         return response.output
 
+    async def list_network_migration_insights(
+        self,
+        network_migration_definition_id: "capo_mgn.types.network_migration_definition_id.NetworkMigrationDefinitionID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        network_migration_execution_id: Optional[
+            "capo_mgn.types.network_migration_execution_id.NetworkMigrationExecutionID"
+        ] = None,
+        producer_id: Optional[
+            "capo_mgn.types.insight_producer_id.InsightProducerID"
+        ] = None,
+        segment_id: Optional["capo_mgn.types.segment_id.SegmentID"] = None,
+        construct_id: Optional["capo_mgn.types.construct_id.ConstructID"] = None,
+        filters: Optional[
+            "capo_mgn.types.list_network_migration_insights_filters.ListNetworkMigrationInsightsFilters"
+        ] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+    ) -> "capo_mgn.types.list_network_migration_insights_response.ListNetworkMigrationInsightsResponse":
+        """<p>Lists network migration insights for a network migration definition.</p>
+
+        Args:
+            network_migration_definition_id: <p>The unique identifier of the network migration definition.</p>
+            network_migration_execution_id: <p>The unique identifier of the network migration execution to narrow the results to.</p>
+            producer_id: <p>The identifier of the job or API request to narrow the results to.</p>
+            segment_id: <p>The unique identifier of the segment to narrow the results to.</p>
+            construct_id: <p>The unique identifier of the construct to narrow the results to.</p>
+            filters: <p>Filters to apply when listing insights.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+
+        Raises:
+            capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.throttling_exception.ThrottlingException: <p>Reached throttling quota exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List the WARNING insights a mapping job recorded for one construct
+
+            >>> await client.list_network_migration_insights(network_migration_definition_id='nmd-54cf850b22f7cf65e', network_migration_execution_id='b1235ba8-398e-4ef0-b803-78c8c85b5021', producer_id='f7aa9266-b070-421b-a630-e503783b7f12', filters={'insightTypes': ['WARNING']})
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.list_network_migration_insights_request.ListNetworkMigrationInsightsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.list_network_migration_insights_response.ListNetworkMigrationInsightsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_network_migration_insights
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.list_network_migration_insights.async_list_network_migration_insights(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationInsights")
+        )
+        input_: capo_mgn.types.list_network_migration_insights_request.ListNetworkMigrationInsightsRequest = {
+            "network_migration_definition_id": network_migration_definition_id
+        }
+        if network_migration_execution_id is not None:
+            input_["network_migration_execution_id"] = network_migration_execution_id
+        if producer_id is not None:
+            input_["producer_id"] = producer_id
+        if segment_id is not None:
+            input_["segment_id"] = segment_id
+        if construct_id is not None:
+            input_["construct_id"] = construct_id
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def list_network_migration_mapper_segment_constructs(
         self,
         network_migration_execution_id: "capo_mgn.types.network_migration_execution_id.NetworkMigrationExecutionID",
@@ -2831,6 +3044,8 @@ class AsyncNetworkMigrationDefinitionResource:
         ] = None,
         max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
         next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        include_enriched_properties: Optional[bool] = None,
+        include_configuration: Optional[bool] = None,
     ) -> "capo_mgn.types.list_network_migration_mapper_segment_constructs_response.ListNetworkMigrationMapperSegmentConstructsResponse":
         """<p>Lists constructs within a mapper segment, representing individual infrastructure components like VPCs, subnets, or security groups.</p>
 
@@ -2841,6 +3056,8 @@ class AsyncNetworkMigrationDefinitionResource:
             filters: <p>Filters to apply when listing constructs, such as construct type or ID.</p>
             max_results: <p>The maximum number of results to return in a single call.</p>
             next_token: <p>The token for the next page of results.</p>
+            include_enriched_properties: <p>Whether to return construct properties using their native value types.</p>
+            include_configuration: <p>Whether to return construct-type-specific behavioral configuration.</p>
 
         Raises:
             capo_mgn.errors.access_denied_exception.AccessDeniedException: <p>Operation denied due to a file permission or access check error.</p>
@@ -2888,6 +3105,10 @@ class AsyncNetworkMigrationDefinitionResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if include_enriched_properties is not None:
+            input_["include_enriched_properties"] = include_enriched_properties
+        if include_configuration is not None:
+            input_["include_configuration"] = include_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

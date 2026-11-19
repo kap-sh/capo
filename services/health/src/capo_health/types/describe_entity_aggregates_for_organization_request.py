@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_health.types.organization_account_ids_list
+    import capo_health.types.organization_entity_aggregate_filter
     import capo_health.types.organization_event_arns_list
 
 
@@ -18,6 +19,10 @@ class DescribeEntityAggregatesForOrganizationRequest(TypedDict, closed=True):
         "capo_health.types.organization_account_ids_list.OrganizationAccountIdsList"
     ]
     """<p>A list of 12-digit Amazon Web Services account numbers that contains the affected entities.</p>"""
+    filter: NotRequired[
+        "capo_health.types.organization_entity_aggregate_filter.OrganizationEntityAggregateFilter"
+    ]
+    """<p>Values to narrow the results returned.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -38,6 +43,14 @@ def serialize_aws_json_1_1(
         out["awsAccountIds"] = (
             capo_health.types.organization_account_ids_list.serialize_aws_json_1_1(
                 value["aws_account_ids"]
+            )
+        )
+    if "filter" in value:
+        import capo_health.types.organization_entity_aggregate_filter
+
+        out["filter"] = (
+            capo_health.types.organization_entity_aggregate_filter.serialize_aws_json_1_1(
+                value["filter"]
             )
         )
     return out
@@ -63,6 +76,14 @@ def deserialize_aws_json_1_1(
         out["aws_account_ids"] = (
             capo_health.types.organization_account_ids_list.deserialize_aws_json_1_1(
                 data["awsAccountIds"]
+            )
+        )
+    if data.get("filter") is not None:
+        import capo_health.types.organization_entity_aggregate_filter
+
+        out["filter"] = (
+            capo_health.types.organization_entity_aggregate_filter.deserialize_aws_json_1_1(
+                data["filter"]
             )
         )
     return out

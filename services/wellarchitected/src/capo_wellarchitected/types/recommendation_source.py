@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The origin system that produced a recommendation.</p>"""
 RecommendationSource: TypeAlias = Literal[
     "TRUSTED_ADVISOR",
     "COST_EXPLORER",

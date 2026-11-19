@@ -868,6 +868,7 @@
 - [MediaPackageOutputDestinationSettings](media_package_output_destination_settings.md)
 - [MediaPackageOutputSettings](media_package_output_settings.md)
 - [MediaPackageV2AbWatermarkerIrdetoSettings](media_package_v2_ab_watermarker_irdeto_settings.md)
+- [MediaPackageV2CaptionLanguageSetting](media_package_v2_caption_language_setting.md)
 - [MediaPackageV2DestinationSettings](media_package_v2_destination_settings.md)
 - [MediaPackageV2GroupSettings](media_package_v2_group_settings.md)
 - [MediaPackageV2WatermarkingSettings](media_package_v2_watermarking_settings.md)

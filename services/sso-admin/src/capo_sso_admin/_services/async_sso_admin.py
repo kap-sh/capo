@@ -201,6 +201,7 @@ if TYPE_CHECKING:
     import capo_sso_admin.types.managed_policy_arn
     import capo_sso_admin.types.max_results
     import capo_sso_admin.types.name_type
+    import capo_sso_admin.types.network_configuration_info
     import capo_sso_admin.types.operation_status_filter
     import capo_sso_admin.types.permission_set_arn
     import capo_sso_admin.types.permission_set_description
@@ -4542,14 +4543,18 @@ class AsyncSSOAdminClient:
             "capo_sso_admin.types.encryption_configuration.EncryptionConfiguration"
         ] = None,
         permission_sets_enabled: Optional[bool] = None,
+        network_configuration: Optional[
+            "capo_sso_admin.types.network_configuration_info.NetworkConfigurationInfo"
+        ] = None,
     ) -> "capo_sso_admin.types.update_instance_response.UpdateInstanceResponse":
-        """<p>Update the details for the instance of IAM Identity Center that is owned by the Amazon Web Services account.</p> <p>In a single <code>UpdateInstance</code> request, you can perform only one of the following operations:</p> <ul> <li> <p>Update the encryption configuration of the instance by specifying <code>EncryptionConfiguration</code>.</p> </li> <li> <p>Enable permission sets for the instance by specifying <code>PermissionSetsEnabled</code>.</p> </li> </ul> <p>If you specify both <code>EncryptionConfiguration</code> and <code>PermissionSetsEnabled</code> in a request, the request returns a <code>ValidationException</code>. To perform both operations, call <code>UpdateInstance</code> separately for each. You can make the two calls in parallel.</p>
+        """<p>Update the details for the instance of IAM Identity Center that is owned by the Amazon Web Services account.</p> <p>In a single <code>UpdateInstance</code> request, you can perform only one of the following operations:</p> <ul> <li> <p>Update the encryption configuration of the instance by specifying <code>EncryptionConfiguration</code>.</p> </li> <li> <p>Enable permission sets for the instance by specifying <code>PermissionSetsEnabled</code>.</p> </li> <li> <p>Update the network configuration of the instance by specifying <code>NetworkConfiguration</code>.</p> </li> </ul> <p>A request that specifies more than one of <code>EncryptionConfiguration</code>, <code>PermissionSetsEnabled</code>, and <code>NetworkConfiguration</code> returns a <code>ValidationException</code>. To perform more than one of these operations, call <code>UpdateInstance</code> separately for each. The calls can be made in parallel.</p>
 
         Args:
             name: <p>Updates the instance name.</p>
             instance_arn: <p>The ARN of the instance of IAM Identity Center under which the operation will run. For more information about ARNs, see <a href="/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.</p>
-            encryption_configuration: <p>Specifies the encryption configuration for your IAM Identity Center instance. You can use this to configure customer managed KMS keys or Amazon Web Services owned KMS keys for encrypting your instance data.</p>
-            permission_sets_enabled: <p>Enables permission sets for this Identity Center instance. The only accepted value is <code>true </code>. After permission sets are enabled, they cannot be disabled.</p> <note> <p>You can't set <code>EncryptionConfiguration</code> and <code>PermissionSetsEnabled</code> in the same request. To configure both, make two separate <code>UpdateInstance</code> calls. You can make these calls in parallel.</p> </note>
+            encryption_configuration: <p>Specifies the encryption configuration for your IAM Identity Center instance. You can use this to configure customer managed KMS keys or Amazon Web Services owned KMS keys for encrypting your instance data.</p> <note> <p>You can't set more than one of <code>EncryptionConfiguration</code>, <code>PermissionSetsEnabled</code>, and <code>NetworkConfiguration</code> in the same request. To configure more than one of them, make a separate <code>UpdateInstance</code> call for each. These calls can be made in parallel.</p> </note>
+            permission_sets_enabled: <p>Enables permission sets for this Identity Center instance. The only accepted value is <code>true </code>. After permission sets are enabled, they cannot be disabled.</p>
+            network_configuration: <p>Specifies the network access controls for your Identity Center instance. Use this to require that access to your instance and to applications originates from VPC endpoints, and to optionally restrict which VPCs are permitted, allow specific IP address ranges that bypass the VPC endpoint requirement, or exempt specific applications from the controls.</p> <p>If you omit <code>NetworkConfiguration</code>, the stored network configuration is preserved. If you specify <code>NetworkConfiguration</code>, it replaces the stored network configuration in its entirety. Any list that you omit from the object, or include as an empty list, is cleared.</p>
 
         Raises:
             capo_sso_admin.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -4588,6 +4593,8 @@ class AsyncSSOAdminClient:
             input_["encryption_configuration"] = encryption_configuration
         if permission_sets_enabled is not None:
             input_["permission_sets_enabled"] = permission_sets_enabled
+        if network_configuration is not None:
+            input_["network_configuration"] = network_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.bounded_string
     import capo_marketplace_agreement.types.estimated_taxes
+    import capo_marketplace_agreement.types.purchase_order_reference
     import capo_marketplace_agreement.types.resource_id
     import capo_marketplace_agreement.types.timestamp
     import capo_marketplace_agreement.types.timing
@@ -29,6 +30,10 @@ class ExpectedCharge(TypedDict, closed=True):
         "capo_marketplace_agreement.types.estimated_taxes.EstimatedTaxes"
     ]
     """<p>Provides an aggregated view of estimated tax information for this specific charge.</p>"""
+    purchase_order_reference: NotRequired[
+        "capo_marketplace_agreement.types.purchase_order_reference.PurchaseOrderReference"
+    ]
+    """<p>The purchase order reference associated with the charge, if any.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -60,6 +65,8 @@ def serialize_aws_json_1_0(value: ExpectedCharge) -> dict:
                 value["estimated_taxes"]
             )
         )
+    if "purchase_order_reference" in value:
+        out["purchaseOrderReference"] = value["purchase_order_reference"]
     return out
 
 
@@ -95,4 +102,6 @@ def deserialize_aws_json_1_0(data: dict) -> ExpectedCharge:
                 data["estimatedTaxes"]
             )
         )
+    if data.get("purchaseOrderReference") is not None:
+        out["purchase_order_reference"] = data["purchaseOrderReference"]
     return out

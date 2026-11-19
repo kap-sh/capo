@@ -42,6 +42,7 @@ StateReasonCode: TypeAlias = Literal[
     "FunctionError.InitResourceExhausted",
     "DisallowedByVpcEncryptionControl",
     "DrainingDurableExecutions",
+    "IncompatibleAcceleratorInstanceTypes",
     "DependencyError",
 ]
 

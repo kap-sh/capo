@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.allowed_clients_list
     import capo_bedrock_agentcore_control.types.allowed_scopes_type
     import capo_bedrock_agentcore_control.types.allowed_workload_configuration
+    import capo_bedrock_agentcore_control.types.certificate_configuration_list
     import capo_bedrock_agentcore_control.types.custom_claim_validations_type
     import capo_bedrock_agentcore_control.types.discovery_url
     import capo_bedrock_agentcore_control.types.private_endpoint
@@ -46,6 +47,10 @@ class CustomJWTAuthorizerConfiguration(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.private_endpoint_overrides.PrivateEndpointOverrides"
     ]
     """<p>The private endpoint overrides for the custom JWT authorizer configuration.</p>"""
+    certificate_configurations: NotRequired[
+        "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+    ]
+    """<p>The private certificate authority (CA) configurations for the identity provider. Use this to have AgentCore Identity trust a private CA when establishing TLS connections to identity provider endpoints. You can specify only one certificate authority configuration in this list. Provide the certificate by reference to an Amazon S3 object or an Amazon Web Services Secrets Manager secret. You can use this only together with <code>privateEndpoint</code>.</p>"""
     allowed_workload_configuration: NotRequired[
         "capo_bedrock_agentcore_control.types.allowed_workload_configuration.AllowedWorkloadConfiguration"
     ]
@@ -110,6 +115,14 @@ def serialize_json(value: CustomJWTAuthorizerConfiguration) -> dict:
         out["privateEndpointOverrides"] = (
             capo_bedrock_agentcore_control.types.private_endpoint_overrides.serialize_json(
                 value["private_endpoint_overrides"]
+            )
+        )
+    if "certificate_configurations" in value:
+        import capo_bedrock_agentcore_control.types.certificate_configuration_list
+
+        out["certificateConfigurations"] = (
+            capo_bedrock_agentcore_control.types.certificate_configuration_list.serialize_json(
+                value["certificate_configurations"]
             )
         )
     if "allowed_workload_configuration" in value:
@@ -183,6 +196,14 @@ def deserialize_json(data: dict) -> CustomJWTAuthorizerConfiguration:
         out["private_endpoint_overrides"] = (
             capo_bedrock_agentcore_control.types.private_endpoint_overrides.deserialize_json(
                 data["privateEndpointOverrides"]
+            )
+        )
+    if data.get("certificateConfigurations") is not None:
+        import capo_bedrock_agentcore_control.types.certificate_configuration_list
+
+        out["certificate_configurations"] = (
+            capo_bedrock_agentcore_control.types.certificate_configuration_list.deserialize_json(
+                data["certificateConfigurations"]
             )
         )
     if data.get("allowedWorkloadConfiguration") is not None:

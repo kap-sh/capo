@@ -8,6 +8,7 @@ from capo_connect.errors import DeserializationError, SerializationError
 from capo_connect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
+    import capo_connect.types.single_select_question_automation_rule
     import capo_connect.types.single_select_question_rule_category_automation
 
 
@@ -17,8 +18,15 @@ class EvaluationFormSingleSelectQuestionAutomationOptionRuleCategoryMember(
     RuleCategory: "capo_connect.types.single_select_question_rule_category_automation.SingleSelectQuestionRuleCategoryAutomation"
 
 
+class EvaluationFormSingleSelectQuestionAutomationOptionAutomationRuleMember(
+    TypedDict, closed=True
+):
+    AutomationRule: "capo_connect.types.single_select_question_automation_rule.SingleSelectQuestionAutomationRule"
+
+
 EvaluationFormSingleSelectQuestionAutomationOption: TypeAlias = (
     EvaluationFormSingleSelectQuestionAutomationOptionRuleCategoryMember
+    | EvaluationFormSingleSelectQuestionAutomationOptionAutomationRuleMember
     | UnknownUnionMember
 )
 
@@ -37,6 +45,14 @@ def serialize_json(value: EvaluationFormSingleSelectQuestionAutomationOption) ->
                 value["RuleCategory"]
             )
         }
+    elif "AutomationRule" in value:
+        import capo_connect.types.single_select_question_automation_rule
+
+        return {
+            "AutomationRule": capo_connect.types.single_select_question_automation_rule.serialize_json(
+                value["AutomationRule"]
+            )
+        }
     else:
         raise SerializationError(
             "EvaluationFormSingleSelectQuestionAutomationOption: no variant present"
@@ -50,6 +66,14 @@ def deserialize_json(data: dict) -> EvaluationFormSingleSelectQuestionAutomation
         return {
             "RuleCategory": capo_connect.types.single_select_question_rule_category_automation.deserialize_json(
                 data["RuleCategory"]
+            )
+        }
+    elif data.get("AutomationRule") is not None:
+        import capo_connect.types.single_select_question_automation_rule
+
+        return {
+            "AutomationRule": capo_connect.types.single_select_question_automation_rule.deserialize_json(
+                data["AutomationRule"]
             )
         }
     else:

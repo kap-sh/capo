@@ -14,7 +14,7 @@ class ListWorkflowStepExecutionsRequest(TypedDict, closed=True):
     max_results: NotRequired[
         "capo_imagebuilder.types.restricted_integer.RestrictedInteger"
     ]
-    """<p>The maximum number of items to return in a single request.</p>"""
+    """<p>The maximum number of items to return in a single request. If you don't specify a value, Image Builder returns up to 25 items. The largest page size that you can request is 100 items. A page can contain fewer items than the maximum, with a <code>nextToken</code> to continue paging.</p>"""
     next_token: NotRequired["capo_imagebuilder.types.pagination_token.PaginationToken"]
     """<p>A token to specify where to start paginating. Use the <code>nextToken</code> value from a previously truncated response.</p>"""
     workflow_execution_id: (

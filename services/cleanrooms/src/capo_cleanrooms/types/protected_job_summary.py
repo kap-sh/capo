@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import datetime
 
     import capo_cleanrooms.types.account_id
+    import capo_cleanrooms.types.intermediate_table_output_configuration
     import capo_cleanrooms.types.membership_arn
     import capo_cleanrooms.types.membership_identifier
     import capo_cleanrooms.types.protected_job_receiver_configurations
@@ -32,6 +33,10 @@ class ProtectedJobSummary(TypedDict, closed=True):
         "capo_cleanrooms.types.account_id.AccountId"
     ]
     """<p>The account ID of the member that pays for the job compute costs.</p>"""
+    intermediate_table_configuration: NotRequired[
+        "capo_cleanrooms.types.intermediate_table_output_configuration.IntermediateTableOutputConfiguration"
+    ]
+    """<p>The intermediate table that the protected job populated. This field is present when the protected job was triggered by a <code>PopulateIntermediateTable</code> operation.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -59,6 +64,14 @@ def serialize_json(value: ProtectedJobSummary) -> dict:
     )
     if "job_compute_payer_account_id" in value:
         out["jobComputePayerAccountId"] = value["job_compute_payer_account_id"]
+    if "intermediate_table_configuration" in value:
+        import capo_cleanrooms.types.intermediate_table_output_configuration
+
+        out["intermediateTableConfiguration"] = (
+            capo_cleanrooms.types.intermediate_table_output_configuration.serialize_json(
+                value["intermediate_table_configuration"]
+            )
+        )
     return out
 
 
@@ -112,4 +125,12 @@ def deserialize_json(data: dict) -> ProtectedJobSummary:
         out["receiver_configurations"] = []
     if data.get("jobComputePayerAccountId") is not None:
         out["job_compute_payer_account_id"] = data["jobComputePayerAccountId"]
+    if data.get("intermediateTableConfiguration") is not None:
+        import capo_cleanrooms.types.intermediate_table_output_configuration
+
+        out["intermediate_table_configuration"] = (
+            capo_cleanrooms.types.intermediate_table_output_configuration.deserialize_json(
+                data["intermediateTableConfiguration"]
+            )
+        )
     return out

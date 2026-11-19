@@ -21,7 +21,7 @@ class UpdateProxySettingsResponse(TypedDict, closed=True):
     proxy_settings: NotRequired[
         "capo_network_firewall.types.proxy_settings.ProxySettings"
     ]
-    """<p>The updated proxy listener configuration on the firewall. </p>"""
+    """<p>The updated proxy settings for the firewall. </p>"""
 
 
 # --- awsJson1_0 ser/de ---

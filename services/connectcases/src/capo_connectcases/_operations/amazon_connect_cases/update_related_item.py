@@ -13,6 +13,7 @@ import capo_connectcases._auth._signers
 import capo_connectcases._auth._sigv4
 import capo_connectcases._protocol.eventstream
 import capo_connectcases.errors.access_denied_exception
+import capo_connectcases.errors.conflict_exception
 import capo_connectcases.errors.internal_server_exception
 import capo_connectcases.errors.resource_not_found_exception
 import capo_connectcases.errors.service_quota_exceeded_exception
@@ -41,6 +42,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_connectcases.errors.access_denied_exception.AccessDeniedException.from_json(
+                data, message, response=response
+            )
+        case "ConflictException":
+            raise capo_connectcases.errors.conflict_exception.ConflictException.from_json(
                 data, message, response=response
             )
         case "InternalServerException":

@@ -35,7 +35,15 @@ from capo_health._services._pipeline import (
 
 if TYPE_CHECKING:
     import capo_health.types.account_id
+    import capo_health.types.account_tag
+    import capo_health.types.affected_account_filter
     import capo_health.types.affected_entity
+    import capo_health.types.configure_tags_for_organization_request
+    import capo_health.types.configure_tags_for_organization_response
+    import capo_health.types.configure_tags_for_organization_tag_key_list
+    import capo_health.types.configure_tags_request
+    import capo_health.types.configure_tags_request_tag_key_list
+    import capo_health.types.configure_tags_response
     import capo_health.types.describe_affected_accounts_for_organization_request
     import capo_health.types.describe_affected_accounts_for_organization_response
     import capo_health.types.describe_affected_entities_for_organization_request
@@ -61,6 +69,16 @@ if TYPE_CHECKING:
     import capo_health.types.describe_health_service_status_for_organization_response
     import capo_health.types.describe_service_lifecycle_request
     import capo_health.types.describe_service_lifecycle_response
+    import capo_health.types.describe_tag_keys_for_organization_response
+    import capo_health.types.describe_tag_keys_response
+    import capo_health.types.describe_tags_for_organization_filter
+    import capo_health.types.describe_tags_for_organization_request
+    import capo_health.types.describe_tags_for_organization_response
+    import capo_health.types.describe_tags_onboarding_status_for_organization_response
+    import capo_health.types.describe_tags_onboarding_status_response
+    import capo_health.types.describe_tags_request
+    import capo_health.types.describe_tags_response
+    import capo_health.types.entity_aggregate_filter
     import capo_health.types.entity_filter
     import capo_health.types.event
     import capo_health.types.event_aggregate
@@ -78,11 +96,13 @@ if TYPE_CHECKING:
     import capo_health.types.next_token
     import capo_health.types.organization_account_ids_list
     import capo_health.types.organization_entity_account_filters_list
+    import capo_health.types.organization_entity_aggregate_filter
     import capo_health.types.organization_entity_filters_list
     import capo_health.types.organization_event
     import capo_health.types.organization_event_arns_list
     import capo_health.types.organization_event_detail_filters_list
     import capo_health.types.organization_event_filter
+    import capo_health.types.organization_tag
     import capo_health.types.service_lifecycle
     import capo_health.types.service_lifecycle_filter
 
@@ -204,6 +224,96 @@ class AsyncHealthClient:
         )
         return interceptors_, options_
 
+    async def configure_tags(
+        self,
+        tag_keys: "capo_health.types.configure_tags_request_tag_key_list.ConfigureTagsRequestTagKeyList",
+        *,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+    ) -> "capo_health.types.configure_tags_response.ConfigureTagsResponse":
+        """<p>Configures which resource tag keys are tracked by Health for your account. This operation replaces the existing configuration with the specified tag keys. Only configured tag keys will appear in Health event data.</p>
+
+        Args:
+            tag_keys: <p>The list of resource tag keys to configure for Health event tracking.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_health.types.configure_tags_request.ConfigureTagsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.configure_tags_response.ConfigureTagsResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.configure_tags
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.configure_tags.async_configure_tags(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfigureTags")
+        )
+        input_: capo_health.types.configure_tags_request.ConfigureTagsRequest = {
+            "tag_keys": tag_keys
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def configure_tags_for_organization(
+        self,
+        tag_keys: "capo_health.types.configure_tags_for_organization_tag_key_list.ConfigureTagsForOrganizationTagKeyList",
+        *,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+    ) -> "capo_health.types.configure_tags_for_organization_response.ConfigureTagsForOrganizationResponse":
+        """<p>Configures which tag keys are tracked by Health for all accounts in your organization. This operation replaces the existing configuration with the specified tag keys. Only configured tag keys will appear in Health event data across the organization.</p>
+
+        Args:
+            tag_keys: <p>The list of tag keys to configure for Health event tracking across the organization.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_health.types.configure_tags_for_organization_request.ConfigureTagsForOrganizationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.configure_tags_for_organization_response.ConfigureTagsForOrganizationResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.configure_tags_for_organization
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.configure_tags_for_organization.async_configure_tags_for_organization(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfigureTagsForOrganization")
+        )
+        input_: capo_health.types.configure_tags_for_organization_request.ConfigureTagsForOrganizationRequest = {
+            "tag_keys": tag_keys
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def describe_affected_accounts_for_organization(
         self,
         event_arn: "capo_health.types.event_arn.eventArn",
@@ -211,6 +321,9 @@ class AsyncHealthClient:
         config_overrides: Optional[AsyncHealthClientConfig] = None,
         next_token: Optional["capo_health.types.next_token.nextToken"] = None,
         max_results: Optional["capo_health.types.max_results.maxResults"] = None,
+        filter: Optional[
+            "capo_health.types.affected_account_filter.AffectedAccountFilter"
+        ] = None,
     ) -> "capo_health.types.describe_affected_accounts_for_organization_response.DescribeAffectedAccountsForOrganizationResponse":
         """<p>Returns a list of accounts in the organization from Organizations that are affected by the provided event. For more information about the different types of Health events, see <a href="https://docs.aws.amazon.com/health/latest/APIReference/API_Event.html">Event</a>. </p> <p>Before you can call this operation, you must first enable Health to work with Organizations. To do this, call the <a href="https://docs.aws.amazon.com/health/latest/APIReference/API_EnableHealthServiceAccessForOrganization.html">EnableHealthServiceAccessForOrganization</a> operation from your organization's management account.</p> <note> <p>This API operation uses pagination. Specify the <code>nextToken</code> parameter in the next request to return more results.</p> </note>
 
@@ -218,6 +331,7 @@ class AsyncHealthClient:
             event_arn: <p>The unique identifier for the event. The event ARN has the <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code> format.</p> <p>For example, an event ARN might look like the following:</p> <p> <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code> </p>
             next_token: <p>If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.</p>
             max_results: <p>The maximum number of items to return in one batch, between 10 and 100, inclusive.</p>
+            filter: <p>Values to narrow the results returned.</p>
 
         Raises:
             capo_health.errors.invalid_pagination_token.InvalidPaginationToken: <p>The specified pagination token (<code>nextToken</code>) is not valid.</p>
@@ -250,6 +364,8 @@ class AsyncHealthClient:
             input_["next_token"] = next_token
         if max_results is not None:
             input_["max_results"] = max_results
+        if filter is not None:
+            input_["filter"] = filter
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -266,6 +382,9 @@ class AsyncHealthClient:
         config_overrides: Optional[AsyncHealthClientConfig] = None,
         next_token: Optional["capo_health.types.next_token.nextToken"] = None,
         max_results: Optional["capo_health.types.max_results.maxResults"] = None,
+        filter: Optional[
+            "capo_health.types.affected_account_filter.AffectedAccountFilter"
+        ] = None,
     ) -> "AsyncIterator[capo_health.types.account_id.accountId]":
         _token = next_token
         while True:
@@ -274,6 +393,7 @@ class AsyncHealthClient:
                 config_overrides=config_overrides,
                 next_token=_token,
                 max_results=max_results,
+                filter=filter,
             )
             _page = _resolve_path(_response, ("affected_accounts",))
             for _item in _page or []:
@@ -480,11 +600,15 @@ class AsyncHealthClient:
         *,
         config_overrides: Optional[AsyncHealthClientConfig] = None,
         event_arns: Optional["capo_health.types.event_arns_list.EventArnsList"] = None,
+        filter: Optional[
+            "capo_health.types.entity_aggregate_filter.EntityAggregateFilter"
+        ] = None,
     ) -> "capo_health.types.describe_entity_aggregates_response.DescribeEntityAggregatesResponse":
         """<p>Returns the number of entities that are affected by each of the specified events.</p>
 
         Args:
             event_arns: <p>A list of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code> </p>
+            filter: <p>Values to narrow the results returned.</p>
 
         Raises:
             capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -511,6 +635,8 @@ class AsyncHealthClient:
         input_: capo_health.types.describe_entity_aggregates_request.DescribeEntityAggregatesRequest = {}
         if event_arns is not None:
             input_["event_arns"] = event_arns
+        if filter is not None:
+            input_["filter"] = filter
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -528,12 +654,16 @@ class AsyncHealthClient:
         aws_account_ids: Optional[
             "capo_health.types.organization_account_ids_list.OrganizationAccountIdsList"
         ] = None,
+        filter: Optional[
+            "capo_health.types.organization_entity_aggregate_filter.OrganizationEntityAggregateFilter"
+        ] = None,
     ) -> "capo_health.types.describe_entity_aggregates_for_organization_response.DescribeEntityAggregatesForOrganizationResponse":
         """<p>Returns a list of entity aggregates for your Organizations that are affected by each of the specified events.</p>
 
         Args:
             event_arns: <p>A list of event ARNs (unique identifiers). For example: <code>"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"</code> </p>
             aws_account_ids: <p>A list of 12-digit Amazon Web Services account numbers that contains the affected entities.</p>
+            filter: <p>Values to narrow the results returned.</p>
 
         Raises:
             capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -563,6 +693,8 @@ class AsyncHealthClient:
         }
         if aws_account_ids is not None:
             input_["aws_account_ids"] = aws_account_ids
+        if filter is not None:
+            input_["filter"] = filter
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1075,7 +1207,7 @@ class AsyncHealthClient:
         Args:
             filter: <p>Values to narrow the results returned.</p>
             next_token: <p>If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.</p>
-            max_results: <p>The maximum number of items to return in one batch, between 1 and 20, inclusive.</p>
+            max_results: <p>The maximum number of items to return in one batch, between 10 and 100, inclusive.</p>
 
         Raises:
             capo_health.errors.invalid_pagination_token.InvalidPaginationToken: <p>The specified pagination token (<code>nextToken</code>) is not valid.</p>
@@ -1149,6 +1281,311 @@ class AsyncHealthClient:
             if not _token:
                 break
 
+    async def describe_tag_keys(
+        self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
+    ) -> "capo_health.types.describe_tag_keys_response.DescribeTagKeysResponse":
+        """<p>Returns the list of resource tag keys configured for Health event tracking in your account.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.describe_tag_keys_response.DescribeTagKeysResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.describe_tag_keys
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.describe_tag_keys.async_describe_tag_keys(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTagKeys")
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def describe_tag_keys_for_organization(
+        self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
+    ) -> "capo_health.types.describe_tag_keys_for_organization_response.DescribeTagKeysForOrganizationResponse":
+        """<p>Returns the list of tag keys configured for Health event tracking across your organization.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.describe_tag_keys_for_organization_response.DescribeTagKeysForOrganizationResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.describe_tag_keys_for_organization
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.describe_tag_keys_for_organization.async_describe_tag_keys_for_organization(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTagKeysForOrganization")
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def describe_tags(
+        self,
+        *,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+        next_token: Optional["capo_health.types.next_token.nextToken"] = None,
+        max_results: Optional[
+            "capo_health.types.max_results_lower_range.maxResultsLowerRange"
+        ] = None,
+    ) -> "capo_health.types.describe_tags_response.DescribeTagsResponse":
+        """<p>Returns the resource tags associated with Health events for your account. Use this operation to retrieve the actual tag key-value pairs attached to affected entities.</p>
+
+        Args:
+            next_token: <p>If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.</p>
+            max_results: <p>The maximum number of items to return in one batch, between 10 and 100, inclusive.</p>
+
+        Raises:
+            capo_health.errors.invalid_pagination_token.InvalidPaginationToken: <p>The specified pagination token (<code>nextToken</code>) is not valid.</p>
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_health.types.describe_tags_request.DescribeTagsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.describe_tags_response.DescribeTagsResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.describe_tags
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.describe_tags.async_describe_tags(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
+        input_: capo_health.types.describe_tags_request.DescribeTagsRequest = {}
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_describe_tags(
+        self,
+        *,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+        next_token: Optional["capo_health.types.next_token.nextToken"] = None,
+        max_results: Optional[
+            "capo_health.types.max_results_lower_range.maxResultsLowerRange"
+        ] = None,
+    ) -> "AsyncIterator[capo_health.types.account_tag.AccountTag]":
+        _token = next_token
+        while True:
+            _response = await self.describe_tags(
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("tags",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def describe_tags_for_organization(
+        self,
+        *,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+        filter: Optional[
+            "capo_health.types.describe_tags_for_organization_filter.DescribeTagsForOrganizationFilter"
+        ] = None,
+        next_token: Optional["capo_health.types.next_token.nextToken"] = None,
+        max_results: Optional[
+            "capo_health.types.max_results_lower_range.maxResultsLowerRange"
+        ] = None,
+    ) -> "capo_health.types.describe_tags_for_organization_response.DescribeTagsForOrganizationResponse":
+        """<p>Returns the tags associated with Health events across all accounts in your organization.</p>
+
+        Args:
+            filter: <p>Values to narrow the results returned.</p>
+            next_token: <p>If the results of a search are large, only a portion of the results are returned, and a <code>nextToken</code> pagination token is returned in the response. To retrieve the next batch of results, reissue the search request and include the returned token. When all results have been returned, the response does not contain a pagination token value.</p>
+            max_results: <p>The maximum number of items to return in one batch, between 10 and 100, inclusive.</p>
+
+        Raises:
+            capo_health.errors.invalid_pagination_token.InvalidPaginationToken: <p>The specified pagination token (<code>nextToken</code>) is not valid.</p>
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_health.types.describe_tags_for_organization_request.DescribeTagsForOrganizationRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.describe_tags_for_organization_response.DescribeTagsForOrganizationResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.describe_tags_for_organization
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.describe_tags_for_organization.async_describe_tags_for_organization(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTagsForOrganization")
+        )
+        input_: capo_health.types.describe_tags_for_organization_request.DescribeTagsForOrganizationRequest = {}
+        if filter is not None:
+            input_["filter"] = filter
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_describe_tags_for_organization(
+        self,
+        *,
+        config_overrides: Optional[AsyncHealthClientConfig] = None,
+        filter: Optional[
+            "capo_health.types.describe_tags_for_organization_filter.DescribeTagsForOrganizationFilter"
+        ] = None,
+        next_token: Optional["capo_health.types.next_token.nextToken"] = None,
+        max_results: Optional[
+            "capo_health.types.max_results_lower_range.maxResultsLowerRange"
+        ] = None,
+    ) -> "AsyncIterator[capo_health.types.organization_tag.OrganizationTag]":
+        _token = next_token
+        while True:
+            _response = await self.describe_tags_for_organization(
+                config_overrides=config_overrides,
+                filter=filter,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("tags",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def describe_tags_onboarding_status(
+        self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
+    ) -> "capo_health.types.describe_tags_onboarding_status_response.DescribeTagsOnboardingStatusResponse":
+        """<p>Returns the current onboarding status of the Health tags feature for your account.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.describe_tags_onboarding_status_response.DescribeTagsOnboardingStatusResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.describe_tags_onboarding_status
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.describe_tags_onboarding_status.async_describe_tags_onboarding_status(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTagsOnboardingStatus")
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def describe_tags_onboarding_status_for_organization(
+        self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
+    ) -> "capo_health.types.describe_tags_onboarding_status_for_organization_response.DescribeTagsOnboardingStatusForOrganizationResponse":
+        """<p>Returns the current onboarding status of the Health tags feature for your organization.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[
+            "capo_health.types.describe_tags_onboarding_status_for_organization_response.DescribeTagsOnboardingStatusForOrganizationResponse"
+        ]:
+            import capo_health._operations.aws_health_20160804.describe_tags_onboarding_status_for_organization
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.describe_tags_onboarding_status_for_organization.async_describe_tags_onboarding_status_for_organization(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTagsOnboardingStatusForOrganization"),
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def disable_health_service_access_for_organization(
         self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
     ) -> None:
@@ -1185,10 +1622,78 @@ class AsyncHealthClient:
         await response.response.aclose()
         return response.output
 
+    async def disable_tags(
+        self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
+    ) -> None:
+        """<p>Disables the Health tags feature for your account. After disabling, Health events will no longer include resource tag information. Previously configured tag keys are discarded.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[None]:
+            import capo_health._operations.aws_health_20160804.disable_tags
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.disable_tags.async_disable_tags(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableTags")
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def disable_tags_for_organization(
+        self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
+    ) -> None:
+        """<p>Disables the Health tags feature for all accounts in your organization.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[None]:
+            import capo_health._operations.aws_health_20160804.disable_tags_for_organization
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.disable_tags_for_organization.async_disable_tags_for_organization(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableTagsForOrganization")
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def enable_health_service_access_for_organization(
         self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
     ) -> None:
-        """<p>Enables Health to work with Organizations. You can use the organizational view feature to aggregate events from all Amazon Web Services accounts in your organization in a centralized location. </p> <p>This operation also creates a service-linked role for the management account in the organization. </p> <note> <p>To call this operation, you must meet the following requirements:</p> <ul> <li> <p>You must have a Business, Enterprise On-Ramp, or Enterprise Support plan from <a href="http://aws.amazon.com/premiumsupport/">Amazon Web Services Support</a> to use the Health API. If you call the Health API from an Amazon Web Services account that doesn't have a Business, Enterprise On-Ramp, or Enterprise Support plan, you receive a <code>SubscriptionRequiredException</code> error.</p> </li> <li> <p>You must have permission to call this operation from the organization's management account. For example IAM policies, see <a href="https://docs.aws.amazon.com/health/latest/ug/security_iam_id-based-policy-examples.html">Health identity-based policy examples</a>.</p> </li> </ul> </note> <p>If you don't have the required support plan, you can instead use the Health console to enable the organizational view feature. For more information, see <a href="https://docs.aws.amazon.com/health/latest/ug/aggregate-events.html">Aggregating Health events</a> in the <i>Health User Guide</i>.</p>
+        """<p>Enables Health to work with Organizations. You can use the organizational view feature to aggregate events from all Amazon Web Services accounts in your organization in a centralized location. </p> <p>This operation also creates a service-linked role for the management account in the organization. </p> <note> <p>To call this operation, you must meet the following requirements:</p> <ul> <li> <p>You must have a Amazon Web Services Business Support+, Amazon Web Services Enterprise Support, or Amazon Web Services Unified Operations plan from <a href="http://aws.amazon.com/premiumsupport/">Amazon Web Services Support</a> to use the Health API. If you call the Health API from an Amazon Web Services account that doesn't have a Amazon Web Services Business Support+, Amazon Web Services Enterprise Support, or Amazon Web Services Unified Operations plan, you receive a <code>SubscriptionRequiredException</code> error.</p> </li> <li> <p>You must have permission to call this operation from the organization's management account. For example IAM policies, see <a href="https://docs.aws.amazon.com/health/latest/ug/security_iam_id-based-policy-examples.html">Health identity-based policy examples</a>.</p> </li> </ul> </note> <p>If you don't have the required support plan, you can instead use the Health console to enable the organizational view feature. For more information, see <a href="https://docs.aws.amazon.com/health/latest/ug/aggregate-events.html">Aggregating Health events</a> in the <i>Health User Guide</i>.</p>
 
         Raises:
             capo_health.errors.concurrent_modification_exception.ConcurrentModificationException: <p> <a href="https://docs.aws.amazon.com/health/latest/APIReference/API_EnableHealthServiceAccessForOrganization.html">EnableHealthServiceAccessForOrganization</a> is already in progress. Wait for the action to complete before trying again. To get the current status, use the <a href="https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeHealthServiceStatusForOrganization.html">DescribeHealthServiceStatusForOrganization</a> operation.</p>
@@ -1211,6 +1716,74 @@ class AsyncHealthClient:
         interceptors_, options_ = self.operation_options(
             config_overrides,
             OperationLogging("EnableHealthServiceAccessForOrganization"),
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def enable_tags(
+        self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
+    ) -> None:
+        """<p>Enables the Health tags feature for your account. Once enabled, Health events will include resource tag information for affected entities. If the feature is already enabled, this operation has no effect.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[None]:
+            import capo_health._operations.aws_health_20160804.enable_tags
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.enable_tags.async_enable_tags(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableTags")
+        )
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=None, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def enable_tags_for_organization(
+        self, *, config_overrides: Optional[AsyncHealthClientConfig] = None
+    ) -> None:
+        """<p>Enables the Health tags feature for all accounts in your organization. Once enabled, Health events will include resource tag information for affected entities across your organization.</p>
+
+        Raises:
+            capo_health.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[None]",
+        ) -> AsyncOperationResponse[None]:
+            import capo_health._operations.aws_health_20160804.enable_tags_for_organization
+
+            (
+                output,
+                http_response,
+            ) = await capo_health._operations.aws_health_20160804.enable_tags_for_organization.async_enable_tags_for_organization(
+                req.options
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableTagsForOrganization")
         )
 
         response = await aexecute_pipeline(

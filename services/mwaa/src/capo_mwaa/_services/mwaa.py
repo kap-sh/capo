@@ -51,6 +51,7 @@ if TYPE_CHECKING:
     import capo_mwaa.types.get_environment_input
     import capo_mwaa.types.get_environment_output
     import capo_mwaa.types.iam_role_arn
+    import capo_mwaa.types.identity_center_configuration
     import capo_mwaa.types.invoke_rest_api_request
     import capo_mwaa.types.invoke_rest_api_response
     import capo_mwaa.types.kms_key
@@ -79,11 +80,13 @@ if TYPE_CHECKING:
     import capo_mwaa.types.tag_map
     import capo_mwaa.types.tag_resource_input
     import capo_mwaa.types.tag_resource_output
+    import capo_mwaa.types.team_map
     import capo_mwaa.types.untag_resource_input
     import capo_mwaa.types.untag_resource_output
     import capo_mwaa.types.update_environment_input
     import capo_mwaa.types.update_environment_output
     import capo_mwaa.types.update_network_configuration_input
+    import capo_mwaa.types.update_teams_input
     import capo_mwaa.types.webserver_access_mode
     import capo_mwaa.types.weekly_maintenance_window_start
     import capo_mwaa.types.worker_replacement_strategy
@@ -312,6 +315,10 @@ class MWAAClient:
         ] = None,
         min_webservers: Optional["capo_mwaa.types.min_webservers.MinWebservers"] = None,
         max_webservers: Optional["capo_mwaa.types.max_webservers.MaxWebservers"] = None,
+        identity_center_configuration: Optional[
+            "capo_mwaa.types.identity_center_configuration.IdentityCenterConfiguration"
+        ] = None,
+        teams: Optional["capo_mwaa.types.team_map.TeamMap"] = None,
     ) -> "capo_mwaa.types.create_environment_output.CreateEnvironmentOutput":
         """<p>Creates an Amazon Managed Workflows for Apache Airflow (Amazon MWAA) environment.</p>
 
@@ -341,6 +348,8 @@ class MWAAClient:
             endpoint_management: <p>Defines whether the VPC endpoints configured for the environment are created, and managed, by the customer or by Amazon MWAA. If set to <code>SERVICE</code>, Amazon MWAA will create and manage the required VPC endpoints in your VPC. If set to <code>CUSTOMER</code>, you must create, and manage, the VPC endpoints for your VPC. If you choose to create an environment in a shared VPC, you must set this value to <code>CUSTOMER</code>. In a shared VPC deployment, the environment will remain in <code>PENDING</code> status until you create the VPC endpoints. If you do not take action to create the endpoints within 72 hours, the status will change to <code>CREATE_FAILED</code>. You can delete the failed environment and create a new one.</p>
             min_webservers: <p> The minimum number of web servers that you want to run in your environment. Amazon MWAA scales the number of Apache Airflow web servers up to the number you specify for <code>MaxWebservers</code> when you interact with your Apache Airflow environment using Apache Airflow REST API, or the Apache Airflow CLI. As the transaction-per-second rate, and the network load, decrease, Amazon MWAA disposes of the additional web servers, and scales down to the number set in <code>MinxWebserers</code>. </p> <p>Valid values: For environments larger than mw1.micro, accepts values from <code>2</code> to <code>5</code>. Defaults to <code>2</code> for all environment sizes except mw1.micro, which defaults to <code>1</code>.</p>
             max_webservers: <p> The maximum number of web servers that you want to run in your environment. Amazon MWAA scales the number of Apache Airflow web servers up to the number you specify for <code>MaxWebservers</code> when you interact with your Apache Airflow environment using Apache Airflow REST API, or the Apache Airflow CLI. For example, in scenarios where your workload requires network calls to the Apache Airflow REST API with a high transaction-per-second (TPS) rate, Amazon MWAA will increase the number of web servers up to the number set in <code>MaxWebserers</code>. As TPS rates decrease Amazon MWAA disposes of the additional web servers, and scales down to the number set in <code>MinxWebserers</code>. </p> <p>Valid values: For environments larger than mw1.micro, accepts values from <code>2</code> to <code>5</code>. Defaults to <code>2</code> for all environment sizes except mw1.micro, which defaults to <code>1</code>.</p>
+            identity_center_configuration: <p>The Amazon Web Services IAM Identity Center configuration used to authenticate users to the Apache Airflow web UI for your environment.</p>
+            teams: <p>A map of teams to configure for Apache Airflow multi-team support on your Amazon MWAA environment. Each entry maps a team name to a object that defines the Amazon S3 location of that team's DAG code. The team name must match the display name of an Amazon Web Services IAM Identity Center group that you associate with your environment, so you must configure IAM Identity Center for the environment before you add teams. You can configure between <code>1</code> and <code>20</code> teams. For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/multi-team-environments.html">Apache Airflow multi-team environments</a>.</p>
 
         Raises:
             capo_mwaa.errors.internal_server_exception.InternalServerException: <p>InternalServerException: An internal error has occurred.</p>
@@ -423,6 +432,10 @@ class MWAAClient:
             input_["min_webservers"] = min_webservers
         if max_webservers is not None:
             input_["max_webservers"] = max_webservers
+        if identity_center_configuration is not None:
+            input_["identity_center_configuration"] = identity_center_configuration
+        if teams is not None:
+            input_["teams"] = teams
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1001,6 +1014,10 @@ class MWAAClient:
         weekly_maintenance_window_start: Optional[
             "capo_mwaa.types.weekly_maintenance_window_start.WeeklyMaintenanceWindowStart"
         ] = None,
+        identity_center_configuration: Optional[
+            "capo_mwaa.types.identity_center_configuration.IdentityCenterConfiguration"
+        ] = None,
+        teams: Optional["capo_mwaa.types.update_teams_input.UpdateTeamsInput"] = None,
     ) -> "capo_mwaa.types.update_environment_output.UpdateEnvironmentOutput":
         """<p>Updates an Amazon Managed Workflows for Apache Airflow (MWAA) environment.</p>
 
@@ -1028,6 +1045,8 @@ class MWAAClient:
             startup_script_s3_object_version: <p> The version of the startup shell script in your Amazon S3 bucket. You must specify the <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/versioning-workflows.html">version ID</a> that Amazon S3 assigns to the file every time you update the script. </p> <p> Version IDs are Unicode, UTF-8 encoded, URL-ready, opaque strings that are no more than 1,024 bytes long. The following is an example: </p> <p> <code>3sL4kqtJlcpXroDTDmJ+rmSpXd3dIbrHY+MTRCxf3vjVBH40Nr8X8gdRQBpUMLUo</code> </p> <p> For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/using-startup-script.html">Using a startup script</a>. </p>
             webserver_access_mode: <p>The Apache Airflow <i>Web server</i> access mode. For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/configuring-networking.html">Apache Airflow access modes</a>.</p> <p>If set to <code>PUBLIC_AND_PRIVATE</code>, creates both a public network load balancer (NLB) for browser access and a private VPC endpoint (VPCE) for worker-to-webserver communication. This mode is only available for Apache Airflow version 3.2 and later.</p>
             weekly_maintenance_window_start: <p>The day and time of the week in Coordinated Universal Time (UTC) 24-hour standard time to start weekly maintenance updates of your environment in the following format: <code>DAY:HH:MM</code>. For example: <code>TUE:03:30</code>. You can specify a start time in 30 minute increments only.</p>
+            identity_center_configuration: <p>The Amazon Web Services IAM Identity Center configuration used to authenticate users to the Apache Airflow web UI for your environment.</p>
+            teams: <p>Updates the teams configured for Apache Airflow multi-team support on your Amazon MWAA environment. Use <code>AddOrUpdate</code> to add new teams or change the configuration of existing teams, and <code>Remove</code> to remove teams by name. For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/multi-team-environments.html">Apache Airflow multi-team environments</a>.</p>
 
         Raises:
             capo_mwaa.errors.internal_server_exception.InternalServerException: <p>InternalServerException: An internal error has occurred.</p>
@@ -1111,6 +1130,10 @@ class MWAAClient:
             input_["webserver_access_mode"] = webserver_access_mode
         if weekly_maintenance_window_start is not None:
             input_["weekly_maintenance_window_start"] = weekly_maintenance_window_start
+        if identity_center_configuration is not None:
+            input_["identity_center_configuration"] = identity_center_configuration
+        if teams is not None:
+            input_["teams"] = teams
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

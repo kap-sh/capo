@@ -27,6 +27,8 @@
 - [DeviceQueueInfo](device_queue_info.md)
 - [DeviceQueueInfoList](device_queue_info_list.md)
 - [DeviceStatus](device_status.md)
+- [DeviceStatusReason](device_status_reason.md)
+- [DeviceStatusReasonCode](device_status_reason_code.md)
 - [DeviceSummary](device_summary.md)
 - [DeviceSummaryList](device_summary_list.md)
 - [DeviceType](device_type.md)

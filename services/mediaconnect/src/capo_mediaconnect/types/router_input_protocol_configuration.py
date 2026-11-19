@@ -9,6 +9,7 @@ from capo_mediaconnect.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_mediaconnect.types.rist_router_input_configuration
+    import capo_mediaconnect.types.rtmp_push_router_input_configuration
     import capo_mediaconnect.types.rtp_router_input_configuration
     import capo_mediaconnect.types.srt_caller_router_input_configuration
     import capo_mediaconnect.types.srt_listener_router_input_configuration
@@ -22,6 +23,10 @@ class RouterInputProtocolConfigurationSrtListenerMember(TypedDict, closed=True):
     SrtListener: "capo_mediaconnect.types.srt_listener_router_input_configuration.SrtListenerRouterInputConfiguration"
 
 
+class RouterInputProtocolConfigurationRtmpPushMember(TypedDict, closed=True):
+    RtmpPush: "capo_mediaconnect.types.rtmp_push_router_input_configuration.RtmpPushRouterInputConfiguration"
+
+
 class RouterInputProtocolConfigurationSrtCallerMember(TypedDict, closed=True):
     SrtCaller: "capo_mediaconnect.types.srt_caller_router_input_configuration.SrtCallerRouterInputConfiguration"
 
@@ -33,6 +38,7 @@ class RouterInputProtocolConfigurationRtpMember(TypedDict, closed=True):
 RouterInputProtocolConfiguration: TypeAlias = (
     RouterInputProtocolConfigurationRistMember
     | RouterInputProtocolConfigurationSrtListenerMember
+    | RouterInputProtocolConfigurationRtmpPushMember
     | RouterInputProtocolConfigurationSrtCallerMember
     | RouterInputProtocolConfigurationRtpMember
     | UnknownUnionMember
@@ -59,6 +65,14 @@ def serialize_json(value: RouterInputProtocolConfiguration) -> dict:
         return {
             "srtListener": capo_mediaconnect.types.srt_listener_router_input_configuration.serialize_json(
                 value["SrtListener"]
+            )
+        }
+    elif "RtmpPush" in value:
+        import capo_mediaconnect.types.rtmp_push_router_input_configuration
+
+        return {
+            "rtmpPush": capo_mediaconnect.types.rtmp_push_router_input_configuration.serialize_json(
+                value["RtmpPush"]
             )
         }
     elif "SrtCaller" in value:
@@ -96,6 +110,14 @@ def deserialize_json(data: dict) -> RouterInputProtocolConfiguration:
         return {
             "SrtListener": capo_mediaconnect.types.srt_listener_router_input_configuration.deserialize_json(
                 data["srtListener"]
+            )
+        }
+    elif data.get("rtmpPush") is not None:
+        import capo_mediaconnect.types.rtmp_push_router_input_configuration
+
+        return {
+            "RtmpPush": capo_mediaconnect.types.rtmp_push_router_input_configuration.deserialize_json(
+                data["rtmpPush"]
             )
         }
     elif data.get("srtCaller") is not None:

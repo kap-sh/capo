@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.post_launch_actions
     import capo_mgn.types.small_bounded_string
     import capo_mgn.types.source_server_id
+    import capo_mgn.types.tag_key
     import capo_mgn.types.tag_value
     import capo_mgn.types.target_instance_type_right_sizing_method
 
@@ -46,6 +47,8 @@ class LaunchConfiguration(TypedDict, closed=True):
     """<p>Enable map auto tagging.</p>"""
     map_auto_tagging_mpe_id: NotRequired["capo_mgn.types.tag_value.TagValue"]
     """<p>Map auto tagging MPE ID.</p>"""
+    map_auto_tagging_key: NotRequired["capo_mgn.types.tag_key.TagKey"]
+    """<p>Map auto tagging key.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -83,6 +86,8 @@ def serialize_json(value: LaunchConfiguration) -> dict:
         out["enableMapAutoTagging"] = value["enable_map_auto_tagging"]
     if "map_auto_tagging_mpe_id" in value:
         out["mapAutoTaggingMpeID"] = value["map_auto_tagging_mpe_id"]
+    if "map_auto_tagging_key" in value:
+        out["mapAutoTaggingKey"] = value["map_auto_tagging_key"]
     return out
 
 
@@ -122,4 +127,6 @@ def deserialize_json(data: dict) -> LaunchConfiguration:
         out["enable_map_auto_tagging"] = data["enableMapAutoTagging"]
     if data.get("mapAutoTaggingMpeID") is not None:
         out["map_auto_tagging_mpe_id"] = data["mapAutoTaggingMpeID"]
+    if data.get("mapAutoTaggingKey") is not None:
+        out["map_auto_tagging_key"] = data["mapAutoTaggingKey"]
     return out

@@ -20,6 +20,8 @@ if TYPE_CHECKING:
     import capo_lambda.types.event_id
     import capo_lambda.types.event_type
     import capo_lambda.types.execution_failed_details
+    import capo_lambda.types.execution_paused_details
+    import capo_lambda.types.execution_resumed_details
     import capo_lambda.types.execution_started_details
     import capo_lambda.types.execution_stopped_details
     import capo_lambda.types.execution_succeeded_details
@@ -144,6 +146,14 @@ class Event(TypedDict, closed=True):
         "capo_lambda.types.invocation_completed_details.InvocationCompletedDetails"
     ]
     """<p>Details about a function invocation that completed.</p>"""
+    execution_paused_details: NotRequired[
+        "capo_lambda.types.execution_paused_details.ExecutionPausedDetails"
+    ]
+    """<p>The details of an <code>ExecutionPaused</code> event.</p>"""
+    execution_resumed_details: NotRequired[
+        "capo_lambda.types.execution_resumed_details.ExecutionResumedDetails"
+    ]
+    """<p>The details of an <code>ExecutionResumed</code> event.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -358,6 +368,22 @@ def serialize_json(value: Event) -> dict:
         out["InvocationCompletedDetails"] = (
             capo_lambda.types.invocation_completed_details.serialize_json(
                 value["invocation_completed_details"]
+            )
+        )
+    if "execution_paused_details" in value:
+        import capo_lambda.types.execution_paused_details
+
+        out["ExecutionPausedDetails"] = (
+            capo_lambda.types.execution_paused_details.serialize_json(
+                value["execution_paused_details"]
+            )
+        )
+    if "execution_resumed_details" in value:
+        import capo_lambda.types.execution_resumed_details
+
+        out["ExecutionResumedDetails"] = (
+            capo_lambda.types.execution_resumed_details.serialize_json(
+                value["execution_resumed_details"]
             )
         )
     return out
@@ -581,6 +607,22 @@ def deserialize_json(data: dict) -> Event:
                 data["InvocationCompletedDetails"]
             )
         )
+    if data.get("ExecutionPausedDetails") is not None:
+        import capo_lambda.types.execution_paused_details
+
+        out["execution_paused_details"] = (
+            capo_lambda.types.execution_paused_details.deserialize_json(
+                data["ExecutionPausedDetails"]
+            )
+        )
+    if data.get("ExecutionResumedDetails") is not None:
+        import capo_lambda.types.execution_resumed_details
+
+        out["execution_resumed_details"] = (
+            capo_lambda.types.execution_resumed_details.deserialize_json(
+                data["ExecutionResumedDetails"]
+            )
+        )
     return out
 
 
@@ -736,6 +778,22 @@ def redact_sensitive(value: Event) -> dict[str, Any]:
         out["invocation_completed_details"] = (
             capo_lambda.types.invocation_completed_details.redact_sensitive(
                 value["invocation_completed_details"]
+            )
+        )
+    if "execution_paused_details" in value:
+        import capo_lambda.types.execution_paused_details
+
+        out["execution_paused_details"] = (
+            capo_lambda.types.execution_paused_details.redact_sensitive(
+                value["execution_paused_details"]
+            )
+        )
+    if "execution_resumed_details" in value:
+        import capo_lambda.types.execution_resumed_details
+
+        out["execution_resumed_details"] = (
+            capo_lambda.types.execution_resumed_details.redact_sensitive(
+                value["execution_resumed_details"]
             )
         )
     return out

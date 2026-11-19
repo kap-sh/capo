@@ -32,7 +32,7 @@ class ListPipelinesRequest(TypedDict, closed=True):
     managed_by: NotRequired[
         "capo_sagemaker.types.pipeline_managed_by.PipelineManagedBy"
     ]
-    """<p>Filters the pipelines by who manages them. Specify <code>AWS</code> to return pipelines that AWS manages, or <code>CUSTOMER</code> to return pipelines that you created. If you don't specify a value, the response includes both.</p>"""
+    """<p>Filters the pipelines by who manages them. Specify <code>AWS</code> to return pipelines that Amazon Web Services manages, or <code>CUSTOMER</code> to return pipelines that you created. If you don't specify a value, the response includes both.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

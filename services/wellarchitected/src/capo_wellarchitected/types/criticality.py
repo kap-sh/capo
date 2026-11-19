@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The business criticality of an application context.</p>"""
 Criticality: TypeAlias = Literal[
     "MISSION_CRITICAL",
     "BUSINESS_CRITICAL",

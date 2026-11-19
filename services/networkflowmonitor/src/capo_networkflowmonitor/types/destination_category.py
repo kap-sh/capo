@@ -10,6 +10,10 @@ DestinationCategory: TypeAlias = Literal[
     "AMAZON_S3",
     "AMAZON_DYNAMODB",
     "INTER_REGION",
+    "INTERNET",
+    "AWS_SERVICE",
+    "LOCAL_ZONE",
+    "TRANSIT_GATEWAY",
 ]
 
 

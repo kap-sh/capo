@@ -12,3 +12,9 @@ title: ProviderDetailUpdate
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_inspector2.types.provider_detail_update.ProviderDetailUpdateGcpMember
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

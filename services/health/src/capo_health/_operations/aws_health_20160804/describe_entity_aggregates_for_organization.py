@@ -14,6 +14,7 @@ import capo_health._protocol.eventstream
 import capo_health.types.describe_entity_aggregates_for_organization_request
 import capo_health.types.describe_entity_aggregates_for_organization_response
 import capo_health.types.organization_account_ids_list
+import capo_health.types.organization_entity_aggregate_filter
 import capo_health.types.organization_entity_aggregates_list
 import capo_health.types.organization_event_arns_list
 from capo_health._protocol.errors import parse_error_metadata_json

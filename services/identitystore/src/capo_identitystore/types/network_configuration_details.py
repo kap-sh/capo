@@ -7,16 +7,16 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_identitystore.types.boolean_type
     import capo_identitystore.types.ip_cidr_list
-    import capo_identitystore.types.vpc_id_list
+    import capo_identitystore.types.vpc_arn_list
 
 
 class NetworkConfigurationDetails(TypedDict, closed=True):
     vpce_access_required: "capo_identitystore.types.boolean_type.BooleanType"
     """<p>Specifies whether the identity store can be accessed only through a virtual private cloud (VPC) endpoint. When set to <code>true</code>, requests must originate from a VPC endpoint.</p>"""
     api_restrict_source_vpcs: NotRequired[
-        "capo_identitystore.types.vpc_id_list.VpcIdList"
+        "capo_identitystore.types.vpc_arn_list.VpcArnList"
     ]
-    """<p>A list of virtual private cloud (VPC) IDs that are allowed to access the identity store API operations. A request is denied unless it originates from a VPC in this list, or from an IP address in <code>ApiAllowSourceIps</code> if one is configured. If this field is empty, access isn't restricted to specific VPCs, but the VPC endpoint requirement from <code>VpceAccessRequired</code> still applies.</p>"""
+    """<p>A list of virtual private cloud (VPC) ARNs that are allowed to access the identity store API operations. A request is denied unless it originates from a VPC in this list, or from an IP address in <code>ApiAllowSourceIps</code> if one is configured. If this field is empty, access isn't restricted to specific VPCs, but the VPC endpoint requirement from <code>VpceAccessRequired</code> still applies.</p>"""
     api_allow_source_ips: NotRequired[
         "capo_identitystore.types.ip_cidr_list.IpCidrList"
     ]
@@ -32,10 +32,10 @@ def serialize_aws_json_1_1(value: NetworkConfigurationDetails) -> dict:
     out: dict = {}
     out["VpceAccessRequired"] = value["vpce_access_required"]
     if "api_restrict_source_vpcs" in value:
-        import capo_identitystore.types.vpc_id_list
+        import capo_identitystore.types.vpc_arn_list
 
         out["ApiRestrictSourceVpcs"] = (
-            capo_identitystore.types.vpc_id_list.serialize_aws_json_1_1(
+            capo_identitystore.types.vpc_arn_list.serialize_aws_json_1_1(
                 value["api_restrict_source_vpcs"]
             )
         )
@@ -65,10 +65,10 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkConfigurationDetails:
     else:
         out["vpce_access_required"] = False
     if data.get("ApiRestrictSourceVpcs") is not None:
-        import capo_identitystore.types.vpc_id_list
+        import capo_identitystore.types.vpc_arn_list
 
         out["api_restrict_source_vpcs"] = (
-            capo_identitystore.types.vpc_id_list.deserialize_aws_json_1_1(
+            capo_identitystore.types.vpc_arn_list.deserialize_aws_json_1_1(
                 data["ApiRestrictSourceVpcs"]
             )
         )

@@ -2,12 +2,13 @@
 
 from typing import TYPE_CHECKING, Any
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_connecthealth.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_connecthealth.types.clinical_note_generation_settings
+    import capo_connecthealth.types.medical_code_generation_settings
     import capo_connecthealth.types.s3_uri
 
 
@@ -16,6 +17,10 @@ class MedicalScribePostStreamActionSettings(TypedDict, closed=True):
     """<p/>"""
     clinical_note_generation_settings: "capo_connecthealth.types.clinical_note_generation_settings.ClinicalNoteGenerationSettings"
     """<p>Settings for clinical note generation</p>"""
+    medical_code_generation_settings: NotRequired[
+        "capo_connecthealth.types.medical_code_generation_settings.MedicalCodeGenerationSettings"
+    ]
+    """<p>Settings for medical code generation. Medical code generation is in preview release and is subject to change.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -29,6 +34,14 @@ def serialize_json(value: MedicalScribePostStreamActionSettings) -> dict:
             value["clinical_note_generation_settings"]
         )
     )
+    if "medical_code_generation_settings" in value:
+        import capo_connecthealth.types.medical_code_generation_settings
+
+        out["medicalCodeGenerationSettings"] = (
+            capo_connecthealth.types.medical_code_generation_settings.serialize_json(
+                value["medical_code_generation_settings"]
+            )
+        )
     return out
 
 
@@ -49,6 +62,14 @@ def deserialize_json(data: dict) -> MedicalScribePostStreamActionSettings:
     else:
         raise DeserializationError(
             "MedicalScribePostStreamActionSettings.clinical_note_generation_settings required"
+        )
+    if data.get("medicalCodeGenerationSettings") is not None:
+        import capo_connecthealth.types.medical_code_generation_settings
+
+        out["medical_code_generation_settings"] = (
+            capo_connecthealth.types.medical_code_generation_settings.deserialize_json(
+                data["medicalCodeGenerationSettings"]
+            )
         )
     return out
 

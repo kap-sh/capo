@@ -35,6 +35,8 @@ from capo_marketplace_agreement._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_marketplace_agreement.types.accept_agreement_approval_input
+    import capo_marketplace_agreement.types.accept_agreement_approval_output
     import capo_marketplace_agreement.types.accept_agreement_cancellation_request_input
     import capo_marketplace_agreement.types.accept_agreement_cancellation_request_output
     import capo_marketplace_agreement.types.accept_agreement_payment_request_input
@@ -42,6 +44,13 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.accept_agreement_request_input
     import capo_marketplace_agreement.types.accept_agreement_request_output
     import capo_marketplace_agreement.types.accepted_term
+    import capo_marketplace_agreement.types.acceptor_contact
+    import capo_marketplace_agreement.types.agreement_approval_id
+    import capo_marketplace_agreement.types.agreement_approval_party_type
+    import capo_marketplace_agreement.types.agreement_approval_plan_inputs
+    import capo_marketplace_agreement.types.agreement_approval_purchase_orders
+    import capo_marketplace_agreement.types.agreement_approval_status
+    import capo_marketplace_agreement.types.agreement_approval_type
     import capo_marketplace_agreement.types.agreement_cancellation_request_cancellation_reason
     import capo_marketplace_agreement.types.agreement_cancellation_request_description
     import capo_marketplace_agreement.types.agreement_cancellation_request_id
@@ -54,6 +63,10 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.agreement_invoice_line_item_group_summary
     import capo_marketplace_agreement.types.agreement_proposal_id
     import capo_marketplace_agreement.types.agreement_request_id
+    import capo_marketplace_agreement.types.agreement_request_status
+    import capo_marketplace_agreement.types.agreement_request_summary
+    import capo_marketplace_agreement.types.agreement_request_term
+    import capo_marketplace_agreement.types.agreement_request_terms_max_results
     import capo_marketplace_agreement.types.agreement_type
     import capo_marketplace_agreement.types.agreement_view_summary
     import capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry_list
@@ -62,12 +75,16 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.billing_adjustment_request_id
     import capo_marketplace_agreement.types.billing_adjustment_status
     import capo_marketplace_agreement.types.billing_adjustment_summary
+    import capo_marketplace_agreement.types.buyer_agreement_approval_approver_input
+    import capo_marketplace_agreement.types.buyer_agreement_approval_rejection_input
     import capo_marketplace_agreement.types.cancel_agreement_cancellation_request_input
     import capo_marketplace_agreement.types.cancel_agreement_cancellation_request_output
     import capo_marketplace_agreement.types.cancel_agreement_input
     import capo_marketplace_agreement.types.cancel_agreement_output
     import capo_marketplace_agreement.types.cancel_agreement_payment_request_input
     import capo_marketplace_agreement.types.cancel_agreement_payment_request_output
+    import capo_marketplace_agreement.types.cancel_agreement_request_input
+    import capo_marketplace_agreement.types.cancel_agreement_request_output
     import capo_marketplace_agreement.types.catalog
     import capo_marketplace_agreement.types.charge
     import capo_marketplace_agreement.types.client_token
@@ -76,12 +93,22 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.describe_agreement_input
     import capo_marketplace_agreement.types.describe_agreement_output
     import capo_marketplace_agreement.types.filter_list
+    import capo_marketplace_agreement.types.get_agreement_approval_input
+    import capo_marketplace_agreement.types.get_agreement_approval_output
     import capo_marketplace_agreement.types.get_agreement_cancellation_request_input
     import capo_marketplace_agreement.types.get_agreement_cancellation_request_output
+    import capo_marketplace_agreement.types.get_agreement_contacts_input
+    import capo_marketplace_agreement.types.get_agreement_contacts_output
     import capo_marketplace_agreement.types.get_agreement_entitlements_input
     import capo_marketplace_agreement.types.get_agreement_entitlements_output
     import capo_marketplace_agreement.types.get_agreement_payment_request_input
     import capo_marketplace_agreement.types.get_agreement_payment_request_output
+    import capo_marketplace_agreement.types.get_agreement_request_approval_plans_input
+    import capo_marketplace_agreement.types.get_agreement_request_approval_plans_output
+    import capo_marketplace_agreement.types.get_agreement_request_input
+    import capo_marketplace_agreement.types.get_agreement_request_output
+    import capo_marketplace_agreement.types.get_agreement_request_terms_input
+    import capo_marketplace_agreement.types.get_agreement_request_terms_output
     import capo_marketplace_agreement.types.get_agreement_terms_input
     import capo_marketplace_agreement.types.get_agreement_terms_output
     import capo_marketplace_agreement.types.get_billing_adjustment_request_input
@@ -90,6 +117,8 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.invoice_billing_period
     import capo_marketplace_agreement.types.invoice_type
     import capo_marketplace_agreement.types.line_item_group_by
+    import capo_marketplace_agreement.types.list_agreement_approvals_input
+    import capo_marketplace_agreement.types.list_agreement_approvals_output
     import capo_marketplace_agreement.types.list_agreement_cancellation_requests_input
     import capo_marketplace_agreement.types.list_agreement_cancellation_requests_output
     import capo_marketplace_agreement.types.list_agreement_charges_input
@@ -98,6 +127,8 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.list_agreement_invoice_line_items_output
     import capo_marketplace_agreement.types.list_agreement_payment_requests_input
     import capo_marketplace_agreement.types.list_agreement_payment_requests_output
+    import capo_marketplace_agreement.types.list_agreement_requests_input
+    import capo_marketplace_agreement.types.list_agreement_requests_output
     import capo_marketplace_agreement.types.list_billing_adjustment_requests_input
     import capo_marketplace_agreement.types.list_billing_adjustment_requests_output
     import capo_marketplace_agreement.types.max_results
@@ -112,6 +143,8 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.positive_amount_upto8_decimals
     import capo_marketplace_agreement.types.purchase_order_reference
     import capo_marketplace_agreement.types.purchase_orders
+    import capo_marketplace_agreement.types.reject_agreement_approval_input
+    import capo_marketplace_agreement.types.reject_agreement_approval_output
     import capo_marketplace_agreement.types.reject_agreement_cancellation_request_input
     import capo_marketplace_agreement.types.reject_agreement_cancellation_request_output
     import capo_marketplace_agreement.types.reject_agreement_payment_request_input
@@ -125,6 +158,8 @@ if TYPE_CHECKING:
     import capo_marketplace_agreement.types.send_agreement_payment_request_input
     import capo_marketplace_agreement.types.send_agreement_payment_request_output
     import capo_marketplace_agreement.types.sort
+    import capo_marketplace_agreement.types.start_agreement_approvals_input
+    import capo_marketplace_agreement.types.start_agreement_approvals_output
     import capo_marketplace_agreement.types.tax_configuration
     import capo_marketplace_agreement.types.term_id
     import capo_marketplace_agreement.types.timestamp
@@ -248,6 +283,75 @@ class MarketplaceAgreementClient:
             anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
+
+    def accept_agreement_approval(
+        self,
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        buyer_agreement_approval_approver_input: Optional[
+            "capo_marketplace_agreement.types.buyer_agreement_approval_approver_input.BuyerAgreementApprovalApproverInput"
+        ] = None,
+    ) -> "capo_marketplace_agreement.types.accept_agreement_approval_output.AcceptAgreementApprovalOutput":
+        """<p>Allows the management account or a delegated administrator of the buyer's AWS organization to approve an agreement approval that is in <code>PENDING_APPROVAL</code> status, as the organization administrator approver or on behalf of another approver. Once every level is approved, the agreement approval transitions to <code>APPROVED</code> status. You can optionally provide purchase order references and a note.</p>
+
+        Args:
+            buyer_agreement_approval_approver_input: <p>The approval decision for an agreement approval that the buyer's organization requires.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.conflict_exception.ConflictException: <p>Request was denied due to a resource conflict.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Approve an agreement approval
+
+            >>> client.accept_agreement_approval(buyer_agreement_approval_approver_input={'agreementApprovalId': 'apr-EXAMPLE9s0t1u2v3w4x', 'purchaseOrders': [{'chargeId': 'ch-EXAMPLE4b4296145c3EXAMPLE56', 'purchaseOrderReference': 'PO-123'}], 'note': 'Approved. Budget confirmed for this fiscal year.'})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.accept_agreement_approval_input.AcceptAgreementApprovalInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.accept_agreement_approval_output.AcceptAgreementApprovalOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_approval
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_approval.accept_agreement_approval(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.accept_agreement_approval_input.AcceptAgreementApprovalInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.accept_agreement_approval_input
+
+            return capo_marketplace_agreement.types.accept_agreement_approval_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AcceptAgreementApproval", redact_input=_redact_input),
+        )
+        input_: capo_marketplace_agreement.types.accept_agreement_approval_input.AcceptAgreementApprovalInput = {}
+        if buyer_agreement_approval_approver_input is not None:
+            input_["buyer_agreement_approval_approver_input"] = (
+                buyer_agreement_approval_approver_input
+            )
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def accept_agreement_cancellation_request(
         self,
@@ -405,6 +509,7 @@ class MarketplaceAgreementClient:
             capo_marketplace_agreement.errors.conflict_exception.ConflictException: <p>Request was denied due to a resource conflict.</p>
             capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
             capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>Request exceeded the maximum allowed limit (quota) for a specific resource or API operation.</p>
             capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
             capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
             capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -708,6 +813,61 @@ class MarketplaceAgreementClient:
         response.response.close()
         return response.output
 
+    def cancel_agreement_request(
+        self,
+        agreement_request_id: "capo_marketplace_agreement.types.agreement_request_id.AgreementRequestId",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+    ) -> "capo_marketplace_agreement.types.cancel_agreement_request_output.CancelAgreementRequestOutput":
+        """<p>Allows buyers (acceptors) to cancel an agreement request that is in <code>PENDING_APPROVAL</code> status, or in <code>APPROVED</code> status when no agreement has been created from it. Once cancelled, the agreement request transitions to <code>CANCELLED</code> status and its open agreement approvals are cancelled.</p>
+
+        Args:
+            agreement_request_id: <p>The unique identifier of the agreement request to cancel.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.conflict_exception.ConflictException: <p>Request was denied due to a resource conflict.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Cancel an agreement request
+
+            >>> client.cancel_agreement_request(agreement_request_id='ar-EXAMPLE4a539b123d4EXAMPLE78')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.cancel_agreement_request_input.CancelAgreementRequestInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.cancel_agreement_request_output.CancelAgreementRequestOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement_request
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement_request.cancel_agreement_request(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelAgreementRequest")
+        )
+        input_: capo_marketplace_agreement.types.cancel_agreement_request_input.CancelAgreementRequestInput = {
+            "agreement_request_id": agreement_request_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def create_agreement_request(
         self,
         intent: "capo_marketplace_agreement.types.intent.Intent",
@@ -726,6 +886,9 @@ class MarketplaceAgreementClient:
         tax_configuration: Optional[
             "capo_marketplace_agreement.types.tax_configuration.TaxConfiguration"
         ] = None,
+        acceptor_contact: Optional[
+            "capo_marketplace_agreement.types.acceptor_contact.AcceptorContact"
+        ] = None,
     ) -> "capo_marketplace_agreement.types.create_agreement_request_output.CreateAgreementRequestOutput":
         """<p>Creates an agreement request that acts as a quote for the terms you want to accept. The agreement request captures the requested terms, calculates charges, and returns a summary. Use <code>AcceptAgreementRequest</code> with the returned <code>agreementRequestId</code> to finalize the agreement.</p>
 
@@ -736,6 +899,7 @@ class MarketplaceAgreementClient:
             source_agreement_identifier: <p>The agreement's identifier that the request acts upon.</p> <important> <p> This parameter is required for all non-<code>NEW</code> intents (i.e., <code>AMEND</code> or <code>REPLACE</code>). Don't provide this parameter if the intent is <code>NEW</code>. </p> </important>
             agreement_proposal_identifier: <p>The agreement proposal signed by the proposer. The proposal includes the requested resources and the terms that outline an agreement outcome.</p> <important> <p> This parameter is required if the intent is not <code>AMEND</code>.</p> </important>
             tax_configuration: <p>Configuration for tax estimation in the agreement request response.</p>
+            acceptor_contact: <p>The contact information of the acceptor.</p> <important> <p>Don't provide this parameter if the intent is <code>AMEND</code>.</p> </important>
 
         Raises:
             capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
@@ -762,8 +926,18 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.create_agreement_request_input.CreateAgreementRequestInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.create_agreement_request_input
+
+            return capo_marketplace_agreement.types.create_agreement_request_input.redact_sensitive(
+                input_
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateAgreementRequest")
+            config_overrides,
+            OperationLogging("CreateAgreementRequest", redact_input=_redact_input),
         )
         input_: capo_marketplace_agreement.types.create_agreement_request_input.CreateAgreementRequestInput = {
             "intent": intent,
@@ -778,6 +952,8 @@ class MarketplaceAgreementClient:
             input_["agreement_proposal_identifier"] = agreement_proposal_identifier
         if tax_configuration is not None:
             input_["tax_configuration"] = tax_configuration
+        if acceptor_contact is not None:
+            input_["acceptor_contact"] = acceptor_contact
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -826,6 +1002,70 @@ class MarketplaceAgreementClient:
         )
         input_: capo_marketplace_agreement.types.describe_agreement_input.DescribeAgreementInput = {
             "agreement_id": agreement_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_agreement_approval(
+        self,
+        agreement_approval_id: "capo_marketplace_agreement.types.agreement_approval_id.AgreementApprovalId",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+    ) -> "capo_marketplace_agreement.types.get_agreement_approval_output.GetAgreementApprovalOutput":
+        """<p>Retrieves detailed information about a specific agreement approval, including its approval levels, the approvers at each level, and the decision of each approver. The acceptor, or the management account or a delegated administrator of the acceptor's AWS organization, can call this operation.</p>
+
+        Args:
+            agreement_approval_id: <p>The unique identifier of the agreement approval to retrieve.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get an agreement approval
+
+            >>> client.get_agreement_approval(agreement_approval_id='apr-EXAMPLE9s0t1u2v3w4x')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.get_agreement_approval_input.GetAgreementApprovalInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.get_agreement_approval_output.GetAgreementApprovalOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_approval
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_approval.get_agreement_approval(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.get_agreement_approval_output.GetAgreementApprovalOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.get_agreement_approval_output
+
+            return capo_marketplace_agreement.types.get_agreement_approval_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgreementApproval", redact_output=_redact_output),
+        )
+        input_: capo_marketplace_agreement.types.get_agreement_approval_input.GetAgreementApprovalInput = {
+            "agreement_approval_id": agreement_approval_id
         }
 
         response = execute_pipeline(
@@ -905,6 +1145,70 @@ class MarketplaceAgreementClient:
         response.response.close()
         return response.output
 
+    def get_agreement_contacts(
+        self,
+        agreement_id: "capo_marketplace_agreement.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+    ) -> "capo_marketplace_agreement.types.get_agreement_contacts_output.GetAgreementContactsOutput":
+        """<p>Obtains details about the acceptor's contact information for an active agreement that you participate in as the proposer, acceptor, or manufacturer.</p> <note> <p>If the acceptor's contact information isn't available, the operation succeeds but doesn't return <code>acceptorContact</code>. This happens when the acceptor didn't provide it, the information was removed, or the agreement isn't active.</p> </note>
+
+        Args:
+            agreement_id: <p>The unique identifier of the agreement.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get the contacts captured on an agreement
+
+            >>> client.get_agreement_contacts(agreement_id='agmt-xxxxxxx')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.get_agreement_contacts_input.GetAgreementContactsInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.get_agreement_contacts_output.GetAgreementContactsOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_contacts
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_contacts.get_agreement_contacts(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.get_agreement_contacts_output.GetAgreementContactsOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.get_agreement_contacts_output
+
+            return capo_marketplace_agreement.types.get_agreement_contacts_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgreementContacts", redact_output=_redact_output),
+        )
+        input_: capo_marketplace_agreement.types.get_agreement_contacts_input.GetAgreementContactsInput = {
+            "agreement_id": agreement_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_agreement_entitlements(
         self,
         agreement_id: "capo_marketplace_agreement.types.resource_id.ResourceId",
@@ -947,8 +1251,18 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.get_agreement_entitlements_output.GetAgreementEntitlementsOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.get_agreement_entitlements_output
+
+            return capo_marketplace_agreement.types.get_agreement_entitlements_output.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetAgreementEntitlements")
+            config_overrides,
+            OperationLogging("GetAgreementEntitlements", redact_output=_redact_output),
         )
         input_: capo_marketplace_agreement.types.get_agreement_entitlements_input.GetAgreementEntitlementsInput = {
             "agreement_id": agreement_id
@@ -1056,6 +1370,231 @@ class MarketplaceAgreementClient:
         )
         response.response.close()
         return response.output
+
+    def get_agreement_request(
+        self,
+        agreement_request_id: "capo_marketplace_agreement.types.agreement_request_id.AgreementRequestId",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+    ) -> "capo_marketplace_agreement.types.get_agreement_request_output.GetAgreementRequestOutput":
+        """<p>Retrieves detailed information about a specific agreement request, including its status, intent, approval requirement, and charges. The acceptor, or the management account or a delegated administrator of the acceptor's AWS organization, can call this operation.</p>
+
+        Args:
+            agreement_request_id: <p>The unique identifier of the agreement request.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get an agreement request
+
+            >>> client.get_agreement_request(agreement_request_id='ar-EXAMPLE4a539b123d4EXAMPLE78')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.get_agreement_request_input.GetAgreementRequestInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.get_agreement_request_output.GetAgreementRequestOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request.get_agreement_request(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgreementRequest")
+        )
+        input_: capo_marketplace_agreement.types.get_agreement_request_input.GetAgreementRequestInput = {
+            "agreement_request_id": agreement_request_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_agreement_request_approval_plans(
+        self,
+        agreement_request_id: "capo_marketplace_agreement.types.agreement_request_id.AgreementRequestId",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        max_results: Optional[
+            "capo_marketplace_agreement.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_marketplace_agreement.types.next_token.NextToken"
+        ] = None,
+    ) -> "capo_marketplace_agreement.types.get_agreement_request_approval_plans_output.GetAgreementRequestApprovalPlansOutput":
+        """<p>Retrieves the approval plans that apply to an agreement request. Only the acceptor of the agreement request can call this operation. Each approval plan lists its approval levels and the approvers at each level. Pass the <code>planReference</code> of an approval plan to <code>StartAgreementApprovals</code> to start an agreement approval for it.</p>
+
+        Args:
+            agreement_request_id: <p>The unique identifier of the agreement request to retrieve the approval plans for.</p>
+            max_results: <p>The maximum number of approval plans to return in a single response (1-50). Default is 10.</p>
+            next_token: <p>A token to specify where to start pagination.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get the approval plans of an agreement request
+
+            >>> client.get_agreement_request_approval_plans(agreement_request_id='ar-EXAMPLE4a539b123d4EXAMPLE78')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.get_agreement_request_approval_plans_input.GetAgreementRequestApprovalPlansInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.get_agreement_request_approval_plans_output.GetAgreementRequestApprovalPlansOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request_approval_plans
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request_approval_plans.get_agreement_request_approval_plans(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.get_agreement_request_approval_plans_output.GetAgreementRequestApprovalPlansOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.get_agreement_request_approval_plans_output
+
+            return capo_marketplace_agreement.types.get_agreement_request_approval_plans_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAgreementRequestApprovalPlans", redact_output=_redact_output
+            ),
+        )
+        input_: capo_marketplace_agreement.types.get_agreement_request_approval_plans_input.GetAgreementRequestApprovalPlansInput = {
+            "agreement_request_id": agreement_request_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_agreement_request_terms(
+        self,
+        agreement_request_id: "capo_marketplace_agreement.types.agreement_request_id.AgreementRequestId",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        max_results: Optional[
+            "capo_marketplace_agreement.types.agreement_request_terms_max_results.AgreementRequestTermsMaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_marketplace_agreement.types.next_token.NextToken"
+        ] = None,
+    ) -> "capo_marketplace_agreement.types.get_agreement_request_terms_output.GetAgreementRequestTermsOutput":
+        """<p>Retrieves the terms proposed for an agreement request, such as pricing, legal, and renewal terms. The acceptor, or the management account or a delegated administrator of the acceptor's AWS organization, can call this operation. This operation is similar to <code>GetAgreementTerms</code>, but it takes an <code>agreementRequestId</code> instead of an <code>agreementId</code>.</p>
+
+        Args:
+            agreement_request_id: <p>The unique identifier of the agreement request.</p>
+            max_results: <p>The maximum number of terms to return in the response.</p>
+            next_token: <p>A token to specify where to start pagination.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get the terms of an agreement request
+
+            >>> client.get_agreement_request_terms(agreement_request_id='ar-EXAMPLE4a539b123d4EXAMPLE78')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.get_agreement_request_terms_input.GetAgreementRequestTermsInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.get_agreement_request_terms_output.GetAgreementRequestTermsOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request_terms
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request_terms.get_agreement_request_terms(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgreementRequestTerms")
+        )
+        input_: capo_marketplace_agreement.types.get_agreement_request_terms_input.GetAgreementRequestTermsInput = {
+            "agreement_request_id": agreement_request_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_get_agreement_request_terms(
+        self,
+        agreement_request_id: "capo_marketplace_agreement.types.agreement_request_id.AgreementRequestId",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        max_results: Optional[
+            "capo_marketplace_agreement.types.agreement_request_terms_max_results.AgreementRequestTermsMaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_marketplace_agreement.types.next_token.NextToken"
+        ] = None,
+    ) -> "Iterator[capo_marketplace_agreement.types.agreement_request_term.AgreementRequestTerm]":
+        _token = next_token
+        while True:
+            _response = self.get_agreement_request_terms(
+                agreement_request_id,
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("terms",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     def get_agreement_terms(
         self,
@@ -1193,6 +1732,93 @@ class MarketplaceAgreementClient:
             "agreement_id": agreement_id,
             "billing_adjustment_request_id": billing_adjustment_request_id,
         }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_agreement_approvals(
+        self,
+        party_type: "capo_marketplace_agreement.types.agreement_approval_party_type.AgreementApprovalPartyType",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        catalog: Optional["capo_marketplace_agreement.types.catalog.Catalog"] = None,
+        agreement_request_id: Optional[
+            "capo_marketplace_agreement.types.agreement_request_id.AgreementRequestId"
+        ] = None,
+        approval_type: Optional[
+            "capo_marketplace_agreement.types.agreement_approval_type.AgreementApprovalType"
+        ] = None,
+        status: Optional[
+            "capo_marketplace_agreement.types.agreement_approval_status.AgreementApprovalStatus"
+        ] = None,
+        max_results: Optional[
+            "capo_marketplace_agreement.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_marketplace_agreement.types.next_token.NextToken"
+        ] = None,
+    ) -> "capo_marketplace_agreement.types.list_agreement_approvals_output.ListAgreementApprovalsOutput":
+        """<p>Lists agreement approvals available to you as a buyer. Use <code>REQUESTER</code> as the <code>partyType</code> to list the agreement approvals that your account started. Use <code>AWS_ORGANIZATION_ADMIN</code> to list the agreement approvals in your AWS organization, if your account is the management account or a delegated administrator of the organization. You can filter the results by agreement request, approval type, and status.</p>
+
+        Args:
+            catalog: <p>An optional parameter to filter agreement approvals by catalog (for example, <code>AWSMarketplace</code>).</p>
+            party_type: <p>The party type for the agreement approvals. Required parameter. Use <code>REQUESTER</code> to list agreement approvals for agreement requests that you created, or <code>AWS_ORGANIZATION_ADMIN</code> to list agreement approvals as an AWS Organizations administrator.</p>
+            agreement_request_id: <p>An optional parameter to filter agreement approvals for a specific agreement request.</p>
+            approval_type: <p>An optional parameter to filter agreement approvals by type. The only valid value is <code>BUYER_AGREEMENT_APPROVAL</code>.</p>
+            status: <p>An optional parameter to filter agreement approvals by status. Valid values include <code>PENDING_APPROVAL</code>, <code>APPROVED</code>, <code>REJECTED</code>, <code>EXPIRED</code>, and <code>CANCELLED</code>. If you don't specify a status, agreement approvals of all statuses are returned.</p>
+            max_results: <p>The maximum number of agreement approvals to return in a single response (1-50). Default is 20.</p>
+            next_token: <p>A token to specify where to start pagination.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List agreement approvals
+
+            >>> client.list_agreement_approvals(party_type='REQUESTER', status='PENDING_APPROVAL', max_results=10)
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.list_agreement_approvals_input.ListAgreementApprovalsInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.list_agreement_approvals_output.ListAgreementApprovalsOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_approvals
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_approvals.list_agreement_approvals(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgreementApprovals")
+        )
+        input_: capo_marketplace_agreement.types.list_agreement_approvals_input.ListAgreementApprovalsInput = {
+            "party_type": party_type
+        }
+        if catalog is not None:
+            input_["catalog"] = catalog
+        if agreement_request_id is not None:
+            input_["agreement_request_id"] = agreement_request_id
+        if approval_type is not None:
+            input_["approval_type"] = approval_type
+        if status is not None:
+            input_["status"] = status
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1710,6 +2336,118 @@ class MarketplaceAgreementClient:
             if not _token:
                 break
 
+    def list_agreement_requests(
+        self,
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        catalog: Optional["capo_marketplace_agreement.types.catalog.Catalog"] = None,
+        status: Optional[
+            "capo_marketplace_agreement.types.agreement_request_status.AgreementRequestStatus"
+        ] = None,
+        resource_id: Optional[
+            "capo_marketplace_agreement.types.resource_id.ResourceId"
+        ] = None,
+        max_results: Optional[
+            "capo_marketplace_agreement.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_marketplace_agreement.types.next_token.NextToken"
+        ] = None,
+    ) -> "capo_marketplace_agreement.types.list_agreement_requests_output.ListAgreementRequestsOutput":
+        """<p>Lists agreement requests available to you as a buyer (acceptor). You can filter the results by <code>catalog</code>, <code>status</code>, and <code>resourceId</code>.</p>
+
+        Args:
+            catalog: <p>An optional parameter to list agreement requests by catalog (for example, <code>AWSMarketplace</code>).</p>
+            status: <p>An optional parameter to list agreement requests by status. Valid values include <code>DRAFT</code>, <code>PENDING_APPROVAL</code>, <code>APPROVED</code>, <code>ACCEPTED</code>, <code>REJECTED</code>, and <code>CANCELLED</code>. If you don't specify a status, agreement requests of all statuses are returned.</p>
+            resource_id: <p>An optional parameter to list agreement requests for a specific resource, such as a product.</p>
+            max_results: <p>The maximum number of agreement requests to return in a single response (1-50). Default is 20.</p>
+            next_token: <p>A token to specify where to start pagination.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List agreement requests
+
+            >>> client.list_agreement_requests(status='PENDING_APPROVAL', max_results=10)
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.list_agreement_requests_input.ListAgreementRequestsInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.list_agreement_requests_output.ListAgreementRequestsOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_requests
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_requests.list_agreement_requests(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgreementRequests")
+        )
+        input_: capo_marketplace_agreement.types.list_agreement_requests_input.ListAgreementRequestsInput = {}
+        if catalog is not None:
+            input_["catalog"] = catalog
+        if status is not None:
+            input_["status"] = status
+        if resource_id is not None:
+            input_["resource_id"] = resource_id
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_agreement_requests(
+        self,
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        catalog: Optional["capo_marketplace_agreement.types.catalog.Catalog"] = None,
+        status: Optional[
+            "capo_marketplace_agreement.types.agreement_request_status.AgreementRequestStatus"
+        ] = None,
+        resource_id: Optional[
+            "capo_marketplace_agreement.types.resource_id.ResourceId"
+        ] = None,
+        max_results: Optional[
+            "capo_marketplace_agreement.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional[
+            "capo_marketplace_agreement.types.next_token.NextToken"
+        ] = None,
+    ) -> "Iterator[capo_marketplace_agreement.types.agreement_request_summary.AgreementRequestSummary]":
+        _token = next_token
+        while True:
+            _response = self.list_agreement_requests(
+                config_overrides=config_overrides,
+                catalog=catalog,
+                status=status,
+                resource_id=resource_id,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def list_billing_adjustment_requests(
         self,
         *,
@@ -1851,6 +2589,75 @@ class MarketplaceAgreementClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    def reject_agreement_approval(
+        self,
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        buyer_agreement_approval_rejection_input: Optional[
+            "capo_marketplace_agreement.types.buyer_agreement_approval_rejection_input.BuyerAgreementApprovalRejectionInput"
+        ] = None,
+    ) -> "capo_marketplace_agreement.types.reject_agreement_approval_output.RejectAgreementApprovalOutput":
+        """<p>Allows the management account or a delegated administrator of the buyer's AWS organization to reject an agreement approval that is in <code>PENDING_APPROVAL</code> status, as the organization administrator approver or on behalf of another approver. Once rejected, the agreement approval and its agreement request transition to <code>REJECTED</code> status. You must provide a reason for the rejection.</p>
+
+        Args:
+            buyer_agreement_approval_rejection_input: <p>The rejection decision for an agreement approval that the buyer's organization requires.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.conflict_exception.ConflictException: <p>Request was denied due to a resource conflict.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Reject an agreement approval
+
+            >>> client.reject_agreement_approval(buyer_agreement_approval_rejection_input={'agreementApprovalId': 'apr-EXAMPLE9s0t1u2v3w4x', 'note': "Rejected. This purchase isn't in the approved budget."})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.reject_agreement_approval_input.RejectAgreementApprovalInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.reject_agreement_approval_output.RejectAgreementApprovalOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.reject_agreement_approval
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.reject_agreement_approval.reject_agreement_approval(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.reject_agreement_approval_input.RejectAgreementApprovalInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.reject_agreement_approval_input
+
+            return capo_marketplace_agreement.types.reject_agreement_approval_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RejectAgreementApproval", redact_input=_redact_input),
+        )
+        input_: capo_marketplace_agreement.types.reject_agreement_approval_input.RejectAgreementApprovalInput = {}
+        if buyer_agreement_approval_rejection_input is not None:
+            input_["buyer_agreement_approval_rejection_input"] = (
+                buyer_agreement_approval_rejection_input
+            )
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def reject_agreement_cancellation_request(
         self,
@@ -2022,7 +2829,7 @@ class MarketplaceAgreementClient:
 
         Args:
             catalog: <p>The catalog in which the agreement was created.</p>
-            filters: <p>The filter name and value pair used to return a specific list of results.</p> <p>The following filters are supported:</p> <ul> <li> <p> <code>ResourceIdentifier</code> – The unique identifier of the resource.</p> </li> <li> <p> <code>ResourceType</code> – Type of the resource, which is the product (<code>AmiProduct</code>, <code>ContainerProduct</code>, <code>SaaSProduct</code>, <code>ProfessionalServicesProduct</code>, or <code>MachineLearningProduct</code>).</p> </li> <li> <p> <code>PartyType</code> – The party type of the caller. Use <code>Proposer</code> or <code>Acceptor</code>.</p> </li> <li> <p> <code>AcceptorAccountId</code> – The AWS account ID of the party accepting the agreement terms.</p> </li> <li> <p> <code>OfferId</code> – The unique identifier of the offer in which the terms are registered in the agreement token.</p> </li> <li> <p> <code>Status</code> – The current status of the agreement. Values include <code>ACTIVE</code>, <code>CANCELLED</code>, <code>EXPIRED</code>, <code>RENEWED</code>, <code>REPLACED</code>, and <code>TERMINATED</code>.</p> </li> <li> <p> <code>BeforeEndTime</code> – A date used to filter agreements with a date before the <code>endTime</code> of an agreement.</p> </li> <li> <p> <code>AfterEndTime</code> – A date used to filter agreements with a date after the <code>endTime</code> of an agreement.</p> </li> <li> <p> <code>BeforeStartTime</code> – A date used to filter agreements with a date before the <code>startTime</code> of an agreement.</p> </li> <li> <p> <code>AfterStartTime</code> – A date used to filter agreements with a date after the <code>startTime</code> of an agreement.</p> </li> <li> <p> <code>BeforeLastUpdateTime</code> – A date used to filter agreements with a date before the <code>lastUpdateTime</code> of an agreement.</p> </li> <li> <p> <code>AfterLastUpdateTime</code> – A date used to filter agreements with a date after the <code>lastUpdateTime</code> of an agreement.</p> </li> <li> <p> <code>AgreementType</code> – The type of agreement. Supported value includes <code>PurchaseAgreement</code>.</p> </li> <li> <p> <code>OfferSetId</code> – A unique identifier for the offer set containing this offer. All agreements created from offers in this set include this identifier as context.</p> </li> <li> <p> <code>EndTimeBehaviorType</code> – What happens to the agreement when it reaches its end date. Values include <code>RENEW</code>, <code>REPLACE</code>, and <code>EXPIRE</code>.</p> </li> <li> <p> <code>EndTimeBehaviorReasonCode</code> – The reason why the agreement doesn't renew at its end date. Values include <code>PROPOSER_RENEW_OPTED_OUT</code>, <code>ACCEPTOR_RENEW_OPTED_OUT</code>, <code>NO_RENEWAL_TERM</code>, and <code>RENEWAL_LIMIT_EXHAUSTED</code>.</p> </li> <li> <p> <code>InitialAgreementId</code> – The unique identifier of the very first agreement in a chain of related agreements. Use this filter to return every agreement in the same chain.</p> </li> <li> <p> <code>LicenseArn</code> – The Amazon Resource Name (ARN) of the AWS License Manager license associated with an entitlement granted by the agreement.</p> </li> </ul> <p>A proposer can use any combination of the preceding filters along with <code>AgreementType</code>, which is required.</p> <p>The following filter combinations are supported when the <code>PartyType</code> is <code>Acceptor</code>:</p> <ul> <li> <p> <code>AgreementType</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>Status</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>Status</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceIdentifier</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceIdentifier</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceIdentifier</code> + <code>Status</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceIdentifier</code> + <code>Status</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceType</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceType</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferId</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferId</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferId</code> + <code>Status</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferId</code> + <code>Status</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferSetId</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferSetId</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferSetId</code> + <code>Status</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferSetId</code> + <code>Status</code> + <code>EndTime</code> </p> </li> </ul> <note> <p>To filter by <code>EndTime</code>, you can use <code>BeforeEndTime</code>, <code>AfterEndTime</code>, or both.</p> </note>
+            filters: <p>The filter name and value pair used to return a specific list of results.</p> <p>The following filters are supported:</p> <ul> <li> <p> <code>ResourceIdentifier</code> – The unique identifier of the resource.</p> </li> <li> <p> <code>ResourceType</code> – Type of the resource, which is the product (<code>AmiProduct</code>, <code>ContainerProduct</code>, <code>SaaSProduct</code>, <code>ProfessionalServicesProduct</code>, or <code>MachineLearningProduct</code>).</p> </li> <li> <p> <code>PartyType</code> – The party type of the caller. Use <code>Proposer</code> or <code>Acceptor</code>.</p> </li> <li> <p> <code>AcceptorAccountId</code> – The AWS account ID of the party accepting the agreement terms.</p> </li> <li> <p> <code>OfferId</code> – The unique identifier of the offer in which the terms are registered in the agreement token.</p> </li> <li> <p> <code>Status</code> – The current status of the agreement. Values include <code>ACTIVE</code>, <code>CANCELLED</code>, <code>EXPIRED</code>, <code>RENEWED</code>, <code>REPLACED</code>, and <code>TERMINATED</code>.</p> </li> <li> <p> <code>BeforeEndTime</code> – A date used to filter agreements with a date before the <code>endTime</code> of an agreement.</p> </li> <li> <p> <code>AfterEndTime</code> – A date used to filter agreements with a date after the <code>endTime</code> of an agreement.</p> </li> <li> <p> <code>BeforeStartTime</code> – A date used to filter agreements with a date before the <code>startTime</code> of an agreement.</p> </li> <li> <p> <code>AfterStartTime</code> – A date used to filter agreements with a date after the <code>startTime</code> of an agreement.</p> </li> <li> <p> <code>BeforeLastUpdateTime</code> – A date used to filter agreements with a date before the <code>lastUpdateTime</code> of an agreement.</p> </li> <li> <p> <code>AfterLastUpdateTime</code> – A date used to filter agreements with a date after the <code>lastUpdateTime</code> of an agreement.</p> </li> <li> <p> <code>AgreementType</code> – The type of agreement. Supported value includes <code>PurchaseAgreement</code>.</p> </li> <li> <p> <code>OfferSetId</code> – A unique identifier for the offer set containing this offer. All agreements created from offers in this set include this identifier as context.</p> </li> <li> <p> <code>EndTimeBehaviorType</code> – What happens to the agreement when it reaches its end date. Values include <code>RENEW</code>, <code>REPLACE</code>, and <code>EXPIRE</code>.</p> </li> <li> <p> <code>EndTimeBehaviorReasonCode</code> – The reason why the agreement doesn't renew at its end date. Values include <code>PROPOSER_RENEW_OPTED_OUT</code>, <code>ACCEPTOR_RENEW_OPTED_OUT</code>, <code>NO_RENEWAL_TERM</code>, and <code>RENEWAL_LIMIT_EXHAUSTED</code>.</p> </li> <li> <p> <code>InitialAgreementId</code> – The unique identifier of the very first agreement in a chain of related agreements. Use this filter to return every agreement in the same chain.</p> </li> <li> <p> <code>LicenseArn</code> – The Amazon Resource Name (ARN) of the AWS License Manager license associated with an entitlement granted by the agreement.</p> </li> <li> <p> <code>IncludesContactOfType</code> – The type of contact information on file for the agreement. Supported value includes <code>ACCEPTOR</code>.</p> </li> </ul> <p>A proposer can use any combination of the preceding filters along with <code>AgreementType</code>, which is required.</p> <p>The following filter combinations are supported when the <code>PartyType</code> is <code>Acceptor</code>:</p> <ul> <li> <p> <code>AgreementType</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>Status</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>Status</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceIdentifier</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceIdentifier</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceIdentifier</code> + <code>Status</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceIdentifier</code> + <code>Status</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceType</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>ResourceType</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferId</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferId</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferId</code> + <code>Status</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferId</code> + <code>Status</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferSetId</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferSetId</code> + <code>EndTime</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferSetId</code> + <code>Status</code> </p> </li> <li> <p> <code>AgreementType</code> + <code>OfferSetId</code> + <code>Status</code> + <code>EndTime</code> </p> </li> </ul> <note> <p>To filter by <code>EndTime</code>, you can use <code>BeforeEndTime</code>, <code>AfterEndTime</code>, or both.</p> </note>
             sort: <p>An object that contains the <code>SortBy</code> and <code>SortOrder</code> attributes. For <code>SearchAgreements</code>, <code>SortBy</code> supports <code>EndTime</code> for both party types, and <code>StartTime</code> and <code>LastUpdateTime</code> only when <code>PartyType</code> is <code>Proposer</code>. The default <code>SortBy</code> value is <code>EndTime</code>.</p>
             max_results: <p>The maximum number of agreements to return in the response.</p>
             next_token: <p>A token to specify where to start pagination.</p>
@@ -2285,6 +3092,80 @@ class MarketplaceAgreementClient:
         input_["client_token"] = client_token
         if description is not None:
             input_["description"] = description
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def start_agreement_approvals(
+        self,
+        agreement_request_id: "capo_marketplace_agreement.types.agreement_request_id.AgreementRequestId",
+        plan_inputs: "capo_marketplace_agreement.types.agreement_approval_plan_inputs.AgreementApprovalPlanInputs",
+        *,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        purchase_orders: Optional[
+            "capo_marketplace_agreement.types.agreement_approval_purchase_orders.AgreementApprovalPurchaseOrders"
+        ] = None,
+    ) -> "capo_marketplace_agreement.types.start_agreement_approvals_output.StartAgreementApprovalsOutput":
+        """<p>Allows buyers (acceptors) to start the approvals that their organization requires for an agreement request. You start one agreement approval for each approval plan that you specify. Use <code>GetAgreementRequestApprovalPlans</code> to retrieve the approval plans of the agreement request. Once the agreement approvals start, the agreement request transitions to <code>PENDING_APPROVAL</code> status.</p>
+
+        Args:
+            agreement_request_id: <p>The unique identifier of the agreement request to start approvals for.</p>
+            plan_inputs: <p>The approval plans to start agreement approvals for.</p>
+            purchase_orders: <p>An optional list of purchase order references to associate with charges on the agreement request.</p>
+
+        Raises:
+            capo_marketplace_agreement.errors.access_denied_exception.AccessDeniedException: <p>User does not have sufficient access to perform this action.</p>
+            capo_marketplace_agreement.errors.conflict_exception.ConflictException: <p>Request was denied due to a resource conflict.</p>
+            capo_marketplace_agreement.errors.internal_server_exception.InternalServerException: <p>Unexpected error during processing of request.</p>
+            capo_marketplace_agreement.errors.resource_not_found_exception.ResourceNotFoundException: <p>Request references a resource which does not exist.</p>
+            capo_marketplace_agreement.errors.throttling_exception.ThrottlingException: <p>Request was denied due to request throttling.</p>
+            capo_marketplace_agreement.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_marketplace_agreement.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Start agreement approvals
+
+            >>> client.start_agreement_approvals(agreement_request_id='ar-EXAMPLE4a539b123d4EXAMPLE78', plan_inputs=[{'buyerAgreementApprovalPlanInput': {'planReference': 'aplan-EXAMPLE7g8h9i0j1k2l', 'requesterNote': 'Annual subscription for the data platform team.'}}], purchase_orders=[{'chargeId': 'ch-EXAMPLE4b4296145c3EXAMPLE56', 'purchaseOrderReference': 'PO-123'}])
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_marketplace_agreement.types.start_agreement_approvals_input.StartAgreementApprovalsInput]",
+        ) -> OperationResponse[
+            "capo_marketplace_agreement.types.start_agreement_approvals_output.StartAgreementApprovalsOutput"
+        ]:
+            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.start_agreement_approvals
+
+            output, http_response = (
+                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.start_agreement_approvals.start_agreement_approvals(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.start_agreement_approvals_input.StartAgreementApprovalsInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.start_agreement_approvals_input
+
+            return capo_marketplace_agreement.types.start_agreement_approvals_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartAgreementApprovals", redact_input=_redact_input),
+        )
+        input_: capo_marketplace_agreement.types.start_agreement_approvals_input.StartAgreementApprovalsInput = {
+            "agreement_request_id": agreement_request_id,
+            "plan_inputs": plan_inputs,
+        }
+        if purchase_orders is not None:
+            input_["purchase_orders"] = purchase_orders
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

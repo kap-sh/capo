@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_athena.types.catalog_name_string
+    import capo_athena.types.database_attributes_list
     import capo_athena.types.max_databases_count
     import capo_athena.types.token
     import capo_athena.types.work_group_name
@@ -20,6 +21,10 @@ class ListDatabasesInput(TypedDict, closed=True):
     """<p>Specifies the maximum number of results to return.</p>"""
     work_group: NotRequired["capo_athena.types.work_group_name.WorkGroupName"]
     """<p>The name of the workgroup for which the metadata is being fetched. Required if requesting an IAM Identity Center enabled Glue Data Catalog.</p>"""
+    attributes_to_get: NotRequired[
+        "capo_athena.types.database_attributes_list.DatabaseAttributesList"
+    ]
+    """<p>Specifies the database properties returned by the <code>ListDatabases</code> call. The only valid value is <code>NAME</code>, which returns only the name of each database and omits the remaining properties. If you omit this parameter or specify an empty list, all database properties are returned.</p> <p>Requesting only names can reduce response time for catalogs that contain many databases, especially resource links to databases shared from other accounts.</p> <p>This parameter applies only to the Glue Data Catalog. For other data catalog types, it is ignored.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -32,6 +37,14 @@ def serialize_aws_json_1_1(value: ListDatabasesInput) -> dict:
         out["MaxResults"] = value["max_results"]
     if "work_group" in value:
         out["WorkGroup"] = value["work_group"]
+    if "attributes_to_get" in value:
+        import capo_athena.types.database_attributes_list
+
+        out["AttributesToGet"] = (
+            capo_athena.types.database_attributes_list.serialize_aws_json_1_1(
+                value["attributes_to_get"]
+            )
+        )
     return out
 
 
@@ -47,4 +60,12 @@ def deserialize_aws_json_1_1(data: dict) -> ListDatabasesInput:
         out["max_results"] = data["MaxResults"]
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
+    if data.get("AttributesToGet") is not None:
+        import capo_athena.types.database_attributes_list
+
+        out["attributes_to_get"] = (
+            capo_athena.types.database_attributes_list.deserialize_aws_json_1_1(
+                data["AttributesToGet"]
+            )
+        )
     return out

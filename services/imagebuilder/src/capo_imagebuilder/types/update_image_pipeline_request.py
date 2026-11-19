@@ -63,7 +63,7 @@ class UpdateImagePipelineRequest(TypedDict, closed=True):
     workflows: NotRequired[
         "capo_imagebuilder.types.workflow_configuration_list.WorkflowConfigurationList"
     ]
-    """<p>The array of workflow configuration objects for builds that this pipeline starts. You must also specify <code>executionRole</code> when you provide workflows.</p>"""
+    """<p>The array of workflow configuration objects for builds that this pipeline starts. If you specify workflows, they replace the default workflows that Image Builder otherwise runs for the pipeline's builds. For example, if your list doesn't include a test workflow, the pipeline's builds don't run one. You must also specify <code>executionRole</code> when you provide workflows.</p>"""
     logging_configuration: NotRequired[
         "capo_imagebuilder.types.pipeline_logging_configuration.PipelineLoggingConfiguration"
     ]

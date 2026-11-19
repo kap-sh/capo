@@ -13,7 +13,7 @@ class GetKeyPolicyResponse(TypedDict, closed=True):
     policy: NotRequired["capo_kms.types.policy_type.PolicyType"]
     """<p>A key policy document in JSON format.</p>"""
     policy_name: NotRequired["capo_kms.types.policy_name_type.PolicyNameType"]
-    """<p>The name of the key policy. The only valid value is <code>default</code>.</p>"""
+    """<p>The name of the key policy. Valid values are:</p> <dl> <dt>default</dt> <dd> <p>The key policy that you manage.</p> </dd> <dt>AWS_RAM</dt> <dd> <p>The key policy that RAM manages for KMS keys that you share through RAM.</p> </dd> </dl>"""
 
 
 # --- awsJson1_1 ser/de ---

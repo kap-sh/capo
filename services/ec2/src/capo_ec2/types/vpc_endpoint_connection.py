@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.state
     import capo_ec2.types.string
     import capo_ec2.types.tag_list
+    import capo_ec2.types.transit_gateway_attachment_id
     import capo_ec2.types.value_string_list
 
 
@@ -52,6 +53,12 @@ class VpcEndpointConnection(TypedDict, closed=True):
         "capo_ec2.types.payer_responsibility_set.PayerResponsibilitySet"
     ]
     """<p>The payer responsibility settings for the endpoint.</p>"""
+    transit_gateway_attachment_id: NotRequired[
+        "capo_ec2.types.transit_gateway_attachment_id.TransitGatewayAttachmentId"
+    ]
+    """<p>The ID of the transit gateway attachment, if the connection is for a transit gateway attachment.</p>"""
+    transit_gateway_attachment_owner: NotRequired["capo_ec2.types.string.String"]
+    """<p>The ID of the Amazon Web Services account that owns the transit gateway attachment, if the connection is for a transit gateway attachment.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -131,6 +138,20 @@ def serialize_ec2_query(
             value["payer_responsibilities"],
             pairs,
             f"{key_prefix}PayerResponsibilitySet",
+        )
+    if "transit_gateway_attachment_id" in value:
+        pairs.append(
+            (
+                f"{key_prefix}TransitGatewayAttachmentId",
+                str(value["transit_gateway_attachment_id"]),
+            )
+        )
+    if "transit_gateway_attachment_owner" in value:
+        pairs.append(
+            (
+                f"{key_prefix}TransitGatewayAttachmentOwner",
+                str(value["transit_gateway_attachment_owner"]),
+            )
         )
 
 
@@ -214,5 +235,15 @@ def deserialize_ec2_query(el: Element) -> VpcEndpointConnection:
             capo_ec2.types.payer_responsibility_set.deserialize_ec2_query(
                 child_payer_responsibilities
             )
+        )
+    child_transit_gateway_attachment_id = el.find("transitGatewayAttachmentId")
+    if child_transit_gateway_attachment_id is not None:
+        out["transit_gateway_attachment_id"] = str(
+            child_transit_gateway_attachment_id.text or ""
+        )
+    child_transit_gateway_attachment_owner = el.find("transitGatewayAttachmentOwner")
+    if child_transit_gateway_attachment_owner is not None:
+        out["transit_gateway_attachment_owner"] = str(
+            child_transit_gateway_attachment_owner.text or ""
         )
     return out

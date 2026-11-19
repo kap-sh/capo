@@ -3990,7 +3990,7 @@ class AsyncInspector2Client:
 
         Args:
             filter_criteria: <p>An object that contains details on the filters to apply to the coverage data for your environment.</p>
-            group_by: <p>The value to group the results by.</p>
+            group_by: <p>The value to group the results by. For multi-cloud resources, use <code>PROVIDER</code>, <code>PROVIDER_ACCOUNT_ID</code> (Azure subscription ID or Google Cloud Platform (GCP) project ID), <code>PROVIDER_ORG_ID</code> (Azure tenant ID or Google Cloud Platform (GCP) organization ID), or <code>PROVIDER_REGION</code>.</p>
             next_token: <p>A token to use for paginating results that are returned in the response. Set the value of this parameter to null for the first request to a list action. For subsequent calls, use the <code>NextToken</code> value returned from the previous request to continue listing results after the first page.</p>
 
         Raises:

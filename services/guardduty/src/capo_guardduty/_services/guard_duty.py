@@ -197,7 +197,9 @@ if TYPE_CHECKING:
     import capo_guardduty.types.group_by_type
     import capo_guardduty.types.guard_duty_arn
     import capo_guardduty.types.integer_value_with_max
+    import capo_guardduty.types.investigation_filter_criteria
     import capo_guardduty.types.investigation_id
+    import capo_guardduty.types.investigation_record
     import capo_guardduty.types.investigation_sort_criteria
     import capo_guardduty.types.investigation_summary
     import capo_guardduty.types.invitation
@@ -218,6 +220,8 @@ if TYPE_CHECKING:
     import capo_guardduty.types.list_filters_response
     import capo_guardduty.types.list_findings_request
     import capo_guardduty.types.list_findings_response
+    import capo_guardduty.types.list_investigation_records_request
+    import capo_guardduty.types.list_investigation_records_response
     import capo_guardduty.types.list_investigations_request
     import capo_guardduty.types.list_investigations_response
     import capo_guardduty.types.list_invitations_request
@@ -255,6 +259,7 @@ if TYPE_CHECKING:
     import capo_guardduty.types.order_by
     import capo_guardduty.types.organization_data_source_configurations
     import capo_guardduty.types.organization_features_configurations
+    import capo_guardduty.types.record_types
     import capo_guardduty.types.resource_arn
     import capo_guardduty.types.rule_id
     import capo_guardduty.types.rule_summary
@@ -273,6 +278,7 @@ if TYPE_CHECKING:
     import capo_guardduty.types.stop_monitoring_members_request
     import capo_guardduty.types.stop_monitoring_members_response
     import capo_guardduty.types.string
+    import capo_guardduty.types.summary_format
     import capo_guardduty.types.tag_key_list
     import capo_guardduty.types.tag_map
     import capo_guardduty.types.tag_resource_request
@@ -3087,12 +3093,16 @@ class GuardDutyClient:
         investigation_id: "capo_guardduty.types.investigation_id.InvestigationId",
         *,
         config_overrides: Optional[GuardDutyClientConfig] = None,
+        summary_format: Optional[
+            "capo_guardduty.types.summary_format.SummaryFormat"
+        ] = None,
     ) -> "capo_guardduty.types.get_investigation_response.GetInvestigationResponse":
-        """<p>This API is currently available as a preview. This feature is available in the following Amazon Web Services Regions: US East (N. Virginia), US East (Ohio), US West (Oregon), Canada (Central), Europe (Frankfurt), Europe (Ireland), Europe (London), Europe (Paris), Europe (Stockholm), and Asia Pacific (Tokyo).</p> <p>Retrieves the results and status of a specific GuardDuty investigation.</p> <p>An administrator account can retrieve any investigation within the organization. Member accounts can only retrieve investigations that belong to them.</p>
+        """<p>This API is currently available as a preview. This feature is available in the following Amazon Web Services Regions: US East (N. Virginia), US East (Ohio), US West (Oregon), Canada (Central), Europe (Frankfurt), Europe (Ireland), Europe (London), Europe (Paris), Europe (Stockholm), and Asia Pacific (Tokyo).</p> <p>Retrieves the results and status of a specific GuardDuty investigation.</p> <p>GuardDuty returns the results, including the summary and the scope of the investigation, only when the investigation status is <code>COMPLETED</code>. By default, GuardDuty returns the summary as text in <code>Summary</code>. To return a typed summary in <code>SummaryData</code> instead, set <code>SummaryFormat</code> to <code>STRUCTURED</code>.</p> <p>An administrator account can retrieve any investigation within the organization. Member accounts can only retrieve investigations that belong to them.</p>
 
         Args:
             detector_id: <p>The unique ID of the GuardDuty detector associated with the investigation.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>
             investigation_id: <p>The unique identifier of the investigation to retrieve.</p>
+            summary_format: <p>The format in which to return the investigation summary. Possible values:</p> <ul> <li> <p> <code>STRING</code> – (Default) Returns the summary as text in <code>Summary</code>.</p> </li> <li> <p> <code>STRUCTURED</code> – Returns a typed summary in <code>SummaryData</code>.</p> </li> </ul> <p>GuardDuty returns a summary only when the investigation status is <code>COMPLETED</code>.</p>
 
         Raises:
             capo_guardduty.errors.access_denied_exception.AccessDeniedException: <p>An access denied exception object.</p>
@@ -3123,6 +3133,8 @@ class GuardDutyClient:
             "detector_id": detector_id,
             "investigation_id": investigation_id,
         }
+        if summary_format is not None:
+            input_["summary_format"] = summary_format
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -4517,21 +4529,130 @@ class GuardDutyClient:
             if not _token:
                 break
 
+    def list_investigation_records(
+        self,
+        detector_id: "capo_guardduty.types.detector_id.DetectorId",
+        *,
+        config_overrides: Optional[GuardDutyClientConfig] = None,
+        investigation_id: Optional[
+            "capo_guardduty.types.investigation_id.InvestigationId"
+        ] = None,
+        record_types: Optional["capo_guardduty.types.record_types.RecordTypes"] = None,
+        max_results: Optional["capo_guardduty.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_guardduty.types.next_token.NextToken"] = None,
+    ) -> "capo_guardduty.types.list_investigation_records_response.ListInvestigationRecordsResponse":
+        """<p>This API is currently available as a preview. This feature is available in the following Amazon Web Services Regions: US East (N. Virginia), US East (Ohio), US West (Oregon), Canada (Central), Europe (Frankfurt), Europe (Ireland), Europe (London), Europe (Paris), Europe (Stockholm), and Asia Pacific (Tokyo).</p> <p>Returns the records for a specific GuardDuty investigation. Each record is one step in the reasoning that GuardDuty followed to reach the results of the investigation.</p> <p>An administrator account can list the records of any investigation within the organization. Member accounts can only list the records of investigations that belong to them.</p>
+
+        Args:
+            detector_id: <p>The unique ID of the GuardDuty detector associated with the investigation.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>
+            investigation_id: <p>The unique identifier of the investigation whose records you want to list.</p>
+            record_types: <p>The types of records to return. Possible values are <code>UPDATE</code>, <code>FETCH</code>, <code>OBSERVATION</code>, <code>ANALYSIS</code>, and <code>METADATA</code>. If you don't specify this parameter, GuardDuty returns records of all types.</p>
+            max_results: <p>The maximum number of records to return in a single response. Valid values are 1 to 50. The default value is 20. A response can contain fewer records than this value, or no records, and still include a <code>NextToken</code>.</p>
+            next_token: <p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data. Use the same <code>InvestigationId</code> and <code>RecordTypes</code> values that you used in the previous request.</p> <p>If you specify this parameter for an investigation whose status isn't <code>COMPLETED</code>, the operation returns a <code>BadRequestException</code>. A <code>NextToken</code> expires 24 hours after it's returned.</p>
+
+        Raises:
+            capo_guardduty.errors.access_denied_exception.AccessDeniedException: <p>An access denied exception object.</p>
+            capo_guardduty.errors.bad_request_exception.BadRequestException: <p>A bad request exception object.</p>
+            capo_guardduty.errors.internal_server_error_exception.InternalServerErrorException: <p>An internal server error exception object.</p>
+            capo_guardduty.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
+            capo_guardduty.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_guardduty.types.list_investigation_records_request.ListInvestigationRecordsRequest]",
+        ) -> OperationResponse[
+            "capo_guardduty.types.list_investigation_records_response.ListInvestigationRecordsResponse"
+        ]:
+            import capo_guardduty._operations.guard_duty_api_service.list_investigation_records
+
+            output, http_response = (
+                capo_guardduty._operations.guard_duty_api_service.list_investigation_records.list_investigation_records(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_guardduty.types.list_investigation_records_response.ListInvestigationRecordsResponse",
+        ) -> dict[str, Any]:
+            import capo_guardduty.types.list_investigation_records_response
+
+            return capo_guardduty.types.list_investigation_records_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListInvestigationRecords", redact_output=_redact_output),
+        )
+        input_: capo_guardduty.types.list_investigation_records_request.ListInvestigationRecordsRequest = {
+            "detector_id": detector_id
+        }
+        if investigation_id is not None:
+            input_["investigation_id"] = investigation_id
+        if record_types is not None:
+            input_["record_types"] = record_types
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_investigation_records(
+        self,
+        detector_id: "capo_guardduty.types.detector_id.DetectorId",
+        *,
+        config_overrides: Optional[GuardDutyClientConfig] = None,
+        investigation_id: Optional[
+            "capo_guardduty.types.investigation_id.InvestigationId"
+        ] = None,
+        record_types: Optional["capo_guardduty.types.record_types.RecordTypes"] = None,
+        max_results: Optional["capo_guardduty.types.max_results.MaxResults"] = None,
+        next_token: Optional["capo_guardduty.types.next_token.NextToken"] = None,
+    ) -> "Iterator[capo_guardduty.types.investigation_record.InvestigationRecord]":
+        _token = next_token
+        while True:
+            _response = self.list_investigation_records(
+                detector_id,
+                config_overrides=config_overrides,
+                investigation_id=investigation_id,
+                record_types=record_types,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("records",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def list_investigations(
         self,
         detector_id: "capo_guardduty.types.detector_id.DetectorId",
         *,
         config_overrides: Optional[GuardDutyClientConfig] = None,
+        filter_criteria: Optional[
+            "capo_guardduty.types.investigation_filter_criteria.InvestigationFilterCriteria"
+        ] = None,
         sort_criteria: Optional[
             "capo_guardduty.types.investigation_sort_criteria.InvestigationSortCriteria"
         ] = None,
         max_results: Optional["capo_guardduty.types.max_results.MaxResults"] = None,
         next_token: Optional["capo_guardduty.types.next_token.NextToken"] = None,
     ) -> "capo_guardduty.types.list_investigations_response.ListInvestigationsResponse":
-        """<p>This API is currently available as a preview. This feature is available in the following Amazon Web Services Regions: US East (N. Virginia), US East (Ohio), US West (Oregon), Canada (Central), Europe (Frankfurt), Europe (Ireland), Europe (London), Europe (Paris), Europe (Stockholm), and Asia Pacific (Tokyo).</p> <p>Returns a list of investigations associated with the specified GuardDuty detector.</p> <p>An administrator account sees all investigations across the organization. Member accounts see only the investigations that belong to them.</p>
+        """<p>This API is currently available as a preview. This feature is available in the following Amazon Web Services Regions: US East (N. Virginia), US East (Ohio), US West (Oregon), Canada (Central), Europe (Frankfurt), Europe (Ireland), Europe (London), Europe (Paris), Europe (Stockholm), and Asia Pacific (Tokyo).</p> <p>Returns a list of investigations associated with the specified GuardDuty detector. You can filter the investigations by status, risk level, confidence, finding ID, and investigation type, and sort them by start time, end time, status, risk level, or confidence.</p> <p>An administrator account sees all investigations across the organization. Member accounts see only the investigations that belong to them.</p>
 
         Args:
             detector_id: <p>The unique ID of the GuardDuty detector whose investigations you want to list.</p> <p>To find the <code>detectorId</code> in the current Region, see the Settings page in the GuardDuty console, or run the <a href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_ListDetectors.html">ListDetectors</a> API.</p>
+            filter_criteria: <p>The criteria used to filter investigations. GuardDuty returns only the investigations that match all of the specified criteria.</p>
             sort_criteria: <p>Represents the criteria used for sorting investigations.</p>
             max_results: <p>You can use this parameter to indicate the maximum number of items you want in the response. The default value is 50.</p>
             next_token: <p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.</p>
@@ -4563,6 +4684,8 @@ class GuardDutyClient:
         input_: capo_guardduty.types.list_investigations_request.ListInvestigationsRequest = {
             "detector_id": detector_id
         }
+        if filter_criteria is not None:
+            input_["filter_criteria"] = filter_criteria
         if sort_criteria is not None:
             input_["sort_criteria"] = sort_criteria
         if max_results is not None:
@@ -4583,6 +4706,9 @@ class GuardDutyClient:
         detector_id: "capo_guardduty.types.detector_id.DetectorId",
         *,
         config_overrides: Optional[GuardDutyClientConfig] = None,
+        filter_criteria: Optional[
+            "capo_guardduty.types.investigation_filter_criteria.InvestigationFilterCriteria"
+        ] = None,
         sort_criteria: Optional[
             "capo_guardduty.types.investigation_sort_criteria.InvestigationSortCriteria"
         ] = None,
@@ -4594,6 +4720,7 @@ class GuardDutyClient:
             _response = self.list_investigations(
                 detector_id,
                 config_overrides=config_overrides,
+                filter_criteria=filter_criteria,
                 sort_criteria=sort_criteria,
                 max_results=max_results,
                 next_token=_token,

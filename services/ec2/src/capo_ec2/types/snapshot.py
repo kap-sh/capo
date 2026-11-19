@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_ec2.types.associated_kms_key_set
     import capo_ec2.types.boolean
     import capo_ec2.types.date_time
     import capo_ec2.types.integer
@@ -50,6 +51,10 @@ class Snapshot(TypedDict, closed=True):
     """<p>The time stamp when the snapshot was completed.</p>"""
     full_snapshot_size_in_bytes: NotRequired["capo_ec2.types.long.Long"]
     """<p>The full size of the snapshot, in bytes.</p> <important> <p>This is <b>not</b> the incremental size of the snapshot. This is the full snapshot size and represents the size of all the blocks that were written to the source volume at the time the snapshot was created.</p> </important>"""
+    associated_kms_keys: NotRequired[
+        "capo_ec2.types.associated_kms_key_set.AssociatedKmsKeySet"
+    ]
+    """<p>The additional KMS keys that are associated with the snapshot.</p>"""
     snapshot_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the snapshot. Each snapshot receives a unique identifier when it is created.</p>"""
     volume_id: NotRequired["capo_ec2.types.string.String"]
@@ -136,6 +141,12 @@ def serialize_ec2_query(
                 f"{key_prefix}FullSnapshotSizeInBytes",
                 str(value["full_snapshot_size_in_bytes"]),
             )
+        )
+    if "associated_kms_keys" in value:
+        import capo_ec2.types.associated_kms_key_set
+
+        capo_ec2.types.associated_kms_key_set.serialize_ec2_query(
+            value["associated_kms_keys"], pairs, f"{key_prefix}AssociatedKmsKeySet"
         )
     if "snapshot_id" in value:
         pairs.append((f"{key_prefix}SnapshotId", str(value["snapshot_id"])))
@@ -237,6 +248,15 @@ def deserialize_ec2_query(el: Element) -> Snapshot:
     if child_full_snapshot_size_in_bytes is not None:
         out["full_snapshot_size_in_bytes"] = int(
             child_full_snapshot_size_in_bytes.text or ""
+        )
+    child_associated_kms_keys = el.find("associatedKmsKeySet")
+    if child_associated_kms_keys is not None:
+        import capo_ec2.types.associated_kms_key_set
+
+        out["associated_kms_keys"] = (
+            capo_ec2.types.associated_kms_key_set.deserialize_ec2_query(
+                child_associated_kms_keys
+            )
         )
     child_snapshot_id = el.find("snapshotId")
     if child_snapshot_id is not None:

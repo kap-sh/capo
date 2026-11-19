@@ -32,7 +32,7 @@ class GetQueueResponse(TypedDict, closed=True):
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the queue.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     status: "capo_deadline.types.queue_status.QueueStatus"
-    """<p>The status of the queue.</p> <ul> <li> <p> <code>ACTIVE</code>–The queue is active.</p> </li> <li> <p> <code>SCHEDULING</code>–The queue is scheduling.</p> </li> <li> <p> <code>SCHEDULING_BLOCKED</code>–The queue scheduling is blocked. See the provided reason.</p> </li> </ul>"""
+    """<p>The status of the queue.</p> <ul> <li> <p> <code>ACTIVE</code> - The queue is active.</p> </li> <li> <p> <code>SCHEDULING</code> - The queue is scheduling.</p> </li> <li> <p> <code>SCHEDULING_BLOCKED</code> - The queue scheduling is blocked. See the provided reason.</p> </li> </ul>"""
     default_budget_action: (
         "capo_deadline.types.default_queue_budget_action.DefaultQueueBudgetAction"
     )

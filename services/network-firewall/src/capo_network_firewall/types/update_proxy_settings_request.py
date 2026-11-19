@@ -21,7 +21,7 @@ class UpdateProxySettingsRequest(TypedDict, closed=True):
     proxy_settings: NotRequired[
         "capo_network_firewall.types.proxy_settings.ProxySettings"
     ]
-    """<p>The proxy listener configuration to set on the firewall. This specifies the ports and protocols on which the firewall's proxy listens for traffic. </p>"""
+    """<p>The proxy settings to set on the firewall. These replace the current proxy settings. Specify at least one listener, and at most one HTTP listener and one HTTPS listener, on different ports. If the firewall uses your own <code>CertificateArn</code> and <code>DomainName</code>, specify the same values that you used to create the firewall.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

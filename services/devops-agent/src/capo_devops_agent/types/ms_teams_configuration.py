@@ -2,12 +2,13 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_devops_agent.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.guid
+    import capo_devops_agent.types.ms_teams_bidirectional_configuration
     import capo_devops_agent.types.ms_teams_transmission_target
 
 
@@ -20,6 +21,10 @@ class MSTeamsConfiguration(TypedDict, closed=True):
         "capo_devops_agent.types.ms_teams_transmission_target.MSTeamsTransmissionTarget"
     )
     """<p>The Microsoft Teams channels that receive agent notifications.</p>"""
+    bidirectional: NotRequired[
+        "capo_devops_agent.types.ms_teams_bidirectional_configuration.MSTeamsBidirectionalConfiguration"
+    ]
+    """<p>The bidirectional communication configuration for the Microsoft Teams integration. Provide this configuration with <code>enabled</code> set to <code>true</code> to allow users to interact with the agent directly from Microsoft Teams.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -34,6 +39,14 @@ def serialize_json(value: MSTeamsConfiguration) -> dict:
             value["transmission_target"]
         )
     )
+    if "bidirectional" in value:
+        import capo_devops_agent.types.ms_teams_bidirectional_configuration
+
+        out["bidirectional"] = (
+            capo_devops_agent.types.ms_teams_bidirectional_configuration.serialize_json(
+                value["bidirectional"]
+            )
+        )
     return out
 
 
@@ -57,4 +70,12 @@ def deserialize_json(data: dict) -> MSTeamsConfiguration:
         )
     else:
         raise DeserializationError("MSTeamsConfiguration.transmission_target required")
+    if data.get("bidirectional") is not None:
+        import capo_devops_agent.types.ms_teams_bidirectional_configuration
+
+        out["bidirectional"] = (
+            capo_devops_agent.types.ms_teams_bidirectional_configuration.deserialize_json(
+                data["bidirectional"]
+            )
+        )
     return out

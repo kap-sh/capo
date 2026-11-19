@@ -25,6 +25,7 @@ import capo_mediaconnect.types.fabric_configuration
 import capo_mediaconnect.types.maintenance_configuration
 import capo_mediaconnect.types.router_output
 import capo_mediaconnect.types.router_output_configuration
+import capo_mediaconnect.types.router_output_processors
 import capo_mediaconnect.types.router_output_tier
 import capo_mediaconnect.types.routing_scope
 from capo_mediaconnect._protocol.errors import parse_error_metadata_json

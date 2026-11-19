@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.stop_condition_list
     import capo_resiliencehubv2.types.test_id
     import capo_resiliencehubv2.types.test_parameters
+    import capo_resiliencehubv2.types.test_run_effective_policy_values
     import capo_resiliencehubv2.types.test_run_id
     import capo_resiliencehubv2.types.test_run_policy_snapshot
     import capo_resiliencehubv2.types.test_run_report_configuration
@@ -70,6 +71,10 @@ class TestRun(TypedDict, closed=True):
         "capo_resiliencehubv2.types.test_run_policy_snapshot.TestRunPolicySnapshot"
     ]
     """<p>The resilience policy snapshotted from the service when the run was started.</p>"""
+    effective_policy_values: NotRequired[
+        "capo_resiliencehubv2.types.test_run_effective_policy_values.TestRunEffectivePolicyValues"
+    ]
+    """<p>The effective resilience policy values snapshotted from the service when the run was started. The test run is evaluated against these values.</p>"""
     report_output: NotRequired[
         "capo_resiliencehubv2.types.report_generation_result.ReportGenerationResult"
     ]
@@ -170,6 +175,14 @@ def serialize_json(value: TestRun) -> dict:
         out["policy"] = (
             capo_resiliencehubv2.types.test_run_policy_snapshot.serialize_json(
                 value["policy"]
+            )
+        )
+    if "effective_policy_values" in value:
+        import capo_resiliencehubv2.types.test_run_effective_policy_values
+
+        out["effectivePolicyValues"] = (
+            capo_resiliencehubv2.types.test_run_effective_policy_values.serialize_json(
+                value["effective_policy_values"]
             )
         )
     if "report_output" in value:
@@ -315,6 +328,14 @@ def deserialize_json(data: dict) -> TestRun:
         out["policy"] = (
             capo_resiliencehubv2.types.test_run_policy_snapshot.deserialize_json(
                 data["policy"]
+            )
+        )
+    if data.get("effectivePolicyValues") is not None:
+        import capo_resiliencehubv2.types.test_run_effective_policy_values
+
+        out["effective_policy_values"] = (
+            capo_resiliencehubv2.types.test_run_effective_policy_values.deserialize_json(
+                data["effectivePolicyValues"]
             )
         )
     if data.get("reportOutput") is not None:

@@ -22,6 +22,7 @@ import capo_dsql.types.cluster_status
 import capo_dsql.types.encryption_details
 import capo_dsql.types.get_cluster_input
 import capo_dsql.types.get_cluster_output
+import capo_dsql.types.metric_group_response_list
 import capo_dsql.types.multi_region_properties
 import capo_dsql.types.tag_map
 from capo_dsql._protocol.errors import parse_error_metadata_json

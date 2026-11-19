@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_ec2._protocol.xml import Element
 
 if TYPE_CHECKING:
+    import capo_ec2.types.permission_type
     import capo_ec2.types.principal_type
     import capo_ec2.types.string
     import capo_ec2.types.tag_list
@@ -23,6 +24,8 @@ class AllowedPrincipal(TypedDict, closed=True):
     """<p>The tags.</p>"""
     service_id: NotRequired["capo_ec2.types.string.String"]
     """<p>The ID of the service.</p>"""
+    permission_type: NotRequired["capo_ec2.types.permission_type.PermissionType"]
+    """<p>The type of permission granted to the principal.</p>"""
 
 
 # --- ec2Query ser/de ---
@@ -50,6 +53,12 @@ def serialize_ec2_query(
         )
     if "service_id" in value:
         pairs.append((f"{key_prefix}ServiceId", str(value["service_id"])))
+    if "permission_type" in value:
+        import capo_ec2.types.permission_type
+
+        capo_ec2.types.permission_type.serialize_ec2_query(
+            value["permission_type"], pairs, f"{key_prefix}PermissionType"
+        )
 
 
 def deserialize_ec2_query(el: Element) -> AllowedPrincipal:
@@ -75,4 +84,11 @@ def deserialize_ec2_query(el: Element) -> AllowedPrincipal:
     child_service_id = el.find("serviceId")
     if child_service_id is not None:
         out["service_id"] = str(child_service_id.text or "")
+    child_permission_type = el.find("permissionType")
+    if child_permission_type is not None:
+        import capo_ec2.types.permission_type
+
+        out["permission_type"] = capo_ec2.types.permission_type.deserialize_ec2_query(
+            child_permission_type
+        )
     return out

@@ -19,7 +19,7 @@ class PutAccountDetailsRequest(TypedDict, closed=True):
     website_url: "capo_sesv2.types.website_url.WebsiteURL"
     """<p>The URL of your website. This information helps us better understand the type of content that you plan to send.</p>"""
     contact_language: NotRequired["capo_sesv2.types.contact_language.ContactLanguage"]
-    """<p>The language you would prefer to be contacted with.</p>"""
+    """<p>The language you would prefer to be contacted with. The contact language can be one of <code>EN</code> or <code>JA</code>.</p>"""
     use_case_description: NotRequired[
         "capo_sesv2.types.use_case_description.UseCaseDescription"
     ]

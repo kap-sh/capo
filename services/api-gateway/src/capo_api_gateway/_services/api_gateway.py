@@ -168,6 +168,7 @@ if TYPE_CHECKING:
     import capo_api_gateway.types.integration
     import capo_api_gateway.types.integration_response
     import capo_api_gateway.types.integration_type
+    import capo_api_gateway.types.jwt_configuration_input
     import capo_api_gateway.types.list_of_api_stage
     import capo_api_gateway.types.list_of_ar_ns
     import capo_api_gateway.types.list_of_patch_operation
@@ -469,20 +470,24 @@ class APIGatewayClient:
         authorizer_result_ttl_in_seconds: Optional[
             "capo_api_gateway.types.nullable_integer.NullableInteger"
         ] = None,
+        jwt_configuration: Optional[
+            "capo_api_gateway.types.jwt_configuration_input.JwtConfigurationInput"
+        ] = None,
     ) -> "capo_api_gateway.types.authorizer.Authorizer":
         """<p>Adds a new Authorizer resource to an existing RestApi resource.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             name: <p>The name of the authorizer.</p>
-            type: <p>The authorizer type. Valid values are <code>TOKEN</code> for a Lambda function using a single authorization token submitted in a custom header, <code>REQUEST</code> for a Lambda function using incoming request parameters, and <code>COGNITO_USER_POOLS</code> for using an Amazon Cognito user pool.</p>
-            provider_ar_ns: <p>A list of the Amazon Cognito user pool ARNs for the <code>COGNITO_USER_POOLS</code> authorizer. Each element is of this format: <code>arn:aws:cognito-idp:{region}:{account_id}:userpool/{user_pool_id}</code>. For a <code>TOKEN</code> or <code>REQUEST</code> authorizer, this is not defined. </p>
+            type: <p>The authorizer type. Valid values are <code>TOKEN</code> for a Lambda function using a single authorization token submitted in a custom header, <code>REQUEST</code> for a Lambda function using incoming request parameters, <code>COGNITO_USER_POOLS</code> for using an Amazon Cognito user pool, and <code>JWT</code> for using a native JWT authorizer with the trusted issuers, audiences, and signing algorithms that you declare.</p>
+            provider_ar_ns: <p>A list of the Amazon Cognito user pool ARNs for the <code>COGNITO_USER_POOLS</code> authorizer. Each element is of this format: <code>arn:aws:cognito-idp:{region}:{account_id}:userpool/{user_pool_id}</code>. For a <code>TOKEN</code> or <code>REQUEST</code> authorizer, this is not defined. This property is not supported for <code>JWT</code> authorizers. </p>
             auth_type: <p>Optional customer-defined field, used in OpenAPI imports and exports without functional impact.</p>
-            authorizer_uri: <p>Specifies the authorizer's Uniform Resource Identifier (URI). For <code>TOKEN</code> or <code>REQUEST</code> authorizers, this must be a well-formed Lambda function URI, for example, <code>arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations</code>. In general, the URI has this form <code>arn:aws:apigateway:{region}:lambda:path/{service_api}</code>, where <code>{region}</code> is the same as the region hosting the Lambda function, <code>path</code> indicates that the remaining substring in the URI should be treated as the path to the resource, including the initial <code>/</code>. For Lambda functions, this is usually of the form <code>/2015-03-31/functions/[FunctionARN]/invocations</code>.</p>
-            authorizer_credentials: <p>Specifies the required credentials as an IAM role for API Gateway to invoke the authorizer. To specify an IAM role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.</p>
-            identity_source: <p>The identity source for which authorization is requested. For a <code>TOKEN</code> or <code>COGNITO_USER_POOLS</code> authorizer, this is required and specifies the request header mapping expression for the custom header holding the authorization token submitted by the client. For example, if the token header name is <code>Auth</code>, the header mapping expression is <code>method.request.header.Auth</code>. For the <code>REQUEST</code> authorizer, this is required when authorization caching is enabled. The value is a comma-separated string of one or more mapping expressions of the specified request parameters. For example, if an <code>Auth</code> header, a <code>Name</code> query string parameter are defined as identity sources, this value is <code>method.request.header.Auth, method.request.querystring.Name</code>. These parameters will be used to derive the authorization caching key and to perform runtime validation of the <code>REQUEST</code> authorizer by verifying all of the identity-related request parameters are present, not null and non-empty. Only when this is true does the authorizer invoke the authorizer Lambda function, otherwise, it returns a 401 Unauthorized response without calling the Lambda function. The valid value is a string of comma-separated mapping expressions of the specified request parameters. When the authorization caching is not enabled, this property is optional.</p>
-            identity_validation_expression: <p>A validation expression for the incoming identity token. For <code>TOKEN</code> authorizers, this value is a regular expression. For <code>COGNITO_USER_POOLS</code> authorizers, API Gateway will match the <code>aud</code> field of the incoming token from the client against the specified regular expression. It will invoke the authorizer's Lambda function when there is a match. Otherwise, it will return a 401 Unauthorized response without calling the Lambda function. The validation expression does not apply to the <code>REQUEST</code> authorizer.</p>
-            authorizer_result_ttl_in_seconds: <p>The TTL in seconds of cached authorizer results. If it equals 0, authorization caching is disabled. If it is greater than 0, API Gateway will cache authorizer responses. If this field is not set, the default value is 300. The maximum value is 3600, or 1 hour.</p>
+            authorizer_uri: <p>Specifies the authorizer's Uniform Resource Identifier (URI). For <code>TOKEN</code> or <code>REQUEST</code> authorizers, this must be a well-formed Lambda function URI, for example, <code>arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations</code>. In general, the URI has this form <code>arn:aws:apigateway:{region}:lambda:path/{service_api}</code>, where <code>{region}</code> is the same as the region hosting the Lambda function, <code>path</code> indicates that the remaining substring in the URI should be treated as the path to the resource, including the initial <code>/</code>. For Lambda functions, this is usually of the form <code>/2015-03-31/functions/[FunctionARN]/invocations</code>. This property is not supported for <code>JWT</code> authorizers.</p>
+            authorizer_credentials: <p>Specifies the required credentials as an IAM role for API Gateway to invoke the authorizer. To specify an IAM role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null. This property is not supported for <code>JWT</code> authorizers.</p>
+            identity_source: <p>The identity source for which authorization is requested. For a <code>TOKEN</code> or <code>COGNITO_USER_POOLS</code> authorizer, this is required and specifies the request header mapping expression for the custom header holding the authorization token submitted by the client. For example, if the token header name is <code>Auth</code>, the header mapping expression is <code>method.request.header.Auth</code>. For the <code>REQUEST</code> authorizer, this is required when authorization caching is enabled. The value is a comma-separated string of one or more mapping expressions of the specified request parameters. For example, if an <code>Auth</code> header, a <code>Name</code> query string parameter are defined as identity sources, this value is <code>method.request.header.Auth, method.request.querystring.Name</code>. These parameters will be used to derive the authorization caching key and to perform runtime validation of the <code>REQUEST</code> authorizer by verifying all of the identity-related request parameters are present, not null and non-empty. Only when this is true does the authorizer invoke the authorizer Lambda function, otherwise, it returns a 401 Unauthorized response without calling the Lambda function. The valid value is a string of comma-separated mapping expressions of the specified request parameters. When the authorization caching is not enabled, this property is optional. For a <code>JWT</code> authorizer, this is required and must be a single request-header mapping expression, <code>method.request.header.<name></code>, for example, <code>method.request.header.Authorization</code>. Query string parameters are not supported, and there is no default.</p>
+            identity_validation_expression: <p>A validation expression for the incoming identity token. For <code>TOKEN</code> authorizers, this value is a regular expression. For <code>COGNITO_USER_POOLS</code> authorizers, API Gateway will match the <code>aud</code> field of the incoming token from the client against the specified regular expression. It will invoke the authorizer's Lambda function when there is a match. Otherwise, it will return a 401 Unauthorized response without calling the Lambda function. The validation expression does not apply to the <code>REQUEST</code> or <code>JWT</code> authorizer.</p>
+            authorizer_result_ttl_in_seconds: <p>The TTL in seconds of cached authorizer results. If it equals 0, authorization caching is disabled. If it is greater than 0, API Gateway will cache authorizer responses. If this field is not set, the default value is 300. The maximum value is 3600, or 1 hour. This property is not supported for <code>JWT</code> authorizers.</p>
+            jwt_configuration: <p>The configuration for a JWT authorizer. Required for JWT authorizers.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -530,6 +535,8 @@ class APIGatewayClient:
             input_["authorizer_result_ttl_in_seconds"] = (
                 authorizer_result_ttl_in_seconds
             )
+        if jwt_configuration is not None:
+            input_["jwt_configuration"] = jwt_configuration
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1984,7 +1991,7 @@ class APIGatewayClient:
         *,
         config_overrides: Optional[APIGatewayClientConfig] = None,
     ) -> None:
-        """<p> Deletes the DomainNameAccessAssociation resource.</p> <p>Only the AWS account that created the DomainNameAccessAssociation resource can delete it. To stop an access association source in another AWS account from accessing your private custom domain name, use the RejectDomainNameAccessAssociation operation.</p>
+        """<p> Deletes the DomainNameAccessAssociation resource.</p> <p>Only the Amazon Web Services account that created the DomainNameAccessAssociation resource can delete it. To stop an access association source in another Amazon Web Services account from accessing your private custom domain name, use the RejectDomainNameAccessAssociation operation.</p>
 
         Args:
             domain_name_access_association_arn: <p> The ARN of the domain name access association resource.</p>
@@ -3842,7 +3849,7 @@ class APIGatewayClient:
         Args:
             position: <p>The current pagination position in the paged result set. </p>
             limit: <p>The maximum number of returned results per page. The default value is 25 and the maximum value is 500. </p>
-            resource_owner: <p> The owner of the domain name access association. Use <code>SELF</code> to only list the domain name access associations owned by your own account. Use <code>OTHER_ACCOUNTS</code> to list the domain name access associations with your private custom domain names that are owned by other AWS accounts.</p>
+            resource_owner: <p> The owner of the domain name access association. Use <code>SELF</code> to only list the domain name access associations owned by your own account. Use <code>OTHER_ACCOUNTS</code> to list the domain name access associations with your private custom domain names that are owned by other Amazon Web Services accounts.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6010,7 +6017,7 @@ class APIGatewayClient:
             content_handling: <p>Specifies how to handle request payload content type conversions. Supported values are <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p> <p>If this property is not defined, the request payload will be passed through from the method request to integration request without modification, provided that the <code>passthroughBehavior</code> is configured to support payload pass-through.</p>
             timeout_in_millis: <p>Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds. You can increase the default value to longer than 29 seconds for Regional or private APIs only.</p>
             response_transfer_mode: <p> The response transfer mode of the integration. </p>
-            integration_target: <p> The ALB or NLB listener to send the request to. </p>
+            integration_target: <p> The ALB or NLB ARN to send the request to. </p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6191,14 +6198,14 @@ class APIGatewayClient:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             resource_id: <p>The Resource identifier for the new Method resource.</p>
             http_method: <p>Specifies the method request's HTTP method type.</p>
-            authorization_type: <p>The method's authorization type. Valid values are <code>NONE</code> for open access, <code>AWS_IAM</code> for using AWS IAM permissions, <code>CUSTOM</code> for using a custom authorizer, or <code>COGNITO_USER_POOLS</code> for using a Cognito user pool.</p>
+            authorization_type: <p>The method's authorization type. Valid values are <code>NONE</code> for open access, <code>AWS_IAM</code> for using Amazon Web Services IAM permissions, <code>CUSTOM</code> for using a custom authorizer, <code>COGNITO_USER_POOLS</code> for using a Cognito user pool, or <code>JWT</code> for using a JWT authorizer.</p>
             authorizer_id: <p>Specifies the identifier of an Authorizer to use on this Method, if the type is CUSTOM or COGNITO_USER_POOLS. The authorizer identifier is generated by API Gateway when you created the authorizer.</p>
             api_key_required: <p>Specifies whether the method required a valid ApiKey.</p>
             operation_name: <p>A human-friendly operation identifier for the method. For example, you can assign the <code>operationName</code> of <code>ListPets</code> for the <code>GET /pets</code> method in the <code>PetStore</code> example.</p>
             request_parameters: <p>A key-value map defining required or optional method request parameters that can be accepted by API Gateway. A key defines a method request parameter name matching the pattern of <code>method.request.{location}.{name}</code>, where <code>location</code> is <code>querystring</code>, <code>path</code>, or <code>header</code> and <code>name</code> is a valid and unique parameter name. The value associated with the key is a Boolean flag indicating whether the parameter is required (<code>true</code>) or optional (<code>false</code>). The method request parameter names defined here are available in Integration to be mapped to integration request parameters or body-mapping templates.</p>
             request_models: <p>Specifies the Model resources used for the request's content type. Request models are represented as a key/value map, with a content type as the key and a Model name as the value.</p>
             request_validator_id: <p>The identifier of a RequestValidator for validating the method request.</p>
-            authorization_scopes: <p>A list of authorization scopes configured on the method. The scopes are used with a <code>COGNITO_USER_POOLS</code> authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.</p>
+            authorization_scopes: <p>A list of authorization scopes configured on the method. The scopes are used with a <code>COGNITO_USER_POOLS</code> authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes. The scopes are also used with a <code>JWT</code> authorizer. When scopes are configured, the <code>scope</code> (or <code>scp</code>) claim of the token must contain at least one of the configured scopes.</p>
 
         Raises:
             capo_api_gateway.errors.bad_request_exception.BadRequestException: <p>The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.</p>
@@ -6341,7 +6348,7 @@ class APIGatewayClient:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>
             mode: <p>The <code>mode</code> query parameter to specify the update mode. Valid values are "merge" and "overwrite". By default, the update mode is "merge".</p>
             fail_on_warnings: <p>A query parameter to indicate whether to rollback the API update (<code>true</code>) or not (<code>false</code>) when a warning is encountered. The default value is <code>false</code>.</p>
-            parameters: <p>Custom header parameters as part of the request. For example, to exclude DocumentationParts from an imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS CLI command of <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>.</p>
+            parameters: <p>Custom header parameters as part of the request. For example, to exclude DocumentationParts from an imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the CLI command of <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>.</p>
             body: <p>The PUT request body containing external API definitions. Currently, only OpenAPI definition JSON/YAML files are supported. The maximum size of the API definition file is 6MB.</p>
 
         Raises:
@@ -6395,7 +6402,7 @@ class APIGatewayClient:
         *,
         config_overrides: Optional[APIGatewayClientConfig] = None,
     ) -> None:
-        """<p>Rejects a domain name access association with a private custom domain name.</p> <p>To reject a domain name access association with an access association source in another AWS account, use this operation. To remove a domain name access association with an access association source in your own account, use the DeleteDomainNameAccessAssociation operation.</p>
+        """<p>Rejects a domain name access association with a private custom domain name.</p> <p>To reject a domain name access association with an access association source in another Amazon Web Services account, use this operation. To remove a domain name access association with an access association source in your own account, use the DeleteDomainNameAccessAssociation operation.</p>
 
         Args:
             domain_name_access_association_arn: <p>The ARN of the domain name access association resource. </p>
@@ -6821,7 +6828,7 @@ class APIGatewayClient:
             "capo_api_gateway.types.list_of_patch_operation.ListOfPatchOperation"
         ] = None,
     ) -> "capo_api_gateway.types.authorizer.Authorizer":
-        """<p>Updates an existing Authorizer resource.</p>
+        """<p>Updates an existing Authorizer resource. For a <code>JWT</code> authorizer, the only JWT patch operation is <code>replace</code> on the path <code>/jwtConfiguration</code>. Its value is the complete configuration as a JSON string in the <code>JwtConfigurationInput</code> shape. This replaces the entire configuration; nothing from the previous configuration is retained. A <code>replace</code> operation on the path <code>/type</code> is supported in both directions.</p>
 
         Args:
             rest_api_id: <p>The string identifier of the associated RestApi.</p>

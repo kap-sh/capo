@@ -121,8 +121,12 @@ if TYPE_CHECKING:
     import capo_ec2.types.associate_ipam_byoasn_result
     import capo_ec2.types.associate_ipam_resource_discovery_request
     import capo_ec2.types.associate_ipam_resource_discovery_result
+    import capo_ec2.types.associate_kms_key_id_request
+    import capo_ec2.types.associate_kms_key_id_result
     import capo_ec2.types.associate_nat_gateway_address_request
     import capo_ec2.types.associate_nat_gateway_address_result
+    import capo_ec2.types.associate_networking_flex_cost_allocation_policy_request
+    import capo_ec2.types.associate_networking_flex_cost_allocation_policy_result
     import capo_ec2.types.associate_route_server_request
     import capo_ec2.types.associate_route_server_result
     import capo_ec2.types.associate_route_table_request
@@ -213,6 +217,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.capacity_block_extension
     import capo_ec2.types.capacity_block_extension_offering
     import capo_ec2.types.capacity_block_ids
+    import capo_ec2.types.capacity_block_instance_type_preference_set
     import capo_ec2.types.capacity_block_offering
     import capo_ec2.types.capacity_block_status
     import capo_ec2.types.capacity_manager_condition_set
@@ -388,6 +393,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.create_mac_system_integrity_protection_modification_task_result
     import capo_ec2.types.create_managed_prefix_list_request
     import capo_ec2.types.create_managed_prefix_list_result
+    import capo_ec2.types.create_metric_category_request
+    import capo_ec2.types.create_metric_category_result
     import capo_ec2.types.create_nat_gateway_request
     import capo_ec2.types.create_nat_gateway_result
     import capo_ec2.types.create_network_acl_entry_request
@@ -401,6 +408,9 @@ if TYPE_CHECKING:
     import capo_ec2.types.create_network_interface_permission_result
     import capo_ec2.types.create_network_interface_request
     import capo_ec2.types.create_network_interface_result
+    import capo_ec2.types.create_networking_flex_cost_allocation_policy_request
+    import capo_ec2.types.create_networking_flex_cost_allocation_policy_result
+    import capo_ec2.types.create_peering_connection_options_request
     import capo_ec2.types.create_placement_group_request
     import capo_ec2.types.create_placement_group_result
     import capo_ec2.types.create_public_ipv4_pool_request
@@ -459,6 +469,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.create_transit_gateway_multicast_domain_request
     import capo_ec2.types.create_transit_gateway_multicast_domain_request_options
     import capo_ec2.types.create_transit_gateway_multicast_domain_result
+    import capo_ec2.types.create_transit_gateway_network_function_attachment_request
+    import capo_ec2.types.create_transit_gateway_network_function_attachment_result
     import capo_ec2.types.create_transit_gateway_peering_attachment_request
     import capo_ec2.types.create_transit_gateway_peering_attachment_request_options
     import capo_ec2.types.create_transit_gateway_peering_attachment_result
@@ -605,6 +617,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.delete_local_gateway_virtual_interface_result
     import capo_ec2.types.delete_managed_prefix_list_request
     import capo_ec2.types.delete_managed_prefix_list_result
+    import capo_ec2.types.delete_metric_category_request
+    import capo_ec2.types.delete_metric_category_result
     import capo_ec2.types.delete_nat_gateway_request
     import capo_ec2.types.delete_nat_gateway_result
     import capo_ec2.types.delete_network_acl_entry_request
@@ -620,6 +634,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.delete_network_interface_permission_request
     import capo_ec2.types.delete_network_interface_permission_result
     import capo_ec2.types.delete_network_interface_request
+    import capo_ec2.types.delete_networking_flex_cost_allocation_policies_request
+    import capo_ec2.types.delete_networking_flex_cost_allocation_policies_result
     import capo_ec2.types.delete_placement_group_request
     import capo_ec2.types.delete_public_ipv4_pool_request
     import capo_ec2.types.delete_public_ipv4_pool_result
@@ -666,6 +682,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.delete_transit_gateway_metering_policy_result
     import capo_ec2.types.delete_transit_gateway_multicast_domain_request
     import capo_ec2.types.delete_transit_gateway_multicast_domain_result
+    import capo_ec2.types.delete_transit_gateway_network_function_attachment_request
+    import capo_ec2.types.delete_transit_gateway_network_function_attachment_result
     import capo_ec2.types.delete_transit_gateway_peering_attachment_request
     import capo_ec2.types.delete_transit_gateway_peering_attachment_result
     import capo_ec2.types.delete_transit_gateway_policy_table_entry_request
@@ -850,6 +868,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.describe_fleet_instances_result
     import capo_ec2.types.describe_fleets_request
     import capo_ec2.types.describe_fleets_result
+    import capo_ec2.types.describe_flex_cost_allocation_policies_max_results
     import capo_ec2.types.describe_flow_logs_request
     import capo_ec2.types.describe_flow_logs_result
     import capo_ec2.types.describe_fpga_image_attribute_request
@@ -982,6 +1001,9 @@ if TYPE_CHECKING:
     import capo_ec2.types.describe_mac_modification_tasks_result
     import capo_ec2.types.describe_managed_prefix_lists_request
     import capo_ec2.types.describe_managed_prefix_lists_result
+    import capo_ec2.types.describe_metric_categories_max_results
+    import capo_ec2.types.describe_metric_categories_request
+    import capo_ec2.types.describe_metric_categories_result
     import capo_ec2.types.describe_moving_addresses_max_results
     import capo_ec2.types.describe_moving_addresses_request
     import capo_ec2.types.describe_moving_addresses_result
@@ -1007,6 +1029,10 @@ if TYPE_CHECKING:
     import capo_ec2.types.describe_network_interfaces_max_results
     import capo_ec2.types.describe_network_interfaces_request
     import capo_ec2.types.describe_network_interfaces_result
+    import capo_ec2.types.describe_networking_flex_cost_allocation_policies_request
+    import capo_ec2.types.describe_networking_flex_cost_allocation_policies_result
+    import capo_ec2.types.describe_networking_flex_cost_allocation_policy_associations_request
+    import capo_ec2.types.describe_networking_flex_cost_allocation_policy_associations_result
     import capo_ec2.types.describe_outpost_lags_request
     import capo_ec2.types.describe_outpost_lags_result
     import capo_ec2.types.describe_placement_groups_request
@@ -1118,6 +1144,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.describe_transit_gateway_metering_policies_result
     import capo_ec2.types.describe_transit_gateway_multicast_domains_request
     import capo_ec2.types.describe_transit_gateway_multicast_domains_result
+    import capo_ec2.types.describe_transit_gateway_network_function_attachments_request
+    import capo_ec2.types.describe_transit_gateway_network_function_attachments_result
     import capo_ec2.types.describe_transit_gateway_peering_attachments_request
     import capo_ec2.types.describe_transit_gateway_peering_attachments_result
     import capo_ec2.types.describe_transit_gateway_policy_tables_request
@@ -1274,8 +1302,12 @@ if TYPE_CHECKING:
     import capo_ec2.types.disassociate_ipam_byoasn_result
     import capo_ec2.types.disassociate_ipam_resource_discovery_request
     import capo_ec2.types.disassociate_ipam_resource_discovery_result
+    import capo_ec2.types.disassociate_kms_key_id_request
+    import capo_ec2.types.disassociate_kms_key_id_result
     import capo_ec2.types.disassociate_nat_gateway_address_request
     import capo_ec2.types.disassociate_nat_gateway_address_result
+    import capo_ec2.types.disassociate_networking_flex_cost_allocation_policy_request
+    import capo_ec2.types.disassociate_networking_flex_cost_allocation_policy_result
     import capo_ec2.types.disassociate_route_server_request
     import capo_ec2.types.disassociate_route_server_result
     import capo_ec2.types.disassociate_route_table_request
@@ -1401,6 +1433,17 @@ if TYPE_CHECKING:
     import capo_ec2.types.fleet_instance_match_criteria
     import capo_ec2.types.fleet_launch_template_config_list_request
     import capo_ec2.types.fleet_type
+    import capo_ec2.types.flex_cost_allocation_network_resource_id_list
+    import capo_ec2.types.flex_cost_allocation_network_resource_scope
+    import capo_ec2.types.flex_cost_allocation_network_resource_type
+    import capo_ec2.types.flex_cost_allocation_policy_association_description
+    import capo_ec2.types.flex_cost_allocation_policy_association_id_list
+    import capo_ec2.types.flex_cost_allocation_policy_description
+    import capo_ec2.types.flex_cost_allocation_policy_disassociate_association_id_list
+    import capo_ec2.types.flex_cost_allocation_policy_id
+    import capo_ec2.types.flex_cost_allocation_policy_id_list
+    import capo_ec2.types.flex_cost_allocation_policy_id_set
+    import capo_ec2.types.flex_cost_allocation_versions_to_include_list
     import capo_ec2.types.flow_log
     import capo_ec2.types.flow_log_id_list
     import capo_ec2.types.flow_log_resource_ids
@@ -1527,6 +1570,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.get_network_insights_access_scope_analysis_findings_result
     import capo_ec2.types.get_network_insights_access_scope_content_request
     import capo_ec2.types.get_network_insights_access_scope_content_result
+    import capo_ec2.types.get_networking_flex_cost_allocation_policy_versions_request
+    import capo_ec2.types.get_networking_flex_cost_allocation_policy_versions_result
     import capo_ec2.types.get_password_data_request
     import capo_ec2.types.get_password_data_result
     import capo_ec2.types.get_reserved_instances_exchange_quote_request
@@ -1665,6 +1710,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.instance_event_window_id
     import capo_ec2.types.instance_event_window_id_set
     import capo_ec2.types.instance_event_window_time_range_request_set
+    import capo_ec2.types.instance_flex_cost_allocation_policy_document
     import capo_ec2.types.instance_id
     import capo_ec2.types.instance_id_for_resolver
     import capo_ec2.types.instance_id_list
@@ -1832,6 +1878,10 @@ if TYPE_CHECKING:
     import capo_ec2.types.max_results2
     import capo_ec2.types.max_results_param
     import capo_ec2.types.metadata_default_http_tokens_state
+    import capo_ec2.types.metric_category
+    import capo_ec2.types.metric_category_id
+    import capo_ec2.types.metric_category_id_list
+    import capo_ec2.types.metric_category_metric_name_list
     import capo_ec2.types.metric_data_result
     import capo_ec2.types.metric_set
     import capo_ec2.types.metric_type
@@ -1918,7 +1968,11 @@ if TYPE_CHECKING:
     import capo_ec2.types.modify_managed_prefix_list_result
     import capo_ec2.types.modify_managed_resource_visibility_request
     import capo_ec2.types.modify_managed_resource_visibility_result
+    import capo_ec2.types.modify_metric_category_request
+    import capo_ec2.types.modify_metric_category_result
     import capo_ec2.types.modify_network_interface_attribute_request
+    import capo_ec2.types.modify_networking_flex_cost_allocation_policy_request
+    import capo_ec2.types.modify_networking_flex_cost_allocation_policy_result
     import capo_ec2.types.modify_private_dns_name_options_request
     import capo_ec2.types.modify_private_dns_name_options_result
     import capo_ec2.types.modify_public_ip_dns_name_options_request
@@ -1945,7 +1999,12 @@ if TYPE_CHECKING:
     import capo_ec2.types.modify_transit_gateway_attachment_nat_configuration_result
     import capo_ec2.types.modify_transit_gateway_metering_policy_request
     import capo_ec2.types.modify_transit_gateway_metering_policy_result
+    import capo_ec2.types.modify_transit_gateway_network_function_attachment_request
+    import capo_ec2.types.modify_transit_gateway_network_function_attachment_result
     import capo_ec2.types.modify_transit_gateway_options
+    import capo_ec2.types.modify_transit_gateway_peering_attachment_request
+    import capo_ec2.types.modify_transit_gateway_peering_attachment_request_options
+    import capo_ec2.types.modify_transit_gateway_peering_attachment_result
     import capo_ec2.types.modify_transit_gateway_policy_table_entry_request
     import capo_ec2.types.modify_transit_gateway_policy_table_entry_result
     import capo_ec2.types.modify_transit_gateway_prefix_list_reference_request
@@ -2020,6 +2079,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.move_capacity_reservation_instances_request
     import capo_ec2.types.move_capacity_reservation_instances_result
     import capo_ec2.types.moving_address_status
+    import capo_ec2.types.nat_flex_cost_allocation_policy_document
     import capo_ec2.types.nat_gateway
     import capo_ec2.types.nat_gateway_id
     import capo_ec2.types.nat_gateway_id_string_list
@@ -2029,6 +2089,8 @@ if TYPE_CHECKING:
     import capo_ec2.types.network_acl_association_id
     import capo_ec2.types.network_acl_id
     import capo_ec2.types.network_acl_id_string_list
+    import capo_ec2.types.network_function_attachment_az_id_list
+    import capo_ec2.types.network_function_attachment_az_name_list
     import capo_ec2.types.network_insights_access_scope
     import capo_ec2.types.network_insights_access_scope_analysis
     import capo_ec2.types.network_insights_access_scope_analysis_id
@@ -2075,8 +2137,10 @@ if TYPE_CHECKING:
     import capo_ec2.types.payer_responsibility
     import capo_ec2.types.payer_responsibility_scope
     import capo_ec2.types.payer_responsibility_type
+    import capo_ec2.types.pcx_flex_cost_allocation_policy_document
     import capo_ec2.types.peering_connection_options_request
     import capo_ec2.types.period
+    import capo_ec2.types.permission_type
     import capo_ec2.types.placement
     import capo_ec2.types.placement_group_arn
     import capo_ec2.types.placement_group_id
@@ -2414,6 +2478,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.transit_gateway
     import capo_ec2.types.transit_gateway_attachment
     import capo_ec2.types.transit_gateway_attachment_id
+    import capo_ec2.types.transit_gateway_attachment_id_list
     import capo_ec2.types.transit_gateway_attachment_id_string_list
     import capo_ec2.types.transit_gateway_attachment_nat_gateway_support_value
     import capo_ec2.types.transit_gateway_attachment_nat_system_route_support_value
@@ -2437,6 +2502,7 @@ if TYPE_CHECKING:
     import capo_ec2.types.transit_gateway_multicast_domain_id_string_list
     import capo_ec2.types.transit_gateway_multicast_group
     import capo_ec2.types.transit_gateway_nat_rule_request_list
+    import capo_ec2.types.transit_gateway_network_function_attachment_id_list
     import capo_ec2.types.transit_gateway_network_interface_id_list
     import capo_ec2.types.transit_gateway_peering_attachment
     import capo_ec2.types.transit_gateway_policy_table
@@ -3078,13 +3144,17 @@ class AsyncEC2Client:
         vpc_endpoint_ids: Optional[
             "capo_ec2.types.vpc_endpoint_id_list.VpcEndpointIdList"
         ] = None,
+        transit_gateway_attachment_ids: Optional[
+            "capo_ec2.types.transit_gateway_attachment_id_list.TransitGatewayAttachmentIdList"
+        ] = None,
     ) -> "capo_ec2.types.accept_vpc_endpoint_connections_result.AcceptVpcEndpointConnectionsResult":
         """<p>Accepts connection requests to your VPC endpoint service.</p>
 
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
             service_id: <p>The ID of the VPC endpoint service.</p>
-            vpc_endpoint_ids: <p>The IDs of the interface VPC endpoints.</p>
+            vpc_endpoint_ids: <p>The IDs of the interface VPC endpoints.</p> <p>You must specify either <code>VpcEndpointIds</code> or <code>TransitGatewayAttachmentIds</code>, but not both.</p>
+            transit_gateway_attachment_ids: <p>The IDs of the transit gateway attachments to accept. This parameter is supported only for Gateway Load Balancer endpoint services.</p> <p>You must specify either <code>VpcEndpointIds</code> or <code>TransitGatewayAttachmentIds</code>, but not both.</p>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -3115,6 +3185,8 @@ class AsyncEC2Client:
             input_["service_id"] = service_id
         if vpc_endpoint_ids is not None:
             input_["vpc_endpoint_ids"] = vpc_endpoint_ids
+        if transit_gateway_attachment_ids is not None:
+            input_["transit_gateway_attachment_ids"] = transit_gateway_attachment_ids
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -3133,7 +3205,7 @@ class AsyncEC2Client:
             "capo_ec2.types.vpc_peering_connection_id_with_resolver.VpcPeeringConnectionIdWithResolver"
         ] = None,
     ) -> "capo_ec2.types.accept_vpc_peering_connection_result.AcceptVpcPeeringConnectionResult":
-        """<p>Accept a VPC peering connection request. To accept a request, the VPC peering connection must be in the <code>pending-acceptance</code> state, and you must be the owner of the peer VPC. Use <a>DescribeVpcPeeringConnections</a> to view your outstanding VPC peering connection requests.</p> <p>For an inter-Region VPC peering connection request, you must accept the VPC peering connection in the Region of the accepter VPC.</p>
+        """<p>Accept a VPC peering connection request. To accept a request, the VPC peering connection must be in the <code>pending-acceptance</code> state, and you must be the owner of the peer VPC. Use <a>DescribeVpcPeeringConnections</a> to view your outstanding VPC peering connection requests.</p> <p>For an inter-Region VPC peering connection request, you must accept the VPC peering connection in the Region of the accepter VPC.</p> <p>If the requester allows multipath resilience, accepting the request also allows multipath resilience for the accepter VPC, and the <code>multipathResilienceStatus</code> of the VPC peering connection becomes <code>enabled</code>. Additional charges apply. For more information, see <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing</a>. To stop allowing multipath resilience for the accepter VPC, use <a>ModifyVpcPeeringConnectionOptions</a> and set <code>AllowMultipathResilience</code> to <code>false</code>.</p>
 
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
@@ -4411,6 +4483,59 @@ class AsyncEC2Client:
         await response.response.aclose()
         return response.output
 
+    async def associate_kms_key_id(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        snapshot_id: Optional["capo_ec2.types.snapshot_id.SnapshotId"] = None,
+        kms_key_id: Optional["capo_ec2.types.kms_key_id.KmsKeyId"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.associate_kms_key_id_result.AssociateKmsKeyIdResult":
+        """<p>Associates an additional KMS key with an encrypted Amazon EBS snapshot. With the associated key, you have a second, independent way to access the snapshot's data, in addition to the key the snapshot is already encrypted under. Associating a key doesn't re-encrypt the snapshot or grant access to its original key.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/associated-kms-keys.html">Associated KMS keys</a> in the <i>Amazon EBS User Guide</i>.</p>
+
+        Args:
+            snapshot_id: <p>The ID of the Amazon EBS snapshot.</p>
+            kms_key_id: <p>The ID, alias, or ARN of the KMS key to associate with the snapshot. You can specify a key ID, key alias, key ARN, or alias ARN.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.associate_kms_key_id_request.AssociateKmsKeyIdRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.associate_kms_key_id_result.AssociateKmsKeyIdResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.associate_kms_key_id
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.associate_kms_key_id.async_associate_kms_key_id(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateKmsKeyId")
+        )
+        input_: capo_ec2.types.associate_kms_key_id_request.AssociateKmsKeyIdRequest = {}
+        if snapshot_id is not None:
+            input_["snapshot_id"] = snapshot_id
+        if kms_key_id is not None:
+            input_["kms_key_id"] = kms_key_id
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def associate_nat_gateway_address(
         self,
         *,
@@ -4473,6 +4598,75 @@ class AsyncEC2Client:
             input_["availability_zone"] = availability_zone
         if availability_zone_id is not None:
             input_["availability_zone_id"] = availability_zone_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def associate_networking_flex_cost_allocation_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_id: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_id.FlexCostAllocationPolicyId"
+        ] = None,
+        network_resource_ids: Optional[
+            "capo_ec2.types.flex_cost_allocation_network_resource_id_list.FlexCostAllocationNetworkResourceIdList"
+        ] = None,
+        network_resource_scope: Optional[
+            "capo_ec2.types.flex_cost_allocation_network_resource_scope.FlexCostAllocationNetworkResourceScope"
+        ] = None,
+        client_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.associate_networking_flex_cost_allocation_policy_result.AssociateNetworkingFlexCostAllocationPolicyResult":
+        """<p>Associates a flex cost allocation policy with one or more network resources. You can associate the policy directly with specific resources by resource ID, or you can associate it with a scope of resources in an account, Amazon VPC, or subnet.</p> <p>The following limits apply:</p> <ul> <li> <p>A request can associate up to 20 resources.</p> </li> <li> <p>A policy can have up to 100 active associations.</p> </li> <li> <p>A network resource can have only one active association, across all policies. If a resource is already associated, the response includes it in the failures with the code <code>ResourceAlreadyAssociated</code>.</p> </li> </ul>
+
+        Args:
+            fca_policy_id: <p>The ID of the flex cost allocation policy to associate. This parameter is required.</p>
+            network_resource_ids: <p>The IDs of the network resources to associate with the policy. You can specify from 1 to 20 resource IDs.</p> <p>You must specify <code>NetworkResourceIds</code>, <code>NetworkResourceScope</code>, or both. A request can include at most 20 distinct resources in total.</p>
+            network_resource_scope: <p>The scope of network resources to associate with the policy. Use a scope to associate the policy with the resources in an account, Amazon VPC, or subnet.</p> <p>You must specify <code>NetworkResourceScope</code>, <code>NetworkResourceIds</code>, or both.</p>
+            client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.associate_networking_flex_cost_allocation_policy_request.AssociateNetworkingFlexCostAllocationPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.associate_networking_flex_cost_allocation_policy_result.AssociateNetworkingFlexCostAllocationPolicyResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.associate_networking_flex_cost_allocation_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.associate_networking_flex_cost_allocation_policy.async_associate_networking_flex_cost_allocation_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateNetworkingFlexCostAllocationPolicy"),
+        )
+        input_: capo_ec2.types.associate_networking_flex_cost_allocation_policy_request.AssociateNetworkingFlexCostAllocationPolicyRequest = {}
+        if fca_policy_id is not None:
+            input_["fca_policy_id"] = fca_policy_id
+        if network_resource_ids is not None:
+            input_["network_resource_ids"] = network_resource_ids
+        if network_resource_scope is not None:
+            input_["network_resource_scope"] = network_resource_scope
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -6778,10 +6972,10 @@ class AsyncEC2Client:
         Args:
             description: <p>A description for the EBS snapshot.</p>
             destination_outpost_arn: <p>The Amazon Resource Name (ARN) of the Outpost to which to copy the snapshot.</p> <note> <p>Only supported when copying a snapshot to an Outpost.</p> </note> <p>For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-snapshots"> Copy snapshots from an Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.</p>
-            destination_region: <p>The destination Region to use in the <code>PresignedUrl</code> parameter of a snapshot copy operation. This parameter is only valid for specifying the destination Region in a <code>PresignedUrl</code> parameter, where it is required.</p> <p>The snapshot copy is sent to the regional endpoint that you sent the HTTP request to (for example, <code>ec2.us-east-1.amazonaws.com</code>). With the CLI, this is specified using the <code>--region</code> parameter or the default Region in your Amazon Web Services configuration file.</p>
+            destination_region: <p>Deprecated.</p>
             encrypted: <p>To encrypt a copy of an unencrypted snapshot if encryption by default is not enabled, enable encryption using this parameter. Otherwise, omit this parameter. Copies of encrypted snapshots are encrypted, even if you omit this parameter and encryption by default is not enabled. You cannot set this parameter to false. For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in the <i>Amazon EBS User Guide</i>.</p>
             kms_key_id: <p>The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your KMS key for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.</p> <p>You can specify the KMS key using any of the following:</p> <ul> <li> <p>Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.</p> </li> <li> <p>Key alias. For example, alias/ExampleAlias.</p> </li> <li> <p>Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.</p> </li> <li> <p>Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.</p> </li> </ul> <p>Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the action can appear to complete, but eventually fails.</p>
-            presigned_url: <p>When you copy an encrypted source snapshot using the Amazon EC2 Query API, you must supply a pre-signed URL. This parameter is optional for unencrypted snapshots. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html">Query requests</a>.</p> <p>The <code>PresignedUrl</code> should use the snapshot source endpoint, the <code>CopySnapshot</code> action, and include the <code>SourceRegion</code>, <code>SourceSnapshotId</code>, and <code>DestinationRegion</code> parameters. The <code>PresignedUrl</code> must be signed using Amazon Web Services Signature Version 4. Because EBS snapshots are stored in Amazon S3, the signing algorithm for this parameter uses the same logic that is described in <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating Requests: Using Query Parameters (Amazon Web Services Signature Version 4)</a> in the <i>Amazon S3 API Reference</i>. An invalid or improperly signed <code>PresignedUrl</code> will cause the copy operation to fail asynchronously, and the snapshot will move to an <code>error</code> state.</p>
+            presigned_url: <p>Deprecated.</p>
             source_region: <p>The ID of the Region that contains the snapshot to be copied.</p>
             source_snapshot_id: <p>The ID of the EBS snapshot to copy.</p>
             tag_specifications: <p>The tags to apply to the new snapshot.</p>
@@ -8563,12 +8757,12 @@ class AsyncEC2Client:
             log_group_name: <p>The name of a new or existing CloudWatch Logs log group where Amazon EC2 publishes your flow logs.</p> <p>This parameter is valid only if the destination type is <code>cloud-watch-logs</code>.</p>
             resource_ids: <p>The IDs of the resources to monitor. For example, if the resource type is <code>VPC</code>, specify the IDs of the VPCs.</p> <p>Constraints: Maximum of 25 for transit gateway resource types. Maximum of 300 for the other resource types.</p>
             resource_type: <p>The type of resource to monitor.</p>
-            traffic_type: <p>The type of traffic to monitor (accepted traffic, rejected traffic, or all traffic). This parameter is not supported for transit gateway resource types. It is required for the other resource types.</p>
+            traffic_type: <p>The type of traffic to monitor (accepted traffic, rejected traffic, or all traffic). This parameter is not supported for transit gateway or Cloud WAN resource types. It is required for the other resource types.</p>
             log_destination_type: <p>The type of destination for the flow log data.</p> <p>Default: <code>cloud-watch-logs</code> </p>
             log_destination: <p>The destination for the flow log data. The meaning of this parameter depends on the destination type.</p> <ul> <li> <p>If the destination type is <code>cloud-watch-logs</code>, specify the ARN of a CloudWatch Logs log group. For example:</p> <p>arn:aws:logs:<i>region</i>:<i>account_id</i>:log-group:<i>my_group</i> </p> <p>Alternatively, use the <code>LogGroupName</code> parameter.</p> </li> <li> <p>If the destination type is <code>s3</code>, specify the ARN of an S3 bucket. For example:</p> <p>arn:aws:s3:::<i>my_bucket</i>/<i>my_subfolder</i>/</p> <p>The subfolder is optional. Note that you can't use <code>AWSLogs</code> as a subfolder name.</p> </li> <li> <p>If the destination type is <code>kinesis-data-firehose</code>, specify the ARN of a Kinesis Data Firehose delivery stream. For example:</p> <p>arn:aws:firehose:<i>region</i>:<i>account_id</i>:deliverystream:<i>my_stream</i> </p> </li> </ul>
-            log_format: <p>The fields to include in the flow log record. List the fields in the order in which they should appear. If you omit this parameter, the flow log is created using the default format. If you specify this parameter, you must include at least one field. For more information about the available fields, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-log-records.html">Flow log records</a> in the <i>Amazon VPC User Guide</i> or <a href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-flow-logs.html#flow-log-records">Transit Gateway Flow Log records</a> in the <i>Amazon Web Services Transit Gateway Guide</i>.</p> <p>Specify the fields using the <code>${field-id}</code> format, separated by spaces.</p>
+            log_format: <p>The fields to include in the flow log record. List the fields in the order in which they should appear. If you omit this parameter, the flow log is created using the default format. If you specify this parameter, you must include at least one field. For more information about the available fields, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-log-records.html">Flow log records</a> in the <i>Amazon VPC User Guide</i>, <a href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-flow-logs.html#flow-log-records">Transit Gateway Flow Log records</a> in the <i>Amazon Web Services Transit Gateway Guide</i>, or <a href="https://docs.aws.amazon.com/network-manager/latest/cloudwan/cwan-flow-logs.html">Cloud WAN Flow Log records</a> in the <i>Amazon Web Services Cloud WAN User Guide</i>.</p> <p>Specify the fields using the <code>${field-id}</code> format, separated by spaces.</p>
             tag_specifications: <p>The tags to apply to the flow logs.</p>
-            max_aggregation_interval: <p>The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. The possible values are 60 seconds (1 minute) or 600 seconds (10 minutes). This parameter must be 60 seconds for transit gateway resource types.</p> <p>When a network interface is attached to a <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Nitro-based instance</a>, the aggregation interval is always 60 seconds or less, regardless of the value that you specify.</p> <p>Default: 600</p>
+            max_aggregation_interval: <p>The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. The possible values are 60 seconds (1 minute) or 600 seconds (10 minutes). This parameter must be 60 seconds for transit gateway and Cloud WAN resource types.</p> <p>When a network interface is attached to a <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Nitro-based instance</a>, the aggregation interval is always 60 seconds or less, regardless of the value that you specify.</p> <p>Default: 600</p>
             destination_options: <p>The destination options.</p>
             tag_field_specifications: <p>The tag configuration associated with the Flow Logs Amazon EC2 Tags feature fields in your custom log format.</p>
 
@@ -8815,7 +9009,7 @@ class AsyncEC2Client:
             "capo_ec2.types.tag_specification_list.TagSpecificationList"
         ] = None,
     ) -> "capo_ec2.types.create_image_usage_report_result.CreateImageUsageReportResult":
-        """<p>Creates a report that shows how your image is used across other Amazon Web Services accounts. The report provides visibility into which accounts are using the specified image, and how many resources (EC2 instances or launch templates) are referencing it.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/your-ec2-ami-usage.html">View your AMI usage</a> in the <i>Amazon EC2 User Guide</i>.</p>
+        """<p>Creates a report that shows how your image is used across other Amazon Web Services accounts. The report provides visibility into which accounts are using the specified image, and how many resources (EC2 instances, EC2 launch templates, Image Builder image recipes, or Image Builder container recipes) are referencing it.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/your-ec2-ami-usage.html">View your AMI usage</a> in the <i>Amazon EC2 User Guide</i>.</p>
 
         Args:
             image_id: <p>The ID of the image to report on.</p>
@@ -9370,7 +9564,7 @@ class AsyncEC2Client:
         Args:
             dry_run: <p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
             ipam_id: <p>The ID of the IPAM to associate with the internet registry.</p>
-            rir: <p>The Regional Internet Registry to associate with. Possible values:</p> <ul> <li> <p> <code>ripe</code> - RIPE NCC (Europe, the Middle East, and Central Asia).</p> </li> <li> <p> <code>apnic</code> - APNIC (Asia Pacific).</p> </li> <li> <p> <code>arin</code> - ARIN (North America).</p> </li> <li> <p> <code>lacnic</code> - LACNIC (Latin America and the Caribbean).</p> </li> </ul>
+            rir: <p>The internet registry to associate with. Possible values:</p> <ul> <li> <p> <code>ripe</code> - RIPE NCC (Europe, the Middle East, and Central Asia).</p> </li> <li> <p> <code>apnic</code> - APNIC (Asia Pacific).</p> </li> <li> <p> <code>arin</code> - ARIN (North America).</p> </li> <li> <p> <code>lacnic</code> - LACNIC (Latin America and the Caribbean).</p> </li> <li> <p> <code>nicbr</code> - NIC.br (Brazil).</p> </li> </ul>
             organization_handle: <p>The organization handle at the internet registry (for example, a RIPE NCC organization ID or ARIN Org ID).</p>
             description: <p>A description for the internet registry association.</p>
             tag_specifications: <p>The tags to assign to the internet registry association.</p>
@@ -10859,6 +11053,68 @@ class AsyncEC2Client:
         await response.response.aclose()
         return response.output
 
+    async def create_metric_category(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        metrics: Optional[
+            "capo_ec2.types.metric_category_metric_name_list.MetricCategoryMetricNameList"
+        ] = None,
+        tag_specifications: Optional[
+            "capo_ec2.types.tag_specification_list.TagSpecificationList"
+        ] = None,
+        client_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.create_metric_category_result.CreateMetricCategoryResult":
+        """<p>Creates a metric category. A metric category is a set of additional metrics that you can associate with an instance that has detailed monitoring enabled.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-detailed-monitoring.html#detailed-monitoring-metric-categories">Use metric categories for additional metrics</a> in the <i>Amazon EC2 User Guide</i>.</p>
+
+        Args:
+            metrics: <p>The names of the metrics to include in the metric category.</p> <p>Specify each metric by its Amazon CloudWatch metric name or its OpenTelemetry metric name. The two names for a measurement are separate entries, and you can include both.</p> <p>In Regions where Amazon CloudWatch OpenTelemetry metrics aren't available, you can't specify OpenTelemetry metric names.</p>
+            tag_specifications: <p>The tags to apply to the metric category during creation.</p>
+            client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure Idempotency</a>.</p>
+            dry_run: <p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.create_metric_category_request.CreateMetricCategoryRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.create_metric_category_result.CreateMetricCategoryResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.create_metric_category
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.create_metric_category.async_create_metric_category(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMetricCategory")
+        )
+        input_: capo_ec2.types.create_metric_category_request.CreateMetricCategoryRequest = {}
+        if metrics is not None:
+            input_["metrics"] = metrics
+        if tag_specifications is not None:
+            input_["tag_specifications"] = tag_specifications
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def create_nat_gateway(
         self,
         *,
@@ -11117,6 +11373,95 @@ class AsyncEC2Client:
             input_["icmp_type_code"] = icmp_type_code
         if port_range is not None:
             input_["port_range"] = port_range
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def create_networking_flex_cost_allocation_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        network_resource_type: Optional[
+            "capo_ec2.types.flex_cost_allocation_network_resource_type.FlexCostAllocationNetworkResourceType"
+        ] = None,
+        nat_fca_policy_document: Optional[
+            "capo_ec2.types.nat_flex_cost_allocation_policy_document.NatFlexCostAllocationPolicyDocument"
+        ] = None,
+        instance_fca_policy_document: Optional[
+            "capo_ec2.types.instance_flex_cost_allocation_policy_document.InstanceFlexCostAllocationPolicyDocument"
+        ] = None,
+        pcx_fca_policy_document: Optional[
+            "capo_ec2.types.pcx_flex_cost_allocation_policy_document.PcxFlexCostAllocationPolicyDocument"
+        ] = None,
+        show_back_enabled: Optional["capo_ec2.types.boolean.Boolean"] = None,
+        description: Optional["capo_ec2.types.string.String"] = None,
+        tag_specifications: Optional[
+            "capo_ec2.types.tag_specification_list.TagSpecificationList"
+        ] = None,
+        client_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.create_networking_flex_cost_allocation_policy_result.CreateNetworkingFlexCostAllocationPolicyResult":
+        """<p>Creates a flex cost allocation policy for Networking Flexible Cost Allocation (FCA), a feature of Amazon Virtual Private Cloud (Amazon VPC). The policy allocates the charges of a shared networking resource at the reporting granularity that you specify. You can create a policy for one of the following resource types: NAT gateways, Amazon VPC peering connections, or EC2 instances. Policies can allocate data transfer charges for all three types, and data processing charges for NAT gateways.</p> <p>You can have up to 100 policies per account in each Amazon Web Services Region, plus one additional policy per network resource type created by a declarative policy, for a maximum of 103 policies in an Amazon Web Services Region.</p>
+
+        Args:
+            network_resource_type: <p>The type of network resource that the policy applies to. This parameter is required. Valid values are <code>natgw</code> (NAT gateway), <code>pcx</code> (Amazon VPC peering connection), and <code>ec2</code> (EC2 instance).</p> <p>Specify the policy document that matches the resource type: <code>NatFcaPolicyDocument</code> for <code>natgw</code>, <code>InstanceFcaPolicyDocument</code> for <code>ec2</code>, or <code>PcxFcaPolicyDocument</code> for <code>pcx</code>. Don't specify a policy document for a different resource type.</p>
+            nat_fca_policy_document: <p>The policy document that defines cost allocation for NAT gateways. Provide this document when <code>NetworkResourceType</code> is <code>natgw</code>.</p>
+            instance_fca_policy_document: <p>The policy document that defines cost allocation for EC2 instances. Provide this document when <code>NetworkResourceType</code> is <code>ec2</code>.</p>
+            pcx_fca_policy_document: <p>The policy document that defines cost allocation for Amazon VPC peering connections. Provide this document when <code>NetworkResourceType</code> is <code>pcx</code>.</p>
+            show_back_enabled: <p>Specifies whether showback reporting is enabled for the policy.</p> <p>Default: <code>true</code> </p>
+            description: <p>A description for the policy. The description can be up to 1024 characters long.</p>
+            tag_specifications: <p>The tags to assign to the policy.</p>
+            client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.create_networking_flex_cost_allocation_policy_request.CreateNetworkingFlexCostAllocationPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.create_networking_flex_cost_allocation_policy_result.CreateNetworkingFlexCostAllocationPolicyResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.create_networking_flex_cost_allocation_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.create_networking_flex_cost_allocation_policy.async_create_networking_flex_cost_allocation_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateNetworkingFlexCostAllocationPolicy"),
+        )
+        input_: capo_ec2.types.create_networking_flex_cost_allocation_policy_request.CreateNetworkingFlexCostAllocationPolicyRequest = {}
+        if network_resource_type is not None:
+            input_["network_resource_type"] = network_resource_type
+        if nat_fca_policy_document is not None:
+            input_["nat_fca_policy_document"] = nat_fca_policy_document
+        if instance_fca_policy_document is not None:
+            input_["instance_fca_policy_document"] = instance_fca_policy_document
+        if pcx_fca_policy_document is not None:
+            input_["pcx_fca_policy_document"] = pcx_fca_policy_document
+        if show_back_enabled is not None:
+            input_["show_back_enabled"] = show_back_enabled
+        if description is not None:
+            input_["description"] = description
+        if tag_specifications is not None:
+            input_["tag_specifications"] = tag_specifications
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -13756,6 +14101,80 @@ class AsyncEC2Client:
         await response.response.aclose()
         return response.output
 
+    async def create_transit_gateway_network_function_attachment(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        transit_gateway_id: Optional[
+            "capo_ec2.types.transit_gateway_id.TransitGatewayId"
+        ] = None,
+        service_name: Optional["capo_ec2.types.string.String"] = None,
+        availability_zones: Optional[
+            "capo_ec2.types.network_function_attachment_az_name_list.NetworkFunctionAttachmentAZNameList"
+        ] = None,
+        availability_zone_ids: Optional[
+            "capo_ec2.types.network_function_attachment_az_id_list.NetworkFunctionAttachmentAZIdList"
+        ] = None,
+        tag_specifications: Optional[
+            "capo_ec2.types.tag_specification_list.TagSpecificationList"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.create_transit_gateway_network_function_attachment_result.CreateTransitGatewayNetworkFunctionAttachmentResult":
+        """<p>Creates a network function attachment that connects the specified transit gateway to a Gateway Load Balancer endpoint service. Traffic that you route to the attachment is sent to the network function appliances behind the endpoint service. To use this operation, you must be the owner of the transit gateway.</p> <p>You can create one network function attachment for each combination of transit gateway and endpoint service. The attachment remains in the <code>pendingAcceptance</code> state until the endpoint service owner accepts the endpoint connection.</p>
+
+        Args:
+            transit_gateway_id: <p>The ID of the transit gateway. The transit gateway must be in the <code>available</code> state.</p>
+            service_name: <p>The name of the Gateway Load Balancer endpoint service.</p>
+            availability_zones: <p>The names of the Availability Zones for the attachment. You must specify at least one Availability Zone, using this parameter, <code>AvailabilityZoneIds</code>, or both. Each Availability Zone must be supported by both the transit gateway and the endpoint service.</p>
+            availability_zone_ids: <p>The IDs of the Availability Zones for the attachment. You must specify at least one Availability Zone, using this parameter, <code>AvailabilityZones</code>, or both. Each Availability Zone must be supported by both the transit gateway and the endpoint service.</p>
+            tag_specifications: <p>The tags to apply to the network function attachment.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.create_transit_gateway_network_function_attachment_request.CreateTransitGatewayNetworkFunctionAttachmentRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.create_transit_gateway_network_function_attachment_result.CreateTransitGatewayNetworkFunctionAttachmentResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.create_transit_gateway_network_function_attachment
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.create_transit_gateway_network_function_attachment.async_create_transit_gateway_network_function_attachment(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTransitGatewayNetworkFunctionAttachment"),
+        )
+        input_: capo_ec2.types.create_transit_gateway_network_function_attachment_request.CreateTransitGatewayNetworkFunctionAttachmentRequest = {}
+        if transit_gateway_id is not None:
+            input_["transit_gateway_id"] = transit_gateway_id
+        if service_name is not None:
+            input_["service_name"] = service_name
+        if availability_zones is not None:
+            input_["availability_zones"] = availability_zones
+        if availability_zone_ids is not None:
+            input_["availability_zone_ids"] = availability_zone_ids
+        if tag_specifications is not None:
+            input_["tag_specifications"] = tag_specifications
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def create_transit_gateway_peering_attachment(
         self,
         *,
@@ -15340,16 +15759,20 @@ class AsyncEC2Client:
         tag_specifications: Optional[
             "capo_ec2.types.tag_specification_list.TagSpecificationList"
         ] = None,
+        requester_peering_connection_options: Optional[
+            "capo_ec2.types.create_peering_connection_options_request.CreatePeeringConnectionOptionsRequest"
+        ] = None,
         dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
         vpc_id: Optional["capo_ec2.types.vpc_id.VpcId"] = None,
         peer_vpc_id: Optional["capo_ec2.types.string.String"] = None,
         peer_owner_id: Optional["capo_ec2.types.string.String"] = None,
     ) -> "capo_ec2.types.create_vpc_peering_connection_result.CreateVpcPeeringConnectionResult":
-        """<p>Requests a VPC peering connection between two VPCs: a requester VPC that you own and an accepter VPC with which to create the connection. The accepter VPC can belong to another Amazon Web Services account and can be in a different Region to the requester VPC. The requester VPC and accepter VPC cannot have overlapping CIDR blocks.</p> <note> <p>Limitations and rules apply to a VPC peering connection. For more information, see the <a href="https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html#vpc-peering-limitations">VPC peering limitations</a> in the <i>VPC Peering Guide</i>.</p> </note> <p>The owner of the accepter VPC must accept the peering request to activate the peering connection. The VPC peering connection request expires after 7 days, after which it cannot be accepted or rejected.</p> <p>If you create a VPC peering connection request between VPCs with overlapping CIDR blocks, the VPC peering connection has a status of <code>failed</code>.</p>
+        """<p>Requests a VPC peering connection between two VPCs: a requester VPC that you own and an accepter VPC with which to create the connection. The accepter VPC can belong to another Amazon Web Services account and can be in a different Region to the requester VPC. The requester VPC and accepter VPC cannot have overlapping CIDR blocks.</p> <note> <p>Limitations and rules apply to a VPC peering connection. For more information, see the <a href="https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html#vpc-peering-limitations">VPC peering limitations</a> in the <i>VPC Peering Guide</i>.</p> </note> <p>The owner of the accepter VPC must accept the peering request to activate the peering connection. The VPC peering connection request expires after 7 days, after which it cannot be accepted or rejected.</p> <p>Multipath resilience replicates the traffic of an inter-Region VPC peering connection across multiple network paths.</p> <p>If you create a VPC peering connection request between VPCs with overlapping CIDR blocks, the VPC peering connection has a status of <code>failed</code>.</p>
 
         Args:
             peer_region: <p>The Region code for the accepter VPC, if the accepter VPC is located in a Region other than the Region in which you make the request.</p> <p>Default: The Region in which you make the request.</p>
             tag_specifications: <p>The tags to assign to the peering connection.</p>
+            requester_peering_connection_options: <p>The VPC peering connection options to apply to the requester VPC.</p>
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
             vpc_id: <p>The ID of the requester VPC. You must specify this parameter in the request.</p>
             peer_vpc_id: <p>The ID of the VPC with which you are creating the VPC peering connection. You must specify this parameter in the request.</p>
@@ -15382,6 +15805,10 @@ class AsyncEC2Client:
             input_["peer_region"] = peer_region
         if tag_specifications is not None:
             input_["tag_specifications"] = tag_specifications
+        if requester_peering_connection_options is not None:
+            input_["requester_peering_connection_options"] = (
+                requester_peering_connection_options
+            )
         if dry_run is not None:
             input_["dry_run"] = dry_run
         if vpc_id is not None:
@@ -17747,6 +18174,57 @@ class AsyncEC2Client:
         await response.response.aclose()
         return response.output
 
+    async def delete_metric_category(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        metric_category_id: Optional[
+            "capo_ec2.types.metric_category_id.MetricCategoryId"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.delete_metric_category_result.DeleteMetricCategoryResult":
+        """<p>Deletes the specified metric category. Associations between the metric category and your instances are removed asynchronously.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-detailed-monitoring.html#detailed-monitoring-metric-categories">Use metric categories for additional metrics</a> in the <i>Amazon EC2 User Guide</i>.</p>
+
+        Args:
+            metric_category_id: <p>The ID of the metric category.</p>
+            dry_run: <p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.delete_metric_category_request.DeleteMetricCategoryRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.delete_metric_category_result.DeleteMetricCategoryResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.delete_metric_category
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.delete_metric_category.async_delete_metric_category(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMetricCategory")
+        )
+        input_: capo_ec2.types.delete_metric_category_request.DeleteMetricCategoryRequest = {}
+        if metric_category_id is not None:
+            input_["metric_category_id"] = metric_category_id
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def delete_nat_gateway(
         self,
         *,
@@ -17907,6 +18385,58 @@ class AsyncEC2Client:
             input_["rule_number"] = rule_number
         if egress is not None:
             input_["egress"] = egress
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_networking_flex_cost_allocation_policies(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_ids: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_id_list.FlexCostAllocationPolicyIdList"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.delete_networking_flex_cost_allocation_policies_result.DeleteNetworkingFlexCostAllocationPoliciesResult":
+        """<p>Deletes one or more flex cost allocation policies.</p>
+
+        Args:
+            fca_policy_ids: <p>The IDs of the flex cost allocation policies to delete. You can specify up to 50 policy IDs. This parameter is required.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.delete_networking_flex_cost_allocation_policies_request.DeleteNetworkingFlexCostAllocationPoliciesRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.delete_networking_flex_cost_allocation_policies_result.DeleteNetworkingFlexCostAllocationPoliciesResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.delete_networking_flex_cost_allocation_policies
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.delete_networking_flex_cost_allocation_policies.async_delete_networking_flex_cost_allocation_policies(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteNetworkingFlexCostAllocationPolicies"),
+        )
+        input_: capo_ec2.types.delete_networking_flex_cost_allocation_policies_request.DeleteNetworkingFlexCostAllocationPoliciesRequest = {}
+        if fca_policy_ids is not None:
+            input_["fca_policy_ids"] = fca_policy_ids
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -19678,6 +20208,58 @@ class AsyncEC2Client:
             input_["transit_gateway_multicast_domain_id"] = (
                 transit_gateway_multicast_domain_id
             )
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def delete_transit_gateway_network_function_attachment(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        transit_gateway_attachment_id: Optional[
+            "capo_ec2.types.transit_gateway_attachment_id.TransitGatewayAttachmentId"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.delete_transit_gateway_network_function_attachment_result.DeleteTransitGatewayNetworkFunctionAttachmentResult":
+        """<p>Deletes the specified network function attachment. The attachment must be in the <code>available</code> or <code>pendingAcceptance</code> state.</p>
+
+        Args:
+            transit_gateway_attachment_id: <p>The ID of the network function attachment.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.delete_transit_gateway_network_function_attachment_request.DeleteTransitGatewayNetworkFunctionAttachmentRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.delete_transit_gateway_network_function_attachment_result.DeleteTransitGatewayNetworkFunctionAttachmentResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.delete_transit_gateway_network_function_attachment
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.delete_transit_gateway_network_function_attachment.async_delete_transit_gateway_network_function_attachment(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteTransitGatewayNetworkFunctionAttachment"),
+        )
+        input_: capo_ec2.types.delete_transit_gateway_network_function_attachment_request.DeleteTransitGatewayNetworkFunctionAttachmentRequest = {}
+        if transit_gateway_attachment_id is not None:
+            input_["transit_gateway_attachment_id"] = transit_gateway_attachment_id
         if dry_run is not None:
             input_["dry_run"] = dry_run
 
@@ -22558,6 +23140,9 @@ class AsyncEC2Client:
         ultraserver_type: Optional["capo_ec2.types.string.String"] = None,
         ultraserver_count: Optional["capo_ec2.types.integer.Integer"] = None,
         all_availability_zones: Optional["capo_ec2.types.boolean.Boolean"] = None,
+        instance_type_preferences: Optional[
+            "capo_ec2.types.capacity_block_instance_type_preference_set.CapacityBlockInstanceTypePreferenceSet"
+        ] = None,
     ) -> "capo_ec2.types.describe_capacity_block_offerings_result.DescribeCapacityBlockOfferingsResult":
         """<p>Describes Capacity Block offerings available for purchase in the Amazon Web Services Region that you're currently using. With Capacity Blocks, you can purchase a specific GPU instance type or EC2 UltraServer for a period of time.</p> <p>To search for an available Capacity Block offering, you specify a reservation duration and instance count.</p>
 
@@ -22573,6 +23158,7 @@ class AsyncEC2Client:
             ultraserver_type: <p>The EC2 UltraServer type of the Capacity Block offerings.</p>
             ultraserver_count: <p>The number of EC2 UltraServers in the offerings.</p>
             all_availability_zones: <p> Include all Availability Zones and Local Zones, regardless of your opt-in status. If you do not use this parameter, the results include available offerings from all Availability Zones in the Amazon Web Services Region and Local Zones you are opted into. </p>
+            instance_type_preferences: <p>List of instance type preferences for the Capacity Block offering search. Accepts one or more instance type names. Either this or the legacy <code>InstanceType</code> parameter is required.</p>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -22619,6 +23205,8 @@ class AsyncEC2Client:
             input_["ultraserver_count"] = ultraserver_count
         if all_availability_zones is not None:
             input_["all_availability_zones"] = all_availability_zones
+        if instance_type_preferences is not None:
+            input_["instance_type_preferences"] = instance_type_preferences
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -22649,6 +23237,9 @@ class AsyncEC2Client:
         ultraserver_type: Optional["capo_ec2.types.string.String"] = None,
         ultraserver_count: Optional["capo_ec2.types.integer.Integer"] = None,
         all_availability_zones: Optional["capo_ec2.types.boolean.Boolean"] = None,
+        instance_type_preferences: Optional[
+            "capo_ec2.types.capacity_block_instance_type_preference_set.CapacityBlockInstanceTypePreferenceSet"
+        ] = None,
     ) -> "AsyncIterator[capo_ec2.types.capacity_block_offering.CapacityBlockOffering]":
         _token = next_token
         while True:
@@ -22665,6 +23256,7 @@ class AsyncEC2Client:
                 ultraserver_type=ultraserver_type,
                 ultraserver_count=ultraserver_count,
                 all_availability_zones=all_availability_zones,
+                instance_type_preferences=instance_type_preferences,
             )
             _page = _resolve_path(_response, ("capacity_block_offerings",))
             for _item in _page or []:
@@ -26282,7 +26874,7 @@ class AsyncEC2Client:
             image_ids: <p>The IDs of the images for filtering the report entries. If specified, only report entries containing these images are returned.</p>
             report_ids: <p>The IDs of the usage reports.</p>
             next_token: <p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>
-            filters: <p>The filters.</p> <ul> <li> <p> <code>account-id</code> - A 12-digit Amazon Web Services account ID.</p> </li> <li> <p> <code>creation-time</code> - The time when the report was created, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2025-11-29T11:04:43.305Z</code>. You can use a wildcard (<code>*</code>), for example, <code>2025-11-29T*</code>, which matches an entire day.</p> </li> <li> <p> <code>resource-type</code> - The resource type (<code>ec2:Instance</code> | <code>ec2:LaunchTemplate</code>).</p> </li> </ul>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>account-id</code> - A 12-digit Amazon Web Services account ID.</p> </li> <li> <p> <code>creation-time</code> - The time when the report was created, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2025-11-29T11:04:43.305Z</code>. You can use a wildcard (<code>*</code>), for example, <code>2025-11-29T*</code>, which matches an entire day.</p> </li> <li> <p> <code>resource-type</code> - The resource type (<code>ec2:Instance</code> | <code>ec2:LaunchTemplate</code> | <code>imagebuilder:ImageRecipe</code> | <code>imagebuilder:ContainerRecipe</code>).</p> </li> </ul>
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
             max_results: <p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p>
 
@@ -30324,6 +30916,102 @@ class AsyncEC2Client:
             if not _token:
                 break
 
+    async def describe_metric_categories(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        metric_category_ids: Optional[
+            "capo_ec2.types.metric_category_id_list.MetricCategoryIdList"
+        ] = None,
+        filters: Optional["capo_ec2.types.filter_list.FilterList"] = None,
+        max_results: Optional[
+            "capo_ec2.types.describe_metric_categories_max_results.DescribeMetricCategoriesMaxResults"
+        ] = None,
+        next_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.describe_metric_categories_result.DescribeMetricCategoriesResult":
+        """<p>Describes the specified metric categories, or all of your metric categories.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-detailed-monitoring.html#detailed-monitoring-metric-categories">Use metric categories for additional metrics</a> in the <i>Amazon EC2 User Guide</i>.</p>
+
+        Args:
+            metric_category_ids: <p>The IDs of the metric categories. If you specify IDs, you can't specify <code>MaxResults</code> or <code>NextToken</code>.</p>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>metric-name</code> - The name of a metric in the metric category.</p> </li> </ul>
+            max_results: <p>The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.</p> <p>Valid range: 5 - 100.</p>
+            next_token: <p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>
+            dry_run: <p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.describe_metric_categories_request.DescribeMetricCategoriesRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.describe_metric_categories_result.DescribeMetricCategoriesResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.describe_metric_categories
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.describe_metric_categories.async_describe_metric_categories(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetricCategories")
+        )
+        input_: capo_ec2.types.describe_metric_categories_request.DescribeMetricCategoriesRequest = {}
+        if metric_category_ids is not None:
+            input_["metric_category_ids"] = metric_category_ids
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_describe_metric_categories(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        metric_category_ids: Optional[
+            "capo_ec2.types.metric_category_id_list.MetricCategoryIdList"
+        ] = None,
+        filters: Optional["capo_ec2.types.filter_list.FilterList"] = None,
+        max_results: Optional[
+            "capo_ec2.types.describe_metric_categories_max_results.DescribeMetricCategoriesMaxResults"
+        ] = None,
+        next_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "AsyncIterator[capo_ec2.types.metric_category.MetricCategory]":
+        _token = next_token
+        while True:
+            _response = await self.describe_metric_categories(
+                config_overrides=config_overrides,
+                metric_category_ids=metric_category_ids,
+                filters=filters,
+                max_results=max_results,
+                next_token=_token,
+                dry_run=dry_run,
+            )
+            _page = _resolve_path(_response, ("metric_categories",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     async def describe_moving_addresses(
         self,
         *,
@@ -30622,6 +31310,202 @@ class AsyncEC2Client:
                 filters=filters,
             )
             _page = _resolve_path(_response, ("network_acls",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def describe_networking_flex_cost_allocation_policies(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_ids: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_id_set.FlexCostAllocationPolicyIdSet"
+        ] = None,
+        max_results: Optional[
+            "capo_ec2.types.describe_flex_cost_allocation_policies_max_results.DescribeFlexCostAllocationPoliciesMaxResults"
+        ] = None,
+        filters: Optional["capo_ec2.types.filter_list.FilterList"] = None,
+        next_token: Optional["capo_ec2.types.next_token.NextToken"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.describe_networking_flex_cost_allocation_policies_result.DescribeNetworkingFlexCostAllocationPoliciesResult":
+        """<p>Describes one or more of your flex cost allocation policies. We recommend using pagination to ensure that the operation returns quickly and successfully.</p>
+
+        Args:
+            fca_policy_ids: <p>The IDs of the flex cost allocation policies to describe.</p>
+            max_results: <p>The maximum number of results to return in a single call. The range is 5 to 1000. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p> <p>Default: 100</p>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>fca-policy-id</code> - The ID of the policy.</p> </li> <li> <p> <code>managed-by</code> - The entity that manages the policy (<code>account</code> | <code>declarative-policy</code>).</p> </li> <li> <p> <code>network-resource-type</code> - The type of network resource that the policy applies to (<code>natgw</code> | <code>ec2</code> | <code>pcx</code>).</p> </li> <li> <p> <code>showback-enabled</code> - Indicates whether showback reporting is enabled for the policy (<code>true</code> | <code>false</code>).</p> </li> </ul>
+            next_token: <p>The token for the next page of results.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.describe_networking_flex_cost_allocation_policies_request.DescribeNetworkingFlexCostAllocationPoliciesRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.describe_networking_flex_cost_allocation_policies_result.DescribeNetworkingFlexCostAllocationPoliciesResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.describe_networking_flex_cost_allocation_policies
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.describe_networking_flex_cost_allocation_policies.async_describe_networking_flex_cost_allocation_policies(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeNetworkingFlexCostAllocationPolicies"),
+        )
+        input_: capo_ec2.types.describe_networking_flex_cost_allocation_policies_request.DescribeNetworkingFlexCostAllocationPoliciesRequest = {}
+        if fca_policy_ids is not None:
+            input_["fca_policy_ids"] = fca_policy_ids
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if filters is not None:
+            input_["filters"] = filters
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_describe_networking_flex_cost_allocation_policies(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_ids: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_id_set.FlexCostAllocationPolicyIdSet"
+        ] = None,
+        max_results: Optional[
+            "capo_ec2.types.describe_flex_cost_allocation_policies_max_results.DescribeFlexCostAllocationPoliciesMaxResults"
+        ] = None,
+        filters: Optional["capo_ec2.types.filter_list.FilterList"] = None,
+        next_token: Optional["capo_ec2.types.next_token.NextToken"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "AsyncIterator[capo_ec2.types.flex_cost_allocation_policy_description.FlexCostAllocationPolicyDescription]":
+        _token = next_token
+        while True:
+            _response = await self.describe_networking_flex_cost_allocation_policies(
+                config_overrides=config_overrides,
+                fca_policy_ids=fca_policy_ids,
+                max_results=max_results,
+                filters=filters,
+                next_token=_token,
+                dry_run=dry_run,
+            )
+            _page = _resolve_path(_response, ("flex_cost_allocation_policies",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def describe_networking_flex_cost_allocation_policy_associations(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_association_ids: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_association_id_list.FlexCostAllocationPolicyAssociationIdList"
+        ] = None,
+        max_results: Optional[
+            "capo_ec2.types.describe_flex_cost_allocation_policies_max_results.DescribeFlexCostAllocationPoliciesMaxResults"
+        ] = None,
+        filters: Optional["capo_ec2.types.filter_list.FilterList"] = None,
+        next_token: Optional["capo_ec2.types.next_token.NextToken"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.describe_networking_flex_cost_allocation_policy_associations_result.DescribeNetworkingFlexCostAllocationPolicyAssociationsResult":
+        """<p>Describes the associations between your flex cost allocation policies and network resources. We recommend using pagination to ensure that the operation returns quickly and successfully.</p>
+
+        Args:
+            fca_policy_association_ids: <p>The IDs of the policy associations to describe.</p>
+            max_results: <p>The maximum number of results to return in a single call. The range is 5 to 1000. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p> <p>Default: 100</p>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>fca-policy-id</code> - The ID of the policy.</p> </li> <li> <p> <code>managed-by</code> - The entity that manages the association (<code>account</code> | <code>declarative-policy</code>).</p> </li> <li> <p> <code>resource-id</code> - The ID of the associated network resource.</p> </li> </ul>
+            next_token: <p>The token for the next page of results.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.describe_networking_flex_cost_allocation_policy_associations_request.DescribeNetworkingFlexCostAllocationPolicyAssociationsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.describe_networking_flex_cost_allocation_policy_associations_result.DescribeNetworkingFlexCostAllocationPolicyAssociationsResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.describe_networking_flex_cost_allocation_policy_associations
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.describe_networking_flex_cost_allocation_policy_associations.async_describe_networking_flex_cost_allocation_policy_associations(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeNetworkingFlexCostAllocationPolicyAssociations"),
+        )
+        input_: capo_ec2.types.describe_networking_flex_cost_allocation_policy_associations_request.DescribeNetworkingFlexCostAllocationPolicyAssociationsRequest = {}
+        if fca_policy_association_ids is not None:
+            input_["fca_policy_association_ids"] = fca_policy_association_ids
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if filters is not None:
+            input_["filters"] = filters
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_describe_networking_flex_cost_allocation_policy_associations(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_association_ids: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_association_id_list.FlexCostAllocationPolicyAssociationIdList"
+        ] = None,
+        max_results: Optional[
+            "capo_ec2.types.describe_flex_cost_allocation_policies_max_results.DescribeFlexCostAllocationPoliciesMaxResults"
+        ] = None,
+        filters: Optional["capo_ec2.types.filter_list.FilterList"] = None,
+        next_token: Optional["capo_ec2.types.next_token.NextToken"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "AsyncIterator[capo_ec2.types.flex_cost_allocation_policy_association_description.FlexCostAllocationPolicyAssociationDescription]":
+        _token = next_token
+        while True:
+            _response = (
+                await self.describe_networking_flex_cost_allocation_policy_associations(
+                    config_overrides=config_overrides,
+                    fca_policy_association_ids=fca_policy_association_ids,
+                    max_results=max_results,
+                    filters=filters,
+                    next_token=_token,
+                    dry_run=dry_run,
+                )
+            )
+            _page = _resolve_path(_response, ("fca_policy_associations",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -31263,7 +32147,7 @@ class AsyncEC2Client:
         ] = None,
         filters: Optional["capo_ec2.types.filter_list.FilterList"] = None,
     ) -> "capo_ec2.types.describe_network_interfaces_result.DescribeNetworkInterfacesResult":
-        """<p>Describes the specified network interfaces or all your network interfaces.</p> <p>If you have a large number of network interfaces, the operation fails unless you use pagination or one of the following filters: <code>group-id</code>, <code>mac-address</code>, <code>private-dns-name</code>, <code>private-ip-address</code>, <code>subnet-id</code>, or <code>vpc-id</code>.</p> <important> <p>We strongly recommend using only paginated requests. Unpaginated requests are susceptible to throttling and timeouts.</p> </important>
+        """<p>Describes the specified network interfaces or all your network interfaces.</p> <p>If you have a large number of network interfaces, the operation fails unless you use pagination or one of the following filters: <code>attachment.instance-id</code>, <code>group-id</code>, <code>mac-address</code>, <code>private-dns-name</code>, <code>private-ip-address</code>, <code>subnet-id</code>, or <code>vpc-id</code>.</p> <important> <p>We strongly recommend using only paginated requests. Unpaginated requests are susceptible to throttling and timeouts.</p> </important>
 
         Args:
             next_token: <p>The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.</p>
@@ -35634,6 +36518,72 @@ class AsyncEC2Client:
             if not _token:
                 break
 
+    async def describe_transit_gateway_network_function_attachments(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        transit_gateway_attachment_ids: Optional[
+            "capo_ec2.types.transit_gateway_network_function_attachment_id_list.TransitGatewayNetworkFunctionAttachmentIdList"
+        ] = None,
+        filters: Optional["capo_ec2.types.filter_list.FilterList"] = None,
+        max_results: Optional[
+            "capo_ec2.types.transit_gateway_max_results.TransitGatewayMaxResults"
+        ] = None,
+        next_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.describe_transit_gateway_network_function_attachments_result.DescribeTransitGatewayNetworkFunctionAttachmentsResult":
+        """<p>Describes one or more network function attachments. You can describe attachments that you own or that are attached to a transit gateway that you own.</p>
+
+        Args:
+            transit_gateway_attachment_ids: <p>The IDs of the network function attachments.</p>
+            filters: <p>One or more filters. The possible values are:</p> <ul> <li> <p> <code>service-name</code> - The name of the Gateway Load Balancer endpoint service.</p> </li> <li> <p> <code>state</code> - The state of the attachment. Valid values are <code>available</code> | <code>deleted</code> | <code>deleting</code> | <code>failed</code> | <code>failing</code> | <code>modifying</code> | <code>pendingAcceptance</code> | <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>.</p> </li> <li> <p> <code>transit-gateway-attachment-id</code> - The ID of the attachment.</p> </li> <li> <p> <code>transit-gateway-id</code> - The ID of the transit gateway.</p> </li> </ul>
+            max_results: <p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>
+            next_token: <p>The token for the next page of results.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.describe_transit_gateway_network_function_attachments_request.DescribeTransitGatewayNetworkFunctionAttachmentsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.describe_transit_gateway_network_function_attachments_result.DescribeTransitGatewayNetworkFunctionAttachmentsResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.describe_transit_gateway_network_function_attachments
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.describe_transit_gateway_network_function_attachments.async_describe_transit_gateway_network_function_attachments(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTransitGatewayNetworkFunctionAttachments"),
+        )
+        input_: capo_ec2.types.describe_transit_gateway_network_function_attachments_request.DescribeTransitGatewayNetworkFunctionAttachmentsRequest = {}
+        if transit_gateway_attachment_ids is not None:
+            input_["transit_gateway_attachment_ids"] = transit_gateway_attachment_ids
+        if filters is not None:
+            input_["filters"] = filters
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def describe_transit_gateway_peering_attachments(
         self,
         *,
@@ -37137,7 +38087,7 @@ class AsyncEC2Client:
             volume_ids: <p>The IDs of the volumes.</p> <p>Default: Describes all your volumes.</p>
             include_managed_resources: <p>Indicates whether to include managed resources in the output. If this parameter is set to <code>true</code>, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.</p>
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
-            filters: <p>The filters.</p> <ul> <li> <p> <code>action.code</code> - The action code for the event (for example, <code>enable-volume-io</code>).</p> </li> <li> <p> <code>action.description</code> - A description of the action.</p> </li> <li> <p> <code>action.event-id</code> - The event ID associated with the action.</p> </li> <li> <p> <code>availability-zone</code> - The Availability Zone of the instance.</p> </li> <li> <p> <code>event.description</code> - A description of the event.</p> </li> <li> <p> <code>event.event-id</code> - The event ID.</p> </li> <li> <p> <code>event.event-type</code> - The event type (for <code>io-enabled</code>: <code>passed</code> | <code>failed</code>; for <code>io-performance</code>: <code>io-performance:degraded</code> | <code>io-performance:severely-degraded</code> | <code>io-performance:stalled</code>).</p> </li> <li> <p> <code>event.not-after</code> - The latest end time for the event.</p> </li> <li> <p> <code>event.not-before</code> - The earliest start time for the event.</p> </li> <li> <p> <code>volume-status.details-name</code> - The cause for <code>volume-status.status</code> (<code>io-enabled</code> | <code>io-performance</code>).</p> </li> <li> <p> <code>volume-status.details-status</code> - The status of <code>volume-status.details-name</code> (for <code>io-enabled</code>: <code>passed</code> | <code>failed</code>; for <code>io-performance</code>: <code>normal</code> | <code>degraded</code> | <code>severely-degraded</code> | <code>stalled</code>).</p> </li> <li> <p> <code>volume-status.status</code> - The status of the volume (<code>ok</code> | <code>impaired</code> | <code>warning</code> | <code>insufficient-data</code>).</p> </li> </ul>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>action.code</code> - The action code for the event (for example, <code>enable-volume-io</code>).</p> </li> <li> <p> <code>action.description</code> - A description of the action.</p> </li> <li> <p> <code>action.event-id</code> - The event ID associated with the action.</p> </li> <li> <p> <code>attachment-status.instance-id</code> - The ID of the instance that the volume is attached to.</p> </li> <li> <p> <code>attachment-status.io-performance</code> - The I/O performance status of the volume's attachment to the instance.</p> </li> <li> <p> <code>availability-zone</code> - The Availability Zone of the instance.</p> </li> <li> <p> <code>event.description</code> - A description of the event.</p> </li> <li> <p> <code>event.event-id</code> - The event ID.</p> </li> <li> <p> <code>event.event-type</code> - The event type (for <code>io-enabled</code>: <code>passed</code> | <code>failed</code>; for <code>io-performance</code>: <code>io-performance:degraded</code> | <code>io-performance:severely-degraded</code> | <code>io-performance:stalled</code>).</p> </li> <li> <p> <code>event.not-after</code> - The latest end time for the event.</p> </li> <li> <p> <code>event.not-before</code> - The earliest start time for the event.</p> </li> <li> <p> <code>volume-status.details-name</code> - The cause for <code>volume-status.status</code> (<code>io-enabled</code> | <code>io-performance</code>).</p> </li> <li> <p> <code>volume-status.details-status</code> - The status of <code>volume-status.details-name</code> (for <code>io-enabled</code>: <code>passed</code> | <code>failed</code>; for <code>io-performance</code>: <code>normal</code> | <code>degraded</code> | <code>severely-degraded</code> | <code>stalled</code>).</p> </li> <li> <p> <code>volume-status.status</code> - The status of the volume (<code>ok</code> | <code>impaired</code> | <code>warning</code> | <code>insufficient-data</code>).</p> </li> </ul>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -37780,7 +38730,7 @@ class AsyncEC2Client:
 
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
-            filters: <p>The filters.</p> <ul> <li> <p> <code>ip-address-type</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).</p> </li> <li> <p> <code>service-id</code> - The ID of the service.</p> </li> <li> <p> <code>vpc-endpoint-owner</code> - The ID of the Amazon Web Services account ID that owns the endpoint.</p> </li> <li> <p> <code>vpc-endpoint-region</code> - The Region of the endpoint or <code>cross-region</code> to find endpoints for other Regions.</p> </li> <li> <p> <code>vpc-endpoint-state</code> - The state of the endpoint (<code>pendingAcceptance</code> | <code>pending</code> | <code>available</code> | <code>deleting</code> | <code>deleted</code> | <code>rejected</code> | <code>failed</code>).</p> </li> <li> <p> <code>vpc-endpoint-id</code> - The ID of the endpoint.</p> </li> </ul>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>ip-address-type</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).</p> </li> <li> <p> <code>service-id</code> - The ID of the service.</p> </li> <li> <p> <code>transit-gateway-attachment-id</code> - The ID of the transit gateway attachment.</p> </li> <li> <p> <code>vpc-endpoint-owner</code> - The ID of the Amazon Web Services account ID that owns the endpoint.</p> </li> <li> <p> <code>vpc-endpoint-region</code> - The Region of the endpoint or <code>cross-region</code> to find endpoints for other Regions.</p> </li> <li> <p> <code>vpc-endpoint-state</code> - The state of the endpoint (<code>pendingAcceptance</code> | <code>pending</code> | <code>available</code> | <code>deleting</code> | <code>deleted</code> | <code>rejected</code> | <code>failed</code>).</p> </li> <li> <p> <code>vpc-endpoint-id</code> - The ID of the endpoint.</p> </li> </ul>
             max_results: <p>The maximum number of results to return for the request in a single page. The remaining results of the initial request can be seen by sending another request with the returned <code>NextToken</code> value. This value can be between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only 1,000 results are returned.</p>
             next_token: <p>The token to retrieve the next page of results.</p>
 
@@ -38051,7 +39001,7 @@ class AsyncEC2Client:
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
             service_id: <p>The ID of the service.</p>
-            filters: <p>The filters.</p> <ul> <li> <p> <code>principal</code> - The ARN of the principal.</p> </li> <li> <p> <code>principal-type</code> - The principal type (<code>All</code> | <code>Service</code> | <code>OrganizationUnit</code> | <code>Account</code> | <code>User</code> | <code>Role</code>).</p> </li> </ul>
+            filters: <p>The filters.</p> <ul> <li> <p> <code>permission-type</code> - The permission type (<code>vpc-endpoint</code> | <code>transit-gateway-attachment</code>).</p> </li> <li> <p> <code>principal</code> - The ARN of the principal.</p> </li> <li> <p> <code>principal-type</code> - The principal type (<code>All</code> | <code>Service</code> | <code>OrganizationUnit</code> | <code>Account</code> | <code>User</code> | <code>Role</code>).</p> </li> </ul>
             max_results: <p>The maximum number of results to return for the request in a single page. The remaining results of the initial request can be seen by sending another request with the returned <code>NextToken</code> value. This value can be between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only 1,000 results are returned.</p>
             next_token: <p>The token to retrieve the next page of results.</p>
 
@@ -40802,6 +41752,59 @@ class AsyncEC2Client:
         await response.response.aclose()
         return response.output
 
+    async def disassociate_kms_key_id(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        snapshot_id: Optional["capo_ec2.types.snapshot_id.SnapshotId"] = None,
+        kms_key_id: Optional["capo_ec2.types.kms_key_id.KmsKeyId"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.disassociate_kms_key_id_result.DisassociateKmsKeyIdResult":
+        """<p>Removes an associated KMS key from an Amazon EBS snapshot. After you disassociate the key, it can no longer be used to access the snapshot's data. The snapshot's original encryption key is unaffected.</p>
+
+        Args:
+            snapshot_id: <p>The ID of the Amazon EBS snapshot.</p>
+            kms_key_id: <p>The ID, alias, or ARN of the associated KMS key to remove from the snapshot.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.disassociate_kms_key_id_request.DisassociateKmsKeyIdRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.disassociate_kms_key_id_result.DisassociateKmsKeyIdResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.disassociate_kms_key_id
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.disassociate_kms_key_id.async_disassociate_kms_key_id(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateKmsKeyId")
+        )
+        input_: capo_ec2.types.disassociate_kms_key_id_request.DisassociateKmsKeyIdRequest = {}
+        if snapshot_id is not None:
+            input_["snapshot_id"] = snapshot_id
+        if kms_key_id is not None:
+            input_["kms_key_id"] = kms_key_id
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def disassociate_nat_gateway_address(
         self,
         *,
@@ -40852,6 +41855,58 @@ class AsyncEC2Client:
             input_["association_ids"] = association_ids
         if max_drain_duration_seconds is not None:
             input_["max_drain_duration_seconds"] = max_drain_duration_seconds
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def disassociate_networking_flex_cost_allocation_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_association_ids: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_disassociate_association_id_list.FlexCostAllocationPolicyDisassociateAssociationIdList"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.disassociate_networking_flex_cost_allocation_policy_result.DisassociateNetworkingFlexCostAllocationPolicyResult":
+        """<p>Disassociates a flex cost allocation policy from one or more network resources.</p>
+
+        Args:
+            fca_policy_association_ids: <p>The IDs of the policy associations to remove. You can specify up to 100 association IDs. This parameter is required.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.disassociate_networking_flex_cost_allocation_policy_request.DisassociateNetworkingFlexCostAllocationPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.disassociate_networking_flex_cost_allocation_policy_result.DisassociateNetworkingFlexCostAllocationPolicyResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.disassociate_networking_flex_cost_allocation_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.disassociate_networking_flex_cost_allocation_policy.async_disassociate_networking_flex_cost_allocation_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateNetworkingFlexCostAllocationPolicy"),
+        )
+        input_: capo_ec2.types.disassociate_networking_flex_cost_allocation_policy_request.DisassociateNetworkingFlexCostAllocationPolicyRequest = {}
+        if fca_policy_association_ids is not None:
+            input_["fca_policy_association_ids"] = fca_policy_association_ids
         if dry_run is not None:
             input_["dry_run"] = dry_run
 
@@ -44362,7 +45417,7 @@ class AsyncEC2Client:
             "capo_ec2.types.integrate_services.IntegrateServices"
         ] = None,
     ) -> "capo_ec2.types.get_flow_logs_integration_template_result.GetFlowLogsIntegrationTemplateResult":
-        """<p>Generates a CloudFormation template that streamlines and automates the integration of VPC flow logs with Amazon Athena. This make it easier for you to query and gain insights from VPC flow logs data. Based on the information that you provide, we configure resources in the template to do the following:</p> <ul> <li> <p>Create a table in Athena that maps fields to a custom log format</p> </li> <li> <p>Create a Lambda function that updates the table with new partitions on a daily, weekly, or monthly basis</p> </li> <li> <p>Create a table partitioned between two timestamps in the past</p> </li> <li> <p>Create a set of named queries in Athena that you can use to get started quickly</p> </li> </ul> <note> <p> <code>GetFlowLogsIntegrationTemplate</code> does not support integration between Amazon Web Services Transit Gateway Flow Logs and Amazon Athena.</p> </note>
+        """<p>Generates a CloudFormation template that streamlines and automates the integration of VPC flow logs with Amazon Athena. This make it easier for you to query and gain insights from VPC flow logs data. Based on the information that you provide, we configure resources in the template to do the following:</p> <ul> <li> <p>Create a table in Athena that maps fields to a custom log format</p> </li> <li> <p>Create a Lambda function that updates the table with new partitions on a daily, weekly, or monthly basis</p> </li> <li> <p>Create a table partitioned between two timestamps in the past</p> </li> <li> <p>Create a set of named queries in Athena that you can use to get started quickly</p> </li> </ul> <note> <p> <code>GetFlowLogsIntegrationTemplate</code> does not support integration between Amazon Web Services Transit Gateway Flow Logs or Amazon Web Services Cloud WAN Flow Logs and Amazon Athena.</p> </note>
 
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
@@ -46894,6 +47949,64 @@ class AsyncEC2Client:
             config_overrides, OperationLogging("GetManagedResourceVisibility")
         )
         input_: capo_ec2.types.get_managed_resource_visibility_request.GetManagedResourceVisibilityRequest = {}
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def get_networking_flex_cost_allocation_policy_versions(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_id: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_id.FlexCostAllocationPolicyId"
+        ] = None,
+        versions_to_include: Optional[
+            "capo_ec2.types.flex_cost_allocation_versions_to_include_list.FlexCostAllocationVersionsToIncludeList"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.get_networking_flex_cost_allocation_policy_versions_result.GetNetworkingFlexCostAllocationPolicyVersionsResult":
+        """<p>Retrieves the versions of a flex cost allocation policy.</p>
+
+        Args:
+            fca_policy_id: <p>The ID of the flex cost allocation policy. This parameter is required.</p>
+            versions_to_include: <p>The policy versions to include in the results.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.get_networking_flex_cost_allocation_policy_versions_request.GetNetworkingFlexCostAllocationPolicyVersionsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.get_networking_flex_cost_allocation_policy_versions_result.GetNetworkingFlexCostAllocationPolicyVersionsResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.get_networking_flex_cost_allocation_policy_versions
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.get_networking_flex_cost_allocation_policy_versions.async_get_networking_flex_cost_allocation_policy_versions(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetNetworkingFlexCostAllocationPolicyVersions"),
+        )
+        input_: capo_ec2.types.get_networking_flex_cost_allocation_policy_versions_request.GetNetworkingFlexCostAllocationPolicyVersionsRequest = {}
+        if fca_policy_id is not None:
+            input_["fca_policy_id"] = fca_policy_id
+        if versions_to_include is not None:
+            input_["versions_to_include"] = versions_to_include
         if dry_run is not None:
             input_["dry_run"] = dry_run
 
@@ -49808,6 +50921,12 @@ class AsyncEC2Client:
         elastic_file_system: Optional[
             "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
         ] = None,
+        global_accelerator: Optional[
+            "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
+        ] = None,
+        api_gateway_v2: Optional[
+            "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
+        ] = None,
     ) -> "capo_ec2.types.modify_account_vpc_encryption_control_result.ModifyAccountVpcEncryptionControlResult":
         """<p>Modifies the account-level VPC Encryption Control configuration. This sets the encryption control mode and resource exclusions that apply to the VPCs in your account. VPC Encryption Control enables you to enforce encryption for all data in transit within and between VPCs to meet compliance requirements.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-encryption-controls.html">Enforce VPC encryption in transit</a> in the <i>Amazon VPC User Guide</i>.</p>
 
@@ -49822,6 +50941,8 @@ class AsyncEC2Client:
             lambda_: <p>Specifies whether to exclude Lambda service from account-level encryption enforcement.</p>
             vpc_lattice: <p>Specifies whether to exclude VPC Lattice service from account-level encryption enforcement.</p>
             elastic_file_system: <p>Specifies whether to exclude Elastic File System service from account-level encryption enforcement.</p>
+            global_accelerator: <p>Specifies whether to exclude Amazon Web Services Global Accelerator from account-level encryption enforcement.</p>
+            api_gateway_v2: <p>Specifies whether to exclude Amazon API Gateway V2 from account-level encryption enforcement.</p>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -49866,6 +50987,10 @@ class AsyncEC2Client:
             input_["vpc_lattice"] = vpc_lattice
         if elastic_file_system is not None:
             input_["elastic_file_system"] = elastic_file_system
+        if global_accelerator is not None:
+            input_["global_accelerator"] = global_accelerator
+        if api_gateway_v2 is not None:
+            input_["api_gateway_v2"] = api_gateway_v2
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -52930,6 +54055,146 @@ class AsyncEC2Client:
         await response.response.aclose()
         return response.output
 
+    async def modify_metric_category(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        metric_category_id: Optional[
+            "capo_ec2.types.metric_category_id.MetricCategoryId"
+        ] = None,
+        metrics: Optional[
+            "capo_ec2.types.metric_category_metric_name_list.MetricCategoryMetricNameList"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.modify_metric_category_result.ModifyMetricCategoryResult":
+        """<p>Modifies the metrics in the specified metric category. The metrics that you specify replace the existing metrics.</p> <p>Instances that are associated with the metric category are updated asynchronously.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-detailed-monitoring.html#detailed-monitoring-metric-categories">Use metric categories for additional metrics</a> in the <i>Amazon EC2 User Guide</i>.</p>
+
+        Args:
+            metric_category_id: <p>The ID of the metric category.</p>
+            metrics: <p>The names of the metrics for the metric category. These metrics replace the existing metrics, and must differ from the current set.</p> <p>Specify each metric by its Amazon CloudWatch metric name or its OpenTelemetry metric name. The two names for a measurement are separate entries, and you can include both.</p> <p>In Regions where Amazon CloudWatch OpenTelemetry metrics aren't available, you can't specify OpenTelemetry metric names.</p>
+            dry_run: <p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.modify_metric_category_request.ModifyMetricCategoryRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.modify_metric_category_result.ModifyMetricCategoryResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.modify_metric_category
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.modify_metric_category.async_modify_metric_category(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyMetricCategory")
+        )
+        input_: capo_ec2.types.modify_metric_category_request.ModifyMetricCategoryRequest = {}
+        if metric_category_id is not None:
+            input_["metric_category_id"] = metric_category_id
+        if metrics is not None:
+            input_["metrics"] = metrics
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def modify_networking_flex_cost_allocation_policy(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        fca_policy_id: Optional[
+            "capo_ec2.types.flex_cost_allocation_policy_id.FlexCostAllocationPolicyId"
+        ] = None,
+        nat_fca_policy_document: Optional[
+            "capo_ec2.types.nat_flex_cost_allocation_policy_document.NatFlexCostAllocationPolicyDocument"
+        ] = None,
+        instance_fca_policy_document: Optional[
+            "capo_ec2.types.instance_flex_cost_allocation_policy_document.InstanceFlexCostAllocationPolicyDocument"
+        ] = None,
+        pcx_fca_policy_document: Optional[
+            "capo_ec2.types.pcx_flex_cost_allocation_policy_document.PcxFlexCostAllocationPolicyDocument"
+        ] = None,
+        show_back_enabled: Optional["capo_ec2.types.boolean.Boolean"] = None,
+        description: Optional["capo_ec2.types.string.String"] = None,
+        client_token: Optional["capo_ec2.types.string.String"] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.modify_networking_flex_cost_allocation_policy_result.ModifyNetworkingFlexCostAllocationPolicyResult":
+        """<p>Modifies a flex cost allocation policy. Changing a policy document or <code>ShowBackEnabled</code> creates a new version of the policy. Changing only the description doesn't create a new version.</p> <p>A policy can have up to 100 versions. Versions are never removed, so after a policy reaches 100 versions, you can't change its policy document or <code>ShowBackEnabled</code>. Policies that are managed by a declarative policy aren't subject to this limit.</p>
+
+        Args:
+            fca_policy_id: <p>The ID of the flex cost allocation policy to modify. This parameter is required.</p>
+            nat_fca_policy_document: <p>The updated policy document that defines cost allocation for NAT gateways.</p>
+            instance_fca_policy_document: <p>The updated policy document that defines cost allocation for EC2 instances.</p>
+            pcx_fca_policy_document: <p>The updated policy document that defines cost allocation for Amazon VPC peering connections.</p>
+            show_back_enabled: <p>Specifies whether showback reporting is enabled for the policy. If you omit this parameter, the current setting is unchanged.</p>
+            description: <p>A description for the policy. The description can be up to 1024 characters long.</p>
+            client_token: <p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.modify_networking_flex_cost_allocation_policy_request.ModifyNetworkingFlexCostAllocationPolicyRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.modify_networking_flex_cost_allocation_policy_result.ModifyNetworkingFlexCostAllocationPolicyResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.modify_networking_flex_cost_allocation_policy
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.modify_networking_flex_cost_allocation_policy.async_modify_networking_flex_cost_allocation_policy(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ModifyNetworkingFlexCostAllocationPolicy"),
+        )
+        input_: capo_ec2.types.modify_networking_flex_cost_allocation_policy_request.ModifyNetworkingFlexCostAllocationPolicyRequest = {}
+        if fca_policy_id is not None:
+            input_["fca_policy_id"] = fca_policy_id
+        if nat_fca_policy_document is not None:
+            input_["nat_fca_policy_document"] = nat_fca_policy_document
+        if instance_fca_policy_document is not None:
+            input_["instance_fca_policy_document"] = instance_fca_policy_document
+        if pcx_fca_policy_document is not None:
+            input_["pcx_fca_policy_document"] = pcx_fca_policy_document
+        if show_back_enabled is not None:
+            input_["show_back_enabled"] = show_back_enabled
+        if description is not None:
+            input_["description"] = description
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def modify_network_interface_attribute(
         self,
         *,
@@ -54136,6 +55401,139 @@ class AsyncEC2Client:
         await response.response.aclose()
         return response.output
 
+    async def modify_transit_gateway_network_function_attachment(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        transit_gateway_attachment_id: Optional[
+            "capo_ec2.types.transit_gateway_attachment_id.TransitGatewayAttachmentId"
+        ] = None,
+        add_availability_zones: Optional[
+            "capo_ec2.types.network_function_attachment_az_name_list.NetworkFunctionAttachmentAZNameList"
+        ] = None,
+        add_availability_zone_ids: Optional[
+            "capo_ec2.types.network_function_attachment_az_id_list.NetworkFunctionAttachmentAZIdList"
+        ] = None,
+        remove_availability_zones: Optional[
+            "capo_ec2.types.network_function_attachment_az_name_list.NetworkFunctionAttachmentAZNameList"
+        ] = None,
+        remove_availability_zone_ids: Optional[
+            "capo_ec2.types.network_function_attachment_az_id_list.NetworkFunctionAttachmentAZIdList"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.modify_transit_gateway_network_function_attachment_result.ModifyTransitGatewayNetworkFunctionAttachmentResult":
+        """<p>Adds Availability Zones to or removes Availability Zones from the specified network function attachment. The attachment must be in the <code>available</code> state. You must specify at least one Availability Zone to add or remove, and the attachment must keep at least one Availability Zone.</p> <p>Adding an Availability Zone provisions a new Gateway Load Balancer endpoint in that Availability Zone. If the endpoint service doesn't automatically accept connection requests, the endpoint service owner must accept the endpoint connection for each Availability Zone that you add.</p>
+
+        Args:
+            transit_gateway_attachment_id: <p>The ID of the network function attachment.</p>
+            add_availability_zones: <p>The names of the Availability Zones to add to the attachment. You can't add and remove the same Availability Zone in a single request.</p>
+            add_availability_zone_ids: <p>The IDs of the Availability Zones to add to the attachment. You can't add and remove the same Availability Zone in a single request.</p>
+            remove_availability_zones: <p>The names of the Availability Zones to remove from the attachment. Each Availability Zone must be currently in the attachment.</p>
+            remove_availability_zone_ids: <p>The IDs of the Availability Zones to remove from the attachment. Each Availability Zone must be currently in the attachment.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.modify_transit_gateway_network_function_attachment_request.ModifyTransitGatewayNetworkFunctionAttachmentRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.modify_transit_gateway_network_function_attachment_result.ModifyTransitGatewayNetworkFunctionAttachmentResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.modify_transit_gateway_network_function_attachment
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.modify_transit_gateway_network_function_attachment.async_modify_transit_gateway_network_function_attachment(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ModifyTransitGatewayNetworkFunctionAttachment"),
+        )
+        input_: capo_ec2.types.modify_transit_gateway_network_function_attachment_request.ModifyTransitGatewayNetworkFunctionAttachmentRequest = {}
+        if transit_gateway_attachment_id is not None:
+            input_["transit_gateway_attachment_id"] = transit_gateway_attachment_id
+        if add_availability_zones is not None:
+            input_["add_availability_zones"] = add_availability_zones
+        if add_availability_zone_ids is not None:
+            input_["add_availability_zone_ids"] = add_availability_zone_ids
+        if remove_availability_zones is not None:
+            input_["remove_availability_zones"] = remove_availability_zones
+        if remove_availability_zone_ids is not None:
+            input_["remove_availability_zone_ids"] = remove_availability_zone_ids
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def modify_transit_gateway_peering_attachment(
+        self,
+        *,
+        config_overrides: Optional[AsyncEC2ClientConfig] = None,
+        transit_gateway_attachment_id: Optional[
+            "capo_ec2.types.transit_gateway_attachment_id.TransitGatewayAttachmentId"
+        ] = None,
+        options: Optional[
+            "capo_ec2.types.modify_transit_gateway_peering_attachment_request_options.ModifyTransitGatewayPeeringAttachmentRequestOptions"
+        ] = None,
+        dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
+    ) -> "capo_ec2.types.modify_transit_gateway_peering_attachment_result.ModifyTransitGatewayPeeringAttachmentResult":
+        """<p>Modifies the options for a transit gateway peering attachment. The peering attachment must be in the <code>available</code> state.</p> <p>You can allow multipath resilience for your side of an inter-Region transit gateway peering attachment between supported Regions. Multipath resilience isn't supported for transit gateway peering attachments in the same Region. It takes effect only when both the requester and the accepter allow it. To modify the requester side, send the request in the Region of the requester transit gateway. To modify the accepter side, send the request in the Region of the accepter transit gateway. To check whether multipath resilience is in effect, use <a>DescribeTransitGatewayPeeringAttachments</a> and check <code>multipathResilienceStatus</code>.</p>
+
+        Args:
+            transit_gateway_attachment_id: <p>The ID of the transit gateway peering attachment.</p>
+            options: <p>The options to modify for the transit gateway peering attachment.</p>
+            dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+
+        Raises:
+            capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_ec2.types.modify_transit_gateway_peering_attachment_request.ModifyTransitGatewayPeeringAttachmentRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_ec2.types.modify_transit_gateway_peering_attachment_result.ModifyTransitGatewayPeeringAttachmentResult"
+        ]:
+            import capo_ec2._operations.amazon_ec2.modify_transit_gateway_peering_attachment
+
+            (
+                output,
+                http_response,
+            ) = await capo_ec2._operations.amazon_ec2.modify_transit_gateway_peering_attachment.async_modify_transit_gateway_peering_attachment(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyTransitGatewayPeeringAttachment")
+        )
+        input_: capo_ec2.types.modify_transit_gateway_peering_attachment_request.ModifyTransitGatewayPeeringAttachmentRequest = {}
+        if transit_gateway_attachment_id is not None:
+            input_["transit_gateway_attachment_id"] = transit_gateway_attachment_id
+        if options is not None:
+            input_["options"] = options
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def modify_transit_gateway_policy_table_entry(
         self,
         *,
@@ -55220,6 +56618,12 @@ class AsyncEC2Client:
         elastic_file_system_exclusion: Optional[
             "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
         ] = None,
+        global_accelerator_exclusion: Optional[
+            "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
+        ] = None,
+        api_gateway_v2_exclusion: Optional[
+            "capo_ec2.types.vpc_encryption_control_exclusion_state_input.VpcEncryptionControlExclusionStateInput"
+        ] = None,
     ) -> "capo_ec2.types.modify_vpc_encryption_control_result.ModifyVpcEncryptionControlResult":
         """<p>Modifies the encryption control configuration for a VPC. You can update the encryption mode and exclusion settings for various gateway types and peering connections.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-encryption-controls.html">Enforce VPC encryption in transit</a> in the <i>Amazon VPC User Guide</i>.</p>
 
@@ -55235,6 +56639,8 @@ class AsyncEC2Client:
             lambda_exclusion: <p>Specifies whether to exclude Lambda function traffic from encryption enforcement.</p>
             vpc_lattice_exclusion: <p>Specifies whether to exclude VPC Lattice traffic from encryption enforcement.</p>
             elastic_file_system_exclusion: <p>Specifies whether to exclude Elastic File System traffic from encryption enforcement.</p>
+            global_accelerator_exclusion: <p>Specifies whether to exclude Amazon Web Services Global Accelerator traffic from encryption enforcement.</p>
+            api_gateway_v2_exclusion: <p>Specifies whether to exclude Amazon API Gateway V2 traffic from encryption enforcement.</p>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -55285,6 +56691,10 @@ class AsyncEC2Client:
             input_["vpc_lattice_exclusion"] = vpc_lattice_exclusion
         if elastic_file_system_exclusion is not None:
             input_["elastic_file_system_exclusion"] = elastic_file_system_exclusion
+        if global_accelerator_exclusion is not None:
+            input_["global_accelerator_exclusion"] = global_accelerator_exclusion
+        if api_gateway_v2_exclusion is not None:
+            input_["api_gateway_v2_exclusion"] = api_gateway_v2_exclusion
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -55731,14 +57141,18 @@ class AsyncEC2Client:
         remove_allowed_principals: Optional[
             "capo_ec2.types.value_string_list.ValueStringList"
         ] = None,
+        permission_type: Optional[
+            "capo_ec2.types.permission_type.PermissionType"
+        ] = None,
     ) -> "capo_ec2.types.modify_vpc_endpoint_service_permissions_result.ModifyVpcEndpointServicePermissionsResult":
-        """<p>Modifies the permissions for your VPC endpoint service. You can add or remove permissions for service consumers (Amazon Web Services accounts, users, and IAM roles) to connect to your endpoint service. Principal ARNs with path components aren't supported.</p> <p>If you grant permissions to all principals, the service is public. Any users who know the name of a public service can send a request to attach an endpoint. If the service does not require manual approval, attachments are automatically approved.</p>
+        """<p>Modifies the permissions for your VPC endpoint service. You can add or remove permissions for service consumers (Amazon Web Services accounts, users, and IAM roles) to connect to your endpoint service. Principal ARNs with path components aren't supported.</p> <p>If you grant permissions to all principals, the service is public. Any users who know the name of a public service can send a request to attach an endpoint. If the service does not require manual approval, attachments are automatically approved.</p> <p>By default, principals that you grant permissions to can create VPC endpoints that connect to your endpoint service. For Gateway Load Balancer endpoint services, you can instead grant permissions so that principals can create transit gateway attachments that connect to your endpoint service. To do so, specify <code>transit-gateway-attachment</code> for <code>PermissionType</code>. The two permission types are independent. A principal can have either or both.</p>
 
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
             service_id: <p>The ID of the service.</p>
             add_allowed_principals: <p>The Amazon Resource Names (ARN) of the principals. Permissions are granted to the principals in this list. To grant permissions to all principals, specify an asterisk (*).</p>
             remove_allowed_principals: <p>The Amazon Resource Names (ARN) of the principals. Permissions are revoked for principals in this list.</p>
+            permission_type: <p>The type of permission to add or remove. The permission type applies to all principals in <code>AddAllowedPrincipals</code> and <code>RemoveAllowedPrincipals</code>.</p> <ul> <li> <p> <code>vpc-endpoint</code> - Principals can create VPC endpoints that connect to the endpoint service.</p> </li> <li> <p> <code>transit-gateway-attachment</code> - Principals can create transit gateway attachments that connect to the endpoint service. This permission type is supported only for Gateway Load Balancer endpoint services. You can grant it only to Amazon Web Services accounts (<code>arn:aws:iam::account-id:root</code>). You can't grant it to users, IAM roles, organizations, organizational units, or all principals (*).</p> </li> </ul> <p>Default: <code>vpc-endpoint</code> </p>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -55771,6 +57185,8 @@ class AsyncEC2Client:
             input_["add_allowed_principals"] = add_allowed_principals
         if remove_allowed_principals is not None:
             input_["remove_allowed_principals"] = remove_allowed_principals
+        if permission_type is not None:
+            input_["permission_type"] = permission_type
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -55795,7 +57211,7 @@ class AsyncEC2Client:
             "capo_ec2.types.vpc_peering_connection_id.VpcPeeringConnectionId"
         ] = None,
     ) -> "capo_ec2.types.modify_vpc_peering_connection_options_result.ModifyVpcPeeringConnectionOptionsResult":
-        """<p>Modifies the VPC peering connection options on one side of a VPC peering connection.</p> <p>If the peered VPCs are in the same Amazon Web Services account, you can enable DNS resolution for queries from the local VPC. This ensures that queries from the local VPC resolve to private IP addresses in the peer VPC. This option is not available if the peered VPCs are in different Amazon Web Services accounts or different Regions. For peered VPCs in different Amazon Web Services accounts, each Amazon Web Services account owner must initiate a separate request to modify the peering connection options. For inter-region peering connections, you must use the Region for the requester VPC to modify the requester VPC peering options and the Region for the accepter VPC to modify the accepter VPC peering options. To verify which VPCs are the accepter and the requester for a VPC peering connection, use the <a>DescribeVpcPeeringConnections</a> command.</p>
+        """<p>Modifies the VPC peering connection options on one side of a VPC peering connection.</p> <p>If the peered VPCs are in the same Amazon Web Services account, you can enable DNS resolution for queries from the local VPC. This ensures that queries from the local VPC resolve to private IP addresses in the peer VPC. This option is not available if the peered VPCs are in different Amazon Web Services accounts or different Regions. For peered VPCs in different Amazon Web Services accounts, each Amazon Web Services account owner must initiate a separate request to modify the peering connection options. For inter-region peering connections, you must use the Region for the requester VPC to modify the requester VPC peering options and the Region for the accepter VPC to modify the accepter VPC peering options. To verify which VPCs are the accepter and the requester for a VPC peering connection, use the <a>DescribeVpcPeeringConnections</a> command.</p> <p>Multipath resilience replicates the traffic of an inter-Region VPC peering connection across multiple network paths. You can allow multipath resilience for your side of the connection if both of its Regions are supported. It takes effect only when both the requester and the accepter allow it. Additional charges apply when multipath resilience is in effect. For more information, see <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing</a>. To check whether multipath resilience is in effect, use <a>DescribeVpcPeeringConnections</a> and check <code>multipathResilienceStatus</code>.</p>
 
         Args:
             accepter_peering_connection_options: <p>The VPC peering connection options for the accepter VPC.</p>
@@ -56226,12 +57642,16 @@ class AsyncEC2Client:
         instance_ids: Optional[
             "capo_ec2.types.instance_id_string_list.InstanceIdStringList"
         ] = None,
+        metric_category_ids: Optional[
+            "capo_ec2.types.metric_category_id_list.MetricCategoryIdList"
+        ] = None,
         dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
     ) -> "capo_ec2.types.monitor_instances_result.MonitorInstancesResult":
         """<p>Enables detailed monitoring for a running instance. Otherwise, basic monitoring is enabled. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html">Monitor your instances using CloudWatch</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>To disable detailed monitoring, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_UnmonitorInstances.html">UnmonitorInstances</a>.</p>
 
         Args:
             instance_ids: <p>The IDs of the instances.</p>
+            metric_category_ids: <p>The IDs of the metric categories to associate with the instances. The specified metric categories are added to any metric categories that are already associated with the instances.</p>
             dry_run: <p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
 
         Raises:
@@ -56259,6 +57679,8 @@ class AsyncEC2Client:
         input_: capo_ec2.types.monitor_instances_request.MonitorInstancesRequest = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
+        if metric_category_ids is not None:
+            input_["metric_category_ids"] = metric_category_ids
         if dry_run is not None:
             input_["dry_run"] = dry_run
 
@@ -57698,13 +59120,17 @@ class AsyncEC2Client:
         vpc_endpoint_ids: Optional[
             "capo_ec2.types.vpc_endpoint_id_list.VpcEndpointIdList"
         ] = None,
+        transit_gateway_attachment_ids: Optional[
+            "capo_ec2.types.transit_gateway_attachment_id_list.TransitGatewayAttachmentIdList"
+        ] = None,
     ) -> "capo_ec2.types.reject_vpc_endpoint_connections_result.RejectVpcEndpointConnectionsResult":
         """<p>Rejects VPC endpoint connection requests to your VPC endpoint service.</p>
 
         Args:
             dry_run: <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
             service_id: <p>The ID of the service.</p>
-            vpc_endpoint_ids: <p>The IDs of the VPC endpoints.</p>
+            vpc_endpoint_ids: <p>The IDs of the VPC endpoints.</p> <p>You must specify either <code>VpcEndpointIds</code> or <code>TransitGatewayAttachmentIds</code>, but not both.</p>
+            transit_gateway_attachment_ids: <p>The IDs of the transit gateway attachments to reject. This parameter is supported only for Gateway Load Balancer endpoint services.</p> <p>You must specify either <code>VpcEndpointIds</code> or <code>TransitGatewayAttachmentIds</code>, but not both.</p>
 
         Raises:
             capo_ec2.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -57735,6 +59161,8 @@ class AsyncEC2Client:
             input_["service_id"] = service_id
         if vpc_endpoint_ids is not None:
             input_["vpc_endpoint_ids"] = vpc_endpoint_ids
+        if transit_gateway_attachment_ids is not None:
+            input_["transit_gateway_attachment_ids"] = transit_gateway_attachment_ids
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -61258,12 +62686,16 @@ class AsyncEC2Client:
         instance_ids: Optional[
             "capo_ec2.types.instance_id_string_list.InstanceIdStringList"
         ] = None,
+        metric_category_ids: Optional[
+            "capo_ec2.types.metric_category_id_list.MetricCategoryIdList"
+        ] = None,
         dry_run: Optional["capo_ec2.types.boolean.Boolean"] = None,
     ) -> "capo_ec2.types.unmonitor_instances_result.UnmonitorInstancesResult":
         """<p>Disables detailed monitoring for a running instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html">Monitoring your instances and volumes</a> in the <i>Amazon EC2 User Guide</i>.</p>
 
         Args:
             instance_ids: <p>The IDs of the instances.</p>
+            metric_category_ids: <p>The IDs of the metric categories to remove from the instances. If you specify metric categories, only those metric categories are removed and detailed monitoring remains enabled. If you don't specify metric categories, detailed monitoring and all metric categories are turned off.</p>
             dry_run: <p>Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
 
         Raises:
@@ -61291,6 +62723,8 @@ class AsyncEC2Client:
         input_: capo_ec2.types.unmonitor_instances_request.UnmonitorInstancesRequest = {}
         if instance_ids is not None:
             input_["instance_ids"] = instance_ids
+        if metric_category_ids is not None:
+            input_["metric_category_ids"] = metric_category_ids
         if dry_run is not None:
             input_["dry_run"] = dry_run
 

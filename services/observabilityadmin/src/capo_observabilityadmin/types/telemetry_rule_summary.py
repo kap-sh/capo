@@ -28,7 +28,7 @@ class TelemetryRuleSummary(TypedDict, closed=True):
     telemetry_type: NotRequired[
         "capo_observabilityadmin.types.telemetry_type.TelemetryType"
     ]
-    """<p> The type of telemetry (Logs, Metrics, or Traces) the rule configures. </p>"""
+    """<p> The type of telemetry (Logs, Metrics, Traces, or Insights) the rule configures. </p>"""
     telemetry_source_types: NotRequired[
         "capo_observabilityadmin.types.telemetry_source_types.TelemetrySourceTypes"
     ]

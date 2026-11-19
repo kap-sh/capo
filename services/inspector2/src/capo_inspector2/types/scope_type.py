@@ -5,6 +5,8 @@ from typing import Literal, TypeAlias, cast
 ScopeType: TypeAlias = Literal[
     "TENANT",
     "SUBSCRIPTION",
+    "ORGANIZATION",
+    "PROJECT",
 ]
 
 

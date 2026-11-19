@@ -17,7 +17,7 @@ class SchedulerConfiguration(TypedDict, closed=True):
     max_concurrent_job_runs: NotRequired[
         "capo_emr_containers.types.job_limit_integer.JobLimitInteger"
     ]
-    """<p>The maximum number of job runs that can be in the <code>RUNNING</code> state at any time for the virtual cluster. As running slots free up, queued job runs start automatically. If you omit this field, the service applies no concurrency limit.</p>"""
+    """<p>The maximum number of job runs that can be in the <code>RUNNING</code> state at any time for the virtual cluster. As running slots free up, queued job runs start automatically. If you omit this field, the service applies a default limit of 1,000 concurrent job runs to the virtual cluster.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -1,0 +1,8 @@
+---
+title: AzureQueryScope
+---
+
+::: capo_observabilityadmin.types.azure_query_scope.AzureQueryScope
+    options:
+      show_source: true
+      merge_init_into_class: false

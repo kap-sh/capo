@@ -229,10 +229,12 @@ if TYPE_CHECKING:
     import capo_service_catalog.types.provider_name
     import capo_service_catalog.types.provision_product_input
     import capo_service_catalog.types.provision_product_output
+    import capo_service_catalog.types.provisioned_product_detail
     import capo_service_catalog.types.provisioned_product_filters
     import capo_service_catalog.types.provisioned_product_name
     import capo_service_catalog.types.provisioned_product_name_or_arn
     import capo_service_catalog.types.provisioned_product_plan_name
+    import capo_service_catalog.types.provisioned_product_plan_summary
     import capo_service_catalog.types.provisioned_product_plan_type
     import capo_service_catalog.types.provisioned_product_properties
     import capo_service_catalog.types.provisioning_artifact_active
@@ -242,6 +244,7 @@ if TYPE_CHECKING:
     import capo_service_catalog.types.provisioning_artifact_properties
     import capo_service_catalog.types.provisioning_parameters
     import capo_service_catalog.types.provisioning_preferences
+    import capo_service_catalog.types.record_detail
     import capo_service_catalog.types.record_outputs
     import capo_service_catalog.types.reject_portfolio_share_input
     import capo_service_catalog.types.reject_portfolio_share_output
@@ -266,6 +269,7 @@ if TYPE_CHECKING:
     import capo_service_catalog.types.sort_order
     import capo_service_catalog.types.source_connection
     import capo_service_catalog.types.source_provisioning_artifact_properties
+    import capo_service_catalog.types.stack_instance
     import capo_service_catalog.types.support_description
     import capo_service_catalog.types.support_email
     import capo_service_catalog.types.support_url
@@ -4483,6 +4487,37 @@ class ServiceCatalogClient:
         response.response.close()
         return response.output
 
+    def iter_list_provisioned_product_plans(
+        self,
+        *,
+        config_overrides: Optional[ServiceCatalogClientConfig] = None,
+        accept_language: Optional[
+            "capo_service_catalog.types.accept_language.AcceptLanguage"
+        ] = None,
+        provision_product_id: Optional["capo_service_catalog.types.id.Id"] = None,
+        page_size: Optional["capo_service_catalog.types.page_size.PageSize"] = None,
+        page_token: Optional["capo_service_catalog.types.page_token.PageToken"] = None,
+        access_level_filter: Optional[
+            "capo_service_catalog.types.access_level_filter.AccessLevelFilter"
+        ] = None,
+    ) -> "Iterator[capo_service_catalog.types.provisioned_product_plan_summary.ProvisionedProductPlanSummary]":
+        _token = page_token
+        while True:
+            _response = self.list_provisioned_product_plans(
+                config_overrides=config_overrides,
+                accept_language=accept_language,
+                provision_product_id=provision_product_id,
+                page_size=page_size,
+                page_token=_token,
+                access_level_filter=access_level_filter,
+            )
+            _page = _resolve_path(_response, ("provisioned_product_plans",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_page_token",))
+            if not _token:
+                break
+
     def list_provisioning_artifacts(
         self,
         product_id: "capo_service_catalog.types.id.Id",
@@ -4689,6 +4724,39 @@ class ServiceCatalogClient:
         )
         response.response.close()
         return response.output
+
+    def iter_list_record_history(
+        self,
+        *,
+        config_overrides: Optional[ServiceCatalogClientConfig] = None,
+        accept_language: Optional[
+            "capo_service_catalog.types.accept_language.AcceptLanguage"
+        ] = None,
+        access_level_filter: Optional[
+            "capo_service_catalog.types.access_level_filter.AccessLevelFilter"
+        ] = None,
+        search_filter: Optional[
+            "capo_service_catalog.types.list_record_history_search_filter.ListRecordHistorySearchFilter"
+        ] = None,
+        page_size: Optional["capo_service_catalog.types.page_size.PageSize"] = None,
+        page_token: Optional["capo_service_catalog.types.page_token.PageToken"] = None,
+    ) -> "Iterator[capo_service_catalog.types.record_detail.RecordDetail]":
+        _token = page_token
+        while True:
+            _response = self.list_record_history(
+                config_overrides=config_overrides,
+                accept_language=accept_language,
+                access_level_filter=access_level_filter,
+                search_filter=search_filter,
+                page_size=page_size,
+                page_token=_token,
+            )
+            _page = _resolve_path(_response, ("record_details",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_page_token",))
+            if not _token:
+                break
 
     def list_resources_for_tag_option(
         self,
@@ -5005,6 +5073,33 @@ class ServiceCatalogClient:
         )
         response.response.close()
         return response.output
+
+    def iter_list_stack_instances_for_provisioned_product(
+        self,
+        provisioned_product_id: "capo_service_catalog.types.id.Id",
+        *,
+        config_overrides: Optional[ServiceCatalogClientConfig] = None,
+        accept_language: Optional[
+            "capo_service_catalog.types.accept_language.AcceptLanguage"
+        ] = None,
+        page_token: Optional["capo_service_catalog.types.page_token.PageToken"] = None,
+        page_size: Optional["capo_service_catalog.types.page_size.PageSize"] = None,
+    ) -> "Iterator[capo_service_catalog.types.stack_instance.StackInstance]":
+        _token = page_token
+        while True:
+            _response = self.list_stack_instances_for_provisioned_product(
+                provisioned_product_id,
+                config_overrides=config_overrides,
+                accept_language=accept_language,
+                page_token=_token,
+                page_size=page_size,
+            )
+            _page = _resolve_path(_response, ("stack_instances",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_page_token",))
+            if not _token:
+                break
 
     def list_tag_options(
         self,
@@ -5514,6 +5609,35 @@ class ServiceCatalogClient:
         )
         response.response.close()
         return response.output
+
+    def iter_scan_provisioned_products(
+        self,
+        *,
+        config_overrides: Optional[ServiceCatalogClientConfig] = None,
+        accept_language: Optional[
+            "capo_service_catalog.types.accept_language.AcceptLanguage"
+        ] = None,
+        access_level_filter: Optional[
+            "capo_service_catalog.types.access_level_filter.AccessLevelFilter"
+        ] = None,
+        page_size: Optional["capo_service_catalog.types.page_size.PageSize"] = None,
+        page_token: Optional["capo_service_catalog.types.page_token.PageToken"] = None,
+    ) -> "Iterator[capo_service_catalog.types.provisioned_product_detail.ProvisionedProductDetail]":
+        _token = page_token
+        while True:
+            _response = self.scan_provisioned_products(
+                config_overrides=config_overrides,
+                accept_language=accept_language,
+                access_level_filter=access_level_filter,
+                page_size=page_size,
+                page_token=_token,
+            )
+            _page = _resolve_path(_response, ("provisioned_products",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_page_token",))
+            if not _token:
+                break
 
     def search_products(
         self,

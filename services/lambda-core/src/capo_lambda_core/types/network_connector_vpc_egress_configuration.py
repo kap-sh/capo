@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_lambda_core.types.associated_compute_resource_types_list
+    import capo_lambda_core.types.elastic_ip_configuration
     import capo_lambda_core.types.network_connector_security_group_ids
     import capo_lambda_core.types.network_connector_subnet_ids
     import capo_lambda_core.types.network_protocol
@@ -28,6 +29,10 @@ class NetworkConnectorVpcEgressConfiguration(TypedDict, closed=True):
         "capo_lambda_core.types.associated_compute_resource_types_list.AssociatedComputeResourceTypesList"
     ]
     """<p>The types of Lambda compute resources that can use this connector. Valid values are <code>MicroVm</code> and <code>WebFunction</code>. Specify exactly one value.</p>"""
+    elastic_ip_configuration: NotRequired[
+        "capo_lambda_core.types.elastic_ip_configuration.ElasticIpConfiguration"
+    ]
+    """<p>The Elastic IP configuration for the connector's ENIs. Specify <code>ServiceManaged</code> to have Lambda assign a service-managed Elastic IP address to each ENI. The operator role must allow <code>ec2:AllocateAddress</code> and <code>ec2:AssociateAddress</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -61,6 +66,14 @@ def serialize_json(value: NetworkConnectorVpcEgressConfiguration) -> dict:
         out["AssociatedComputeResourceTypes"] = (
             capo_lambda_core.types.associated_compute_resource_types_list.serialize_json(
                 value["associated_compute_resource_types"]
+            )
+        )
+    if "elastic_ip_configuration" in value:
+        import capo_lambda_core.types.elastic_ip_configuration
+
+        out["ElasticIpConfiguration"] = (
+            capo_lambda_core.types.elastic_ip_configuration.serialize_json(
+                value["elastic_ip_configuration"]
             )
         )
     return out
@@ -98,6 +111,14 @@ def deserialize_json(data: dict) -> NetworkConnectorVpcEgressConfiguration:
         out["associated_compute_resource_types"] = (
             capo_lambda_core.types.associated_compute_resource_types_list.deserialize_json(
                 data["AssociatedComputeResourceTypes"]
+            )
+        )
+    if data.get("ElasticIpConfiguration") is not None:
+        import capo_lambda_core.types.elastic_ip_configuration
+
+        out["elastic_ip_configuration"] = (
+            capo_lambda_core.types.elastic_ip_configuration.deserialize_json(
+                data["ElasticIpConfiguration"]
             )
         )
     return out

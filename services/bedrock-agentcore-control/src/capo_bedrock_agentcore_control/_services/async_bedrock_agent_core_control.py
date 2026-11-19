@@ -22,6 +22,9 @@ from capo_bedrock_agentcore_control._pagination import resolve_path as _resolve_
 from capo_bedrock_agentcore_control._resources.amazon_bedrock_agent_core_control.agent_endpoint_resource import (
     AsyncAgentEndpointResource,
 )
+from capo_bedrock_agentcore_control._resources.amazon_bedrock_agent_core_control.agent_insight_store import (
+    AsyncAgentInsightStore,
+)
 from capo_bedrock_agentcore_control._resources.amazon_bedrock_agent_core_control.agent_resource import (
     AsyncAgentResource,
 )
@@ -126,6 +129,10 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.add_dataset_examples_request
     import capo_bedrock_agentcore_control.types.add_dataset_examples_response
     import capo_bedrock_agentcore_control.types.agent_endpoint_description
+    import capo_bedrock_agentcore_control.types.agent_insight_store_enablement_status
+    import capo_bedrock_agentcore_control.types.agent_insight_store_encryption_configuration
+    import capo_bedrock_agentcore_control.types.agent_insight_store_id
+    import capo_bedrock_agentcore_control.types.agent_insight_store_summary
     import capo_bedrock_agentcore_control.types.agent_runtime
     import capo_bedrock_agentcore_control.types.agent_runtime_artifact
     import capo_bedrock_agentcore_control.types.agent_runtime_endpoint
@@ -356,6 +363,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_rule_next_token
     import capo_bedrock_agentcore_control.types.gateway_rule_priority
     import capo_bedrock_agentcore_control.types.gateway_summary
+    import capo_bedrock_agentcore_control.types.get_agent_insight_store_request
+    import capo_bedrock_agentcore_control.types.get_agent_insight_store_response
     import capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_request
     import capo_bedrock_agentcore_control.types.get_agent_runtime_endpoint_response
     import capo_bedrock_agentcore_control.types.get_agent_runtime_request
@@ -451,6 +460,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.kms_key_arn
     import capo_bedrock_agentcore_control.types.lifecycle_configuration
     import capo_bedrock_agentcore_control.types.limit_entries
+    import capo_bedrock_agentcore_control.types.list_agent_insight_stores_request
+    import capo_bedrock_agentcore_control.types.list_agent_insight_stores_response
     import capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_request
     import capo_bedrock_agentcore_control.types.list_agent_runtime_endpoints_response
     import capo_bedrock_agentcore_control.types.list_agent_runtime_versions_by_capacity_provider_input
@@ -475,10 +486,13 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.list_configuration_bundles_response
     import capo_bedrock_agentcore_control.types.list_consent_portals_request
     import capo_bedrock_agentcore_control.types.list_consent_portals_response
+    import capo_bedrock_agentcore_control.types.list_dataset_examples_filter
     import capo_bedrock_agentcore_control.types.list_dataset_examples_request
     import capo_bedrock_agentcore_control.types.list_dataset_examples_response
+    import capo_bedrock_agentcore_control.types.list_dataset_versions_filter
     import capo_bedrock_agentcore_control.types.list_dataset_versions_request
     import capo_bedrock_agentcore_control.types.list_dataset_versions_response
+    import capo_bedrock_agentcore_control.types.list_datasets_filter
     import capo_bedrock_agentcore_control.types.list_datasets_request
     import capo_bedrock_agentcore_control.types.list_datasets_response
     import capo_bedrock_agentcore_control.types.list_evaluators_request
@@ -638,6 +652,8 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.tools_file_system_configurations
     import capo_bedrock_agentcore_control.types.untag_resource_request
     import capo_bedrock_agentcore_control.types.untag_resource_response
+    import capo_bedrock_agentcore_control.types.update_agent_insight_store_request
+    import capo_bedrock_agentcore_control.types.update_agent_insight_store_response
     import capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_request
     import capo_bedrock_agentcore_control.types.update_agent_runtime_endpoint_response
     import capo_bedrock_agentcore_control.types.update_agent_runtime_request
@@ -789,6 +805,7 @@ class AsyncBedrockAgentCoreControlClient:
 
         # resources
         self.agent_endpoint_resource = AsyncAgentEndpointResource(self)
+        self.agent_insight_store = AsyncAgentInsightStore(self)
         self.agent_resource = AsyncAgentResource(self)
         self.api_key_credential_provider = AsyncApiKeyCredentialProvider(self)
         self.browser_profile_resource = AsyncBrowserProfileResource(self)
@@ -1767,6 +1784,221 @@ class AsyncBedrockAgentCoreControlClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("runtime_endpoints",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def get_agent_insight_store(
+        self,
+        agent_insight_store_id: "capo_bedrock_agentcore_control.types.agent_insight_store_id.AgentInsightStoreId",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+    ) -> "capo_bedrock_agentcore_control.types.get_agent_insight_store_response.GetAgentInsightStoreResponse":
+        """Returns the account's service-defined default Agent Insight Store. The logical default exists for every enrolled account; its backing state may be initialized on first access.
+
+        Args:
+            agent_insight_store_id: <p>Specifies the unique identifier of the Agent Insight Store to retrieve.</p>
+
+        Raises:
+            capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
+            capo_bedrock_agentcore_control.errors.internal_server_exception.InternalServerException: <p>This exception is thrown if there was an unexpected error during processing of request</p>
+            capo_bedrock_agentcore_control.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when a resource referenced by the operation does not exist</p>
+            capo_bedrock_agentcore_control.errors.throttling_exception.ThrottlingException: <p>This exception is thrown when the number of requests exceeds the limit</p>
+            capo_bedrock_agentcore_control.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_bedrock_agentcore_control.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore_control.types.get_agent_insight_store_request.GetAgentInsightStoreRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore_control.types.get_agent_insight_store_response.GetAgentInsightStoreResponse"
+        ]:
+            import capo_bedrock_agentcore_control._operations.amazon_bedrock_agent_core_control.get_agent_insight_store
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore_control._operations.amazon_bedrock_agent_core_control.get_agent_insight_store.async_get_agent_insight_store(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_agent_insight_store_response.GetAgentInsightStoreResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_agent_insight_store_response
+
+            return capo_bedrock_agentcore_control.types.get_agent_insight_store_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentInsightStore", redact_output=_redact_output),
+        )
+        input_: capo_bedrock_agentcore_control.types.get_agent_insight_store_request.GetAgentInsightStoreRequest = {
+            "agent_insight_store_id": agent_insight_store_id
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_agent_insight_store(
+        self,
+        agent_insight_store_id: "capo_bedrock_agentcore_control.types.agent_insight_store_id.AgentInsightStoreId",
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        client_token: Optional[
+            "capo_bedrock_agentcore_control.types.client_token.ClientToken"
+        ] = None,
+        enablement_status: Optional[
+            "capo_bedrock_agentcore_control.types.agent_insight_store_enablement_status.AgentInsightStoreEnablementStatus"
+        ] = None,
+        encryption_configuration: Optional[
+            "capo_bedrock_agentcore_control.types.agent_insight_store_encryption_configuration.AgentInsightStoreEncryptionConfiguration"
+        ] = None,
+    ) -> "capo_bedrock_agentcore_control.types.update_agent_insight_store_response.UpdateAgentInsightStoreResponse":
+        """<p>Updates the enablement status or encryption configuration of an Agent Insight Store.</p>
+
+        Args:
+            client_token: <p>A unique, case-sensitive identifier to ensure that the API request completes no more than one time. If you don't specify this field, a value is randomly generated for you. If this token matches a previous request, the service ignores the request, but doesn't return an error. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a>.</p>
+            agent_insight_store_id: <p>Specifies the unique identifier of the Agent Insight Store to update.</p>
+            enablement_status: <p>Specifies whether the Agent Insight Store accepts new Agent Insights. If you don't specify this parameter, the store's current enablement setting remains unchanged.</p>
+            encryption_configuration: <p>Specifies the encryption mode and key configuration to use for new Agent Insights. If you don't specify this parameter, the store's current encryption configuration remains unchanged.</p>
+
+        Raises:
+            capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
+            capo_bedrock_agentcore_control.errors.conflict_exception.ConflictException: <p>This exception is thrown when there is a conflict performing an operation</p>
+            capo_bedrock_agentcore_control.errors.internal_server_exception.InternalServerException: <p>This exception is thrown if there was an unexpected error during processing of request</p>
+            capo_bedrock_agentcore_control.errors.resource_not_found_exception.ResourceNotFoundException: <p>This exception is thrown when a resource referenced by the operation does not exist</p>
+            capo_bedrock_agentcore_control.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>This exception is thrown when a request is made beyond the service quota</p>
+            capo_bedrock_agentcore_control.errors.throttling_exception.ThrottlingException: <p>This exception is thrown when the number of requests exceeds the limit</p>
+            capo_bedrock_agentcore_control.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_bedrock_agentcore_control.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore_control.types.update_agent_insight_store_request.UpdateAgentInsightStoreRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore_control.types.update_agent_insight_store_response.UpdateAgentInsightStoreResponse"
+        ]:
+            import capo_bedrock_agentcore_control._operations.amazon_bedrock_agent_core_control.update_agent_insight_store
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore_control._operations.amazon_bedrock_agent_core_control.update_agent_insight_store.async_update_agent_insight_store(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_agent_insight_store_response.UpdateAgentInsightStoreResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_agent_insight_store_response
+
+            return capo_bedrock_agentcore_control.types.update_agent_insight_store_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAgentInsightStore", redact_output=_redact_output),
+        )
+        input_: capo_bedrock_agentcore_control.types.update_agent_insight_store_request.UpdateAgentInsightStoreRequest = {
+            "agent_insight_store_id": agent_insight_store_id
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if enablement_status is not None:
+            input_["enablement_status"] = enablement_status
+        if encryption_configuration is not None:
+            input_["encryption_configuration"] = encryption_configuration
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def list_agent_insight_stores(
+        self,
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_bedrock_agentcore_control.types.list_agent_insight_stores_response.ListAgentInsightStoresResponse":
+        """Lists the account's service-defined default Agent Insight Store. The singleton backing state may be initialized on first access.
+
+        Args:
+            next_token: <p>If the total number of results is greater than the <code>maxResults</code> value provided in the request, enter the token returned in the <code>nextToken</code> field in the response in this field to return the next batch of results.</p>
+            max_results: <p>The maximum number of results to return in the response. If the total number of results is greater than this value, use the token returned in the response in the <code>nextToken</code> field when making another request to return the next batch of results.</p>
+
+        Raises:
+            capo_bedrock_agentcore_control.errors.access_denied_exception.AccessDeniedException: <p>This exception is thrown when a request is denied per access permissions</p>
+            capo_bedrock_agentcore_control.errors.internal_server_exception.InternalServerException: <p>This exception is thrown if there was an unexpected error during processing of request</p>
+            capo_bedrock_agentcore_control.errors.throttling_exception.ThrottlingException: <p>This exception is thrown when the number of requests exceeds the limit</p>
+            capo_bedrock_agentcore_control.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_bedrock_agentcore_control.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_bedrock_agentcore_control.types.list_agent_insight_stores_request.ListAgentInsightStoresRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_bedrock_agentcore_control.types.list_agent_insight_stores_response.ListAgentInsightStoresResponse"
+        ]:
+            import capo_bedrock_agentcore_control._operations.amazon_bedrock_agent_core_control.list_agent_insight_stores
+
+            (
+                output,
+                http_response,
+            ) = await capo_bedrock_agentcore_control._operations.amazon_bedrock_agent_core_control.list_agent_insight_stores.async_list_agent_insight_stores(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgentInsightStores")
+        )
+        input_: capo_bedrock_agentcore_control.types.list_agent_insight_stores_request.ListAgentInsightStoresRequest = {}
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_agent_insight_stores(
+        self,
+        *,
+        config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "AsyncIterator[capo_bedrock_agentcore_control.types.agent_insight_store_summary.AgentInsightStoreSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_agent_insight_stores(
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("agent_insight_stores",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -5070,14 +5302,18 @@ class AsyncBedrockAgentCoreControlClient:
     async def create_dataset(
         self,
         dataset_name: "capo_bedrock_agentcore_control.types.dataset_name.DatasetName",
-        source: "capo_bedrock_agentcore_control.types.data_source_type.DataSourceType",
-        schema_type: "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
         client_token: Optional[
             "capo_bedrock_agentcore_control.types.client_token.ClientToken"
         ] = None,
         description: Optional[str] = None,
+        source: Optional[
+            "capo_bedrock_agentcore_control.types.data_source_type.DataSourceType"
+        ] = None,
+        schema_type: Optional[
+            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType"
+        ] = None,
         kms_key_arn: Optional[
             "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
         ] = None,
@@ -5133,15 +5369,17 @@ class AsyncBedrockAgentCoreControlClient:
             OperationLogging("CreateDataset", redact_input=_redact_input),
         )
         input_: capo_bedrock_agentcore_control.types.create_dataset_request.CreateDatasetRequest = {
-            "dataset_name": dataset_name,
-            "source": source,
-            "schema_type": schema_type,
+            "dataset_name": dataset_name
         }
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
         if description is not None:
             input_["description"] = description
+        if source is not None:
+            input_["source"] = source
+        if schema_type is not None:
+            input_["schema_type"] = schema_type
         if kms_key_arn is not None:
             input_["kms_key_arn"] = kms_key_arn
         if tags is not None:
@@ -5345,12 +5583,16 @@ class AsyncBedrockAgentCoreControlClient:
         self,
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_datasets_filter.ListDatasetsFilter"
+        ] = None,
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_datasets_response.ListDatasetsResponse":
         """<p> Lists all datasets in the caller's account, paginated. </p>
 
         Args:
+            filter: <p> A filter to apply to the datasets. </p>
             next_token: <p> The token for the next page of results. </p>
             max_results: <p> The maximum number of datasets to return per page. </p>
 
@@ -5381,6 +5623,8 @@ class AsyncBedrockAgentCoreControlClient:
             config_overrides, OperationLogging("ListDatasets")
         )
         input_: capo_bedrock_agentcore_control.types.list_datasets_request.ListDatasetsRequest = {}
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:
@@ -5398,6 +5642,9 @@ class AsyncBedrockAgentCoreControlClient:
         self,
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_datasets_filter.ListDatasetsFilter"
+        ] = None,
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "AsyncIterator[capo_bedrock_agentcore_control.types.dataset_summary.DatasetSummary]":
@@ -5405,6 +5652,7 @@ class AsyncBedrockAgentCoreControlClient:
         while True:
             _response = await self.list_datasets(
                 config_overrides=config_overrides,
+                filter=filter,
                 next_token=_token,
                 max_results=max_results,
             )
@@ -5615,14 +5863,18 @@ class AsyncBedrockAgentCoreControlClient:
         dataset_version: Optional[
             "capo_bedrock_agentcore_control.types.dataset_version.DatasetVersion"
         ] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_dataset_examples_filter.ListDatasetExamplesFilter"
+        ] = None,
         max_results: Optional[int] = None,
         next_token: Optional[str] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_dataset_examples_response.ListDatasetExamplesResponse":
-        """<p> Returns paginated examples from the dataset. The server embeds the resolved version in the pagination token. Once pagination begins, all subsequent pages are pinned to that version regardless of concurrent mutations. </p>
+        """<p> Returns paginated examples from the dataset. The server embeds the resolved version in the pagination token. Once pagination begins, all subsequent pages are pinned to that version regardless of concurrent mutations. A request with a pagination token can omit <code>datasetVersion</code>. If it sets a version that differs from the token's version, the request fails with a <code>ValidationException</code>. </p>
 
         Args:
             dataset_id: <p> The unique identifier of the dataset. </p>
-            dataset_version: <p> Version to paginate: "DRAFT" or a version number. Defaults to DRAFT if absent. Only used on the first request; for subsequent pages, the version is extracted from the pagination token. </p>
+            dataset_version: <p> Version to paginate: "DRAFT" or a version number. Defaults to DRAFT if absent on the first request. With a pagination token, the version comes from the token: you can omit this member, and a value that differs from the token's version is rejected with a <code>ValidationException</code>. </p>
+            filter: <p> A filter to apply to the examples. </p>
             max_results: <p> Maximum number of examples to return per page. </p>
             next_token: <p> The token for the next page of results. </p>
 
@@ -5669,6 +5921,8 @@ class AsyncBedrockAgentCoreControlClient:
         }
         if dataset_version is not None:
             input_["dataset_version"] = dataset_version
+        if filter is not None:
+            input_["filter"] = filter
         if max_results is not None:
             input_["max_results"] = max_results
         if next_token is not None:
@@ -5690,6 +5944,9 @@ class AsyncBedrockAgentCoreControlClient:
         dataset_version: Optional[
             "capo_bedrock_agentcore_control.types.dataset_version.DatasetVersion"
         ] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_dataset_examples_filter.ListDatasetExamplesFilter"
+        ] = None,
         max_results: Optional[int] = None,
         next_token: Optional[str] = None,
     ) -> "AsyncIterator[capo_bedrock_agentcore_control.types.sensitive_json.SensitiveJson]":
@@ -5699,6 +5956,7 @@ class AsyncBedrockAgentCoreControlClient:
                 dataset_id,
                 config_overrides=config_overrides,
                 dataset_version=dataset_version,
+                filter=filter,
                 max_results=max_results,
                 next_token=_token,
             )
@@ -5714,6 +5972,9 @@ class AsyncBedrockAgentCoreControlClient:
         dataset_id: "capo_bedrock_agentcore_control.types.dataset_id.DatasetId",
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_dataset_versions_filter.ListDatasetVersionsFilter"
+        ] = None,
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_dataset_versions_response.ListDatasetVersionsResponse":
@@ -5721,6 +5982,7 @@ class AsyncBedrockAgentCoreControlClient:
 
         Args:
             dataset_id: <p> The unique identifier of the dataset. </p>
+            filter: <p> A filter to apply to the dataset versions. </p>
             next_token: <p> The token for the next page of results. </p>
             max_results: <p> The maximum number of versions to return per page. </p>
 
@@ -5754,6 +6016,8 @@ class AsyncBedrockAgentCoreControlClient:
         input_: capo_bedrock_agentcore_control.types.list_dataset_versions_request.ListDatasetVersionsRequest = {
             "dataset_id": dataset_id
         }
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:
@@ -5772,6 +6036,9 @@ class AsyncBedrockAgentCoreControlClient:
         dataset_id: "capo_bedrock_agentcore_control.types.dataset_id.DatasetId",
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_dataset_versions_filter.ListDatasetVersionsFilter"
+        ] = None,
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "AsyncIterator[capo_bedrock_agentcore_control.types.dataset_version_summary.DatasetVersionSummary]":
@@ -5780,6 +6047,7 @@ class AsyncBedrockAgentCoreControlClient:
             _response = await self.list_dataset_versions(
                 dataset_id,
                 config_overrides=config_overrides,
+                filter=filter,
                 next_token=_token,
                 max_results=max_results,
             )

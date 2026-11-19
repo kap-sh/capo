@@ -1,10 +1,11 @@
 """Generated from Smithy shape ``com.amazonaws.marketplaceagreement#CreateAgreementRequestInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_marketplace_agreement.types.acceptor_contact
     import capo_marketplace_agreement.types.agreement_proposal_id
     import capo_marketplace_agreement.types.client_token
     import capo_marketplace_agreement.types.intent
@@ -36,6 +37,10 @@ class CreateAgreementRequestInput(TypedDict, closed=True):
         "capo_marketplace_agreement.types.tax_configuration.TaxConfiguration"
     ]
     """<p>Configuration for tax estimation in the agreement request response.</p>"""
+    acceptor_contact: NotRequired[
+        "capo_marketplace_agreement.types.acceptor_contact.AcceptorContact"
+    ]
+    """<p>The contact information of the acceptor.</p> <important> <p>Don't provide this parameter if the intent is <code>AMEND</code>.</p> </important>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -65,6 +70,14 @@ def serialize_aws_json_1_0(value: CreateAgreementRequestInput) -> dict:
         out["taxConfiguration"] = (
             capo_marketplace_agreement.types.tax_configuration.serialize_aws_json_1_0(
                 value["tax_configuration"]
+            )
+        )
+    if "acceptor_contact" in value:
+        import capo_marketplace_agreement.types.acceptor_contact
+
+        out["acceptorContact"] = (
+            capo_marketplace_agreement.types.acceptor_contact.serialize_aws_json_1_0(
+                value["acceptor_contact"]
             )
         )
     return out
@@ -110,4 +123,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAgreementRequestInput:
                 data["taxConfiguration"]
             )
         )
+    if data.get("acceptorContact") is not None:
+        import capo_marketplace_agreement.types.acceptor_contact
+
+        out["acceptor_contact"] = (
+            capo_marketplace_agreement.types.acceptor_contact.deserialize_aws_json_1_0(
+                data["acceptorContact"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateAgreementRequestInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "acceptor_contact" in value:
+        out["acceptor_contact"] = "*** Sensitive Data Redacted ***"
     return out

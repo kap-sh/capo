@@ -3877,7 +3877,7 @@ class deadlineClient:
             client_token: The unique token which the server uses to recognize retries of the same request.
             display_name: <p>The display name of the budget to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
             description: <p>The description of the budget to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>
-            status: <p>Updates the status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code>–The budget is being evaluated.</p> </li> <li> <p> <code>INACTIVE</code>–The budget is inactive. This can include Expired, Canceled, or deleted Deleted statuses.</p> </li> </ul>
+            status: <p>Updates the status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code> - The budget is being evaluated.</p> </li> <li> <p> <code>INACTIVE</code> - The budget is inactive. This can include Expired, Canceled, or deleted Deleted statuses.</p> </li> </ul>
             approximate_dollar_limit: The dollar limit to update on the budget. Based on consumed usage.
             actions_to_add: The budget actions to add. Budget actions specify what happens when the budget runs out.
             actions_to_remove: The budget actions to remove from the budget.
@@ -4281,7 +4281,7 @@ class deadlineClient:
             role_arn: The IAM role ARN that the fleet's workers assume while running jobs.
             min_worker_count: The minimum number of workers in the fleet.
             max_worker_count: The maximum number of workers in the fleet. Deadline Cloud limits the number of workers to less than or equal to the fleet's maximum worker count. The service maintains eventual consistency for the worker count. If you make multiple rapid calls to <code>CreateWorker</code> before the field updates, you might exceed your fleet's maximum worker count. For example, if your <code>maxWorkerCount</code> is 10 and you currently have 9 workers, making two quick <code>CreateWorker</code> calls might successfully create 2 workers instead of 1, resulting in 11 total workers.
-            configuration: The fleet configuration to update.
+            configuration: The fleet configuration to update. The new configuration replaces the existing one, so include every setting you want to keep. Settings that you omit revert to their defaults.
             host_configuration: Provides a script that runs as a worker is starting up that you can use to provide additional configuration for workers in your fleet.
 
         Raises:
@@ -4994,7 +4994,7 @@ class deadlineClient:
         client_token: Optional["capo_deadline.types.client_token.ClientToken"] = None,
         tags: Optional["capo_deadline.types.tags.Tags"] = None,
     ) -> "capo_deadline.types.create_worker_response.CreateWorkerResponse":
-        """<p>Creates a worker. A worker tells your instance how much processing power (vCPU), and memory (GiB) you’ll need to assemble the digital assets held within a particular instance. You can specify certain instance types to use, or let the worker know which instances types to exclude.</p> <p>Deadline Cloud limits the number of workers to less than or equal to the fleet's maximum worker count. The service maintains eventual consistency for the worker count. If you make multiple rapid calls to <code>CreateWorker</code> before the field updates, you might exceed your fleet's maximum worker count. For example, if your <code>maxWorkerCount</code> is 10 and you currently have 9 workers, making two quick <code>CreateWorker</code> calls might successfully create 2 workers instead of 1, resulting in 11 total workers.</p>
+        """<p>Creates a worker. A worker tells your instance how much processing power (vCPU), and memory (GiB) you'll need to assemble the digital assets held within a particular instance. You can specify certain instance types to use, or let the worker know which instances types to exclude.</p> <p>Deadline Cloud limits the number of workers to less than or equal to the fleet's maximum worker count. The service maintains eventual consistency for the worker count. If you make multiple rapid calls to <code>CreateWorker</code> before the field updates, you might exceed your fleet's maximum worker count. For example, if your <code>maxWorkerCount</code> is 10 and you currently have 9 workers, making two quick <code>CreateWorker</code> calls might successfully create 2 workers instead of 1, resulting in 11 total workers.</p>
 
         Args:
             farm_id: The farm ID of the farm to connect to the worker.
@@ -6066,7 +6066,7 @@ class deadlineClient:
             next_token: The token for the next set of results, or <code>null</code> to start from the beginning.
             max_results: The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.
             principal_id: The principal IDs to include in the list of queues.
-            status: <p>The status of the queues listed.</p> <ul> <li> <p> <code>ACTIVE</code>–The queues are active.</p> </li> <li> <p> <code>SCHEDULING</code>–The queues are scheduling.</p> </li> <li> <p> <code>SCHEDULING_BLOCKED</code>–The queue scheduling is blocked for these queues.</p> </li> </ul>
+            status: <p>The status of the queues listed.</p> <ul> <li> <p> <code>ACTIVE</code> - The queues are active.</p> </li> <li> <p> <code>SCHEDULING</code> - The queues are scheduling.</p> </li> <li> <p> <code>SCHEDULING_BLOCKED</code> - The queue scheduling is blocked for these queues.</p> </li> </ul>
 
         Raises:
             capo_deadline.errors.access_denied_exception.AccessDeniedException: You don't have permission to perform the action.

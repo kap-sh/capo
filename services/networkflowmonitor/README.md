@@ -18,9 +18,9 @@ from capo_networkflowmonitor import AsyncNetworkFlowMonitorClient
 
 async def main():
     async with AsyncNetworkFlowMonitorClient() as network_flow_monitor:
-        # Example: call the list_tags_for_resource operation
-        response = await network_flow_monitor.list_tags_for_resource()
-        print(response["tags"])
+        # Example: call the get_monitor_scope_suggestions operation
+        response = await network_flow_monitor.get_monitor_scope_suggestions()
+        print(response["status"])
 ```
 
 ## Pagination
@@ -33,8 +33,8 @@ from capo_networkflowmonitor import AsyncNetworkFlowMonitorClient
 
 async def main():
     async with AsyncNetworkFlowMonitorClient() as network_flow_monitor:
-        # Example: paginate over list_monitors
-        async for item in network_flow_monitor.iter_list_monitors():
+        # Example: paginate over get_monitor_scope_suggestions
+        async for item in network_flow_monitor.iter_get_monitor_scope_suggestions():
             print(item)
 ```
 
@@ -50,7 +50,7 @@ from capo_networkflowmonitor.error import AccessDeniedException
 async def main():
     async with AsyncNetworkFlowMonitorClient() as network_flow_monitor:
         try:
-            await network_flow_monitor.list_tags_for_resource()
+            await network_flow_monitor.get_monitor_scope_suggestions()
         except AccessDeniedException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -71,11 +71,11 @@ from capo_networkflowmonitor import AsyncNetworkFlowMonitorClient
 async def main():
     async with AsyncNetworkFlowMonitorClient() as network_flow_monitor:
         # Default: 3 attempts for every operation
-        response = await network_flow_monitor.list_tags_for_resource()
+        response = await network_flow_monitor.get_monitor_scope_suggestions()
 
         # Override per operation
-        response = await network_flow_monitor.list_tags_for_resource(config_overrides={"retry_max_attempts": 5})
+        response = await network_flow_monitor.get_monitor_scope_suggestions(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await network_flow_monitor.list_tags_for_resource(config_overrides={"retry_max_attempts": 1})
+        response = await network_flow_monitor.get_monitor_scope_suggestions(config_overrides={"retry_max_attempts": 1})
 ```

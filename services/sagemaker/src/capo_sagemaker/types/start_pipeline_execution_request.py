@@ -60,7 +60,7 @@ class StartPipelineExecutionRequest(TypedDict, closed=True):
     ]
     """<p>The alias of the pipeline version to start the execution from. You can't specify this with <code>PipelineVersionId</code>. If no version of the pipeline has this alias, the request fails with a <code>ResourceNotFound</code> error.</p>"""
     role_arn: NotRequired["capo_sagemaker.types.role_arn.RoleArn"]
-    """<p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. You must specify this parameter when you start an execution of a pipeline that AWS manages. You can't specify it for a pipeline that you create, because its executions use the pipeline's role.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. You must specify this parameter when you start an execution of a pipeline that Amazon Web Services manages. You can't specify it for a pipeline that you create, because its executions use the pipeline's role.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

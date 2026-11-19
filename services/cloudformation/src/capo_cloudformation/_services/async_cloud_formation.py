@@ -50,6 +50,7 @@ if TYPE_CHECKING:
     import capo_cloudformation.types.activate_organizations_access_output
     import capo_cloudformation.types.activate_type_input
     import capo_cloudformation.types.activate_type_output
+    import capo_cloudformation.types.alias_name
     import capo_cloudformation.types.auto_deployment
     import capo_cloudformation.types.auto_update
     import capo_cloudformation.types.batch_describe_type_configurations_input
@@ -261,6 +262,7 @@ if TYPE_CHECKING:
     import capo_cloudformation.types.registration_status
     import capo_cloudformation.types.registration_token
     import capo_cloudformation.types.registry_type
+    import capo_cloudformation.types.remove_alias_input
     import capo_cloudformation.types.request_token
     import capo_cloudformation.types.resource_definitions
     import capo_cloudformation.types.resource_identifier
@@ -289,6 +291,7 @@ if TYPE_CHECKING:
     import capo_cloudformation.types.scan_type
     import capo_cloudformation.types.scanned_resource
     import capo_cloudformation.types.scanned_resource_identifiers
+    import capo_cloudformation.types.set_alias_input
     import capo_cloudformation.types.set_stack_policy_input
     import capo_cloudformation.types.set_type_configuration_input
     import capo_cloudformation.types.set_type_configuration_output
@@ -744,7 +747,7 @@ class AsyncCloudFormationClient:
             "capo_cloudformation.types.force_rollback.ForceRollback"
         ] = None,
     ) -> "capo_cloudformation.types.continue_update_rollback_output.ContinueUpdateRollbackOutput":
-        """<p>Continues rolling back a stack from <code>UPDATE_ROLLBACK_FAILED</code> to <code>UPDATE_ROLLBACK_COMPLETE</code> state. Depending on the cause of the failure, you can manually fix the error and continue the rollback. By continuing the rollback, you can return your stack to a working state (the <code>UPDATE_ROLLBACK_COMPLETE</code> state) and then try to update the stack again.</p> <p>A stack enters the <code>UPDATE_ROLLBACK_FAILED</code> state when CloudFormation can't roll back all changes after a failed stack update. For example, this might occur when a stack attempts to roll back to an old database that was deleted outside of CloudFormation. Because CloudFormation doesn't know the instance was deleted, it assumes the instance still exists and attempts to roll back to it, causing the update rollback to fail.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html">Continue rolling back an update</a> in the <i>CloudFormation User Guide</i>. For information for troubleshooting a failed update rollback, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed">Update rollback failed</a>.</p> <p> <code>ForceRollback</code> and <code>ResourcesToSkip</code> are mutually exclusive. For details, see <a>ContinueUpdateRollbackInput$ForceRollback</a>.</p>
+        """<p>Continues rolling back a stack from <code>UPDATE_ROLLBACK_FAILED</code> to <code>UPDATE_ROLLBACK_COMPLETE</code> state. Depending on the cause of the failure, you can manually fix the error and continue the rollback. By continuing the rollback, you can return your stack to a working state (the <code>UPDATE_ROLLBACK_COMPLETE</code> state) and then try to update the stack again.</p> <p>A stack enters the <code>UPDATE_ROLLBACK_FAILED</code> state when CloudFormation can't roll back all changes after a failed stack update. For example, this might occur when a stack attempts to roll back to an old database that was deleted outside of CloudFormation. Because CloudFormation doesn't know the instance was deleted, it assumes the instance still exists and attempts to roll back to it, causing the update rollback to fail.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html">Continue rolling back an update</a> in the <i>CloudFormation User Guide</i>. For information for troubleshooting a failed update rollback, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed">Update rollback failed</a>.</p> <p> <code>ForceRollback</code> and <code>ResourcesToSkip</code> are mutually exclusive. For details, see the <code>ForceRollback</code> parameter.</p>
 
         Args:
             stack_name: <p>The name or the unique ID of the stack that you want to continue rolling back.</p> <note> <p>Don't specify the name of a nested stack (a stack that was created by using the <code>AWS::CloudFormation::Stack</code> resource). Instead, use this operation on the parent stack (the stack that contains the <code>AWS::CloudFormation::Stack</code> resource).</p> </note>
@@ -3086,7 +3089,7 @@ class AsyncCloudFormationClient:
         ] = None,
         call_as: Optional["capo_cloudformation.types.call_as.CallAs"] = None,
     ) -> "capo_cloudformation.types.describe_stack_set_operation_output.DescribeStackSetOperationOutput":
-        """<p>Returns the description of the specified StackSet operation.</p> <note> <p>This API provides <i>strongly consistent</i> reads meaning it will always return the most up-to-date data.</p> </note>
+        """<p>Returns the description of the specified StackSet operation.</p> <p>Reports role provisioning and stack instances deployment progress in <code>StatusDetails.Stages</code>. A breakdown for each Amazon Web Services Region is available in <code>RegionalStatusDetails</code>.</p> <note> <p>This API provides <i>strongly consistent</i> reads meaning it will always return the most up-to-date data.</p> </note>
 
         Args:
             stack_set_name: <p>The name or the unique stack ID of the StackSet for the stack operation.</p>
@@ -5370,7 +5373,7 @@ class AsyncCloudFormationClient:
         ] = None,
         call_as: Optional["capo_cloudformation.types.call_as.CallAs"] = None,
     ) -> "capo_cloudformation.types.list_stack_set_operations_output.ListStackSetOperationsOutput":
-        """<p>Returns summary information about operations performed on a StackSet.</p> <note> <p>This API provides <i>eventually consistent</i> reads meaning it may take some time but will eventually return the most up-to-date data.</p> </note>
+        """<p>Returns summary information about operations performed on a StackSet.</p> <p>Reports role provisioning and stack instances deployment progress in <code>StatusDetails.Stages</code>. The breakdown for each Amazon Web Services Region is available only from <a>DescribeStackSetOperation</a>.</p> <note> <p>This API provides <i>eventually consistent</i> reads meaning it may take some time but will eventually return the most up-to-date data.</p> </note>
 
         Args:
             stack_set_name: <p>The name or unique ID of the StackSet that you want to get operation summaries for.</p>
@@ -6141,6 +6144,55 @@ class AsyncCloudFormationClient:
         await response.response.aclose()
         return response.output
 
+    async def remove_alias(
+        self,
+        *,
+        config_overrides: Optional[AsyncCloudFormationClientConfig] = None,
+        alias_name: Optional["capo_cloudformation.types.alias_name.AliasName"] = None,
+    ) -> None:
+        """<p>Removes an alias from a stack. After the alias is removed successfully, it can no longer be used to reference the stack in API calls.</p>
+
+        Args:
+            alias_name: <p>The alias name to remove.</p>
+
+        Raises:
+            capo_cloudformation.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example – Remove an alias from a stack
+            The following example removes the alias MyAlias from your stack:
+
+            >>> await client.remove_alias(alias_name='MyAlias')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_cloudformation.types.remove_alias_input.RemoveAliasInput]",
+        ) -> AsyncOperationResponse[None]:
+            import capo_cloudformation._operations.cloud_formation.remove_alias
+
+            (
+                output,
+                http_response,
+            ) = await capo_cloudformation._operations.cloud_formation.remove_alias.async_remove_alias(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAlias")
+        )
+        input_: capo_cloudformation.types.remove_alias_input.RemoveAliasInput = {}
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def rollback_stack(
         self,
         *,
@@ -6202,6 +6254,61 @@ class AsyncCloudFormationClient:
             input_["retain_except_on_create"] = retain_except_on_create
         if deployment_config is not None:
             input_["deployment_config"] = deployment_config
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def set_alias(
+        self,
+        *,
+        config_overrides: Optional[AsyncCloudFormationClientConfig] = None,
+        stack_name: Optional["capo_cloudformation.types.stack_name.StackName"] = None,
+        alias_name: Optional["capo_cloudformation.types.alias_name.AliasName"] = None,
+    ) -> None:
+        """<p>Assigns an alias to an existing stack. An alias is an alternative name for a stack that can be used in place of the stack name in any CloudFormation API call that accepts the <code>StackName</code> parameter. This enables you to effectively rename a stack without recreating it.</p> <p>After setting an alias, both the original stack name and the alias resolve to the same stack. Setting an alias does not change the stack's ARN, physical resource IDs, or any deployed resources.</p> <note> <p>Each stack can have at most one alias. To change a stack's alias, first remove the existing alias using <a>RemoveAlias</a>, then set a new one.</p> </note>
+
+        Args:
+            stack_name: <p>The name or unique stack ID of the stack to assign an alias to.</p>
+            alias_name: <p>The alias to assign to the stack. The alias can then be used in place of the stack name in any API call that accepts <code>StackName</code>.</p> <p>The name must be unique within the same account and Region. It cannot match an existing stack name or another active alias.</p> <note> <p>An alias name can contain only alphanumeric characters (case-sensitive) and hyphens. It must start with an alphabetic character and can't be longer than 128 characters.</p> </note>
+
+        Raises:
+            capo_cloudformation.errors.already_exists_exception.AlreadyExistsException: <p>The resource with the name requested already exists.</p>
+            capo_cloudformation.errors.limit_exceeded_exception.LimitExceededException: <p>The quota for the resource has already been reached.</p> <p>For information about resource and stack limitations, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html">CloudFormation quotas</a> in the <i>CloudFormation User Guide</i>.</p>
+            capo_cloudformation.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Example – Set an alias for a stack
+            The following example assigns the alias MyAlias to the stack MyStack:
+
+            >>> await client.set_alias(stack_name='MyStack', alias_name='MyAlias')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_cloudformation.types.set_alias_input.SetAliasInput]",
+        ) -> AsyncOperationResponse[None]:
+            import capo_cloudformation._operations.cloud_formation.set_alias
+
+            (
+                output,
+                http_response,
+            ) = await capo_cloudformation._operations.cloud_formation.set_alias.async_set_alias(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetAlias")
+        )
+        input_: capo_cloudformation.types.set_alias_input.SetAliasInput = {}
+        if stack_name is not None:
+            input_["stack_name"] = stack_name
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

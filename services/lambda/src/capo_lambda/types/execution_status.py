@@ -8,6 +8,9 @@ ExecutionStatus: TypeAlias = Literal[
     "FAILED",
     "TIMED_OUT",
     "STOPPED",
+    "DELETING",
+    "PAUSING",
+    "PAUSED",
 ]
 
 

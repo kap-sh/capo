@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_name
     import capo_config_service.types.conformance_pack_state
     import capo_config_service.types.conformance_pack_status_reason
+    import capo_config_service.types.conformance_pack_type
     import capo_config_service.types.date
     import capo_config_service.types.stack_arn
 
@@ -30,9 +31,9 @@ class ConformancePackStatusDetail(TypedDict, closed=True):
     conformance_pack_state: (
         "capo_config_service.types.conformance_pack_state.ConformancePackState"
     )
-    """<p>Indicates deployment status of conformance pack.</p> <p>Config sets the state of the conformance pack to:</p> <ul> <li> <p>CREATE_IN_PROGRESS when a conformance pack creation is in progress for an account.</p> </li> <li> <p>CREATE_COMPLETE when a conformance pack has been successfully created in your account.</p> </li> <li> <p>CREATE_FAILED when a conformance pack creation failed in your account.</p> </li> <li> <p>DELETE_IN_PROGRESS when a conformance pack deletion is in progress. </p> </li> <li> <p>DELETE_FAILED when a conformance pack deletion failed in your account.</p> </li> </ul>"""
-    stack_arn: "capo_config_service.types.stack_arn.StackArn"
-    """<p>Amazon Resource Name (ARN) of CloudFormation stack. </p>"""
+    """<p>Indicates deployment status of conformance pack.</p> <p>Config sets the state of the conformance pack to:</p> <ul> <li> <p>CREATE_IN_PROGRESS when a conformance pack creation is in progress for an account.</p> </li> <li> <p>CREATE_COMPLETE when a conformance pack has been successfully created in your account.</p> </li> <li> <p>CREATE_FAILED when a conformance pack creation failed in your account.</p> </li> <li> <p>UPDATE_IN_PROGRESS when a conformance pack update is in progress for an account.</p> </li> <li> <p>UPDATE_COMPLETE when a conformance pack has been successfully updated in your account.</p> </li> <li> <p>UPDATE_FAILED when a conformance pack update failed in your account.</p> </li> <li> <p>DELETE_IN_PROGRESS when a conformance pack deletion is in progress. </p> </li> <li> <p>DELETE_FAILED when a conformance pack deletion failed in your account.</p> </li> </ul>"""
+    stack_arn: NotRequired["capo_config_service.types.stack_arn.StackArn"]
+    """<p>Amazon Resource Name (ARN) of CloudFormation stack. </p> <note> <p>Custom conformance packs populate this field. Managed conformance packs leave it empty.</p> </note>"""
     conformance_pack_status_reason: NotRequired[
         "capo_config_service.types.conformance_pack_status_reason.ConformancePackStatusReason"
     ]
@@ -41,6 +42,10 @@ class ConformancePackStatusDetail(TypedDict, closed=True):
     """<p>Last time when conformation pack creation and update was requested.</p>"""
     last_update_completed_time: NotRequired["capo_config_service.types.date.Date"]
     """<p>Last time when conformation pack creation and update was successful.</p>"""
+    type: NotRequired[
+        "capo_config_service.types.conformance_pack_type.ConformancePackType"
+    ]
+    """<p>The type of the conformance pack. Valid values:</p> <ul> <li> <p> <code>CUSTOM</code> – A custom conformance pack.</p> </li> <li> <p> <code>MANAGED</code> – A managed conformance pack.</p> </li> </ul>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -56,7 +61,8 @@ def serialize_aws_json_1_1(value: ConformancePackStatusDetail) -> dict:
             value["conformance_pack_state"]
         )
     )
-    out["StackArn"] = value["stack_arn"]
+    if "stack_arn" in value:
+        out["StackArn"] = value["stack_arn"]
     if "conformance_pack_status_reason" in value:
         out["ConformancePackStatusReason"] = value["conformance_pack_status_reason"]
     import capo_config_service.types.date
@@ -72,6 +78,14 @@ def serialize_aws_json_1_1(value: ConformancePackStatusDetail) -> dict:
         out["LastUpdateCompletedTime"] = (
             capo_config_service.types.date.serialize_aws_json_1_1(
                 value["last_update_completed_time"]
+            )
+        )
+    if "type" in value:
+        import capo_config_service.types.conformance_pack_type
+
+        out["Type"] = (
+            capo_config_service.types.conformance_pack_type.serialize_aws_json_1_1(
+                value["type"]
             )
         )
     return out
@@ -107,8 +121,6 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackStatusDetail:
         )
     if data.get("StackArn") is not None:
         out["stack_arn"] = data["StackArn"]
-    else:
-        out["stack_arn"] = ""
     if data.get("ConformancePackStatusReason") is not None:
         out["conformance_pack_status_reason"] = data["ConformancePackStatusReason"]
     if data.get("LastUpdateRequestedTime") is not None:
@@ -131,6 +143,14 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackStatusDetail:
         out["last_update_completed_time"] = (
             capo_config_service.types.date.deserialize_aws_json_1_1(
                 data["LastUpdateCompletedTime"]
+            )
+        )
+    if data.get("Type") is not None:
+        import capo_config_service.types.conformance_pack_type
+
+        out["type"] = (
+            capo_config_service.types.conformance_pack_type.deserialize_aws_json_1_1(
+                data["Type"]
             )
         )
     return out

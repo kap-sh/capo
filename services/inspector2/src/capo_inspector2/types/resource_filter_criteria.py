@@ -21,7 +21,7 @@ class ResourceFilterCriteria(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_inspector2.types.resource_string_filter_list.ResourceStringFilterList"
     ]
-    """<p>The resource types used as resource filter criteria.</p>"""
+    """<p>The resource types used as resource filter criteria. Valid values:</p> <ul> <li> <p>Amazon Web Services – <code>AWS_EC2_INSTANCE</code>, <code>AWS_ECR_CONTAINER_IMAGE</code>, <code>AWS_LAMBDA_FUNCTION</code>, or <code>MACHINE_IMAGE</code>.</p> </li> <li> <p>Microsoft Azure – <code>Microsoft.Compute/virtualMachines</code>, <code>Microsoft.ContainerRegistry/registry/containerImage</code>, or <code>Microsoft.Web/sites</code>.</p> </li> <li> <p>Google Cloud Platform (GCP) – <code>compute.googleapis.com/Instance</code>, <code>cloudfunctions.googleapis.com/Function</code>, or <code>artifactregistry.googleapis.com/DockerImage</code>.</p> </li> </ul>"""
     ecr_repository_name: NotRequired[
         "capo_inspector2.types.resource_string_filter_list.ResourceStringFilterList"
     ]
@@ -45,19 +45,19 @@ class ResourceFilterCriteria(TypedDict, closed=True):
     cloud_provider: NotRequired[
         "capo_inspector2.types.resource_string_filter_list.ResourceStringFilterList"
     ]
-    """<p>The cloud providers used as resource filter criteria.</p>"""
+    """<p>The cloud providers used as resource filter criteria. Valid values:</p> <ul> <li> <p> <code>AWS</code> – Amazon Web Services resources.</p> </li> <li> <p> <code>AZURE</code> – Microsoft Azure resources.</p> </li> <li> <p> <code>GCP</code> – Google Cloud Platform (GCP) resources.</p> </li> </ul>"""
     cloud_provider_account_id: NotRequired[
         "capo_inspector2.types.resource_string_filter_list.ResourceStringFilterList"
     ]
-    """<p>The cloud provider account IDs used as resource filter criteria.</p>"""
+    """<p>The cloud provider account IDs used as resource filter criteria. The value format depends on the cloud provider:</p> <ul> <li> <p>An Amazon Web Services account ID.</p> </li> <li> <p>An Azure subscription ID.</p> </li> <li> <p>A Google Cloud Platform (GCP) project ID.</p> </li> </ul>"""
     cloud_provider_org_id: NotRequired[
         "capo_inspector2.types.resource_string_filter_list.ResourceStringFilterList"
     ]
-    """<p>The cloud provider organization IDs used as resource filter criteria.</p>"""
+    """<p>The cloud provider organization IDs used as resource filter criteria. The value format depends on the cloud provider:</p> <ul> <li> <p>An Amazon Web Services Organizations organization ID.</p> </li> <li> <p>An Azure tenant ID.</p> </li> <li> <p>A Google Cloud Platform (GCP) organization ID.</p> </li> </ul>"""
     cloud_provider_region: NotRequired[
         "capo_inspector2.types.resource_string_filter_list.ResourceStringFilterList"
     ]
-    """<p>The cloud provider regions used as resource filter criteria.</p>"""
+    """<p>The cloud provider regions used as resource filter criteria. The value format depends on the cloud provider:</p> <ul> <li> <p>An Amazon Web Services Region, such as <code>us-east-1</code>.</p> </li> <li> <p>An Azure region, such as <code>eastus</code>.</p> </li> <li> <p>A Google Cloud Platform (GCP) location, such as the region <code>us-central1</code> or the zone <code>us-central1-a</code>.</p> </li> </ul>"""
     cloud_vm_instance_tags: NotRequired[
         "capo_inspector2.types.resource_map_filter_list.ResourceMapFilterList"
     ]

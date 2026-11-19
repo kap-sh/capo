@@ -6,6 +6,7 @@ ConnectorProviderName: TypeAlias = Literal[
     "JIRA_CLOUD",
     "SERVICENOW",
     "AZURE",
+    "GCP",
 ]
 
 

@@ -1,0 +1,7 @@
+---
+title: batch_revoke_sessions
+---
+
+::: capo_signin._services.signin.SigninClient.batch_revoke_sessions
+    options:
+      show_source: true

@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_mediaconnect.types.color_information
     import capo_mediaconnect.types.frame_resolution
+    import capo_mediaconnect.types.scan_mode
 
 
 class TransportStream(TypedDict, closed=True):
@@ -28,8 +29,12 @@ class TransportStream(TypedDict, closed=True):
     """<p> The sample rate used by the audio stream.</p>"""
     sample_size: NotRequired["int"]
     """<p> The sample bit size used by the audio stream.</p>"""
+    scan_mode: NotRequired["capo_mediaconnect.types.scan_mode.ScanMode"]
+    """<p>The scan mode used by the video stream.</p>"""
     stream_type: NotRequired["str"]
     """<p> The Stream Type as it is reported in the Program Map Table.</p>"""
+    language: NotRequired["str"]
+    """<p>The language of the elementary stream.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -61,8 +66,16 @@ def serialize_json(value: TransportStream) -> dict:
         out["sampleRate"] = value["sample_rate"]
     if "sample_size" in value:
         out["sampleSize"] = value["sample_size"]
+    if "scan_mode" in value:
+        import capo_mediaconnect.types.scan_mode
+
+        out["scanMode"] = capo_mediaconnect.types.scan_mode.serialize_json(
+            value["scan_mode"]
+        )
     if "stream_type" in value:
         out["streamType"] = value["stream_type"]
+    if "language" in value:
+        out["language"] = value["language"]
     return out
 
 
@@ -94,6 +107,14 @@ def deserialize_json(data: dict) -> TransportStream:
         out["sample_rate"] = data["sampleRate"]
     if data.get("sampleSize") is not None:
         out["sample_size"] = data["sampleSize"]
+    if data.get("scanMode") is not None:
+        import capo_mediaconnect.types.scan_mode
+
+        out["scan_mode"] = capo_mediaconnect.types.scan_mode.deserialize_json(
+            data["scanMode"]
+        )
     if data.get("streamType") is not None:
         out["stream_type"] = data["streamType"]
+    if data.get("language") is not None:
+        out["language"] = data["language"]
     return out

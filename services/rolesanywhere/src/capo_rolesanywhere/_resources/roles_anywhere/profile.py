@@ -15,6 +15,7 @@ from capo_rolesanywhere._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_rolesanywhere.types.alias_name
     import capo_rolesanywhere.types.certificate_field
     import capo_rolesanywhere.types.create_profile_request
     import capo_rolesanywhere.types.delete_attribute_mapping_request
@@ -25,6 +26,7 @@ if TYPE_CHECKING:
     import capo_rolesanywhere.types.mapping_rules
     import capo_rolesanywhere.types.profile_detail
     import capo_rolesanywhere.types.profile_detail_response
+    import capo_rolesanywhere.types.profile_identifier
     import capo_rolesanywhere.types.put_attribute_mapping_request
     import capo_rolesanywhere.types.put_attribute_mapping_response
     import capo_rolesanywhere.types.resource_name
@@ -33,7 +35,6 @@ if TYPE_CHECKING:
     import capo_rolesanywhere.types.specifier_list
     import capo_rolesanywhere.types.tag_list
     import capo_rolesanywhere.types.update_profile_request
-    import capo_rolesanywhere.types.uuid
     from capo_rolesanywhere._services.async_roles_anywhere import (
         AsyncRolesAnywhereClient,
         AsyncRolesAnywhereClientConfig,
@@ -63,6 +64,7 @@ class Profile:
         enabled: Optional[bool] = None,
         tags: Optional["capo_rolesanywhere.types.tag_list.TagList"] = None,
         accept_role_session_name: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Creates a <i>profile</i>, a list of the roles that Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:CreateProfile</code>. </p>
 
@@ -76,6 +78,7 @@ class Profile:
             enabled: <p>Specifies whether the profile is enabled.</p>
             tags: <p>The tags to attach to the profile.</p>
             accept_role_session_name: <p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>
+            alias_name: <p>An alias for the profile. When you set an alias, the response includes the alias ARN of the profile in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -129,6 +132,8 @@ class Profile:
             input_["tags"] = tags
         if accept_role_session_name is not None:
             input_["accept_role_session_name"] = accept_role_session_name
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -140,14 +145,14 @@ class Profile:
 
     def read(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Gets a profile.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -187,7 +192,7 @@ class Profile:
 
     def update(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
@@ -200,17 +205,19 @@ class Profile:
         ] = None,
         duration_seconds: Optional[int] = None,
         accept_role_session_name: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Updates a <i>profile</i>, a list of the roles that IAM Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             name: <p>The name of the profile.</p>
             session_policy: <p>A session policy that applies to the trust boundary of the vended session credentials. </p>
             role_arns: <p>A list of IAM roles that this profile can assume in a temporary credential request.</p>
             managed_policy_arns: <p>A list of managed policy ARNs that apply to the vended session credentials. </p>
             duration_seconds: <p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>
             accept_role_session_name: <p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>
+            alias_name: <p>The alias for the profile.</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -252,6 +259,8 @@ class Profile:
             input_["duration_seconds"] = duration_seconds
         if accept_role_session_name is not None:
             input_["accept_role_session_name"] = accept_role_session_name
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -263,14 +272,14 @@ class Profile:
 
     def delete(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Deletes a profile.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -361,7 +370,7 @@ class Profile:
 
     def delete_attribute_mapping(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         certificate_field: "capo_rolesanywhere.types.certificate_field.CertificateField",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
@@ -372,7 +381,7 @@ class Profile:
         """<p>Delete an entry from the attribute mapping rules enforced by a given profile.</p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             certificate_field: <p>Fields (x509Subject, x509Issuer and x509SAN) within X.509 certificates.</p>
             specifiers: <p>A list of specifiers of a certificate field; for example, CN, OU, UID from a Subject.</p>
 
@@ -423,14 +432,14 @@ class Profile:
 
     def disable_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Disables a profile. When disabled, temporary credential requests with this profile fail.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -470,14 +479,14 @@ class Profile:
 
     def enable_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[RolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Enables temporary credential requests for a profile. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -517,7 +526,7 @@ class Profile:
 
     def put_attribute_mapping(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         certificate_field: "capo_rolesanywhere.types.certificate_field.CertificateField",
         mapping_rules: "capo_rolesanywhere.types.mapping_rules.MappingRules",
         *,
@@ -526,7 +535,7 @@ class Profile:
         """<p>Put an entry in the attribute mapping rules that will be enforced by a given profile. A mapping specifies a certificate field and one or more specifiers that have contextual meanings.</p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             certificate_field: <p>Fields (x509Subject, x509Issuer and x509SAN) within X.509 certificates.</p>
             mapping_rules: <p>A list of mapping entries for every supported specifier or sub-field.</p>
 
@@ -594,6 +603,7 @@ class AsyncProfile:
         enabled: Optional[bool] = None,
         tags: Optional["capo_rolesanywhere.types.tag_list.TagList"] = None,
         accept_role_session_name: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Creates a <i>profile</i>, a list of the roles that Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:CreateProfile</code>. </p>
 
@@ -607,6 +617,7 @@ class AsyncProfile:
             enabled: <p>Specifies whether the profile is enabled.</p>
             tags: <p>The tags to attach to the profile.</p>
             accept_role_session_name: <p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>
+            alias_name: <p>An alias for the profile. When you set an alias, the response includes the alias ARN of the profile in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -661,6 +672,8 @@ class AsyncProfile:
             input_["tags"] = tags
         if accept_role_session_name is not None:
             input_["accept_role_session_name"] = accept_role_session_name
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -672,14 +685,14 @@ class AsyncProfile:
 
     async def read(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Gets a profile.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -720,7 +733,7 @@ class AsyncProfile:
 
     async def update(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
@@ -733,17 +746,19 @@ class AsyncProfile:
         ] = None,
         duration_seconds: Optional[int] = None,
         accept_role_session_name: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Updates a <i>profile</i>, a list of the roles that IAM Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             name: <p>The name of the profile.</p>
             session_policy: <p>A session policy that applies to the trust boundary of the vended session credentials. </p>
             role_arns: <p>A list of IAM roles that this profile can assume in a temporary credential request.</p>
             managed_policy_arns: <p>A list of managed policy ARNs that apply to the vended session credentials. </p>
             duration_seconds: <p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>
             accept_role_session_name: <p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>
+            alias_name: <p>The alias for the profile.</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -786,6 +801,8 @@ class AsyncProfile:
             input_["duration_seconds"] = duration_seconds
         if accept_role_session_name is not None:
             input_["accept_role_session_name"] = accept_role_session_name
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -797,14 +814,14 @@ class AsyncProfile:
 
     async def delete(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Deletes a profile.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -897,7 +914,7 @@ class AsyncProfile:
 
     async def delete_attribute_mapping(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         certificate_field: "capo_rolesanywhere.types.certificate_field.CertificateField",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
@@ -908,7 +925,7 @@ class AsyncProfile:
         """<p>Delete an entry from the attribute mapping rules enforced by a given profile.</p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             certificate_field: <p>Fields (x509Subject, x509Issuer and x509SAN) within X.509 certificates.</p>
             specifiers: <p>A list of specifiers of a certificate field; for example, CN, OU, UID from a Subject.</p>
 
@@ -960,14 +977,14 @@ class AsyncProfile:
 
     async def disable_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Disables a profile. When disabled, temporary credential requests with this profile fail.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1008,14 +1025,14 @@ class AsyncProfile:
 
     async def enable_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Enables temporary credential requests for a profile. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1056,7 +1073,7 @@ class AsyncProfile:
 
     async def put_attribute_mapping(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         certificate_field: "capo_rolesanywhere.types.certificate_field.CertificateField",
         mapping_rules: "capo_rolesanywhere.types.mapping_rules.MappingRules",
         *,
@@ -1065,7 +1082,7 @@ class AsyncProfile:
         """<p>Put an entry in the attribute mapping rules that will be enforced by a given profile. A mapping specifies a certificate field and one or more specifiers that have contextual meanings.</p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             certificate_field: <p>Fields (x509Subject, x509Issuer and x509SAN) within X.509 certificates.</p>
             mapping_rules: <p>A list of mapping entries for every supported specifier or sub-field.</p>
 

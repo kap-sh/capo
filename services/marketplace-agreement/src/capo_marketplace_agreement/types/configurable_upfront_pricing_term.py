@@ -16,7 +16,7 @@ class ConfigurableUpfrontPricingTerm(TypedDict, closed=True):
     type: NotRequired[
         "capo_marketplace_agreement.types.unversioned_term_type.UnversionedTermType"
     ]
-    """<p>Category of selector.</p>"""
+    """<p>Category of the term.</p>"""
     id: NotRequired["capo_marketplace_agreement.types.term_id.TermId"]
     """<p>The unique identifier of the term.</p>"""
     currency_code: NotRequired[

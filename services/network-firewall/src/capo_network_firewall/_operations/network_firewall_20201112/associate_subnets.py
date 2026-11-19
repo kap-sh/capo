@@ -20,6 +20,7 @@ import capo_network_firewall.errors.resource_not_found_exception
 import capo_network_firewall.errors.throttling_exception
 import capo_network_firewall.types.associate_subnets_request
 import capo_network_firewall.types.associate_subnets_response
+import capo_network_firewall.types.nat_gateway_create_mappings_list
 import capo_network_firewall.types.subnet_mappings
 from capo_network_firewall._protocol.errors import parse_error_metadata_json
 from capo_network_firewall._rule_engine._endpoint_rule_set import (

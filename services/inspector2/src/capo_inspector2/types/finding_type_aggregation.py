@@ -19,7 +19,7 @@ class FindingTypeAggregation(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_inspector2.types.aggregation_resource_type.AggregationResourceType"
     ]
-    """<p>The resource type to aggregate.</p>"""
+    """<p>The resource type to aggregate. For Google Cloud Platform (GCP) resources, the resource type is <code>compute.googleapis.com/Instance</code>, <code>cloudfunctions.googleapis.com/Function</code>, or <code>artifactregistry.googleapis.com/DockerImage</code>.</p>"""
     sort_order: NotRequired["capo_inspector2.types.sort_order.SortOrder"]
     """<p>The order to sort results by.</p>"""
     sort_by: NotRequired["capo_inspector2.types.finding_type_sort_by.FindingTypeSortBy"]

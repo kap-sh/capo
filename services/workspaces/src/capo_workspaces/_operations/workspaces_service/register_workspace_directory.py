@@ -29,6 +29,7 @@ import capo_workspaces.types.tag_list
 import capo_workspaces.types.tenancy
 import capo_workspaces.types.user_identity_type
 import capo_workspaces.types.workspace_directory_state
+import capo_workspaces.types.workspace_os_user_mode
 import capo_workspaces.types.workspace_type
 from capo_workspaces._protocol.errors import parse_error_metadata_json
 from capo_workspaces._rule_engine._endpoint_rule_set import EndpointParams, resolve

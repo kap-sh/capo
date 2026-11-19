@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.maintenance_configuration
     import capo_mediaconnect.types.router_output_arn
     import capo_mediaconnect.types.router_output_configuration
+    import capo_mediaconnect.types.router_output_processors
     import capo_mediaconnect.types.router_output_tier
     import capo_mediaconnect.types.routing_scope
 
@@ -36,6 +37,10 @@ class UpdateRouterOutputRequest(TypedDict, closed=True):
         "capo_mediaconnect.types.fabric_configuration.FabricConfiguration"
     ]
     """<p>The updated fabric configuration settings for the router output. You cannot update the fabric configuration while the output has an active route. You must unroute the output before updating the fabric configuration.</p>"""
+    processors: NotRequired[
+        "capo_mediaconnect.types.router_output_processors.RouterOutputProcessors"
+    ]
+    """<p>The updated processor settings for the router output. When you update the processors, include every setting that you want to keep. MediaConnect resets the settings that you don't specify to their defaults.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -81,6 +86,14 @@ def serialize_json(value: UpdateRouterOutputRequest) -> dict:
                 value["fabric_configuration"]
             )
         )
+    if "processors" in value:
+        import capo_mediaconnect.types.router_output_processors
+
+        out["processors"] = (
+            capo_mediaconnect.types.router_output_processors.serialize_json(
+                value["processors"]
+            )
+        )
     return out
 
 
@@ -124,6 +137,14 @@ def deserialize_json(data: dict) -> UpdateRouterOutputRequest:
         out["fabric_configuration"] = (
             capo_mediaconnect.types.fabric_configuration.deserialize_json(
                 data["fabricConfiguration"]
+            )
+        )
+    if data.get("processors") is not None:
+        import capo_mediaconnect.types.router_output_processors
+
+        out["processors"] = (
+            capo_mediaconnect.types.router_output_processors.deserialize_json(
+                data["processors"]
             )
         )
     return out

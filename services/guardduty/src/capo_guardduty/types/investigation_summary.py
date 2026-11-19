@@ -6,9 +6,11 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_guardduty.types.confidence
+    import capo_guardduty.types.finding_id
     import capo_guardduty.types.investigation_id
     import capo_guardduty.types.investigation_status
     import capo_guardduty.types.investigation_title
+    import capo_guardduty.types.investigation_type
     import capo_guardduty.types.risk_level
     import capo_guardduty.types.string
     import capo_guardduty.types.timestamp
@@ -30,8 +32,16 @@ class InvestigationSummary(TypedDict, closed=True):
     """<p>The confidence level of the investigation's assessment.</p>"""
     title: NotRequired["capo_guardduty.types.investigation_title.InvestigationTitle"]
     """<p>A short title summarizing the investigation.</p>"""
+    investigation_type: NotRequired[
+        "capo_guardduty.types.investigation_type.InvestigationType"
+    ]
+    """<p>The type of investigation. Possible values are <code>FINDING</code>, <code>ACCOUNT</code>, and <code>ORGANIZATION</code>. GuardDuty sets this field when the investigation completes.</p>"""
+    finding_id: NotRequired["capo_guardduty.types.finding_id.FindingId"]
+    """<p>For a <code>FINDING</code> investigation, the ID of the finding that the investigation analyzed. GuardDuty sets this field when the investigation completes.</p>"""
     account_id: NotRequired["capo_guardduty.types.string.String"]
     """<p>The Amazon Web Services account ID associated with the investigation.</p>"""
+    admin_account_id: NotRequired["capo_guardduty.types.string.String"]
+    """<p>For an <code>ORGANIZATION</code> investigation, the ID of the administrator account of the organization that the investigation analyzed. GuardDuty sets this field when the investigation completes.</p>"""
     start_time: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
     """<p>The timestamp at which the investigation started.</p>"""
     end_time: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
@@ -65,8 +75,20 @@ def serialize_json(value: InvestigationSummary) -> dict:
         )
     if "title" in value:
         out["title"] = value["title"]
+    if "investigation_type" in value:
+        import capo_guardduty.types.investigation_type
+
+        out["investigationType"] = (
+            capo_guardduty.types.investigation_type.serialize_json(
+                value["investigation_type"]
+            )
+        )
+    if "finding_id" in value:
+        out["findingId"] = value["finding_id"]
     if "account_id" in value:
         out["accountId"] = value["account_id"]
+    if "admin_account_id" in value:
+        out["adminAccountId"] = value["admin_account_id"]
     if "start_time" in value:
         import capo_guardduty.types.timestamp
 
@@ -108,8 +130,20 @@ def deserialize_json(data: dict) -> InvestigationSummary:
         )
     if data.get("title") is not None:
         out["title"] = data["title"]
+    if data.get("investigationType") is not None:
+        import capo_guardduty.types.investigation_type
+
+        out["investigation_type"] = (
+            capo_guardduty.types.investigation_type.deserialize_json(
+                data["investigationType"]
+            )
+        )
+    if data.get("findingId") is not None:
+        out["finding_id"] = data["findingId"]
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
+    if data.get("adminAccountId") is not None:
+        out["admin_account_id"] = data["adminAccountId"]
     if data.get("startTime") is not None:
         import capo_guardduty.types.timestamp
 

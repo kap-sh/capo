@@ -33,8 +33,8 @@ from capo_connecthealth import AsyncConnectHealthClient
 
 async def main():
     async with AsyncConnectHealthClient() as connect_health:
-        # Example: paginate over list_domains
-        async for item in connect_health.iter_list_domains():
+        # Example: paginate over list_datasets
+        async for item in connect_health.iter_list_datasets():
             print(item)
 ```
 

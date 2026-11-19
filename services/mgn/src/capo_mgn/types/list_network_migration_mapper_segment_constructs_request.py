@@ -32,6 +32,10 @@ class ListNetworkMigrationMapperSegmentConstructsRequest(TypedDict, closed=True)
     """<p>The maximum number of results to return in a single call.</p>"""
     next_token: NotRequired["capo_mgn.types.pagination_token.PaginationToken"]
     """<p>The token for the next page of results.</p>"""
+    include_enriched_properties: NotRequired["bool"]
+    """<p>Whether to return construct properties using their native value types.</p>"""
+    include_configuration: NotRequired["bool"]
+    """<p>Whether to return construct-type-specific behavioral configuration.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -52,6 +56,10 @@ def serialize_json(value: ListNetworkMigrationMapperSegmentConstructsRequest) ->
         out["maxResults"] = value["max_results"]
     if "next_token" in value:
         out["nextToken"] = value["next_token"]
+    if "include_enriched_properties" in value:
+        out["includeEnrichedProperties"] = value["include_enriched_properties"]
+    if "include_configuration" in value:
+        out["includeConfiguration"] = value["include_configuration"]
     return out
 
 
@@ -81,4 +89,8 @@ def deserialize_json(data: dict) -> ListNetworkMigrationMapperSegmentConstructsR
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    if data.get("includeEnrichedProperties") is not None:
+        out["include_enriched_properties"] = data["includeEnrichedProperties"]
+    if data.get("includeConfiguration") is not None:
+        out["include_configuration"] = data["includeConfiguration"]
     return out

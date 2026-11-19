@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.resource_arn
     import capo_route53globalresolver.types.resource_id
     import capo_route53globalresolver.types.resource_name_short
+    import capo_route53globalresolver.types.segment_name
 
 
 class GetAccessSourceOutput(TypedDict, closed=True):
@@ -20,6 +21,10 @@ class GetAccessSourceOutput(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of the access source.</p>"""
     cidr: "capo_route53globalresolver.types.cidr.Cidr"
     """<p>The IP range for the rule's parameters in CIDR notation.</p>"""
+    core_network_endpoint_id: NotRequired[
+        "capo_route53globalresolver.types.resource_id.ResourceId"
+    ]
+    """<p>The ID of the core network endpoint associated with this access source.</p>"""
     created_at: "capo_route53globalresolver.types.iso8601_time_string.ISO8601TimeString"
     """<p>The time and date the rule was created.</p>"""
     id: "capo_route53globalresolver.types.resource_id.ResourceId"
@@ -34,6 +39,8 @@ class GetAccessSourceOutput(TypedDict, closed=True):
     """<p>ID for the DNS view that the rule is associated to.</p>"""
     protocol: "capo_route53globalresolver.types.dns_protocol.DnsProtocol"
     """<p>The protocol determines how data is transmitted to a Global Resolver instance.</p>"""
+    segment: NotRequired["capo_route53globalresolver.types.segment_name.SegmentName"]
+    """<p>The name of the segment associated with this access source.</p>"""
     status: "capo_route53globalresolver.types.cr_resource_status.CRResourceStatus"
     """<p>Information about the status of the rule.</p>"""
     updated_at: "capo_route53globalresolver.types.iso8601_time_string.ISO8601TimeString"
@@ -44,7 +51,9 @@ class GetAccessSourceOutput(TypedDict, closed=True):
 def serialize_json(value: GetAccessSourceOutput) -> dict:
     out: dict = {}
     out["arn"] = value["arn"]
-    out["cidr"] = value["cidr"]
+    out["cidr"] = value.get("cidr", "")
+    if "core_network_endpoint_id" in value:
+        out["coreNetworkEndpointId"] = value["core_network_endpoint_id"]
     import capo_route53globalresolver.types.iso8601_time_string
 
     out["createdAt"] = (
@@ -57,7 +66,7 @@ def serialize_json(value: GetAccessSourceOutput) -> dict:
 
     out["ipAddressType"] = (
         capo_route53globalresolver.types.ip_address_type.serialize_json(
-            value["ip_address_type"]
+            value.get("ip_address_type", "NONE")
         )
     )
     if "name" in value:
@@ -68,6 +77,8 @@ def serialize_json(value: GetAccessSourceOutput) -> dict:
     out["protocol"] = capo_route53globalresolver.types.dns_protocol.serialize_json(
         value["protocol"]
     )
+    if "segment" in value:
+        out["segment"] = value["segment"]
     import capo_route53globalresolver.types.cr_resource_status
 
     out["status"] = capo_route53globalresolver.types.cr_resource_status.serialize_json(
@@ -93,6 +104,8 @@ def deserialize_json(data: dict) -> GetAccessSourceOutput:
         out["cidr"] = data["cidr"]
     else:
         out["cidr"] = ""
+    if data.get("coreNetworkEndpointId") is not None:
+        out["core_network_endpoint_id"] = data["coreNetworkEndpointId"]
     if data.get("createdAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -118,11 +131,7 @@ def deserialize_json(data: dict) -> GetAccessSourceOutput:
             )
         )
     else:
-        import typing
-
-        out["ip_address_type"] = typing.cast(
-            "capo_route53globalresolver.types.ip_address_type.IpAddressType", ""
-        )
+        out["ip_address_type"] = "NONE"
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("dnsViewId") is not None:
@@ -143,6 +152,8 @@ def deserialize_json(data: dict) -> GetAccessSourceOutput:
         out["protocol"] = typing.cast(
             "capo_route53globalresolver.types.dns_protocol.DnsProtocol", ""
         )
+    if data.get("segment") is not None:
+        out["segment"] = data["segment"]
     if data.get("status") is not None:
         import capo_route53globalresolver.types.cr_resource_status
 

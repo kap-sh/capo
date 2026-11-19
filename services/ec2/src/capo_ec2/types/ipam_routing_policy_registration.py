@@ -34,7 +34,7 @@ class IpamRoutingPolicyRegistration(TypedDict, closed=True):
     state: NotRequired[
         "capo_ec2.types.ipam_routing_policy_registration_state.IpamRoutingPolicyRegistrationState"
     ]
-    """<p>The state of the routing policy registration. Valid values: <code>pending-activate</code> | <code>activate-failed</code> | <code>create-in-progress</code> | <code>create-complete</code> | <code>update-in-progress</code> | <code>update-complete</code> | <code>delete-in-progress</code> | <code>delete-complete</code>.</p>"""
+    """<p>The state of the routing policy registration. Valid values: <code>pending-activate</code> | <code>activate-failed</code> | <code>create-in-progress</code> | <code>create-complete</code> | <code>update-in-progress</code> | <code>update-complete</code> | <code>delete-in-progress</code> | <code>delete-complete</code> | <code>disable-complete</code>.</p>"""
 
 
 # --- ec2Query ser/de ---

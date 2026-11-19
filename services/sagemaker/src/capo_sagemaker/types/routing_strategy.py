@@ -6,6 +6,7 @@ RoutingStrategy: TypeAlias = Literal[
     "LEAST_OUTSTANDING_REQUESTS",
     "RANDOM",
     "PREFIX_AWARE",
+    "KV_AWARE",
 ]
 
 

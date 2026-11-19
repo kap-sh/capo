@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_connectcases.types.audit_event_id
     import capo_connectcases.types.audit_event_performed_by
     import capo_connectcases.types.audit_event_type
+    import capo_connectcases.types.audit_merge_metadata
     import capo_connectcases.types.related_item_type
 
 
@@ -17,7 +18,7 @@ class AuditEvent(TypedDict, closed=True):
     event_id: "capo_connectcases.types.audit_event_id.AuditEventId"
     """<p>Unique identifier of a case audit history event.</p>"""
     type: "capo_connectcases.types.audit_event_type.AuditEventType"
-    """<p>The type of audit history event.</p> <p>Valid Values: <code>Case.Created</code> | <code>Case.Updated</code> | <code>RelatedItem.Created</code> | <code>RelatedItem.Updated</code> | <code>RelatedItem.Deleted</code> </p>"""
+    """<p>The type of audit history event.</p> <p>Valid Values: <code>Case.Created</code> | <code>Case.Updated</code> | <code>RelatedItem.Created</code> | <code>RelatedItem.Updated</code> | <code>RelatedItem.Deleted</code> | <code>Case.Merged</code> </p> <p> <code>Case.Merged</code> summarizes a merge on each of the two cases that took part in it.</p>"""
     related_item_type: NotRequired[
         "capo_connectcases.types.related_item_type.RelatedItemType"
     ]
@@ -30,6 +31,10 @@ class AuditEvent(TypedDict, closed=True):
         "capo_connectcases.types.audit_event_performed_by.AuditEventPerformedBy"
     ]
     """<p>Information of the user which performed the audit.</p>"""
+    merge_metadata: NotRequired[
+        "capo_connectcases.types.audit_merge_metadata.AuditMergeMetadata"
+    ]
+    """<p>Information about the merge that produced this audit event. Present only on audit events produced by a merge. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_StartMergeCases.html">StartMergeCases</a>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -55,6 +60,14 @@ def serialize_json(value: AuditEvent) -> dict:
         out["performedBy"] = (
             capo_connectcases.types.audit_event_performed_by.serialize_json(
                 value["performed_by"]
+            )
+        )
+    if "merge_metadata" in value:
+        import capo_connectcases.types.audit_merge_metadata
+
+        out["mergeMetadata"] = (
+            capo_connectcases.types.audit_merge_metadata.serialize_json(
+                value["merge_metadata"]
             )
         )
     return out
@@ -100,6 +113,14 @@ def deserialize_json(data: dict) -> AuditEvent:
         out["performed_by"] = (
             capo_connectcases.types.audit_event_performed_by.deserialize_json(
                 data["performedBy"]
+            )
+        )
+    if data.get("mergeMetadata") is not None:
+        import capo_connectcases.types.audit_merge_metadata
+
+        out["merge_metadata"] = (
+            capo_connectcases.types.audit_merge_metadata.deserialize_json(
+                data["mergeMetadata"]
             )
         )
     return out

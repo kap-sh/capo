@@ -6,6 +6,7 @@ OrganizationConfigurationStatus: TypeAlias = Literal[
     "PENDING",
     "ENABLED",
     "FAILED",
+    "DISABLED",
 ]
 
 

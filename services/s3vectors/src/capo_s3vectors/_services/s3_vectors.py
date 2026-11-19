@@ -87,6 +87,8 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.list_vectors_segment_count
     import capo_s3vectors.types.list_vectors_segment_index
     import capo_s3vectors.types.metadata_configuration
+    import capo_s3vectors.types.metadata_configuration_add
+    import capo_s3vectors.types.metadata_configuration_delete
     import capo_s3vectors.types.put_vector_bucket_default_index_mode_input
     import capo_s3vectors.types.put_vector_bucket_default_index_mode_output
     import capo_s3vectors.types.put_vector_bucket_policy_input
@@ -95,6 +97,7 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.put_vectors_input_list
     import capo_s3vectors.types.put_vectors_output
     import capo_s3vectors.types.query_output_vector
+    import capo_s3vectors.types.query_text_list
     import capo_s3vectors.types.query_vectors_input
     import capo_s3vectors.types.query_vectors_next_token
     import capo_s3vectors.types.query_vectors_output
@@ -108,6 +111,8 @@ if TYPE_CHECKING:
     import capo_s3vectors.types.untag_resource_output
     import capo_s3vectors.types.update_index_mode_input
     import capo_s3vectors.types.update_index_mode_output
+    import capo_s3vectors.types.update_metadata_configuration_input
+    import capo_s3vectors.types.update_metadata_configuration_output
     import capo_s3vectors.types.vector_bucket_arn
     import capo_s3vectors.types.vector_bucket_name
     import capo_s3vectors.types.vector_bucket_policy
@@ -1296,6 +1301,80 @@ class S3VectorsClient:
         response.response.close()
         return response.output
 
+    def update_metadata_configuration(
+        self,
+        *,
+        config_overrides: Optional[S3VectorsClientConfig] = None,
+        vector_bucket_name: Optional[
+            "capo_s3vectors.types.vector_bucket_name.VectorBucketName"
+        ] = None,
+        index_name: Optional["capo_s3vectors.types.index_name.IndexName"] = None,
+        index_arn: Optional["capo_s3vectors.types.index_arn.IndexArn"] = None,
+        add: Optional[
+            "capo_s3vectors.types.metadata_configuration_add.MetadataConfigurationAdd"
+        ] = None,
+        delete: Optional[
+            "capo_s3vectors.types.metadata_configuration_delete.MetadataConfigurationDelete"
+        ] = None,
+    ) -> "capo_s3vectors.types.update_metadata_configuration_output.UpdateMetadataConfigurationOutput":
+        """<p>Adds or deletes text search configurations on a vector index. Specify either <code>add</code> or <code>delete</code>, but not both. The vector index must be in <code>ENHANCED</code> mode.</p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3vectors:UpdateMetadataConfiguration</code> permission to use this operation.</p> </dd> </dl>
+
+        Args:
+            vector_bucket_name: <p>The name of the vector bucket that contains the vector index.</p>
+            index_name: <p>The name of the vector index to update.</p>
+            index_arn: <p>The Amazon Resource Name (ARN) of the vector index to update.</p>
+            add: <p>Text search configurations to add to the vector index.</p>
+            delete: <p>Text search configurations to delete from the vector index.</p>
+
+        Raises:
+            capo_s3vectors.errors.access_denied_exception.AccessDeniedException: <p>Access denied.</p>
+            capo_s3vectors.errors.internal_server_exception.InternalServerException: <p>The request failed due to an internal server error.</p>
+            capo_s3vectors.errors.request_timeout_exception.RequestTimeoutException: <p>The request timed out. Retry your request.</p>
+            capo_s3vectors.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was denied due to request throttling.</p>
+            capo_s3vectors.errors.validation_exception.ValidationException: <p>The requested action isn't valid.</p>
+            capo_s3vectors.errors.conflict_exception.ConflictException: <p>The request failed because a vector bucket name or a vector index name already exists. Vector bucket names must be unique within your Amazon Web Services account for each Amazon Web Services Region. Vector index names must be unique within your vector bucket. Choose a different vector bucket name or vector index name, and try again.</p>
+            capo_s3vectors.errors.not_found_exception.NotFoundException: <p>The request was rejected because the specified resource can't be found.</p>
+            capo_s3vectors.errors.service_unavailable_exception.ServiceUnavailableException: <p>The service is unavailable. Wait briefly and retry your request. If it continues to fail, increase your waiting time between retries.</p>
+            capo_s3vectors.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_s3vectors.types.update_metadata_configuration_input.UpdateMetadataConfigurationInput]",
+        ) -> OperationResponse[
+            "capo_s3vectors.types.update_metadata_configuration_output.UpdateMetadataConfigurationOutput"
+        ]:
+            import capo_s3vectors._operations.s3_vectors.update_metadata_configuration
+
+            output, http_response = (
+                capo_s3vectors._operations.s3_vectors.update_metadata_configuration.update_metadata_configuration(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMetadataConfiguration")
+        )
+        input_: capo_s3vectors.types.update_metadata_configuration_input.UpdateMetadataConfigurationInput = {}
+        if vector_bucket_name is not None:
+            input_["vector_bucket_name"] = vector_bucket_name
+        if index_name is not None:
+            input_["index_name"] = index_name
+        if index_arn is not None:
+            input_["index_arn"] = index_arn
+        if add is not None:
+            input_["add"] = add
+        if delete is not None:
+            input_["delete"] = delete
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_vectors(
         self,
         keys: "capo_s3vectors.types.delete_vectors_input_list.DeleteVectorsInputList",
@@ -1651,7 +1730,6 @@ class S3VectorsClient:
     def query_vectors(
         self,
         top_k: "capo_s3vectors.types.top_k.TopK",
-        query_vector: "capo_s3vectors.types.vector_data.VectorData",
         *,
         config_overrides: Optional[S3VectorsClientConfig] = None,
         vector_bucket_name: Optional[
@@ -1659,26 +1737,33 @@ class S3VectorsClient:
         ] = None,
         index_name: Optional["capo_s3vectors.types.index_name.IndexName"] = None,
         index_arn: Optional["capo_s3vectors.types.index_arn.IndexArn"] = None,
+        query_vector: Optional["capo_s3vectors.types.vector_data.VectorData"] = None,
         filter: Optional[object] = None,
         query_mode: Optional["capo_s3vectors.types.index_mode.IndexMode"] = None,
         return_metadata: Optional[bool] = None,
         return_distance: Optional[bool] = None,
+        query_texts: Optional[
+            "capo_s3vectors.types.query_text_list.QueryTextList"
+        ] = None,
+        return_scores: Optional[bool] = None,
         next_token: Optional[
             "capo_s3vectors.types.query_vectors_next_token.QueryVectorsNextToken"
         ] = None,
     ) -> "capo_s3vectors.types.query_vectors_output.QueryVectorsOutput":
-        """<p>Performs an approximate nearest neighbor search query in a vector index using a query vector. By default, it returns the keys of approximate nearest neighbors. You can optionally include the computed distance (between the query vector and each vector in the response) and metadata of each vector in the response.</p> <p>To specify the vector index, you can either use both the vector bucket name and the vector index name, or use the vector index Amazon Resource Name (ARN). </p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3vectors:QueryVectors</code> permission to use this operation. Additional permissions are required based on the request parameters you specify:</p> <ul> <li> <p>With only <code>s3vectors:QueryVectors</code> permission, you can retrieve vector keys of approximate nearest neighbors and computed distances between these vectors. This permission is sufficient only when you don't set any metadata filters and don't request metadata (by keeping the <code>returnMetadata</code> parameter set to <code>false</code> or not specified).</p> </li> <li> <p>If you specify a metadata filter or set <code>returnMetadata</code> to true, you must have both <code>s3vectors:QueryVectors</code> and <code>s3vectors:GetVectors</code> permissions. The request fails with a <code>403 Forbidden error</code> if you request metadata filtering or metadata without the <code>s3vectors:GetVectors</code> permission.</p> </li> </ul> </dd> </dl>
+        """<p>Returns matching vector keys from a vector index ranked by vector similarity, full-text relevance, or both. Specify <code>queryVector</code> to perform a vector search, specify <code>queryTexts</code> to perform a full-text search, or specify both to perform a hybrid search. Full-text search ranks results using BM25. Hybrid search combines the vector and full-text rankings using Reciprocal Rank Fusion (RRF).</p> <p>Amazon S3 Vectors ranks results by distance for a vector-only search, by BM25 score for a full-text-only search, and by RRF score for a hybrid search. You can optionally include computed distances, relevance scores, and vector metadata in the response. Full-text and hybrid searches require a vector index in <code>ENHANCED</code> mode.</p> <p>To specify the vector index, you can either use both the vector bucket name and the vector index name, or use the vector index Amazon Resource Name (ARN). </p> <dl> <dt>Permissions</dt> <dd> <p>You must have the <code>s3vectors:QueryVectors</code> permission to use this operation. Additional permissions are required based on the request parameters you specify:</p> <ul> <li> <p>With only <code>s3vectors:QueryVectors</code> permission, you can retrieve vector keys of approximate nearest neighbors and computed distances between these vectors. This permission is sufficient only when you don't set <code>queryTexts</code>, don't set any metadata filters, and don't request metadata (by keeping the <code>returnMetadata</code> parameter set to <code>false</code> or not specified).</p> </li> <li> <p>To use <code>queryTexts</code>, a metadata filter, or <code>returnMetadata</code> set to <code>true</code> with this operation, you must have both the <code>s3vectors:QueryVectors</code> and <code>s3vectors:GetVectors</code> permissions. If you use any of these options without the <code>s3vectors:GetVectors</code> permission, Amazon S3 Vectors returns an <code>AccessDeniedException</code>.</p> </li> </ul> </dd> </dl>
 
         Args:
             vector_bucket_name: <p>The name of the vector bucket that contains the vector index. </p>
             index_name: <p>The name of the vector index that you want to query. </p>
             index_arn: <p>The ARN of the vector index that you want to query.</p>
             top_k: <p>The number of results to return for each query.</p>
-            query_vector: <p>The query vector. Ensure that the query vector has the same dimension as the dimension of the vector index that's being queried. For example, if your vector index contains vectors with 384 dimensions, your query vector must also have 384 dimensions. </p>
+            query_vector: <p>The query vector for vector similarity search. The query vector must have the same dimension as the vector index. For example, if the vector index has 384 dimensions, the query vector must also have 384 dimensions. You can omit this parameter when you supply <code>queryTexts</code> to perform a full-text-only search. A request must include <code>queryVector</code>, <code>queryTexts</code>, or both.</p>
             filter: <p>Metadata filter to apply during the query. For more information about metadata keys, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-metadata-filtering.html">Metadata filtering</a> in the <i>Amazon S3 User Guide</i>. </p>
             query_mode: <p>The mode to use to process the query. If you don't specify a query mode, the operation uses the mode that's currently configured for the vector index.</p> <p>Valid values:</p> <ul> <li> <p> <code>CLASSIC</code> - Applies metadata filters during the vector search. You can't specify <code>CLASSIC</code> for an <code>ENHANCED</code> index.</p> </li> <li> <p> <code>ENHANCED</code> - Applies metadata filters before the vector search.</p> </li> </ul>
             return_metadata: <p>Indicates whether to include metadata in the response. The default value is <code>false</code>.</p>
             return_distance: <p>Indicates whether to include the computed distance in the response. The default value is <code>false</code>.</p>
+            query_texts: <p>Full-text queries for searchable metadata keys. Omit <code>queryVector</code> to run a full-text-only search, or provide both fields to run a hybrid search. Each entry must target a distinct searchable metadata key.</p>
+            return_scores: <p>Indicates whether to include relevance scores in the response. Full-text-only results can include BM25 scores. Hybrid results can also include a Reciprocal Rank Fusion (RRF) score and vector distance. This setting doesn't add scores to vector-only requests. The default value is <code>false</code>.</p>
             next_token: <p>Pagination token from a previous request. The value of this field is empty for an initial request.</p>
 
         Raises:
@@ -1710,12 +1795,19 @@ class S3VectorsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_s3vectors.types.query_vectors_input.QueryVectorsInput",
+        ) -> dict[str, Any]:
+            import capo_s3vectors.types.query_vectors_input
+
+            return capo_s3vectors.types.query_vectors_input.redact_sensitive(input_)
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("QueryVectors")
+            config_overrides,
+            OperationLogging("QueryVectors", redact_input=_redact_input),
         )
         input_: capo_s3vectors.types.query_vectors_input.QueryVectorsInput = {
-            "top_k": top_k,
-            "query_vector": query_vector,
+            "top_k": top_k
         }
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -1723,6 +1815,8 @@ class S3VectorsClient:
             input_["index_name"] = index_name
         if index_arn is not None:
             input_["index_arn"] = index_arn
+        if query_vector is not None:
+            input_["query_vector"] = query_vector
         if filter is not None:
             input_["filter"] = filter
         if query_mode is not None:
@@ -1731,6 +1825,10 @@ class S3VectorsClient:
             input_["return_metadata"] = return_metadata
         if return_distance is not None:
             input_["return_distance"] = return_distance
+        if query_texts is not None:
+            input_["query_texts"] = query_texts
+        if return_scores is not None:
+            input_["return_scores"] = return_scores
         if next_token is not None:
             input_["next_token"] = next_token
 
@@ -1745,7 +1843,6 @@ class S3VectorsClient:
     def iter_query_vectors(
         self,
         top_k: "capo_s3vectors.types.top_k.TopK",
-        query_vector: "capo_s3vectors.types.vector_data.VectorData",
         *,
         config_overrides: Optional[S3VectorsClientConfig] = None,
         vector_bucket_name: Optional[
@@ -1753,10 +1850,15 @@ class S3VectorsClient:
         ] = None,
         index_name: Optional["capo_s3vectors.types.index_name.IndexName"] = None,
         index_arn: Optional["capo_s3vectors.types.index_arn.IndexArn"] = None,
+        query_vector: Optional["capo_s3vectors.types.vector_data.VectorData"] = None,
         filter: Optional[object] = None,
         query_mode: Optional["capo_s3vectors.types.index_mode.IndexMode"] = None,
         return_metadata: Optional[bool] = None,
         return_distance: Optional[bool] = None,
+        query_texts: Optional[
+            "capo_s3vectors.types.query_text_list.QueryTextList"
+        ] = None,
+        return_scores: Optional[bool] = None,
         next_token: Optional[
             "capo_s3vectors.types.query_vectors_next_token.QueryVectorsNextToken"
         ] = None,
@@ -1765,15 +1867,17 @@ class S3VectorsClient:
         while True:
             _response = self.query_vectors(
                 top_k,
-                query_vector,
                 config_overrides=config_overrides,
                 vector_bucket_name=vector_bucket_name,
                 index_name=index_name,
                 index_arn=index_arn,
+                query_vector=query_vector,
                 filter=filter,
                 query_mode=query_mode,
                 return_metadata=return_metadata,
                 return_distance=return_distance,
+                query_texts=query_texts,
+                return_scores=return_scores,
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("vectors",))

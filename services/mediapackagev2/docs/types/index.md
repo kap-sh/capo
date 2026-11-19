@@ -37,6 +37,7 @@
 - [CustomAdTypeList](custom_ad_type_list.md)
 - [DashAudioTimelinePattern](dash_audio_timeline_pattern.md)
 - [DashAvailabilityStartTimeConfiguration](dash_availability_start_time_configuration.md)
+- [DashBandwidthReportingMode](dash_bandwidth_reporting_mode.md)
 - [DashBaseUrl](dash_base_url.md)
 - [DashBaseUrls](dash_base_urls.md)
 - [DashCompactness](dash_compactness.md)

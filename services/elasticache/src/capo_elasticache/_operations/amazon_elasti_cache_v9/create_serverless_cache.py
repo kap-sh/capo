@@ -26,6 +26,7 @@ import capo_elasticache.types.cache_usage_limits
 import capo_elasticache.types.connection_type
 import capo_elasticache.types.create_serverless_cache_request
 import capo_elasticache.types.create_serverless_cache_response
+import capo_elasticache.types.integration_request_list
 import capo_elasticache.types.network_type
 import capo_elasticache.types.security_group_ids_list
 import capo_elasticache.types.serverless_cache

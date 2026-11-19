@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_braket.types.device_arn
     import capo_braket.types.device_queue_info_list
     import capo_braket.types.device_status
+    import capo_braket.types.device_status_reason
     import capo_braket.types.device_type
     import capo_braket.types.json_value
 
@@ -23,6 +24,10 @@ class GetDeviceResponse(TypedDict, closed=True):
     """<p>The type of the device.</p>"""
     device_status: "capo_braket.types.device_status.DeviceStatus"
     """<p>The status of the device.</p>"""
+    device_status_reason: NotRequired[
+        "capo_braket.types.device_status_reason.DeviceStatusReason"
+    ]
+    """<p>The reason for the current status of the device, including status reason codes and timestamps.</p>"""
     device_capabilities: "capo_braket.types.json_value.JsonValue"
     """<p>Details about the capabilities of the device.</p>"""
     device_queue_info: NotRequired[
@@ -39,6 +44,14 @@ def serialize_json(value: GetDeviceResponse) -> dict:
     out["providerName"] = value["provider_name"]
     out["deviceType"] = value["device_type"]
     out["deviceStatus"] = value["device_status"]
+    if "device_status_reason" in value:
+        import capo_braket.types.device_status_reason
+
+        out["deviceStatusReason"] = (
+            capo_braket.types.device_status_reason.serialize_json(
+                value["device_status_reason"]
+            )
+        )
     out["deviceCapabilities"] = value["device_capabilities"]
     if "device_queue_info" in value:
         import capo_braket.types.device_queue_info_list
@@ -73,6 +86,14 @@ def deserialize_json(data: dict) -> GetDeviceResponse:
         out["device_status"] = data["deviceStatus"]
     else:
         out["device_status"] = ""
+    if data.get("deviceStatusReason") is not None:
+        import capo_braket.types.device_status_reason
+
+        out["device_status_reason"] = (
+            capo_braket.types.device_status_reason.deserialize_json(
+                data["deviceStatusReason"]
+            )
+        )
     if data.get("deviceCapabilities") is not None:
         out["device_capabilities"] = data["deviceCapabilities"]
     else:

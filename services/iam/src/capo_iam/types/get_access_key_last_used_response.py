@@ -15,7 +15,7 @@ class GetAccessKeyLastUsedResponse(TypedDict, closed=True):
     user_name: NotRequired[
         "capo_iam.types.existing_user_name_type.existingUserNameType"
     ]
-    """<p>The name of the IAM user that owns this access key.</p> <p></p>"""
+    """<p>The name of the IAM user that owns this access key.</p> <p/>"""
     access_key_last_used: NotRequired[
         "capo_iam.types.access_key_last_used.AccessKeyLastUsed"
     ]

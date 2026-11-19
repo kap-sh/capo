@@ -96,6 +96,8 @@ def handle_response(
         out["request_charged"] = capo_s3.types.request_charged.from_xml_text(
             response.headers["x-amz-request-charged"]
         )
+    if "x-amz-version-id" in response.headers:
+        out["version_id"] = response.headers["x-amz-version-id"]
     return out
 
 
@@ -152,6 +154,8 @@ async def async_handle_response(
         out["request_charged"] = capo_s3.types.request_charged.from_xml_text(
             response.headers["x-amz-request-charged"]
         )
+    if "x-amz-version-id" in response.headers:
+        out["version_id"] = response.headers["x-amz-version-id"]
     return out
 
 

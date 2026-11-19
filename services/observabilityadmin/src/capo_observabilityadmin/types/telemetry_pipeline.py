@@ -5,7 +5,9 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_observabilityadmin.types.configuration_summary
     import capo_observabilityadmin.types.resource_arn
+    import capo_observabilityadmin.types.source_progress
     import capo_observabilityadmin.types.tag_map_output
     import capo_observabilityadmin.types.telemetry_pipeline_configuration
     import capo_observabilityadmin.types.telemetry_pipeline_name
@@ -38,6 +40,16 @@ class TelemetryPipeline(TypedDict, closed=True):
     """<p>Additional information about the pipeline status, including reasons for failure states.</p>"""
     tags: NotRequired["capo_observabilityadmin.types.tag_map_output.TagMapOutput"]
     """<p>The key-value pairs associated with the telemetry pipeline resource.</p>"""
+    last_refresh_time_stamp: NotRequired["int"]
+    """<p>The timestamp when the most recent refresh of the telemetry pipeline started. This field is only present for external-cloud pipelines that you have refreshed.</p>"""
+    source_progress: NotRequired[
+        "capo_observabilityadmin.types.source_progress.SourceProgress"
+    ]
+    """<p>The progress of source activation for the telemetry pipeline. This field is only present for external-cloud pipelines.</p>"""
+    configuration_summary: NotRequired[
+        "capo_observabilityadmin.types.configuration_summary.ConfigurationSummary"
+    ]
+    """<p>A summary of the pipeline configuration components.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -81,6 +93,24 @@ def serialize_json(value: TelemetryPipeline) -> dict:
         out["Tags"] = capo_observabilityadmin.types.tag_map_output.serialize_json(
             value["tags"]
         )
+    if "last_refresh_time_stamp" in value:
+        out["LastRefreshTimeStamp"] = value["last_refresh_time_stamp"]
+    if "source_progress" in value:
+        import capo_observabilityadmin.types.source_progress
+
+        out["SourceProgress"] = (
+            capo_observabilityadmin.types.source_progress.serialize_json(
+                value["source_progress"]
+            )
+        )
+    if "configuration_summary" in value:
+        import capo_observabilityadmin.types.configuration_summary
+
+        out["ConfigurationSummary"] = (
+            capo_observabilityadmin.types.configuration_summary.serialize_json(
+                value["configuration_summary"]
+            )
+        )
     return out
 
 
@@ -123,5 +153,23 @@ def deserialize_json(data: dict) -> TelemetryPipeline:
 
         out["tags"] = capo_observabilityadmin.types.tag_map_output.deserialize_json(
             data["Tags"]
+        )
+    if data.get("LastRefreshTimeStamp") is not None:
+        out["last_refresh_time_stamp"] = data["LastRefreshTimeStamp"]
+    if data.get("SourceProgress") is not None:
+        import capo_observabilityadmin.types.source_progress
+
+        out["source_progress"] = (
+            capo_observabilityadmin.types.source_progress.deserialize_json(
+                data["SourceProgress"]
+            )
+        )
+    if data.get("ConfigurationSummary") is not None:
+        import capo_observabilityadmin.types.configuration_summary
+
+        out["configuration_summary"] = (
+            capo_observabilityadmin.types.configuration_summary.deserialize_json(
+                data["ConfigurationSummary"]
+            )
         )
     return out

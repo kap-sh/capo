@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_elementalinference.types.clipping_config
     import capo_elementalinference.types.contextual_metadata_config
     import capo_elementalinference.types.cropping_config
+    import capo_elementalinference.types.function_config
     import capo_elementalinference.types.subtitling_config
 
 
@@ -30,11 +31,16 @@ class OutputConfigContextualMetadataMember(TypedDict, closed=True):
     contextualMetadata: "capo_elementalinference.types.contextual_metadata_config.ContextualMetadataConfig"
 
 
+class OutputConfigFunctionMember(TypedDict, closed=True):
+    function: "capo_elementalinference.types.function_config.FunctionConfig"
+
+
 OutputConfig: TypeAlias = (
     OutputConfigCroppingMember
     | OutputConfigClippingMember
     | OutputConfigSubtitlingMember
     | OutputConfigContextualMetadataMember
+    | OutputConfigFunctionMember
     | UnknownUnionMember
 )
 
@@ -77,6 +83,14 @@ def serialize_json(value: OutputConfig) -> dict:
                 value["contextualMetadata"]
             )
         }
+    elif "function" in value:
+        import capo_elementalinference.types.function_config
+
+        return {
+            "function": capo_elementalinference.types.function_config.serialize_json(
+                value["function"]
+            )
+        }
     else:
         raise SerializationError("OutputConfig: no variant present")
 
@@ -112,6 +126,14 @@ def deserialize_json(data: dict) -> OutputConfig:
         return {
             "contextualMetadata": capo_elementalinference.types.contextual_metadata_config.deserialize_json(
                 data["contextualMetadata"]
+            )
+        }
+    elif data.get("function") is not None:
+        import capo_elementalinference.types.function_config
+
+        return {
+            "function": capo_elementalinference.types.function_config.deserialize_json(
+                data["function"]
             )
         }
     else:

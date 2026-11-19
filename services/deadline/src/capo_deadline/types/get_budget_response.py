@@ -30,7 +30,7 @@ class GetBudgetResponse(TypedDict, closed=True):
     )
     """The resource that the budget is tracking usage for."""
     status: "capo_deadline.types.budget_status.BudgetStatus"
-    """<p>The status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code>–Get a budget being evaluated.</p> </li> <li> <p> <code>INACTIVE</code>–Get an inactive budget. This can include expired, canceled, or deleted statuses.</p> </li> </ul>"""
+    """<p>The status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code> - Get a budget being evaluated.</p> </li> <li> <p> <code>INACTIVE</code> - Get an inactive budget. This can include expired, canceled, or deleted statuses.</p> </li> </ul>"""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the budget.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     approximate_dollar_limit: (

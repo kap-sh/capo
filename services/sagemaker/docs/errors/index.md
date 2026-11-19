@@ -2,6 +2,7 @@
 
 - [ConflictException](ConflictException.md)
 - [DeserializationError](DeserializationError.md)
+- [ResourceAlreadyExists](ResourceAlreadyExists.md)
 - [ResourceInUse](ResourceInUse.md)
 - [ResourceLimitExceeded](ResourceLimitExceeded.md)
 - [ResourceNotFound](ResourceNotFound.md)

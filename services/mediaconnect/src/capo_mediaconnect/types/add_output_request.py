@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.ndi_output_timecode_source
     import capo_mediaconnect.types.output_status
     import capo_mediaconnect.types.protocol
+    import capo_mediaconnect.types.rtmp_push_output_settings
     import capo_mediaconnect.types.state
     import capo_mediaconnect.types.vpc_interface_attachment
 
@@ -76,6 +77,10 @@ class AddOutputRequest(TypedDict, closed=True):
         "capo_mediaconnect.types.ndi_audio_reference_level.NdiAudioReferenceLevel"
     ]
     """<p>The audio reference level of the NDI receiver, in decibels relative to full scale (dBFS). Common values are <code>-20</code> (NDI and SMPTE) and <code>-18</code> (EBU). If you don't specify this field, MediaConnect uses <code>-20</code>.</p>"""
+    rtmp_push_settings: NotRequired[
+        "capo_mediaconnect.types.rtmp_push_output_settings.RtmpPushOutputSettings"
+    ]
+    """<p>The settings for an output that pushes a stream to a destination using the RTMP (Real-Time Messaging Protocol) protocol, or RTMPS (RTMP over TLS) when TLS encryption is specified.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -175,6 +180,14 @@ def serialize_json(value: AddOutputRequest) -> dict:
         )
     if "ndi_audio_reference_level" in value:
         out["ndiAudioReferenceLevel"] = value["ndi_audio_reference_level"]
+    if "rtmp_push_settings" in value:
+        import capo_mediaconnect.types.rtmp_push_output_settings
+
+        out["rtmpPushSettings"] = (
+            capo_mediaconnect.types.rtmp_push_output_settings.serialize_json(
+                value["rtmp_push_settings"]
+            )
+        )
     return out
 
 
@@ -278,4 +291,12 @@ def deserialize_json(data: dict) -> AddOutputRequest:
         )
     if data.get("ndiAudioReferenceLevel") is not None:
         out["ndi_audio_reference_level"] = data["ndiAudioReferenceLevel"]
+    if data.get("rtmpPushSettings") is not None:
+        import capo_mediaconnect.types.rtmp_push_output_settings
+
+        out["rtmp_push_settings"] = (
+            capo_mediaconnect.types.rtmp_push_output_settings.deserialize_json(
+                data["rtmpPushSettings"]
+            )
+        )
     return out

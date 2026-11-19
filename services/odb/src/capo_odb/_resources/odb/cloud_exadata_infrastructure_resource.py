@@ -40,6 +40,8 @@ if TYPE_CHECKING:
     import capo_odb.types.string_list
     import capo_odb.types.update_cloud_exadata_infrastructure_input
     import capo_odb.types.update_cloud_exadata_infrastructure_output
+    import capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_input
+    import capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_output
     import capo_odb.types.update_exascale_cloud_exadata_infrastructure_input
     import capo_odb.types.update_exascale_cloud_exadata_infrastructure_output
     from capo_odb._services.async_odb import AsyncodbClient, AsyncodbClientConfig
@@ -234,14 +236,23 @@ class CloudExadataInfrastructureResource:
         cloud_exadata_infrastructure_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
         *,
         config_overrides: Optional[odbClientConfig] = None,
+        display_name: Optional[
+            "capo_odb.types.resource_display_name.ResourceDisplayName"
+        ] = None,
+        compute_count: Optional[int] = None,
         maintenance_window: Optional[
             "capo_odb.types.maintenance_window.MaintenanceWindow"
         ] = None,
+        storage_count: Optional[int] = None,
     ) -> "capo_odb.types.update_cloud_exadata_infrastructure_output.UpdateCloudExadataInfrastructureOutput":
         """<p>Updates the properties of an Exadata infrastructure resource.</p>
 
         Args:
             cloud_exadata_infrastructure_id: <p>The unique identifier of the Exadata infrastructure to update.</p>
+            display_name: <p>A new user-friendly name for the Exadata infrastructure.</p>
+            compute_count: <p>The number of database servers for the Exadata infrastructure.</p>
+            maintenance_window: <p>The maintenance window configuration for the Exadata Cloud infrastructure.</p> <p>This allows you to define when maintenance operations such as patching and updates can be performed on the infrastructure.</p>
+            storage_count: <p>The number of storage servers to activate for the Exadata infrastructure.</p>
 
         Raises:
             capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
@@ -273,8 +284,14 @@ class CloudExadataInfrastructureResource:
         input_: capo_odb.types.update_cloud_exadata_infrastructure_input.UpdateCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
+        if display_name is not None:
+            input_["display_name"] = display_name
+        if compute_count is not None:
+            input_["compute_count"] = compute_count
         if maintenance_window is not None:
             input_["maintenance_window"] = maintenance_window
+        if storage_count is not None:
+            input_["storage_count"] = storage_count
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -559,6 +576,57 @@ class CloudExadataInfrastructureResource:
         response.response.close()
         return response.output
 
+    def update_cloud_exadata_infrastructure_storage_capacity(
+        self,
+        cloud_exadata_infrastructure_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
+        *,
+        config_overrides: Optional[odbClientConfig] = None,
+    ) -> "capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_output.UpdateCloudExadataInfrastructureStorageCapacityOutput":
+        """<p>Adds storage capacity to the specified Exadata infrastructure.</p>
+
+        Args:
+            cloud_exadata_infrastructure_id: <p>The unique identifier or Amazon Resource Name (ARN) of the Exadata infrastructure to update.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_input.UpdateCloudExadataInfrastructureStorageCapacityInput]",
+        ) -> OperationResponse[
+            "capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_output.UpdateCloudExadataInfrastructureStorageCapacityOutput"
+        ]:
+            import capo_odb._operations.odb.update_cloud_exadata_infrastructure_storage_capacity
+
+            output, http_response = (
+                capo_odb._operations.odb.update_cloud_exadata_infrastructure_storage_capacity.update_cloud_exadata_infrastructure_storage_capacity(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCloudExadataInfrastructureStorageCapacity"),
+        )
+        input_: capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_input.UpdateCloudExadataInfrastructureStorageCapacityInput = {
+            "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def update_exascale_cloud_exadata_infrastructure(
         self,
         cloud_exadata_infrastructure_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
@@ -808,14 +876,23 @@ class AsyncCloudExadataInfrastructureResource:
         cloud_exadata_infrastructure_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
         *,
         config_overrides: Optional[AsyncodbClientConfig] = None,
+        display_name: Optional[
+            "capo_odb.types.resource_display_name.ResourceDisplayName"
+        ] = None,
+        compute_count: Optional[int] = None,
         maintenance_window: Optional[
             "capo_odb.types.maintenance_window.MaintenanceWindow"
         ] = None,
+        storage_count: Optional[int] = None,
     ) -> "capo_odb.types.update_cloud_exadata_infrastructure_output.UpdateCloudExadataInfrastructureOutput":
         """<p>Updates the properties of an Exadata infrastructure resource.</p>
 
         Args:
             cloud_exadata_infrastructure_id: <p>The unique identifier of the Exadata infrastructure to update.</p>
+            display_name: <p>A new user-friendly name for the Exadata infrastructure.</p>
+            compute_count: <p>The number of database servers for the Exadata infrastructure.</p>
+            maintenance_window: <p>The maintenance window configuration for the Exadata Cloud infrastructure.</p> <p>This allows you to define when maintenance operations such as patching and updates can be performed on the infrastructure.</p>
+            storage_count: <p>The number of storage servers to activate for the Exadata infrastructure.</p>
 
         Raises:
             capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
@@ -848,8 +925,14 @@ class AsyncCloudExadataInfrastructureResource:
         input_: capo_odb.types.update_cloud_exadata_infrastructure_input.UpdateCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
+        if display_name is not None:
+            input_["display_name"] = display_name
+        if compute_count is not None:
+            input_["compute_count"] = compute_count
         if maintenance_window is not None:
             input_["maintenance_window"] = maintenance_window
+        if storage_count is not None:
+            input_["storage_count"] = storage_count
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1132,6 +1215,58 @@ class AsyncCloudExadataInfrastructureResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_cloud_exadata_infrastructure_storage_capacity(
+        self,
+        cloud_exadata_infrastructure_id: "capo_odb.types.resource_id_or_arn.ResourceIdOrArn",
+        *,
+        config_overrides: Optional[AsyncodbClientConfig] = None,
+    ) -> "capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_output.UpdateCloudExadataInfrastructureStorageCapacityOutput":
+        """<p>Adds storage capacity to the specified Exadata infrastructure.</p>
+
+        Args:
+            cloud_exadata_infrastructure_id: <p>The unique identifier or Amazon Resource Name (ARN) of the Exadata infrastructure to update.</p>
+
+        Raises:
+            capo_odb.errors.access_denied_exception.AccessDeniedException: <p>You don't have sufficient access to perform this action. Make sure you have the required permissions and try again.</p>
+            capo_odb.errors.conflict_exception.ConflictException: <p>Occurs when a conflict with the current status of your resource. Fix any inconsistencies with your resource and try again.</p>
+            capo_odb.errors.internal_server_exception.InternalServerException: <p>Occurs when there is an internal failure in the Oracle Database@Amazon Web Services service. Wait and try again.</p>
+            capo_odb.errors.resource_not_found_exception.ResourceNotFoundException: <p>The operation tried to access a resource that doesn't exist. Make sure you provided the correct resource and try again.</p>
+            capo_odb.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_odb.errors.validation_exception.ValidationException: <p>The request has failed validation because it is missing required fields or has invalid inputs.</p>
+            capo_odb.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_input.UpdateCloudExadataInfrastructureStorageCapacityInput]",
+        ) -> AsyncOperationResponse[
+            "capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_output.UpdateCloudExadataInfrastructureStorageCapacityOutput"
+        ]:
+            import capo_odb._operations.odb.update_cloud_exadata_infrastructure_storage_capacity
+
+            (
+                output,
+                http_response,
+            ) = await capo_odb._operations.odb.update_cloud_exadata_infrastructure_storage_capacity.async_update_cloud_exadata_infrastructure_storage_capacity(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCloudExadataInfrastructureStorageCapacity"),
+        )
+        input_: capo_odb.types.update_cloud_exadata_infrastructure_storage_capacity_input.UpdateCloudExadataInfrastructureStorageCapacityInput = {
+            "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

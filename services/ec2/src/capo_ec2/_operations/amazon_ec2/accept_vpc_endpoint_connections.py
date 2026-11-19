@@ -13,6 +13,7 @@ import capo_ec2._auth._sigv4
 import capo_ec2._protocol.eventstream
 import capo_ec2.types.accept_vpc_endpoint_connections_request
 import capo_ec2.types.accept_vpc_endpoint_connections_result
+import capo_ec2.types.transit_gateway_attachment_id_list
 import capo_ec2.types.unsuccessful_item_set
 import capo_ec2.types.vpc_endpoint_id_list
 from capo_ec2._protocol.errors import parse_error_metadata

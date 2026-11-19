@@ -34,6 +34,7 @@ from capo_sesv2._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_sesv2.types.account_shared_pool_delivery_mode
     import capo_sesv2.types.additional_contact_email_addresses
     import capo_sesv2.types.amazon_resource_name
     import capo_sesv2.types.archive_arn
@@ -264,6 +265,8 @@ if TYPE_CHECKING:
     import capo_sesv2.types.pricing_plan
     import capo_sesv2.types.put_account_dedicated_ip_warmup_attributes_request
     import capo_sesv2.types.put_account_dedicated_ip_warmup_attributes_response
+    import capo_sesv2.types.put_account_delivery_attributes_request
+    import capo_sesv2.types.put_account_delivery_attributes_response
     import capo_sesv2.types.put_account_details_request
     import capo_sesv2.types.put_account_details_response
     import capo_sesv2.types.put_account_pricing_attributes_request
@@ -328,6 +331,7 @@ if TYPE_CHECKING:
     import capo_sesv2.types.sending_options
     import capo_sesv2.types.sending_pool_name
     import capo_sesv2.types.sending_status
+    import capo_sesv2.types.shared_pool_delivery_mode
     import capo_sesv2.types.success_redirection_url
     import capo_sesv2.types.suppression_list_reason
     import capo_sesv2.types.suppression_list_reasons
@@ -5165,6 +5169,53 @@ class AsyncSESv2Client:
         await response.response.aclose()
         return response.output
 
+    async def put_account_delivery_attributes(
+        self,
+        shared_pool_delivery_mode: "capo_sesv2.types.account_shared_pool_delivery_mode.AccountSharedPoolDeliveryMode",
+        *,
+        config_overrides: Optional[AsyncSESv2ClientConfig] = None,
+    ) -> "capo_sesv2.types.put_account_delivery_attributes_response.PutAccountDeliveryAttributesResponse":
+        """<p>Set the shared pool delivery mode for your Amazon SES account in the current Amazon Web Services Region. The mode controls whether Amazon SES can deliver your email from shared IP addresses in other Amazon Web Services Regions within the same Amazon Web Services partition.</p> <p>A change may take a few minutes to take effect. Messages that are already queued for delivery keep the mode that they were sent with.</p>
+
+        Args:
+            shared_pool_delivery_mode: <p>The shared pool delivery mode for your Amazon SES account in the current Amazon Web Services Region. This mode applies to email that you send from shared IP addresses. Can be one of the following:</p> <ul> <li> <p> <code>GLOBAL</code> – Amazon SES delivers from your sending Region first and, when it improves your deliverability, also uses Amazon SES shared IP addresses with established sending history in other Amazon Web Services Regions within the same Amazon Web Services partition.</p> </li> <li> <p> <code>REGIONAL</code> – Amazon SES delivers your email only from shared IP addresses in your sending Region.</p> </li> </ul>
+
+        Raises:
+            capo_sesv2.errors.bad_request_exception.BadRequestException: <p>The input you provided is invalid.</p>
+            capo_sesv2.errors.too_many_requests_exception.TooManyRequestsException: <p>Too many requests have been made to the operation.</p>
+            capo_sesv2.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_sesv2.types.put_account_delivery_attributes_request.PutAccountDeliveryAttributesRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_sesv2.types.put_account_delivery_attributes_response.PutAccountDeliveryAttributesResponse"
+        ]:
+            import capo_sesv2._operations.simple_email_service_v2.put_account_delivery_attributes
+
+            (
+                output,
+                http_response,
+            ) = await capo_sesv2._operations.simple_email_service_v2.put_account_delivery_attributes.async_put_account_delivery_attributes(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountDeliveryAttributes")
+        )
+        input_: capo_sesv2.types.put_account_delivery_attributes_request.PutAccountDeliveryAttributesRequest = {
+            "shared_pool_delivery_mode": shared_pool_delivery_mode
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def put_account_details(
         self,
         mail_type: "capo_sesv2.types.mail_type.MailType",
@@ -5189,7 +5240,7 @@ class AsyncSESv2Client:
         Args:
             mail_type: <p>The type of email your account will send.</p>
             website_url: <p>The URL of your website. This information helps us better understand the type of content that you plan to send.</p>
-            contact_language: <p>The language you would prefer to be contacted with.</p>
+            contact_language: <p>The language you would prefer to be contacted with. The contact language can be one of <code>EN</code> or <code>JA</code>.</p>
             use_case_description: <p>A description of the types of email that you plan to send.</p>
             additional_contact_email_addresses: <p>Additional email addresses that you would like to be notified regarding Amazon SES matters.</p>
             production_access_enabled: <p>Indicates whether or not your account should have production access in the current Amazon Web Services Region.</p> <p>If the value is <code>false</code>, then your account is in the <i>sandbox</i>. When your account is in the sandbox, you can only send email to verified identities. </p> <p>If the value is <code>true</code>, then your account has production access. When your account has production access, you can send email to any address. The sending quota and maximum sending rate for your account vary based on your specific use case.</p>
@@ -5517,14 +5568,18 @@ class AsyncSESv2Client:
         max_delivery_seconds: Optional[
             "capo_sesv2.types.max_delivery_seconds.MaxDeliverySeconds"
         ] = None,
+        shared_pool_delivery_mode: Optional[
+            "capo_sesv2.types.shared_pool_delivery_mode.SharedPoolDeliveryMode"
+        ] = None,
     ) -> "capo_sesv2.types.put_configuration_set_delivery_options_response.PutConfigurationSetDeliveryOptionsResponse":
         """<p>Associate a configuration set with a dedicated IP pool. You can use dedicated IP pools to create groups of dedicated IP addresses for sending specific types of email.</p>
 
         Args:
             configuration_set_name: <p>The name of the configuration set to associate with a dedicated IP pool.</p>
-            tls_policy: <p>Specifies whether messages that use the configuration set are required to use Transport Layer Security (TLS). If the value is <code>Require</code>, messages are only delivered if a TLS connection can be established. If the value is <code>Optional</code>, messages can be delivered in plain text if a TLS connection can't be established.</p>
+            tls_policy: <p>Specifies whether messages that use the configuration set are required to use Transport Layer Security (TLS). If the value is <code>REQUIRE</code>, messages are only delivered if a TLS connection can be established. If the value is <code>OPTIONAL</code>, messages can be delivered in plain text if a TLS connection can't be established.</p>
             sending_pool_name: <p>The name of the dedicated IP pool to associate with the configuration set.</p>
             max_delivery_seconds: <p>The maximum amount of time, in seconds, that Amazon SES API v2 will attempt delivery of email. If specified, the value must greater than or equal to 300 seconds (5 minutes) and less than or equal to 50400 seconds (840 minutes). </p>
+            shared_pool_delivery_mode: <p>The shared pool delivery mode for email that you send with the configuration set from shared IP addresses. This setting overrides the shared pool delivery mode of your account. Can be one of the following:</p> <ul> <li> <p> <code>GLOBAL</code> – Amazon SES delivers from your sending Region first and, when it improves your deliverability, also uses Amazon SES shared IP addresses with established sending history in other Amazon Web Services Regions within the same Amazon Web Services partition.</p> </li> <li> <p> <code>REGIONAL</code> – Amazon SES delivers your email only from shared IP addresses in your sending Region.</p> </li> <li> <p> <code>ACCOUNT</code> – The configuration set uses the shared pool delivery mode of your account.</p> </li> </ul> <p>If you don't specify a value, the current value doesn't change.</p>
 
         Raises:
             capo_sesv2.errors.bad_request_exception.BadRequestException: <p>The input you provided is invalid.</p>
@@ -5560,6 +5615,8 @@ class AsyncSESv2Client:
             input_["sending_pool_name"] = sending_pool_name
         if max_delivery_seconds is not None:
             input_["max_delivery_seconds"] = max_delivery_seconds
+        if shared_pool_delivery_mode is not None:
+            input_["shared_pool_delivery_mode"] = shared_pool_delivery_mode
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -6309,7 +6366,7 @@ class AsyncSESv2Client:
         Args:
             email_identity: <p>The verified email identity.</p>
             mail_from_domain: <p> The custom MAIL FROM domain that you want the verified identity to use. The MAIL FROM domain must meet the following criteria:</p> <ul> <li> <p>It has to be a subdomain of the verified identity.</p> </li> <li> <p>It can't be used to receive email.</p> </li> <li> <p>It can't be used in a "From" address if the MAIL FROM domain is a destination for feedback forwarding emails.</p> </li> </ul>
-            behavior_on_mx_failure: <p>The action to take if the required MX record isn't found when you send an email. When you set this value to <code>UseDefaultValue</code>, the mail is sent using <i>amazonses.com</i> as the MAIL FROM domain. When you set this value to <code>RejectMessage</code>, the Amazon SES API v2 returns a <code>MailFromDomainNotVerified</code> error, and doesn't attempt to deliver the email.</p> <p>These behaviors are taken when the custom MAIL FROM domain configuration is in the <code>Pending</code>, <code>Failed</code>, and <code>TemporaryFailure</code> states.</p>
+            behavior_on_mx_failure: <p>The action to take if the required MX record isn't found when you send an email. When you set this value to <code>USE_DEFAULT_VALUE</code>, the mail is sent using <i>amazonses.com</i> as the MAIL FROM domain. When you set this value to <code>REJECT_MESSAGE</code>, the Amazon SES API v2 returns a <code>MailFromDomainNotVerifiedException</code> error, and doesn't attempt to deliver the email.</p> <p>These behaviors are taken when the custom MAIL FROM domain configuration is in the <code>PENDING</code>, <code>FAILED</code>, and <code>TEMPORARY_FAILURE</code> states.</p>
 
         Raises:
             capo_sesv2.errors.bad_request_exception.BadRequestException: <p>The input you provided is invalid.</p>
@@ -6508,7 +6565,7 @@ class AsyncSESv2Client:
             reply_to_addresses: <p>The "Reply-to" email addresses for the message. When the recipient replies to the message, each Reply-to address receives the reply.</p>
             feedback_forwarding_email_address: <p>The address that you want bounce and complaint notifications to be sent to.</p>
             feedback_forwarding_email_address_identity_arn: <p>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to use the email address specified in the <code>FeedbackForwardingEmailAddress</code> parameter.</p> <p>For example, if the owner of example.com (which has ARN arn:aws:ses:us-east-1:123456789012:identity/example.com) attaches a policy to it that authorizes you to use feedback@example.com, then you would specify the <code>FeedbackForwardingEmailAddressIdentityArn</code> to be arn:aws:ses:us-east-1:123456789012:identity/example.com, and the <code>FeedbackForwardingEmailAddress</code> to be feedback@example.com.</p> <p>For more information about sending authorization, see the <a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer Guide</a>.</p>
-            default_email_tags: <p>A list of tags, in the form of name/value pairs, to apply to an email that you send using the <code>SendEmail</code> operation. Tags correspond to characteristics of the email that you define, so that you can publish email sending events.</p>
+            default_email_tags: <p>A list of tags, in the form of name/value pairs, to apply to an email that you send using the <code>SendBulkEmail</code> operation. Tags correspond to characteristics of the email that you define, so that you can publish email sending events.</p>
             default_content: <p>An object that contains the body of the message. You can specify a template message.</p>
             bulk_email_entries: <p>The list of bulk email entry objects.</p>
             configuration_set_name: <p>The name of the configuration set to use when sending the email.</p>

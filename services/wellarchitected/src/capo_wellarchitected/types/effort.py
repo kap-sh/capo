@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The level of effort required to implement a recommendation.</p>"""
 Effort: TypeAlias = Literal[
     "LARGE",
     "MEDIUM",

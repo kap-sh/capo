@@ -14,6 +14,7 @@ import capo_scheduler._auth._sigv4
 import capo_scheduler._protocol.eventstream
 import capo_scheduler.errors.internal_server_exception
 import capo_scheduler.errors.resource_not_found_exception
+import capo_scheduler.errors.service_quota_exceeded_exception
 import capo_scheduler.errors.throttling_exception
 import capo_scheduler.errors.validation_exception
 import capo_scheduler.types.creation_date
@@ -44,6 +45,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_scheduler.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
+                data, message, response=response
+            )
+        case "ServiceQuotaExceededException":
+            raise capo_scheduler.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
                 data, message, response=response
             )
         case "ThrottlingException":

@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.reference_min_version
     import capo_sagemaker.types.sage_maker_public_hub_content_arn
     import capo_sagemaker.types.timestamp
+    import capo_sagemaker.types.user_context
 
 
 class DescribeHubContentResponse(TypedDict, closed=True):
@@ -95,6 +96,10 @@ class DescribeHubContentResponse(TypedDict, closed=True):
     """<p>The date and time that hub content was created.</p>"""
     last_modified_time: NotRequired["capo_sagemaker.types.timestamp.Timestamp"]
     """<p>The last modified time of the hub content.</p>"""
+    created_by: NotRequired["capo_sagemaker.types.user_context.UserContext"]
+    """<p>Information about the user who created the hub content.</p>"""
+    last_modified_by: NotRequired["capo_sagemaker.types.user_context.UserContext"]
+    """<p>Information about the user who last modified the hub content.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -177,6 +182,20 @@ def serialize_aws_json_1_1(value: DescribeHubContentResponse) -> dict:
 
         out["LastModifiedTime"] = capo_sagemaker.types.timestamp.serialize_aws_json_1_1(
             value["last_modified_time"]
+        )
+    if "created_by" in value:
+        import capo_sagemaker.types.user_context
+
+        out["CreatedBy"] = capo_sagemaker.types.user_context.serialize_aws_json_1_1(
+            value["created_by"]
+        )
+    if "last_modified_by" in value:
+        import capo_sagemaker.types.user_context
+
+        out["LastModifiedBy"] = (
+            capo_sagemaker.types.user_context.serialize_aws_json_1_1(
+                value["last_modified_by"]
+            )
         )
     return out
 
@@ -261,6 +280,20 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeHubContentResponse:
         out["last_modified_time"] = (
             capo_sagemaker.types.timestamp.deserialize_aws_json_1_1(
                 data["LastModifiedTime"]
+            )
+        )
+    if data.get("CreatedBy") is not None:
+        import capo_sagemaker.types.user_context
+
+        out["created_by"] = capo_sagemaker.types.user_context.deserialize_aws_json_1_1(
+            data["CreatedBy"]
+        )
+    if data.get("LastModifiedBy") is not None:
+        import capo_sagemaker.types.user_context
+
+        out["last_modified_by"] = (
+            capo_sagemaker.types.user_context.deserialize_aws_json_1_1(
+                data["LastModifiedBy"]
             )
         )
     return out

@@ -39,10 +39,13 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.get_dataset_request
     import capo_bedrock_agentcore_control.types.get_dataset_response
     import capo_bedrock_agentcore_control.types.kms_key_arn
+    import capo_bedrock_agentcore_control.types.list_dataset_examples_filter
     import capo_bedrock_agentcore_control.types.list_dataset_examples_request
     import capo_bedrock_agentcore_control.types.list_dataset_examples_response
+    import capo_bedrock_agentcore_control.types.list_dataset_versions_filter
     import capo_bedrock_agentcore_control.types.list_dataset_versions_request
     import capo_bedrock_agentcore_control.types.list_dataset_versions_response
+    import capo_bedrock_agentcore_control.types.list_datasets_filter
     import capo_bedrock_agentcore_control.types.list_datasets_request
     import capo_bedrock_agentcore_control.types.list_datasets_response
     import capo_bedrock_agentcore_control.types.sensitive_json
@@ -68,14 +71,18 @@ class Dataset:
     def create(
         self,
         dataset_name: "capo_bedrock_agentcore_control.types.dataset_name.DatasetName",
-        source: "capo_bedrock_agentcore_control.types.data_source_type.DataSourceType",
-        schema_type: "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
         *,
         config_overrides: Optional[BedrockAgentCoreControlClientConfig] = None,
         client_token: Optional[
             "capo_bedrock_agentcore_control.types.client_token.ClientToken"
         ] = None,
         description: Optional[str] = None,
+        source: Optional[
+            "capo_bedrock_agentcore_control.types.data_source_type.DataSourceType"
+        ] = None,
+        schema_type: Optional[
+            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType"
+        ] = None,
         kms_key_arn: Optional[
             "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
         ] = None,
@@ -130,15 +137,17 @@ class Dataset:
             OperationLogging("CreateDataset", redact_input=_redact_input),
         )
         input_: capo_bedrock_agentcore_control.types.create_dataset_request.CreateDatasetRequest = {
-            "dataset_name": dataset_name,
-            "source": source,
-            "schema_type": schema_type,
+            "dataset_name": dataset_name
         }
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
         if description is not None:
             input_["description"] = description
+        if source is not None:
+            input_["source"] = source
+        if schema_type is not None:
+            input_["schema_type"] = schema_type
         if kms_key_arn is not None:
             input_["kms_key_arn"] = kms_key_arn
         if tags is not None:
@@ -339,12 +348,16 @@ class Dataset:
         self,
         *,
         config_overrides: Optional[BedrockAgentCoreControlClientConfig] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_datasets_filter.ListDatasetsFilter"
+        ] = None,
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_datasets_response.ListDatasetsResponse":
         """<p> Lists all datasets in the caller's account, paginated. </p>
 
         Args:
+            filter: <p> A filter to apply to the datasets. </p>
             next_token: <p> The token for the next page of results. </p>
             max_results: <p> The maximum number of datasets to return per page. </p>
 
@@ -374,6 +387,8 @@ class Dataset:
             config_overrides, OperationLogging("ListDatasets")
         )
         input_: capo_bedrock_agentcore_control.types.list_datasets_request.ListDatasetsRequest = {}
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:
@@ -584,14 +599,18 @@ class Dataset:
         dataset_version: Optional[
             "capo_bedrock_agentcore_control.types.dataset_version.DatasetVersion"
         ] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_dataset_examples_filter.ListDatasetExamplesFilter"
+        ] = None,
         max_results: Optional[int] = None,
         next_token: Optional[str] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_dataset_examples_response.ListDatasetExamplesResponse":
-        """<p> Returns paginated examples from the dataset. The server embeds the resolved version in the pagination token. Once pagination begins, all subsequent pages are pinned to that version regardless of concurrent mutations. </p>
+        """<p> Returns paginated examples from the dataset. The server embeds the resolved version in the pagination token. Once pagination begins, all subsequent pages are pinned to that version regardless of concurrent mutations. A request with a pagination token can omit <code>datasetVersion</code>. If it sets a version that differs from the token's version, the request fails with a <code>ValidationException</code>. </p>
 
         Args:
             dataset_id: <p> The unique identifier of the dataset. </p>
-            dataset_version: <p> Version to paginate: "DRAFT" or a version number. Defaults to DRAFT if absent. Only used on the first request; for subsequent pages, the version is extracted from the pagination token. </p>
+            dataset_version: <p> Version to paginate: "DRAFT" or a version number. Defaults to DRAFT if absent on the first request. With a pagination token, the version comes from the token: you can omit this member, and a value that differs from the token's version is rejected with a <code>ValidationException</code>. </p>
+            filter: <p> A filter to apply to the examples. </p>
             max_results: <p> Maximum number of examples to return per page. </p>
             next_token: <p> The token for the next page of results. </p>
 
@@ -637,6 +656,8 @@ class Dataset:
         }
         if dataset_version is not None:
             input_["dataset_version"] = dataset_version
+        if filter is not None:
+            input_["filter"] = filter
         if max_results is not None:
             input_["max_results"] = max_results
         if next_token is not None:
@@ -655,6 +676,9 @@ class Dataset:
         dataset_id: "capo_bedrock_agentcore_control.types.dataset_id.DatasetId",
         *,
         config_overrides: Optional[BedrockAgentCoreControlClientConfig] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_dataset_versions_filter.ListDatasetVersionsFilter"
+        ] = None,
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_dataset_versions_response.ListDatasetVersionsResponse":
@@ -662,6 +686,7 @@ class Dataset:
 
         Args:
             dataset_id: <p> The unique identifier of the dataset. </p>
+            filter: <p> A filter to apply to the dataset versions. </p>
             next_token: <p> The token for the next page of results. </p>
             max_results: <p> The maximum number of versions to return per page. </p>
 
@@ -694,6 +719,8 @@ class Dataset:
         input_: capo_bedrock_agentcore_control.types.list_dataset_versions_request.ListDatasetVersionsRequest = {
             "dataset_id": dataset_id
         }
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:
@@ -786,14 +813,18 @@ class AsyncDataset:
     async def create(
         self,
         dataset_name: "capo_bedrock_agentcore_control.types.dataset_name.DatasetName",
-        source: "capo_bedrock_agentcore_control.types.data_source_type.DataSourceType",
-        schema_type: "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
         client_token: Optional[
             "capo_bedrock_agentcore_control.types.client_token.ClientToken"
         ] = None,
         description: Optional[str] = None,
+        source: Optional[
+            "capo_bedrock_agentcore_control.types.data_source_type.DataSourceType"
+        ] = None,
+        schema_type: Optional[
+            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType"
+        ] = None,
         kms_key_arn: Optional[
             "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
         ] = None,
@@ -849,15 +880,17 @@ class AsyncDataset:
             OperationLogging("CreateDataset", redact_input=_redact_input),
         )
         input_: capo_bedrock_agentcore_control.types.create_dataset_request.CreateDatasetRequest = {
-            "dataset_name": dataset_name,
-            "source": source,
-            "schema_type": schema_type,
+            "dataset_name": dataset_name
         }
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
         if description is not None:
             input_["description"] = description
+        if source is not None:
+            input_["source"] = source
+        if schema_type is not None:
+            input_["schema_type"] = schema_type
         if kms_key_arn is not None:
             input_["kms_key_arn"] = kms_key_arn
         if tags is not None:
@@ -1061,12 +1094,16 @@ class AsyncDataset:
         self,
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_datasets_filter.ListDatasetsFilter"
+        ] = None,
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_datasets_response.ListDatasetsResponse":
         """<p> Lists all datasets in the caller's account, paginated. </p>
 
         Args:
+            filter: <p> A filter to apply to the datasets. </p>
             next_token: <p> The token for the next page of results. </p>
             max_results: <p> The maximum number of datasets to return per page. </p>
 
@@ -1097,6 +1134,8 @@ class AsyncDataset:
             config_overrides, OperationLogging("ListDatasets")
         )
         input_: capo_bedrock_agentcore_control.types.list_datasets_request.ListDatasetsRequest = {}
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:
@@ -1310,14 +1349,18 @@ class AsyncDataset:
         dataset_version: Optional[
             "capo_bedrock_agentcore_control.types.dataset_version.DatasetVersion"
         ] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_dataset_examples_filter.ListDatasetExamplesFilter"
+        ] = None,
         max_results: Optional[int] = None,
         next_token: Optional[str] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_dataset_examples_response.ListDatasetExamplesResponse":
-        """<p> Returns paginated examples from the dataset. The server embeds the resolved version in the pagination token. Once pagination begins, all subsequent pages are pinned to that version regardless of concurrent mutations. </p>
+        """<p> Returns paginated examples from the dataset. The server embeds the resolved version in the pagination token. Once pagination begins, all subsequent pages are pinned to that version regardless of concurrent mutations. A request with a pagination token can omit <code>datasetVersion</code>. If it sets a version that differs from the token's version, the request fails with a <code>ValidationException</code>. </p>
 
         Args:
             dataset_id: <p> The unique identifier of the dataset. </p>
-            dataset_version: <p> Version to paginate: "DRAFT" or a version number. Defaults to DRAFT if absent. Only used on the first request; for subsequent pages, the version is extracted from the pagination token. </p>
+            dataset_version: <p> Version to paginate: "DRAFT" or a version number. Defaults to DRAFT if absent on the first request. With a pagination token, the version comes from the token: you can omit this member, and a value that differs from the token's version is rejected with a <code>ValidationException</code>. </p>
+            filter: <p> A filter to apply to the examples. </p>
             max_results: <p> Maximum number of examples to return per page. </p>
             next_token: <p> The token for the next page of results. </p>
 
@@ -1364,6 +1407,8 @@ class AsyncDataset:
         }
         if dataset_version is not None:
             input_["dataset_version"] = dataset_version
+        if filter is not None:
+            input_["filter"] = filter
         if max_results is not None:
             input_["max_results"] = max_results
         if next_token is not None:
@@ -1382,6 +1427,9 @@ class AsyncDataset:
         dataset_id: "capo_bedrock_agentcore_control.types.dataset_id.DatasetId",
         *,
         config_overrides: Optional[AsyncBedrockAgentCoreControlClientConfig] = None,
+        filter: Optional[
+            "capo_bedrock_agentcore_control.types.list_dataset_versions_filter.ListDatasetVersionsFilter"
+        ] = None,
         next_token: Optional[str] = None,
         max_results: Optional[int] = None,
     ) -> "capo_bedrock_agentcore_control.types.list_dataset_versions_response.ListDatasetVersionsResponse":
@@ -1389,6 +1437,7 @@ class AsyncDataset:
 
         Args:
             dataset_id: <p> The unique identifier of the dataset. </p>
+            filter: <p> A filter to apply to the dataset versions. </p>
             next_token: <p> The token for the next page of results. </p>
             max_results: <p> The maximum number of versions to return per page. </p>
 
@@ -1422,6 +1471,8 @@ class AsyncDataset:
         input_: capo_bedrock_agentcore_control.types.list_dataset_versions_request.ListDatasetVersionsRequest = {
             "dataset_id": dataset_id
         }
+        if filter is not None:
+            input_["filter"] = filter
         if next_token is not None:
             input_["next_token"] = next_token
         if max_results is not None:

@@ -36,22 +36,29 @@ if TYPE_CHECKING:
     import capo_mgn.types.ec2_instance_type
     import capo_mgn.types.finalize_cutover_request
     import capo_mgn.types.fqdn_for_action_framework
+    import capo_mgn.types.get_launch_configuration_defaults_request
+    import capo_mgn.types.get_launch_configuration_defaults_response
     import capo_mgn.types.get_launch_configuration_request
     import capo_mgn.types.get_replication_configuration_request
     import capo_mgn.types.internet_protocol
     import capo_mgn.types.launch_configuration
     import capo_mgn.types.launch_disposition
     import capo_mgn.types.licensing
+    import capo_mgn.types.list_remote_source_action_invocation_results_request
+    import capo_mgn.types.list_remote_source_action_invocation_results_response
     import capo_mgn.types.list_source_server_actions_request
     import capo_mgn.types.list_source_server_actions_response
     import capo_mgn.types.mark_as_archived_request
     import capo_mgn.types.max_results_type
     import capo_mgn.types.operating_system_string
     import capo_mgn.types.order_type
+    import capo_mgn.types.outpost_snapshot_location
     import capo_mgn.types.pagination_token
     import capo_mgn.types.pause_replication_request
+    import capo_mgn.types.positive_integer
     import capo_mgn.types.post_launch_actions
     import capo_mgn.types.put_source_server_action_request
+    import capo_mgn.types.remote_source_action_invocation_result
     import capo_mgn.types.remove_source_server_action_request
     import capo_mgn.types.remove_source_server_action_response
     import capo_mgn.types.replication_configuration
@@ -69,6 +76,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.source_server_actions_request_filters
     import capo_mgn.types.source_server_connector_action
     import capo_mgn.types.source_server_id
+    import capo_mgn.types.source_server_volume_configuration
     import capo_mgn.types.ssm_document_external_parameters
     import capo_mgn.types.ssm_document_parameters
     import capo_mgn.types.start_cutover_request
@@ -82,12 +90,15 @@ if TYPE_CHECKING:
     import capo_mgn.types.storage_configuration
     import capo_mgn.types.strictly_positive_integer
     import capo_mgn.types.subnet_id
+    import capo_mgn.types.tag_key
     import capo_mgn.types.tag_value
     import capo_mgn.types.tags_map
     import capo_mgn.types.target_instance_type_right_sizing_method
     import capo_mgn.types.terminate_target_instances_request
     import capo_mgn.types.terminate_target_instances_request_source_server_i_ds
     import capo_mgn.types.terminate_target_instances_response
+    import capo_mgn.types.update_launch_configuration_defaults_request
+    import capo_mgn.types.update_launch_configuration_defaults_response
     import capo_mgn.types.update_launch_configuration_request
     import capo_mgn.types.update_replication_configuration_request
     import capo_mgn.types.update_source_server_replication_type_request
@@ -533,6 +544,57 @@ class SourceServerResource:
         response.response.close()
         return response.output
 
+    def get_launch_configuration_defaults(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[mgnClientConfig] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.get_launch_configuration_defaults_response.GetLaunchConfigurationDefaultsResponse":
+        """<p>Gets the launch configuration defaults of a source server: the Amazon Elastic Block Store (Amazon EBS) volume configuration used for the disk mappings created later in the source server's Amazon Elastic Compute Cloud (Amazon EC2) launch template.</p>
+
+        Args:
+            source_server_id: <p>Request to get the launch configuration defaults by Source Server ID.</p>
+            account_id: <p>Request to get the launch configuration defaults by Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mgn.types.get_launch_configuration_defaults_request.GetLaunchConfigurationDefaultsRequest]",
+        ) -> OperationResponse[
+            "capo_mgn.types.get_launch_configuration_defaults_response.GetLaunchConfigurationDefaultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.get_launch_configuration_defaults
+
+            output, http_response = (
+                capo_mgn._operations.application_migration_service.get_launch_configuration_defaults.get_launch_configuration_defaults(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLaunchConfigurationDefaults")
+        )
+        input_: capo_mgn.types.get_launch_configuration_defaults_request.GetLaunchConfigurationDefaultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def get_replication_configuration(
         self,
         source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
@@ -582,6 +644,66 @@ class SourceServerResource:
         input_: capo_mgn.types.get_replication_configuration_request.GetReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_remote_source_action_invocation_results(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[mgnClientConfig] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.list_remote_source_action_invocation_results_response.ListRemoteSourceActionInvocationResultsResponse":
+        """<p>Lists the latest invocation result of each source action that ran on a source server.</p>
+
+        Args:
+            source_server_id: <p>The unique identifier of the source server to list invocation results for.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mgn.types.list_remote_source_action_invocation_results_request.ListRemoteSourceActionInvocationResultsRequest]",
+        ) -> OperationResponse[
+            "capo_mgn.types.list_remote_source_action_invocation_results_response.ListRemoteSourceActionInvocationResultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_remote_source_action_invocation_results
+
+            output, http_response = (
+                capo_mgn._operations.application_migration_service.list_remote_source_action_invocation_results.list_remote_source_action_invocation_results(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListRemoteSourceActionInvocationResults"),
+        )
+        input_: capo_mgn.types.list_remote_source_action_invocation_results_request.ListRemoteSourceActionInvocationResultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
         if account_id is not None:
             input_["account_id"] = account_id
 
@@ -1188,6 +1310,7 @@ class SourceServerResource:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
     ) -> "capo_mgn.types.launch_configuration.LaunchConfiguration":
         """<p>Updates multiple LaunchConfigurations by Source Server ID.</p> <note> <p>bootMode valid values are <code>LEGACY_BIOS | UEFI | USE_SOURCE</code> </p> </note>
@@ -1203,6 +1326,7 @@ class SourceServerResource:
             boot_mode: <p>Update Launch configuration boot mode request.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration map auto tagging key.</p>
             account_id: <p>Update Launch configuration Account ID.</p>
 
         Raises:
@@ -1255,8 +1379,79 @@ class SourceServerResource:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if account_id is not None:
             input_["account_id"] = account_id
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_launch_configuration_defaults(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[mgnClientConfig] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+        small_volume_max_size: Optional[
+            "capo_mgn.types.positive_integer.PositiveInteger"
+        ] = None,
+        small_volume_configuration: Optional[
+            "capo_mgn.types.source_server_volume_configuration.SourceServerVolumeConfiguration"
+        ] = None,
+        large_volume_configuration: Optional[
+            "capo_mgn.types.source_server_volume_configuration.SourceServerVolumeConfiguration"
+        ] = None,
+    ) -> "capo_mgn.types.update_launch_configuration_defaults_response.UpdateLaunchConfigurationDefaultsResponse":
+        """<p>Updates the launch configuration defaults of a source server. They apply only to disk mappings created later in the source server's Amazon Elastic Compute Cloud (Amazon EC2) launch template, and members you omit keep their current values.</p>
+
+        Args:
+            source_server_id: <p>Request to update the launch configuration defaults by Source Server ID.</p>
+            account_id: <p>Request to update the launch configuration defaults by Account ID.</p>
+            small_volume_max_size: <p>Disks up to this size, in GiB, use the small volume configuration, and larger disks use the large one. <code>0</code> means every disk uses the large one. If you omit it, the current value is kept.</p>
+            small_volume_configuration: <p>Volume configuration for disks up to <code>smallVolumeMaxSize</code>. If you omit it, the current one is kept. If you send it, it replaces the current one: fields you omit are cleared, and an empty configuration, <code>{}</code>, clears all of them.</p>
+            large_volume_configuration: <p>Volume configuration for disks larger than <code>smallVolumeMaxSize</code>. If you omit it, the current one is kept. If you send it, it replaces the current one: fields you omit are cleared, and an empty configuration, <code>{}</code>, clears all of them.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_mgn.types.update_launch_configuration_defaults_request.UpdateLaunchConfigurationDefaultsRequest]",
+        ) -> OperationResponse[
+            "capo_mgn.types.update_launch_configuration_defaults_response.UpdateLaunchConfigurationDefaultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.update_launch_configuration_defaults
+
+            output, http_response = (
+                capo_mgn._operations.application_migration_service.update_launch_configuration_defaults.update_launch_configuration_defaults(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLaunchConfigurationDefaults")
+        )
+        input_: capo_mgn.types.update_launch_configuration_defaults_request.UpdateLaunchConfigurationDefaultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if account_id is not None:
+            input_["account_id"] = account_id
+        if small_volume_max_size is not None:
+            input_["small_volume_max_size"] = small_volume_max_size
+        if small_volume_configuration is not None:
+            input_["small_volume_configuration"] = small_volume_configuration
+        if large_volume_configuration is not None:
+            input_["large_volume_configuration"] = large_volume_configuration
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1305,6 +1500,9 @@ class SourceServerResource:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -1331,6 +1529,7 @@ class SourceServerResource:
             account_id: <p>Update replication configuration Account ID request.</p>
             internet_protocol: <p>Update replication configuration internet protocol.</p>
             store_snapshot_on_local_zone: <p>Update replication configuration store snapshot on local zone.</p>
+            outpost_snapshot_location: <p>Updates the location of replication snapshots when the staging area subnet is on an AWS Outpost. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Update replication configuration storage configuration.</p>
 
         Raises:
@@ -1427,6 +1626,8 @@ class SourceServerResource:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 
@@ -2165,6 +2366,58 @@ class AsyncSourceServerResource:
         await response.response.aclose()
         return response.output
 
+    async def get_launch_configuration_defaults(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.get_launch_configuration_defaults_response.GetLaunchConfigurationDefaultsResponse":
+        """<p>Gets the launch configuration defaults of a source server: the Amazon Elastic Block Store (Amazon EBS) volume configuration used for the disk mappings created later in the source server's Amazon Elastic Compute Cloud (Amazon EC2) launch template.</p>
+
+        Args:
+            source_server_id: <p>Request to get the launch configuration defaults by Source Server ID.</p>
+            account_id: <p>Request to get the launch configuration defaults by Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.get_launch_configuration_defaults_request.GetLaunchConfigurationDefaultsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.get_launch_configuration_defaults_response.GetLaunchConfigurationDefaultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.get_launch_configuration_defaults
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.get_launch_configuration_defaults.async_get_launch_configuration_defaults(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLaunchConfigurationDefaults")
+        )
+        input_: capo_mgn.types.get_launch_configuration_defaults_request.GetLaunchConfigurationDefaultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
     async def get_replication_configuration(
         self,
         source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
@@ -2215,6 +2468,67 @@ class AsyncSourceServerResource:
         input_: capo_mgn.types.get_replication_configuration_request.GetReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
+        if account_id is not None:
+            input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def list_remote_source_action_invocation_results(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        max_results: Optional["capo_mgn.types.max_results_type.MaxResultsType"] = None,
+        next_token: Optional["capo_mgn.types.pagination_token.PaginationToken"] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+    ) -> "capo_mgn.types.list_remote_source_action_invocation_results_response.ListRemoteSourceActionInvocationResultsResponse":
+        """<p>Lists the latest invocation result of each source action that ran on a source server.</p>
+
+        Args:
+            source_server_id: <p>The unique identifier of the source server to list invocation results for.</p>
+            max_results: <p>The maximum number of results to return in a single call.</p>
+            next_token: <p>The token for the next page of results.</p>
+            account_id: <p>Account ID.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.list_remote_source_action_invocation_results_request.ListRemoteSourceActionInvocationResultsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.list_remote_source_action_invocation_results_response.ListRemoteSourceActionInvocationResultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.list_remote_source_action_invocation_results
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.list_remote_source_action_invocation_results.async_list_remote_source_action_invocation_results(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListRemoteSourceActionInvocationResults"),
+        )
+        input_: capo_mgn.types.list_remote_source_action_invocation_results_request.ListRemoteSourceActionInvocationResultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
         if account_id is not None:
             input_["account_id"] = account_id
 
@@ -2830,6 +3144,7 @@ class AsyncSourceServerResource:
         ] = None,
         enable_map_auto_tagging: Optional[bool] = None,
         map_auto_tagging_mpe_id: Optional["capo_mgn.types.tag_value.TagValue"] = None,
+        map_auto_tagging_key: Optional["capo_mgn.types.tag_key.TagKey"] = None,
         account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
     ) -> "capo_mgn.types.launch_configuration.LaunchConfiguration":
         """<p>Updates multiple LaunchConfigurations by Source Server ID.</p> <note> <p>bootMode valid values are <code>LEGACY_BIOS | UEFI | USE_SOURCE</code> </p> </note>
@@ -2845,6 +3160,7 @@ class AsyncSourceServerResource:
             boot_mode: <p>Update Launch configuration boot mode request.</p>
             enable_map_auto_tagging: <p>Enable map auto tagging.</p>
             map_auto_tagging_mpe_id: <p>Launch configuration map auto tagging MPE ID.</p>
+            map_auto_tagging_key: <p>Launch configuration map auto tagging key.</p>
             account_id: <p>Update Launch configuration Account ID.</p>
 
         Raises:
@@ -2898,8 +3214,80 @@ class AsyncSourceServerResource:
             input_["enable_map_auto_tagging"] = enable_map_auto_tagging
         if map_auto_tagging_mpe_id is not None:
             input_["map_auto_tagging_mpe_id"] = map_auto_tagging_mpe_id
+        if map_auto_tagging_key is not None:
+            input_["map_auto_tagging_key"] = map_auto_tagging_key
         if account_id is not None:
             input_["account_id"] = account_id
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def update_launch_configuration_defaults(
+        self,
+        source_server_id: "capo_mgn.types.source_server_id.SourceServerID",
+        *,
+        config_overrides: Optional[AsyncmgnClientConfig] = None,
+        account_id: Optional["capo_mgn.types.account_id.AccountID"] = None,
+        small_volume_max_size: Optional[
+            "capo_mgn.types.positive_integer.PositiveInteger"
+        ] = None,
+        small_volume_configuration: Optional[
+            "capo_mgn.types.source_server_volume_configuration.SourceServerVolumeConfiguration"
+        ] = None,
+        large_volume_configuration: Optional[
+            "capo_mgn.types.source_server_volume_configuration.SourceServerVolumeConfiguration"
+        ] = None,
+    ) -> "capo_mgn.types.update_launch_configuration_defaults_response.UpdateLaunchConfigurationDefaultsResponse":
+        """<p>Updates the launch configuration defaults of a source server. They apply only to disk mappings created later in the source server's Amazon Elastic Compute Cloud (Amazon EC2) launch template, and members you omit keep their current values.</p>
+
+        Args:
+            source_server_id: <p>Request to update the launch configuration defaults by Source Server ID.</p>
+            account_id: <p>Request to update the launch configuration defaults by Account ID.</p>
+            small_volume_max_size: <p>Disks up to this size, in GiB, use the small volume configuration, and larger disks use the large one. <code>0</code> means every disk uses the large one. If you omit it, the current value is kept.</p>
+            small_volume_configuration: <p>Volume configuration for disks up to <code>smallVolumeMaxSize</code>. If you omit it, the current one is kept. If you send it, it replaces the current one: fields you omit are cleared, and an empty configuration, <code>{}</code>, clears all of them.</p>
+            large_volume_configuration: <p>Volume configuration for disks larger than <code>smallVolumeMaxSize</code>. If you omit it, the current one is kept. If you send it, it replaces the current one: fields you omit are cleared, and an empty configuration, <code>{}</code>, clears all of them.</p>
+
+        Raises:
+            capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found exception.</p>
+            capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException: <p>Uninitialized account exception.</p>
+            capo_mgn.errors.validation_exception.ValidationException: <p>Validate exception.</p>
+            capo_mgn.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_mgn.types.update_launch_configuration_defaults_request.UpdateLaunchConfigurationDefaultsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_mgn.types.update_launch_configuration_defaults_response.UpdateLaunchConfigurationDefaultsResponse"
+        ]:
+            import capo_mgn._operations.application_migration_service.update_launch_configuration_defaults
+
+            (
+                output,
+                http_response,
+            ) = await capo_mgn._operations.application_migration_service.update_launch_configuration_defaults.async_update_launch_configuration_defaults(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLaunchConfigurationDefaults")
+        )
+        input_: capo_mgn.types.update_launch_configuration_defaults_request.UpdateLaunchConfigurationDefaultsRequest = {
+            "source_server_id": source_server_id
+        }
+        if account_id is not None:
+            input_["account_id"] = account_id
+        if small_volume_max_size is not None:
+            input_["small_volume_max_size"] = small_volume_max_size
+        if small_volume_configuration is not None:
+            input_["small_volume_configuration"] = small_volume_configuration
+        if large_volume_configuration is not None:
+            input_["large_volume_configuration"] = large_volume_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2948,6 +3336,9 @@ class AsyncSourceServerResource:
             "capo_mgn.types.internet_protocol.InternetProtocol"
         ] = None,
         store_snapshot_on_local_zone: Optional[bool] = None,
+        outpost_snapshot_location: Optional[
+            "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+        ] = None,
         storage_configuration: Optional[
             "capo_mgn.types.storage_configuration.StorageConfiguration"
         ] = None,
@@ -2974,6 +3365,7 @@ class AsyncSourceServerResource:
             account_id: <p>Update replication configuration Account ID request.</p>
             internet_protocol: <p>Update replication configuration internet protocol.</p>
             store_snapshot_on_local_zone: <p>Update replication configuration store snapshot on local zone.</p>
+            outpost_snapshot_location: <p>Updates the location of replication snapshots when the staging area subnet is on an AWS Outpost. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>
             storage_configuration: <p>Update replication configuration storage configuration.</p>
 
         Raises:
@@ -3071,6 +3463,8 @@ class AsyncSourceServerResource:
             input_["internet_protocol"] = internet_protocol
         if store_snapshot_on_local_zone is not None:
             input_["store_snapshot_on_local_zone"] = store_snapshot_on_local_zone
+        if outpost_snapshot_location is not None:
+            input_["outpost_snapshot_location"] = outpost_snapshot_location
         if storage_configuration is not None:
             input_["storage_configuration"] = storage_configuration
 

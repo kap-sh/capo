@@ -45,13 +45,13 @@ class GetJobResponse(TypedDict, closed=True):
     created_by: "capo_deadline.types.created_by.CreatedBy"
     """The user or system that created this resource."""
     updated_at: NotRequired["capo_deadline.types.updated_at.UpdatedAt"]
-    """The date and time the resource was updated."""
+    """The date and time the resource was updated. Task status changes don't update this value."""
     updated_by: NotRequired["capo_deadline.types.updated_by.UpdatedBy"]
     """The user or system that updated this resource."""
     started_at: NotRequired["capo_deadline.types.started_at.StartedAt"]
-    """The date and time the resource started running."""
+    """The date and time the resource started running. Requeuing the job doesn't change this value."""
     ended_at: NotRequired["capo_deadline.types.ended_at.EndedAt"]
-    """The date and time the resource ended running."""
+    """The date and time the resource ended running. Returned only when the job has finished."""
     task_run_status: NotRequired["capo_deadline.types.task_run_status.TaskRunStatus"]
     """The task run status for the job."""
     target_task_run_status: NotRequired[

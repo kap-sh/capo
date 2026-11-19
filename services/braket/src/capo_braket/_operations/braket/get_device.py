@@ -18,6 +18,7 @@ import capo_braket.errors.resource_not_found_exception
 import capo_braket.errors.throttling_exception
 import capo_braket.errors.validation_exception
 import capo_braket.types.device_queue_info_list
+import capo_braket.types.device_status_reason
 import capo_braket.types.get_device_request
 import capo_braket.types.get_device_response
 from capo_braket._protocol.errors import parse_error_metadata_json

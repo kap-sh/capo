@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_appstream.types.agent_access_setting_list
     import capo_appstream.types.boolean_object
+    import capo_appstream.types.kms_key_arn
     import capo_appstream.types.s3_bucket_arn
     import capo_appstream.types.screen_image_format
     import capo_appstream.types.screen_resolution
@@ -17,13 +18,19 @@ class AgentAccessConfig(TypedDict, closed=True):
     settings: NotRequired[
         "capo_appstream.types.agent_access_setting_list.AgentAccessSettingList"
     ]
-    """<p>The list of agent access settings that define permissions for each agent action. You must specify at least one setting.</p>"""
+    """<p>The list of agent access settings that define permissions for each agent action. You must specify at least one setting, and at least one agent action must be enabled.</p>"""
     s3_bucket_arn: NotRequired["capo_appstream.types.s3_bucket_arn.S3BucketArn"]
-    """<p>The Amazon Resource Name (ARN) of the Amazon S3 bucket where agent screenshots are stored. Required when ScreenshotsUploadEnabled is true.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the Amazon S3 bucket where agent screenshots and Replay Session artifacts are stored. Required when ScreenshotsUploadEnabled or ReplaySessionEnabled is true.</p>"""
     screenshots_upload_enabled: NotRequired[
         "capo_appstream.types.boolean_object.BooleanObject"
     ]
     """<p>Indicates whether screenshot uploads to Amazon S3 are enabled for agent sessions.</p>"""
+    replay_session_enabled: NotRequired[
+        "capo_appstream.types.boolean_object.BooleanObject"
+    ]
+    """<p>Indicates whether Replay Session is enabled for agent sessions. WorkSpaces Applications delivers a video combining session screenshots, a transcript, and a report for each session. Requires the COMPUTER_VISION agent action.</p>"""
+    kms_key_arn: NotRequired["capo_appstream.types.kms_key_arn.KmsKeyArn"]
+    """<p>The Amazon Resource Name (ARN) of the customer managed symmetric encryption KMS key that encrypts Replay Session artifacts while WorkSpaces Applications processes them. The key must be in the same Region as the stack, and ReplaySessionEnabled must be true.</p>"""
     screen_resolution: NotRequired[
         "capo_appstream.types.screen_resolution.ScreenResolution"
     ]
@@ -53,6 +60,10 @@ def serialize_aws_json_1_1(value: AgentAccessConfig) -> dict:
         out["S3BucketArn"] = value["s3_bucket_arn"]
     if "screenshots_upload_enabled" in value:
         out["ScreenshotsUploadEnabled"] = value["screenshots_upload_enabled"]
+    if "replay_session_enabled" in value:
+        out["ReplaySessionEnabled"] = value["replay_session_enabled"]
+    if "kms_key_arn" in value:
+        out["KmsKeyArn"] = value["kms_key_arn"]
     if "screen_resolution" in value:
         import capo_appstream.types.screen_resolution
 
@@ -94,6 +105,10 @@ def deserialize_aws_json_1_1(data: dict) -> AgentAccessConfig:
         out["s3_bucket_arn"] = data["S3BucketArn"]
     if data.get("ScreenshotsUploadEnabled") is not None:
         out["screenshots_upload_enabled"] = data["ScreenshotsUploadEnabled"]
+    if data.get("ReplaySessionEnabled") is not None:
+        out["replay_session_enabled"] = data["ReplaySessionEnabled"]
+    if data.get("KmsKeyArn") is not None:
+        out["kms_key_arn"] = data["KmsKeyArn"]
     if data.get("ScreenResolution") is not None:
         import capo_appstream.types.screen_resolution
 

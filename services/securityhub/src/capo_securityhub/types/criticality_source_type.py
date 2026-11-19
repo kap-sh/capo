@@ -6,6 +6,8 @@ CriticalitySourceType: TypeAlias = Literal[
     "AutomationRule",
     "ResourceName",
     "TagInference",
+    "CloudWatchTelemetryInference",
+    "InstalledSoftwareAndPackageInference",
 ]
 
 

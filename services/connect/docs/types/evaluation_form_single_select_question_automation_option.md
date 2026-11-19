@@ -12,3 +12,9 @@ title: EvaluationFormSingleSelectQuestionAutomationOption
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_connect.types.evaluation_form_single_select_question_automation_option.EvaluationFormSingleSelectQuestionAutomationOptionAutomationRuleMember
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

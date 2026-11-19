@@ -6,6 +6,7 @@ ConfigurationPolicyAssociationStatus: TypeAlias = Literal[
     "PENDING",
     "SUCCESS",
     "FAILED",
+    "DISABLED",
 ]
 
 

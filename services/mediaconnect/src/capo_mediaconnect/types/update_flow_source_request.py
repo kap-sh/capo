@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.flow_transit_encryption
     import capo_mediaconnect.types.ndi_source_settings
     import capo_mediaconnect.types.protocol
+    import capo_mediaconnect.types.set_rtmp_push_source_settings
     import capo_mediaconnect.types.state
     import capo_mediaconnect.types.update_encryption
     import capo_mediaconnect.types.update_gateway_bridge_source_request
@@ -72,6 +73,10 @@ class UpdateFlowSourceRequest(TypedDict, closed=True):
         "capo_mediaconnect.types.flow_transit_encryption.FlowTransitEncryption"
     ]
     """<p>The encryption configuration for the flow source when router integration is enabled.</p>"""
+    rtmp_push_settings: NotRequired[
+        "capo_mediaconnect.types.set_rtmp_push_source_settings.SetRtmpPushSourceSettings"
+    ]
+    """<p>The settings for the RTMP (Real-Time Messaging Protocol) source.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -153,6 +158,14 @@ def serialize_json(value: UpdateFlowSourceRequest) -> dict:
         out["routerIntegrationTransitDecryption"] = (
             capo_mediaconnect.types.flow_transit_encryption.serialize_json(
                 value["router_integration_transit_decryption"]
+            )
+        )
+    if "rtmp_push_settings" in value:
+        import capo_mediaconnect.types.set_rtmp_push_source_settings
+
+        out["rtmpPushSettings"] = (
+            capo_mediaconnect.types.set_rtmp_push_source_settings.serialize_json(
+                value["rtmp_push_settings"]
             )
         )
     return out
@@ -238,6 +251,14 @@ def deserialize_json(data: dict) -> UpdateFlowSourceRequest:
         out["router_integration_transit_decryption"] = (
             capo_mediaconnect.types.flow_transit_encryption.deserialize_json(
                 data["routerIntegrationTransitDecryption"]
+            )
+        )
+    if data.get("rtmpPushSettings") is not None:
+        import capo_mediaconnect.types.set_rtmp_push_source_settings
+
+        out["rtmp_push_settings"] = (
+            capo_mediaconnect.types.set_rtmp_push_source_settings.deserialize_json(
+                data["rtmpPushSettings"]
             )
         )
     return out

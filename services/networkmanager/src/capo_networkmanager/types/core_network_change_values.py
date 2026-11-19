@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_networkmanager.types.core_network_policy_document
     import capo_networkmanager.types.external_region_code_list
     import capo_networkmanager.types.long
+    import capo_networkmanager.types.multipath_resilience_change_values
     import capo_networkmanager.types.routing_policy_association_details_list
     import capo_networkmanager.types.routing_policy_direction
     import capo_networkmanager.types.service_insertion_action_list
@@ -75,6 +76,10 @@ class CoreNetworkChangeValues(TypedDict, closed=True):
         "capo_networkmanager.types.routing_policy_association_details_list.RoutingPolicyAssociationDetailsList"
     ]
     """<p>The names of the routing policies and other association details in the core network change values.</p>"""
+    multipath_resilience: NotRequired[
+        "capo_networkmanager.types.multipath_resilience_change_values.MultipathResilienceChangeValues"
+    ]
+    """<p>The change in multipath resilience configuration in the core network change values.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -153,6 +158,14 @@ def serialize_json(value: CoreNetworkChangeValues) -> dict:
         out["RoutingPolicyAssociationDetails"] = (
             capo_networkmanager.types.routing_policy_association_details_list.serialize_json(
                 value["routing_policy_association_details"]
+            )
+        )
+    if "multipath_resilience" in value:
+        import capo_networkmanager.types.multipath_resilience_change_values
+
+        out["MultipathResilience"] = (
+            capo_networkmanager.types.multipath_resilience_change_values.serialize_json(
+                value["multipath_resilience"]
             )
         )
     return out
@@ -242,6 +255,14 @@ def deserialize_json(data: dict) -> CoreNetworkChangeValues:
         out["routing_policy_association_details"] = (
             capo_networkmanager.types.routing_policy_association_details_list.deserialize_json(
                 data["RoutingPolicyAssociationDetails"]
+            )
+        )
+    if data.get("MultipathResilience") is not None:
+        import capo_networkmanager.types.multipath_resilience_change_values
+
+        out["multipath_resilience"] = (
+            capo_networkmanager.types.multipath_resilience_change_values.deserialize_json(
+                data["MultipathResilience"]
             )
         )
     return out

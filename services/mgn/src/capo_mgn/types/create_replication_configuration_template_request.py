@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_mgn.types.bandwidth_throttling
     import capo_mgn.types.ec2_instance_type
     import capo_mgn.types.internet_protocol
+    import capo_mgn.types.outpost_snapshot_location
     import capo_mgn.types.replication_configuration_data_plane_routing
     import capo_mgn.types.replication_configuration_default_large_staging_disk_type
     import capo_mgn.types.replication_configuration_ebs_encryption
@@ -51,6 +52,10 @@ class CreateReplicationConfigurationTemplateRequest(TypedDict, closed=True):
     """<p>Request to configure the internet protocol to IPv4 or IPv6.</p>"""
     store_snapshot_on_local_zone: NotRequired["bool"]
     """<p>Request to store snapshot on local zone during Replication Settings template creation.</p>"""
+    outpost_snapshot_location: NotRequired[
+        "capo_mgn.types.outpost_snapshot_location.OutpostSnapshotLocation"
+    ]
+    """<p>Request to set the location of replication snapshots when the staging area subnet is on an AWS Outpost during Replication Settings template creation. Set to <code>OUTPOST</code> to keep replication snapshots on the Outpost, or <code>REGION</code> to store them in the AWS Region. Required when the staging area subnet is on an Outpost, and not allowed otherwise.</p>"""
     storage_configuration: NotRequired[
         "capo_mgn.types.storage_configuration.StorageConfiguration"
     ]
@@ -93,6 +98,8 @@ def serialize_json(value: CreateReplicationConfigurationTemplateRequest) -> dict
         out["internetProtocol"] = value["internet_protocol"]
     if "store_snapshot_on_local_zone" in value:
         out["storeSnapshotOnLocalZone"] = value["store_snapshot_on_local_zone"]
+    if "outpost_snapshot_location" in value:
+        out["outpostSnapshotLocation"] = value["outpost_snapshot_location"]
     if "storage_configuration" in value:
         import capo_mgn.types.storage_configuration
 
@@ -172,6 +179,8 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
         out["internet_protocol"] = data["internetProtocol"]
     if data.get("storeSnapshotOnLocalZone") is not None:
         out["store_snapshot_on_local_zone"] = data["storeSnapshotOnLocalZone"]
+    if data.get("outpostSnapshotLocation") is not None:
+        out["outpost_snapshot_location"] = data["outpostSnapshotLocation"]
     if data.get("storageConfiguration") is not None:
         import capo_mgn.types.storage_configuration
 

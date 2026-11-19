@@ -1,20 +1,37 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#ConflictException``."""
 
+from typing import TYPE_CHECKING
+
 import zapros
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_devops_agent.errors import ServiceError
+
+if TYPE_CHECKING:
+    import capo_devops_agent.types.conflict_exception_reason
 
 
 class ConflictException_(TypedDict, closed=True):
     message: "str"
     """<p>Detailed error message describing the conflict.</p>"""
+    reason: NotRequired[
+        "capo_devops_agent.types.conflict_exception_reason.ConflictExceptionReason"
+    ]
+    """<p>A machine-readable reason code that explains why the request conflicted with the current state of the resource. For example, <code>CHAT_ARCHIVED</code> indicates that the request acted on a chat that is archived. This field is absent when no specific reason applies.</p>"""
 
 
 # --- restJson1 ser/de ---
 def serialize_json(value: ConflictException_) -> dict:
     out: dict = {}
     out["message"] = value["message"]
+    if "reason" in value:
+        import capo_devops_agent.types.conflict_exception_reason
+
+        out["reason"] = (
+            capo_devops_agent.types.conflict_exception_reason.serialize_json(
+                value["reason"]
+            )
+        )
     return out
 
 
@@ -24,6 +41,14 @@ def deserialize_json(data: dict) -> ConflictException_:
         out["message"] = data["message"]
     else:
         out["message"] = ""
+    if data.get("reason") is not None:
+        import capo_devops_agent.types.conflict_exception_reason
+
+        out["reason"] = (
+            capo_devops_agent.types.conflict_exception_reason.deserialize_json(
+                data["reason"]
+            )
+        )
     return out
 
 

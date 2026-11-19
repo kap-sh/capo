@@ -16,7 +16,7 @@ class GetDomainNameAccessAssociationsRequest(TypedDict, closed=True):
     limit: NotRequired["capo_api_gateway.types.nullable_integer.NullableInteger"]
     """<p>The maximum number of returned results per page. The default value is 25 and the maximum value is 500. </p>"""
     resource_owner: NotRequired["capo_api_gateway.types.resource_owner.ResourceOwner"]
-    """<p> The owner of the domain name access association. Use <code>SELF</code> to only list the domain name access associations owned by your own account. Use <code>OTHER_ACCOUNTS</code> to list the domain name access associations with your private custom domain names that are owned by other AWS accounts.</p>"""
+    """<p> The owner of the domain name access association. Use <code>SELF</code> to only list the domain name access associations owned by your own account. Use <code>OTHER_ACCOUNTS</code> to list the domain name access associations with your private custom domain names that are owned by other Amazon Web Services accounts.</p>"""
 
 
 # --- restJson1 ser/de ---

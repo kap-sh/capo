@@ -7,6 +7,8 @@ JobStatus: TypeAlias = Literal[
     "IN_PROGRESS",
     "STOPPING",
     "STOPPED",
+    "PAUSING",
+    "PAUSED",
     "FAILED",
     "COMPLETED",
 ]

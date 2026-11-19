@@ -10,13 +10,14 @@ if TYPE_CHECKING:
     import capo_network_firewall.types.description
     import capo_network_firewall.types.enabled_analysis_types
     import capo_network_firewall.types.encryption_configuration
-    import capo_network_firewall.types.nat_gateway_mappings_list
+    import capo_network_firewall.types.nat_gateway_create_mappings_list
     import capo_network_firewall.types.proxy_settings
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.resource_name
     import capo_network_firewall.types.subnet_mappings
     import capo_network_firewall.types.tag_list
     import capo_network_firewall.types.transit_gateway_id
+    import capo_network_firewall.types.transparent_filtering_nat_scope
     import capo_network_firewall.types.vpc_endpoint
     import capo_network_firewall.types.vpc_id
 
@@ -64,18 +65,20 @@ class CreateFirewallRequest(TypedDict, closed=True):
         "capo_network_firewall.types.boolean.Boolean"
     ]
     """<p>Optional. A setting indicating whether the firewall is protected against changes to its Availability Zone configuration. When set to <code>TRUE</code>, you cannot add or remove Availability Zones without first disabling this protection using <a>UpdateAvailabilityZoneChangeProtection</a>.</p> <p>Default value: <code>FALSE</code> </p>"""
-    nat_gateway_mappings: NotRequired[
-        "capo_network_firewall.types.nat_gateway_mappings_list.NatGatewayMappingsList"
+    nat_gateway_create_mappings: NotRequired[
+        "capo_network_firewall.types.nat_gateway_create_mappings_list.NatGatewayCreateMappingsList"
     ]
-    """<p>The NAT gateways that the firewall uses to proxy traffic when <code>NoSourcePreservation</code> is <code>TRUE</code>. Network Firewall attaches the firewall to each NAT gateway that you specify, so that egress traffic is proxied through the NAT gateway. </p>"""
+    """<p>The NAT gateways that Network Firewall creates for a proxy mode firewall, one for each Availability Zone. When you specify this, you create a proxy mode firewall. Destinations see the IP address of the NAT gateway in the client's Availability Zone as the source of the traffic.</p> <p>Specify one mapping for each Availability Zone in <code>VpcEndpoint</code>, and no other Availability Zones. Each NAT gateway subnet must be in the <code>VpcEndpoint</code> VPC and can't be one of the firewall endpoint subnets.</p> <p>You need permission to call the Amazon EC2 <code>CreateNatGateway</code> action.</p> <p>If Network Firewall can't set up an Availability Zone, for example because Amazon EC2 rejects the NAT gateway, it removes the Availability Zone from the firewall. It also deletes the NAT gateway that it created there. The Availability Zone's <code>Attachment</code> status is <code>FAILED</code>, and its status message explains why. You can add the Availability Zone again with <code>AssociateSubnets</code>. If no Availability Zone can be set up, the firewall status is <code>FAILED</code>.</p>"""
     proxy_settings: NotRequired[
         "capo_network_firewall.types.proxy_settings.ProxySettings"
     ]
-    """<p>The listener configuration for a proxy mode firewall, used when <code>NoSourcePreservation</code> is <code>TRUE</code>. This specifies the ports and protocols on which the firewall's proxy listens for traffic. </p>"""
-    no_source_preservation: NotRequired["capo_network_firewall.types.boolean.Boolean"]
-    """<p>Optional. Indicates whether the firewall operates in proxy mode, in which the source IP address of the traffic is not preserved. When set to <code>TRUE</code>, the firewall proxies traffic through a NAT gateway and the traffic reaching the destination uses the NAT gateway's IP address as the source. </p> <p>When you set this to <code>TRUE</code>, you must specify <code>NatGatewayMappings</code> and <code>VpcEndpoint</code> instead of a top-level <code>VpcId</code> and <code>SubnetMappings</code>. </p> <p>You can't change this setting after you create the firewall. </p> <p>Default value: <code>FALSE</code> </p>"""
+    """<p>The proxy settings for a proxy mode firewall: the ports and protocols on which the firewall's proxy listens for traffic, and optionally your own domain name and certificate. If you don't specify listeners, the firewall listens for HTTP on port 3128 and HTTPS on port 8443.</p> <p>To change the listeners later, use <code>UpdateProxySettings</code>.</p>"""
     vpc_endpoint: NotRequired["capo_network_firewall.types.vpc_endpoint.VpcEndpoint"]
-    """<p>The VPC and subnets for the firewall endpoint, used when <code>NoSourcePreservation</code> is <code>TRUE</code>. Network Firewall creates the firewall endpoint in the subnets that you specify here. </p> <p>For proxy mode firewalls, provide the firewall's VPC and endpoint subnets through this parameter instead of the top-level <code>VpcId</code> and <code>SubnetMappings</code>. </p>"""
+    """<p>The VPC and subnets for the endpoints of a proxy mode firewall. Network Firewall creates a firewall endpoint in each subnet that you specify. It also creates the firewall's NAT gateways in this VPC, in the subnets that you specify in <code>NatGatewayCreateMappings</code>.</p> <p>To create a proxy mode firewall, you must specify <code>VpcEndpoint</code> and <code>NatGatewayCreateMappings</code>, and you must not specify the top-level <code>VpcId</code> and <code>SubnetMappings</code>. Specify one subnet for each Availability Zone where you want to use the firewall.</p>"""
+    transparent_filtering_nat_scope: NotRequired[
+        "capo_network_firewall.types.transparent_filtering_nat_scope.TransparentFilteringNatScope"
+    ]
+    """<p>How a proxy mode firewall handles traffic that isn't sent to its proxy listener. If you don't specify a value, the firewall uses <code>NAT_ALL</code>. You can choose from the following values:</p> <ul> <li> <p> <code>NAT_ALL</code> - After inspection, the firewall sends this traffic out through its NAT gateway, which translates the source address.</p> </li> <li> <p> <code>NAT_NONE</code> - After inspection, the firewall returns this traffic to the firewall endpoint without address translation.</p> </li> </ul> <p>You can specify this only for a proxy mode firewall, and you can't change it after you create the firewall.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -139,12 +142,12 @@ def serialize_aws_json_1_0(value: CreateFirewallRequest) -> dict:
         out["AvailabilityZoneChangeProtection"] = value[
             "availability_zone_change_protection"
         ]
-    if "nat_gateway_mappings" in value:
-        import capo_network_firewall.types.nat_gateway_mappings_list
+    if "nat_gateway_create_mappings" in value:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
 
-        out["NatGatewayMappings"] = (
-            capo_network_firewall.types.nat_gateway_mappings_list.serialize_aws_json_1_0(
-                value["nat_gateway_mappings"]
+        out["NatGatewayCreateMappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.serialize_aws_json_1_0(
+                value["nat_gateway_create_mappings"]
             )
         )
     if "proxy_settings" in value:
@@ -155,14 +158,20 @@ def serialize_aws_json_1_0(value: CreateFirewallRequest) -> dict:
                 value["proxy_settings"]
             )
         )
-    if "no_source_preservation" in value:
-        out["NoSourcePreservation"] = value["no_source_preservation"]
     if "vpc_endpoint" in value:
         import capo_network_firewall.types.vpc_endpoint
 
         out["VpcEndpoint"] = (
             capo_network_firewall.types.vpc_endpoint.serialize_aws_json_1_0(
                 value["vpc_endpoint"]
+            )
+        )
+    if "transparent_filtering_nat_scope" in value:
+        import capo_network_firewall.types.transparent_filtering_nat_scope
+
+        out["TransparentFilteringNatScope"] = (
+            capo_network_firewall.types.transparent_filtering_nat_scope.serialize_aws_json_1_0(
+                value["transparent_filtering_nat_scope"]
             )
         )
     return out
@@ -234,12 +243,12 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallRequest:
         out["availability_zone_change_protection"] = data[
             "AvailabilityZoneChangeProtection"
         ]
-    if data.get("NatGatewayMappings") is not None:
-        import capo_network_firewall.types.nat_gateway_mappings_list
+    if data.get("NatGatewayCreateMappings") is not None:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
 
-        out["nat_gateway_mappings"] = (
-            capo_network_firewall.types.nat_gateway_mappings_list.deserialize_aws_json_1_0(
-                data["NatGatewayMappings"]
+        out["nat_gateway_create_mappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.deserialize_aws_json_1_0(
+                data["NatGatewayCreateMappings"]
             )
         )
     if data.get("ProxySettings") is not None:
@@ -250,14 +259,20 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallRequest:
                 data["ProxySettings"]
             )
         )
-    if data.get("NoSourcePreservation") is not None:
-        out["no_source_preservation"] = data["NoSourcePreservation"]
     if data.get("VpcEndpoint") is not None:
         import capo_network_firewall.types.vpc_endpoint
 
         out["vpc_endpoint"] = (
             capo_network_firewall.types.vpc_endpoint.deserialize_aws_json_1_0(
                 data["VpcEndpoint"]
+            )
+        )
+    if data.get("TransparentFilteringNatScope") is not None:
+        import capo_network_firewall.types.transparent_filtering_nat_scope
+
+        out["transparent_filtering_nat_scope"] = (
+            capo_network_firewall.types.transparent_filtering_nat_scope.deserialize_aws_json_1_0(
+                data["TransparentFilteringNatScope"]
             )
         )
     return out

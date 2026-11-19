@@ -16,6 +16,7 @@ import capo_lambda.errors.invalid_parameter_value_exception
 import capo_lambda.errors.resource_not_found_exception
 import capo_lambda.errors.service_exception
 import capo_lambda.errors.too_many_requests_exception
+import capo_lambda.types.accelerator_config
 import capo_lambda.types.architectures_list
 import capo_lambda.types.capacity_provider_config
 import capo_lambda.types.dead_letter_config
@@ -24,6 +25,7 @@ import capo_lambda.types.environment_response
 import capo_lambda.types.ephemeral_storage
 import capo_lambda.types.file_system_config_list
 import capo_lambda.types.function_configuration
+import capo_lambda.types.function_runtime_config
 import capo_lambda.types.get_function_configuration_request
 import capo_lambda.types.image_config_response
 import capo_lambda.types.last_update_status

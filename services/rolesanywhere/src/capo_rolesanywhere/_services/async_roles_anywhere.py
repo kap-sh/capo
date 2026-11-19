@@ -38,12 +38,14 @@ from capo_rolesanywhere._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_rolesanywhere.types.alias_name
     import capo_rolesanywhere.types.amazon_resource_name
     import capo_rolesanywhere.types.certificate_field
     import capo_rolesanywhere.types.create_profile_request
     import capo_rolesanywhere.types.create_trust_anchor_request
     import capo_rolesanywhere.types.crl_detail
     import capo_rolesanywhere.types.crl_detail_response
+    import capo_rolesanywhere.types.crl_identifier
     import capo_rolesanywhere.types.delete_attribute_mapping_request
     import capo_rolesanywhere.types.delete_attribute_mapping_response
     import capo_rolesanywhere.types.import_crl_request
@@ -60,6 +62,7 @@ if TYPE_CHECKING:
     import capo_rolesanywhere.types.notification_settings
     import capo_rolesanywhere.types.profile_detail
     import capo_rolesanywhere.types.profile_detail_response
+    import capo_rolesanywhere.types.profile_identifier
     import capo_rolesanywhere.types.put_attribute_mapping_request
     import capo_rolesanywhere.types.put_attribute_mapping_response
     import capo_rolesanywhere.types.put_notification_settings_request
@@ -80,9 +83,10 @@ if TYPE_CHECKING:
     import capo_rolesanywhere.types.tag_list
     import capo_rolesanywhere.types.tag_resource_request
     import capo_rolesanywhere.types.tag_resource_response
-    import capo_rolesanywhere.types.trust_anchor_arn
     import capo_rolesanywhere.types.trust_anchor_detail
     import capo_rolesanywhere.types.trust_anchor_detail_response
+    import capo_rolesanywhere.types.trust_anchor_identifier
+    import capo_rolesanywhere.types.trust_anchor_identifier_arn
     import capo_rolesanywhere.types.untag_resource_request
     import capo_rolesanywhere.types.untag_resource_response
     import capo_rolesanywhere.types.update_crl_request
@@ -516,11 +520,12 @@ class AsyncRolesAnywhereClient:
         self,
         name: "capo_rolesanywhere.types.resource_name.ResourceName",
         crl_data: bytes,
-        trust_anchor_arn: "capo_rolesanywhere.types.trust_anchor_arn.TrustAnchorArn",
+        trust_anchor_arn: "capo_rolesanywhere.types.trust_anchor_identifier_arn.TrustAnchorIdentifierArn",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
         enabled: Optional[bool] = None,
         tags: Optional["capo_rolesanywhere.types.tag_list.TagList"] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Imports the certificate revocation list (CRL). A CRL is a list of certificates that have been revoked by the issuing certificate Authority (CA).In order to be properly imported, a CRL must be in PEM format. IAM Roles Anywhere validates against the CRL before issuing credentials. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:ImportCrl</code>. </p>
 
@@ -529,7 +534,8 @@ class AsyncRolesAnywhereClient:
             crl_data: <p>The x509 v3 specified certificate revocation list (CRL).</p>
             enabled: <p>Specifies whether the certificate revocation list (CRL) is enabled.</p>
             tags: <p>A list of tags to attach to the certificate revocation list (CRL).</p>
-            trust_anchor_arn: <p>The ARN of the TrustAnchor the certificate revocation list (CRL) will provide revocation for.</p>
+            trust_anchor_arn: <p>The ARN of the trust anchor that the certificate revocation list (CRL) provides revocation for. Specify the trust anchor ARN that contains the trust anchor ID. This parameter doesn't support alias ARNs. If you specify an alias ARN, the request fails with <code>ResourceNotFoundException</code>.</p>
+            alias_name: <p>An alias for the certificate revocation list (CRL). When you set an alias, the response includes the alias ARN of the CRL in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -572,6 +578,8 @@ class AsyncRolesAnywhereClient:
             input_["enabled"] = enabled
         if tags is not None:
             input_["tags"] = tags
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -583,14 +591,14 @@ class AsyncRolesAnywhereClient:
 
     async def get_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Gets a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource could not be found.</p>
@@ -630,18 +638,20 @@ class AsyncRolesAnywhereClient:
 
     async def update_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
         crl_data: Optional[bytes] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Updates the certificate revocation list (CRL). A CRL is a list of certificates that have been revoked by the issuing certificate authority (CA). IAM Roles Anywhere validates against the CRL before issuing credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
             name: <p>The name of the Crl.</p>
             crl_data: <p>The x509 v3 specified certificate revocation list (CRL).</p>
+            alias_name: <p>The alias for the certificate revocation list (CRL).</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -676,6 +686,8 @@ class AsyncRolesAnywhereClient:
             input_["name"] = name
         if crl_data is not None:
             input_["crl_data"] = crl_data
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -687,14 +699,14 @@ class AsyncRolesAnywhereClient:
 
     async def delete_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Deletes a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -808,14 +820,14 @@ class AsyncRolesAnywhereClient:
 
     async def disable_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Disables a certificate revocation list (CRL).</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -856,14 +868,14 @@ class AsyncRolesAnywhereClient:
 
     async def enable_crl(
         self,
-        crl_id: "capo_rolesanywhere.types.uuid.Uuid",
+        crl_id: "capo_rolesanywhere.types.crl_identifier.CrlIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.crl_detail_response.CrlDetailResponse":
         """<p>Enables a certificate revocation list (CRL). When enabled, certificates stored in the CRL are unauthorized to receive session credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableCrl</code>. </p>
 
         Args:
-            crl_id: <p>The unique identifier of the certificate revocation list (CRL).</p>
+            crl_id: <p>The certificate revocation list (CRL) to act on. You can specify one of the following:</p> <ul> <li> <p>The CRL ID.</p> </li> <li> <p>The CRL ARN.</p> </li> <li> <p>The alias ARN of the CRL.</p> </li> </ul> <p>An ARN must be for a CRL in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -917,6 +929,7 @@ class AsyncRolesAnywhereClient:
         enabled: Optional[bool] = None,
         tags: Optional["capo_rolesanywhere.types.tag_list.TagList"] = None,
         accept_role_session_name: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Creates a <i>profile</i>, a list of the roles that Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:CreateProfile</code>. </p>
 
@@ -930,6 +943,7 @@ class AsyncRolesAnywhereClient:
             enabled: <p>Specifies whether the profile is enabled.</p>
             tags: <p>The tags to attach to the profile.</p>
             accept_role_session_name: <p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>
+            alias_name: <p>An alias for the profile. When you set an alias, the response includes the alias ARN of the profile in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -984,6 +998,8 @@ class AsyncRolesAnywhereClient:
             input_["tags"] = tags
         if accept_role_session_name is not None:
             input_["accept_role_session_name"] = accept_role_session_name
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -995,14 +1011,14 @@ class AsyncRolesAnywhereClient:
 
     async def get_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Gets a profile.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1043,7 +1059,7 @@ class AsyncRolesAnywhereClient:
 
     async def update_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
@@ -1056,17 +1072,19 @@ class AsyncRolesAnywhereClient:
         ] = None,
         duration_seconds: Optional[int] = None,
         accept_role_session_name: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Updates a <i>profile</i>, a list of the roles that IAM Roles Anywhere service is trusted to assume. You use profiles to intersect permissions with IAM managed policies.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             name: <p>The name of the profile.</p>
             session_policy: <p>A session policy that applies to the trust boundary of the vended session credentials. </p>
             role_arns: <p>A list of IAM roles that this profile can assume in a temporary credential request.</p>
             managed_policy_arns: <p>A list of managed policy ARNs that apply to the vended session credentials. </p>
             duration_seconds: <p> Used to determine how long sessions vended using this profile are valid for. See the <code>Expiration</code> section of the <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-create-session.html#credentials-object">CreateSession API documentation</a> page for more details. In requests, if this value is not provided, the default value will be 3600. </p>
             accept_role_session_name: <p>Used to determine if a custom role session name will be accepted in a temporary credential request.</p>
+            alias_name: <p>The alias for the profile.</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1109,6 +1127,8 @@ class AsyncRolesAnywhereClient:
             input_["duration_seconds"] = duration_seconds
         if accept_role_session_name is not None:
             input_["accept_role_session_name"] = accept_role_session_name
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1120,14 +1140,14 @@ class AsyncRolesAnywhereClient:
 
     async def delete_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Deletes a profile.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1241,7 +1261,7 @@ class AsyncRolesAnywhereClient:
 
     async def delete_attribute_mapping(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         certificate_field: "capo_rolesanywhere.types.certificate_field.CertificateField",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
@@ -1252,7 +1272,7 @@ class AsyncRolesAnywhereClient:
         """<p>Delete an entry from the attribute mapping rules enforced by a given profile.</p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             certificate_field: <p>Fields (x509Subject, x509Issuer and x509SAN) within X.509 certificates.</p>
             specifiers: <p>A list of specifiers of a certificate field; for example, CN, OU, UID from a Subject.</p>
 
@@ -1304,14 +1324,14 @@ class AsyncRolesAnywhereClient:
 
     async def disable_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Disables a profile. When disabled, temporary credential requests with this profile fail.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1352,14 +1372,14 @@ class AsyncRolesAnywhereClient:
 
     async def enable_profile(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.profile_detail_response.ProfileDetailResponse":
         """<p>Enables temporary credential requests for a profile. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableProfile</code>. </p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1400,7 +1420,7 @@ class AsyncRolesAnywhereClient:
 
     async def put_attribute_mapping(
         self,
-        profile_id: "capo_rolesanywhere.types.uuid.Uuid",
+        profile_id: "capo_rolesanywhere.types.profile_identifier.ProfileIdentifier",
         certificate_field: "capo_rolesanywhere.types.certificate_field.CertificateField",
         mapping_rules: "capo_rolesanywhere.types.mapping_rules.MappingRules",
         *,
@@ -1409,7 +1429,7 @@ class AsyncRolesAnywhereClient:
         """<p>Put an entry in the attribute mapping rules that will be enforced by a given profile. A mapping specifies a certificate field and one or more specifiers that have contextual meanings.</p>
 
         Args:
-            profile_id: <p>The unique identifier of the profile.</p>
+            profile_id: <p>The profile to act on. You can specify one of the following:</p> <ul> <li> <p>The profile ID.</p> </li> <li> <p>The profile ARN.</p> </li> <li> <p>The alias ARN of the profile.</p> </li> </ul> <p>An ARN must be for a profile in your account and Region.</p>
             certificate_field: <p>Fields (x509Subject, x509Issuer and x509SAN) within X.509 certificates.</p>
             mapping_rules: <p>A list of mapping entries for every supported specifier or sub-field.</p>
 
@@ -1591,6 +1611,7 @@ class AsyncRolesAnywhereClient:
         notification_settings: Optional[
             "capo_rolesanywhere.types.notification_settings.NotificationSettings"
         ] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Creates a trust anchor to establish trust between IAM Roles Anywhere and your certificate authority (CA). You can define a trust anchor as a reference to an Private Certificate Authority (Private CA) or by uploading a CA certificate. Your Amazon Web Services workloads can authenticate with the trust anchor using certificates issued by the CA in exchange for temporary Amazon Web Services credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:CreateTrustAnchor</code>. </p>
 
@@ -1601,6 +1622,7 @@ class AsyncRolesAnywhereClient:
             crl_dp_revocation_enabled: <p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>
             tags: <p>The tags to attach to the trust anchor.</p>
             notification_settings: <p>A list of notification settings to be associated to the trust anchor.</p>
+            alias_name: <p>An alias for the trust anchor. When you set an alias, the response includes the alias ARN of the trust anchor in <code>aliasArn</code>.</p> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p> <p>If you omit this parameter or specify an empty string, the resource is created without an alias.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1651,6 +1673,8 @@ class AsyncRolesAnywhereClient:
             input_["tags"] = tags
         if notification_settings is not None:
             input_["notification_settings"] = notification_settings
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1662,14 +1686,14 @@ class AsyncRolesAnywhereClient:
 
     async def get_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Gets a trust anchor.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:GetTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1711,20 +1735,22 @@ class AsyncRolesAnywhereClient:
 
     async def update_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
         name: Optional["capo_rolesanywhere.types.resource_name.ResourceName"] = None,
         source: Optional["capo_rolesanywhere.types.source.Source"] = None,
         crl_dp_revocation_enabled: Optional[bool] = None,
+        alias_name: Optional["capo_rolesanywhere.types.alias_name.AliasName"] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Updates a trust anchor. You establish trust between IAM Roles Anywhere and your certificate authority (CA) by configuring a trust anchor. You can define a trust anchor as a reference to an Private Certificate Authority (Private CA) or by uploading a CA certificate. Your Amazon Web Services workloads can authenticate with the trust anchor using certificates issued by the CA in exchange for temporary Amazon Web Services credentials.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:UpdateTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
             name: <p>The name of the trust anchor.</p>
             source: <p>The trust anchor type and its related certificate data.</p>
             crl_dp_revocation_enabled: <p>Specifies whether the trust anchor checks certificate revocation status against CRL distribution points.</p>
+            alias_name: <p>The alias for the trust anchor.</p> <p>You can use this parameter in the following ways:</p> <ul> <li> <p>To set or change the alias, specify the new alias name. After the change, the previous alias ARN no longer identifies the resource. You can then assign the previous alias to another resource of the same type. A change can take a short time to take effect for requests that use an alias ARN.</p> </li> <li> <p>To remove the alias, specify an empty string.</p> </li> <li> <p>To keep the current alias, omit this parameter.</p> </li> </ul> <p>An alias name contains 1 to 256 characters. It must begin with a letter (A-Z or a-z). It can contain only letters (A-Z and a-z), numbers (0-9), underscores (_), hyphens (-), and forward slashes (/). A forward slash can appear only between two other characters, so an alias name can't end with a forward slash or contain two in a row. Alias names that begin with <code>aws/</code>, in any combination of uppercase and lowercase letters, are reserved. Alias names are case sensitive.</p> <p>The alias name must be unique among resources of the same type in your account and Region. If another resource of the same type already has the alias, the request fails with a <code>ValidationException</code>. An invalid or reserved alias name also causes a <code>ValidationException</code>.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1761,6 +1787,8 @@ class AsyncRolesAnywhereClient:
             input_["source"] = source
         if crl_dp_revocation_enabled is not None:
             input_["crl_dp_revocation_enabled"] = crl_dp_revocation_enabled
+        if alias_name is not None:
+            input_["alias_name"] = alias_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1772,14 +1800,14 @@ class AsyncRolesAnywhereClient:
 
     async def delete_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Deletes a trust anchor.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DeleteTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1897,14 +1925,14 @@ class AsyncRolesAnywhereClient:
 
     async def disable_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Disables a trust anchor. When disabled, temporary credential requests specifying this trust anchor are unauthorized.</p> <p> <b>Required permissions: </b> <code>rolesanywhere:DisableTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -1945,14 +1973,14 @@ class AsyncRolesAnywhereClient:
 
     async def enable_trust_anchor(
         self,
-        trust_anchor_id: "capo_rolesanywhere.types.uuid.Uuid",
+        trust_anchor_id: "capo_rolesanywhere.types.trust_anchor_identifier.TrustAnchorIdentifier",
         *,
         config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
     ) -> "capo_rolesanywhere.types.trust_anchor_detail_response.TrustAnchorDetailResponse":
         """<p>Enables a trust anchor. When enabled, certificates in the trust anchor chain are authorized for trust validation. </p> <p> <b>Required permissions: </b> <code>rolesanywhere:EnableTrustAnchor</code>. </p>
 
         Args:
-            trust_anchor_id: <p>The unique identifier of the trust anchor.</p>
+            trust_anchor_id: <p>The trust anchor to act on. You can specify one of the following:</p> <ul> <li> <p>The trust anchor ID.</p> </li> <li> <p>The trust anchor ARN.</p> </li> <li> <p>The alias ARN of the trust anchor.</p> </li> </ul> <p>An ARN must be for a trust anchor in your account and Region.</p>
 
         Raises:
             capo_rolesanywhere.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>

@@ -292,6 +292,7 @@ if TYPE_CHECKING:
     import capo_iam.types.marker_type
     import capo_iam.types.max_items_type
     import capo_iam.types.max_password_age_type
+    import capo_iam.types.max_signin_session_duration_type
     import capo_iam.types.mfa_device
     import capo_iam.types.minimum_password_length_type
     import capo_iam.types.minor_version_type
@@ -1419,6 +1420,9 @@ class IAMClient:
         password_reset_required: Optional[
             "capo_iam.types.boolean_type.booleanType"
         ] = None,
+        max_signin_session_duration: Optional[
+            "capo_iam.types.max_signin_session_duration_type.maxSigninSessionDurationType"
+        ] = None,
     ) -> "capo_iam.types.create_login_profile_response.CreateLoginProfileResponse":
         r"""<p>Creates a password for the specified IAM user. A password allows an IAM user to access Amazon Web Services services through the Amazon Web Services Management Console.</p> <p>You can use the CLI, the Amazon Web Services API, or the <b>Users</b> page in the IAM console to create a password for any IAM user. Use <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ChangePassword.html">ChangePassword</a> to update your own existing password in the <b>My Security Credentials</b> page in the Amazon Web Services Management Console.</p> <p>For more information about managing passwords, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html">Managing passwords</a> in the <i>IAM User Guide</i>.</p>
 
@@ -1426,6 +1430,7 @@ class IAMClient:
             user_name: <p>The name of the IAM user to create a password for. The user must already exist.</p> <p>This parameter is optional. If no user name is included, it defaults to the principal making the request. When you make this request with root user credentials, you must use an <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoot.html">AssumeRoot</a> session to omit the user name.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>
             password: <p>The new password for the user.</p> <p>This parameter must be omitted when you make the request with an <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoot.html">AssumeRoot</a> session. It is required in all other cases.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter is a string of characters. That string can include almost any printable ASCII character from the space (<code>\u0020</code>) through the end of the ASCII character range (<code>\u00FF</code>). You can also include the tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>) characters. Any of these characters are valid in a password. However, many tools, such as the Amazon Web Services Management Console, might restrict the ability to type certain characters because they have special meaning within that tool.</p>
             password_reset_required: <p>Specifies whether the user is required to set a new password on next sign-in.</p>
+            max_signin_session_duration: <p>The maximum duration (in seconds) of an Amazon Web Services Sign-In session for this IAM user. This setting can have a value from 1 hour (3600 seconds) to 90 days (7776000 seconds), inclusive. If you do not specify a value, the setting remains unset and the existing sign-in session behavior applies.</p> <note> <p>This setting is not supported for the root user.</p> </note>
 
         Raises:
             capo_iam.errors.entity_already_exists_exception.EntityAlreadyExistsException: <p>The request was rejected because it attempted to create a resource that already exists.</p>
@@ -1474,6 +1479,8 @@ class IAMClient:
             input_["password"] = password
         if password_reset_required is not None:
             input_["password_reset_required"] = password_reset_required
+        if max_signin_session_duration is not None:
+            input_["max_signin_session_duration"] = max_signin_session_duration
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1691,6 +1698,9 @@ class IAMClient:
         max_session_duration: Optional[
             "capo_iam.types.role_max_session_duration_type.roleMaxSessionDurationType"
         ] = None,
+        max_signin_session_duration: Optional[
+            "capo_iam.types.max_signin_session_duration_type.maxSigninSessionDurationType"
+        ] = None,
         permissions_boundary: Optional["capo_iam.types.arn_type.arnType"] = None,
         tags: Optional["capo_iam.types.tag_list_type.tagListType"] = None,
     ) -> "capo_iam.types.create_role_response.CreateRoleResponse":
@@ -1702,6 +1712,7 @@ class IAMClient:
             assume_role_policy_document: <p>The trust relationship policy document that grants an entity permission to assume the role.</p> <p>In IAM, you must provide a JSON policy that has been converted to a string. However, for CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of characters consisting of the following:</p> <ul> <li> <p>Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII character range</p> </li> <li> <p>The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)</p> </li> <li> <p>The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>)</p> </li> </ul> <p> Upon success, the response includes the same trust policy in JSON format.</p>
             description: <p>A description of the role.</p>
             max_session_duration: <p>The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default value of one hour is applied. This setting can have a value from 1 hour to 12 hours.</p> <p>Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or the <code>duration-seconds</code> CLI parameter to request a longer session. The <code>MaxSessionDuration</code> setting determines the maximum duration that can be requested using the <code>DurationSeconds</code> parameter. If users don't specify a value for the <code>DurationSeconds</code> parameter, their security credentials are valid for one hour by default. This applies when you use the <code>AssumeRole*</code> API operations or the <code>assume-role*</code> CLI operations but does not apply when you use those operations to create a console URL. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using IAM roles</a> in the <i>IAM User Guide</i>.</p>
+            max_signin_session_duration: <p>The maximum duration (in seconds) of an Amazon Web Services Sign-In session for users who sign in with this role. This setting can have a value from 1 hour (3600 seconds) to 90 days (7776000 seconds), inclusive. If you do not specify a value, the setting remains unset and the existing sign-in session behavior applies.</p> <p>This setting is independent of <code>MaxSessionDuration</code>.</p>
             permissions_boundary: <p>The ARN of the managed policy that is used to set the permissions boundary for the role.</p> <p>A permissions boundary policy defines the maximum permissions that identity-based policies can grant to an entity, but does not grant permissions. Permissions boundaries do not define the maximum permissions that a resource-based policy can grant to an entity. To learn more, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions boundaries for IAM entities</a> in the <i>IAM User Guide</i>.</p> <p>For more information about policy types, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types">Policy types </a> in the <i>IAM User Guide</i>.</p>
             tags: <p>A list of tags that you want to attach to the new role. Each tag consists of a key name and an associated value. For more information about tagging, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User Guide</i>.</p> <note> <p>If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request fails and the resource is not created.</p> </note>
 
@@ -1748,6 +1759,8 @@ class IAMClient:
             input_["description"] = description
         if max_session_duration is not None:
             input_["max_session_duration"] = max_session_duration
+        if max_signin_session_duration is not None:
+            input_["max_signin_session_duration"] = max_signin_session_duration
         if permissions_boundary is not None:
             input_["permissions_boundary"] = permissions_boundary
         if tags is not None:
@@ -1854,7 +1867,7 @@ class IAMClient:
         Args:
             aws_service_name: <p>The service principal for the Amazon Web Services service to which this role is attached. You use a string similar to a URL but without the http:// in front. For example: <code>elasticbeanstalk.amazonaws.com</code>. </p> <p>Service principals are unique and case-sensitive. To find the exact service principal for your service-linked role, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">Amazon Web Services services that work with IAM</a> in the <i>IAM User Guide</i>. Look for the services that have <b>Yes </b>in the <b>Service-Linked Role</b> column. Choose the <b>Yes</b> link to view the service-linked role documentation for that service.</p>
             description: <p>The description of the role.</p>
-            custom_suffix: <p></p> <p>A string that you provide, which is combined with the service-provided prefix to form the complete role name. If you make multiple requests for the same service, then you must supply a different <code>CustomSuffix</code> for each request. Otherwise the request fails with a duplicate role name error. For example, you could add <code>-1</code> or <code>-debug</code> to the suffix.</p> <p>Some services do not support the <code>CustomSuffix</code> parameter. If you provide an optional suffix and the operation fails, try the operation again without the suffix.</p>
+            custom_suffix: <p/> <p>A string that you provide, which is combined with the service-provided prefix to form the complete role name. If you make multiple requests for the same service, then you must supply a different <code>CustomSuffix</code> for each request. Otherwise the request fails with a duplicate role name error. For example, you could add <code>-1</code> or <code>-debug</code> to the suffix.</p> <p>Some services do not support the <code>CustomSuffix</code> parameter. If you provide an optional suffix and the operation fails, try the operation again without the suffix.</p>
 
         Raises:
             capo_iam.errors.invalid_input_exception.InvalidInputException: <p>The request was rejected because an invalid or out-of-range value was supplied for an input parameter.</p>
@@ -5426,7 +5439,7 @@ class IAMClient:
         """<p>Retrieves the status of your service-linked role deletion. After you use <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteServiceLinkedRole.html">DeleteServiceLinkedRole</a> to submit a service-linked role for deletion, you can use the <code>DeletionTaskId</code> parameter in <code>GetServiceLinkedRoleDeletionStatus</code> to check the status of the deletion. If the deletion fails, this operation returns the reason that it failed, if that information is returned by the service.</p>
 
         Args:
-            deletion_task_id: <p>The deletion task identifier. This identifier is returned by the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteServiceLinkedRole.html">DeleteServiceLinkedRole</a> operation in the format <code>task/aws-service-role/<service-principal-name>/<role-name>/<task-uuid></code>.</p>
+            deletion_task_id: <p>The deletion task identifier. This identifier is returned by the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteServiceLinkedRole.html">DeleteServiceLinkedRole</a> operation in the format <code>task/aws-service-role/&lt;service-principal-name&gt;/&lt;role-name&gt;/&lt;task-uuid&gt;</code>.</p>
 
         Raises:
             capo_iam.errors.invalid_input_exception.InvalidInputException: <p>The request was rejected because an invalid or out-of-range value was supplied for an input parameter.</p>
@@ -10450,7 +10463,7 @@ class IAMClient:
 
         Args:
             minimum_password_length: <p>The minimum number of characters allowed in an IAM user password.</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>6</code>.</p>
-            require_symbols: <p>Specifies whether IAM user passwords must contain at least one of the following non-alphanumeric characters:</p> <p>! @ # $ % ^ & * ( ) _ + - = [ ] { } | '</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>false</code>. The result is that passwords do not require at least one symbol character.</p>
+            require_symbols: <p>Specifies whether IAM user passwords must contain at least one of the following non-alphanumeric characters:</p> <p>! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>false</code>. The result is that passwords do not require at least one symbol character.</p>
             require_numbers: <p>Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>false</code>. The result is that passwords do not require at least one numeric character.</p>
             require_uppercase_characters: <p>Specifies whether IAM user passwords must contain at least one uppercase character from the ISO basic Latin alphabet (A to Z).</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>false</code>. The result is that passwords do not require at least one uppercase character.</p>
             require_lowercase_characters: <p>Specifies whether IAM user passwords must contain at least one lowercase character from the ISO basic Latin alphabet (a to z).</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>false</code>. The result is that passwords do not require at least one lowercase character.</p>
@@ -10691,16 +10704,25 @@ class IAMClient:
         password_reset_required: Optional[
             "capo_iam.types.boolean_object_type.booleanObjectType"
         ] = None,
+        max_signin_session_duration: Optional[
+            "capo_iam.types.max_signin_session_duration_type.maxSigninSessionDurationType"
+        ] = None,
+        reset_max_signin_session_duration: Optional[
+            "capo_iam.types.boolean_object_type.booleanObjectType"
+        ] = None,
     ) -> None:
-        r"""<p>Changes the password for the specified IAM user. You can use the CLI, the Amazon Web Services API, or the <b>Users</b> page in the IAM console to change the password for any IAM user. Use <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ChangePassword.html">ChangePassword</a> to change your own password in the <b>My Security Credentials</b> page in the Amazon Web Services Management Console.</p> <p>For more information about modifying passwords, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html">Managing passwords</a> in the <i>IAM User Guide</i>.</p>
+        r"""<p>Changes the password or the maximum sign-in session duration for the specified IAM user. You can use the CLI, the Amazon Web Services API, or the <b>Users</b> page in the IAM console to change the password for any IAM user. Use <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ChangePassword.html">ChangePassword</a> to change your own password in the <b>My Security Credentials</b> page in the Amazon Web Services Management Console.</p> <p>For more information about modifying passwords, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html">Managing passwords</a> in the <i>IAM User Guide</i>.</p>
 
         Args:
             user_name: <p>The name of the user whose password you want to update.</p> <p>This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-</p>
             password: <p>The new password for the specified IAM user.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of characters consisting of the following:</p> <ul> <li> <p>Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII character range</p> </li> <li> <p>The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)</p> </li> <li> <p>The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>)</p> </li> </ul> <p>However, the format can be further restricted by the account administrator by setting a password policy on the Amazon Web Services account. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAccountPasswordPolicy.html">UpdateAccountPasswordPolicy</a>.</p>
             password_reset_required: <p>Allows this new password to be used only once by requiring the specified IAM user to set a new password on next sign-in.</p>
+            max_signin_session_duration: <p>The maximum duration (in seconds) of an Amazon Web Services Sign-In session for the specified IAM user. This setting can have a value from 1 hour (3600 seconds) to 90 days (7776000 seconds), inclusive, and replaces any value currently configured for the user.</p> <p>If you omit both this parameter and <code>ResetMaxSigninSessionDuration</code>, the current setting is unchanged. You cannot specify this parameter and set <code>ResetMaxSigninSessionDuration</code> to <code>true</code> in the same request. If you update only the sign-in session duration, the user's password and <code>PasswordResetRequired</code> setting do not change.</p> <p>Changes to this setting apply to new sign-in sessions. Sessions that are already established are not affected.</p> <note> <p>This setting is not supported for the root user.</p> </note>
+            reset_max_signin_session_duration: <p>Specifies whether to clear the maximum sign-in session duration for the specified IAM user. Set this value to <code>true</code> to return the setting to its unset state, so that the existing sign-in session behavior applies. When the setting is unset, the user's <code>MaxSigninSessionDuration</code> is omitted from responses.</p> <p>If you set this value to <code>false</code> or omit it, the current setting is not cleared. You cannot set this value to <code>true</code> and specify <code>MaxSigninSessionDuration</code> in the same request. Clearing a setting that is already unset has no effect.</p>
 
         Raises:
             capo_iam.errors.entity_temporarily_unmodifiable_exception.EntityTemporarilyUnmodifiableException: <p>The request was rejected because it referenced an entity that is temporarily unmodifiable, such as a user name that was deleted and then recreated. The error indicates that the request is likely to succeed if you try again after waiting several minutes. The error message describes the entity.</p>
+            capo_iam.errors.invalid_input_exception.InvalidInputException: <p>The request was rejected because an invalid or out-of-range value was supplied for an input parameter.</p>
             capo_iam.errors.limit_exceeded_exception.LimitExceededException: <p>The request was rejected because it attempted to create resources beyond the current Amazon Web Services account limits. The error message describes the limit exceeded.</p>
             capo_iam.errors.no_such_entity_exception.NoSuchEntityException: <p>The request was rejected because it referenced a resource entity that does not exist. The error message describes the resource.</p>
             capo_iam.errors.password_policy_violation_exception.PasswordPolicyViolationException: <p>The request was rejected because the provided password did not meet the requirements imposed by the account password policy.</p>
@@ -10744,6 +10766,12 @@ class IAMClient:
             input_["password"] = password
         if password_reset_required is not None:
             input_["password_reset_required"] = password_reset_required
+        if max_signin_session_duration is not None:
+            input_["max_signin_session_duration"] = max_signin_session_duration
+        if reset_max_signin_session_duration is not None:
+            input_["reset_max_signin_session_duration"] = (
+                reset_max_signin_session_duration
+            )
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -10813,15 +10841,24 @@ class IAMClient:
         max_session_duration: Optional[
             "capo_iam.types.role_max_session_duration_type.roleMaxSessionDurationType"
         ] = None,
+        max_signin_session_duration: Optional[
+            "capo_iam.types.max_signin_session_duration_type.maxSigninSessionDurationType"
+        ] = None,
+        reset_max_signin_session_duration: Optional[
+            "capo_iam.types.boolean_object_type.booleanObjectType"
+        ] = None,
     ) -> "capo_iam.types.update_role_response.UpdateRoleResponse":
-        """<p>Updates the description or maximum session duration setting of a role.</p>
+        """<p>Updates the description, maximum session duration, or maximum sign-in session duration of a role. You cannot change the maximum sign-in session duration of a service-linked role.</p>
 
         Args:
             role_name: <p>The name of the role that you want to modify.</p>
             description: <p>The new description that you want to apply to the specified role.</p>
             max_session_duration: <p>The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default value of one hour is applied. This setting can have a value from 1 hour to 12 hours.</p> <p>Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or the <code>duration-seconds</code> CLI parameter to request a longer session. The <code>MaxSessionDuration</code> setting determines the maximum duration that can be requested using the <code>DurationSeconds</code> parameter. If users don't specify a value for the <code>DurationSeconds</code> parameter, their security credentials are valid for one hour by default. This applies when you use the <code>AssumeRole*</code> API operations or the <code>assume-role*</code> CLI operations but does not apply when you use those operations to create a console URL. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using IAM roles</a> in the <i>IAM User Guide</i>.</p> <note> <p>IAM role credentials provided by Amazon EC2 instances assigned to the role are not subject to the specified maximum session duration.</p> </note>
+            max_signin_session_duration: <p>The maximum duration (in seconds) of an Amazon Web Services Sign-In session for users who sign in with the specified role. This setting can have a value from 1 hour (3600 seconds) to 90 days (7776000 seconds), inclusive, and replaces any value currently configured for the role. This setting is independent of <code>MaxSessionDuration</code>.</p> <p>If you omit both this parameter and <code>ResetMaxSigninSessionDuration</code>, the current setting is unchanged. You cannot specify this parameter and set <code>ResetMaxSigninSessionDuration</code> to <code>true</code> in the same request.</p> <p>Changes to this setting apply to new sign-in sessions. Sessions that are already established are not affected.</p> <note> <p>You cannot set this value on a service-linked role.</p> </note>
+            reset_max_signin_session_duration: <p>Specifies whether to clear the role's maximum sign-in session duration. Set this value to <code>true</code> to return the setting to its unset state, so that the existing sign-in session behavior applies. When the setting is unset, the role's <code>MaxSigninSessionDuration</code> is omitted from responses.</p> <p>If you set this value to <code>false</code> or omit it, the current setting is not cleared. You cannot set this value to <code>true</code> and specify <code>MaxSigninSessionDuration</code> in the same request. Clearing a setting that is already unset has no effect.</p> <note> <p>You cannot reset this value on a service-linked role.</p> </note>
 
         Raises:
+            capo_iam.errors.invalid_input_exception.InvalidInputException: <p>The request was rejected because an invalid or out-of-range value was supplied for an input parameter.</p>
             capo_iam.errors.no_such_entity_exception.NoSuchEntityException: <p>The request was rejected because it referenced a resource entity that does not exist. The error message describes the resource.</p>
             capo_iam.errors.service_failure_exception.ServiceFailureException: <p>The request processing has failed because of an unknown error, exception or failure.</p>
             capo_iam.errors.unmodifiable_entity_exception.UnmodifiableEntityException: <p>The request was rejected because service-linked roles are protected Amazon Web Services resources. Only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.</p>
@@ -10852,6 +10889,12 @@ class IAMClient:
             input_["description"] = description
         if max_session_duration is not None:
             input_["max_session_duration"] = max_session_duration
+        if max_signin_session_duration is not None:
+            input_["max_signin_session_duration"] = max_signin_session_duration
+        if reset_max_signin_session_duration is not None:
+            input_["reset_max_signin_session_duration"] = (
+                reset_max_signin_session_duration
+            )
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

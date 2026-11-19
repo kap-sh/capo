@@ -34,7 +34,7 @@ class CreateVirtualClusterRequest(TypedDict, closed=True):
     scheduler_configuration: NotRequired[
         "capo_emr_containers.types.scheduler_configuration.SchedulerConfiguration"
     ]
-    """<p>The scheduler configuration (concurrency and queue limits) to apply to the virtual cluster at creation time. When omitted, no limits are applied.</p>"""
+    """<p>The scheduler configuration (concurrency and queue limits) to apply to the virtual cluster at creation time. If you omit this field, the service applies a default limit of 1,000 concurrent job runs and does not limit queue depth.</p>"""
 
 
 # --- restJson1 ser/de ---

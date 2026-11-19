@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The type of application described by an application context.</p>"""
 ApplicationType: TypeAlias = Literal[
     "SAS",
     "DESKTOP_APPLICATION",

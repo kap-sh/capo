@@ -29,6 +29,7 @@ if TYPE_CHECKING:
     import capo_ssm.types.target_locations_url
     import capo_ssm.types.target_maps
     import capo_ssm.types.targets
+    import capo_ssm.types.targets_summary
 
 
 class AutomationExecution(TypedDict, closed=True):
@@ -128,6 +129,8 @@ class AutomationExecution(TypedDict, closed=True):
         "capo_ssm.types.automation_parameter_map.AutomationParameterMap"
     ]
     """<p>Variables defined for the automation.</p>"""
+    targets_summary: NotRequired["capo_ssm.types.targets_summary.TargetsSummary"]
+    """<p>A summary of the child executions that a rate control execution started for its targets. This field is returned only for rate control executions.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -289,6 +292,12 @@ def serialize_aws_json_1_1(value: AutomationExecution) -> dict:
             capo_ssm.types.automation_parameter_map.serialize_aws_json_1_1(
                 value["variables"]
             )
+        )
+    if "targets_summary" in value:
+        import capo_ssm.types.targets_summary
+
+        out["TargetsSummary"] = capo_ssm.types.targets_summary.serialize_aws_json_1_1(
+            value["targets_summary"]
         )
     return out
 
@@ -461,6 +470,14 @@ def deserialize_aws_json_1_1(data: dict) -> AutomationExecution:
         out["variables"] = (
             capo_ssm.types.automation_parameter_map.deserialize_aws_json_1_1(
                 data["Variables"]
+            )
+        )
+    if data.get("TargetsSummary") is not None:
+        import capo_ssm.types.targets_summary
+
+        out["targets_summary"] = (
+            capo_ssm.types.targets_summary.deserialize_aws_json_1_1(
+                data["TargetsSummary"]
             )
         )
     return out

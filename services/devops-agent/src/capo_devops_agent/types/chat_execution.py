@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import datetime
 
+    import capo_devops_agent.types.chat_archive_status
     import capo_devops_agent.types.resource_id
 
 
@@ -19,6 +20,10 @@ class ChatExecution(TypedDict, closed=True):
     """<p>Timestamp when the chat was last updated</p>"""
     summary: NotRequired["str"]
     """<p>Summary or title of the chat</p>"""
+    archive_status: NotRequired[
+        "capo_devops_agent.types.chat_archive_status.ChatArchiveStatus"
+    ]
+    """<p>Indicates whether the chat execution is archived or active.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -38,6 +43,14 @@ def serialize_json(value: ChatExecution) -> dict:
         )
     if "summary" in value:
         out["summary"] = value["summary"]
+    if "archive_status" in value:
+        import capo_devops_agent.types.chat_archive_status
+
+        out["archiveStatus"] = (
+            capo_devops_agent.types.chat_archive_status.serialize_json(
+                value["archive_status"]
+            )
+        )
     return out
 
 
@@ -65,4 +78,12 @@ def deserialize_json(data: dict) -> ChatExecution:
         )
     if data.get("summary") is not None:
         out["summary"] = data["summary"]
+    if data.get("archiveStatus") is not None:
+        import capo_devops_agent.types.chat_archive_status
+
+        out["archive_status"] = (
+            capo_devops_agent.types.chat_archive_status.deserialize_json(
+                data["archiveStatus"]
+            )
+        )
     return out

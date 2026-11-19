@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The risk rating for automated remediation.</p>"""
 RiskRating: TypeAlias = Literal[
     "LOW",
     "MEDIUM",

@@ -25,6 +25,9 @@ from capo_route53globalresolver._resources.ec2_dns_global_resolver_customer_api.
 from capo_route53globalresolver._resources.ec2_dns_global_resolver_customer_api.access_token import (
     AccessToken,
 )
+from capo_route53globalresolver._resources.ec2_dns_global_resolver_customer_api.core_network_endpoint import (
+    CoreNetworkEndpoint,
+)
 from capo_route53globalresolver._resources.ec2_dns_global_resolver_customer_api.dns_view import (
     DNSView,
 )
@@ -77,10 +80,14 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.cidr
     import capo_route53globalresolver.types.client_token
     import capo_route53globalresolver.types.confidence_threshold
+    import capo_route53globalresolver.types.core_network_endpoint_dns_ip_input_items
+    import capo_route53globalresolver.types.core_network_endpoints_item
     import capo_route53globalresolver.types.create_access_source_input
     import capo_route53globalresolver.types.create_access_source_output
     import capo_route53globalresolver.types.create_access_token_input
     import capo_route53globalresolver.types.create_access_token_output
+    import capo_route53globalresolver.types.create_core_network_endpoint_input
+    import capo_route53globalresolver.types.create_core_network_endpoint_output
     import capo_route53globalresolver.types.create_dns_view_input
     import capo_route53globalresolver.types.create_dns_view_output
     import capo_route53globalresolver.types.create_firewall_domain_list_input
@@ -93,6 +100,8 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.delete_access_source_output
     import capo_route53globalresolver.types.delete_access_token_input
     import capo_route53globalresolver.types.delete_access_token_output
+    import capo_route53globalresolver.types.delete_core_network_endpoint_input
+    import capo_route53globalresolver.types.delete_core_network_endpoint_output
     import capo_route53globalresolver.types.delete_dns_view_input
     import capo_route53globalresolver.types.delete_dns_view_output
     import capo_route53globalresolver.types.delete_firewall_domain_list_input
@@ -126,6 +135,8 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.get_access_source_output
     import capo_route53globalresolver.types.get_access_token_input
     import capo_route53globalresolver.types.get_access_token_output
+    import capo_route53globalresolver.types.get_core_network_endpoint_input
+    import capo_route53globalresolver.types.get_core_network_endpoint_output
     import capo_route53globalresolver.types.get_dns_view_input
     import capo_route53globalresolver.types.get_dns_view_output
     import capo_route53globalresolver.types.get_firewall_domain_list_input
@@ -150,6 +161,8 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.list_access_sources_output
     import capo_route53globalresolver.types.list_access_tokens_input
     import capo_route53globalresolver.types.list_access_tokens_output
+    import capo_route53globalresolver.types.list_core_network_endpoints_input
+    import capo_route53globalresolver.types.list_core_network_endpoints_output
     import capo_route53globalresolver.types.list_dns_views_input
     import capo_route53globalresolver.types.list_dns_views_output
     import capo_route53globalresolver.types.list_firewall_domain_lists_input
@@ -169,6 +182,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.list_tags_for_resource_request
     import capo_route53globalresolver.types.list_tags_for_resource_response
     import capo_route53globalresolver.types.managed_firewall_domain_lists_item
+    import capo_route53globalresolver.types.public_ip_status
     import capo_route53globalresolver.types.region
     import capo_route53globalresolver.types.regions
     import capo_route53globalresolver.types.resource_arn
@@ -176,6 +190,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.resource_id
     import capo_route53globalresolver.types.resource_name
     import capo_route53globalresolver.types.resource_name_short
+    import capo_route53globalresolver.types.segment_name
     import capo_route53globalresolver.types.shared_dns_view_summary
     import capo_route53globalresolver.types.tag_keys
     import capo_route53globalresolver.types.tag_resource_request
@@ -187,6 +202,8 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.update_access_source_output
     import capo_route53globalresolver.types.update_access_token_input
     import capo_route53globalresolver.types.update_access_token_output
+    import capo_route53globalresolver.types.update_core_network_endpoint_input
+    import capo_route53globalresolver.types.update_core_network_endpoint_output
     import capo_route53globalresolver.types.update_dns_view_input
     import capo_route53globalresolver.types.update_dns_view_output
     import capo_route53globalresolver.types.update_firewall_domains_input
@@ -197,6 +214,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.update_global_resolver_output
     import capo_route53globalresolver.types.update_hosted_zone_association_input
     import capo_route53globalresolver.types.update_hosted_zone_association_output
+    import capo_route53globalresolver.types.update_ip_address_list
 
 
 class Route53GlobalResolverClientConfig(TypedDict, total=False, closed=True):
@@ -278,6 +296,7 @@ class Route53GlobalResolverClient:
         # resources
         self.access_source = AccessSource(self)
         self.access_token = AccessToken(self)
+        self.core_network_endpoint = CoreNetworkEndpoint(self)
         self.dns_view = DNSView(self)
         self.firewall_domain_list = FirewallDomainList(self)
         self.firewall_rule = FirewallRule(self)
@@ -457,7 +476,10 @@ class Route53GlobalResolverClient:
             resource_arn: <p>Amazon Resource Name (ARN) for the resource.</p>
 
         Raises:
+            capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform this operation. Check your IAM permissions and try again.</p>
+            capo_route53globalresolver.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Try again later.</p>
             capo_route53globalresolver.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify the resource ID and try again.</p>
+            capo_route53globalresolver.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Wait a moment and try again.</p>
             capo_route53globalresolver.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
 
@@ -504,8 +526,11 @@ class Route53GlobalResolverClient:
             tags: <p>An array of user-defined keys and optional values. These tags can be used for categorization and organization.</p>
 
         Raises:
+            capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform this operation. Check your IAM permissions and try again.</p>
+            capo_route53globalresolver.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Try again later.</p>
             capo_route53globalresolver.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify the resource ID and try again.</p>
             capo_route53globalresolver.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request would exceed one or more service quotas. Check your current usage and quotas, then try again.</p>
+            capo_route53globalresolver.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Wait a moment and try again.</p>
             capo_route53globalresolver.errors.validation_exception.ValidationException: <p>The input parameters are invalid. Check the parameter values and try again.</p>
             capo_route53globalresolver.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -556,7 +581,10 @@ class Route53GlobalResolverClient:
             tag_keys: <p>The tag keys associated with the resource.</p>
 
         Raises:
+            capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform this operation. Check your IAM permissions and try again.</p>
+            capo_route53globalresolver.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Try again later.</p>
             capo_route53globalresolver.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify the resource ID and try again.</p>
+            capo_route53globalresolver.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Wait a moment and try again.</p>
             capo_route53globalresolver.errors.validation_exception.ValidationException: <p>The input parameters are invalid. Check the parameter values and try again.</p>
             capo_route53globalresolver.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -593,11 +621,11 @@ class Route53GlobalResolverClient:
 
     def create_access_source(
         self,
-        cidr: "capo_route53globalresolver.types.cidr.Cidr",
         dns_view_id: "capo_route53globalresolver.types.resource_id.ResourceId",
         protocol: "capo_route53globalresolver.types.dns_protocol.DnsProtocol",
         *,
         config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+        cidr: Optional["capo_route53globalresolver.types.cidr.Cidr"] = None,
         client_token: Optional[
             "capo_route53globalresolver.types.client_token.ClientToken"
         ] = None,
@@ -607,6 +635,12 @@ class Route53GlobalResolverClient:
         name: Optional[
             "capo_route53globalresolver.types.resource_name_short.ResourceNameShort"
         ] = None,
+        core_network_endpoint_id: Optional[
+            "capo_route53globalresolver.types.resource_id.ResourceId"
+        ] = None,
+        segment: Optional[
+            "capo_route53globalresolver.types.segment_name.SegmentName"
+        ] = None,
         tags: Optional["capo_route53globalresolver.types.tags.Tags"] = None,
     ) -> "capo_route53globalresolver.types.create_access_source_output.CreateAccessSourceOutput":
         """<p>Creates an access source for a DNS view. Access sources define IP addresses or CIDR ranges that are allowed to send DNS queries to the Route 53 Global Resolver, along with the permitted DNS protocols.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
@@ -614,8 +648,10 @@ class Route53GlobalResolverClient:
         Args:
             cidr: <p>The IP address or CIDR range that is allowed to send DNS queries to the Route 53 Global Resolver.</p>
             client_token: <p>A unique string that identifies the request and ensures idempotency.</p>
-            ip_address_type: <p>The IP address type for this access source. Valid values are IPv4 and IPv6 (if the Route 53 Global Resolver supports dual-stack).</p>
+            ip_address_type: <p>The IP address type for this access source. Valid values are IPV4, IPV6, and NONE. If you provide a CIDR range, this defaults to IPV4; otherwise it defaults to NONE.</p>
             name: <p>A descriptive name for the access source.</p>
+            core_network_endpoint_id: <p>The ID of the core network endpoint to associate with this access source.</p>
+            segment: <p>The name of the segment to associate with this access source.</p>
             dns_view_id: <p>The ID of the DNS view to associate with this access source.</p>
             protocol: <p>The DNS protocol that is permitted for this access source. Valid values are Do53 (DNS over port 53), DoT (DNS over TLS), and DoH (DNS over HTTPS).</p>
             tags: <p>Tags to associate with the access source.</p>
@@ -654,10 +690,11 @@ class Route53GlobalResolverClient:
             config_overrides, OperationLogging("CreateAccessSource")
         )
         input_: capo_route53globalresolver.types.create_access_source_input.CreateAccessSourceInput = {
-            "cidr": cidr,
             "dns_view_id": dns_view_id,
             "protocol": protocol,
         }
+        if cidr is not None:
+            input_["cidr"] = cidr
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
@@ -665,6 +702,10 @@ class Route53GlobalResolverClient:
             input_["ip_address_type"] = ip_address_type
         if name is not None:
             input_["name"] = name
+        if core_network_endpoint_id is not None:
+            input_["core_network_endpoint_id"] = core_network_endpoint_id
+        if segment is not None:
+            input_["segment"] = segment
         if tags is not None:
             input_["tags"] = tags
 
@@ -731,6 +772,9 @@ class Route53GlobalResolverClient:
         *,
         config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
         cidr: Optional["capo_route53globalresolver.types.cidr.Cidr"] = None,
+        dns_view_id: Optional[
+            "capo_route53globalresolver.types.resource_id.ResourceId"
+        ] = None,
         ip_address_type: Optional[
             "capo_route53globalresolver.types.ip_address_type.IpAddressType"
         ] = None,
@@ -746,6 +790,7 @@ class Route53GlobalResolverClient:
         Args:
             access_source_id: <p>The unique identifier of the access source to update.</p>
             cidr: <p>The CIDR block for the access source.</p>
+            dns_view_id: <p>The ID of the DNS view to associate with this access source.</p>
             ip_address_type: <p>The IP address type for the access source.</p>
             name: <p>The name of the access source.</p>
             protocol: <p>The protocol for the access source.</p>
@@ -783,6 +828,8 @@ class Route53GlobalResolverClient:
         }
         if cidr is not None:
             input_["cidr"] = cidr
+        if dns_view_id is not None:
+            input_["dns_view_id"] = dns_view_id
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
         if name is not None:
@@ -1256,6 +1303,321 @@ class Route53GlobalResolverClient:
                 filters=filters,
             )
             _page = _resolve_path(_response, ("access_tokens",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def create_core_network_endpoint(
+        self,
+        core_network_arn: "capo_route53globalresolver.types.resource_arn.ResourceArn",
+        global_resolver_id: "capo_route53globalresolver.types.resource_id.ResourceId",
+        ip_addresses: "capo_route53globalresolver.types.core_network_endpoint_dns_ip_input_items.CoreNetworkEndpointDnsIpInputItems",
+        *,
+        config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+        client_token: Optional[
+            "capo_route53globalresolver.types.client_token.ClientToken"
+        ] = None,
+        name: Optional[
+            "capo_route53globalresolver.types.resource_name.ResourceName"
+        ] = None,
+        tags: Optional["capo_route53globalresolver.types.tags.Tags"] = None,
+    ) -> "capo_route53globalresolver.types.create_core_network_endpoint_output.CreateCoreNetworkEndpointOutput":
+        """<p>Creates a core network endpoint, which enables DNS resolution for Amazon Web Services Cloud WAN core network segments. The endpoint connects a Route 53 Global Resolver to an Amazon Web Services Cloud WAN core network so that resources attached to the core network can send DNS queries to the resolver.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions, but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
+
+        Args:
+            client_token: <p>A unique, case-sensitive identifier that ensures the request is idempotent. Making the same request multiple times with the same <code>clientToken</code> produces the same result every time.</p>
+            core_network_arn: <p>The Amazon Resource Name (ARN) of the Amazon Web Services Cloud WAN core network to connect to this endpoint.</p>
+            global_resolver_id: <p>The ID of the Route 53 Global Resolver to associate with this core network endpoint.</p>
+            ip_addresses: <p>The IP addresses that the core network endpoint uses to resolve DNS queries within the Amazon Web Services Cloud WAN core network.</p>
+            name: <p>A descriptive name for the core network endpoint.</p>
+            tags: <p>An array of user-defined keys and optional values that you can use to categorize and organize the core network endpoint.</p>
+
+        Raises:
+            capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform this operation. Check your IAM permissions and try again.</p>
+            capo_route53globalresolver.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource. This can occur when trying to modify a resource that is not in a valid state for the requested operation.</p>
+            capo_route53globalresolver.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Try again later.</p>
+            capo_route53globalresolver.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify the resource ID and try again.</p>
+            capo_route53globalresolver.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request would exceed one or more service quotas. Check your current usage and quotas, then try again.</p>
+            capo_route53globalresolver.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Wait a moment and try again.</p>
+            capo_route53globalresolver.errors.validation_exception.ValidationException: <p>The input parameters are invalid. Check the parameter values and try again.</p>
+            capo_route53globalresolver.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_route53globalresolver.types.create_core_network_endpoint_input.CreateCoreNetworkEndpointInput]",
+        ) -> OperationResponse[
+            "capo_route53globalresolver.types.create_core_network_endpoint_output.CreateCoreNetworkEndpointOutput"
+        ]:
+            import capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.create_core_network_endpoint
+
+            output, http_response = (
+                capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.create_core_network_endpoint.create_core_network_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCoreNetworkEndpoint")
+        )
+        input_: capo_route53globalresolver.types.create_core_network_endpoint_input.CreateCoreNetworkEndpointInput = {
+            "core_network_arn": core_network_arn,
+            "global_resolver_id": global_resolver_id,
+            "ip_addresses": ip_addresses,
+        }
+        if client_token is None:
+            client_token = str(uuid.uuid4())
+        input_["client_token"] = client_token
+        if name is not None:
+            input_["name"] = name
+        if tags is not None:
+            input_["tags"] = tags
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_core_network_endpoint(
+        self,
+        core_network_endpoint_id: "capo_route53globalresolver.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+    ) -> "capo_route53globalresolver.types.get_core_network_endpoint_output.GetCoreNetworkEndpointOutput":
+        """<p>Retrieves information about a core network endpoint.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions, but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
+
+        Args:
+            core_network_endpoint_id: <p>The unique identifier of the core network endpoint to retrieve information about.</p>
+
+        Raises:
+            capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform this operation. Check your IAM permissions and try again.</p>
+            capo_route53globalresolver.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Try again later.</p>
+            capo_route53globalresolver.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify the resource ID and try again.</p>
+            capo_route53globalresolver.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Wait a moment and try again.</p>
+            capo_route53globalresolver.errors.validation_exception.ValidationException: <p>The input parameters are invalid. Check the parameter values and try again.</p>
+            capo_route53globalresolver.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_route53globalresolver.types.get_core_network_endpoint_input.GetCoreNetworkEndpointInput]",
+        ) -> OperationResponse[
+            "capo_route53globalresolver.types.get_core_network_endpoint_output.GetCoreNetworkEndpointOutput"
+        ]:
+            import capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.get_core_network_endpoint
+
+            output, http_response = (
+                capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.get_core_network_endpoint.get_core_network_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoreNetworkEndpoint")
+        )
+        input_: capo_route53globalresolver.types.get_core_network_endpoint_input.GetCoreNetworkEndpointInput = {
+            "core_network_endpoint_id": core_network_endpoint_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_core_network_endpoint(
+        self,
+        core_network_endpoint_id: "capo_route53globalresolver.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+        name: Optional[
+            "capo_route53globalresolver.types.resource_name.ResourceName"
+        ] = None,
+        update_ip_addresses: Optional[
+            "capo_route53globalresolver.types.update_ip_address_list.UpdateIpAddressList"
+        ] = None,
+    ) -> "capo_route53globalresolver.types.update_core_network_endpoint_output.UpdateCoreNetworkEndpointOutput":
+        """<p>Updates the configuration of a core network endpoint. You can change the name and modify the IP addresses that the endpoint uses for DNS resolution.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions, but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
+
+        Args:
+            core_network_endpoint_id: <p>The unique identifier of the core network endpoint to update.</p>
+            name: <p>The name of the core network endpoint.</p>
+            update_ip_addresses: <p>The IP address changes to apply to the core network endpoint. Use this parameter to add or remove the IP addresses that the endpoint uses to resolve DNS queries within the Amazon Web Services Cloud WAN core network.</p>
+
+        Raises:
+            capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform this operation. Check your IAM permissions and try again.</p>
+            capo_route53globalresolver.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource. This can occur when trying to modify a resource that is not in a valid state for the requested operation.</p>
+            capo_route53globalresolver.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Try again later.</p>
+            capo_route53globalresolver.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify the resource ID and try again.</p>
+            capo_route53globalresolver.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request would exceed one or more service quotas. Check your current usage and quotas, then try again.</p>
+            capo_route53globalresolver.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Wait a moment and try again.</p>
+            capo_route53globalresolver.errors.validation_exception.ValidationException: <p>The input parameters are invalid. Check the parameter values and try again.</p>
+            capo_route53globalresolver.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_route53globalresolver.types.update_core_network_endpoint_input.UpdateCoreNetworkEndpointInput]",
+        ) -> OperationResponse[
+            "capo_route53globalresolver.types.update_core_network_endpoint_output.UpdateCoreNetworkEndpointOutput"
+        ]:
+            import capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.update_core_network_endpoint
+
+            output, http_response = (
+                capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.update_core_network_endpoint.update_core_network_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCoreNetworkEndpoint")
+        )
+        input_: capo_route53globalresolver.types.update_core_network_endpoint_input.UpdateCoreNetworkEndpointInput = {
+            "core_network_endpoint_id": core_network_endpoint_id
+        }
+        if name is not None:
+            input_["name"] = name
+        if update_ip_addresses is not None:
+            input_["update_ip_addresses"] = update_ip_addresses
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_core_network_endpoint(
+        self,
+        core_network_endpoint_id: "capo_route53globalresolver.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+    ) -> "capo_route53globalresolver.types.delete_core_network_endpoint_output.DeleteCoreNetworkEndpointOutput":
+        """<p>Deletes a core network endpoint. This operation cannot be undone.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions, but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
+
+        Args:
+            core_network_endpoint_id: <p>The unique identifier of the core network endpoint to delete.</p>
+
+        Raises:
+            capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform this operation. Check your IAM permissions and try again.</p>
+            capo_route53globalresolver.errors.conflict_exception.ConflictException: <p>The request conflicts with the current state of the resource. This can occur when trying to modify a resource that is not in a valid state for the requested operation.</p>
+            capo_route53globalresolver.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Try again later.</p>
+            capo_route53globalresolver.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify the resource ID and try again.</p>
+            capo_route53globalresolver.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Wait a moment and try again.</p>
+            capo_route53globalresolver.errors.validation_exception.ValidationException: <p>The input parameters are invalid. Check the parameter values and try again.</p>
+            capo_route53globalresolver.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_route53globalresolver.types.delete_core_network_endpoint_input.DeleteCoreNetworkEndpointInput]",
+        ) -> OperationResponse[
+            "capo_route53globalresolver.types.delete_core_network_endpoint_output.DeleteCoreNetworkEndpointOutput"
+        ]:
+            import capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.delete_core_network_endpoint
+
+            output, http_response = (
+                capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.delete_core_network_endpoint.delete_core_network_endpoint(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCoreNetworkEndpoint")
+        )
+        input_: capo_route53globalresolver.types.delete_core_network_endpoint_input.DeleteCoreNetworkEndpointInput = {
+            "core_network_endpoint_id": core_network_endpoint_id
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_core_network_endpoints(
+        self,
+        *,
+        config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+        filters: Optional["capo_route53globalresolver.types.filters.Filters"] = None,
+    ) -> "capo_route53globalresolver.types.list_core_network_endpoints_output.ListCoreNetworkEndpointsOutput":
+        """<p>Lists the core network endpoints in your Amazon Web Services account, with pagination support.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions, but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
+
+        Args:
+            max_results: <p>The maximum number of results to retrieve in a single call.</p>
+            next_token: <p>A pagination token used for large sets of results that can't be returned in a single response.</p>
+            filters: <p>Values to filter the results.</p>
+
+        Raises:
+            capo_route53globalresolver.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform this operation. Check your IAM permissions and try again.</p>
+            capo_route53globalresolver.errors.internal_server_exception.InternalServerException: <p>An internal server error occurred. Try again later.</p>
+            capo_route53globalresolver.errors.throttling_exception.ThrottlingException: <p>The request was throttled due to too many requests. Wait a moment and try again.</p>
+            capo_route53globalresolver.errors.validation_exception.ValidationException: <p>The input parameters are invalid. Check the parameter values and try again.</p>
+            capo_route53globalresolver.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_route53globalresolver.types.list_core_network_endpoints_input.ListCoreNetworkEndpointsInput]",
+        ) -> OperationResponse[
+            "capo_route53globalresolver.types.list_core_network_endpoints_output.ListCoreNetworkEndpointsOutput"
+        ]:
+            import capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.list_core_network_endpoints
+
+            output, http_response = (
+                capo_route53globalresolver._operations.ec2_dns_global_resolver_customer_api.list_core_network_endpoints.list_core_network_endpoints(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoreNetworkEndpoints")
+        )
+        input_: capo_route53globalresolver.types.list_core_network_endpoints_input.ListCoreNetworkEndpointsInput = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if filters is not None:
+            input_["filters"] = filters
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_core_network_endpoints(
+        self,
+        *,
+        config_overrides: Optional[Route53GlobalResolverClientConfig] = None,
+        max_results: Optional[int] = None,
+        next_token: Optional[str] = None,
+        filters: Optional["capo_route53globalresolver.types.filters.Filters"] = None,
+    ) -> "Iterator[capo_route53globalresolver.types.core_network_endpoints_item.CoreNetworkEndpointsItem]":
+        _token = next_token
+        while True:
+            _response = self.list_core_network_endpoints(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+                filters=filters,
+            )
+            _page = _resolve_path(_response, ("core_network_endpoints",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -2745,6 +3107,9 @@ class Route53GlobalResolverClient:
         ip_address_type: Optional[
             "capo_route53globalresolver.types.global_resolver_ip_address_type.GlobalResolverIpAddressType"
         ] = None,
+        public_ip_status: Optional[
+            "capo_route53globalresolver.types.public_ip_status.PublicIpStatus"
+        ] = None,
         observability_region: Optional[
             "capo_route53globalresolver.types.region.Region"
         ] = None,
@@ -2756,6 +3121,7 @@ class Route53GlobalResolverClient:
             client_token: <p>A unique string that identifies the request and ensures idempotency. If you make multiple requests with the same client token, only one Route 53 Global Resolver is created.</p>
             description: <p>An optional description for the Route 53 Global Resolver instance. Maximum length of 1024 characters.</p>
             ip_address_type: <p>The IP address type for the Route 53 Global Resolver. Valid values are IPV4 (default) or DUAL_STACK for both IPv4 and IPv6 support.</p>
+            public_ip_status: <p>Specifies the public IP connectivity to configure for the Route 53 Global Resolver. Public IP addresses let DNS clients send queries to the resolver over the internet. Valid values are the following:</p> <ul> <li> <p> <code>ENABLED_RESERVED</code> - Public IP connectivity is enabled, and the global anycast public IP addresses are reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RESERVED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses remain reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RELEASED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses are released.</p> </li> </ul>
             name: <p>A descriptive name for the Route 53 Global Resolver instance. Maximum length of 64 characters.</p>
             observability_region: <p>The Amazon Web Services Region where query resolution logs and metrics will be aggregated and delivered. If not specified, logging is not enabled.</p>
             regions: <p>List of Amazon Web Services Regions where the Route 53 Global Resolver will operate. The resolver will be distributed across these Regions to provide global availability and low-latency DNS resolution.</p>
@@ -2799,6 +3165,8 @@ class Route53GlobalResolverClient:
             input_["description"] = description
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
+        if public_ip_status is not None:
+            input_["public_ip_status"] = public_ip_status
         if observability_region is not None:
             input_["observability_region"] = observability_region
         if tags is not None:
@@ -2878,6 +3246,9 @@ class Route53GlobalResolverClient:
         ip_address_type: Optional[
             "capo_route53globalresolver.types.global_resolver_ip_address_type.GlobalResolverIpAddressType"
         ] = None,
+        public_ip_status: Optional[
+            "capo_route53globalresolver.types.public_ip_status.PublicIpStatus"
+        ] = None,
         regions: Optional["capo_route53globalresolver.types.regions.Regions"] = None,
     ) -> "capo_route53globalresolver.types.update_global_resolver_output.UpdateGlobalResolverOutput":
         """<p>Updates the configuration of a Route 53 Global Resolver instance. You can modify the name, description, and observability Region.</p> <important> <p>Route 53 Global Resolver is a global service that supports resolvers in multiple Amazon Web Services Regions but you must specify the US East (Ohio) Region to create, update, or otherwise work with Route 53 Global Resolver resources. That is, for example, specify <code>--region us-east-2</code> on Amazon Web Services CLI commands.</p> </important>
@@ -2888,6 +3259,7 @@ class Route53GlobalResolverClient:
             observability_region: <p>The Amazon Web Services Regions in which the users' Global Resolver query resolution logs will be propagated.</p>
             description: <p>The description of the Global Resolver.</p>
             ip_address_type: <p>The IP address type for the Global Resolver. Valid values are IPV4 or DUAL_STACK for both IPv4 and IPv6 support.</p>
+            public_ip_status: <p>Specifies the public IP connectivity to configure for the Route 53 Global Resolver. Public IP addresses let DNS clients send queries to the resolver over the internet. Valid values are the following:</p> <ul> <li> <p> <code>ENABLED_RESERVED</code> - Public IP connectivity is enabled, and the global anycast public IP addresses are reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RESERVED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses remain reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RELEASED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses are released.</p> </li> </ul>
             regions: <p>The list of Amazon Web Services Regions where the Global Resolver will operate. The resolver will be distributed across these Regions to provide global availability and low-latency DNS resolution.</p>
 
         Raises:
@@ -2929,6 +3301,8 @@ class Route53GlobalResolverClient:
             input_["description"] = description
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
+        if public_ip_status is not None:
+            input_["public_ip_status"] = public_ip_status
         if regions is not None:
             input_["regions"] = regions
 

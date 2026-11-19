@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_marketplace_metering.types.usage_allocations
     import capo_marketplace_metering.types.usage_dimension
     import capo_marketplace_metering.types.usage_quantity
+    import capo_marketplace_metering.types.usage_quantity_as_decimal_string
 
 
 class MeterUsageRequest(TypedDict, closed=True):
@@ -24,13 +25,17 @@ class MeterUsageRequest(TypedDict, closed=True):
     usage_quantity: NotRequired[
         "capo_marketplace_metering.types.usage_quantity.UsageQuantity"
     ]
-    """<p>Consumption value for the hour. Defaults to <code>0</code> if not specified.</p>"""
+    """<p>The consumption value for the hour, as a whole number. Defaults to <code>0</code> if neither <code>UsageQuantity</code> nor <code>UsageQuantityAsDecimal</code> is specified.</p> <p>Use <code>UsageQuantityAsDecimal</code> instead. You can't specify both <code>UsageQuantity</code> and <code>UsageQuantityAsDecimal</code>.</p>"""
+    usage_quantity_as_decimal: NotRequired[
+        "capo_marketplace_metering.types.usage_quantity_as_decimal_string.UsageQuantityAsDecimalString"
+    ]
+    """<p>The consumption value for the hour, as a decimal string. Use this instead of <code>UsageQuantity</code> to report fractional usage.</p> <p>A non-negative decimal number, for example <code>17.42</code>.</p> <p>You can't specify both <code>UsageQuantity</code> and <code>UsageQuantityAsDecimal</code>. If you provide <code>UsageAllocations</code>, each allocation must use <code>AllocatedUsageQuantityAsDecimal</code>.</p> <p>Quantities are compared by value when checking for duplicate or retried requests, so <code>17</code>, <code>17.0</code>, and <code>17.00</code> are the same quantity, whether you send it in <code>UsageQuantity</code> or <code>UsageQuantityAsDecimal</code>.</p>"""
     dry_run: NotRequired["capo_marketplace_metering.types.boolean.Boolean"]
     """<p>Checks whether you have the permissions required for the action, but does not make the request. If you have the permissions, the request returns <code>DryRunOperation</code>; otherwise, it returns <code>UnauthorizedException</code>. Defaults to <code>false</code> if not specified.</p>"""
     usage_allocations: NotRequired[
         "capo_marketplace_metering.types.usage_allocations.UsageAllocations"
     ]
-    """<p>The set of <code>UsageAllocations</code> to submit.</p> <p>The sum of all <code>UsageAllocation</code> quantities must equal the <code>UsageQuantity</code> of the <code>MeterUsage</code> request, and each <code>UsageAllocation</code> must have a unique set of tags (include no tags).</p>"""
+    """<p>The set of <code>UsageAllocations</code> to submit.</p> <p>The sum of all <code>UsageAllocation</code> quantities must equal the usage quantity of the <code>MeterUsage</code> request (<code>UsageQuantity</code> or <code>UsageQuantityAsDecimal</code>), and each <code>UsageAllocation</code> must have a unique set of tags (include no tags). Allocations must use the same type of quantity as the request: <code>AllocatedUsageQuantity</code> with <code>UsageQuantity</code>, or <code>AllocatedUsageQuantityAsDecimal</code> with <code>UsageQuantityAsDecimal</code>.</p>"""
     client_token: NotRequired[
         "capo_marketplace_metering.types.client_token.ClientToken"
     ]
@@ -49,6 +54,8 @@ def serialize_aws_json_1_1(value: MeterUsageRequest) -> dict:
     out["UsageDimension"] = value["usage_dimension"]
     if "usage_quantity" in value:
         out["UsageQuantity"] = value["usage_quantity"]
+    if "usage_quantity_as_decimal" in value:
+        out["UsageQuantityAsDecimal"] = value["usage_quantity_as_decimal"]
     if "dry_run" in value:
         out["DryRun"] = value["dry_run"]
     if "usage_allocations" in value:
@@ -88,6 +95,8 @@ def deserialize_aws_json_1_1(data: dict) -> MeterUsageRequest:
         out["usage_dimension"] = ""
     if data.get("UsageQuantity") is not None:
         out["usage_quantity"] = data["UsageQuantity"]
+    if data.get("UsageQuantityAsDecimal") is not None:
+        out["usage_quantity_as_decimal"] = data["UsageQuantityAsDecimal"]
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
     if data.get("UsageAllocations") is not None:

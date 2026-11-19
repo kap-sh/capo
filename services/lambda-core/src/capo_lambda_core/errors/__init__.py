@@ -34,6 +34,9 @@ from .resource_not_found_exception import (
     ResourceNotFoundException as ResourceNotFoundException,
 )
 from .service_exception import ServiceException as ServiceException
+from .service_quota_exceeded_exception import (
+    ServiceQuotaExceededException as ServiceQuotaExceededException,
+)
 from .too_many_requests_exception import (
     TooManyRequestsException as TooManyRequestsException,
 )

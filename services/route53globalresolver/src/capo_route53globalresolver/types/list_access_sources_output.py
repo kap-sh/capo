@@ -12,7 +12,7 @@ class ListAccessSourcesOutput(TypedDict, closed=True):
     next_token: NotRequired["str"]
     """<p>A pagination token used for large sets of results that can't be returned in a single response. Provide this token in the next call to get the results not returned in this call.</p>"""
     access_sources: "capo_route53globalresolver.types.access_sources.AccessSources"
-    """<p>An array containing information about the access sources, such as the ID, CIDR etc.</p>"""
+    """<p>An array containing information about the access sources, such as the ID and CIDR.</p>"""
 
 
 # --- restJson1 ser/de ---

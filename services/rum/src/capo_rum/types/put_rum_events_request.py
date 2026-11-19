@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_rum.types.alias
     import capo_rum.types.app_monitor_details
     import capo_rum.types.app_monitor_id
+    import capo_rum.types.json_value
     import capo_rum.types.rum_event_list
     import capo_rum.types.user_details
 
@@ -27,6 +28,8 @@ class PutRumEventsRequest(TypedDict, closed=True):
     """<p>An array of structures that contain the telemetry event data.</p>"""
     alias: NotRequired["capo_rum.types.alias.Alias"]
     """<p>If the app monitor uses a resource-based policy that requires <code>PutRumEvents</code> requests to specify a certain alias, specify that alias here. This alias will be compared to the <code>rum:alias</code> context key in the resource-based policy. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-resource-policies.html">Using resource-based policies with CloudWatch RUM</a>.</p>"""
+    session_metadata: NotRequired["capo_rum.types.json_value.JsonValue"]
+    """<p>A JSON serialization of attributes that apply to every event in this batch, such as the browser, device, and operating system of the end user. CloudWatch RUM merges these attributes into each event in the batch, so you send them once for the batch instead of once for each event. If an attribute appears both here and in an individual event's <code>metadata</code>, CloudWatch RUM uses the value in the event's <code>metadata</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -48,6 +51,8 @@ def serialize_json(value: PutRumEventsRequest) -> dict:
     out["RumEvents"] = capo_rum.types.rum_event_list.serialize_json(value["rum_events"])
     if "alias" in value:
         out["Alias"] = value["alias"]
+    if "session_metadata" in value:
+        out["SessionMetadata"] = value["session_metadata"]
     return out
 
 
@@ -85,4 +90,6 @@ def deserialize_json(data: dict) -> PutRumEventsRequest:
         out["rum_events"] = []
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
+    if data.get("SessionMetadata") is not None:
+        out["session_metadata"] = data["SessionMetadata"]
     return out

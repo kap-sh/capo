@@ -159,6 +159,7 @@ if TYPE_CHECKING:
     import capo_elasticache.types.increase_replica_count_result
     import capo_elasticache.types.integer
     import capo_elasticache.types.integer_optional
+    import capo_elasticache.types.integration_request_list
     import capo_elasticache.types.ip_discovery
     import capo_elasticache.types.key_list
     import capo_elasticache.types.list_allowed_node_type_modifications_message
@@ -1655,6 +1656,9 @@ class ElastiCacheClient:
         connection_type: Optional[
             "capo_elasticache.types.connection_type.ConnectionType"
         ] = None,
+        integrations: Optional[
+            "capo_elasticache.types.integration_request_list.IntegrationRequestList"
+        ] = None,
     ) -> "capo_elasticache.types.create_serverless_cache_response.CreateServerlessCacheResponse":
         """<p>Creates a serverless cache.</p>
 
@@ -1674,6 +1678,7 @@ class ElastiCacheClient:
             daily_snapshot_time: <p>The daily time that snapshots will be created from the new serverless cache. By default this number is populated with 0, i.e. no snapshots will be created on an automatic daily basis. Available for Valkey, Redis OSS and Serverless Memcached only.</p>
             network_type: <p>The IP protocol version used by the serverless cache. Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. <code>ipv6</code> is only supported with IPv6-only subnets. If not specified, defaults to <code>ipv4</code>, unless all provided subnets are IPv6-only, in which case it defaults to <code>ipv6</code>. </p>
             connection_type: <p>The connection type for the serverless cache. Must be either <code>vpc</code> | <code>public</code>. Use <code>vpc</code> to access the cache through a VPC endpoint, or <code>public</code> to access the cache over the internet. If not specified, defaults to <code>vpc</code>. This value cannot be changed after the serverless cache is created. Setting this to <code>public</code> requires Valkey 9 or above.</p>
+            integrations: <p>Which serverless cache integrations to enable. Valid values are:</p> <ul> <li> <p> <code>dynamodb</code> – DynamoDB integration.</p> </li> </ul> <p>DynamoDB integration requires the Valkey engine with a major engine version of 9 or above. If not specified, no integrations are enabled.</p>
 
         Raises:
             capo_elasticache.errors.invalid_credentials_exception.InvalidCredentialsException: <p>You must enter valid credentials.</p>
@@ -1738,6 +1743,8 @@ class ElastiCacheClient:
             input_["network_type"] = network_type
         if connection_type is not None:
             input_["connection_type"] = connection_type
+        if integrations is not None:
+            input_["integrations"] = integrations
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

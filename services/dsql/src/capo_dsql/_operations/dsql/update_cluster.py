@@ -20,6 +20,7 @@ import capo_dsql.errors.throttling_exception
 import capo_dsql.errors.validation_exception
 import capo_dsql.types.cluster_creation_time
 import capo_dsql.types.cluster_status
+import capo_dsql.types.metric_group_request_list
 import capo_dsql.types.multi_region_properties
 import capo_dsql.types.update_cluster_input
 import capo_dsql.types.update_cluster_output

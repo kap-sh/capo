@@ -16,7 +16,7 @@ class CreateAgentGoalRequest(TypedDict, closed=True):
     profile_arn: "capo_wellarchitected.types.agent_profile_arn.AgentProfileArn"
     """<p>The Amazon Resource Name (ARN) of the profile to associate the goal with.</p>"""
     pillars: "capo_wellarchitected.types.pillars.Pillars"
-    """<p>The Well-Architected Tool Framework pillars to associate with this goal.</p>"""
+    """<p>The Amazon Web Services Well-Architected Framework pillars to associate with this goal.</p>"""
     title: "capo_wellarchitected.types.sensitive_string.SensitiveString"
     """<p>The title of the goal.</p>"""
     description: NotRequired[

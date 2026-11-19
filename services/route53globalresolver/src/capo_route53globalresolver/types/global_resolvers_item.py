@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_route53globalresolver.types.i_pv4_addresses
     import capo_route53globalresolver.types.i_pv6_addresses
     import capo_route53globalresolver.types.iso8601_time_string
+    import capo_route53globalresolver.types.public_ip_status
     import capo_route53globalresolver.types.region
     import capo_route53globalresolver.types.regions
     import capo_route53globalresolver.types.resource_arn
@@ -55,6 +56,10 @@ class GlobalResolversItem(TypedDict, closed=True):
         "capo_route53globalresolver.types.global_resolver_ip_address_type.GlobalResolverIpAddressType"
     ]
     """<p>The IP address type configured for the global resolver.</p>"""
+    public_ip_status: NotRequired[
+        "capo_route53globalresolver.types.public_ip_status.PublicIpStatus"
+    ]
+    """<p>The public IP connectivity configured for the Route 53 Global Resolver. Public IP addresses let DNS clients send queries to the resolver over the internet. Valid values are the following:</p> <ul> <li> <p> <code>ENABLED_RESERVED</code> - Public IP connectivity is enabled, and the global anycast public IP addresses are reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RESERVED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses remain reserved for the Route 53 Global Resolver.</p> </li> <li> <p> <code>DISABLED_RELEASED</code> - Public IP connectivity is disabled, and the global anycast public IP addresses are released.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---
@@ -114,6 +119,14 @@ def serialize_json(value: GlobalResolversItem) -> dict:
         out["ipAddressType"] = (
             capo_route53globalresolver.types.global_resolver_ip_address_type.serialize_json(
                 value["ip_address_type"]
+            )
+        )
+    if "public_ip_status" in value:
+        import capo_route53globalresolver.types.public_ip_status
+
+        out["publicIpStatus"] = (
+            capo_route53globalresolver.types.public_ip_status.serialize_json(
+                value["public_ip_status"]
             )
         )
     return out
@@ -215,6 +228,14 @@ def deserialize_json(data: dict) -> GlobalResolversItem:
         out["ip_address_type"] = (
             capo_route53globalresolver.types.global_resolver_ip_address_type.deserialize_json(
                 data["ipAddressType"]
+            )
+        )
+    if data.get("publicIpStatus") is not None:
+        import capo_route53globalresolver.types.public_ip_status
+
+        out["public_ip_status"] = (
+            capo_route53globalresolver.types.public_ip_status.deserialize_json(
+                data["publicIpStatus"]
             )
         )
     return out

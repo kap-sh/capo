@@ -8,6 +8,7 @@ from capo_iam._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_iam.types.boolean_type
+    import capo_iam.types.max_signin_session_duration_type
     import capo_iam.types.password_type
     import capo_iam.types.user_name_type
 
@@ -19,6 +20,10 @@ class CreateLoginProfileRequest(TypedDict, closed=True):
     r"""<p>The new password for the user.</p> <p>This parameter must be omitted when you make the request with an <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoot.html">AssumeRoot</a> session. It is required in all other cases.</p> <p>The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter is a string of characters. That string can include almost any printable ASCII character from the space (<code>\u0020</code>) through the end of the ASCII character range (<code>\u00FF</code>). You can also include the tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>) characters. Any of these characters are valid in a password. However, many tools, such as the Amazon Web Services Management Console, might restrict the ability to type certain characters because they have special meaning within that tool.</p>"""
     password_reset_required: NotRequired["capo_iam.types.boolean_type.booleanType"]
     """<p>Specifies whether the user is required to set a new password on next sign-in.</p>"""
+    max_signin_session_duration: NotRequired[
+        "capo_iam.types.max_signin_session_duration_type.maxSigninSessionDurationType"
+    ]
+    """<p>The maximum duration (in seconds) of an Amazon Web Services Sign-In session for this IAM user. This setting can have a value from 1 hour (3600 seconds) to 90 days (7776000 seconds), inclusive. If you do not specify a value, the setting remains unset and the existing sign-in session behavior applies.</p> <note> <p>This setting is not supported for the root user.</p> </note>"""
 
 
 # --- awsQuery ser/de ---
@@ -37,6 +42,13 @@ def serialize_query(
                 "true" if value["password_reset_required"] else "false",
             )
         )
+    if "max_signin_session_duration" in value:
+        pairs.append(
+            (
+                f"{key_prefix}MaxSigninSessionDuration",
+                str(value["max_signin_session_duration"]),
+            )
+        )
 
 
 def deserialize_query(el: Element) -> CreateLoginProfileRequest:
@@ -52,6 +64,11 @@ def deserialize_query(el: Element) -> CreateLoginProfileRequest:
         out["password_reset_required"] = (
             child_password_reset_required.text or ""
         ).lower() == "true"
+    child_max_signin_session_duration = el.find("MaxSigninSessionDuration")
+    if child_max_signin_session_duration is not None:
+        out["max_signin_session_duration"] = int(
+            child_max_signin_session_duration.text or ""
+        )
     return out
 
 

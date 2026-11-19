@@ -13,7 +13,7 @@ class PathMatch(TypedDict, closed=True):
     match: "capo_vpc_lattice.types.path_match_type.PathMatchType"
     """<p>The type of path match.</p>"""
     case_sensitive: NotRequired["capo_vpc_lattice.types.boolean.Boolean"]
-    """<p>Indicates whether the match is case sensitive.</p>"""
+    """<p>Specifies whether the match is case sensitive. Defaults to <code>true</code> (case-sensitive matching). Set to <code>false</code> to match the path case-insensitively.</p>"""
 
 
 # --- restJson1 ser/de ---

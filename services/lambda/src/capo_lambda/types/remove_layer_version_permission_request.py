@@ -5,14 +5,14 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
-    import capo_lambda.types.layer_name
+    import capo_lambda.types.layer_name_or_arn
     import capo_lambda.types.layer_version_number
     import capo_lambda.types.statement_id
     import capo_lambda.types.string
 
 
 class RemoveLayerVersionPermissionRequest(TypedDict, closed=True):
-    layer_name: "capo_lambda.types.layer_name.LayerName"
+    layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn"
     """<p>The name or Amazon Resource Name (ARN) of the layer.</p>"""
     version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber"
     """<p>The version number.</p>"""

@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.external_campaign_type
     import capo_connectcampaignsv2.types.instance_id
     import capo_connectcampaignsv2.types.schedule
+    import capo_connectcampaignsv2.types.time_stamp
 
 
 class CampaignSummary(TypedDict, closed=True):
@@ -32,6 +33,10 @@ class CampaignSummary(TypedDict, closed=True):
         "capo_connectcampaignsv2.types.entry_limits_config.EntryLimitsConfig"
     ]
     connect_campaign_flow_arn: NotRequired["capo_connectcampaignsv2.types.arn.Arn"]
+    last_modified_time: NotRequired[
+        "capo_connectcampaignsv2.types.time_stamp.TimeStamp"
+    ]
+    """The timestamp of the most recent modification to the campaign or its configuration. Null for campaigns created before this field was introduced."""
 
 
 # --- restJson1 ser/de ---
@@ -66,6 +71,14 @@ def serialize_json(value: CampaignSummary) -> dict:
         )
     if "connect_campaign_flow_arn" in value:
         out["connectCampaignFlowArn"] = value["connect_campaign_flow_arn"]
+    if "last_modified_time" in value:
+        import capo_connectcampaignsv2.types.time_stamp
+
+        out["lastModifiedTime"] = (
+            capo_connectcampaignsv2.types.time_stamp.serialize_json(
+                value["last_modified_time"]
+            )
+        )
     return out
 
 
@@ -115,4 +128,12 @@ def deserialize_json(data: dict) -> CampaignSummary:
         )
     if data.get("connectCampaignFlowArn") is not None:
         out["connect_campaign_flow_arn"] = data["connectCampaignFlowArn"]
+    if data.get("lastModifiedTime") is not None:
+        import capo_connectcampaignsv2.types.time_stamp
+
+        out["last_modified_time"] = (
+            capo_connectcampaignsv2.types.time_stamp.deserialize_json(
+                data["lastModifiedTime"]
+            )
+        )
     return out

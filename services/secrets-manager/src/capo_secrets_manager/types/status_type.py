@@ -6,6 +6,8 @@ StatusType: TypeAlias = Literal[
     "InSync",
     "Failed",
     "InProgress",
+    "Pending",
+    "Detached",
 ]
 
 

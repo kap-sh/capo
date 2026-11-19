@@ -6,6 +6,7 @@ Timing: TypeAlias = Literal[
     "ON_ACCEPTANCE",
     "SCHEDULED",
     "BILLING_PERIOD",
+    "NOT_APPLICABLE",
 ]
 
 

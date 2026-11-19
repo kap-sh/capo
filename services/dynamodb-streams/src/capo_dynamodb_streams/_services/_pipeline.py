@@ -213,8 +213,12 @@ class OperationOptions:
     rate_limiter: RateLimiter
     use_dual_stack: bool | None = None
     use_fips: bool | None = None
-    endpoint: str | None = None
     region: str | None = None
+    endpoint: str | None = None
+    account_id: str | None = None
+    account_id_endpoint_mode: str | None = None
+    stream_arn: str | None = None
+    shard_iterator: str | None = None
     retry_max_attempts: int | None = None
     retry_mode: str | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
@@ -228,8 +232,12 @@ class AsyncOperationOptions:
     rate_limiter: RateLimiter
     use_dual_stack: bool | None = None
     use_fips: bool | None = None
-    endpoint: str | None = None
     region: str | None = None
+    endpoint: str | None = None
+    account_id: str | None = None
+    account_id_endpoint_mode: str | None = None
+    stream_arn: str | None = None
+    shard_iterator: str | None = None
     retry_max_attempts: int | None = None
     retry_mode: str | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None

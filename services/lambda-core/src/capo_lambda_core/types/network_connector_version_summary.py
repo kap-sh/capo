@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_lambda_core.types.aws_gir_api_string
     import capo_lambda_core.types.core_timestamp
     import capo_lambda_core.types.network_connector_arn
     import capo_lambda_core.types.network_connector_id
@@ -12,7 +13,6 @@ if TYPE_CHECKING:
     import capo_lambda_core.types.network_connector_state
     import capo_lambda_core.types.network_connector_state_reason_code
     import capo_lambda_core.types.network_connector_version
-    import capo_lambda_core.types.string
 
 
 class NetworkConnectorVersionSummary(TypedDict, closed=True):
@@ -28,7 +28,9 @@ class NetworkConnectorVersionSummary(TypedDict, closed=True):
     """<p>The version number of this connector version.</p>"""
     state: "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
     """<p>The current state of this connector version.</p>"""
-    state_reason: NotRequired["capo_lambda_core.types.string.String"]
+    state_reason: NotRequired[
+        "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+    ]
     """<p>A human-readable explanation of the current state, populated when the state is <code>FAILED</code>.</p>"""
     state_reason_code: NotRequired[
         "capo_lambda_core.types.network_connector_state_reason_code.NetworkConnectorStateReasonCode"

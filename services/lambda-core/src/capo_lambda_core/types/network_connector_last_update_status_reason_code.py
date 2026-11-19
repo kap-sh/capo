@@ -8,6 +8,7 @@ NetworkConnectorLastUpdateStatusReasonCode: TypeAlias = Literal[
     "Ec2RequestLimitExceeded",
     "InsufficientRolePermissions",
     "InternalError",
+    "InternetGatewayNotAttached",
     "InvalidSecurityGroup",
     "InvalidSubnet",
     "SecurityGroupsPerInterfaceLimitExceeded",

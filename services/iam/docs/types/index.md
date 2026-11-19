@@ -339,6 +339,7 @@
 - [markerType](marker_type.md)
 - [maxItemsType](max_items_type.md)
 - [maxPasswordAgeType](max_password_age_type.md)
+- [maxSigninSessionDurationType](max_signin_session_duration_type.md)
 - [MFADevice](mfa_device.md)
 - [mfaDeviceListType](mfa_device_list_type.md)
 - [minimumPasswordLengthType](minimum_password_length_type.md)

@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.resource_server_identifier_type
+    import capo_cognito_identity_provider.types.resource_server_managed_by_type
     import capo_cognito_identity_provider.types.resource_server_name_type
     import capo_cognito_identity_provider.types.resource_server_scope_list_type
     import capo_cognito_identity_provider.types.user_pool_id_type
@@ -28,6 +29,10 @@ class ResourceServerType(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.resource_server_scope_list_type.ResourceServerScopeListType"
     ]
     """<p>A list of scopes that are defined for the resource server.</p>"""
+    managed_by: NotRequired[
+        "capo_cognito_identity_provider.types.resource_server_managed_by_type.ResourceServerManagedByType"
+    ]
+    """<p>This value is reserved for resource servers that Amazon Cognito manages. Resource servers that you create don't have this value.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -47,6 +52,14 @@ def serialize_aws_json_1_1(value: ResourceServerType) -> dict:
                 value["scopes"]
             )
         )
+    if "managed_by" in value:
+        import capo_cognito_identity_provider.types.resource_server_managed_by_type
+
+        out["ManagedBy"] = (
+            capo_cognito_identity_provider.types.resource_server_managed_by_type.serialize_aws_json_1_1(
+                value["managed_by"]
+            )
+        )
     return out
 
 
@@ -64,6 +77,14 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceServerType:
         out["scopes"] = (
             capo_cognito_identity_provider.types.resource_server_scope_list_type.deserialize_aws_json_1_1(
                 data["Scopes"]
+            )
+        )
+    if data.get("ManagedBy") is not None:
+        import capo_cognito_identity_provider.types.resource_server_managed_by_type
+
+        out["managed_by"] = (
+            capo_cognito_identity_provider.types.resource_server_managed_by_type.deserialize_aws_json_1_1(
+                data["ManagedBy"]
             )
         )
     return out

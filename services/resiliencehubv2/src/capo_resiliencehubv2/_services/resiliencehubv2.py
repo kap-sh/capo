@@ -259,6 +259,7 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.test_source_summary
     import capo_resiliencehubv2.types.test_source_type
     import capo_resiliencehubv2.types.test_summary
+    import capo_resiliencehubv2.types.test_template_summary
     import capo_resiliencehubv2.types.untag_resource_request
     import capo_resiliencehubv2.types.untag_resource_response
     import capo_resiliencehubv2.types.update_assertion_request
@@ -2056,6 +2057,7 @@ class resiliencehubv2Client:
             capo_resiliencehubv2.errors.access_denied_exception.AccessDeniedException: <p>Access denied — caller lacks required permissions.</p>
             capo_resiliencehubv2.errors.internal_server_exception.InternalServerException: <p>Internal service error.</p>
             capo_resiliencehubv2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found.</p>
+            capo_resiliencehubv2.errors.throttling_exception.ThrottlingException: <p>Too many requests — rate limit exceeded.</p>
             capo_resiliencehubv2.errors.validation_exception.ValidationException: <p>Validation error — invalid input parameters.</p>
             capo_resiliencehubv2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -4594,13 +4596,20 @@ class resiliencehubv2Client:
                 break
 
     def list_test_templates(
-        self, *, config_overrides: Optional[resiliencehubv2ClientConfig] = None
+        self,
+        *,
+        config_overrides: Optional[resiliencehubv2ClientConfig] = None,
+        max_results: Optional[
+            "capo_resiliencehubv2.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_resiliencehubv2.types.next_token.NextToken"] = None,
     ) -> "capo_resiliencehubv2.types.list_test_templates_response.ListTestTemplatesResponse":
         """<p>Lists the available resilience test templates. A test template is a pre-configured, AWS recommended test that defines which resilience capability to validate.</p>
 
         Raises:
             capo_resiliencehubv2.errors.access_denied_exception.AccessDeniedException: <p>Access denied — caller lacks required permissions.</p>
             capo_resiliencehubv2.errors.internal_server_exception.InternalServerException: <p>Internal service error.</p>
+            capo_resiliencehubv2.errors.throttling_exception.ThrottlingException: <p>Too many requests — rate limit exceeded.</p>
             capo_resiliencehubv2.errors.validation_exception.ValidationException: <p>Validation error — invalid input parameters.</p>
             capo_resiliencehubv2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -4623,6 +4632,10 @@ class resiliencehubv2Client:
             config_overrides, OperationLogging("ListTestTemplates")
         )
         input_: capo_resiliencehubv2.types.list_test_templates_request.ListTestTemplatesRequest = {}
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -4631,6 +4644,31 @@ class resiliencehubv2Client:
         )
         response.response.close()
         return response.output
+
+    def iter_list_test_templates(
+        self,
+        *,
+        config_overrides: Optional[resiliencehubv2ClientConfig] = None,
+        max_results: Optional[
+            "capo_resiliencehubv2.types.max_results.MaxResults"
+        ] = None,
+        next_token: Optional["capo_resiliencehubv2.types.next_token.NextToken"] = None,
+    ) -> (
+        "Iterator[capo_resiliencehubv2.types.test_template_summary.TestTemplateSummary]"
+    ):
+        _token = next_token
+        while True:
+            _response = self.list_test_templates(
+                config_overrides=config_overrides,
+                max_results=max_results,
+                next_token=_token,
+            )
+            _page = _resolve_path(_response, ("test_templates",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
 
     def list_user_journeys(
         self,

@@ -71,7 +71,7 @@ class GetWorkflowResponse(TypedDict, closed=True):
     schedule_configuration: NotRequired[
         "capo_mwaa_serverless.types.schedule_configuration.ScheduleConfiguration"
     ]
-    """<p>The schedule configuration for the workflow, including cron expressions for automated execution. Amazon Managed Workflows for Apache Airflow Serverless uses EventBridge Scheduler for cost-effective, timezone-aware scheduling. When a workflow includes schedule information in its YAML definition, the service automatically configures the appropriate triggers for automated execution. Only one version of a workflow can have an active schedule at any given time.</p>"""
+    """<p>The schedule configuration for the workflow. Only one version of a workflow can have an active schedule at any given time.</p>"""
     role_arn: NotRequired["capo_mwaa_serverless.types.role_arn.RoleARN"]
     """<p>The Amazon Resource Name (ARN) of the IAM role used for workflow execution.</p>"""
     network_configuration: NotRequired[

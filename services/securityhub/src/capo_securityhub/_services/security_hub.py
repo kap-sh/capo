@@ -3271,7 +3271,7 @@ class SecurityHubClient:
         Args:
             next_token: <p>The token that is required for pagination. On your first call to the <code>DescribeStandards</code> operation, set the value of this parameter to <code>NULL</code>.</p> <p>For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value returned from the previous response.</p>
             max_results: <p>The maximum number of standards to return.</p>
-            providers: <p>A list of cloud providers to filter the standards by. For example, specify <code>Azure</code> to return only standards that evaluate Azure resources.</p>
+            providers: <p>A list of cloud providers to filter the standards by. For example, specify <code>Azure</code> to return only standards that evaluate Azure resources, or <code>GCP</code> to return only standards that evaluate GCP resources.</p>
 
         Raises:
             capo_securityhub.errors.internal_exception.InternalException: <p>Internal server error.</p>
@@ -3284,6 +3284,10 @@ class SecurityHubClient:
             The following example returns a list of available security standards from a specified provider.
 
             >>> client.describe_standards(providers=['Azure'])
+            To get available GCP security standards
+            The following example returns a list of available security standards from a specified provider.
+
+            >>> client.describe_standards(providers=['GCP'])
             To get available Security Hub standards
             The following example returns a list of available security standards in Security Hub.
 
@@ -4542,7 +4546,7 @@ class SecurityHubClient:
             standards_subscription_arns: <p>The list of the standards subscription ARNs for the standards to retrieve.</p>
             next_token: <p>The token that is required for pagination. On your first call to the <code>GetEnabledStandards</code> operation, set the value of this parameter to <code>NULL</code>.</p> <p>For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value returned from the previous response.</p>
             max_results: <p>The maximum number of results to return in the response.</p>
-            providers: <p>A list of cloud providers to filter the enabled standards by. For example, specify <code>Azure</code> to return only enabled standards that evaluate Azure resources.</p>
+            providers: <p>A list of cloud providers to filter the enabled standards by. For example, specify <code>Azure</code> to return only enabled standards that evaluate Azure resources, or <code>GCP</code> to return only enabled standards that evaluate GCP resources.</p>
 
         Raises:
             capo_securityhub.errors.internal_exception.InternalException: <p>Internal server error.</p>
@@ -6038,7 +6042,7 @@ class SecurityHubClient:
         next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
         max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
     ) -> "capo_securityhub.types.get_software_resources_v2_response.GetSoftwareResourcesV2Response":
-        """<p>Returns a list of resources that contain a specific software package. You identify the package with <code>PackageName</code> and <code>PackageType</code>. To narrow the results to one version of the package, include <code>PackageVersion</code>.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>, which lets you retrieve resources from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>You can use the <code>Filters</code> parameter to further refine results based on resource attributes, such as <code>ResourceType</code> or <code>Region</code>.</p>
+        """<p>Returns a list of resources that contain a specific software package. You identify the package with <code>PackageName</code> and <code>PackageType</code>. To narrow the results to one version of the package, include <code>PackageVersion</code>.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>. With <code>AwsOrganizations</code>, you can retrieve resources from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>You can use the <code>Filters</code> parameter to further refine results based on resource attributes, such as <code>ResourceType</code> or <code>Region</code>.</p> <p>This operation returns paginated results. To retrieve additional results, use the <code>NextToken</code> value from the previous response.</p>
 
         Args:
             package_name: <p>The name of the software package, for example <code>openssl</code>. This value must match the <code>PackageName</code> returned by <code>GetSoftwareV2</code>.</p>
@@ -6165,7 +6169,7 @@ class SecurityHubClient:
             "capo_securityhub.types.max_statistic_results.MaxStatisticResults"
         ] = None,
     ) -> "capo_securityhub.types.get_software_statistics_v2_response.GetSoftwareStatisticsV2Response":
-        """<p>Retrieves aggregated counts of software packages installed on your resources, grouped by a field that you specify. For example, you can return the most common package types or the accounts with the most installed packages.</p> <p>Each count is the number of package-to-resource pairs that match the grouping value. A package installed on three resources contributes three to the count.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>, which lets you aggregate software from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>This operation doesn't paginate. Use <code>MaxStatisticResults</code> to control how many grouping values are returned.</p>
+        """<p>Retrieves aggregated counts of software packages installed on your resources, grouped by a field that you specify. For example, you can return the most common package types or the accounts with the most installed packages.</p> <p>Each count is the number of package-to-resource pairs that match the grouping value. A package installed on three resources contributes three to the count.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>. With <code>AwsOrganizations</code>, you can aggregate software from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>This operation doesn't paginate. Use <code>MaxStatisticResults</code> to control how many grouping values are returned.</p>
 
         Args:
             group_by_rules: <p>How software statistics should be aggregated and organized in the response.</p>
@@ -6236,7 +6240,7 @@ class SecurityHubClient:
         next_token: Optional["capo_securityhub.types.next_token.NextToken"] = None,
         max_results: Optional["capo_securityhub.types.max_results.MaxResults"] = None,
     ) -> "capo_securityhub.types.get_software_v2_response.GetSoftwareV2Response":
-        """<p>Returns a list of software packages installed on your resources. Each result identifies a package by name, version, and type, and includes the number of resources that contain that package.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>, which lets you retrieve software from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>You can use the <code>Filters</code> parameter to refine results based on package and resource attributes. You can use <code>Scopes</code> and <code>Filters</code> independently or together. When both are provided, <code>Scopes</code> narrows the data set first, and then <code>Filters</code> refines results within that scoped data set.</p> <p>To list the resources that contain a specific package, use <code>GetSoftwareResourcesV2</code>. To get counts of software grouped by a field, use <code>GetSoftwareStatisticsV2</code>.</p>
+        """<p>Returns a list of software packages installed on your resources. Each result identifies a package by name, version, and type, and includes the number of resources that contain that package.</p> <p>You can use the <code>Scopes</code> parameter to define the data boundary for the query. Currently, <code>Scopes</code> supports <code>AwsOrganizations</code>. With <code>AwsOrganizations</code>, you can retrieve software from your entire organization or from specific organizational units. Only the delegated administrator account can use <code>Scopes</code>.</p> <p>You can use the <code>Filters</code> parameter to refine results based on package and resource attributes. You can use <code>Scopes</code> and <code>Filters</code> independently or together. When both are provided, <code>Scopes</code> narrows the data set first, and then <code>Filters</code> refines results within that scoped data set.</p> <p>To list the resources that contain a specific package, use <code>GetSoftwareResourcesV2</code>. To get counts of software grouped by a field, use <code>GetSoftwareStatisticsV2</code>.</p> <p>This operation returns paginated results. To retrieve additional results, use the <code>NextToken</code> value from the previous response.</p>
 
         Args:
             filters: <p>Filters software packages based on a set of criteria. You can nest composite filters up to three levels deep.</p>
@@ -7603,7 +7607,7 @@ class SecurityHubClient:
             standards_arn: <p> The Amazon Resource Name (ARN) of the standard that you want to view controls for. </p>
             next_token: <p> Optional pagination parameter. </p>
             max_results: <p> An optional parameter that limits the total results of the API response to the specified number. If this parameter isn't provided in the request, the results include the first 25 security controls that apply to the specified standard. The results also include a <code>NextToken</code> parameter that you can use in a subsequent API call to get the next 25 controls. This repeats until all controls for the standard are returned. </p>
-            providers: <p>A list of cloud providers to filter the security control definitions by. For example, specify <code>Azure</code> to return only controls that evaluate Azure resources.</p>
+            providers: <p>A list of cloud providers to filter the security control definitions by. For example, specify <code>Azure</code> to return only controls that evaluate Azure resources, or <code>GCP</code> to return only controls that evaluate GCP resources.</p>
 
         Raises:
             capo_securityhub.errors.internal_exception.InternalException: <p>Internal server error.</p>
@@ -7617,6 +7621,10 @@ class SecurityHubClient:
             The following example lists security control definitions for a specified provider.
 
             >>> client.list_security_control_definitions(providers=['Azure'], max_results=3)
+            To list GCP security control definitions
+            The following example lists security control definitions for a specified provider.
+
+            >>> client.list_security_control_definitions(providers=['GCP'], max_results=3)
             To list security controls that apply to a standard
             The following example lists security controls that apply to a specified Security Hub standard.
 

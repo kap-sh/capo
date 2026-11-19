@@ -19,6 +19,7 @@ nav = [
   { "MWAAServerlessClient" = [
     "sync-client/index.md",
     { "Operations" = [
+      "sync-client/operations/create_airflow_ui_url.md",
       "sync-client/operations/create_workflow.md",
       "sync-client/operations/delete_workflow.md",
       "sync-client/operations/get_task_instance.md",
@@ -45,6 +46,7 @@ nav = [
   { "AsyncMWAAServerlessClient" = [
     "async-client/index.md",
     { "Operations" = [
+      "async-client/operations/create_airflow_ui_url.md",
       "async-client/operations/create_workflow.md",
       "async-client/operations/delete_workflow.md",
       "async-client/operations/get_task_instance.md",

@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     import capo_lambda.types.get_layer_version_policy_response
     import capo_lambda.types.get_layer_version_request
     import capo_lambda.types.get_layer_version_response
-    import capo_lambda.types.layer_name
+    import capo_lambda.types.layer_name_or_arn
     import capo_lambda.types.layer_permission_allowed_action
     import capo_lambda.types.layer_permission_allowed_principal
     import capo_lambda.types.layer_version_arn
@@ -57,7 +57,7 @@ class LayerVersion:
 
     def list(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
         compatible_architecture: Optional[
@@ -131,7 +131,7 @@ class LayerVersion:
 
     def add_layer_version_permission(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         statement_id: "capo_lambda.types.statement_id.StatementId",
         action: "capo_lambda.types.layer_permission_allowed_action.LayerPermissionAllowedAction",
@@ -210,7 +210,7 @@ class LayerVersion:
 
     def delete_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
@@ -265,7 +265,7 @@ class LayerVersion:
 
     def get_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
@@ -376,7 +376,7 @@ class LayerVersion:
 
     def get_layer_version_policy(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
@@ -427,7 +427,7 @@ class LayerVersion:
 
     def publish_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         content: "capo_lambda.types.layer_version_content_input.LayerVersionContentInput",
         *,
         config_overrides: Optional[LambdaClientConfig] = None,
@@ -515,7 +515,7 @@ class LayerVersion:
 
     def remove_layer_version_permission(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         statement_id: "capo_lambda.types.statement_id.StatementId",
         *,
@@ -533,6 +533,7 @@ class LayerVersion:
         Raises:
             capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
             capo_lambda.errors.precondition_failed_exception.PreconditionFailedException: <p>The RevisionId provided does not match the latest RevisionId for the Lambda function or alias.</p> <ul> <li> <p> <b>For AddPermission and RemovePermission API operations:</b> Call <code>GetPolicy</code> to retrieve the latest RevisionId for your resource.</p> </li> <li> <p> <b>For all other API operations:</b> Call <code>GetFunction</code> or <code>GetAlias</code> to retrieve the latest RevisionId for your resource.</p> </li> </ul>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
             capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>
@@ -583,7 +584,7 @@ class AsyncLayerVersion:
 
     async def list(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
         compatible_architecture: Optional[
@@ -658,7 +659,7 @@ class AsyncLayerVersion:
 
     async def add_layer_version_permission(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         statement_id: "capo_lambda.types.statement_id.StatementId",
         action: "capo_lambda.types.layer_permission_allowed_action.LayerPermissionAllowedAction",
@@ -738,7 +739,7 @@ class AsyncLayerVersion:
 
     async def delete_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
@@ -794,7 +795,7 @@ class AsyncLayerVersion:
 
     async def get_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
@@ -907,7 +908,7 @@ class AsyncLayerVersion:
 
     async def get_layer_version_policy(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
@@ -959,7 +960,7 @@ class AsyncLayerVersion:
 
     async def publish_layer_version(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         content: "capo_lambda.types.layer_version_content_input.LayerVersionContentInput",
         *,
         config_overrides: Optional[AsyncLambdaClientConfig] = None,
@@ -1048,7 +1049,7 @@ class AsyncLayerVersion:
 
     async def remove_layer_version_permission(
         self,
-        layer_name: "capo_lambda.types.layer_name.LayerName",
+        layer_name: "capo_lambda.types.layer_name_or_arn.LayerNameOrArn",
         version_number: "capo_lambda.types.layer_version_number.LayerVersionNumber",
         statement_id: "capo_lambda.types.statement_id.StatementId",
         *,
@@ -1066,6 +1067,7 @@ class AsyncLayerVersion:
         Raises:
             capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid.</p>
             capo_lambda.errors.precondition_failed_exception.PreconditionFailedException: <p>The RevisionId provided does not match the latest RevisionId for the Lambda function or alias.</p> <ul> <li> <p> <b>For AddPermission and RemovePermission API operations:</b> Call <code>GetPolicy</code> to retrieve the latest RevisionId for your resource.</p> </li> <li> <p> <b>For all other API operations:</b> Call <code>GetFunction</code> or <code>GetAlias</code> to retrieve the latest RevisionId for your resource.</p> </li> </ul>
+            capo_lambda.errors.resource_conflict_exception.ResourceConflictException: <p>The resource already exists, or another operation is in progress.</p>
             capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException: <p>The resource specified in the request does not exist.</p>
             capo_lambda.errors.service_exception.ServiceException: <p>The Lambda service encountered an internal error.</p>
             capo_lambda.errors.too_many_requests_exception.TooManyRequestsException: <p>The request throughput limit was exceeded. For more information, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html#api-requests">Lambda quotas</a>.</p>

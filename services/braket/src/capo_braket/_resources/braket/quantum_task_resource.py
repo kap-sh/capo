@@ -63,7 +63,7 @@ class QuantumTaskResource:
             "capo_braket.types.experimental_capabilities.ExperimentalCapabilities"
         ] = None,
     ) -> "capo_braket.types.create_quantum_task_response.CreateQuantumTaskResponse":
-        """<p>Creates a quantum task.</p>
+        r"""<p>Creates a quantum task.</p>
 
         Args:
             client_token: <p>The client token associated with the request.</p>
@@ -71,7 +71,7 @@ class QuantumTaskResource:
             device_parameters: <p>The parameters for the device to run the quantum task on.</p>
             shots: <p>The number of shots to use for the quantum task.</p>
             output_s3_bucket: <p>The S3 bucket to store quantum task result files in.</p>
-            output_s3_key_prefix: <p>The key prefix for the location in the S3 bucket to store quantum task results in.</p>
+            output_s3_key_prefix: <p>The key prefix for the location in the S3 bucket to store quantum task results in. For example, <code>results/</code>. Must not contain path traversal sequences such as <code>../</code> or <code>./</code>. The following characters are not valid in the key prefix:</p> <ul> <li> <p>Braces (<code>{</code> or <code>}</code>)</p> </li> <li> <p>Brackets (<code>[</code> or <code>]</code>)</p> </li> <li> <p>Less than or greater than sign (<code>&lt;</code> or <code>&gt;</code>)</p> </li> <li> <p>Backslash (<code>\</code>)</p> </li> <li> <p>Vertical bar or pipe (<code>|</code>)</p> </li> <li> <p>Caret or circumflex (<code>^</code>)</p> </li> <li> <p>Tilde (<code>~</code>)</p> </li> <li> <p>Grave accent or backtick (<code>`</code>)</p> </li> <li> <p>Percent character (<code>%</code>)</p> </li> <li> <p>Pound sign (<code>#</code>)</p> </li> <li> <p>Quotation mark (<code>"</code>)</p> </li> <li> <p>Non-printable ASCII characters (128–255 decimal characters)</p> </li> </ul>
             action: <p>The action associated with the quantum task.</p>
             tags: <p>Tags to be added to the quantum task you're creating.</p>
             job_token: <p>The token for an Amazon Braket hybrid job that associates it with the quantum task.</p>
@@ -320,7 +320,7 @@ class AsyncQuantumTaskResource:
             "capo_braket.types.experimental_capabilities.ExperimentalCapabilities"
         ] = None,
     ) -> "capo_braket.types.create_quantum_task_response.CreateQuantumTaskResponse":
-        """<p>Creates a quantum task.</p>
+        r"""<p>Creates a quantum task.</p>
 
         Args:
             client_token: <p>The client token associated with the request.</p>
@@ -328,7 +328,7 @@ class AsyncQuantumTaskResource:
             device_parameters: <p>The parameters for the device to run the quantum task on.</p>
             shots: <p>The number of shots to use for the quantum task.</p>
             output_s3_bucket: <p>The S3 bucket to store quantum task result files in.</p>
-            output_s3_key_prefix: <p>The key prefix for the location in the S3 bucket to store quantum task results in.</p>
+            output_s3_key_prefix: <p>The key prefix for the location in the S3 bucket to store quantum task results in. For example, <code>results/</code>. Must not contain path traversal sequences such as <code>../</code> or <code>./</code>. The following characters are not valid in the key prefix:</p> <ul> <li> <p>Braces (<code>{</code> or <code>}</code>)</p> </li> <li> <p>Brackets (<code>[</code> or <code>]</code>)</p> </li> <li> <p>Less than or greater than sign (<code>&lt;</code> or <code>&gt;</code>)</p> </li> <li> <p>Backslash (<code>\</code>)</p> </li> <li> <p>Vertical bar or pipe (<code>|</code>)</p> </li> <li> <p>Caret or circumflex (<code>^</code>)</p> </li> <li> <p>Tilde (<code>~</code>)</p> </li> <li> <p>Grave accent or backtick (<code>`</code>)</p> </li> <li> <p>Percent character (<code>%</code>)</p> </li> <li> <p>Pound sign (<code>#</code>)</p> </li> <li> <p>Quotation mark (<code>"</code>)</p> </li> <li> <p>Non-printable ASCII characters (128–255 decimal characters)</p> </li> </ul>
             action: <p>The action associated with the quantum task.</p>
             tags: <p>Tags to be added to the quantum task you're creating.</p>
             job_token: <p>The token for an Amazon Braket hybrid job that associates it with the quantum task.</p>

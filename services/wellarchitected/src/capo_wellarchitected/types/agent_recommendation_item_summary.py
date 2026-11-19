@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import datetime
 
+    import capo_wellarchitected.types.auto_remediation
     import capo_wellarchitected.types.recommendation_arn
     import capo_wellarchitected.types.recommendation_item_type
 
@@ -30,6 +31,10 @@ class AgentRecommendationItemSummary(TypedDict, closed=True):
     """<p>The identifier of the user or system that last modified this recommendation item.</p>"""
     last_modified_at: NotRequired["datetime.datetime"]
     """<p>The timestamp when the recommendation item was last modified.</p>"""
+    auto_remediation: NotRequired[
+        "capo_wellarchitected.types.auto_remediation.AutoRemediation"
+    ]
+    """<p>The optional per-resource auto-remediation for this affected resource, representing an SSM runbook execution. Present only when the item's check is backed by an SSM automation runbook.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -56,6 +61,14 @@ def serialize_json(value: AgentRecommendationItemSummary) -> dict:
 
         out["lastModifiedAt"] = capo_wellarchitected._protocol.serialize.fmt_date_time(
             value["last_modified_at"]
+        )
+    if "auto_remediation" in value:
+        import capo_wellarchitected.types.auto_remediation
+
+        out["autoRemediation"] = (
+            capo_wellarchitected.types.auto_remediation.serialize_json(
+                value["auto_remediation"]
+            )
         )
     return out
 
@@ -110,5 +123,13 @@ def deserialize_json(data: dict) -> AgentRecommendationItemSummary:
 
         out["last_modified_at"] = datetime.datetime.fromisoformat(
             data["lastModifiedAt"].replace("Z", "+00:00")
+        )
+    if data.get("autoRemediation") is not None:
+        import capo_wellarchitected.types.auto_remediation
+
+        out["auto_remediation"] = (
+            capo_wellarchitected.types.auto_remediation.deserialize_json(
+                data["autoRemediation"]
+            )
         )
     return out

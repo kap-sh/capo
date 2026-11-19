@@ -29,7 +29,7 @@ class UpdateBudgetRequest(TypedDict, closed=True):
     description: NotRequired["capo_deadline.types.description.Description"]
     """<p>The description of the budget to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     status: NotRequired["capo_deadline.types.budget_status.BudgetStatus"]
-    """<p>Updates the status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code>–The budget is being evaluated.</p> </li> <li> <p> <code>INACTIVE</code>–The budget is inactive. This can include Expired, Canceled, or deleted Deleted statuses.</p> </li> </ul>"""
+    """<p>Updates the status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code> - The budget is being evaluated.</p> </li> <li> <p> <code>INACTIVE</code> - The budget is inactive. This can include Expired, Canceled, or deleted Deleted statuses.</p> </li> </ul>"""
     approximate_dollar_limit: NotRequired[
         "capo_deadline.types.consumed_usage_limit.ConsumedUsageLimit"
     ]

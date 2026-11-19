@@ -20,7 +20,7 @@ class PasswordPolicy(TypedDict, closed=True):
     ]
     """<p>Minimum length to require for IAM user passwords.</p>"""
     require_symbols: "capo_iam.types.boolean_type.booleanType"
-    """<p>Specifies whether IAM user passwords must contain at least one of the following symbols:</p> <p>! @ # $ % ^ & * ( ) _ + - = [ ] { } | '</p>"""
+    """<p>Specifies whether IAM user passwords must contain at least one of the following symbols:</p> <p>! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '</p>"""
     require_numbers: "capo_iam.types.boolean_type.booleanType"
     """<p>Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).</p>"""
     require_uppercase_characters: "capo_iam.types.boolean_type.booleanType"

@@ -75,7 +75,7 @@ class DescribePipelineExecutionResponse(TypedDict, closed=True):
     ]
     """<p>The aliases currently assigned to the pipeline version that the execution ran.</p>"""
     role_arn: NotRequired["capo_sagemaker.types.role_arn.RoleArn"]
-    """<p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. SageMaker returns this value only for executions of pipelines that AWS manages.</p>"""
+    """<p>The Amazon Resource Name (ARN) of the IAM role that the execution uses. SageMaker returns this value only for executions of pipelines that Amazon Web Services manages.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

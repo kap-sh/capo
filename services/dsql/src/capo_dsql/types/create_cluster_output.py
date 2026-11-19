@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_dsql.types.deletion_protection_enabled
     import capo_dsql.types.encryption_details
     import capo_dsql.types.endpoint
+    import capo_dsql.types.metric_group_response_list
     import capo_dsql.types.multi_region_properties
 
 
@@ -38,6 +39,10 @@ class CreateClusterOutput(TypedDict, closed=True):
     """<p>Whether deletion protection is enabled on this cluster.</p>"""
     endpoint: NotRequired["capo_dsql.types.endpoint.Endpoint"]
     """<p>The connection endpoint for the created cluster.</p>"""
+    metric_groups: NotRequired[
+        "capo_dsql.types.metric_group_response_list.MetricGroupResponseList"
+    ]
+    """<p>The metric groups that you enabled for advanced monitoring on the created cluster.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -70,6 +75,12 @@ def serialize_json(value: CreateClusterOutput) -> dict:
     out["deletionProtectionEnabled"] = value["deletion_protection_enabled"]
     if "endpoint" in value:
         out["endpoint"] = value["endpoint"]
+    if "metric_groups" in value:
+        import capo_dsql.types.metric_group_response_list
+
+        out["metricGroups"] = capo_dsql.types.metric_group_response_list.serialize_json(
+            value["metric_groups"]
+        )
     return out
 
 
@@ -123,4 +134,12 @@ def deserialize_json(data: dict) -> CreateClusterOutput:
         out["deletion_protection_enabled"] = False
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
+    if data.get("metricGroups") is not None:
+        import capo_dsql.types.metric_group_response_list
+
+        out["metric_groups"] = (
+            capo_dsql.types.metric_group_response_list.deserialize_json(
+                data["metricGroups"]
+            )
+        )
     return out

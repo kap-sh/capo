@@ -10,6 +10,7 @@ BillingFeature: TypeAlias = Literal[
     "CREDIT_LEVEL_SHARING",
     "BILLING_ALERTS",
     "CREDIT_PREFERENCE_OPTIONS",
+    "BENEFIT_LEVEL_SHARING",
 ]
 
 

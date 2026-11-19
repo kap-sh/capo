@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_lambda.types.input_payload
     import capo_lambda.types.name_spaced_function_arn
     import capo_lambda.types.output_payload
+    import capo_lambda.types.pause_details
     import capo_lambda.types.trace_header
     import capo_lambda.types.version_with_latest_published
 
@@ -37,7 +38,7 @@ class GetDurableExecutionResponse(TypedDict, closed=True):
     start_timestamp: "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
     """<p>The date and time when the durable execution started, in Unix timestamp format.</p>"""
     status: "capo_lambda.types.execution_status.ExecutionStatus"
-    """<p>The current status of the durable execution. Valid values are <code>RUNNING</code>, <code>SUCCEEDED</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, and <code>STOPPED</code>.</p>"""
+    """<p>The durable execution has one of the following statuses:</p> <ul> <li> <p> <code>RUNNING</code> – The execution is running or waiting for pending operations to complete.</p> </li> <li> <p> <code>PAUSING</code> – The execution is waiting for an in-progress invocation to reach its next checkpoint before it pauses.</p> </li> <li> <p> <code>PAUSED</code> – The execution is paused, and Lambda doesn't invoke your function.</p> </li> <li> <p> <code>SUCCEEDED</code> – The execution completed successfully.</p> </li> <li> <p> <code>FAILED</code> – The execution completed with an error.</p> </li> <li> <p> <code>TIMED_OUT</code> – The execution exceeded its execution timeout.</p> </li> <li> <p> <code>STOPPED</code> – A <code>StopDurableExecution</code> request stopped the execution.</p> </li> <li> <p> <code>DELETING</code> – A <code>DeleteDurableExecution</code> request is deleting the execution and its data.</p> </li> </ul>"""
     end_timestamp: NotRequired[
         "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
     ]
@@ -54,6 +55,12 @@ class GetDurableExecutionResponse(TypedDict, closed=True):
     """<p>Indicates whether execution data is included in this response. Returns <code>false</code> when <code>IncludeExecutionData</code> is set to <code>false</code> in the request.</p>"""
     durable_config: NotRequired["capo_lambda.types.durable_config.DurableConfig"]
     """<p>Configuration settings for the durable execution, including execution timeout, retention period for execution history, and an optional ARN of the Key Management Service (KMS) customer managed key that is used to encrypt your durable execution's payload data, including input, output, and error payloads.</p>"""
+    pause_details: NotRequired["capo_lambda.types.pause_details.PauseDetails"]
+    """<p>The details of the pause, including when you requested it and whether it pauses the execution timeout. This field is only present when the execution status is <code>PAUSING</code> or <code>PAUSED</code>.</p>"""
+    expected_execution_timeout_timestamp: NotRequired[
+        "capo_lambda.types.execution_timestamp.ExecutionTimestamp"
+    ]
+    """<p>The date and time when the durable execution will time out, in Unix timestamp format. This value includes any extension from time the execution spent paused. While the execution is paused with its execution timeout paused, this value is 366 days after the start time. This field isn't present for completed executions.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -99,6 +106,20 @@ def serialize_json(value: GetDurableExecutionResponse) -> dict:
 
         out["DurableConfig"] = capo_lambda.types.durable_config.serialize_json(
             value["durable_config"]
+        )
+    if "pause_details" in value:
+        import capo_lambda.types.pause_details
+
+        out["PauseDetails"] = capo_lambda.types.pause_details.serialize_json(
+            value["pause_details"]
+        )
+    if "expected_execution_timeout_timestamp" in value:
+        import capo_lambda.types.execution_timestamp
+
+        out["ExpectedExecutionTimeoutTimestamp"] = (
+            capo_lambda.types.execution_timestamp.serialize_json(
+                value["expected_execution_timeout_timestamp"]
+            )
         )
     return out
 
@@ -171,6 +192,20 @@ def deserialize_json(data: dict) -> GetDurableExecutionResponse:
         out["durable_config"] = capo_lambda.types.durable_config.deserialize_json(
             data["DurableConfig"]
         )
+    if data.get("PauseDetails") is not None:
+        import capo_lambda.types.pause_details
+
+        out["pause_details"] = capo_lambda.types.pause_details.deserialize_json(
+            data["PauseDetails"]
+        )
+    if data.get("ExpectedExecutionTimeoutTimestamp") is not None:
+        import capo_lambda.types.execution_timestamp
+
+        out["expected_execution_timeout_timestamp"] = (
+            capo_lambda.types.execution_timestamp.deserialize_json(
+                data["ExpectedExecutionTimeoutTimestamp"]
+            )
+        )
     return out
 
 
@@ -184,4 +219,10 @@ def redact_sensitive(value: GetDurableExecutionResponse) -> dict[str, Any]:
         import capo_lambda.types.error_object
 
         out["error"] = capo_lambda.types.error_object.redact_sensitive(value["error"])
+    if "pause_details" in value:
+        import capo_lambda.types.pause_details
+
+        out["pause_details"] = capo_lambda.types.pause_details.redact_sensitive(
+            value["pause_details"]
+        )
     return out

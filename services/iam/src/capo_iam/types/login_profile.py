@@ -2,13 +2,14 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
 
 if TYPE_CHECKING:
     import capo_iam.types.boolean_type
     import capo_iam.types.date_type
+    import capo_iam.types.max_signin_session_duration_type
     import capo_iam.types.user_name_type
 
 
@@ -19,6 +20,10 @@ class LoginProfile(TypedDict, closed=True):
     """<p>The date when the password for the user was created.</p>"""
     password_reset_required: "capo_iam.types.boolean_type.booleanType"
     """<p>Specifies whether the user is required to set a new password on next sign-in.</p>"""
+    max_signin_session_duration: NotRequired[
+        "capo_iam.types.max_signin_session_duration_type.maxSigninSessionDurationType"
+    ]
+    """<p>The maximum duration (in seconds) of an Amazon Web Services Sign-In session for the user.</p> <p>This member is omitted when the setting is unset. In that case, no default value is returned and the existing sign-in session behavior applies.</p>"""
 
 
 # --- awsQuery ser/de ---
@@ -38,6 +43,13 @@ def serialize_query(
             "true" if value.get("password_reset_required", False) else "false",
         )
     )
+    if "max_signin_session_duration" in value:
+        pairs.append(
+            (
+                f"{key_prefix}MaxSigninSessionDuration",
+                str(value["max_signin_session_duration"]),
+            )
+        )
 
 
 def deserialize_query(el: Element) -> LoginProfile:
@@ -67,4 +79,9 @@ def deserialize_query(el: Element) -> LoginProfile:
         ).lower() == "true"
     else:
         out["password_reset_required"] = False
+    child_max_signin_session_duration = el.find("MaxSigninSessionDuration")
+    if child_max_signin_session_duration is not None:
+        out["max_signin_session_duration"] = int(
+            child_max_signin_session_duration.text or ""
+        )
     return out

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class QueryVectorsOutput(TypedDict, closed=True):
     vectors: "capo_s3vectors.types.query_vectors_output_list.QueryVectorsOutputList"
-    """<p>The vectors in the approximate nearest neighbor search.</p>"""
+    """<p>The matching vector results in ranked order. Results are ranked by vector distance for a vector-only search, by BM25 relevance for a full-text-only search, and by RRF score for a hybrid search.</p>"""
     distance_metric: NotRequired["capo_s3vectors.types.distance_metric.DistanceMetric"]
     """<p>The distance metric that was used for the similarity search calculation. This is the same distance metric that was configured for the vector index when it was created.</p>"""
     next_token: NotRequired[

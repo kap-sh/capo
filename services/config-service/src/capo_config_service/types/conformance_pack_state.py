@@ -6,6 +6,9 @@ ConformancePackState: TypeAlias = Literal[
     "CREATE_IN_PROGRESS",
     "CREATE_COMPLETE",
     "CREATE_FAILED",
+    "UPDATE_IN_PROGRESS",
+    "UPDATE_COMPLETE",
+    "UPDATE_FAILED",
     "DELETE_IN_PROGRESS",
     "DELETE_FAILED",
 ]

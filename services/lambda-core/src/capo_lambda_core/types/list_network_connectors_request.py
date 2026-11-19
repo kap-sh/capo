@@ -5,9 +5,9 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_lambda_core.types.aws_gir_api_string
     import capo_lambda_core.types.max_hundred_list_items
     import capo_lambda_core.types.network_connector_state
-    import capo_lambda_core.types.string
 
 
 class ListNetworkConnectorsRequest(TypedDict, closed=True):
@@ -15,7 +15,7 @@ class ListNetworkConnectorsRequest(TypedDict, closed=True):
         "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
     ]
     """<p>Optional filter to return only connectors in the specified state (for example, <code>ACTIVE</code> or <code>FAILED</code>).</p>"""
-    marker: NotRequired["capo_lambda_core.types.string.String"]
+    marker: NotRequired["capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"]
     """<p>The pagination token from a previous <code>ListNetworkConnectors</code> response. Use this value to retrieve the next page of results.</p>"""
     max_items: NotRequired[
         "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"

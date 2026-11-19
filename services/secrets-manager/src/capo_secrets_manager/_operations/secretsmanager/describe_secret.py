@@ -14,6 +14,8 @@ import capo_secrets_manager._protocol.eventstream
 import capo_secrets_manager.errors.internal_service_error
 import capo_secrets_manager.errors.invalid_parameter_exception
 import capo_secrets_manager.errors.resource_not_found_exception
+import capo_secrets_manager.types.cross_account_primary_type
+import capo_secrets_manager.types.cross_account_replica_list_type
 import capo_secrets_manager.types.deleted_date_type
 import capo_secrets_manager.types.describe_secret_request
 import capo_secrets_manager.types.describe_secret_response

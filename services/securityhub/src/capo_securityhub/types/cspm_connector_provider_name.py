@@ -3,7 +3,10 @@
 from typing import Literal, TypeAlias, cast
 
 """<p>The name of the cloud provider for a CSPM connector.</p>"""
-CspmConnectorProviderName: TypeAlias = Literal["AZURE",]
+CspmConnectorProviderName: TypeAlias = Literal[
+    "AZURE",
+    "GCP",
+]
 
 
 # --- restJson1 ser/de ---

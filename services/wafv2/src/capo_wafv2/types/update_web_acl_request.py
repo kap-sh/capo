@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_wafv2.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_wafv2.types.analytics_config
     import capo_wafv2.types.application_config
     import capo_wafv2.types.association_config
     import capo_wafv2.types.captcha_config
@@ -73,6 +74,8 @@ class UpdateWebACLRequest(TypedDict, closed=True):
         "capo_wafv2.types.monetization_config.MonetizationConfig"
     ]
     """<p>The monetization configuration for the web ACL. Provide this when any rule in the web ACL uses the <code>Monetize</code> action.</p>"""
+    analytics_config: NotRequired["capo_wafv2.types.analytics_config.AnalyticsConfig"]
+    """<p>Specifies the security analytics configuration for the web ACL. For more information, see <a>AnalyticsConfig</a>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -166,6 +169,14 @@ def serialize_aws_json_1_1(value: UpdateWebACLRequest) -> dict:
         out["MonetizationConfig"] = (
             capo_wafv2.types.monetization_config.serialize_aws_json_1_1(
                 value["monetization_config"]
+            )
+        )
+    if "analytics_config" in value:
+        import capo_wafv2.types.analytics_config
+
+        out["AnalyticsConfig"] = (
+            capo_wafv2.types.analytics_config.serialize_aws_json_1_1(
+                value["analytics_config"]
             )
         )
     return out
@@ -287,6 +298,14 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWebACLRequest:
         out["monetization_config"] = (
             capo_wafv2.types.monetization_config.deserialize_aws_json_1_1(
                 data["MonetizationConfig"]
+            )
+        )
+    if data.get("AnalyticsConfig") is not None:
+        import capo_wafv2.types.analytics_config
+
+        out["analytics_config"] = (
+            capo_wafv2.types.analytics_config.deserialize_aws_json_1_1(
+                data["AnalyticsConfig"]
             )
         )
     return out

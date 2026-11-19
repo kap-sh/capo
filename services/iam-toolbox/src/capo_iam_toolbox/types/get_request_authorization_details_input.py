@@ -1,10 +1,15 @@
 """Generated from Smithy shape ``com.amazonaws.iamtoolbox#GetRequestAuthorizationDetailsInput``."""
 
+from typing import TYPE_CHECKING
+
 from typing_extensions import NotRequired, TypedDict
+
+if TYPE_CHECKING:
+    import capo_iam_toolbox.types.authorization_id
 
 
 class GetRequestAuthorizationDetailsInput(TypedDict, closed=True):
-    authorization_id: "str"
+    authorization_id: "capo_iam_toolbox.types.authorization_id.AuthorizationId"
     """<p>The authorization ID received in the access denied error message. This ID identifies the specific request to retrieve details for.</p>"""
     next_token: NotRequired["str"]
     """<p>The pagination token from a previous call, used to retrieve the next page of evaluations. Omit this value on the first call.</p>"""

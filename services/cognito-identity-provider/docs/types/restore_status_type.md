@@ -1,0 +1,8 @@
+---
+title: RestoreStatusType
+---
+
+::: capo_cognito_identity_provider.types.restore_status_type.RestoreStatusType
+    options:
+      show_source: true
+      merge_init_into_class: false

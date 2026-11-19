@@ -14,6 +14,7 @@ import capo_athena._protocol.eventstream
 import capo_athena.errors.internal_server_exception
 import capo_athena.errors.invalid_request_exception
 import capo_athena.errors.metadata_exception
+import capo_athena.types.database_attributes_list
 import capo_athena.types.database_list
 import capo_athena.types.list_databases_input
 import capo_athena.types.list_databases_output

@@ -30,3 +30,15 @@ title: OperationUnion
       show_source: true
       merge_init_into_class: false
       heading_level: 2
+
+::: capo_mgn.types.operation_union.OperationUnionUpdateV2Member
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2
+
+::: capo_mgn.types.operation_union.OperationUnionCreateMember
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2

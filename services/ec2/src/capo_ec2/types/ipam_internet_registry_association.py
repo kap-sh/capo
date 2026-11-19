@@ -32,7 +32,7 @@ class IpamInternetRegistryAssociation(TypedDict, closed=True):
     ipam_region: NotRequired["capo_ec2.types.string.String"]
     """<p>The Amazon Web Services Region of the IPAM.</p>"""
     rir: NotRequired["capo_ec2.types.rir.Rir"]
-    """<p>The Regional Internet Registry. Possible values:</p> <ul> <li> <p> <code>ripe</code> - RIPE NCC (Europe, the Middle East, and Central Asia).</p> </li> <li> <p> <code>apnic</code> - APNIC (Asia Pacific).</p> </li> <li> <p> <code>arin</code> - ARIN (North America).</p> </li> <li> <p> <code>lacnic</code> - LACNIC (Latin America and the Caribbean).</p> </li> </ul>"""
+    """<p>The internet registry. Possible values:</p> <ul> <li> <p> <code>ripe</code> - RIPE NCC (Europe, the Middle East, and Central Asia).</p> </li> <li> <p> <code>apnic</code> - APNIC (Asia Pacific).</p> </li> <li> <p> <code>arin</code> - ARIN (North America).</p> </li> <li> <p> <code>lacnic</code> - LACNIC (Latin America and the Caribbean).</p> </li> <li> <p> <code>nicbr</code> - NIC.br (Brazil).</p> </li> </ul>"""
     organization_handle: NotRequired["capo_ec2.types.string.String"]
     """<p>The organization handle at the internet registry.</p>"""
     description: NotRequired["capo_ec2.types.string.String"]
@@ -40,7 +40,7 @@ class IpamInternetRegistryAssociation(TypedDict, closed=True):
     state: NotRequired[
         "capo_ec2.types.ipam_internet_registry_association_state.IpamInternetRegistryAssociationState"
     ]
-    """<p>The state of the internet registry association. Valid values: <code>pending-activation</code> | <code>pending-enable</code> | <code>create-in-progress</code> | <code>create-failed</code> | <code>enable-in-progress</code> | <code>enable-complete</code> | <code>enable-failed</code> | <code>delete-in-progress</code> | <code>delete-complete</code> | <code>delete-failed</code>.</p>"""
+    """<p>The state of the internet registry association. Valid values: <code>pending-enable</code> | <code>create-in-progress</code> | <code>create-failed</code> | <code>enable-in-progress</code> | <code>enable-complete</code> | <code>enable-failed</code> | <code>disable-in-progress</code> | <code>disable-complete</code> | <code>disable-failed</code> | <code>delete-in-progress</code> | <code>delete-complete</code> | <code>delete-failed</code>.</p>"""
     state_message: NotRequired["capo_ec2.types.string.String"]
     """<p>A message describing the current state of the internet registry association, including additional details such as the reason for a failure.</p>"""
     child_request_xml: NotRequired["capo_ec2.types.string.String"]

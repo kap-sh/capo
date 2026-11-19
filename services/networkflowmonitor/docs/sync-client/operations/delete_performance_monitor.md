@@ -1,0 +1,7 @@
+---
+title: delete_performance_monitor
+---
+
+::: capo_networkflowmonitor._services.network_flow_monitor.NetworkFlowMonitorClient.delete_performance_monitor
+    options:
+      show_source: true

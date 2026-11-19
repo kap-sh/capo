@@ -18,6 +18,7 @@ ResourceType: TypeAlias = Literal[
     "elastic-gpu",
     "export-image-task",
     "export-instance-task",
+    "fca-policy",
     "fleet",
     "fpga-image",
     "host-reservation",
@@ -117,6 +118,7 @@ ResourceType: TypeAlias = Literal[
     "capacity-reservation-cancellation-quote",
     "application-status-check",
     "capacity-reservation-modification-quote",
+    "metric-category",
 ]
 
 

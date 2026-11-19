@@ -28,7 +28,7 @@ class BudgetSummary(TypedDict, closed=True):
     )
     """The resource used to track expenditure in the budget."""
     status: "capo_deadline.types.budget_status.BudgetStatus"
-    """<p>The status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code>–The budget is being evaluated.</p> </li> <li> <p> <code>INACTIVE</code>–The budget is inactive. This can include Expired, Canceled, or deleted Deleted statuses.</p> </li> </ul>"""
+    """<p>The status of the budget.</p> <ul> <li> <p> <code>ACTIVE</code> - The budget is being evaluated.</p> </li> <li> <p> <code>INACTIVE</code> - The budget is inactive. This can include Expired, Canceled, or deleted Deleted statuses.</p> </li> </ul>"""
     display_name: "capo_deadline.types.resource_name.ResourceName"
     """<p>The display name of the budget summary to update.</p> <important> <p>This field can store any content. Escape or encode this content before displaying it on a webpage or any other system that might interpret the content of this field.</p> </important>"""
     approximate_dollar_limit: (

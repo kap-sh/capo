@@ -35,6 +35,9 @@ from capo_signin._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_signin.types.assertion
+    import capo_signin.types.batch_revoke_sessions_input
+    import capo_signin.types.batch_revoke_sessions_output
     import capo_signin.types.client_credentials_grant_type
     import capo_signin.types.client_token
     import capo_signin.types.console_permission_max_results
@@ -56,23 +59,35 @@ if TYPE_CHECKING:
     import capo_signin.types.get_console_authorization_configuration_output
     import capo_signin.types.get_resource_policy_input
     import capo_signin.types.get_resource_policy_output
+    import capo_signin.types.get_session_input
+    import capo_signin.types.get_session_output
     import capo_signin.types.introspect_o_auth2_token_with_iam_request
     import capo_signin.types.introspect_o_auth2_token_with_iam_response
     import capo_signin.types.introspection_token
+    import capo_signin.types.jwt_bearer_client_id
     import capo_signin.types.list_resource_permission_statements_input
     import capo_signin.types.list_resource_permission_statements_output
+    import capo_signin.types.list_sessions_input
+    import capo_signin.types.list_sessions_output
     import capo_signin.types.next_token
     import capo_signin.types.permission_statement_summary
+    import capo_signin.types.principal_arn_filter
     import capo_signin.types.put_console_authorization_configuration_input
     import capo_signin.types.put_console_authorization_configuration_output
     import capo_signin.types.put_resource_permission_statement_input
     import capo_signin.types.put_resource_permission_statement_output
     import capo_signin.types.requested_region
     import capo_signin.types.resource
+    import capo_signin.types.revocation_reason
     import capo_signin.types.revocation_token
     import capo_signin.types.revoke_o_auth2_token_with_iam_request
     import capo_signin.types.revoke_o_auth2_token_with_iam_response
     import capo_signin.types.scope
+    import capo_signin.types.session
+    import capo_signin.types.session_arn
+    import capo_signin.types.session_arn_list
+    import capo_signin.types.session_status
+    import capo_signin.types.sessions_max_results
     import capo_signin.types.source_ip
     import capo_signin.types.source_vpc
     import capo_signin.types.source_vpce
@@ -202,6 +217,79 @@ class SigninClient:
             anonymous=overrides.get("anonymous", self._config.get("anonymous")),
         )
         return interceptors_, options_
+
+    def batch_revoke_sessions(
+        self,
+        session_arns: "capo_signin.types.session_arn_list.SessionArnList",
+        *,
+        config_overrides: Optional[SigninClientConfig] = None,
+        principal_arn: Optional[
+            "capo_signin.types.principal_arn_filter.PrincipalArnFilter"
+        ] = None,
+        reason: Optional["capo_signin.types.revocation_reason.RevocationReason"] = None,
+    ) -> "capo_signin.types.batch_revoke_sessions_output.BatchRevokeSessionsOutput":
+        """Revokes up to five sign-in sessions. A revoked session can no longer be refreshed. Revoking a session that is already revoked succeeds. Each session must belong to the identity specified by principalArn, or to the caller if principalArn is omitted. Failures for individual sessions are returned in the errors list and do not fail the whole request.
+
+        Args:
+            principal_arn: The identity that owns the sessions. Omit to use the caller. Specify arn:aws:iam::{account-id}:* to revoke any session in the account.
+            session_arns: The ARNs of the sessions to revoke
+            reason: The reason for revoking the sessions
+
+        Raises:
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.resource_not_found_exception.ResourceNotFoundException: Error thrown when requested resource is not found HTTP Status Code: 404 Not Found Used when the specified resource does not exist
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
+            capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Revoke one of your own sessions
+            Revokes a session owned by the caller and records the reason.
+
+            >>> client.batch_revoke_sessions(session_arns=['arn:aws:signin:us-east-1:123456789012:session/3b0a6152-ba23-447d-83cf-b3b3cc7b95f7'], reason='Signed out of a lost device')
+            Revoke another identity's session as an account administrator
+            Uses the account wildcard principal ARN to revoke another IAM identity's session.
+
+            >>> client.batch_revoke_sessions(principal_arn='arn:aws:iam::123456789012:*', session_arns=['arn:aws:signin:us-east-1:123456789012:session/5dbdd43b-4135-4c59-ad06-5ddbcc2c1d77'], reason='Revoked by account administrator')
+            Revoke a batch of sessions with a partial failure
+            Revokes the caller's session and reports a session that was not found in the errors list.
+
+            >>> client.batch_revoke_sessions(session_arns=['arn:aws:signin:us-east-1:123456789012:session/ac148df8-7f37-48eb-b0cf-8987fc4a55a4', 'arn:aws:signin:us-east-1:123456789012:session/36b6ae9d-4fa9-40d9-8eff-eeeb4d15f79d'])
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_signin.types.batch_revoke_sessions_input.BatchRevokeSessionsInput]",
+        ) -> OperationResponse[
+            "capo_signin.types.batch_revoke_sessions_output.BatchRevokeSessionsOutput"
+        ]:
+            import capo_signin._operations.signin.batch_revoke_sessions
+
+            output, http_response = (
+                capo_signin._operations.signin.batch_revoke_sessions.batch_revoke_sessions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchRevokeSessions")
+        )
+        input_: capo_signin.types.batch_revoke_sessions_input.BatchRevokeSessionsInput = {
+            "session_arns": session_arns
+        }
+        if principal_arn is not None:
+            input_["principal_arn"] = principal_arn
+        if reason is not None:
+            input_["reason"] = reason
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
 
     def create_bearer_token(
         self,
@@ -411,17 +499,23 @@ class SigninClient:
         subject_token_type: Optional[
             "capo_signin.types.subject_token_type.SubjectTokenType"
         ] = None,
+        assertion: Optional["capo_signin.types.assertion.Assertion"] = None,
+        client_id: Optional[
+            "capo_signin.types.jwt_bearer_client_id.JwtBearerClientId"
+        ] = None,
         resource: Optional["capo_signin.types.resource.Resource"] = None,
         scope: Optional["capo_signin.types.scope.Scope"] = None,
     ) -> "capo_signin.types.create_o_auth2_token_with_token_exchange_response.CreateOAuth2TokenWithTokenExchangeResponse":
         """Exchanges a supported token for an OAuth 2.0 access token scoped to a resource, which you can use to access AWS services from applications.
 
         Args:
-            grant_type: The OAuth 2.0 grant type. Currently only supports "urn:ietf:params:oauth:grant-type:token-exchange".
+            grant_type: The OAuth 2.0 grant type. Currently supports "urn:ietf:params:oauth:grant-type:token-exchange" and "urn:ietf:params:oauth:grant-type:jwt-bearer".
             subject_token: The subject token that represents the identity of the party on whose behalf the request is made. Required when "grant_type=urn:ietf:params:oauth:grant-type:token-exchange".
             subject_token_type: The token type of the subject token. Currently only supports "urn:ietf:params:oauth:token-type:jwt". Required when "grant_type=urn:ietf:params:oauth:grant-type:token-exchange".
-            resource: The OAuth resource for which the access token is requested. Required when "grant_type=urn:ietf:params:oauth:grant-type:token-exchange". Example: "glue.amazonaws.com".
-            scope: IAM managed policy Amazon Resource Names (ARNs) to apply as session policies that further scope down the permissions of the issued access token, provided as a space-delimited list. Example: "arn:aws:iam::444455556666:policy/MyPolicy".
+            assertion: The JWT authorization grant, as defined in RFC 7523. Required when "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer".
+            client_id: The OAuth 2.0 client identifier. If provided with "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer", must match the assertion's "client_id" claim.
+            resource: The OAuth resource for which the access token is requested: - "grant_type=urn:ietf:params:oauth:grant-type:token-exchange": Required. Must be a service principal. Example: "glue.amazonaws.com". - "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer": Required when the assertion has no "resource" claim, otherwise must match it. Must be a URI. Example: "https://aws-mcp.us-east-1.api.aws/mcp".
+            scope: The IAM managed policy Amazon Resource Names (ARNs) to apply as session policies that further scope down the permissions of the issued access token, provided as a space-delimited list. Example: "arn:aws:iam::444455556666:policy/MyPolicy". If provided with "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer", must match the assertion's "scope" claim.
 
         Raises:
             capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
@@ -480,6 +574,10 @@ class SigninClient:
             input_["subject_token"] = subject_token
         if subject_token_type is not None:
             input_["subject_token_type"] = subject_token_type
+        if assertion is not None:
+            input_["assertion"] = assertion
+        if client_id is not None:
+            input_["client_id"] = client_id
         if resource is not None:
             input_["resource"] = resource
         if scope is not None:
@@ -686,6 +784,69 @@ class SigninClient:
         response.response.close()
         return response.output
 
+    def get_session(
+        self,
+        session_arn: "capo_signin.types.session_arn.SessionArn",
+        *,
+        config_overrides: Optional[SigninClientConfig] = None,
+        principal_arn: Optional[
+            "capo_signin.types.principal_arn_filter.PrincipalArnFilter"
+        ] = None,
+    ) -> "capo_signin.types.get_session_output.GetSessionOutput":
+        """Returns the details of a single sign-in session. The session must belong to the identity specified by principalArn, or to the caller if principalArn is omitted. A session that belongs to a different identity or account is reported as not found.
+
+        Args:
+            session_arn: The ARN of the session to retrieve
+            principal_arn: The identity that owns the session. Omit to use the caller. Specify arn:aws:iam::{account-id}:* to retrieve any session in the account.
+
+        Raises:
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.resource_not_found_exception.ResourceNotFoundException: Error thrown when requested resource is not found HTTP Status Code: 404 Not Found Used when the specified resource does not exist
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
+            capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get one of your own sessions
+            Returns a session owned by the caller when principalArn is omitted.
+
+            >>> client.get_session(session_arn='arn:aws:signin:us-east-1:123456789012:session/3b0a6152-ba23-447d-83cf-b3b3cc7b95f7')
+            Get another identity's session as an account administrator
+            Uses the account wildcard principal ARN to get a session owned by another IAM identity.
+
+            >>> client.get_session(principal_arn='arn:aws:iam::123456789012:*', session_arn='arn:aws:signin:us-east-1:123456789012:session/5dbdd43b-4135-4c59-ad06-5ddbcc2c1d77')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_signin.types.get_session_input.GetSessionInput]",
+        ) -> OperationResponse["capo_signin.types.get_session_output.GetSessionOutput"]:
+            import capo_signin._operations.signin.get_session
+
+            output, http_response = (
+                capo_signin._operations.signin.get_session.get_session(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
+        input_: capo_signin.types.get_session_input.GetSessionInput = {
+            "session_arn": session_arn
+        }
+        if principal_arn is not None:
+            input_["principal_arn"] = principal_arn
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def introspect_o_auth2_token_with_iam(
         self,
         token: "capo_signin.types.introspection_token.IntrospectionToken",
@@ -824,6 +985,127 @@ class SigninClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("permission_statements",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_sessions(
+        self,
+        *,
+        config_overrides: Optional[SigninClientConfig] = None,
+        principal_arn: Optional[
+            "capo_signin.types.principal_arn_filter.PrincipalArnFilter"
+        ] = None,
+        max_results: Optional[
+            "capo_signin.types.sessions_max_results.SessionsMaxResults"
+        ] = None,
+        next_token: Optional["capo_signin.types.next_token.NextToken"] = None,
+        status: Optional["capo_signin.types.session_status.SessionStatus"] = None,
+        client_id: Optional[str] = None,
+        issued_after: Optional[int] = None,
+        issued_before: Optional[int] = None,
+    ) -> "capo_signin.types.list_sessions_output.ListSessionsOutput":
+        """Lists sign-in sessions for an IAM identity in your account. If you omit principalArn, the operation lists the caller's own sessions. Specify a user or role ARN to list that identity's sessions, or specify arn:aws:iam::{account-id}:* to list all sessions in the account. Filters are combined with a logical AND.
+
+        Args:
+            principal_arn: The identity whose sessions to list. Omit to list the caller's own sessions. Specify arn:aws:iam::{account-id}:* to list all sessions in the account.
+            max_results: Maximum number of results to return
+            next_token: Token for pagination
+            status: Returns only sessions with this status
+            client_id: Returns only sessions created by this OAuth client
+            issued_after: Returns only sessions created at or after this time, in Unix epoch seconds
+            issued_before: Returns only sessions created before this time, in Unix epoch seconds
+
+        Raises:
+            capo_signin.errors.access_denied_exception.AccessDeniedException: You do not have sufficient access to perform this action.
+            capo_signin.errors.internal_server_exception.InternalServerException: The request failed because of an internal server error.
+            capo_signin.errors.too_many_requests_error.TooManyRequestsError: The request failed because you exceeded the request rate limit for this operation.
+            capo_signin.errors.validation_exception.ValidationException: The request failed because it contains a malformed, missing, or invalid parameter.
+            capo_signin.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List your own sessions
+            Lists the caller's sessions when principalArn is omitted.
+
+            >>> client.list_sessions()
+            List active sessions one page at a time
+            Returns one active session and a token to request the next page.
+
+            >>> client.list_sessions(max_results=1, status='ACTIVE')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_signin.types.list_sessions_input.ListSessionsInput]",
+        ) -> OperationResponse[
+            "capo_signin.types.list_sessions_output.ListSessionsOutput"
+        ]:
+            import capo_signin._operations.signin.list_sessions
+
+            output, http_response = (
+                capo_signin._operations.signin.list_sessions.list_sessions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
+        input_: capo_signin.types.list_sessions_input.ListSessionsInput = {}
+        if principal_arn is not None:
+            input_["principal_arn"] = principal_arn
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if status is not None:
+            input_["status"] = status
+        if client_id is not None:
+            input_["client_id"] = client_id
+        if issued_after is not None:
+            input_["issued_after"] = issued_after
+        if issued_before is not None:
+            input_["issued_before"] = issued_before
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_sessions(
+        self,
+        *,
+        config_overrides: Optional[SigninClientConfig] = None,
+        principal_arn: Optional[
+            "capo_signin.types.principal_arn_filter.PrincipalArnFilter"
+        ] = None,
+        max_results: Optional[
+            "capo_signin.types.sessions_max_results.SessionsMaxResults"
+        ] = None,
+        next_token: Optional["capo_signin.types.next_token.NextToken"] = None,
+        status: Optional["capo_signin.types.session_status.SessionStatus"] = None,
+        client_id: Optional[str] = None,
+        issued_after: Optional[int] = None,
+        issued_before: Optional[int] = None,
+    ) -> "Iterator[capo_signin.types.session.Session]":
+        _token = next_token
+        while True:
+            _response = self.list_sessions(
+                config_overrides=config_overrides,
+                principal_arn=principal_arn,
+                max_results=max_results,
+                next_token=_token,
+                status=status,
+                client_id=client_id,
+                issued_after=issued_after,
+                issued_before=issued_before,
+            )
+            _page = _resolve_path(_response, ("items",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))

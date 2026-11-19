@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_qconnect.types.agent_attributes
+    import capo_qconnect.types.case_attributes
     import capo_qconnect.types.custom_attributes
     import capo_qconnect.types.customer_profile_attributes
     import capo_qconnect.types.system_attributes
@@ -28,6 +29,8 @@ class MessageTemplateAttributes(TypedDict, closed=True):
         "capo_qconnect.types.custom_attributes.CustomAttributes"
     ]
     """<p>The custom attributes that are used with the message template.</p>"""
+    case_attributes: NotRequired["capo_qconnect.types.case_attributes.CaseAttributes"]
+    """<p>The case attributes that are used with the message template.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -58,6 +61,12 @@ def serialize_json(value: MessageTemplateAttributes) -> dict:
 
         out["customAttributes"] = capo_qconnect.types.custom_attributes.serialize_json(
             value["custom_attributes"]
+        )
+    if "case_attributes" in value:
+        import capo_qconnect.types.case_attributes
+
+        out["caseAttributes"] = capo_qconnect.types.case_attributes.serialize_json(
+            value["case_attributes"]
         )
     return out
 
@@ -94,6 +103,12 @@ def deserialize_json(data: dict) -> MessageTemplateAttributes:
                 data["customAttributes"]
             )
         )
+    if data.get("caseAttributes") is not None:
+        import capo_qconnect.types.case_attributes
+
+        out["case_attributes"] = capo_qconnect.types.case_attributes.deserialize_json(
+            data["caseAttributes"]
+        )
     return out
 
 
@@ -123,4 +138,6 @@ def redact_sensitive(value: MessageTemplateAttributes) -> dict[str, Any]:
         )
     if "custom_attributes" in value:
         out["custom_attributes"] = "*** Sensitive Data Redacted ***"
+    if "case_attributes" in value:
+        out["case_attributes"] = "*** Sensitive Data Redacted ***"
     return out

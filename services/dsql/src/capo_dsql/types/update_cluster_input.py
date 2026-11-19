@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_dsql.types.cluster_id
     import capo_dsql.types.deletion_protection_enabled
     import capo_dsql.types.kms_encryption_key
+    import capo_dsql.types.metric_group_request_list
     import capo_dsql.types.multi_region_properties
 
 
@@ -29,6 +30,10 @@ class UpdateClusterInput(TypedDict, closed=True):
         "capo_dsql.types.multi_region_properties.MultiRegionProperties"
     ]
     """<p>The new multi-Region cluster configuration settings to be applied during an update operation.</p>"""
+    metric_groups: NotRequired[
+        "capo_dsql.types.metric_group_request_list.MetricGroupRequestList"
+    ]
+    """<p>The complete set of metric groups to enable for advanced monitoring on the cluster. This list replaces the current set, so any metric group that you don't include is disabled. To disable all metric groups, specify an empty list (<code>[]</code>). If you omit this parameter, the current setting doesn't change.</p> <p>To view the metric groups enabled on a cluster, use <i>GetCluster</i>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -48,6 +53,12 @@ def serialize_json(value: UpdateClusterInput) -> dict:
                 value["multi_region_properties"]
             )
         )
+    if "metric_groups" in value:
+        import capo_dsql.types.metric_group_request_list
+
+        out["metricGroups"] = capo_dsql.types.metric_group_request_list.serialize_json(
+            value["metric_groups"]
+        )
     return out
 
 
@@ -65,6 +76,14 @@ def deserialize_json(data: dict) -> UpdateClusterInput:
         out["multi_region_properties"] = (
             capo_dsql.types.multi_region_properties.deserialize_json(
                 data["multiRegionProperties"]
+            )
+        )
+    if data.get("metricGroups") is not None:
+        import capo_dsql.types.metric_group_request_list
+
+        out["metric_groups"] = (
+            capo_dsql.types.metric_group_request_list.deserialize_json(
+                data["metricGroups"]
             )
         )
     return out

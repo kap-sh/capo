@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.client_name_type
     import capo_cognito_identity_provider.types.client_permission_list_type
     import capo_cognito_identity_provider.types.client_secret_type
+    import capo_cognito_identity_provider.types.client_type_type
     import capo_cognito_identity_provider.types.date_type
     import capo_cognito_identity_provider.types.explicit_auth_flows_list_type
     import capo_cognito_identity_provider.types.id_token_validity_type
@@ -80,7 +81,7 @@ class UserPoolClientType(TypedDict, closed=True):
     explicit_auth_flows: NotRequired[
         "capo_cognito_identity_provider.types.explicit_auth_flows_list_type.ExplicitAuthFlowsListType"
     ]
-    """<p>The <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html">authentication flows</a> that you want your user pool client to support. For each app client in your user pool, you can sign in your users with any combination of one or more flows, including with a user name and Secure Remote Password (SRP), a user name and password, or a custom authentication process that you define with Lambda functions.</p> <note> <p>If you don't specify a value for <code>ExplicitAuthFlows</code>, your app client supports <code>ALLOW_REFRESH_TOKEN_AUTH</code>, <code>ALLOW_USER_SRP_AUTH</code>, and <code>ALLOW_CUSTOM_AUTH</code>. </p> </note> <p>The values for authentication flow options include the following.</p> <ul> <li> <p> <code>ALLOW_USER_AUTH</code>: Enable selection-based sign-in with <code>USER_AUTH</code>. This setting covers username-password, secure remote password (SRP), passwordless, and passkey authentication. This authentiation flow can do username-password and SRP authentication without other <code>ExplicitAuthFlows</code> permitting them. For example users can complete an SRP challenge through <code>USER_AUTH</code> without the flow <code>USER_SRP_AUTH</code> being active for the app client. This flow doesn't include <code>CUSTOM_AUTH</code>. </p> <p>To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p> </li> <li> <p> <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow, your app passes a user name and password to Amazon Cognito in the request, instead of using the Secure Remote Password (SRP) protocol to securely transmit the password.</p> </li> <li> <p> <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p> </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based authentication. In this flow, Amazon Cognito receives the password in the request instead of using the SRP protocol to verify passwords.</p> </li> <li> <p> <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP-based authentication.</p> </li> <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh tokens.</p> </li> </ul> <p>In some environments, you will see the values <code>ADMIN_NO_SRP_AUTH</code>, <code>CUSTOM_AUTH_FLOW_ONLY</code>, or <code>USER_PASSWORD_AUTH</code>. You can't assign these legacy <code>ExplicitAuthFlows</code> values to user pool clients at the same time as values that begin with <code>ALLOW_</code>, like <code>ALLOW_USER_SRP_AUTH</code>.</p>"""
+    """<p>The <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow-methods.html">authentication flows</a> that you want your user pool client to support. For each app client in your user pool, you can sign in your users with any combination of one or more flows, including with a user name and Secure Remote Password (SRP), a user name and password, or a custom authentication process that you define with Lambda functions.</p> <note> <p>If you don't specify a value for <code>ExplicitAuthFlows</code>, your app client supports <code>ALLOW_REFRESH_TOKEN_AUTH</code>, <code>ALLOW_USER_SRP_AUTH</code>, and <code>ALLOW_CUSTOM_AUTH</code>. </p> </note> <p>The values for authentication flow options include the following.</p> <ul> <li> <p> <code>ALLOW_USER_AUTH</code>: Enable selection-based sign-in with <code>USER_AUTH</code>. This setting covers username-password, secure remote password (SRP), passwordless, and passkey authentication. This authentiation flow can do username-password and SRP authentication without other <code>ExplicitAuthFlows</code> permitting them. For example users can complete an SRP challenge through <code>USER_AUTH</code> without the flow <code>USER_SRP_AUTH</code> being active for the app client. This flow doesn't include <code>CUSTOM_AUTH</code>. </p> <p>To activate this setting, your user pool must be in the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/feature-plans-features-essentials.html"> Essentials tier</a> or higher.</p> </li> <li> <p> <code>ALLOW_ADMIN_USER_PASSWORD_AUTH</code>: Enable admin based user password authentication flow <code>ADMIN_USER_PASSWORD_AUTH</code>. This setting replaces the <code>ADMIN_NO_SRP_AUTH</code> setting. With this authentication flow, your app passes a user name and password to Amazon Cognito in the request, instead of using the Secure Remote Password (SRP) protocol to securely transmit the password.</p> </li> <li> <p> <code>ALLOW_CUSTOM_AUTH</code>: Enable Lambda trigger based authentication.</p> </li> <li> <p> <code>ALLOW_USER_PASSWORD_AUTH</code>: Enable user password-based authentication. In this flow, Amazon Cognito receives the password in the request instead of using the SRP protocol to verify passwords.</p> </li> <li> <p> <code>ALLOW_USER_SRP_AUTH</code>: Enable SRP-based authentication.</p> </li> <li> <p> <code>ALLOW_REFRESH_TOKEN_AUTH</code>: Enable authflow to refresh tokens.</p> </li> <li> <p> <code>ALLOW_TOKEN_EXCHANGE_IMPERSONATION</code> – Use this flow to request <code>GetDerivedToken</code> token exchanges without an <code>ActorToken</code>. The issued token represents the subject user directly.</p> </li> <li> <p> <code>ALLOW_TOKEN_EXCHANGE_DELEGATION</code> – Use this flow to request <code>GetDerivedToken</code> token exchanges that include an <code>ActorToken</code>. The issued token carries an <code>act</code> claim that identifies the intermediary acting on the behalf of the subject.</p> </li> </ul> <p>In some environments, you will see the values <code>ADMIN_NO_SRP_AUTH</code>, <code>CUSTOM_AUTH_FLOW_ONLY</code>, or <code>USER_PASSWORD_AUTH</code>. You can't assign these legacy <code>ExplicitAuthFlows</code> values to user pool clients at the same time as values that begin with <code>ALLOW_</code>, like <code>ALLOW_USER_SRP_AUTH</code>.</p>"""
     supported_identity_providers: NotRequired[
         "capo_cognito_identity_provider.types.supported_identity_providers_list_type.SupportedIdentityProvidersListType"
     ]
@@ -133,6 +134,10 @@ class UserPoolClientType(TypedDict, closed=True):
         "capo_cognito_identity_provider.types.refresh_token_rotation_type.RefreshTokenRotationType"
     ]
     """<p>The configuration of your app client for refresh token rotation. When enabled, your app client issues new ID, access, and refresh tokens when users renew their sessions with refresh tokens. When disabled, token refresh issues only ID and access tokens.</p>"""
+    client_type: NotRequired[
+        "capo_cognito_identity_provider.types.client_type_type.ClientTypeType"
+    ]
+    """<p>How the app client was created.</p> <dl> <dt>REGULAR</dt> <dd> <p>The app client wasn't created through dynamic client registration. For example, you created it with <code>CreateUserPoolClient</code>.</p> </dd> <dt>DCR</dt> <dd> <p>An application registered the app client through dynamic client registration. These app clients don't support client secret operations such as <code>AddUserPoolClientSecret</code>, and they can't hold the <code>aws.cognito/dcr/register</code> scope.</p> </dd> </dl>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -275,6 +280,14 @@ def serialize_aws_json_1_1(value: UserPoolClientType) -> dict:
         out["RefreshTokenRotation"] = (
             capo_cognito_identity_provider.types.refresh_token_rotation_type.serialize_aws_json_1_1(
                 value["refresh_token_rotation"]
+            )
+        )
+    if "client_type" in value:
+        import capo_cognito_identity_provider.types.client_type_type
+
+        out["ClientType"] = (
+            capo_cognito_identity_provider.types.client_type_type.serialize_aws_json_1_1(
+                value["client_type"]
             )
         )
     return out
@@ -422,6 +435,14 @@ def deserialize_aws_json_1_1(data: dict) -> UserPoolClientType:
         out["refresh_token_rotation"] = (
             capo_cognito_identity_provider.types.refresh_token_rotation_type.deserialize_aws_json_1_1(
                 data["RefreshTokenRotation"]
+            )
+        )
+    if data.get("ClientType") is not None:
+        import capo_cognito_identity_provider.types.client_type_type
+
+        out["client_type"] = (
+            capo_cognito_identity_provider.types.client_type_type.deserialize_aws_json_1_1(
+                data["ClientType"]
             )
         )
     return out

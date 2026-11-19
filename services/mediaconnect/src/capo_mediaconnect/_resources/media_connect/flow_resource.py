@@ -74,6 +74,8 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.remove_flow_vpc_interface_response
     import capo_mediaconnect.types.revoke_flow_entitlement_request
     import capo_mediaconnect.types.revoke_flow_entitlement_response
+    import capo_mediaconnect.types.rtmp_push_output_settings
+    import capo_mediaconnect.types.set_rtmp_push_source_settings
     import capo_mediaconnect.types.set_source_request
     import capo_mediaconnect.types.start_flow_request
     import capo_mediaconnect.types.start_flow_response
@@ -1414,6 +1416,9 @@ class FlowResource:
         ndi_audio_reference_level: Optional[
             "capo_mediaconnect.types.ndi_audio_reference_level.NdiAudioReferenceLevel"
         ] = None,
+        rtmp_push_settings: Optional[
+            "capo_mediaconnect.types.rtmp_push_output_settings.RtmpPushOutputSettings"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_flow_output_response.UpdateFlowOutputResponse":
         """<p> Updates an existing flow output.</p>
 
@@ -1441,6 +1446,7 @@ class FlowResource:
             router_integration_state: <p>Indicates whether to enable or disable router integration for this flow output.</p>
             ndi_output_timecode_source: <p>Controls how MediaConnect generates timecodes for NDI output frames. If you don't specify this field, MediaConnect leaves the value unchanged.</p> <ul> <li> <p> <code>EMBEDDED_TIMECODE</code> - Preserves timecodes from the input transport stream. The timecodes must be embedded in the video stream as SEI timing messages. If no embedded timecode is detected, MediaConnect uses the UTC system time instead.</p> </li> <li> <p> <code>UTC_SYSTEM_TIME</code> - Generates timecodes based on the system clock time when each frame is sent.</p> </li> </ul>
             ndi_audio_reference_level: <p>The audio reference level of the NDI receiver, in decibels relative to full scale (dBFS). Common values are <code>-20</code> (NDI and SMPTE) and <code>-18</code> (EBU). If you don't specify this field, MediaConnect leaves the value unchanged.</p>
+            rtmp_push_settings: <p>The settings for an output that pushes a stream to a destination using the RTMP (Real-Time Messaging Protocol) protocol, or RTMPS (RTMP over TLS) when TLS encryption is specified.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -1521,6 +1527,8 @@ class FlowResource:
             input_["ndi_output_timecode_source"] = ndi_output_timecode_source
         if ndi_audio_reference_level is not None:
             input_["ndi_audio_reference_level"] = ndi_audio_reference_level
+        if rtmp_push_settings is not None:
+            input_["rtmp_push_settings"] = rtmp_push_settings
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1569,6 +1577,9 @@ class FlowResource:
         router_integration_transit_decryption: Optional[
             "capo_mediaconnect.types.flow_transit_encryption.FlowTransitEncryption"
         ] = None,
+        rtmp_push_settings: Optional[
+            "capo_mediaconnect.types.set_rtmp_push_source_settings.SetRtmpPushSourceSettings"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_flow_source_response.UpdateFlowSourceResponse":
         """<p> Updates the source of a flow.</p> <note> <p> Because <code>UpdateFlowSources</code> and <code>UpdateFlow</code> are separate operations, you can't change both the source type AND the flow size in a single request. </p> <ul> <li> <p>If you have a <code>MEDIUM</code> flow and you want to change the flow source to NDI®:</p> <ul> <li> <p>First, use the <code>UpdateFlow</code> operation to upgrade the flow size to <code>LARGE</code>. </p> </li> <li> <p>After that, you can then use the <code>UpdateFlowSource</code> operation to configure the NDI source. </p> </li> </ul> </li> <li> <p>If you're switching from an NDI source to a transport stream (TS) source and want to downgrade the flow size: </p> <ul> <li> <p>First, use the <code>UpdateFlowSource</code> operation to change the flow source type. </p> </li> <li> <p>After that, you can then use the <code>UpdateFlow</code> operation to downgrade the flow size to <code>MEDIUM</code>.</p> </li> </ul> </li> </ul> </note>
 
@@ -1596,6 +1607,7 @@ class FlowResource:
             ndi_source_settings: <p> The settings for the NDI source. This includes the exact name of the upstream NDI sender that you want to connect to your source. </p>
             router_integration_state: <p>Indicates whether to enable or disable router integration for this flow source.</p>
             router_integration_transit_decryption: <p>The encryption configuration for the flow source when router integration is enabled.</p>
+            rtmp_push_settings: <p>The settings for the RTMP (Real-Time Messaging Protocol) source.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -1674,6 +1686,8 @@ class FlowResource:
             input_["router_integration_transit_decryption"] = (
                 router_integration_transit_decryption
             )
+        if rtmp_push_settings is not None:
+            input_["rtmp_push_settings"] = rtmp_push_settings
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3014,6 +3028,9 @@ class AsyncFlowResource:
         ndi_audio_reference_level: Optional[
             "capo_mediaconnect.types.ndi_audio_reference_level.NdiAudioReferenceLevel"
         ] = None,
+        rtmp_push_settings: Optional[
+            "capo_mediaconnect.types.rtmp_push_output_settings.RtmpPushOutputSettings"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_flow_output_response.UpdateFlowOutputResponse":
         """<p> Updates an existing flow output.</p>
 
@@ -3041,6 +3058,7 @@ class AsyncFlowResource:
             router_integration_state: <p>Indicates whether to enable or disable router integration for this flow output.</p>
             ndi_output_timecode_source: <p>Controls how MediaConnect generates timecodes for NDI output frames. If you don't specify this field, MediaConnect leaves the value unchanged.</p> <ul> <li> <p> <code>EMBEDDED_TIMECODE</code> - Preserves timecodes from the input transport stream. The timecodes must be embedded in the video stream as SEI timing messages. If no embedded timecode is detected, MediaConnect uses the UTC system time instead.</p> </li> <li> <p> <code>UTC_SYSTEM_TIME</code> - Generates timecodes based on the system clock time when each frame is sent.</p> </li> </ul>
             ndi_audio_reference_level: <p>The audio reference level of the NDI receiver, in decibels relative to full scale (dBFS). Common values are <code>-20</code> (NDI and SMPTE) and <code>-18</code> (EBU). If you don't specify this field, MediaConnect leaves the value unchanged.</p>
+            rtmp_push_settings: <p>The settings for an output that pushes a stream to a destination using the RTMP (Real-Time Messaging Protocol) protocol, or RTMPS (RTMP over TLS) when TLS encryption is specified.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -3122,6 +3140,8 @@ class AsyncFlowResource:
             input_["ndi_output_timecode_source"] = ndi_output_timecode_source
         if ndi_audio_reference_level is not None:
             input_["ndi_audio_reference_level"] = ndi_audio_reference_level
+        if rtmp_push_settings is not None:
+            input_["rtmp_push_settings"] = rtmp_push_settings
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -3170,6 +3190,9 @@ class AsyncFlowResource:
         router_integration_transit_decryption: Optional[
             "capo_mediaconnect.types.flow_transit_encryption.FlowTransitEncryption"
         ] = None,
+        rtmp_push_settings: Optional[
+            "capo_mediaconnect.types.set_rtmp_push_source_settings.SetRtmpPushSourceSettings"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_flow_source_response.UpdateFlowSourceResponse":
         """<p> Updates the source of a flow.</p> <note> <p> Because <code>UpdateFlowSources</code> and <code>UpdateFlow</code> are separate operations, you can't change both the source type AND the flow size in a single request. </p> <ul> <li> <p>If you have a <code>MEDIUM</code> flow and you want to change the flow source to NDI®:</p> <ul> <li> <p>First, use the <code>UpdateFlow</code> operation to upgrade the flow size to <code>LARGE</code>. </p> </li> <li> <p>After that, you can then use the <code>UpdateFlowSource</code> operation to configure the NDI source. </p> </li> </ul> </li> <li> <p>If you're switching from an NDI source to a transport stream (TS) source and want to downgrade the flow size: </p> <ul> <li> <p>First, use the <code>UpdateFlowSource</code> operation to change the flow source type. </p> </li> <li> <p>After that, you can then use the <code>UpdateFlow</code> operation to downgrade the flow size to <code>MEDIUM</code>.</p> </li> </ul> </li> </ul> </note>
 
@@ -3197,6 +3220,7 @@ class AsyncFlowResource:
             ndi_source_settings: <p> The settings for the NDI source. This includes the exact name of the upstream NDI sender that you want to connect to your source. </p>
             router_integration_state: <p>Indicates whether to enable or disable router integration for this flow source.</p>
             router_integration_transit_decryption: <p>The encryption configuration for the flow source when router integration is enabled.</p>
+            rtmp_push_settings: <p>The settings for the RTMP (Real-Time Messaging Protocol) source.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -3276,6 +3300,8 @@ class AsyncFlowResource:
             input_["router_integration_transit_decryption"] = (
                 router_integration_transit_decryption
             )
+        if rtmp_push_settings is not None:
+            input_["rtmp_push_settings"] = rtmp_push_settings
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

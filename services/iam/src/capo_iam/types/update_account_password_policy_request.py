@@ -20,7 +20,7 @@ class UpdateAccountPasswordPolicyRequest(TypedDict, closed=True):
     ]
     """<p>The minimum number of characters allowed in an IAM user password.</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>6</code>.</p>"""
     require_symbols: NotRequired["capo_iam.types.boolean_type.booleanType"]
-    """<p>Specifies whether IAM user passwords must contain at least one of the following non-alphanumeric characters:</p> <p>! @ # $ % ^ & * ( ) _ + - = [ ] { } | '</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>false</code>. The result is that passwords do not require at least one symbol character.</p>"""
+    """<p>Specifies whether IAM user passwords must contain at least one of the following non-alphanumeric characters:</p> <p>! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>false</code>. The result is that passwords do not require at least one symbol character.</p>"""
     require_numbers: NotRequired["capo_iam.types.boolean_type.booleanType"]
     """<p>Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).</p> <p>If you do not specify a value for this parameter, then the operation uses the default value of <code>false</code>. The result is that passwords do not require at least one numeric character.</p>"""
     require_uppercase_characters: NotRequired["capo_iam.types.boolean_type.booleanType"]

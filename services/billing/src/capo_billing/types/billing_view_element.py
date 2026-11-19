@@ -28,7 +28,7 @@ class BillingViewElement(TypedDict, closed=True):
     billing_view_type: NotRequired[
         "capo_billing.types.billing_view_type.BillingViewType"
     ]
-    """<p>The type of billing group. </p>"""
+    """<p>The type of billing view. The following values are valid:</p> <ul> <li> <p> <code>PRIMARY</code> - The billing view that contains all cost management data associated with an account.</p> </li> <li> <p> <code>CUSTOM</code> - A billing view that a customer creates from one or more source views.</p> </li> <li> <p> <code>BILLING_GROUP</code> - The billing view for an Billing Conductor billing group.</p> </li> <li> <p> <code>BILLING_TRANSFER</code> - The billing view for the billing data that a bill transfer account is financially responsible for.</p> </li> <li> <p> <code>BILLING_TRANSFER_SHOWBACK</code> - The billing view for billing data configured for showback or chargeback purposes.</p> </li> </ul>"""
     owner_account_id: NotRequired["capo_billing.types.account_id.AccountId"]
     """<p>The account owner of the billing view. </p>"""
     source_account_id: NotRequired["capo_billing.types.account_id.AccountId"]

@@ -15,7 +15,7 @@ class EvaluationFormItemEnablementCondition(TypedDict, closed=True):
     operator: NotRequired[
         "capo_connect.types.evaluation_form_item_enablement_operator.EvaluationFormItemEnablementOperator"
     ]
-    """<p>The operator to be used to be applied to operands if more than one provided. </p>"""
+    """<p>The operator to apply to the operands when more than one operand is provided.</p>"""
 
 
 # --- restJson1 ser/de ---

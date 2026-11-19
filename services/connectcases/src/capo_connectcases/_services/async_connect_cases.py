@@ -57,6 +57,7 @@ if TYPE_CHECKING:
     import capo_connectcases.types.batch_update_case_response
     import capo_connectcases.types.case_filter
     import capo_connectcases.types.case_id
+    import capo_connectcases.types.case_id_list
     import capo_connectcases.types.case_rule_description
     import capo_connectcases.types.case_rule_details
     import capo_connectcases.types.case_rule_id
@@ -107,6 +108,7 @@ if TYPE_CHECKING:
     import capo_connectcases.types.field_type
     import capo_connectcases.types.field_value_input_list
     import capo_connectcases.types.field_value_list
+    import capo_connectcases.types.fields_configuration_list
     import capo_connectcases.types.get_case_audit_events_request
     import capo_connectcases.types.get_case_audit_events_response
     import capo_connectcases.types.get_case_event_configuration_request
@@ -117,6 +119,8 @@ if TYPE_CHECKING:
     import capo_connectcases.types.get_domain_response
     import capo_connectcases.types.get_layout_request
     import capo_connectcases.types.get_layout_response
+    import capo_connectcases.types.get_merge_cases_status_request
+    import capo_connectcases.types.get_merge_cases_status_response
     import capo_connectcases.types.get_template_request
     import capo_connectcases.types.get_template_response
     import capo_connectcases.types.layout_configuration
@@ -149,6 +153,7 @@ if TYPE_CHECKING:
     import capo_connectcases.types.related_item_input_content
     import capo_connectcases.types.related_item_type
     import capo_connectcases.types.related_item_update_content
+    import capo_connectcases.types.related_items_configuration
     import capo_connectcases.types.required_field_list
     import capo_connectcases.types.search_all_related_items_request
     import capo_connectcases.types.search_all_related_items_response
@@ -161,6 +166,8 @@ if TYPE_CHECKING:
     import capo_connectcases.types.search_related_items_response
     import capo_connectcases.types.search_related_items_response_item
     import capo_connectcases.types.sort_list
+    import capo_connectcases.types.start_merge_cases_request
+    import capo_connectcases.types.start_merge_cases_response
     import capo_connectcases.types.tag_key_list
     import capo_connectcases.types.tag_propagation_configuration_list
     import capo_connectcases.types.tag_resource_request
@@ -633,7 +640,7 @@ class AsyncConnectCasesClient:
         config_overrides: Optional[AsyncConnectCasesClientConfig] = None,
         performed_by: Optional["capo_connectcases.types.user_union.UserUnion"] = None,
     ) -> "capo_connectcases.types.update_case_response.UpdateCaseResponse":
-        """<note> <p>If you provide a value for <code>PerformedBy.UserArn</code>, you must also have the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeUser.html">connect:DescribeUser</a> permission on the user ARN that you provide.</p> </note> <p>Updates the values of fields on a case. Fields to be updated are received as an array of id/value pairs identical to the <code>CreateCase</code> input.</p> <p>If the action is successful, the service sends back an HTTP 200 response with an empty HTTP body.</p>
+        """<note> <p>If you provide a value for <code>PerformedBy.UserArn</code>, you must also have the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeUser.html">connect:DescribeUser</a> permission on the user ARN that you provide.</p> </note> <p>Updates the values of fields on a case. Fields to be updated are received as an array of id/value pairs identical to the <code>CreateCase</code> input.</p> <p>If the case is the secondary case of a merge that is running, the request fails with a <code>ConflictException</code>. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_StartMergeCases.html">StartMergeCases</a>.</p> <p>If the action is successful, the service sends back an HTTP 200 response with an empty HTTP body.</p>
 
         Args:
             domain_id: <p>The unique identifier of the Cases domain. </p>
@@ -642,6 +649,7 @@ class AsyncConnectCasesClient:
 
         Raises:
             capo_connectcases.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
             capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>
@@ -697,7 +705,7 @@ class AsyncConnectCasesClient:
         *,
         config_overrides: Optional[AsyncConnectCasesClientConfig] = None,
     ) -> "capo_connectcases.types.delete_case_response.DeleteCaseResponse":
-        """<p> The DeleteCase API permanently deletes a case and all its associated resources from the cases data store. After a successful deletion, you cannot:</p> <ul> <li> <p>Retrieve related items</p> </li> <li> <p>Access audit history</p> </li> <li> <p>Perform any operations that require the CaseID</p> </li> </ul> <important> <p>This action is irreversible. After you delete a case, you cannot recover its data.</p> </important>
+        """<p> The DeleteCase API permanently deletes a case and all its associated resources from the cases data store. After a successful deletion, you cannot:</p> <ul> <li> <p>Retrieve related items</p> </li> <li> <p>Access audit history</p> </li> <li> <p>Perform any operations that require the CaseID</p> </li> </ul> <p>You can't delete a case while it's part of a merge that is running, as either the primary or the secondary case. The request fails with a <code>ConflictException</code>. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_StartMergeCases.html">StartMergeCases</a>.</p> <important> <p>This action is irreversible. After you delete a case, you cannot recover its data.</p> </important>
 
         Args:
             domain_id: <p>A unique identifier of the Cases domain.</p>
@@ -705,6 +713,7 @@ class AsyncConnectCasesClient:
 
         Raises:
             capo_connectcases.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
             capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>
@@ -838,6 +847,143 @@ class AsyncConnectCasesClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    async def get_merge_cases_status(
+        self,
+        domain_id: "capo_connectcases.types.domain_id.DomainId",
+        case_id: "capo_connectcases.types.case_id.CaseId",
+        *,
+        config_overrides: Optional[AsyncConnectCasesClientConfig] = None,
+    ) -> "capo_connectcases.types.get_merge_cases_status_response.GetMergeCasesStatusResponse":
+        """<p>Returns the merge status of a case. Use this operation to track a merge that you started with <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_StartMergeCases.html">StartMergeCases</a>, or to check whether a case is part of a merge before you modify it.</p> <p>The operation returns the following, depending on the case:</p> <ul> <li> <p>For the primary case or the secondary case of a merge that is running, it returns <code>IN_PROGRESS</code>.</p> </li> <li> <p>For a case that was merged into another case as the secondary case, it returns <code>COMPLETED</code>.</p> </li> <li> <p>For any other case, it returns a <code>ResourceNotFoundException</code>. This includes the primary case after its merge finishes.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the Cases domain. </p>
+            case_id: <p>The unique identifier of the case. This can be the primary case or the secondary case of a merge.</p>
+
+        Raises:
+            capo_connectcases.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
+            capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
+            capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>
+            capo_connectcases.errors.validation_exception.ValidationException: <p>The request isn't valid. Check the syntax and try again.</p>
+            capo_connectcases.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_connectcases.types.get_merge_cases_status_request.GetMergeCasesStatusRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_connectcases.types.get_merge_cases_status_response.GetMergeCasesStatusResponse"
+        ]:
+            import capo_connectcases._operations.amazon_connect_cases.get_merge_cases_status
+
+            (
+                output,
+                http_response,
+            ) = await capo_connectcases._operations.amazon_connect_cases.get_merge_cases_status.async_get_merge_cases_status(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMergeCasesStatus")
+        )
+        input_: capo_connectcases.types.get_merge_cases_status_request.GetMergeCasesStatusRequest = {
+            "domain_id": domain_id,
+            "case_id": case_id,
+        }
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def start_merge_cases(
+        self,
+        domain_id: "capo_connectcases.types.domain_id.DomainId",
+        case_id: "capo_connectcases.types.case_id.CaseId",
+        secondary_case_ids: "capo_connectcases.types.case_id_list.CaseIdList",
+        *,
+        config_overrides: Optional[AsyncConnectCasesClientConfig] = None,
+        fields_configuration: Optional[
+            "capo_connectcases.types.fields_configuration_list.FieldsConfigurationList"
+        ] = None,
+        related_items_configuration: Optional[
+            "capo_connectcases.types.related_items_configuration.RelatedItemsConfiguration"
+        ] = None,
+        performed_by: Optional["capo_connectcases.types.user_union.UserUnion"] = None,
+    ) -> "capo_connectcases.types.start_merge_cases_response.StartMergeCasesResponse":
+        """<p>Merges a secondary case into a primary case. The primary case, which you specify in the request URI, remains active. Both cases must belong to the same domain.</p> <p>The merge runs asynchronously. To track its progress, call <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_GetMergeCasesStatus.html">GetMergeCasesStatus</a>. When the merge finishes, the selected field values and related items from the secondary case are on the primary case, the two cases are linked, and the secondary case is closed. Both cases record the merge in their audit history. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_GetCaseAuditEvents.html">GetCaseAuditEvents</a>.</p> <p> <b>Important things to know</b> </p> <ul> <li> <p>Both cases must have the same customer, or at least one of them must have no customer.</p> </li> <li> <p>While the merge runs, you can't modify the secondary case or its related items, and you can't delete the primary case. These requests return a <code>ConflictException</code>.</p> </li> <li> <p>After the merge, the secondary case can be reopened, updated, and deleted, but it can't be merged again.</p> </li> </ul> <p>The request fails with a <code>ValidationException</code>, and no merge starts, if:</p> <ul> <li> <p>The primary case and the secondary case are the same case.</p> </li> <li> <p>Either case is closed.</p> </li> <li> <p>Both cases have a customer, and the customers are different.</p> </li> <li> <p> <code>fieldsConfiguration</code> selects a field that can't be merged, or a field that the secondary case doesn't have.</p> </li> <li> <p>After the merge, the primary case would have more than 500 field values, or would exceed the maximum case size.</p> </li> </ul> <p>The request fails with a <code>ServiceQuotaExceededException</code> if, after the merge, either case would exceed the quota for related items per case. For the primary case, the count is its existing related items, plus the related items moved from the secondary case, plus the new case link. See <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#cases-quotas">Connect Customer Cases quotas</a>.</p> <p>The request fails with a <code>ConflictException</code> if either case is already part of a merge that is running, or was previously merged into another case as the secondary case.</p> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
+
+        Args:
+            domain_id: <p>The unique identifier of the Cases domain. </p>
+            case_id: <p>The unique identifier of the primary case. The primary case remains active and receives the merged field values and related items. The cases can use different templates, and the primary case keeps its template.</p>
+            secondary_case_ids: <p>The unique identifier of the secondary case to merge into the primary case. The secondary case is closed when the merge finishes. Specify exactly one case ID.</p>
+            fields_configuration: <p>The fields whose values to take from the secondary case. You can only merge custom fields and the following system fields: <code>assigned_queue</code>, <code>assigned_user</code>, <code>summary</code>, and <code>case_reason</code>. If you select any other system field, the request fails with a <code>ValidationException</code>.</p> <p>For each field that can be merged, the merge works as follows:</p> <ul> <li> <p>If you select the field, the primary case gets the secondary case's value. If the secondary case's value is empty, the primary case's value is cleared.</p> </li> <li> <p>If you don't select the field and the primary case has a value for it, the primary case keeps its value.</p> </li> <li> <p>If you don't select the field and the primary case doesn't have the field, or its value is empty, the primary case gets the secondary case's value. This applies even when the field isn't on the primary case's template.</p> </li> </ul> <p>Field values are read from both cases when the merge runs, so changes that you make to the primary case after you start the merge are taken into account.</p> <p>Specify at most one entry, and set its <code>sourceCaseId</code> to the secondary case ID.</p>
+            related_items_configuration: <p>The types of related items to move from the secondary case to the primary case. Related items of a type that you don't select, or set to <code>false</code>, stay on the closed secondary case. If you omit this parameter, no related items are moved.</p> <p>File, SLA, and work plan related items are never moved. They stay on the secondary case.</p>
+            performed_by: <p>The user who performed the merge. If you provide <code>userArn</code>, you must also have <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeUser.html">DescribeUser</a> permission on the ARN of that user.</p>
+
+        Raises:
+            capo_connectcases.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
+            capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
+            capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
+            capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p>
+            capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>
+            capo_connectcases.errors.validation_exception.ValidationException: <p>The request isn't valid. Check the syntax and try again.</p>
+            capo_connectcases.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_connectcases.types.start_merge_cases_request.StartMergeCasesRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_connectcases.types.start_merge_cases_response.StartMergeCasesResponse"
+        ]:
+            import capo_connectcases._operations.amazon_connect_cases.start_merge_cases
+
+            (
+                output,
+                http_response,
+            ) = await capo_connectcases._operations.amazon_connect_cases.start_merge_cases.async_start_merge_cases(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        def _redact_input(
+            input_: "capo_connectcases.types.start_merge_cases_request.StartMergeCasesRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.start_merge_cases_request
+
+            return capo_connectcases.types.start_merge_cases_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartMergeCases", redact_input=_redact_input),
+        )
+        input_: capo_connectcases.types.start_merge_cases_request.StartMergeCasesRequest = {
+            "domain_id": domain_id,
+            "case_id": case_id,
+            "secondary_case_ids": secondary_case_ids,
+        }
+        if fields_configuration is not None:
+            input_["fields_configuration"] = fields_configuration
+        if related_items_configuration is not None:
+            input_["related_items_configuration"] = related_items_configuration
+        if performed_by is not None:
+            input_["performed_by"] = performed_by
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
 
     async def batch_create_related_item(
         self,
@@ -1211,7 +1357,7 @@ class AsyncConnectCasesClient:
     ) -> (
         "capo_connectcases.types.create_related_item_response.CreateRelatedItemResponse"
     ):
-        """<p>Creates a related item (comments, tasks, and contacts) and associates it with a case.</p> <p>There's a quota for the number of fields allowed in a Custom type related item. See <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#cases-quotas">Connect Customer Cases quotas</a>.</p> <p> <b>Use cases</b> </p> <p>Following are examples of related items that you may want to associate with a case:</p> <ul> <li> <p>Related contacts, such as calls, chats, emails tasks</p> </li> <li> <p>Comments, for agent notes</p> </li> <li> <p>SLAs, to capture target resolution goals</p> </li> <li> <p>Cases, to capture related Connect Customer Cases</p> </li> <li> <p>Files, such as policy documentation or customer-provided attachments</p> </li> <li> <p>Custom related items, which provide flexibility for you to define related items that such as bookings, orders, products, notices, and more</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>If you are associating a contact to a case by passing in <code>Contact</code> for a <code>type</code>, you must have <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeContact.html">DescribeContact</a> permission on the ARN of the contact that you provide in <code>content.contact.contactArn</code>.</p> </li> <li> <p>A Related Item is a resource that is associated with a case. It may or may not have an external identifier linking it to an external resource (for example, a <code>contactArn</code>). All Related Items have their own internal identifier, the <code>relatedItemArn</code>. Examples of related items include <code>comments</code> and <code>contacts</code>.</p> </li> <li> <p>If you provide a value for <code>performedBy.userArn</code>, you must also have <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeUser.html">DescribeUser</a> permission on the ARN of the user that you provide.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Creates a related item (comments, tasks, and contacts) and associates it with a case.</p> <p>There's a quota for the number of fields allowed in a Custom type related item. See <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#cases-quotas">Connect Customer Cases quotas</a>.</p> <p> <b>Use cases</b> </p> <p>Following are examples of related items that you may want to associate with a case:</p> <ul> <li> <p>Related contacts, such as calls, chats, emails tasks</p> </li> <li> <p>Comments, for agent notes</p> </li> <li> <p>SLAs, to capture target resolution goals</p> </li> <li> <p>Cases, to capture related Connect Customer Cases</p> </li> <li> <p>Files, such as policy documentation or customer-provided attachments</p> </li> <li> <p>Custom related items, which provide flexibility for you to define related items that such as bookings, orders, products, notices, and more</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>If you are associating a contact to a case by passing in <code>Contact</code> for a <code>type</code>, you must have <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeContact.html">DescribeContact</a> permission on the ARN of the contact that you provide in <code>content.contact.contactArn</code>.</p> </li> <li> <p>A Related Item is a resource that is associated with a case. It may or may not have an external identifier linking it to an external resource (for example, a <code>contactArn</code>). All Related Items have their own internal identifier, the <code>relatedItemArn</code>. Examples of related items include <code>comments</code> and <code>contacts</code>.</p> </li> <li> <p>If you provide a value for <code>performedBy.userArn</code>, you must also have <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeUser.html">DescribeUser</a> permission on the ARN of the user that you provide.</p> </li> <li> <p>If the case is the secondary case of a merge that is running, the request fails with a <code>ConflictException</code>. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_StartMergeCases.html">StartMergeCases</a>.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
             domain_id: <p>The unique identifier of the Cases domain. </p>
@@ -1222,6 +1368,7 @@ class AsyncConnectCasesClient:
 
         Raises:
             capo_connectcases.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
             capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p>
@@ -1287,7 +1434,7 @@ class AsyncConnectCasesClient:
     ) -> (
         "capo_connectcases.types.update_related_item_response.UpdateRelatedItemResponse"
     ):
-        """<p>Updates the content of a related item associated with a case. The following related item types are supported:</p> <ul> <li> <p> <b>Comment</b> - Update the text content of an existing comment</p> </li> <li> <p> <b>Custom</b> - Update the fields of a custom related item. You can add, modify, and remove fields from a custom related item. There's a quota for the number of fields allowed in a Custom type related item. See <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#cases-quotas">Connect Customer Cases quotas</a>.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>When updating a Custom related item, all existing and new fields, and their associated values should be included in the request. Fields not included as part of this request will be removed.</p> </li> <li> <p>If you provide a value for <code>performedBy.userArn</code>, you must also have <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeUser.html">DescribeUser</a> permission on the ARN of the user that you provide.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/case-fields.html#system-case-fields">System case fields</a> cannot be used in a custom related item.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
+        """<p>Updates the content of a related item associated with a case. The following related item types are supported:</p> <ul> <li> <p> <b>Comment</b> - Update the text content of an existing comment</p> </li> <li> <p> <b>Custom</b> - Update the fields of a custom related item. You can add, modify, and remove fields from a custom related item. There's a quota for the number of fields allowed in a Custom type related item. See <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#cases-quotas">Connect Customer Cases quotas</a>.</p> </li> </ul> <p> <b>Important things to know</b> </p> <ul> <li> <p>When updating a Custom related item, all existing and new fields, and their associated values should be included in the request. Fields not included as part of this request will be removed.</p> </li> <li> <p>If you provide a value for <code>performedBy.userArn</code>, you must also have <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DescribeUser.html">DescribeUser</a> permission on the ARN of the user that you provide.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/connect/latest/adminguide/case-fields.html#system-case-fields">System case fields</a> cannot be used in a custom related item.</p> </li> <li> <p>If the case is the secondary case of a merge that is running, the request fails with a <code>ConflictException</code>. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_StartMergeCases.html">StartMergeCases</a>.</p> </li> </ul> <p> <b>Endpoints</b>: See <a href="https://docs.aws.amazon.com/general/latest/gr/connect_region.html">Connect Customer endpoints and quotas</a>.</p>
 
         Args:
             domain_id: <p>The unique identifier of the Cases domain. </p>
@@ -1298,6 +1445,7 @@ class AsyncConnectCasesClient:
 
         Raises:
             capo_connectcases.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
             capo_connectcases.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The service quota has been exceeded. For a list of service quotas, see <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html">Connect Customer Service Quotas</a> in the <i>Connect Customer Administrator Guide</i>.</p>
@@ -1376,7 +1524,7 @@ class AsyncConnectCasesClient:
     ) -> (
         "capo_connectcases.types.delete_related_item_response.DeleteRelatedItemResponse"
     ):
-        """<p>Deletes the related item resource under a case.</p> <note> <p>This API cannot be used on a FILE type related attachment. To delete this type of file, use the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteAttachedFile.html">DeleteAttachedFile</a> API</p> </note>
+        """<p>Deletes the related item resource under a case.</p> <note> <p>This API cannot be used on a FILE type related attachment. To delete this type of file, use the <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_DeleteAttachedFile.html">DeleteAttachedFile</a> API</p> </note> <p>If the case is the secondary case of a merge that is running, the request fails with a <code>ConflictException</code>. For more information, see <a href="https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_StartMergeCases.html">StartMergeCases</a>.</p>
 
         Args:
             domain_id: <p>A unique identifier of the Cases domain.</p>
@@ -1385,6 +1533,7 @@ class AsyncConnectCasesClient:
 
         Raises:
             capo_connectcases.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_connectcases.errors.conflict_exception.ConflictException: <p>The requested operation would cause a conflict with the current state of a service resource associated with the request. Resolve the conflict before retrying this request. See the accompanying error message for details.</p>
             capo_connectcases.errors.internal_server_exception.InternalServerException: <p>We couldn't process your request because of an issue with the server. Try again later.</p>
             capo_connectcases.errors.resource_not_found_exception.ResourceNotFoundException: <p>We couldn't find the requested resource. Check that your resources exists and were created in the same Amazon Web Services Region as your request, and try your request again.</p>
             capo_connectcases.errors.throttling_exception.ThrottlingException: <p>The rate has been exceeded for this API. Please try again after a few minutes.</p>

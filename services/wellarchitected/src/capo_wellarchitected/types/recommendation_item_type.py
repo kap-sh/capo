@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The type of a recommendation item.</p>"""
 RecommendationItemType: TypeAlias = Literal[
     "AWS_RESOURCE",
     "RECOMMENDATION",

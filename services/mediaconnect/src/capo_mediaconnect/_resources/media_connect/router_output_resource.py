@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.router_output_arn_list
     import capo_mediaconnect.types.router_output_configuration
     import capo_mediaconnect.types.router_output_filter_list
+    import capo_mediaconnect.types.router_output_processors
     import capo_mediaconnect.types.router_output_tier
     import capo_mediaconnect.types.routing_scope
     import capo_mediaconnect.types.start_router_output_request
@@ -83,6 +84,9 @@ class RouterOutputResource:
         client_token: Optional[
             "capo_mediaconnect.types.client_token.ClientToken"
         ] = None,
+        processors: Optional[
+            "capo_mediaconnect.types.router_output_processors.RouterOutputProcessors"
+        ] = None,
     ) -> "capo_mediaconnect.types.create_router_output_response.CreateRouterOutputResponse":
         """<p>Creates a new router output in AWS Elemental MediaConnect.</p>
 
@@ -98,6 +102,7 @@ class RouterOutputResource:
             tags: <p>Key-value pairs that can be used to tag this router output.</p>
             fabric_configuration: <p>The fabric configuration settings for the router output.</p>
             client_token: <p>A unique identifier for the request to ensure idempotency.</p>
+            processors: <p>The processor settings for the router output.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -147,6 +152,8 @@ class RouterOutputResource:
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
+        if processors is not None:
+            input_["processors"] = processors
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -229,6 +236,9 @@ class RouterOutputResource:
         fabric_configuration: Optional[
             "capo_mediaconnect.types.fabric_configuration.FabricConfiguration"
         ] = None,
+        processors: Optional[
+            "capo_mediaconnect.types.router_output_processors.RouterOutputProcessors"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_router_output_response.UpdateRouterOutputResponse":
         """<p>Updates the configuration of an existing router output in AWS Elemental MediaConnect.</p>
 
@@ -241,6 +251,7 @@ class RouterOutputResource:
             tier: <p>The updated tier level for the router output. The tier sets the maximum bitrate, in Mbps, for the router output. Valid values include the following:</p> <ul> <li> <p> <code>OUTPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>OUTPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>OUTPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>OUTPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>OUTPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
             maintenance_configuration: <p>The updated maintenance configuration settings for the router output, including any changes to preferred maintenance windows and schedules.</p>
             fabric_configuration: <p>The updated fabric configuration settings for the router output. You cannot update the fabric configuration while the output has an active route. You must unroute the output before updating the fabric configuration.</p>
+            processors: <p>The updated processor settings for the router output. When you update the processors, include every setting that you want to keep. MediaConnect resets the settings that you don't specify to their defaults.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -287,6 +298,8 @@ class RouterOutputResource:
             input_["maintenance_configuration"] = maintenance_configuration
         if fabric_configuration is not None:
             input_["fabric_configuration"] = fabric_configuration
+        if processors is not None:
+            input_["processors"] = processors
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -695,6 +708,9 @@ class AsyncRouterOutputResource:
         client_token: Optional[
             "capo_mediaconnect.types.client_token.ClientToken"
         ] = None,
+        processors: Optional[
+            "capo_mediaconnect.types.router_output_processors.RouterOutputProcessors"
+        ] = None,
     ) -> "capo_mediaconnect.types.create_router_output_response.CreateRouterOutputResponse":
         """<p>Creates a new router output in AWS Elemental MediaConnect.</p>
 
@@ -710,6 +726,7 @@ class AsyncRouterOutputResource:
             tags: <p>Key-value pairs that can be used to tag this router output.</p>
             fabric_configuration: <p>The fabric configuration settings for the router output.</p>
             client_token: <p>A unique identifier for the request to ensure idempotency.</p>
+            processors: <p>The processor settings for the router output.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -760,6 +777,8 @@ class AsyncRouterOutputResource:
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
+        if processors is not None:
+            input_["processors"] = processors
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -843,6 +862,9 @@ class AsyncRouterOutputResource:
         fabric_configuration: Optional[
             "capo_mediaconnect.types.fabric_configuration.FabricConfiguration"
         ] = None,
+        processors: Optional[
+            "capo_mediaconnect.types.router_output_processors.RouterOutputProcessors"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_router_output_response.UpdateRouterOutputResponse":
         """<p>Updates the configuration of an existing router output in AWS Elemental MediaConnect.</p>
 
@@ -855,6 +877,7 @@ class AsyncRouterOutputResource:
             tier: <p>The updated tier level for the router output. The tier sets the maximum bitrate, in Mbps, for the router output. Valid values include the following:</p> <ul> <li> <p> <code>OUTPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>OUTPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>OUTPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>OUTPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>OUTPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
             maintenance_configuration: <p>The updated maintenance configuration settings for the router output, including any changes to preferred maintenance windows and schedules.</p>
             fabric_configuration: <p>The updated fabric configuration settings for the router output. You cannot update the fabric configuration while the output has an active route. You must unroute the output before updating the fabric configuration.</p>
+            processors: <p>The updated processor settings for the router output. When you update the processors, include every setting that you want to keep. MediaConnect resets the settings that you don't specify to their defaults.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -902,6 +925,8 @@ class AsyncRouterOutputResource:
             input_["maintenance_configuration"] = maintenance_configuration
         if fabric_configuration is not None:
             input_["fabric_configuration"] = fabric_configuration
+        if processors is not None:
+            input_["processors"] = processors
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

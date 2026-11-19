@@ -27,6 +27,8 @@ EventType: TypeAlias = Literal[
     "CallbackFailed",
     "CallbackTimedOut",
     "InvocationCompleted",
+    "ExecutionPaused",
+    "ExecutionResumed",
 ]
 
 

@@ -25,6 +25,8 @@ if TYPE_CHECKING:
     import capo_observabilityadmin.types.list_telemetry_pipelines_max_results
     import capo_observabilityadmin.types.list_telemetry_pipelines_output
     import capo_observabilityadmin.types.next_token
+    import capo_observabilityadmin.types.start_telemetry_pipeline_refresh_input
+    import capo_observabilityadmin.types.start_telemetry_pipeline_refresh_output
     import capo_observabilityadmin.types.tag_map_input
     import capo_observabilityadmin.types.telemetry_pipeline_configuration
     import capo_observabilityadmin.types.telemetry_pipeline_identifier
@@ -312,6 +314,56 @@ class TelemetryPipelineResource:
         response.response.close()
         return response.output
 
+    def start_telemetry_pipeline_refresh(
+        self,
+        pipeline_identifier: "capo_observabilityadmin.types.telemetry_pipeline_identifier.TelemetryPipelineIdentifier",
+        *,
+        config_overrides: Optional[ObservabilityAdminClientConfig] = None,
+    ) -> "capo_observabilityadmin.types.start_telemetry_pipeline_refresh_output.StartTelemetryPipelineRefreshOutput":
+        """<p>Starts a refresh of an external-cloud telemetry pipeline. The refresh re-reads the connector's telemetry manifest and re-discovers the sources in scope.</p> <p>The pipeline must be in the <code>ACTIVE</code> or <code>UPDATE_FAILED</code> state, with no refresh already running. You can use <code>GetTelemetryPipeline</code> to track the refresh.</p>
+
+        Args:
+            pipeline_identifier: <p>The Amazon Resource Name (ARN) of the telemetry pipeline to refresh.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.conflict_exception.ConflictException: <p> The requested operation conflicts with the current state of the specified resource or with another request. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_observabilityadmin.types.start_telemetry_pipeline_refresh_input.StartTelemetryPipelineRefreshInput]",
+        ) -> OperationResponse[
+            "capo_observabilityadmin.types.start_telemetry_pipeline_refresh_output.StartTelemetryPipelineRefreshOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.start_telemetry_pipeline_refresh
+
+            output, http_response = (
+                capo_observabilityadmin._operations.observability_admin.start_telemetry_pipeline_refresh.start_telemetry_pipeline_refresh(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartTelemetryPipelineRefresh")
+        )
+        input_: capo_observabilityadmin.types.start_telemetry_pipeline_refresh_input.StartTelemetryPipelineRefreshInput = {
+            "pipeline_identifier": pipeline_identifier
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
 
 class AsyncTelemetryPipelineResource:
     def __init__(self, service: AsyncObservabilityAdminClient) -> None:
@@ -579,6 +631,57 @@ class AsyncTelemetryPipelineResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def start_telemetry_pipeline_refresh(
+        self,
+        pipeline_identifier: "capo_observabilityadmin.types.telemetry_pipeline_identifier.TelemetryPipelineIdentifier",
+        *,
+        config_overrides: Optional[AsyncObservabilityAdminClientConfig] = None,
+    ) -> "capo_observabilityadmin.types.start_telemetry_pipeline_refresh_output.StartTelemetryPipelineRefreshOutput":
+        """<p>Starts a refresh of an external-cloud telemetry pipeline. The refresh re-reads the connector's telemetry manifest and re-discovers the sources in scope.</p> <p>The pipeline must be in the <code>ACTIVE</code> or <code>UPDATE_FAILED</code> state, with no refresh already running. You can use <code>GetTelemetryPipeline</code> to track the refresh.</p>
+
+        Args:
+            pipeline_identifier: <p>The Amazon Resource Name (ARN) of the telemetry pipeline to refresh.</p>
+
+        Raises:
+            capo_observabilityadmin.errors.access_denied_exception.AccessDeniedException: <p> Indicates you don't have permissions to perform the requested operation. The user or role that is making the request must have at least one IAM permissions policy attached that grants the required permissions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management for Amazon Web Services resources</a> in the IAM user guide. </p>
+            capo_observabilityadmin.errors.conflict_exception.ConflictException: <p> The requested operation conflicts with the current state of the specified resource or with another request. </p>
+            capo_observabilityadmin.errors.internal_server_exception.InternalServerException: <p> Indicates the request has failed to process because of an unknown server error, exception, or failure. </p>
+            capo_observabilityadmin.errors.resource_not_found_exception.ResourceNotFoundException: <p> The specified resource (such as a telemetry rule) could not be found. </p>
+            capo_observabilityadmin.errors.too_many_requests_exception.TooManyRequestsException: <p> The request throughput limit was exceeded. </p>
+            capo_observabilityadmin.errors.validation_exception.ValidationException: <p> Indicates input validation failed. Check your request parameters and retry the request. </p>
+            capo_observabilityadmin.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_observabilityadmin.types.start_telemetry_pipeline_refresh_input.StartTelemetryPipelineRefreshInput]",
+        ) -> AsyncOperationResponse[
+            "capo_observabilityadmin.types.start_telemetry_pipeline_refresh_output.StartTelemetryPipelineRefreshOutput"
+        ]:
+            import capo_observabilityadmin._operations.observability_admin.start_telemetry_pipeline_refresh
+
+            (
+                output,
+                http_response,
+            ) = await capo_observabilityadmin._operations.observability_admin.start_telemetry_pipeline_refresh.async_start_telemetry_pipeline_refresh(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartTelemetryPipelineRefresh")
+        )
+        input_: capo_observabilityadmin.types.start_telemetry_pipeline_refresh_input.StartTelemetryPipelineRefreshInput = {
+            "pipeline_identifier": pipeline_identifier
+        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

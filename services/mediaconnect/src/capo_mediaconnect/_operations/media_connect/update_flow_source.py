@@ -22,6 +22,7 @@ import capo_mediaconnect.types.__list_of_media_stream_source_configuration_reque
 import capo_mediaconnect.types.flow_transit_encryption
 import capo_mediaconnect.types.ndi_source_settings
 import capo_mediaconnect.types.protocol
+import capo_mediaconnect.types.set_rtmp_push_source_settings
 import capo_mediaconnect.types.source
 import capo_mediaconnect.types.state
 import capo_mediaconnect.types.update_encryption

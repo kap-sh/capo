@@ -18,7 +18,7 @@ class Method(TypedDict, closed=True):
     http_method: NotRequired["capo_api_gateway.types.string.String"]
     """<p>The method's HTTP verb.</p>"""
     authorization_type: NotRequired["capo_api_gateway.types.string.String"]
-    """<p>The method's authorization type. Valid values are <code>NONE</code> for open access, <code>AWS_IAM</code> for using AWS IAM permissions, <code>CUSTOM</code> for using a custom authorizer, or <code>COGNITO_USER_POOLS</code> for using a Cognito user pool.</p>"""
+    """<p>The method's authorization type. Valid values are <code>NONE</code> for open access, <code>AWS_IAM</code> for using Amazon Web Services IAM permissions, <code>CUSTOM</code> for using a custom authorizer, <code>COGNITO_USER_POOLS</code> for using a Cognito user pool, or <code>JWT</code> for using a JWT authorizer.</p>"""
     authorizer_id: NotRequired["capo_api_gateway.types.string.String"]
     """<p>The identifier of an Authorizer to use on this method. The <code>authorizationType</code> must be <code>CUSTOM</code>.</p>"""
     api_key_required: NotRequired[
@@ -46,7 +46,7 @@ class Method(TypedDict, closed=True):
     authorization_scopes: NotRequired[
         "capo_api_gateway.types.list_of_string.ListOfString"
     ]
-    """<p>A list of authorization scopes configured on the method. The scopes are used with a <code>COGNITO_USER_POOLS</code> authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.</p>"""
+    """<p>A list of authorization scopes configured on the method. The scopes are used with a <code>COGNITO_USER_POOLS</code> authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes. The scopes are also used with a <code>JWT</code> authorizer. When scopes are configured, the <code>scope</code> (or <code>scp</code>) claim of the token must contain at least one of the configured scopes.</p>"""
 
 
 # --- restJson1 ser/de ---

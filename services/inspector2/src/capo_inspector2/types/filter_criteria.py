@@ -51,7 +51,7 @@ class FilterCriteria(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]
-    """<p>Details on the resource types used to filter findings.</p>"""
+    """<p>Details on the resource types used to filter findings. For Google Cloud Platform (GCP) resources, the resource type is <code>compute.googleapis.com/Instance</code>, <code>cloudfunctions.googleapis.com/Function</code>, or <code>artifactregistry.googleapis.com/DockerImage</code>.</p>"""
     resource_id: NotRequired[
         "capo_inspector2.types.string_filter_list.StringFilterList"
     ]

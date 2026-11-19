@@ -13,6 +13,7 @@ import capo_ec2._auth._sigv4
 import capo_ec2._protocol.eventstream
 import capo_ec2.types.instance_id_string_list
 import capo_ec2.types.instance_monitoring_list
+import capo_ec2.types.metric_category_id_list
 import capo_ec2.types.monitor_instances_request
 import capo_ec2.types.monitor_instances_result
 from capo_ec2._protocol.errors import parse_error_metadata

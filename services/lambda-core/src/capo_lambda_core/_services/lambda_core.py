@@ -19,6 +19,9 @@ from capo_lambda_core._auth._providers import (
 )
 from capo_lambda_core._auth._zapros_handler import AuthMiddleware
 from capo_lambda_core._pagination import resolve_path as _resolve_path
+from capo_lambda_core._resources.lambda_core_api_service.managed_runtime import (
+    ManagedRuntime,
+)
 from capo_lambda_core._resources.lambda_core_api_service.network_connector import (
     NetworkConnector,
 )
@@ -38,17 +41,42 @@ from capo_lambda_core._services._pipeline import (
 )
 
 if TYPE_CHECKING:
+    import capo_lambda_core.types.aws_gir_api_string
     import capo_lambda_core.types.client_token_string
     import capo_lambda_core.types.create_network_connector_request
     import capo_lambda_core.types.create_network_connector_response
+    import capo_lambda_core.types.create_runtime_alias_request
+    import capo_lambda_core.types.create_runtime_alias_response
+    import capo_lambda_core.types.create_runtime_request
+    import capo_lambda_core.types.create_runtime_response
+    import capo_lambda_core.types.create_runtime_version_request
+    import capo_lambda_core.types.create_runtime_version_response
     import capo_lambda_core.types.delete_network_connector_request
     import capo_lambda_core.types.delete_network_connector_response
+    import capo_lambda_core.types.delete_runtime_alias_request
+    import capo_lambda_core.types.delete_runtime_alias_response
+    import capo_lambda_core.types.delete_runtime_request
+    import capo_lambda_core.types.delete_runtime_response
+    import capo_lambda_core.types.delete_runtime_version_request
+    import capo_lambda_core.types.delete_runtime_version_response
     import capo_lambda_core.types.get_network_connector_request
     import capo_lambda_core.types.get_network_connector_response
+    import capo_lambda_core.types.get_runtime_alias_request
+    import capo_lambda_core.types.get_runtime_alias_response
+    import capo_lambda_core.types.get_runtime_request
+    import capo_lambda_core.types.get_runtime_response
+    import capo_lambda_core.types.get_runtime_version_request
+    import capo_lambda_core.types.get_runtime_version_response
     import capo_lambda_core.types.list_network_connector_versions_request
     import capo_lambda_core.types.list_network_connector_versions_response
     import capo_lambda_core.types.list_network_connectors_request
     import capo_lambda_core.types.list_network_connectors_response
+    import capo_lambda_core.types.list_runtime_aliases_request
+    import capo_lambda_core.types.list_runtime_aliases_response
+    import capo_lambda_core.types.list_runtime_versions_request
+    import capo_lambda_core.types.list_runtime_versions_response
+    import capo_lambda_core.types.list_runtimes_request
+    import capo_lambda_core.types.list_runtimes_response
     import capo_lambda_core.types.max_hundred_list_items
     import capo_lambda_core.types.network_connector_configuration
     import capo_lambda_core.types.network_connector_identifier
@@ -58,9 +86,28 @@ if TYPE_CHECKING:
     import capo_lambda_core.types.network_connector_summary
     import capo_lambda_core.types.network_connector_tags
     import capo_lambda_core.types.network_connector_version_summary
-    import capo_lambda_core.types.string
+    import capo_lambda_core.types.restore_runtime_request
+    import capo_lambda_core.types.restore_runtime_response
+    import capo_lambda_core.types.runtime_alias_description
+    import capo_lambda_core.types.runtime_alias_info
+    import capo_lambda_core.types.runtime_alias_name
+    import capo_lambda_core.types.runtime_description
+    import capo_lambda_core.types.runtime_identifier
+    import capo_lambda_core.types.runtime_info
+    import capo_lambda_core.types.runtime_license_info
+    import capo_lambda_core.types.runtime_name
+    import capo_lambda_core.types.runtime_release_lifecycle
+    import capo_lambda_core.types.runtime_version_info
+    import capo_lambda_core.types.runtime_version_name
+    import capo_lambda_core.types.tag_map
     import capo_lambda_core.types.update_network_connector_request
     import capo_lambda_core.types.update_network_connector_response
+    import capo_lambda_core.types.update_runtime_alias_request
+    import capo_lambda_core.types.update_runtime_alias_response
+    import capo_lambda_core.types.update_runtime_request
+    import capo_lambda_core.types.update_runtime_response
+    import capo_lambda_core.types.update_runtime_version_request
+    import capo_lambda_core.types.update_runtime_version_response
 
 
 class LambdaCoreClientConfig(TypedDict, total=False, closed=True):
@@ -144,6 +191,7 @@ class LambdaCoreClient:
         )
 
         # resources
+        self.managed_runtime = ManagedRuntime(self)
         self.network_connector = NetworkConnector(self)
 
     def operation_options(
@@ -183,6 +231,1106 @@ class LambdaCoreClient:
         )
         return interceptors_, options_
 
+    def create_runtime(
+        self,
+        name: "capo_lambda_core.types.runtime_name.RuntimeName",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        tags: Optional["capo_lambda_core.types.tag_map.TagMap"] = None,
+        description: Optional[
+            "capo_lambda_core.types.runtime_description.RuntimeDescription"
+        ] = None,
+        license_info: Optional[
+            "capo_lambda_core.types.runtime_license_info.RuntimeLicenseInfo"
+        ] = None,
+        release_lifecycle: Optional[
+            "capo_lambda_core.types.runtime_release_lifecycle.RuntimeReleaseLifecycle"
+        ] = None,
+    ) -> "capo_lambda_core.types.create_runtime_response.CreateRuntimeResponse":
+        """Creates a customer-managed runtime, a resource providing a centrally managed execution environment for your Lambda functions. The runtime resource is the parent of the runtime version and runtime alias child resources.
+
+        Args:
+            name: The name of the runtime to create.
+            tags: A map of tag keys and values to associate with the runtime.
+            description: A description of the runtime.
+            license_info: The license information for the runtime.
+            release_lifecycle: The runtime lifecycle for the runtime (optional). Use this to schedule runtime deprecation.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request would exceed a service quota for your account. Request a quota increase or reduce the number of resources in use, then retry the request.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Create a runtime
+            Creates a customer-managed runtime resource.
+
+            >>> client.create_runtime(name='php8', description='PHP 8 custom runtime', license_info='MIT', tags={'team': 'runtimes'})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.create_runtime_request.CreateRuntimeRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.create_runtime_response.CreateRuntimeResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.create_runtime
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.create_runtime.create_runtime(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuntime")
+        )
+        input_: capo_lambda_core.types.create_runtime_request.CreateRuntimeRequest = {
+            "name": name
+        }
+        if tags is not None:
+            input_["tags"] = tags
+        if description is not None:
+            input_["description"] = description
+        if license_info is not None:
+            input_["license_info"] = license_info
+        if release_lifecycle is not None:
+            input_["release_lifecycle"] = release_lifecycle
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_runtime(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+    ) -> "capo_lambda_core.types.get_runtime_response.GetRuntimeResponse":
+        """Retrieves the configuration and metadata of a runtime.
+
+        Args:
+            runtime_name: The name or ARN of the runtime to retrieve.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get a runtime
+            Retrieves the metadata for a runtime by name.
+
+            >>> client.get_runtime(runtime_name='php8')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.get_runtime_request.GetRuntimeRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.get_runtime_response.GetRuntimeResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.get_runtime
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.get_runtime.get_runtime(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRuntime")
+        )
+        input_: capo_lambda_core.types.get_runtime_request.GetRuntimeRequest = {
+            "runtime_name": runtime_name
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_runtime(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        description: Optional[
+            "capo_lambda_core.types.runtime_description.RuntimeDescription"
+        ] = None,
+        license_info: Optional[
+            "capo_lambda_core.types.runtime_license_info.RuntimeLicenseInfo"
+        ] = None,
+        release_lifecycle: Optional[
+            "capo_lambda_core.types.runtime_release_lifecycle.RuntimeReleaseLifecycle"
+        ] = None,
+    ) -> "capo_lambda_core.types.update_runtime_response.UpdateRuntimeResponse":
+        """Updates the properties of an existing customer-managed runtime, such as its description, license information, or lifecycle information.
+
+        Args:
+            runtime_name: The name or ARN of the runtime to update.
+            description: The updated description of the runtime.
+            license_info: The updated license information for the runtime.
+            release_lifecycle: The runtime lifecycle for the runtime. Optional. Used to schedule runtime deprecation. Omitting or providing an empty object removes the existing lifecycle.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Update a runtime
+            Updates a runtime's description and declares it generally available.
+
+            >>> client.update_runtime(runtime_name='php8', description='PHP 8 custom runtime (updated)', release_lifecycle={'ReleaseState': 'GA'})
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.update_runtime_request.UpdateRuntimeRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.update_runtime_response.UpdateRuntimeResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.update_runtime
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.update_runtime.update_runtime(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRuntime")
+        )
+        input_: capo_lambda_core.types.update_runtime_request.UpdateRuntimeRequest = {
+            "runtime_name": runtime_name
+        }
+        if description is not None:
+            input_["description"] = description
+        if license_info is not None:
+            input_["license_info"] = license_info
+        if release_lifecycle is not None:
+            input_["release_lifecycle"] = release_lifecycle
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_runtime(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        recovery_window_in_days: Optional[int] = None,
+    ) -> "capo_lambda_core.types.delete_runtime_response.DeleteRuntimeResponse":
+        """Schedules a customer-managed runtime to be deleted. Runtimes scheduled for deletion enter the PENDING_DELETION state and can be restored during the scheduled deletion window. Runtime versions and aliases must be deleted or scheduled for deletion before deleting the runtime. Function invokes fail for functions using runtime versions or aliases that are deleted or pending deletion.
+
+        Args:
+            runtime_name: The name or ARN of the runtime to delete.
+            recovery_window_in_days: Optional. The waiting period, in days (7-30), before the runtime is permanently deleted.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Delete a runtime
+            Schedules a customer-managed runtime to be deleted.
+
+            >>> client.delete_runtime(runtime_name='php8')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.delete_runtime_request.DeleteRuntimeRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.delete_runtime_response.DeleteRuntimeResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.delete_runtime
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.delete_runtime.delete_runtime(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuntime")
+        )
+        input_: capo_lambda_core.types.delete_runtime_request.DeleteRuntimeRequest = {
+            "runtime_name": runtime_name
+        }
+        if recovery_window_in_days is not None:
+            input_["recovery_window_in_days"] = recovery_window_in_days
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_runtimes(
+        self,
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_lambda_core.types.list_runtimes_response.ListRuntimesResponse":
+        """Returns a paginated list of runtimes in your account for the current Region.
+
+        Args:
+            next_token: The pagination token from a previous response. Use it to retrieve the next page of results.
+            max_results: The maximum number of runtimes to return per page. Valid range: 1 to 100.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List runtimes
+            Lists the runtimes in the account and region.
+
+            >>> client.list_runtimes(max_results=10)
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.list_runtimes_request.ListRuntimesRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.list_runtimes_response.ListRuntimesResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.list_runtimes
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.list_runtimes.list_runtimes(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuntimes")
+        )
+        input_: capo_lambda_core.types.list_runtimes_request.ListRuntimesRequest = {}
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_runtimes(
+        self,
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "Iterator[capo_lambda_core.types.runtime_info.RuntimeInfo]":
+        _token = next_token
+        while True:
+            _response = self.list_runtimes(
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def restore_runtime(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        runtime_version: Optional[
+            "capo_lambda_core.types.runtime_version_name.RuntimeVersionName"
+        ] = None,
+        runtime_alias: Optional[
+            "capo_lambda_core.types.runtime_alias_name.RuntimeAliasName"
+        ] = None,
+    ) -> "capo_lambda_core.types.restore_runtime_response.RestoreRuntimeResponse":
+        """Cancels a pending scheduled deletion, returning the resource to the ACTIVE state. Scope is determined by the RuntimeName path parameter plus an optional, mutually exclusive RuntimeVersion or RuntimeAlias query parameter: with neither, the runtime itself is restored; with RuntimeVersion, the named runtime version; with RuntimeAlias, the named runtime alias. Restoring a resource that is already ACTIVE is a no-op success. Restore only works while the target is PENDING_DELETION; once the scheduled deletion has begun executing (DELETING) or has completed, the call fails.
+
+        Args:
+            runtime_name: The name or ARN of the runtime to restore. When RuntimeVersion or RuntimeAlias is specified, the runtime that owns the runtime version or runtime alias to restore.
+            runtime_version: Optional. Restores the named RuntimeVersion under RuntimeName. Mutually exclusive with RuntimeAlias; supplying both is rejected with InvalidParameterValueException.
+            runtime_alias: Optional. Restores the named RuntimeAlias under RuntimeName. Mutually exclusive with RuntimeVersion; supplying both is rejected with InvalidParameterValueException.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Restore a runtime alias that is scheduled for deletion
+            Cancels a pending deletion for an alias, returning it to ACTIVE.
+
+            >>> client.restore_runtime(runtime_name='php8', runtime_alias='release')
+            Restore a customer-managed runtime that is scheduled for deletion
+            Cancels a pending deletion for the runtime, returning it to ACTIVE.
+
+            >>> client.restore_runtime(runtime_name='php8')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.restore_runtime_request.RestoreRuntimeRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.restore_runtime_response.RestoreRuntimeResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.restore_runtime
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.restore_runtime.restore_runtime(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreRuntime")
+        )
+        input_: capo_lambda_core.types.restore_runtime_request.RestoreRuntimeRequest = {
+            "runtime_name": runtime_name
+        }
+        if runtime_version is not None:
+            input_["runtime_version"] = runtime_version
+        if runtime_alias is not None:
+            input_["runtime_alias"] = runtime_alias
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def create_runtime_alias(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        runtime_version: "capo_lambda_core.types.runtime_version_name.RuntimeVersionName",
+        name: "capo_lambda_core.types.runtime_alias_name.RuntimeAliasName",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        description: Optional[
+            "capo_lambda_core.types.runtime_alias_description.RuntimeAliasDescription"
+        ] = None,
+        release_lifecycle: Optional[
+            "capo_lambda_core.types.runtime_release_lifecycle.RuntimeReleaseLifecycle"
+        ] = None,
+    ) -> "capo_lambda_core.types.create_runtime_alias_response.CreateRuntimeAliasResponse":
+        """Creates a new customer-managed runtime alias. The alias is a named pointer to a runtime version. Functions consume the customer-managed runtime through the runtime alias.
+
+        Args:
+            runtime_name: The name or ARN of the runtime to create an alias for.
+            runtime_version: The name of the runtime version the alias points to.
+            name: The name to assign to the new runtime alias.
+            description: A description of the runtime alias.
+            release_lifecycle: The runtime lifecycle for the alias. By default, this is inherited from the runtime lifecycle. Optionally, you can override the lifecycle information at the alias level, if required.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request would exceed a service quota for your account. Request a quota increase or reduce the number of resources in use, then retry the request.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Create a runtime alias
+            Creates an alias that points at a published runtime version.
+
+            >>> client.create_runtime_alias(runtime_name='php8', name='latest', runtime_version='v1', description='Points at the newest published version')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.create_runtime_alias_request.CreateRuntimeAliasRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.create_runtime_alias_response.CreateRuntimeAliasResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.create_runtime_alias
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.create_runtime_alias.create_runtime_alias(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuntimeAlias")
+        )
+        input_: capo_lambda_core.types.create_runtime_alias_request.CreateRuntimeAliasRequest = {
+            "runtime_name": runtime_name,
+            "runtime_version": runtime_version,
+            "name": name,
+        }
+        if description is not None:
+            input_["description"] = description
+        if release_lifecycle is not None:
+            input_["release_lifecycle"] = release_lifecycle
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_runtime_alias(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        name: "capo_lambda_core.types.runtime_alias_name.RuntimeAliasName",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+    ) -> "capo_lambda_core.types.get_runtime_alias_response.GetRuntimeAliasResponse":
+        """Retrieves the configuration, state, and metadata of a runtime alias.
+
+        Args:
+            runtime_name: The name or ARN of the runtime.
+            name: The name of the runtime alias to retrieve.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get a runtime alias
+            Retrieves an alias, including the version it currently points at and its compatibility matrix.
+
+            >>> client.get_runtime_alias(runtime_name='php8', name='latest')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.get_runtime_alias_request.GetRuntimeAliasRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.get_runtime_alias_response.GetRuntimeAliasResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.get_runtime_alias
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.get_runtime_alias.get_runtime_alias(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRuntimeAlias")
+        )
+        input_: capo_lambda_core.types.get_runtime_alias_request.GetRuntimeAliasRequest = {
+            "runtime_name": runtime_name,
+            "name": name,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_runtime_alias(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        name: "capo_lambda_core.types.runtime_alias_name.RuntimeAliasName",
+        runtime_version: "capo_lambda_core.types.runtime_version_name.RuntimeVersionName",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        description: Optional[
+            "capo_lambda_core.types.runtime_alias_description.RuntimeAliasDescription"
+        ] = None,
+        release_lifecycle: Optional[
+            "capo_lambda_core.types.runtime_release_lifecycle.RuntimeReleaseLifecycle"
+        ] = None,
+    ) -> "capo_lambda_core.types.update_runtime_alias_response.UpdateRuntimeAliasResponse":
+        """Updates an existing runtime alias to point to a different runtime version or to change its description or lifecycle information.
+
+        Args:
+            runtime_name: The name or ARN of the runtime.
+            name: The name of the runtime alias to update.
+            runtime_version: The name of the runtime version the alias should point to.
+            description: A description of the runtime alias.
+            release_lifecycle: The lifecycle for the alias. By default, this is inherited from the runtime lifecycle. Optionally, you can override the lifecycle information at the alias level, if required. Omitting or providing an empty object removes the existing lifecycle override.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Update a runtime alias
+            Repoints an alias at a different runtime version.
+
+            >>> client.update_runtime_alias(runtime_name='php8', name='latest', runtime_version='v2')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.update_runtime_alias_request.UpdateRuntimeAliasRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.update_runtime_alias_response.UpdateRuntimeAliasResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.update_runtime_alias
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.update_runtime_alias.update_runtime_alias(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRuntimeAlias")
+        )
+        input_: capo_lambda_core.types.update_runtime_alias_request.UpdateRuntimeAliasRequest = {
+            "runtime_name": runtime_name,
+            "name": name,
+            "runtime_version": runtime_version,
+        }
+        if description is not None:
+            input_["description"] = description
+        if release_lifecycle is not None:
+            input_["release_lifecycle"] = release_lifecycle
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_runtime_alias(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        name: "capo_lambda_core.types.runtime_alias_name.RuntimeAliasName",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        recovery_window_in_days: Optional[int] = None,
+    ) -> "capo_lambda_core.types.delete_runtime_alias_response.DeleteRuntimeAliasResponse":
+        """Schedules a runtime alias to be deleted. Runtime aliases scheduled for deletion enter the PENDING_DELETION state and can be restored during the scheduled deletion window. Function invokes fail for functions using runtime aliases that are deleted or pending deletion.
+
+        Args:
+            runtime_name: The name or ARN of the runtime.
+            name: The name of the runtime alias to delete.
+            recovery_window_in_days: Optional. The waiting period, in days (7-30), before the runtime alias is permanently deleted.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Delete a runtime alias
+            Schedules a runtime alias to be deleted.
+
+            >>> client.delete_runtime_alias(runtime_name='php8', name='latest')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.delete_runtime_alias_request.DeleteRuntimeAliasRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.delete_runtime_alias_response.DeleteRuntimeAliasResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.delete_runtime_alias
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.delete_runtime_alias.delete_runtime_alias(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuntimeAlias")
+        )
+        input_: capo_lambda_core.types.delete_runtime_alias_request.DeleteRuntimeAliasRequest = {
+            "runtime_name": runtime_name,
+            "name": name,
+        }
+        if recovery_window_in_days is not None:
+            input_["recovery_window_in_days"] = recovery_window_in_days
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_runtime_aliases(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_lambda_core.types.list_runtime_aliases_response.ListRuntimeAliasesResponse":
+        """Returns a paginated list of aliases for the specified runtime.
+
+        Args:
+            runtime_name: The name or ARN of the runtime whose aliases to list.
+            next_token: The pagination token from a previous response. Use it to retrieve the next page of results.
+            max_results: The maximum number of runtime aliases to return per page. Valid range: 1 to 100.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List runtime aliases
+            Lists the aliases defined on a runtime.
+
+            >>> client.list_runtime_aliases(runtime_name='php8', max_results=10)
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.list_runtime_aliases_request.ListRuntimeAliasesRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.list_runtime_aliases_response.ListRuntimeAliasesResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.list_runtime_aliases
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.list_runtime_aliases.list_runtime_aliases(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuntimeAliases")
+        )
+        input_: capo_lambda_core.types.list_runtime_aliases_request.ListRuntimeAliasesRequest = {
+            "runtime_name": runtime_name
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_runtime_aliases(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "Iterator[capo_lambda_core.types.runtime_alias_info.RuntimeAliasInfo]":
+        _token = next_token
+        while True:
+            _response = self.list_runtime_aliases(
+                runtime_name,
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def create_runtime_version(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        image_uri: str,
+        name: "capo_lambda_core.types.runtime_version_name.RuntimeVersionName",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        release_notes: Optional[str] = None,
+        dry_run: Optional[bool] = None,
+    ) -> "capo_lambda_core.types.create_runtime_version_response.CreateRuntimeVersionResponse":
+        """Creates a new runtime version. A runtime version defines the function execution environment by referencing a container image. Runtime versions are immutable. To update the runtime, create a new runtime version and migrate functions by updating the runtime aliases to point to the new runtime version.
+
+        Args:
+            runtime_name: The name or ARN of the runtime to create a version for.
+            image_uri: The URI of the container image used to define the function execution environment for this runtime version.
+            name: The name to assign to the new runtime version.
+            release_notes: The release notes to associate with the runtime version.
+            dry_run: When set to true, the request is validated without creating a new runtime version. Use this to check that the request would succeed. No runtime version is created and no changes are made.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request would exceed a service quota for your account. Request a quota increase or reduce the number of resources in use, then retry the request.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Create a runtime version
+            Creates a new runtime version from a container image.
+
+            >>> client.create_runtime_version(runtime_name='php8', name='v1', image_uri='123456789012.dkr.ecr.us-west-2.amazonaws.com/php8:latest', release_notes='Initial release')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.create_runtime_version_request.CreateRuntimeVersionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.create_runtime_version_response.CreateRuntimeVersionResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.create_runtime_version
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.create_runtime_version.create_runtime_version(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuntimeVersion")
+        )
+        input_: capo_lambda_core.types.create_runtime_version_request.CreateRuntimeVersionRequest = {
+            "runtime_name": runtime_name,
+            "image_uri": image_uri,
+            "name": name,
+        }
+        if release_notes is not None:
+            input_["release_notes"] = release_notes
+        if dry_run is not None:
+            input_["dry_run"] = dry_run
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def get_runtime_version(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        name: "capo_lambda_core.types.runtime_version_name.RuntimeVersionName",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+    ) -> (
+        "capo_lambda_core.types.get_runtime_version_response.GetRuntimeVersionResponse"
+    ):
+        """Retrieves the configuration, state, and metadata of a runtime version.
+
+        Args:
+            runtime_name: The name or ARN of the runtime.
+            name: The name of the runtime version to retrieve.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Get a runtime version
+            Retrieves a runtime version, including its resolved image URI, per-architecture platforms, and compatibility matrix.
+
+            >>> client.get_runtime_version(runtime_name='php8', name='v1')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.get_runtime_version_request.GetRuntimeVersionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.get_runtime_version_response.GetRuntimeVersionResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.get_runtime_version
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.get_runtime_version.get_runtime_version(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRuntimeVersion")
+        )
+        input_: capo_lambda_core.types.get_runtime_version_request.GetRuntimeVersionRequest = {
+            "runtime_name": runtime_name,
+            "name": name,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_runtime_version(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        name: "capo_lambda_core.types.runtime_version_name.RuntimeVersionName",
+        release_notes: str,
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+    ) -> "capo_lambda_core.types.update_runtime_version_response.UpdateRuntimeVersionResponse":
+        """Updates the runtime version release notes. The runtime version must be in the ACTIVE state. The runtime version image is immutable. To change the runtime contents, create a new runtime version.
+
+        Args:
+            runtime_name: The name or ARN of the runtime.
+            name: The name of the runtime version to update.
+            release_notes: The release notes to associate with the runtime version.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Update a runtime version's release notes
+            Updates the release notes of an ACTIVE runtime version.
+
+            >>> client.update_runtime_version(runtime_name='php8', name='v1', release_notes='Patched OpenSSL to 3.0.14')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.update_runtime_version_request.UpdateRuntimeVersionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.update_runtime_version_response.UpdateRuntimeVersionResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.update_runtime_version
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.update_runtime_version.update_runtime_version(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRuntimeVersion")
+        )
+        input_: capo_lambda_core.types.update_runtime_version_request.UpdateRuntimeVersionRequest = {
+            "runtime_name": runtime_name,
+            "name": name,
+            "release_notes": release_notes,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def delete_runtime_version(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        name: "capo_lambda_core.types.runtime_version_name.RuntimeVersionName",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        recovery_window_in_days: Optional[int] = None,
+    ) -> "capo_lambda_core.types.delete_runtime_version_response.DeleteRuntimeVersionResponse":
+        """Schedules a runtime version to be deleted. Runtime versions scheduled for deletion enter the PENDING_DELETION state and can be restored during the scheduled deletion window. Function invokes fail for functions using a runtime version that is deleted or pending deletion.
+
+        Args:
+            runtime_name: The name or ARN of the runtime.
+            name: The name of the runtime version to delete.
+            recovery_window_in_days: Optional. The waiting period, in days (7-30), before the runtime version is permanently deleted.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            Delete a runtime version
+            Schedules a runtime version to be deleted.
+
+            >>> client.delete_runtime_version(runtime_name='php8', name='v1')
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.delete_runtime_version_request.DeleteRuntimeVersionRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.delete_runtime_version_response.DeleteRuntimeVersionResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.delete_runtime_version
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.delete_runtime_version.delete_runtime_version(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuntimeVersion")
+        )
+        input_: capo_lambda_core.types.delete_runtime_version_request.DeleteRuntimeVersionRequest = {
+            "runtime_name": runtime_name,
+            "name": name,
+        }
+        if recovery_window_in_days is not None:
+            input_["recovery_window_in_days"] = recovery_window_in_days
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def list_runtime_versions(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "capo_lambda_core.types.list_runtime_versions_response.ListRuntimeVersionsResponse":
+        """Returns a paginated list of versions for the specified runtime.
+
+        Args:
+            runtime_name: The name or ARN of the runtime whose versions to list.
+            next_token: The pagination token from a previous response. Use it to retrieve the next page of results.
+            max_results: The maximum number of runtime versions to return per page. Valid range: 1 to 100.
+
+        Raises:
+            capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
+            capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
+            capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
+            capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List runtime versions
+            Lists the versions published for a runtime.
+
+            >>> client.list_runtime_versions(runtime_name='php8', max_results=10)
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_lambda_core.types.list_runtime_versions_request.ListRuntimeVersionsRequest]",
+        ) -> OperationResponse[
+            "capo_lambda_core.types.list_runtime_versions_response.ListRuntimeVersionsResponse"
+        ]:
+            import capo_lambda_core._operations.lambda_core_api_service.list_runtime_versions
+
+            output, http_response = (
+                capo_lambda_core._operations.lambda_core_api_service.list_runtime_versions.list_runtime_versions(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuntimeVersions")
+        )
+        input_: capo_lambda_core.types.list_runtime_versions_request.ListRuntimeVersionsRequest = {
+            "runtime_name": runtime_name
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_runtime_versions(
+        self,
+        runtime_name: "capo_lambda_core.types.runtime_identifier.RuntimeIdentifier",
+        *,
+        config_overrides: Optional[LambdaCoreClientConfig] = None,
+        next_token: Optional[str] = None,
+        max_results: Optional[int] = None,
+    ) -> "Iterator[capo_lambda_core.types.runtime_version_info.RuntimeVersionInfo]":
+        _token = next_token
+        while True:
+            _response = self.list_runtime_versions(
+                runtime_name,
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("items",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
     def create_network_connector(
         self,
         name: "capo_lambda_core.types.network_connector_name.NetworkConnectorName",
@@ -211,7 +1359,7 @@ class LambdaCoreClient:
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
             capo_lambda_core.errors.network_connector_limit_exceeded_exception.NetworkConnectorLimitExceededException: <p>The request would exceed a network connector limit. For <code>CreateNetworkConnector</code>, the account has reached the maximum number of network connectors allowed. For <code>UpdateNetworkConnector</code>, the connector has reached the maximum number of versions allowed.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -267,7 +1415,7 @@ class LambdaCoreClient:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -328,8 +1476,8 @@ class LambdaCoreClient:
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
             capo_lambda_core.errors.network_connector_limit_exceeded_exception.NetworkConnectorLimitExceededException: <p>The request would exceed a network connector limit. For <code>CreateNetworkConnector</code>, the account has reached the maximum number of network connectors allowed. For <code>UpdateNetworkConnector</code>, the connector has reached the maximum number of versions allowed.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -384,8 +1532,8 @@ class LambdaCoreClient:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to update a connector that is not in <code>ACTIVE</code> state.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_conflict_exception.ResourceConflictException: <p>The request could not be completed due to a conflict with the current state of the resource. For example, attempting to modify a resource that is not in a state that permits the operation.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -427,7 +1575,9 @@ class LambdaCoreClient:
         state: Optional[
             "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
         ] = None,
-        marker: Optional["capo_lambda_core.types.string.String"] = None,
+        marker: Optional[
+            "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+        ] = None,
         max_items: Optional[
             "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"
         ] = None,
@@ -486,7 +1636,9 @@ class LambdaCoreClient:
         state: Optional[
             "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
         ] = None,
-        marker: Optional["capo_lambda_core.types.string.String"] = None,
+        marker: Optional[
+            "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+        ] = None,
         max_items: Optional[
             "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"
         ] = None,
@@ -514,7 +1666,9 @@ class LambdaCoreClient:
         state: Optional[
             "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
         ] = None,
-        marker: Optional["capo_lambda_core.types.string.String"] = None,
+        marker: Optional[
+            "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+        ] = None,
         max_items: Optional[
             "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"
         ] = None,
@@ -529,7 +1683,7 @@ class LambdaCoreClient:
 
         Raises:
             capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException: <p>One of the parameters in the request is not valid. Check the error message for details about which parameter failed validation.</p>
-            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified network connector does not exist. Verify the identifier (ID, name, or ARN) and Region.</p>
+            capo_lambda_core.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource does not exist. Verify the identifier and Region.</p>
             capo_lambda_core.errors.service_exception.ServiceException: <p>An internal service error occurred. Retry the request with exponential backoff.</p>
             capo_lambda_core.errors.too_many_requests_exception.TooManyRequestsException: <p>The request was throttled due to exceeding the allowed request rate. Retry the request after a brief wait using exponential backoff.</p>
             capo_lambda_core.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -578,7 +1732,9 @@ class LambdaCoreClient:
         state: Optional[
             "capo_lambda_core.types.network_connector_state.NetworkConnectorState"
         ] = None,
-        marker: Optional["capo_lambda_core.types.string.String"] = None,
+        marker: Optional[
+            "capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"
+        ] = None,
         max_items: Optional[
             "capo_lambda_core.types.max_hundred_list_items.MaxHundredListItems"
         ] = None,

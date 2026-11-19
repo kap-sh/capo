@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_networkflowmonitor.types.additional_flow_info
     import capo_networkflowmonitor.types.availability_zone
     import capo_networkflowmonitor.types.aws_region
     import capo_networkflowmonitor.types.destination_category
@@ -87,6 +88,10 @@ class MonitorTopContributorsRow(TypedDict, closed=True):
     """<p>The Amazon Resource Name (ARN) of a remote subnet.</p>"""
     remote_vpc_arn: NotRequired["capo_networkflowmonitor.types.vpc_arn.VpcArn"]
     """<p>The Amazon Resource Name (ARN) of a remote VPC.</p>"""
+    additional_flow_info: NotRequired[
+        "capo_networkflowmonitor.types.additional_flow_info.AdditionalFlowInfo"
+    ]
+    """<p>Additional information about the network flow, such as the network that the remote address belongs to and the location of the client.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -160,6 +165,14 @@ def serialize_json(value: MonitorTopContributorsRow) -> dict:
         out["remoteSubnetArn"] = value["remote_subnet_arn"]
     if "remote_vpc_arn" in value:
         out["remoteVpcArn"] = value["remote_vpc_arn"]
+    if "additional_flow_info" in value:
+        import capo_networkflowmonitor.types.additional_flow_info
+
+        out["additionalFlowInfo"] = (
+            capo_networkflowmonitor.types.additional_flow_info.serialize_json(
+                value["additional_flow_info"]
+            )
+        )
     return out
 
 
@@ -233,4 +246,12 @@ def deserialize_json(data: dict) -> MonitorTopContributorsRow:
         out["remote_subnet_arn"] = data["remoteSubnetArn"]
     if data.get("remoteVpcArn") is not None:
         out["remote_vpc_arn"] = data["remoteVpcArn"]
+    if data.get("additionalFlowInfo") is not None:
+        import capo_networkflowmonitor.types.additional_flow_info
+
+        out["additional_flow_info"] = (
+            capo_networkflowmonitor.types.additional_flow_info.deserialize_json(
+                data["additionalFlowInfo"]
+            )
+        )
     return out

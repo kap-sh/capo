@@ -18,6 +18,7 @@ import capo_sso_admin.errors.resource_not_found_exception
 import capo_sso_admin.errors.throttling_exception
 import capo_sso_admin.errors.validation_exception
 import capo_sso_admin.types.encryption_configuration
+import capo_sso_admin.types.network_configuration_info
 import capo_sso_admin.types.update_instance_request
 import capo_sso_admin.types.update_instance_response
 from capo_sso_admin._protocol.errors import parse_error_metadata_json

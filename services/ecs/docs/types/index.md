@@ -310,6 +310,7 @@
 - [GatewayConnectionList](gateway_connection_list.md)
 - [GatewayConnectionResources](gateway_connection_resources.md)
 - [GatewayConnector](gateway_connector.md)
+- [GatewayConnectorDeregistrationDelay](gateway_connector_deregistration_delay.md)
 - [GatewayConnectorFilters](gateway_connector_filters.md)
 - [GatewayConnectorHealthCheck](gateway_connector_health_check.md)
 - [GatewayConnectorHealthCheckMatcher](gateway_connector_health_check_matcher.md)

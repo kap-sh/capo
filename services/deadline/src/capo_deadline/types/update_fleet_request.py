@@ -40,7 +40,7 @@ class UpdateFleetRequest(TypedDict, closed=True):
     configuration: NotRequired[
         "capo_deadline.types.fleet_configuration.FleetConfiguration"
     ]
-    """The fleet configuration to update."""
+    """The fleet configuration to update. The new configuration replaces the existing one, so include every setting you want to keep. Settings that you omit revert to their defaults."""
     host_configuration: NotRequired[
         "capo_deadline.types.host_configuration.HostConfiguration"
     ]

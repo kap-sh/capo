@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class StopReplicationToReplicaResponse(TypedDict, closed=True):
     arn: NotRequired["capo_secrets_manager.types.secret_arn_type.SecretARNType"]
-    """<p>The ARN of the promoted secret. The ARN is the same as the original primary secret except the Region is changed.</p>"""
+    """<p>The ARN of the promoted secret. For a cross-region replica, this ARN is the same as the original primary secret's ARN except that the Region is changed. For a cross-account replica, this is the ARN of the promoted secret in your account.</p>"""
 
 
 # --- awsJson1_1 ser/de ---

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_bedrock_agentcore_control.types.certificate_configuration_list
     import capo_bedrock_agentcore_control.types.client_authentication_method_type
     import capo_bedrock_agentcore_control.types.client_id_type
     import capo_bedrock_agentcore_control.types.oauth2_discovery
@@ -39,6 +40,10 @@ class CustomOauth2ProviderConfigOutput(TypedDict, closed=True):
         "capo_bedrock_agentcore_control.types.private_endpoint_overrides.PrivateEndpointOverrides"
     ]
     """<p>The private endpoint overrides for the custom OAuth2 provider configuration.</p>"""
+    certificate_configurations: NotRequired[
+        "capo_bedrock_agentcore_control.types.certificate_configuration_list.CertificateConfigurationList"
+    ]
+    """<p>The private certificate authority (CA) configurations for the identity provider. Use this to have AgentCore Identity trust a private CA when establishing TLS connections to identity provider endpoints. You can specify only one certificate authority configuration in this list. Provide the certificate by reference to an Amazon S3 object or an Amazon Web Services Secrets Manager secret. You can use this only together with <code>privateEndpoint</code>.</p>"""
     private_key_jwt_config: NotRequired[
         "capo_bedrock_agentcore_control.types.private_key_jwt_config.PrivateKeyJwtConfig"
     ]
@@ -87,6 +92,14 @@ def serialize_json(value: CustomOauth2ProviderConfigOutput) -> dict:
         out["privateEndpointOverrides"] = (
             capo_bedrock_agentcore_control.types.private_endpoint_overrides.serialize_json(
                 value["private_endpoint_overrides"]
+            )
+        )
+    if "certificate_configurations" in value:
+        import capo_bedrock_agentcore_control.types.certificate_configuration_list
+
+        out["certificateConfigurations"] = (
+            capo_bedrock_agentcore_control.types.certificate_configuration_list.serialize_json(
+                value["certificate_configurations"]
             )
         )
     if "private_key_jwt_config" in value:
@@ -144,6 +157,14 @@ def deserialize_json(data: dict) -> CustomOauth2ProviderConfigOutput:
         out["private_endpoint_overrides"] = (
             capo_bedrock_agentcore_control.types.private_endpoint_overrides.deserialize_json(
                 data["privateEndpointOverrides"]
+            )
+        )
+    if data.get("certificateConfigurations") is not None:
+        import capo_bedrock_agentcore_control.types.certificate_configuration_list
+
+        out["certificate_configurations"] = (
+            capo_bedrock_agentcore_control.types.certificate_configuration_list.deserialize_json(
+                data["certificateConfigurations"]
             )
         )
     if data.get("privateKeyJwtConfig") is not None:

@@ -9,6 +9,7 @@ from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.azure_detail
+    import capo_securityhub.types.gcp_detail
     import capo_securityhub.types.jira_cloud_detail
     import capo_securityhub.types.service_now_detail
 
@@ -25,10 +26,15 @@ class ProviderDetailAzureMember(TypedDict, closed=True):
     Azure: "capo_securityhub.types.azure_detail.AzureDetail"
 
 
+class ProviderDetailGCPMember(TypedDict, closed=True):
+    GCP: "capo_securityhub.types.gcp_detail.GcpDetail"
+
+
 ProviderDetail: TypeAlias = (
     ProviderDetailJiraCloudMember
     | ProviderDetailServiceNowMember
     | ProviderDetailAzureMember
+    | ProviderDetailGCPMember
     | UnknownUnionMember
 )
 
@@ -61,6 +67,10 @@ def serialize_json(value: ProviderDetail) -> dict:
         return {
             "Azure": capo_securityhub.types.azure_detail.serialize_json(value["Azure"])
         }
+    elif "GCP" in value:
+        import capo_securityhub.types.gcp_detail
+
+        return {"GCP": capo_securityhub.types.gcp_detail.serialize_json(value["GCP"])}
     else:
         raise SerializationError("ProviderDetail: no variant present")
 
@@ -88,6 +98,10 @@ def deserialize_json(data: dict) -> ProviderDetail:
         return {
             "Azure": capo_securityhub.types.azure_detail.deserialize_json(data["Azure"])
         }
+    elif data.get("GCP") is not None:
+        import capo_securityhub.types.gcp_detail
+
+        return {"GCP": capo_securityhub.types.gcp_detail.deserialize_json(data["GCP"])}
     else:
         name = next(
             (k for k, v in data.items() if v is not None and k != "__type"), None

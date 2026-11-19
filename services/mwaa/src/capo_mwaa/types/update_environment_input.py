@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_mwaa.types.environment_class
     import capo_mwaa.types.environment_name
     import capo_mwaa.types.iam_role_arn
+    import capo_mwaa.types.identity_center_configuration
     import capo_mwaa.types.logging_configuration_input
     import capo_mwaa.types.max_webservers
     import capo_mwaa.types.max_workers
@@ -20,6 +21,7 @@ if TYPE_CHECKING:
     import capo_mwaa.types.s3_object_version
     import capo_mwaa.types.schedulers
     import capo_mwaa.types.update_network_configuration_input
+    import capo_mwaa.types.update_teams_input
     import capo_mwaa.types.webserver_access_mode
     import capo_mwaa.types.weekly_maintenance_window_start
     import capo_mwaa.types.worker_replacement_strategy
@@ -90,6 +92,12 @@ class UpdateEnvironmentInput(TypedDict, closed=True):
         "capo_mwaa.types.weekly_maintenance_window_start.WeeklyMaintenanceWindowStart"
     ]
     """<p>The day and time of the week in Coordinated Universal Time (UTC) 24-hour standard time to start weekly maintenance updates of your environment in the following format: <code>DAY:HH:MM</code>. For example: <code>TUE:03:30</code>. You can specify a start time in 30 minute increments only.</p>"""
+    identity_center_configuration: NotRequired[
+        "capo_mwaa.types.identity_center_configuration.IdentityCenterConfiguration"
+    ]
+    """<p>The Amazon Web Services IAM Identity Center configuration used to authenticate users to the Apache Airflow web UI for your environment.</p>"""
+    teams: NotRequired["capo_mwaa.types.update_teams_input.UpdateTeamsInput"]
+    """<p>Updates the teams configured for Apache Airflow multi-team support on your Amazon MWAA environment. Use <code>AddOrUpdate</code> to add new teams or change the configuration of existing teams, and <code>Remove</code> to remove teams by name. For more information, refer to <a href="https://docs.aws.amazon.com/mwaa/latest/userguide/multi-team-environments.html">Apache Airflow multi-team environments</a>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -157,6 +165,18 @@ def serialize_json(value: UpdateEnvironmentInput) -> dict:
         out["WebserverAccessMode"] = value["webserver_access_mode"]
     if "weekly_maintenance_window_start" in value:
         out["WeeklyMaintenanceWindowStart"] = value["weekly_maintenance_window_start"]
+    if "identity_center_configuration" in value:
+        import capo_mwaa.types.identity_center_configuration
+
+        out["IdentityCenterConfiguration"] = (
+            capo_mwaa.types.identity_center_configuration.serialize_json(
+                value["identity_center_configuration"]
+            )
+        )
+    if "teams" in value:
+        import capo_mwaa.types.update_teams_input
+
+        out["Teams"] = capo_mwaa.types.update_teams_input.serialize_json(value["teams"])
     return out
 
 
@@ -224,6 +244,20 @@ def deserialize_json(data: dict) -> UpdateEnvironmentInput:
         out["webserver_access_mode"] = data["WebserverAccessMode"]
     if data.get("WeeklyMaintenanceWindowStart") is not None:
         out["weekly_maintenance_window_start"] = data["WeeklyMaintenanceWindowStart"]
+    if data.get("IdentityCenterConfiguration") is not None:
+        import capo_mwaa.types.identity_center_configuration
+
+        out["identity_center_configuration"] = (
+            capo_mwaa.types.identity_center_configuration.deserialize_json(
+                data["IdentityCenterConfiguration"]
+            )
+        )
+    if data.get("Teams") is not None:
+        import capo_mwaa.types.update_teams_input
+
+        out["teams"] = capo_mwaa.types.update_teams_input.deserialize_json(
+            data["Teams"]
+        )
     return out
 
 

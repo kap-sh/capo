@@ -59,6 +59,10 @@ class MedicalScribeListeningSessionDetails(TypedDict, closed=True):
         "capo_connecthealth.types.non_null_boolean.NonNullBoolean"
     ]
     """<p>Indicates whether encounter context was provided</p>"""
+    medical_coding_context_provided: NotRequired[
+        "capo_connecthealth.types.non_null_boolean.NonNullBoolean"
+    ]
+    """<p>Indicates whether medical coding context was provided.</p>"""
     stream_status: NotRequired[
         "capo_connecthealth.types.medical_scribe_stream_status.MedicalScribeStreamStatus"
     ]
@@ -122,6 +126,8 @@ def serialize_json(value: MedicalScribeListeningSessionDetails) -> dict:
         )
     if "encounter_context_provided" in value:
         out["encounterContextProvided"] = value["encounter_context_provided"]
+    if "medical_coding_context_provided" in value:
+        out["medicalCodingContextProvided"] = value["medical_coding_context_provided"]
     if "stream_status" in value:
         import capo_connecthealth.types.medical_scribe_stream_status
 
@@ -201,6 +207,8 @@ def deserialize_json(data: dict) -> MedicalScribeListeningSessionDetails:
         )
     if data.get("encounterContextProvided") is not None:
         out["encounter_context_provided"] = data["encounterContextProvided"]
+    if data.get("medicalCodingContextProvided") is not None:
+        out["medical_coding_context_provided"] = data["medicalCodingContextProvided"]
     if data.get("streamStatus") is not None:
         import capo_connecthealth.types.medical_scribe_stream_status
 

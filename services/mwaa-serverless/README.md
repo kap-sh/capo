@@ -18,9 +18,9 @@ from capo_mwaa_serverless import AsyncMWAAServerlessClient
 
 async def main():
     async with AsyncMWAAServerlessClient() as mwaa_serverless:
-        # Example: call the list_tags_for_resource operation
-        response = await mwaa_serverless.list_tags_for_resource()
-        print(response["tags"])
+        # Example: call the create_airflow_ui_url operation
+        response = await mwaa_serverless.create_airflow_ui_url()
+        print(response["authorized_url"])
 ```
 
 ## Pagination
@@ -50,7 +50,7 @@ from capo_mwaa_serverless.error import AccessDeniedException
 async def main():
     async with AsyncMWAAServerlessClient() as mwaa_serverless:
         try:
-            await mwaa_serverless.list_tags_for_resource()
+            await mwaa_serverless.create_airflow_ui_url()
         except AccessDeniedException as e:
             print(f"Error: {e}")
             print(e.data)  # additional error data
@@ -71,11 +71,11 @@ from capo_mwaa_serverless import AsyncMWAAServerlessClient
 async def main():
     async with AsyncMWAAServerlessClient() as mwaa_serverless:
         # Default: 3 attempts for every operation
-        response = await mwaa_serverless.list_tags_for_resource()
+        response = await mwaa_serverless.create_airflow_ui_url()
 
         # Override per operation
-        response = await mwaa_serverless.list_tags_for_resource(config_overrides={"retry_max_attempts": 5})
+        response = await mwaa_serverless.create_airflow_ui_url(config_overrides={"retry_max_attempts": 5})
 
         # Disable retries for this call
-        response = await mwaa_serverless.list_tags_for_resource(config_overrides={"retry_max_attempts": 1})
+        response = await mwaa_serverless.create_airflow_ui_url(config_overrides={"retry_max_attempts": 1})
 ```

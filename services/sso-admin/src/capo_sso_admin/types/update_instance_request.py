@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_sso_admin.types.encryption_configuration
     import capo_sso_admin.types.instance_arn
     import capo_sso_admin.types.name_type
+    import capo_sso_admin.types.network_configuration_info
 
 
 class UpdateInstanceRequest(TypedDict, closed=True):
@@ -18,9 +19,13 @@ class UpdateInstanceRequest(TypedDict, closed=True):
     encryption_configuration: NotRequired[
         "capo_sso_admin.types.encryption_configuration.EncryptionConfiguration"
     ]
-    """<p>Specifies the encryption configuration for your IAM Identity Center instance. You can use this to configure customer managed KMS keys or Amazon Web Services owned KMS keys for encrypting your instance data.</p>"""
+    """<p>Specifies the encryption configuration for your IAM Identity Center instance. You can use this to configure customer managed KMS keys or Amazon Web Services owned KMS keys for encrypting your instance data.</p> <note> <p>You can't set more than one of <code>EncryptionConfiguration</code>, <code>PermissionSetsEnabled</code>, and <code>NetworkConfiguration</code> in the same request. To configure more than one of them, make a separate <code>UpdateInstance</code> call for each. These calls can be made in parallel.</p> </note>"""
     permission_sets_enabled: NotRequired["bool"]
-    """<p>Enables permission sets for this Identity Center instance. The only accepted value is <code>true </code>. After permission sets are enabled, they cannot be disabled.</p> <note> <p>You can't set <code>EncryptionConfiguration</code> and <code>PermissionSetsEnabled</code> in the same request. To configure both, make two separate <code>UpdateInstance</code> calls. You can make these calls in parallel.</p> </note>"""
+    """<p>Enables permission sets for this Identity Center instance. The only accepted value is <code>true </code>. After permission sets are enabled, they cannot be disabled.</p>"""
+    network_configuration: NotRequired[
+        "capo_sso_admin.types.network_configuration_info.NetworkConfigurationInfo"
+    ]
+    """<p>Specifies the network access controls for your Identity Center instance. Use this to require that access to your instance and to applications originates from VPC endpoints, and to optionally restrict which VPCs are permitted, allow specific IP address ranges that bypass the VPC endpoint requirement, or exempt specific applications from the controls.</p> <p>If you omit <code>NetworkConfiguration</code>, the stored network configuration is preserved. If you specify <code>NetworkConfiguration</code>, it replaces the stored network configuration in its entirety. Any list that you omit from the object, or include as an empty list, is cleared.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -39,6 +44,14 @@ def serialize_aws_json_1_1(value: UpdateInstanceRequest) -> dict:
         )
     if "permission_sets_enabled" in value:
         out["PermissionSetsEnabled"] = value["permission_sets_enabled"]
+    if "network_configuration" in value:
+        import capo_sso_admin.types.network_configuration_info
+
+        out["NetworkConfiguration"] = (
+            capo_sso_admin.types.network_configuration_info.serialize_aws_json_1_1(
+                value["network_configuration"]
+            )
+        )
     return out
 
 
@@ -60,4 +73,12 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateInstanceRequest:
         )
     if data.get("PermissionSetsEnabled") is not None:
         out["permission_sets_enabled"] = data["PermissionSetsEnabled"]
+    if data.get("NetworkConfiguration") is not None:
+        import capo_sso_admin.types.network_configuration_info
+
+        out["network_configuration"] = (
+            capo_sso_admin.types.network_configuration_info.deserialize_aws_json_1_1(
+                data["NetworkConfiguration"]
+            )
+        )
     return out

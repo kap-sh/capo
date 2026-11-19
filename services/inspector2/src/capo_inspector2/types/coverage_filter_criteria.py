@@ -31,7 +31,7 @@ class CoverageFilterCriteria(TypedDict, closed=True):
     resource_type: NotRequired[
         "capo_inspector2.types.coverage_string_filter_list.CoverageStringFilterList"
     ]
-    """<p>An array of Amazon Web Services resource types to return coverage statistics for. The values can be <code>AWS_EC2_INSTANCE</code>, <code>AWS_LAMBDA_FUNCTION</code>, <code>AWS_ECR_CONTAINER_IMAGE</code>, <code>AWS_ECR_REPOSITORY</code> or <code>AWS_ACCOUNT</code>.</p>"""
+    """<p>An array of resource types to return coverage statistics for. Valid values:</p> <ul> <li> <p>Amazon Web Services – <code>AWS_EC2_INSTANCE</code>, <code>AWS_LAMBDA_FUNCTION</code>, <code>AWS_ECR_CONTAINER_IMAGE</code>, <code>AWS_ECR_REPOSITORY</code>, <code>MACHINE_IMAGE</code>, <code>CODE_REPOSITORY</code>, or <code>AWS_ACCOUNT</code>.</p> </li> <li> <p>Microsoft Azure – <code>Microsoft.Compute/virtualMachines</code>, <code>Microsoft.ContainerRegistry/registries</code>, <code>Microsoft.ContainerRegistry/registry/containerRepository</code>, <code>Microsoft.ContainerRegistry/registry/containerImage</code>, or <code>Microsoft.Web/sites</code>.</p> </li> <li> <p>Google Cloud Platform (GCP) – <code>compute.googleapis.com/Instance</code>, <code>cloudfunctions.googleapis.com/Function</code>, <code>artifactregistry.googleapis.com/Repository</code>, or <code>artifactregistry.googleapis.com/DockerImage</code>.</p> </li> </ul>"""
     scan_type: NotRequired[
         "capo_inspector2.types.coverage_string_filter_list.CoverageStringFilterList"
     ]
@@ -103,15 +103,15 @@ class CoverageFilterCriteria(TypedDict, closed=True):
     cloud_provider: NotRequired[
         "capo_inspector2.types.coverage_string_filter_list.CoverageStringFilterList"
     ]
-    """<p>The cloud provider to filter coverage results by.</p>"""
+    """<p>The cloud provider to filter coverage results by. Valid values:</p> <ul> <li> <p> <code>AWS</code> – Amazon Web Services resources.</p> </li> <li> <p> <code>AZURE</code> – Microsoft Azure resources.</p> </li> <li> <p> <code>GCP</code> – Google Cloud Platform (GCP) resources.</p> </li> </ul>"""
     cloud_provider_account_id: NotRequired[
         "capo_inspector2.types.coverage_string_filter_list.CoverageStringFilterList"
     ]
-    """<p>The cloud provider account ID to filter coverage results by.</p>"""
+    """<p>The cloud provider account ID to filter coverage results by. The value format depends on the cloud provider:</p> <ul> <li> <p>An Amazon Web Services account ID.</p> </li> <li> <p>An Azure subscription ID.</p> </li> <li> <p>A Google Cloud Platform (GCP) project ID, such as <code>my-project</code>.</p> </li> </ul>"""
     cloud_provider_region: NotRequired[
         "capo_inspector2.types.coverage_string_filter_list.CoverageStringFilterList"
     ]
-    """<p>The cloud provider region to filter coverage results by.</p>"""
+    """<p>The cloud provider region to filter coverage results by. The value format depends on the cloud provider:</p> <ul> <li> <p>An Amazon Web Services Region, such as <code>us-east-1</code>.</p> </li> <li> <p>An Azure region, such as <code>eastus</code>.</p> </li> <li> <p>A Google Cloud Platform (GCP) location, such as the region <code>us-central1</code> or the zone <code>us-central1-a</code>.</p> </li> </ul>"""
     cloud_vm_instance_tags: NotRequired[
         "capo_inspector2.types.coverage_map_filter_list.CoverageMapFilterList"
     ]
@@ -143,7 +143,7 @@ class CoverageFilterCriteria(TypedDict, closed=True):
     cloud_provider_org_id: NotRequired[
         "capo_inspector2.types.coverage_string_filter_list.CoverageStringFilterList"
     ]
-    """<p>The cloud provider organization ID to filter coverage results by.</p>"""
+    """<p>The cloud provider organization ID to filter coverage results by. The value format depends on the cloud provider:</p> <ul> <li> <p>An Amazon Web Services Organizations organization ID.</p> </li> <li> <p>An Azure tenant ID.</p> </li> <li> <p>A numeric Google Cloud Platform (GCP) organization ID.</p> </li> </ul>"""
 
 
 # --- restJson1 ser/de ---

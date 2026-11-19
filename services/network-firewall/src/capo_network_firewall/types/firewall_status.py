@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_network_firewall.types.capacity_usage_summary
     import capo_network_firewall.types.configuration_sync_state
+    import capo_network_firewall.types.context_store_sync_state
     import capo_network_firewall.types.firewall_status_value
     import capo_network_firewall.types.sync_states
     import capo_network_firewall.types.transit_gateway_attachment_sync_state
@@ -29,6 +30,10 @@ class FirewallStatus(TypedDict, closed=True):
         "capo_network_firewall.types.transit_gateway_attachment_sync_state.TransitGatewayAttachmentSyncState"
     ]
     """<p>The synchronization state of the transit gateway attachment. This indicates whether the firewall's transit gateway configuration is properly synchronized and operational. Use this to verify that your transit gateway configuration changes have been applied.</p>"""
+    context_store_sync_state: NotRequired[
+        "capo_network_firewall.types.context_store_sync_state.ContextStoreSyncState"
+    ]
+    """<p>The synchronization state of the context sets in the firewall's rule groups with the firewall's context store. This field is only present when the firewall has a context store and its rule groups reference context sets.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -70,6 +75,14 @@ def serialize_aws_json_1_0(value: FirewallStatus) -> dict:
         out["TransitGatewayAttachmentSyncState"] = (
             capo_network_firewall.types.transit_gateway_attachment_sync_state.serialize_aws_json_1_0(
                 value["transit_gateway_attachment_sync_state"]
+            )
+        )
+    if "context_store_sync_state" in value:
+        import capo_network_firewall.types.context_store_sync_state
+
+        out["ContextStoreSyncState"] = (
+            capo_network_firewall.types.context_store_sync_state.serialize_aws_json_1_0(
+                value["context_store_sync_state"]
             )
         )
     return out
@@ -128,6 +141,14 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallStatus:
         out["transit_gateway_attachment_sync_state"] = (
             capo_network_firewall.types.transit_gateway_attachment_sync_state.deserialize_aws_json_1_0(
                 data["TransitGatewayAttachmentSyncState"]
+            )
+        )
+    if data.get("ContextStoreSyncState") is not None:
+        import capo_network_firewall.types.context_store_sync_state
+
+        out["context_store_sync_state"] = (
+            capo_network_firewall.types.context_store_sync_state.deserialize_aws_json_1_0(
+                data["ContextStoreSyncState"]
             )
         )
     return out

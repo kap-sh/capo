@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.batch_evaluation_name
     import capo_bedrock_agentcore.types.client_token
     import capo_bedrock_agentcore.types.data_source_config
+    import capo_bedrock_agentcore.types.dataset_execution_config
     import capo_bedrock_agentcore.types.evaluation_metadata
     import capo_bedrock_agentcore.types.evaluator_list
     import capo_bedrock_agentcore.types.insight_list
@@ -47,6 +48,10 @@ class StartBatchEvaluationRequest(TypedDict, closed=True):
     output_config: NotRequired[
         "capo_bedrock_agentcore.types.output_config.OutputConfig"
     ]
+    dataset_execution_config: NotRequired[
+        "capo_bedrock_agentcore.types.dataset_execution_config.DatasetExecutionConfig"
+    ]
+    """<p>The configuration for running the scenarios in a dataset against an agent before evaluating the resulting sessions. When you specify this field, the batch evaluation runs each scenario in the dataset against the agent. It then evaluates the sessions that the agent produces. You must also specify <code>evaluators</code> and a <code>dataSourceConfig</code> that uses <code>cloudWatchLogs</code>. Configure <code>cloudWatchLogs</code> with the service name and log groups that the agent uses for its traces. You can't specify <code>insights</code> or an <code>onlineEvaluationConfigSource</code> data source with this field.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -97,6 +102,14 @@ def serialize_json(value: StartBatchEvaluationRequest) -> dict:
 
         out["outputConfig"] = capo_bedrock_agentcore.types.output_config.serialize_json(
             value["output_config"]
+        )
+    if "dataset_execution_config" in value:
+        import capo_bedrock_agentcore.types.dataset_execution_config
+
+        out["datasetExecutionConfig"] = (
+            capo_bedrock_agentcore.types.dataset_execution_config.serialize_json(
+                value["dataset_execution_config"]
+            )
         )
     return out
 
@@ -157,6 +170,14 @@ def deserialize_json(data: dict) -> StartBatchEvaluationRequest:
         out["output_config"] = (
             capo_bedrock_agentcore.types.output_config.deserialize_json(
                 data["outputConfig"]
+            )
+        )
+    if data.get("datasetExecutionConfig") is not None:
+        import capo_bedrock_agentcore.types.dataset_execution_config
+
+        out["dataset_execution_config"] = (
+            capo_bedrock_agentcore.types.dataset_execution_config.deserialize_json(
+                data["datasetExecutionConfig"]
             )
         )
     return out

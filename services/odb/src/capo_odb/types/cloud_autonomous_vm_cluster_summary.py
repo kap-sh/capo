@@ -104,6 +104,8 @@ class CloudAutonomousVmClusterSummary(TypedDict, closed=True):
     """<p>The number of database server nodes in the Autonomous VM cluster.</p>"""
     non_provisionable_autonomous_container_databases: NotRequired["int"]
     """<p>The number of Autonomous CDBs that can't be provisioned because of resource constraints.</p>"""
+    ocpus_lowest_scaled_value: NotRequired["int"]
+    """<p>The minimum value to which you can scale down the number of CPU cores.</p>"""
     provisionable_autonomous_container_databases: NotRequired["int"]
     """<p>The number of Autonomous CDBs that you can provision in the Autonomous VM cluster.</p>"""
     provisioned_autonomous_container_databases: NotRequired["int"]
@@ -314,6 +316,8 @@ def serialize_aws_json_1_0(value: CloudAutonomousVmClusterSummary) -> dict:
         out["nonProvisionableAutonomousContainerDatabases"] = value[
             "non_provisionable_autonomous_container_databases"
         ]
+    if "ocpus_lowest_scaled_value" in value:
+        out["ocpusLowestScaledValue"] = value["ocpus_lowest_scaled_value"]
     if "provisionable_autonomous_container_databases" in value:
         out["provisionableAutonomousContainerDatabases"] = value[
             "provisionable_autonomous_container_databases"
@@ -505,6 +509,8 @@ def deserialize_aws_json_1_0(data: dict) -> CloudAutonomousVmClusterSummary:
         out["non_provisionable_autonomous_container_databases"] = data[
             "nonProvisionableAutonomousContainerDatabases"
         ]
+    if data.get("ocpusLowestScaledValue") is not None:
+        out["ocpus_lowest_scaled_value"] = data["ocpusLowestScaledValue"]
     if data.get("provisionableAutonomousContainerDatabases") is not None:
         out["provisionable_autonomous_container_databases"] = data[
             "provisionableAutonomousContainerDatabases"

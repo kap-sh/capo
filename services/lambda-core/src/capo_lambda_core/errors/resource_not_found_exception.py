@@ -8,13 +8,14 @@ from typing_extensions import NotRequired, TypedDict
 from capo_lambda_core.errors import ServiceError
 
 if TYPE_CHECKING:
-    import capo_lambda_core.types.string
+    import capo_lambda_core.types.aws_gir_api_string
 
 
 class ResourceNotFoundException_(TypedDict, closed=True):
-    type: NotRequired["capo_lambda_core.types.string.String"]
+    type: NotRequired["capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"]
     """<p>The exception type.</p>"""
-    message: NotRequired["capo_lambda_core.types.string.String"]
+    message: NotRequired["capo_lambda_core.types.aws_gir_api_string.AwsGirApiString"]
+    """<p>The error message that describes the exception.</p>"""
 
 
 # --- restJson1 ser/de ---

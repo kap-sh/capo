@@ -4,6 +4,7 @@ from typing import Literal, TypeAlias, cast
 
 CapacityProviderPredefinedMetricType: TypeAlias = Literal[
     "LambdaCapacityProviderAverageCPUUtilization",
+    "LambdaCapacityProviderAverageGPUUtilization",
 ]
 
 

@@ -15,12 +15,12 @@ import capo_wellarchitected._protocol.eventstream
 import capo_wellarchitected.errors.access_denied_exception
 import capo_wellarchitected.errors.internal_server_exception
 import capo_wellarchitected.errors.resource_not_found_exception
+import capo_wellarchitected.errors.service_quota_exceeded_exception
 import capo_wellarchitected.errors.throttling_exception
 import capo_wellarchitected.errors.validation_exception
 import capo_wellarchitected.types.aggregation_configurations
 import capo_wellarchitected.types.field_errors
 import capo_wellarchitected.types.pillars
-import capo_wellarchitected.types.tags
 import capo_wellarchitected.types.update_agent_profile_request
 import capo_wellarchitected.types.update_agent_profile_response
 from capo_wellarchitected._protocol.errors import parse_error_metadata_json
@@ -47,6 +47,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_wellarchitected.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
+                data, message, response=response
+            )
+        case "ServiceQuotaExceededException":
+            raise capo_wellarchitected.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
                 data, message, response=response
             )
         case "ThrottlingException":

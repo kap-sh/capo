@@ -15,11 +15,11 @@ class EvaluationFormItemEnablementConfiguration(TypedDict, closed=True):
     condition: "capo_connect.types.evaluation_form_item_enablement_condition.EvaluationFormItemEnablementCondition"
     """<p>A condition for item enablement configuration.</p>"""
     action: "capo_connect.types.evaluation_form_item_enablement_action.EvaluationFormItemEnablementAction"
-    """<p>An enablement action that if condition is satisfied. </p>"""
+    """<p>The enablement action to apply if the condition is satisfied.</p>"""
     default_action: NotRequired[
         "capo_connect.types.evaluation_form_item_enablement_action.EvaluationFormItemEnablementAction"
     ]
-    """<p>An enablement action that if condition is not satisfied. </p>"""
+    """<p>The enablement action to apply if the condition is not satisfied. This action is also applied when the condition depends on an external source that is still pending or could not be resolved.</p>"""
 
 
 # --- restJson1 ser/de ---

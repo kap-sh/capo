@@ -5,6 +5,8 @@ from typing import Literal, TypeAlias, cast
 CloudConnectorFilterKey: TypeAlias = Literal[
     "SubscriptionId",
     "TenantId",
+    "ProjectId",
+    "OrganizationId",
 ]
 
 

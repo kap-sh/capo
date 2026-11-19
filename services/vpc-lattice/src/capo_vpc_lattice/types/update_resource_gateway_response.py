@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.ip_address_type
+    import capo_vpc_lattice.types.resource_config_dns_resolution
     import capo_vpc_lattice.types.resource_gateway_arn
     import capo_vpc_lattice.types.resource_gateway_id
     import capo_vpc_lattice.types.resource_gateway_name
@@ -38,6 +39,10 @@ class UpdateResourceGatewayResponse(TypedDict, closed=True):
     """<p>The IDs of the security groups associated with the resource gateway.</p>"""
     ip_address_type: NotRequired["capo_vpc_lattice.types.ip_address_type.IpAddressType"]
     """<p>The type of IP address used by the resource gateway.</p>"""
+    resource_config_dns_resolution: NotRequired[
+        "capo_vpc_lattice.types.resource_config_dns_resolution.ResourceConfigDnsResolution"
+    ]
+    """<p>The DNS resolution type for resource configurations that are associated with this resource gateway.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -69,6 +74,8 @@ def serialize_json(value: UpdateResourceGatewayResponse) -> dict:
         )
     if "ip_address_type" in value:
         out["ipAddressType"] = value["ip_address_type"]
+    if "resource_config_dns_resolution" in value:
+        out["resourceConfigDnsResolution"] = value["resource_config_dns_resolution"]
     return out
 
 
@@ -100,4 +107,6 @@ def deserialize_json(data: dict) -> UpdateResourceGatewayResponse:
         )
     if data.get("ipAddressType") is not None:
         out["ip_address_type"] = data["ipAddressType"]
+    if data.get("resourceConfigDnsResolution") is not None:
+        out["resource_config_dns_resolution"] = data["resourceConfigDnsResolution"]
     return out

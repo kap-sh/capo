@@ -21,7 +21,7 @@ class TelemetryConfiguration(TypedDict, closed=True):
     telemetry_configuration_state: NotRequired[
         "capo_observabilityadmin.types.telemetry_configuration_state.TelemetryConfigurationState"
     ]
-    """<p> The configuration state for the resource, for example <code>{ Logs: NotApplicable; Metrics: Enabled; Traces: NotApplicable; }</code>. </p>"""
+    """<p> The configuration state for the resource, for example <code>{ Logs: NotApplicable; Metrics: Enabled; Traces: NotApplicable; Insights: NotApplicable; }</code>. </p>"""
     resource_type: NotRequired[
         "capo_observabilityadmin.types.resource_type.ResourceType"
     ]

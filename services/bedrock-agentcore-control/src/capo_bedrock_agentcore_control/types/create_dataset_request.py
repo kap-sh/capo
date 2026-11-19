@@ -22,11 +22,13 @@ class CreateDatasetRequest(TypedDict, closed=True):
     """<p> Human-readable name for the dataset. Must be unique within the account. Immutable after creation. </p>"""
     description: NotRequired["str"]
     """<p> A description of the dataset. </p>"""
-    source: "capo_bedrock_agentcore_control.types.data_source_type.DataSourceType"
+    source: NotRequired[
+        "capo_bedrock_agentcore_control.types.data_source_type.DataSourceType"
+    ]
     """<p> Source of initial examples. Provide either inline examples or an S3 URI pointing to a JSONL file. </p>"""
-    schema_type: (
+    schema_type: NotRequired[
         "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType"
-    )
+    ]
     """<p> Versioned schema type governing the structure of examples. Immutable after creation. </p>"""
     kms_key_arn: NotRequired[
         "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
@@ -44,20 +46,22 @@ def serialize_json(value: CreateDatasetRequest) -> dict:
     out["datasetName"] = value["dataset_name"]
     if "description" in value:
         out["description"] = value["description"]
-    import capo_bedrock_agentcore_control.types.data_source_type
+    if "source" in value:
+        import capo_bedrock_agentcore_control.types.data_source_type
 
-    out["source"] = (
-        capo_bedrock_agentcore_control.types.data_source_type.serialize_json(
-            value["source"]
+        out["source"] = (
+            capo_bedrock_agentcore_control.types.data_source_type.serialize_json(
+                value["source"]
+            )
         )
-    )
-    import capo_bedrock_agentcore_control.types.dataset_schema_type
+    if "schema_type" in value:
+        import capo_bedrock_agentcore_control.types.dataset_schema_type
 
-    out["schemaType"] = (
-        capo_bedrock_agentcore_control.types.dataset_schema_type.serialize_json(
-            value["schema_type"]
+        out["schemaType"] = (
+            capo_bedrock_agentcore_control.types.dataset_schema_type.serialize_json(
+                value["schema_type"]
+            )
         )
-    )
     if "kms_key_arn" in value:
         out["kmsKeyArn"] = value["kms_key_arn"]
     if "tags" in value:
@@ -87,8 +91,6 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
                 data["source"]
             )
         )
-    else:
-        out["source"] = {"$unknown": {"name": ""}}
     if data.get("schemaType") is not None:
         import capo_bedrock_agentcore_control.types.dataset_schema_type
 
@@ -96,13 +98,6 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
             capo_bedrock_agentcore_control.types.dataset_schema_type.deserialize_json(
                 data["schemaType"]
             )
-        )
-    else:
-        import typing
-
-        out["schema_type"] = typing.cast(
-            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
-            "",
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]

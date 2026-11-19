@@ -16,11 +16,11 @@ class GetBillingPreferencesRequest(TypedDict, closed=True):
     max_results: NotRequired["int"]
     """<p>The maximum number of records to return per page. Range: 1 to 50. Default: 50.</p>"""
     features: "capo_billing.types.billing_features.BillingFeatures"
-    """<p>The feature to retrieve. Specify exactly one value. Valid values: <code>BILLING_ALERTS</code>, <code>RI_SHARING</code>, <code>RI_SHARING_HISTORY</code>, <code>CREDIT_SHARING</code>, <code>CREDIT_SHARING_HISTORY</code>, <code>CREDIT_LEVEL_SHARING</code>, <code>CREDIT_PREFERENCE_OPTIONS</code>.</p>"""
+    """<p>The feature to retrieve. Specify exactly one value. Valid values: <code>BILLING_ALERTS</code>, <code>RI_SHARING</code>, <code>RI_SHARING_HISTORY</code>, <code>CREDIT_SHARING</code>, <code>CREDIT_SHARING_HISTORY</code>, <code>CREDIT_LEVEL_SHARING</code>, <code>CREDIT_PREFERENCE_OPTIONS</code>, <code>BENEFIT_LEVEL_SHARING</code>.</p>"""
     filters: NotRequired[
         "capo_billing.types.billing_feature_filters.BillingFeatureFilters"
     ]
-    """<p>Filters to narrow results. Specify exactly one filter when supplied. The supported filter name is <code>PREFERENCE_KEY</code>, which accepts 1 to 10 values to match preference keys.</p>"""
+    """<p>Filters to narrow results. Specify exactly one filter when supplied. The supported filter name is <code>PREFERENCE_KEY</code>, which accepts 1 to 10 values to match preference keys.</p> <p>For <code>BENEFIT_LEVEL_SHARING</code>, this filter is required. Specify exactly one value that identifies the Reserved Instance (RI) or Savings Plan (SP), in the form <code>benefit/{ri|sp}/{benefitId}</code>.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

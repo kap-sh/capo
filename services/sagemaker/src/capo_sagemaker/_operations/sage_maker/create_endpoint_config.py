@@ -15,6 +15,7 @@ import capo_sagemaker.errors.resource_limit_exceeded
 import capo_sagemaker.types.async_inference_config
 import capo_sagemaker.types.create_endpoint_config_input
 import capo_sagemaker.types.create_endpoint_config_output
+import capo_sagemaker.types.cross_region_traffic_config
 import capo_sagemaker.types.data_capture_config
 import capo_sagemaker.types.explainer_config
 import capo_sagemaker.types.metrics_config

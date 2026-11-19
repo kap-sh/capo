@@ -16,7 +16,7 @@ class LegalTerm(TypedDict, closed=True):
     ]
     """<p>Category of the term being updated.</p>"""
     id: NotRequired["capo_marketplace_agreement.types.term_id.TermId"]
-    """<p>The unique identifer for the term.</p>"""
+    """<p>The unique identifier for the term.</p>"""
     documents: NotRequired[
         "capo_marketplace_agreement.types.document_list.DocumentList"
     ]

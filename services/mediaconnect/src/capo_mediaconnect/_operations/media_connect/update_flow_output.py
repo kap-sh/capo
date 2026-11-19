@@ -25,6 +25,7 @@ import capo_mediaconnect.types.ndi_output_timecode_source
 import capo_mediaconnect.types.output
 import capo_mediaconnect.types.output_status
 import capo_mediaconnect.types.protocol
+import capo_mediaconnect.types.rtmp_push_output_settings
 import capo_mediaconnect.types.state
 import capo_mediaconnect.types.update_encryption
 import capo_mediaconnect.types.update_flow_output_request

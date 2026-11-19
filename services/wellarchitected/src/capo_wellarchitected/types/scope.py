@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 class Scope(TypedDict, closed=True):
     pillars: "capo_wellarchitected.types.pillars.Pillars"
-    """<p>The Well-Architected Tool Framework pillars to include in the generation scope.</p>"""
+    """<p>The Amazon Web Services Well-Architected Framework pillars to include in the generation scope.</p>"""
     goal_ids: NotRequired["capo_wellarchitected.types.goal_id_list.GoalIdList"]
-    """<p>Specific goal IDs to focus on during recommendation generation.</p>"""
+    """<p>Specific goal IDs to focus on during recommendation generation. Use <code>ListAgentGoals</code> to retrieve goal IDs.</p>"""
     items: NotRequired["capo_wellarchitected.types.pillar_items.PillarItems"]
-    """<p>Optional per-pillar item filtering configuration.</p>"""
+    """<p>An optional per-pillar filter. When you specify items, only the listed items are processed for each pillar. When you omit items, all items are processed.</p>"""
 
 
 # --- restJson1 ser/de ---

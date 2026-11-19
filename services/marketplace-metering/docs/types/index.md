@@ -2,6 +2,7 @@
 
 - [AgreementId](agreement_id.md)
 - [AllocatedUsageQuantity](allocated_usage_quantity.md)
+- [AllocatedUsageQuantityAsDecimalString](allocated_usage_quantity_as_decimal_string.md)
 - [BatchMeterUsageRequest](batch_meter_usage_request.md)
 - [BatchMeterUsageResult](batch_meter_usage_result.md)
 - [Boolean](boolean.md)
@@ -30,6 +31,7 @@
 - [UsageAllocations](usage_allocations.md)
 - [UsageDimension](usage_dimension.md)
 - [UsageQuantity](usage_quantity.md)
+- [UsageQuantityAsDecimalString](usage_quantity_as_decimal_string.md)
 - [UsageRecord](usage_record.md)
 - [UsageRecordList](usage_record_list.md)
 - [UsageRecordResult](usage_record_result.md)

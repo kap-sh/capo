@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class SecretManagerAuthConfig(TypedDict, closed=True):
     secret_arn: NotRequired["capo_elasticache.types.string.String"]
-    """<p>The ARN of the secret in AWS Secrets Manager that contains the credentials for authenticating with the source.</p>"""
+    """<p>The ARN of the secret in Secrets Manager that contains the credentials for authenticating with the source.</p>"""
 
 
 # --- awsQuery ser/de ---

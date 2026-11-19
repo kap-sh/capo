@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class ScopeConfiguration(TypedDict, closed=True):
     scope_type: "capo_config_service.types.scope_type.ScopeType"
-    """<p>The type of scope for the third-party cloud resources. Valid values include <code>tenant</code> and <code>subscription</code>.</p>"""
+    """<p>The type of scope for the third-party cloud resources. Valid values include:</p> <ul> <li> <p> <code>tenant</code> – Applies to all resources in an Azure tenant</p> </li> <li> <p> <code>subscription</code> – Applies to resources in the Azure subscriptions you specify</p> </li> <li> <p> <code>organization</code> – Applies to all resources in a Google Cloud organization</p> </li> <li> <p> <code>project</code> – Applies to resources in the Google Cloud projects you specify</p> </li> </ul>"""
     scope_values: NotRequired["capo_config_service.types.scope_values.ScopeValues"]
-    """<p>The list of specific scope values for the third-party cloud resources. For example, a list of Azure subscriptions or management groups.</p>"""
+    """<p>The list of specific scope values for the third-party cloud resources. For example, a list of Azure subscription IDs, or a list of Google Cloud project IDs. Don't specify <code>scopeValues</code> when <code>scopeType</code> is <code>tenant</code> or <code>organization</code>.</p>"""
     all_regions: "capo_config_service.types.boolean.Boolean"
     """<p>Specifies whether to record resources from all supported regions for the third-party cloud service provider.</p>"""
     included_regions: NotRequired[

@@ -9,14 +9,21 @@ from capo_securityhub.types._unknown import UnknownUnionMember
 
 if TYPE_CHECKING:
     import capo_securityhub.types.azure_update_configuration
+    import capo_securityhub.types.gcp_update_configuration
 
 
 class CspmProviderUpdateConfigurationAzureMember(TypedDict, closed=True):
     Azure: "capo_securityhub.types.azure_update_configuration.AzureUpdateConfiguration"
 
 
+class CspmProviderUpdateConfigurationGCPMember(TypedDict, closed=True):
+    GCP: "capo_securityhub.types.gcp_update_configuration.GcpUpdateConfiguration"
+
+
 CspmProviderUpdateConfiguration: TypeAlias = (
-    CspmProviderUpdateConfigurationAzureMember | UnknownUnionMember
+    CspmProviderUpdateConfigurationAzureMember
+    | CspmProviderUpdateConfigurationGCPMember
+    | UnknownUnionMember
 )
 
 
@@ -34,6 +41,14 @@ def serialize_json(value: CspmProviderUpdateConfiguration) -> dict:
                 value["Azure"]
             )
         }
+    elif "GCP" in value:
+        import capo_securityhub.types.gcp_update_configuration
+
+        return {
+            "GCP": capo_securityhub.types.gcp_update_configuration.serialize_json(
+                value["GCP"]
+            )
+        }
     else:
         raise SerializationError("CspmProviderUpdateConfiguration: no variant present")
 
@@ -45,6 +60,14 @@ def deserialize_json(data: dict) -> CspmProviderUpdateConfiguration:
         return {
             "Azure": capo_securityhub.types.azure_update_configuration.deserialize_json(
                 data["Azure"]
+            )
+        }
+    elif data.get("GCP") is not None:
+        import capo_securityhub.types.gcp_update_configuration
+
+        return {
+            "GCP": capo_securityhub.types.gcp_update_configuration.deserialize_json(
+                data["GCP"]
             )
         }
     else:

@@ -38,6 +38,7 @@ LastUpdateStatusReasonCode: TypeAlias = Literal[
     "FunctionError.TooManyExtensions",
     "FunctionError.InitResourceExhausted",
     "DisallowedByVpcEncryptionControl",
+    "IncompatibleAcceleratorInstanceTypes",
     "DependencyError",
 ]
 

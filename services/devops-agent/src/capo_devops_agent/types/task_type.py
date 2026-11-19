@@ -8,6 +8,7 @@ TaskType: TypeAlias = Literal[
     "EVALUATION",
     "RELEASE_READINESS_REVIEW",
     "RELEASE_TESTING",
+    "CODE_CHANGE_RISK_ANALYSIS",
 ]
 
 

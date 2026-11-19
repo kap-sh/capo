@@ -16,7 +16,7 @@ class ExtensionNodeSummary(TypedDict, closed=True):
     active_count: NotRequired[
         "capo_sagemaker.types.extension_node_count.ExtensionNodeCount"
     ]
-    """<p>The number of nodes that are running the extension's current version and configuration. While SageMaker HyperPod creates or updates the extension, <code>ActiveCount</code> is lower than <code>TotalCount</code>.</p>"""
+    """<p>The number of nodes that are running the extension's current version and configuration. Nodes that report the extension as unhealthy aren't counted. While SageMaker HyperPod creates or updates the extension, <code>ActiveCount</code> is lower than <code>TotalCount</code>. To see why nodes aren't counted, see <code>Health</code> in <code>DescribeClusterExtension</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
