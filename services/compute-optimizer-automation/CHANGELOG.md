@@ -1,5 +1,11 @@
 # aws-sdk-compute-optimizer-automation
 
+## 0.16.0
+
+### Minor Changes
+
+- dae3a11: feat: support multiple protocols per service
+
 ## 0.15.0
 
 ### Minor Changes

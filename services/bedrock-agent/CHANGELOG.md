@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-agent
 
+## 0.18.0
+
+### Minor Changes
+
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.17.0
 
 ### Minor Changes

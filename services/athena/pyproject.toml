@@ -1,6 +1,6 @@
 [project]
 name = "capo-athena"
-version = "0.13.0"
+version = "0.14.0"
 description = "Typed, async Python SDK for AWS Athena."
 readme = "README.md"
 requires-python = ">=3.10"

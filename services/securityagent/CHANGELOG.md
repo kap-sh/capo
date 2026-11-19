@@ -1,5 +1,12 @@
 # aws-sdk-securityagent
 
+## 0.15.0
+
+### Minor Changes
+
+- 685d0f9: feat: sync smithy models for 106 services
+- c408aea: feat: sync smithy models for 44 services
+
 ## 0.14.0
 
 ### Minor Changes

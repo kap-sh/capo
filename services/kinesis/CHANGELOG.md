@@ -1,5 +1,11 @@
 # aws-sdk-kinesis
 
+## 0.14.0
+
+### Minor Changes
+
+- 685d0f9: feat: sync smithy models for 106 services
+
 ## 0.13.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # aws-sdk-gamelift
 
+## 0.13.0
+
+### Minor Changes
+
+- c408aea: feat: sync smithy models for 44 services
+- dae3a11: feat: support multiple protocols per service
+
 ## 0.12.0
 
 ### Minor Changes

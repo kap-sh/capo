@@ -1,5 +1,11 @@
 # aws-sdk-acm-pca
 
+## 0.15.0
+
+### Minor Changes
+
+- dae3a11: feat: support multiple protocols per service
+
 ## 0.14.0
 
 ### Minor Changes

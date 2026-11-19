@@ -1,5 +1,11 @@
 # aws-sdk-workspaces-instances
 
+## 0.12.0
+
+### Minor Changes
+
+- dae3a11: feat: support multiple protocols per service
+
 ## 0.11.0
 
 ### Minor Changes

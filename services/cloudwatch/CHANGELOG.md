@@ -1,5 +1,12 @@
 # aws-sdk-cloudwatch
 
+## 0.26.0
+
+### Minor Changes
+
+- 685d0f9: feat: sync smithy models for 106 services
+- dae3a11: feat: support multiple protocols per service
+
 ## 0.25.0
 
 ### Minor Changes
