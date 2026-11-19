@@ -68,9 +68,6 @@ if sys.platform == "emscripten":
 
     _AsyncioTestRunner.is_running = lambda self: False  # type: ignore[method-assign]
 
-    # scripts/test-pyodide.sh does not install capo-eventbridgev2: the locked cbor2 has no Pyodide wheel
-    collect_ignore = ["test_eventbridgev2.py"]
-
 
 def _reachable(url: str) -> bool:
     if sys.platform == "emscripten":
